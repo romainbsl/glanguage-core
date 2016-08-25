@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                                 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1">
+
+	<persistence-unit name="universe" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription</class>
+ 		
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaAnd</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaMinus</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaNot</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaOr</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaPlus</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaTerminalBoolean</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaTerminalDate</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaTerminalInteger</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaTerminalNumeric</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaTerminalString</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaUndefined</class>
+ 		
+ 		<class>be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity</class>
+		<class>be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition</class>
+		<class>be.groups.glanguage.glanguage.api.entities.rule.RuleVersion</class>
+		<class>be.groups.glanguage.glanguage.api.entities.rule.RuleGroupItem</class>
+		
+		<class>be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter</class>
+		
+		<class>be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet</class>
+		<class>be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion</class>
+		
+		<properties>
+<!-- 			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create" /> -->
+			<property name="javax.persistence.schema-generation.scripts.action"	value="drop-and-create" />
+			<property name="javax.persistence.schema-generation.scripts.create-target" value="sampleTestCreate.ddl" />
+			<property name="javax.persistence.schema-generation.scripts.drop-target" value="sampleTestDrop.ddl" />
+			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+<!-- 			<property name="hibernate.archive.autodetection" value="class" /> -->
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+		</properties>
+	</persistence-unit>
+
+</persistence>
