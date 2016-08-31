@@ -8,9 +8,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
 
 import javax.persistence.EntityManager;
@@ -70,21 +70,9 @@ public class RuleIdentityMappingTest {
 	
 	@Test
 	public void testR1() {
-		RuleIdentity ruleIdentity = em.find(RuleIdentity.class, "r_1");
+		RuleIdentity ruleIdentity = em.find(RuleIdentity.class, 1);
 
 		assertNotNull(ruleIdentity);
-
-		assertEquals("r_1", ruleIdentity.getCode());
-
-		assertEquals("r_1_aliasFr", ruleIdentity.getAliasFr());
-		assertEquals("r_1_aliasNl", ruleIdentity.getAliasNl());
-		assertEquals("r_1_aliasDe", ruleIdentity.getAliasDe());
-		assertEquals("r_1_aliasX", ruleIdentity.getAliasX());
-
-		assertEquals("r_1_descriptionFr", ruleIdentity.getDescriptionFr());
-		assertEquals("r_1_descriptionNl", ruleIdentity.getDescriptionNl());
-		assertEquals("r_1_descriptionDe", ruleIdentity.getDescriptionDe());
-		assertEquals("r_1_descriptionX", ruleIdentity.getDescriptionX());
 
 		assertNotNull(ruleIdentity.getDefaultRuleDefinition());
 		assertTrue(ruleIdentity.getSocialSecretaryRuleDefintions().isEmpty());
@@ -98,12 +86,24 @@ public class RuleIdentityMappingTest {
 		assertNotNull(ruleDefinition.getVersions());
 		assertEquals(1, ruleDefinition.getVersions().size());
 
-		RuleVersion ruleVersion = ruleDefinition.getVersions().first();
+		RuleVersion ruleVersion = ruleDefinition.getVersions().get(0);
+
+		assertEquals("r_1", ruleVersion.getRuleDescription().getCode());
+
+		assertEquals("r_1_aliasFr", ruleVersion.getRuleDescription().getAliasFr());
+		assertEquals("r_1_aliasNl", ruleVersion.getRuleDescription().getAliasNl());
+		assertEquals("r_1_aliasDe", ruleVersion.getRuleDescription().getAliasDe());
+		assertEquals("r_1_aliasX", ruleVersion.getRuleDescription().getAliasX());
+
+		assertEquals("r_1_descriptionFr", ruleVersion.getRuleDescription().getDescriptionFr());
+		assertEquals("r_1_descriptionNl", ruleVersion.getRuleDescription().getDescriptionNl());
+		assertEquals("r_1_descriptionDe", ruleVersion.getRuleDescription().getDescriptionDe());
+		assertEquals("r_1_descriptionX", ruleVersion.getRuleDescription().getDescriptionX());
 		
-		assertEquals(LocalDate.of(2016, 1, 1), ruleVersion.getEffectivityStartDate());
-		assertEquals(LocalDate.of(2016, 12, 31), ruleVersion.getEffectivityEndDate());
-		assertEquals(LocalDate.of(2016, 1, 1), ruleVersion.getExploitationStartDate());
-		assertNull(ruleVersion.getExploitationEndDate());
+		assertEquals(LocalDateTime.of(2016, 1, 1, 0, 0, 0), ruleVersion.getEffectivityStartDate());
+		assertEquals(LocalDateTime.of(2016, 12, 31, 0, 0, 0), ruleVersion.getEffectivityEndDate());
+//		assertEquals(LocalDate.of(2016, 1, 1), ruleVersion.getExploitationStartDate());
+//		assertNull(ruleVersion.getExploitationEndDate());
 		assertEquals(RuleType.DEFAULT, ruleVersion.getRuleType());
 		assertEquals(RoundingType.UNDEFINED, ruleVersion.getRoundingType());
 		assertNull(ruleVersion.getRoundingPrecision());
@@ -117,15 +117,14 @@ public class RuleIdentityMappingTest {
 
 	@Test
 	public void testR2() {
-		LocalDate date01012016 = LocalDate.of(2016, 1, 1);
-		LocalDate date01072016 = LocalDate.of(2016, 6, 1);
-		LocalDate date01082016 = LocalDate.of(2016, 7, 1);
+		LocalDateTime date01012016 = LocalDateTime.of(2016, 1, 1, 0, 0, 0);
+		LocalDateTime date01072016 = LocalDateTime.of(2016, 7, 1, 0, 0, 0);
+		LocalDateTime date01082016 = LocalDateTime.of(2016, 8, 1, 0, 0, 0);
 
-		RuleIdentity ruleIdentity = em.find(RuleIdentity.class, "r_2");
+		RuleIdentity ruleIdentity = em.find(RuleIdentity.class, 2);
 
 		assertNotNull(ruleIdentity);
 
-		assertEquals("r_2", ruleIdentity.getCode());
 		assertNotNull(ruleIdentity.getRuleDefinitions());
 		assertFalse(ruleIdentity.getRuleDefinitions().isEmpty());
 		assertEquals(3, ruleIdentity.getRuleDefinitions().size());
@@ -151,10 +150,12 @@ public class RuleIdentityMappingTest {
 
 		assertNotNull(defaultRuleDefinition.getVersions());
 		assertFalse(defaultRuleDefinition.getVersions().isEmpty());
-		assertTrue(defaultRuleDefinition.getVersions().size() == 2);
+		assertEquals(2, defaultRuleDefinition.getVersions().size());
 
-		RuleVersion firstRuleVersion = defaultRuleDefinition.getVersions().first();
+		RuleVersion firstRuleVersion = defaultRuleDefinition.getVersions().get(0);
 
+		assertEquals("r_2", firstRuleVersion.getRuleDescription().getCode());
+		
 		assertNotNull(firstRuleVersion.getFormula());
 		assertEquals("v2", firstRuleVersion.getVersion());
 		assertTrue(firstRuleVersion.getFormula() instanceof FormulaAnd);
@@ -175,8 +176,8 @@ public class RuleIdentityMappingTest {
 			}
 		}
 
-		RuleVersion ruleVersionInExploitationAt01072016 = defaultRuleDefinition.getVersion(date01012016, date01072016);
-		assertEquals(firstRuleVersion, ruleVersionInExploitationAt01072016);
+		RuleVersion ruleVersionInExploitationAt01082016 = defaultRuleDefinition.getVersion(date01012016, date01082016);
+		assertEquals(firstRuleVersion, ruleVersionInExploitationAt01082016);
 
 		RuleVersion ruleVersionInExploitationAt01012016 = defaultRuleDefinition.getVersion(date01012016, date01012016);
 		assertNotEquals(firstRuleVersion, ruleVersionInExploitationAt01012016);
@@ -232,22 +233,10 @@ public class RuleIdentityMappingTest {
 
 	@Test
 	public void testR3() {
-		RuleIdentity ruleIdentity = em.find(RuleIdentity.class, "r_3");
+		RuleIdentity ruleIdentity = em.find(RuleIdentity.class, 3);
 
 		/* Testing RuleIdentity */
 		assertNotNull(ruleIdentity);
-
-		assertEquals("r_3", ruleIdentity.getCode());
-
-		assertEquals("r_3_aliasFr", ruleIdentity.getAliasFr());
-		assertEquals("r_3_aliasNl", ruleIdentity.getAliasNl());
-		assertEquals("r_3_aliasDe", ruleIdentity.getAliasDe());
-		assertEquals("r_3_aliasX", ruleIdentity.getAliasX());
-
-		assertEquals("r_3_descriptionFr", ruleIdentity.getDescriptionFr());
-		assertEquals("r_3_descriptionNl", ruleIdentity.getDescriptionNl());
-		assertEquals("r_3_descriptionDe", ruleIdentity.getDescriptionDe());
-		assertEquals("r_3_descriptionX", ruleIdentity.getDescriptionX());
 
 		/* Testing definitions */
 		assertEquals(4, ruleIdentity.getRuleDefinitions().size());
@@ -265,12 +254,24 @@ public class RuleIdentityMappingTest {
 		assertEquals(1, defaultRuleDefinition.getVersions().size());
 
 		/* Testing default version */
-		RuleVersion defaultRuleVersion = defaultRuleDefinition.getVersions().first();
+		RuleVersion defaultRuleVersion = defaultRuleDefinition.getVersions().get(0);
 
-		assertEquals(LocalDate.of(2016, 1, 1), defaultRuleVersion.getEffectivityStartDate());
-		assertEquals(LocalDate.of(2016, 12, 31), defaultRuleVersion.getEffectivityEndDate());
-		assertEquals(LocalDate.of(2016, 1, 1), defaultRuleVersion.getExploitationStartDate());
-		assertNull(defaultRuleVersion.getExploitationEndDate());
+		assertEquals("r_3", defaultRuleVersion.getRuleDescription().getCode());
+
+		assertEquals("r_3_aliasFr", defaultRuleVersion.getRuleDescription().getAliasFr());
+		assertEquals("r_3_aliasNl", defaultRuleVersion.getRuleDescription().getAliasNl());
+		assertEquals("r_3_aliasDe", defaultRuleVersion.getRuleDescription().getAliasDe());
+		assertEquals("r_3_aliasX", defaultRuleVersion.getRuleDescription().getAliasX());
+
+		assertEquals("r_3_descriptionFr", defaultRuleVersion.getRuleDescription().getDescriptionFr());
+		assertEquals("r_3_descriptionNl", defaultRuleVersion.getRuleDescription().getDescriptionNl());
+		assertEquals("r_3_descriptionDe", defaultRuleVersion.getRuleDescription().getDescriptionDe());
+		assertEquals("r_3_descriptionX", defaultRuleVersion.getRuleDescription().getDescriptionX());
+
+		assertEquals(LocalDateTime.of(2016, 1, 1, 0, 0, 0), defaultRuleVersion.getEffectivityStartDate());
+		assertEquals(LocalDateTime.of(2016, 12, 31, 0, 0, 0), defaultRuleVersion.getEffectivityEndDate());
+//		assertEquals(LocalDate.of(2016, 1, 1), defaultRuleVersion.getExploitationStartDate());
+//		assertNull(defaultRuleVersion.getExploitationEndDate());
 		assertEquals(RuleType.DEFAULT, defaultRuleVersion.getRuleType());
 		assertEquals(RoundingType.ARITHMETIC, defaultRuleVersion.getRoundingType());
 		assertEquals(Double.valueOf(0.01), defaultRuleVersion.getRoundingPrecision());
@@ -297,12 +298,12 @@ public class RuleIdentityMappingTest {
 		assertNotNull(socialSecretaryRuleDefinition.getVersions());
 		assertEquals(1, socialSecretaryRuleDefinition.getVersions().size());
 
-		RuleVersion socialSecretaryRuleVersion = socialSecretaryRuleDefinition.getVersions().first();
+		RuleVersion socialSecretaryRuleVersion = socialSecretaryRuleDefinition.getVersions().get(0);
 
-		assertEquals(LocalDate.of(2016, 1, 1), socialSecretaryRuleVersion.getEffectivityStartDate());
-		assertEquals(LocalDate.of(2016, 12, 31), socialSecretaryRuleVersion.getEffectivityEndDate());
-		assertEquals(LocalDate.of(2016, 1, 1), socialSecretaryRuleVersion.getExploitationStartDate());
-		assertNull(socialSecretaryRuleVersion.getExploitationEndDate());
+		assertEquals(LocalDateTime.of(2016, 1, 1, 0, 0, 0), socialSecretaryRuleVersion.getEffectivityStartDate());
+		assertEquals(LocalDateTime.of(2016, 12, 31, 0, 0, 0), socialSecretaryRuleVersion.getEffectivityEndDate());
+//		assertEquals(LocalDate.of(2016, 1, 1), socialSecretaryRuleVersion.getExploitationStartDate());
+//		assertNull(socialSecretaryRuleVersion.getExploitationEndDate());
 		assertEquals(RuleType.DEFAULT, socialSecretaryRuleVersion.getRuleType());
 		assertEquals(RoundingType.CEIL, socialSecretaryRuleVersion.getRoundingType());
 		assertEquals(Double.valueOf(0.01), socialSecretaryRuleVersion.getRoundingPrecision());
@@ -310,7 +311,7 @@ public class RuleIdentityMappingTest {
 
 		assertNotNull(socialSecretaryRuleVersion.getFormula());
 		assertTrue(socialSecretaryRuleVersion.getFormula() instanceof FormulaTerminalDate);
-		assertTrue(socialSecretaryRuleVersion.getFormula().getValue() instanceof Date);
+		assertTrue(socialSecretaryRuleVersion.getFormula().getValue() instanceof LocalDate);
 		assertEquals(LocalDate.of(2016, 1, 1), socialSecretaryRuleVersion.getFormula().getValue());
 		
 		/* Testing custom definitions */
@@ -338,12 +339,12 @@ public class RuleIdentityMappingTest {
 				assertNotNull(customRuleDefinition.getVersions());
 				assertEquals(1, customRuleDefinition.getVersions().size());
 
-				RuleVersion customRuleVersion = customRuleDefinition.getVersions().first();
+				RuleVersion customRuleVersion = customRuleDefinition.getVersions().get(0);
 
-				assertEquals(LocalDate.of(2016, 1, 1), customRuleVersion.getEffectivityStartDate());
-				assertEquals(LocalDate.of(2016, 12, 31), customRuleVersion.getEffectivityEndDate());
-				assertEquals(LocalDate.of(2016, 1, 1), customRuleVersion.getExploitationStartDate());
-				assertNull(customRuleVersion.getExploitationEndDate());
+				assertEquals(LocalDateTime.of(2016, 1, 1, 0, 0, 0), customRuleVersion.getEffectivityStartDate());
+				assertEquals(LocalDateTime.of(2016, 12, 31, 0, 0, 0), customRuleVersion.getEffectivityEndDate());
+//				assertEquals(LocalDate.of(2016, 1, 1), customRuleVersion.getExploitationStartDate());
+//				assertNull(customRuleVersion.getExploitationEndDate());
 				assertEquals(RuleType.DEFAULT, customRuleVersion.getRuleType());
 				assertEquals(RoundingType.TRUNC, customRuleVersion.getRoundingType());
 				assertEquals(Double.valueOf(2.0), customRuleVersion.getRoundingPrecision());
@@ -353,7 +354,7 @@ public class RuleIdentityMappingTest {
 				assertTrue(customRuleVersion.getFormula() instanceof FormulaUndefined);
 			} else {
 				assertNotNull(customRuleDefinition.getDefinitionParameters());
-				assertEquals(4, customRuleDefinition.getDefinitionParameters().size());
+				assertEquals(5, customRuleDefinition.getDefinitionParameters().size());
 
 				RuleDefinitionParameter[] customRuleDefinitionParameters = customRuleDefinition
 						.getDefinitionParameters().toArray(new RuleDefinitionParameter[4]);
@@ -373,12 +374,12 @@ public class RuleIdentityMappingTest {
 				assertNotNull(customRuleDefinition.getVersions());
 				assertEquals(1, customRuleDefinition.getVersions().size());
 
-				RuleVersion customRuleVersion = customRuleDefinition.getVersions().first();
+				RuleVersion customRuleVersion = customRuleDefinition.getVersions().get(0);
 
-				assertEquals(LocalDate.of(2016, 1, 1), customRuleVersion.getEffectivityStartDate());
-				assertEquals(LocalDate.of(2016, 12, 31), customRuleVersion.getEffectivityEndDate());
-				assertEquals(LocalDate.of(2016, 1, 1), customRuleVersion.getExploitationStartDate());
-				assertNull(customRuleVersion.getExploitationEndDate());
+				assertEquals(LocalDateTime.of(2016, 1, 1, 0, 0, 0), customRuleVersion.getEffectivityStartDate());
+				assertEquals(LocalDateTime.of(2016, 12, 31, 0, 0, 0), customRuleVersion.getEffectivityEndDate());
+//				assertEquals(LocalDate.of(2016, 1, 1), customRuleVersion.getExploitationStartDate());
+//				assertNull(customRuleVersion.getExploitationEndDate());
 				assertEquals(RuleType.DEFAULT, customRuleVersion.getRuleType());
 				assertEquals(RoundingType.BANKERS, customRuleVersion.getRoundingType());
 				assertEquals(Double.valueOf(3.0), customRuleVersion.getRoundingPrecision());
@@ -389,5 +390,5 @@ public class RuleIdentityMappingTest {
 			}
 		}
 	}
-
+	
 }

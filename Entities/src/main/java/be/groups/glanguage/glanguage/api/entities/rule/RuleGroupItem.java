@@ -47,7 +47,7 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	 * @return the ruleIdentity
 	 */
 	@ManyToOne
-	@JoinColumn(name = "RULE_CODE", referencedColumnName = "CODE", insertable = false, updatable = false)
+	@JoinColumn(name = "RULE_IDENTITY_ID", referencedColumnName = "ID", insertable = false, updatable = false)
 	public RuleIdentity getRuleIdentity() {
 		return ruleIdentity;
 	}

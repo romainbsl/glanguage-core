@@ -28,7 +28,7 @@ public class FormulaPriorityConverter implements AttributeConverter<FormulaPrior
             case ATOMIC:
             	return 8;
             default:
-                throw new IllegalArgumentException("Unknown" + attribute);
+                throw new IllegalArgumentException("Unknown attribute " + attribute);
         }
 	}
 	
@@ -54,7 +54,7 @@ public class FormulaPriorityConverter implements AttributeConverter<FormulaPrior
             case 8:
                 return FormulaPriority.ATOMIC;
             default:
-                throw new IllegalArgumentException("Unknown" + dbData);
+                throw new IllegalArgumentException("Unknown dbData " + dbData);
         }
 	}
 

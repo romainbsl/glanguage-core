@@ -16,7 +16,7 @@ public class ShemaGenerator {
 		properties.put("hibernate.connection.username", "PREPROD1M2");
 		properties.put("hibernate.connection.password", "mesbayv");
 		
-		Persistence.generateSchema("universe", properties);
+		Persistence.generateSchema("lyrics", properties);
 		System.exit(0);
 	}
 }

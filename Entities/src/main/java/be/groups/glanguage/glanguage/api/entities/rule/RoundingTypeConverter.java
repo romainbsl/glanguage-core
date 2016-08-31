@@ -22,7 +22,7 @@ public class RoundingTypeConverter implements AttributeConverter<RoundingType, I
             case BANKERS:
             	return 5;
             default:
-                throw new IllegalArgumentException("Unknown" + attribute);
+                throw new IllegalArgumentException("Unknown attribute " + attribute);
         }
 	}
 	
@@ -42,7 +42,7 @@ public class RoundingTypeConverter implements AttributeConverter<RoundingType, I
             case 5:
                 return RoundingType.BANKERS;
             default:
-                throw new IllegalArgumentException("Unknown" + dbData);
+                throw new IllegalArgumentException("Unknown dbData " + dbData);
         }
 	}
 

@@ -25,7 +25,7 @@ public class FormulaReturnTypeConverter implements AttributeConverter<FormulaRet
                 case DATE:
                 	return 5;
                 default:
-                    throw new IllegalArgumentException("Unknown" + attribute);
+                    throw new IllegalArgumentException("Unknown attribute " + attribute);
             }
 		}
 	}
@@ -49,7 +49,7 @@ public class FormulaReturnTypeConverter implements AttributeConverter<FormulaRet
                 case 5:
                     return FormulaReturnType.DATE;
                 default:
-                    throw new IllegalArgumentException("Unknown" + dbData);
+                    throw new IllegalArgumentException("Unknown dbData " + dbData);
     		}
 		}
 	}

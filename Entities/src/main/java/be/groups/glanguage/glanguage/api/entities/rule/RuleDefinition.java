@@ -1,9 +1,9 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -51,11 +51,10 @@ public class RuleDefinition {
 	/**
 	 * Versions
 	 */
-	private SortedSet<RuleVersion> versions;
+	private List<RuleVersion> versions;
 	
 	public RuleDefinition() {
 		super();
-		versions = new TreeSet<RuleVersion>();
 	}
 	
 	/**
@@ -84,39 +83,36 @@ public class RuleDefinition {
 	public SortedSet<RuleDefinitionParameter> getDefinitionParameters() {
 		return definitionParameters;
 	}
-
+	
 	/**
 	 * @return the versions
 	 */
-	@OneToMany(mappedBy = "ruleDefinition", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@OrderBy("EXPLOITATION_START_DATE DESC, EFFECTIVITY_START_DATE DESC")
-	public SortedSet<RuleVersion> getVersions() {
+	@OneToMany(mappedBy = "ruleDefinition")
+	@OrderBy("VERSION DESC")
+	public List<RuleVersion> getVersions() {
 		return versions;
 	}
 	
 	/**
-	 * Get the version effective at specified effective and observe dates
+	 * Get the version effective at specified effective date and in exploitation at specified observe date
 	 * 
 	 * @param effective the date on which the version returned is effective
 	 * @param observe the date on which the version returned is in exploitation
-	 * @return the version that is effective at the specified dates if it exists, null otherwise
+	 * @return the version that is effective at the specified effective date and in exploitation at specified observe date if it
+	 *         exists, null otherwise
 	 */
 	@Transient
-	public RuleVersion getVersion(LocalDate effective, LocalDate observe) {
-		// By annotation @OrderBy on getVersions() method, the first version in the list that is in exploitation at observe date and
-		// effective at effective date is the right version to be returned
-		Iterator<RuleVersion> itVersions = getVersions().iterator();
-		while (itVersions.hasNext()) {
-			RuleVersion version = itVersions.next();
-			if (version.isInExploitation(observe)) {
-				if (version.isEffective(effective)) {
-					return version;
-				}
+	public RuleVersion getVersion(LocalDateTime effective, LocalDateTime observe) {
+		Iterator<RuleVersion> itRuleVersions = getVersions().iterator();
+		while (itRuleVersions.hasNext()) {
+			RuleVersion ruleVersion = itRuleVersions.next();
+			if (ruleVersion.isEffective(effective) && ruleVersion.getRuleSetVersions().stream().anyMatch(rv -> rv.isInExploitation(observe))) {
+				return ruleVersion;
 			}
 		}
 		return null;
 	}
-
+	
 	@Transient
 	public DefinitionLevel getLevel() {
 		if (definitionParameters == null || definitionParameters.isEmpty()) {
@@ -166,10 +162,10 @@ public class RuleDefinition {
 	/**
 	 * @param versions the versions to set
 	 */
-	private void setVersions(SortedSet<RuleVersion> versions) {
+	private void setVersions(List<RuleVersion> versions) {
 		this.versions = versions;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

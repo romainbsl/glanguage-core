@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,6 +19,8 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+
+import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
 /**
  * Common implementation of a formula <br>
@@ -47,6 +50,11 @@ public abstract class AbstractFormula {
 	 * Technical unique ID
 	 */
 	private int id;
+	
+	/**
+	 * Set of RuleVersion this is the formula
+	 */
+	private Set<RuleVersion> ruleVersions;
 	
 	/**
 	 * Formula description
@@ -86,6 +94,14 @@ public abstract class AbstractFormula {
 		return id;
 	}
 	
+	/**
+	 * @return the ruleVersions
+	 */
+	@OneToMany(mappedBy = "formula")
+	public Set<RuleVersion> getRuleVersions() {
+		return ruleVersions;
+	}
+
 	/**
 	 * @return the description
 	 */
@@ -190,6 +206,13 @@ public abstract class AbstractFormula {
 	 */
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	/**
+	 * @param ruleVersions the ruleVersions to set
+	 */
+	public void setRuleVersions(Set<RuleVersion> ruleVersions) {
+		this.ruleVersions = ruleVersions;
 	}
 	
 	/**

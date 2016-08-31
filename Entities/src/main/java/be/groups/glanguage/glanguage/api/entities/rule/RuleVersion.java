@@ -1,6 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 import java.util.SortedSet;
@@ -37,24 +38,19 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
 public class RuleVersion implements Comparable<RuleVersion> {
 
 	/**
+	 * RuleDescription
+	 */
+	private RuleDescription ruleDescription;
+	
+	/**
 	 * Date until which this is effective inclusively
 	 */
-	private LocalDate effectivityEndDate;
+	private LocalDateTime effectivityEndDate;
 
 	/**
 	 * Date from which this is effective inclusively
 	 */
-	private LocalDate effectivityStartDate;
-
-	/**
-	 * Date until which this is in production inclusively
-	 */
-	private LocalDate exploitationEndDate;
-
-	/**
-	 * Date from which this is in production inclusively
-	 */
-	private LocalDate exploitationStartDate;
+	private LocalDateTime effectivityStartDate;
 
 	/**
 	 * Applicability condition
@@ -116,37 +112,34 @@ public class RuleVersion implements Comparable<RuleVersion> {
 	}
 
 	/**
+	 * @return the ruleDescription
+	 */
+	@ManyToOne
+	@JoinColumn(name = "RULE_DESCRIPTION_ID")
+	public RuleDescription getRuleDescription() {
+		return ruleDescription;
+	}
+
+	/**
 	 * Get the code identifying this Rule
 	 * 
 	 * @return the code of this Rule
 	 */
 	@Transient
 	public String getCode() {
-		return getRuleDefinition().getRuleIdentity().getCode();
+		return ruleDescription.getCode();
 	}
 
 	@Column(name = "EFFECTIVITY_START_DATE")
 	@Convert(converter = LocalDateTimeConverter.class)
-	public LocalDate getEffectivityStartDate() {
+	public LocalDateTime getEffectivityStartDate() {
 		return effectivityStartDate;
 	}
 
 	@Column(name = "EFFECTIVITY_END_DATE")
 	@Convert(converter = LocalDateTimeConverter.class)
-	public LocalDate getEffectivityEndDate() {
+	public LocalDateTime getEffectivityEndDate() {
 		return effectivityEndDate;
-	}
-
-	@Column(name = "EXPLOITATION_START_DATE")
-	@Convert(converter = LocalDateTimeConverter.class)
-	public LocalDate getExploitationStartDate() {
-		return exploitationStartDate;
-	}
-
-	@Column(name = "EXPLOITATION_END_DATE")
-	@Convert(converter = LocalDateTimeConverter.class)
-	public LocalDate getExploitationEndDate() {
-		return exploitationEndDate;
 	}
 
 	/**
@@ -163,7 +156,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
 	 * 
 	 * @return the Formula of this rule
 	 */
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "FORMULA_ID")
 	public AbstractFormula getFormula() {
 		return formula;
@@ -374,25 +367,6 @@ public class RuleVersion implements Comparable<RuleVersion> {
 	public boolean isValuable() {
 		return getFormula().isValuable();
 	}
-
-	public void resetCache() {
-		value = null;
-	}
-
-	public void resetValue() {
-		value = null;
-	}
-	
-	/**
-	 * Is this in exploitation at a specified date ? <br>
-	 * This is in exploitation at a specified date if the specified date is between this start date and this end date inclusively
-	 * 
-	 * @param date The date at which this is in exploitation or not
-	 * @return true If this is in exploitation at the specified date, false otherwise
-	 */
-	public boolean isInExploitation(LocalDate date) {
-		return !date.isBefore(getExploitationStartDate()) && (getExploitationEndDate() == null || !date.isAfter(getExploitationEndDate()));
-	}
 	
 	/**
 	 * Is this effective at a specified date ? <br>
@@ -401,36 +375,29 @@ public class RuleVersion implements Comparable<RuleVersion> {
 	 * @param date The date at which this is effective or not
 	 * @return true If this is effective at the specified date, false otherwise
 	 */
-	public boolean isEffective(LocalDate date) {
+	public boolean isEffective(LocalDateTime date) {
 		return !date.isBefore(getEffectivityStartDate()) && (getEffectivityEndDate() == null || !date.isAfter(getEffectivityEndDate()));
+	}
+
+	/**
+	 * @param ruleDescription the ruleDescription to set
+	 */
+	public void setRuleDescription(RuleDescription ruleDescription) {
+		this.ruleDescription = ruleDescription;
 	}
 
 	/**
 	 * @param effectivityEndDate the endDate to set
 	 */
-	public void setEffectivityEndDate(LocalDate effectivityEndDate) {
+	public void setEffectivityEndDate(LocalDateTime effectivityEndDate) {
 		this.effectivityEndDate = effectivityEndDate;
 	}
 
 	/**
 	 * @param effectitvityStartDate the effectitvityStartDate to set
 	 */
-	public void setEffectivityStartDate(LocalDate effectitvityStartDate) {
+	public void setEffectivityStartDate(LocalDateTime effectitvityStartDate) {
 		this.effectivityStartDate = effectitvityStartDate;
-	}
-
-	/**
-	 * @param exploitationEndDate the exploitationStartDate to set
-	 */
-	public void setExploitationEndDate(LocalDate exploitationEndDate) {
-		this.exploitationStartDate = exploitationEndDate;
-	}
-
-	/**
-	 * @param exploitationStartDate the exploitationStartDate to set
-	 */
-	public void setExploitationStartDate(LocalDate exploitationStartDate) {
-		this.exploitationStartDate = exploitationStartDate;
 	}
 
 	/**
@@ -503,6 +470,14 @@ public class RuleVersion implements Comparable<RuleVersion> {
 		this.ruleSetVersions = ruleSetVersions;
 	}
 
+	public void resetCache() {
+		value = null;
+	}
+
+	public void resetValue() {
+		value = null;
+	}
+
 	/**
 	 * Set the value in the cache
 	 * 
@@ -536,12 +511,6 @@ public class RuleVersion implements Comparable<RuleVersion> {
 
 	@Override
 	public int compareTo(RuleVersion o) {
-		int exploitationStartDatesCompare = o.exploitationStartDate.compareTo(this.exploitationStartDate);
-
-		if (exploitationStartDatesCompare == 0) {
-			return o.effectivityStartDate.compareTo(this.effectivityStartDate);
-		} else {
-			return exploitationStartDatesCompare;
-		}
+		return o.effectivityStartDate.compareTo(this.effectivityStartDate);
 	}
 }

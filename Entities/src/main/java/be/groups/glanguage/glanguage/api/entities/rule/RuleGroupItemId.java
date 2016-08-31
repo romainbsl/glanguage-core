@@ -15,7 +15,7 @@ public class RuleGroupItemId implements Serializable {
 	private static final long serialVersionUID = 6731852480663123776L;
 
 	private int ruleVersionId;
-	private String ruleCode;
+	private int ruleId;
 
 	public RuleGroupItemId() {
 		super();
@@ -32,9 +32,9 @@ public class RuleGroupItemId implements Serializable {
 	/**
 	 * @return the ruleCode
 	 */
-	@Column(name = "RULE_CODE")
-	public String getRuleCode() {
-		return ruleCode;
+	@Column(name = "RULE_IDENTITY_ID")
+	public int getRuleId() {
+		return ruleId;
 	}
 
 	/**
@@ -47,15 +47,15 @@ public class RuleGroupItemId implements Serializable {
 	/**
 	 * @param ruleCode the ruleCode to set
 	 */
-	public void setRuleCode(String ruleCode) {
-		this.ruleCode = ruleCode;
+	public void setRuleId(int ruleId) {
+		this.ruleId = ruleId;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((ruleCode == null) ? 0 : ruleCode.hashCode());
+		result = prime * result + ruleId;
 		result = prime * result + ruleVersionId;
 		return result;
 	}
@@ -69,15 +69,11 @@ public class RuleGroupItemId implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		RuleGroupItemId other = (RuleGroupItemId) obj;
-		if (ruleCode == null) {
-			if (other.ruleCode != null)
-				return false;
-		} else if (!ruleCode.equals(other.ruleCode))
+		if (ruleId != other.ruleId)
 			return false;
 		if (ruleVersionId != other.ruleVersionId)
 			return false;
 		return true;
 	}
-	
 	
 }

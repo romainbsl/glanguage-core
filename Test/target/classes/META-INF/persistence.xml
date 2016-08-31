@@ -5,7 +5,7 @@
                                  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 	version="2.1">
 
-	<persistence-unit name="universe" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="lyrics" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		
  		<class>be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula</class>
@@ -27,6 +27,7 @@
  		
  		<class>be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity</class>
 		<class>be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition</class>
+		<class>be.groups.glanguage.glanguage.api.entities.rule.RuleDescription</class>
 		<class>be.groups.glanguage.glanguage.api.entities.rule.RuleVersion</class>
 		<class>be.groups.glanguage.glanguage.api.entities.rule.RuleGroupItem</class>
 		

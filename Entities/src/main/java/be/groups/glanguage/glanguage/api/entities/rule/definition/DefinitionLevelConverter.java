@@ -22,7 +22,7 @@ public class DefinitionLevelConverter implements AttributeConverter<DefinitionLe
             case CUSTOM:
             	return 5;
             default:
-                throw new IllegalArgumentException("Unknown" + attribute);
+                throw new IllegalArgumentException("Unknown attribute " + attribute);
         }
 	}
 	
@@ -42,7 +42,7 @@ public class DefinitionLevelConverter implements AttributeConverter<DefinitionLe
             case 5:
                 return DefinitionLevel.CUSTOM;
             default:
-                throw new IllegalArgumentException("Unknown" + dbData);
+                throw new IllegalArgumentException("Unknown dbData " + dbData);
         }
 	}
 
