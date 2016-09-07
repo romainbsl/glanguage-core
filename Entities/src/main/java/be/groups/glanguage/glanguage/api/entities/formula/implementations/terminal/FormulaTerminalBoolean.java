@@ -1,7 +1,7 @@
 /**
  * 
  */
-package be.groups.glanguage.glanguage.api.entities.formula.implementations;
+package be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

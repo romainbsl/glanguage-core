@@ -1,7 +1,7 @@
 /**
  * 
  */
-package be.groups.glanguage.glanguage.api.entities.formula.implementations;
+package be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -15,10 +15,10 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(FormulaType.Values.TERMINAL_NUMERIC)
-public class FormulaTerminalNumeric extends AbstractTerminalFormula {
+@DiscriminatorValue(FormulaType.Values.TERMINAL_INTEGER)
+public class FormulaTerminalInteger extends AbstractTerminalFormula {
 
-	public FormulaTerminalNumeric() {
+	public FormulaTerminalInteger() {
 		super();
 	}
 	

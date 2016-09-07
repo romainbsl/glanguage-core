@@ -1,7 +1,7 @@
 /**
  * 
  */
-package be.groups.glanguage.glanguage.api.entities.formula.implementations;
+package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
 import java.time.LocalDate;
 
@@ -9,7 +9,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
 
@@ -21,29 +21,33 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(FormulaType.Values.OR)
-public class FormulaOr extends AbstractNonTerminalFormula {
+@DiscriminatorValue(FormulaType.Values.OP_OR)
+public class FormulaOr extends BinaryFormula {
 	
 	public FormulaOr() {
 		super();
 	}
 
+	public FormulaOr(AbstractFormula child1, AbstractFormula child2) {
+		super(child1, child2);
+	}
+
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
-		return null;
+		throw new IllegalAccessError("Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
 	}
 	
 	@Transient
 	@Override
 	public Double getNumericValue() {
-		return null;
+		throw new IllegalAccessError("Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
 	}
 	
 	@Transient
 	@Override
 	public String getStringValue() {
-		return null;
+		throw new IllegalAccessError("Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
 	}
 	
 	@Transient
@@ -55,17 +59,17 @@ public class FormulaOr extends AbstractNonTerminalFormula {
 	@Transient
 	@Override
 	public LocalDate getDateValue() {
-		return null;
+		throw new IllegalAccessError("Cannot invoke getDateValue() method on " + this.getClass().getName() + " object");
 	}
 	
 	@Override
 	protected FormulaReturnType computeReturnType() {
 		return getDescription().getReturnType();
 	}
-	
+
 	@Override
-	public String asText() {
-		return getParameters().get(0).asText() + " || " + getParameters().get(1).asText();
+	public String operationAsText() {
+		return "or";
 	}
-	
+
 }

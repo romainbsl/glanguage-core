@@ -1,14 +1,16 @@
 /**
  * 
  */
-package be.groups.glanguage.glanguage.api.entities.formula.implementations;
+package be.groups.glanguage.glanguage.api.entities.formula.implementations.unary;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
@@ -21,29 +23,34 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(FormulaType.Values.NOT)
+@DiscriminatorValue(FormulaType.Values.OP_NOT)
 public class FormulaNot extends AbstractNonTerminalFormula {
 	
 	public FormulaNot() {
 		super();
 	}
 
-	@Transient
+	public FormulaNot(AbstractFormula child) {
+		if (child == null) {
+        	throw new IllegalArgumentException("Child must be non-null");
+        }
+        this.parameters = new ArrayList<>();
+		parameters.add(child);
+	}
+
 	@Override
 	public Integer getIntegerValue() {
-		return null;
+		throw new IllegalAccessError("Cannot invoke getIntegerValue() method on FormulaNot object");
 	}
-	
-	@Transient
+
 	@Override
 	public Double getNumericValue() {
-		return null;
+		throw new IllegalAccessError("Cannot invoke getNumericValue() method on FormulaNot object");
 	}
-	
-	@Transient
+
 	@Override
 	public String getStringValue() {
-		return null;
+		throw new IllegalAccessError("Cannot invoke getStringValue() method on FormulaNot object");
 	}
 	
 	@Transient
@@ -51,11 +58,10 @@ public class FormulaNot extends AbstractNonTerminalFormula {
 	public Boolean getBooleanValue() {
 		return !getParameters().get(0).getBooleanValue();
 	}
-	
-	@Transient
+
 	@Override
 	public LocalDate getDateValue() {
-		return null;
+		throw new IllegalAccessError("Cannot invoke getDateValue() method on FormulaNot object");
 	}
 	
 	@Override

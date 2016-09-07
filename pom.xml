@@ -16,6 +16,7 @@
   <modules>
   	<module>Entities</module>
   	<module>Test</module>
+  	<module>Business</module>
   </modules>
   
 </project>
