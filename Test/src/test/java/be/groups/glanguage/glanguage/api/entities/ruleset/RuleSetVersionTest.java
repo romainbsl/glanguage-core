@@ -61,18 +61,24 @@ public class RuleSetVersionTest {
 	 */
 	@Test
 	public void testJpaMapping() {
-		RuleSetVersion ruleSetVersion = em.find(RuleSetVersion.class, 900000);
-		
+		RuleSetVersion ruleSetVersion = em.find(RuleSetVersion.class, 900003);
+
 		assertNotNull(ruleSetVersion);
-		
-		assertEquals(900000, ruleSetVersion.getId());
-		
-		assertEquals(LocalDateTime.of(2016, 9, 5, 9, 0), ruleSetVersion.getExploitationStartDate());
-		assertEquals("1.0.0", ruleSetVersion.getVersion());
-		
-		assertEquals("dupirefr", ruleSetVersion.getAuthor());
-		assertEquals("init", ruleSetVersion.getLabel());
+
+		assertEquals(900003, ruleSetVersion.getId());
+
+		assertEquals(LocalDateTime.of(2016, 9, 6, 9, 0), ruleSetVersion.getExploitationStartDate());
+		assertEquals("1.0.1", ruleSetVersion.getVersion());
+
+		assertEquals("micmax", ruleSetVersion.getAuthor());
+		assertEquals("hotfix", ruleSetVersion.getLabel());
 		assertEquals(RuleSetVersionStatus.PROD, ruleSetVersion.getStatus());
+
+		assertNotNull(ruleSetVersion.getRuleSet());
+		assertEquals(900001, ruleSetVersion.getRuleSet().getId());
+
+		assertNotNull(ruleSetVersion.getParent());
+		assertEquals(900002, ruleSetVersion.getParent().getId());
 	}
 
 }

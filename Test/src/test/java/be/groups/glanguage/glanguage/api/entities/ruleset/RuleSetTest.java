@@ -59,20 +59,27 @@ public class RuleSetTest {
 	@Test
 	public void testJpaMapping() {
 		RuleSet ruleSet = em.find(RuleSet.class, 900000);
-		
+
 		assertNotNull(ruleSet);
-		
+
 		assertEquals(900000, ruleSet.getId());
-		
+
 		assertEquals("test_fr", ruleSet.getAliasFr());
 		assertEquals("test_nl", ruleSet.getAliasNl());
 		assertEquals("test_de", ruleSet.getAliasDe());
 		assertEquals("test_x", ruleSet.getAliasX());
-		
+
 		assertEquals("descr_test_fr", ruleSet.getDescriptionFr());
 		assertEquals("descr_test_nl", ruleSet.getDescriptionNl());
 		assertEquals("descr_test_de", ruleSet.getDescriptionDe());
 		assertEquals("descr_test_x", ruleSet.getDescriptionX());
+
+		assertNotNull(ruleSet.getVersions());
+		assertEquals(2, ruleSet.getVersions().size());
+
+		ruleSet.getVersions().stream().forEach(v -> {
+			assertEquals(ruleSet, v.getRuleSet());
+		});
 	}
 
 }
