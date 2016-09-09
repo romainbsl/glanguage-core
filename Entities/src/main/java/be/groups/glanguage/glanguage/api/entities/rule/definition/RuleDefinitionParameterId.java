@@ -13,7 +13,7 @@ import javax.persistence.Embeddable;
  * @author michotte
  */
 @Embeddable
-public class RuleDefintionParameterId implements Serializable {
+public class RuleDefinitionParameterId implements Serializable {
 
 	private static final long serialVersionUID = -512381237663922211L;
 	
@@ -21,7 +21,7 @@ public class RuleDefintionParameterId implements Serializable {
 	private int levelId;	
 	private String value;
 	
-	public RuleDefintionParameterId() {
+	public RuleDefinitionParameterId() {
 		super();
 	}
 	
@@ -83,7 +83,7 @@ public class RuleDefintionParameterId implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RuleDefintionParameterId other = (RuleDefintionParameterId) obj;
+		RuleDefinitionParameterId other = (RuleDefinitionParameterId) obj;
 		if (levelId != other.levelId)
 			return false;
 		if (ruleDefinitionId != other.ruleDefinitionId)

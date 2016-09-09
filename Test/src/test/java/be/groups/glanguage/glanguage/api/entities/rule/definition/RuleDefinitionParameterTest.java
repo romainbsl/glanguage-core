@@ -59,7 +59,7 @@ public class RuleDefinitionParameterTest {
 	 */
 	@Test
 	public void testJpaMapping() {
-		RuleDefintionParameterId ruleDefintionParameterId = new RuleDefintionParameterId();
+		RuleDefinitionParameterId ruleDefintionParameterId = new RuleDefinitionParameterId();
 		ruleDefintionParameterId.setLevelId(2);
 		ruleDefintionParameterId.setRuleDefinitionId(900003);
 		ruleDefintionParameterId.setValue("100000");

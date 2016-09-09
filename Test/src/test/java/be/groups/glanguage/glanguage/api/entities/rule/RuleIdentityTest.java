@@ -2,6 +2,10 @@ package be.groups.glanguage.glanguage.api.entities.rule;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -69,6 +73,12 @@ public class RuleIdentityTest {
 		/* Checking relationships */
 		assertNotNull(ruleIdentity.getRuleDefinitions());
 		assertEquals(2, ruleIdentity.getRuleDefinitions().size());
+		assertEquals(2, ruleIdentity.getRuleDefinitions().stream().map(d -> d.getId()).distinct().count());
+		
+		List<Integer> ruleDefinitionIds = Arrays.asList(900000, 900001);
+		ruleIdentity.getRuleDefinitions().forEach(d -> {
+			assertTrue(ruleDefinitionIds.contains(d.getId()));
+		});
 	}
 
 }
