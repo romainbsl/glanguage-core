@@ -64,15 +64,15 @@ public class RuleDefinitionTest {
 	 */
 	@Test
 	public void testJpaMapping() {
-		RuleDefinition ruleDefinition = em.find(RuleDefinition.class, 900002);
+		RuleDefinition ruleDefinition = em.find(RuleDefinition.class, 900001);
 
 		/* Checking entity */
 		assertNotNull(ruleDefinition);
 
-		assertEquals(900002, ruleDefinition.getId());
+		assertEquals(900001, ruleDefinition.getId());
 
 		/* Checking relationships */
-		assertEquals(900001, ruleDefinition.getRuleIdentity().getId());
+		assertEquals(900000, ruleDefinition.getRuleIdentity().getId());
 
 		assertNotNull(ruleDefinition.getDefinitionParameters());
 		assertEquals(2, ruleDefinition.getDefinitionParameters().size());
@@ -80,12 +80,12 @@ public class RuleDefinitionTest {
 
 		RuleDefinitionParameterId firstRuleDefinitionParameterId = new RuleDefinitionParameterId();
 		firstRuleDefinitionParameterId.setLevelId(2);
-		firstRuleDefinitionParameterId.setRuleDefinitionId(900002);
+		firstRuleDefinitionParameterId.setRuleDefinitionId(900001);
 		firstRuleDefinitionParameterId.setValue("100000");
 
 		RuleDefinitionParameterId secondtRuleDefinitionParameterId = new RuleDefinitionParameterId();
 		secondtRuleDefinitionParameterId.setLevelId(3);
-		secondtRuleDefinitionParameterId.setRuleDefinitionId(900002);
+		secondtRuleDefinitionParameterId.setRuleDefinitionId(900001);
 		secondtRuleDefinitionParameterId.setValue("355");
 
 		List<RuleDefinitionParameterId> ruleDefinitionParameterIds = Arrays.asList(firstRuleDefinitionParameterId,
@@ -95,13 +95,8 @@ public class RuleDefinitionTest {
 		});
 
 		assertNotNull(ruleDefinition.getVersions());
-		assertEquals(2, ruleDefinition.getVersions().size());
-		assertEquals(2, ruleDefinition.getVersions().stream().map(v -> v.getId()).distinct().count());
-		
-		List<Integer> ruleVersionIds = Arrays.asList(900000, 900001);
-		ruleDefinition.getVersions().forEach(v -> {
-			assertTrue(ruleVersionIds.contains(v.getId()));
-		});
+		assertEquals(1, ruleDefinition.getVersions().size());
+		assertEquals(900003, ruleDefinition.getVersions().get(0).getId());
 	}
 
 }

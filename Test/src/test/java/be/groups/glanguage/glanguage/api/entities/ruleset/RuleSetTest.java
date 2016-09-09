@@ -1,6 +1,11 @@
 package be.groups.glanguage.glanguage.api.entities.ruleset;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -65,19 +70,25 @@ public class RuleSetTest {
 
 		assertEquals(900000, ruleSet.getId());
 
-		assertEquals("test_fr", ruleSet.getAliasFr());
-		assertEquals("test_nl", ruleSet.getAliasNl());
-		assertEquals("test_de", ruleSet.getAliasDe());
-		assertEquals("test_x", ruleSet.getAliasX());
+		assertEquals("rs1_fr", ruleSet.getAliasFr());
+		assertEquals("rs1_nl", ruleSet.getAliasNl());
+		assertEquals("rs1_de", ruleSet.getAliasDe());
+		assertEquals("rs1_x", ruleSet.getAliasX());
 
-		assertEquals("descr_test_fr", ruleSet.getDescriptionFr());
-		assertEquals("descr_test_nl", ruleSet.getDescriptionNl());
-		assertEquals("descr_test_de", ruleSet.getDescriptionDe());
-		assertEquals("descr_test_x", ruleSet.getDescriptionX());
+		assertEquals("rs1_descr_fr", ruleSet.getDescriptionFr());
+		assertEquals("rs1_descr_nl", ruleSet.getDescriptionNl());
+		assertEquals("rs1_descr_de", ruleSet.getDescriptionDe());
+		assertEquals("rs1_descr_x", ruleSet.getDescriptionX());
 
 		/* Checking relationships */
 		assertNotNull(ruleSet.getVersions());
-		assertEquals(2, ruleSet.getVersions().size());
+		assertEquals(3, ruleSet.getVersions().size());
+		assertEquals(3, ruleSet.getVersions().stream().map(v -> v.getId()).distinct().count());
+
+		List<Integer> ruleSetVersionIds = Arrays.asList(900000, 900001, 900002);
+		ruleSet.getVersions().forEach(v -> {
+			assertTrue(ruleSetVersionIds.contains(v.getId()));
+		});
 	}
 
 }

@@ -61,12 +61,12 @@ public class RuleVersionTest {
 	 */
 	@Test
 	public void testJpaMapping() {
-		RuleVersion ruleVersion = em.find(RuleVersion.class, 900002);
+		RuleVersion ruleVersion = em.find(RuleVersion.class, 900003);
 
 		/* Checking entity */
 		assertNotNull(ruleVersion);
 
-		assertEquals(900002, ruleVersion.getId());
+		assertEquals(900003, ruleVersion.getId());
 
 		assertEquals("1.0.0", ruleVersion.getVersion());
 
@@ -80,16 +80,24 @@ public class RuleVersionTest {
 
 		/* Checking relationships */
 		assertNotNull(ruleVersion.getRuleDefinition());
-		assertEquals(900004, ruleVersion.getRuleDefinition().getId());
+		assertEquals(900001, ruleVersion.getRuleDefinition().getId());
 
 		assertNotNull(ruleVersion.getRuleDescription());
-		assertEquals(900001, ruleVersion.getRuleDescription().getId());
+		assertEquals(900000, ruleVersion.getRuleDescription().getId());
+		
+		assertNotNull(ruleVersion.getGroupItems());
+		assertEquals(1, ruleVersion.getGroupItems().size());
+		
+		RuleGroupItemId ruleGroupItemId = new RuleGroupItemId();
+		ruleGroupItemId.setRuleId(900001);
+		ruleGroupItemId.setRuleVersionId(900003);
+		assertEquals(ruleGroupItemId, ruleVersion.getGroupItems().first().getId());
 
 		assertNotNull(ruleVersion.getApplicabilityCondition());
-		assertEquals(900000, ruleVersion.getApplicabilityCondition().getId());
+		assertEquals(900003, ruleVersion.getApplicabilityCondition().getId());
 
 		assertNotNull(ruleVersion.getFormula());
-		assertEquals(900001, ruleVersion.getFormula().getId());
+		assertEquals(900004, ruleVersion.getFormula().getId());
 	}
 
 }
