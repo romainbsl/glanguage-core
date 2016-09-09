@@ -63,6 +63,7 @@ public class RuleSetVersionTest {
 	public void testJpaMapping() {
 		RuleSetVersion ruleSetVersion = em.find(RuleSetVersion.class, 900003);
 
+		/* Checking entity */
 		assertNotNull(ruleSetVersion);
 
 		assertEquals(900003, ruleSetVersion.getId());
@@ -74,6 +75,7 @@ public class RuleSetVersionTest {
 		assertEquals("hotfix", ruleSetVersion.getLabel());
 		assertEquals(RuleSetVersionStatus.PROD, ruleSetVersion.getStatus());
 
+		/* Checking relationships */
 		assertNotNull(ruleSetVersion.getRuleSet());
 		assertEquals(900001, ruleSetVersion.getRuleSet().getId());
 

@@ -1,6 +1,7 @@
-package be.groups.glanguage.glanguage.api.entities.ruleset;
+package be.groups.glanguage.glanguage.api.entities.rule;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import javax.persistence.EntityManager;
 
@@ -15,11 +16,11 @@ import be.groups.marmota.persistence.JpaUtil;
 import be.groups.marmota.test.TNSNames;
 
 /**
- * Test class for {@link RuleSet}
+ * Test class for {@link RuleIdentity}
  * 
  * @author DUPIREFR
  */
-public class RuleSetTest {
+public class RuleIdentityTest {
 
 	/*
 	 * Static fields
@@ -54,30 +55,20 @@ public class RuleSetTest {
 	 * Tests
 	 */
 	/**
-	 * Tests {@link RuleSet} JPA mapping
+	 * Tests {@link RuleIdentity} JPA mapping
 	 */
 	@Test
 	public void testJpaMapping() {
-		RuleSet ruleSet = em.find(RuleSet.class, 900000);
+		RuleIdentity ruleIdentity = em.find(RuleIdentity.class, 900000);
 
 		/* Checking entity */
-		assertNotNull(ruleSet);
+		assertNotNull(ruleIdentity);
 
-		assertEquals(900000, ruleSet.getId());
-
-		assertEquals("test_fr", ruleSet.getAliasFr());
-		assertEquals("test_nl", ruleSet.getAliasNl());
-		assertEquals("test_de", ruleSet.getAliasDe());
-		assertEquals("test_x", ruleSet.getAliasX());
-
-		assertEquals("descr_test_fr", ruleSet.getDescriptionFr());
-		assertEquals("descr_test_nl", ruleSet.getDescriptionNl());
-		assertEquals("descr_test_de", ruleSet.getDescriptionDe());
-		assertEquals("descr_test_x", ruleSet.getDescriptionX());
+		assertEquals(900000, ruleIdentity.getId());
 
 		/* Checking relationships */
-		assertNotNull(ruleSet.getVersions());
-		assertEquals(2, ruleSet.getVersions().size());
+		assertNotNull(ruleIdentity.getRuleDefinitions());
+		assertEquals(2, ruleIdentity.getRuleDefinitions().size());
 	}
 
 }

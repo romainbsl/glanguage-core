@@ -1,0 +1,95 @@
+package be.groups.glanguage.glanguage.api.entities.rule;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.time.LocalDateTime;
+
+import javax.persistence.EntityManager;
+
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import be.groups.common.persistence.util.TransactionHelper;
+import be.groups.common.test.utils.Environment;
+import be.groups.marmota.persistence.DatabaseIdentifier;
+import be.groups.marmota.persistence.JpaUtil;
+import be.groups.marmota.test.TNSNames;
+
+/**
+ * Test class for {@link RuleVersion}
+ * 
+ * @author DUPIREFR
+ */
+public class RuleVersionTest {
+
+	/*
+	 * Static fields
+	 */
+	private static EntityManager em;
+
+	/*
+	 * Setups
+	 */
+	@BeforeClass
+	public static void setUpBeforeClass() {
+		Environment.setUp();
+		TNSNames.setUp();
+
+		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
+
+		if (!TransactionHelper.isActive()) {
+			TransactionHelper.begin();
+		}
+
+		em = JpaUtil.getEntityManager();
+	}
+
+	@AfterClass
+	public static void close() {
+		if (TransactionHelper.isActive()) {
+			TransactionHelper.rollback();
+		}
+	}
+
+	/*
+	 * Tests
+	 */
+	/**
+	 * Tests {@link RuleVersion} JPA mapping
+	 */
+	@Test
+	public void testJpaMapping() {
+		RuleVersion ruleVersion = em.find(RuleVersion.class, 900002);
+
+		/* Checking entity */
+		assertNotNull(ruleVersion);
+
+		assertEquals(900002, ruleVersion.getId());
+
+		assertEquals("1.0.0", ruleVersion.getVersion());
+
+		assertEquals(RuleType.OR, ruleVersion.getRuleType());
+
+		assertEquals(LocalDateTime.of(2014, 1, 1, 0, 0), ruleVersion.getEffectivityStartDate());
+		assertEquals(LocalDateTime.of(2014, 12, 31, 0, 0), ruleVersion.getEffectivityEndDate());
+
+		assertEquals(Double.valueOf(0.01), ruleVersion.getRoundingPrecision());
+		assertEquals(RoundingType.ARITHMETIC, ruleVersion.getRoundingType());
+
+		/* Checking relationships */
+		assertNotNull(ruleVersion.getRuleDefinition());
+		assertEquals(900004, ruleVersion.getRuleDefinition().getId());
+
+		assertNotNull(ruleVersion.getRuleDescription());
+		assertEquals(900001, ruleVersion.getRuleDescription().getId());
+
+		assertNotNull(ruleVersion.getApplicabilityCondition());
+		assertEquals(900000, ruleVersion.getApplicabilityCondition().getId());
+
+		assertNotNull(ruleVersion.getFormula());
+		assertEquals(900001, ruleVersion.getFormula().getId());
+	}
+
+}
