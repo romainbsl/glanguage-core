@@ -81,6 +81,14 @@ public class RuleSetVersionTest {
 
 		assertNotNull(ruleSetVersion.getParent());
 		assertEquals(900002, ruleSetVersion.getParent().getId());
+
+		assertNotNull(ruleSetVersion.getIncludedIn());
+		assertEquals(1, ruleSetVersion.getIncludedIn().size());
+		assertEquals(900004, ((RuleSetVersion) ruleSetVersion.getIncludedIn().toArray()[0]).getId());
+
+		assertNotNull(ruleSetVersion.getIncludes());
+		assertEquals(1, ruleSetVersion.getIncludes().size());
+		assertEquals(900000, ((RuleSetVersion) ruleSetVersion.getIncludes().toArray()[0]).getId());
 	}
 
 }
