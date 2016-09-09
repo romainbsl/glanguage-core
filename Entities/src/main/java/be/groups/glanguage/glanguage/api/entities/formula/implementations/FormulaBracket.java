@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -14,15 +15,14 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
  *
  */
 @Entity
-@DiscriminatorValue(FormulaType.Values.F_PARENTHESIS)
+@DiscriminatorValue(FormulaType.Values.F_BRACKETS)
 public class FormulaBracket extends AbstractFormula {
 
-    /**
-     * {@link AbstractFormula} under brackets
-     */
-    private AbstractFormula child;
+    public FormulaBracket() {
+		super();
+	}
 
-    /**
+	/**
      * Initialisation de la formule avec la formule attachée {@code formule}.
      *
      * @param Formule formule
@@ -31,7 +31,8 @@ public class FormulaBracket extends AbstractFormula {
         if (child == null) {
         	throw new IllegalArgumentException("Child must be non-null");
         }
-    	this.child = child;
+    	this.parameters = new ArrayList<>();
+    	this.parameters.add(child);
     }
 
 	@Override
@@ -41,36 +42,36 @@ public class FormulaBracket extends AbstractFormula {
 
 	@Override
 	public FormulaReturnType getReturnType() {
-		return child.getReturnType();
+		return getParameters().get(0).getReturnType();
 	}
 
 	@Override
 	public Integer getIntegerValue() {
-		return child.getIntegerValue();
+		return getParameters().get(0).getIntegerValue();
 	}
 
 	@Override
 	public Double getNumericValue() {
-		return child.getNumericValue();
+		return getParameters().get(0).getNumericValue();
 	}
 
 	@Override
 	public String getStringValue() {
-		return child.getStringValue();
+		return getParameters().get(0).getStringValue();
 	}
 
 	@Override
 	public Boolean getBooleanValue() {
-		return child.getBooleanValue();
+		return getParameters().get(0).getBooleanValue();
 	}
 
 	@Override
 	public LocalDate getDateValue() {
-		return child.getDateValue();
+		return getParameters().get(0).getDateValue();
 	}
 
 	@Override
 	public String asText() {
-		return "(" + child.asText() + ")";
+		return "(" + getParameters().get(0).asText() + ")";
 	}
 }

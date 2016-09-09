@@ -4,15 +4,12 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.unary;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
 
 /**
@@ -24,18 +21,14 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
  */
 @Entity
 @DiscriminatorValue(FormulaType.Values.OP_NOT)
-public class FormulaNot extends AbstractNonTerminalFormula {
+public class FormulaNot extends UnaryFormula {
 	
 	public FormulaNot() {
 		super();
 	}
 
 	public FormulaNot(AbstractFormula child) {
-		if (child == null) {
-        	throw new IllegalArgumentException("Child must be non-null");
-        }
-        this.parameters = new ArrayList<>();
-		parameters.add(child);
+		super(child);
 	}
 
 	@Override
@@ -63,15 +56,10 @@ public class FormulaNot extends AbstractNonTerminalFormula {
 	public LocalDate getDateValue() {
 		throw new IllegalAccessError("Cannot invoke getDateValue() method on FormulaNot object");
 	}
-	
+
 	@Override
-	protected FormulaReturnType computeReturnType() {
-		return getDescription().getReturnType();
+	public String operationAsText() {
+		return "not";
 	}
-	
-	@Override
-	public String asText() {
-		return "not " + getParameters().get(0).asText();
-	}
-	
+
 }

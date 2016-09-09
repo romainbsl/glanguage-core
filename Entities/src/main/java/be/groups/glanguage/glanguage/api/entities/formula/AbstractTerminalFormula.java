@@ -1,7 +1,5 @@
 package be.groups.glanguage.glanguage.api.entities.formula;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
 import javax.persistence.Entity;
@@ -14,6 +12,13 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
 		super();
 	}
 
+	public AbstractTerminalFormula(String constantValue) {
+		if (constantValue == null) {
+			throw new IllegalArgumentException("Constant value must be non-null");
+		}
+		this.setConstantValue(constantValue);
+	}
+	
 	@Transient
 	@Override
 	public FormulaReturnType getReturnType() {
@@ -28,38 +33,14 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
 	
 	@Transient
 	@Override
-	public boolean isTerminal() {
-		return true;
-	}
-	
-	@Transient
-	@Override
-	public Integer getIntegerValue() {
-		return Integer.valueOf(getConstantValue());
-	}
-	
-	@Transient
-	@Override
-	public Double getNumericValue() {
-		return Double.valueOf(getConstantValue());
-	}
-	
-	@Transient
-	@Override
 	public String getStringValue() {
 		return getConstantValue();
 	}
 	
 	@Transient
 	@Override
-	public Boolean getBooleanValue() {
-		return Boolean.valueOf(getConstantValue());
-	}
-	
-	@Transient
-	@Override
-	public LocalDate getDateValue() {
-		return LocalDate.parse(getConstantValue(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+	public boolean isTerminal() {
+		return true;
 	}
 	
 	@Override

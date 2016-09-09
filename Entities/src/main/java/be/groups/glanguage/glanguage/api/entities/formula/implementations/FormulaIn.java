@@ -1,19 +1,21 @@
-package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
+package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
 
+@Entity
+@DiscriminatorValue(FormulaType.Values.F_IN)
 public class FormulaIn extends AbstractNonTerminalFormula {
-	
-	private AbstractFormula element;
-	
-	private List<AbstractFormula> inList;
 	
 	public FormulaIn(AbstractFormula element, List<AbstractFormula> inList) {
 		if (element == null) {
@@ -22,13 +24,15 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 		if (inList == null) {
 			throw new IllegalArgumentException("inList must be non-null");
 		}
-		this.element = element;
-		this.inList = inList;
+		this.parameters = new ArrayList<>();
+		this.parameters.add(element);
+		inList.stream().forEach(e -> this.parameters.add(e));
 	}
 	
 	@Override
 	public Boolean getBooleanValue() {
-		Iterator<AbstractFormula> itInList = inList.iterator();
+		AbstractFormula element = getParameters().get(0);
+		Iterator<AbstractFormula> itInList = getParameters().listIterator(1);
 		boolean result = false;
 		switch (getElementsType()) {
 			case INTEGER:
@@ -104,8 +108,9 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 	 * @return
 	 */
 	private FormulaReturnType getElementsType() {
-    	FormulaReturnType returnType = element.getReturnType();
-        Iterator<AbstractFormula> itInList = inList.iterator();
+		AbstractFormula element = getParameters().get(0);
+		Iterator<AbstractFormula> itInList = getParameters().listIterator(1);
+		FormulaReturnType returnType = element.getReturnType();
         if (returnType.equals(FormulaReturnType.INTEGER)) {
             while (returnType.equals(FormulaReturnType.INTEGER) && itInList.hasNext()) {
             	returnType = itInList.next().getReturnType();
@@ -121,10 +126,11 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 
 	@Override
 	public String asText() {
+		AbstractFormula element = getParameters().get(0);
+		Iterator<AbstractFormula> itInList = getParameters().listIterator(1);
 		StringBuffer sb = new StringBuffer();
 		sb.append(element.asText());
 		sb.append("in (");
-		Iterator<AbstractFormula> itInList = inList.iterator();
 		while (itInList.hasNext()) {
 			sb.append(itInList.next().asText());
 		}
