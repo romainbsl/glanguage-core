@@ -4,7 +4,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormulaTest;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinitionTest;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleDescriptionTest;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleGroupItemTest;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentityTest;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersionTest;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameterTest;
@@ -18,7 +21,8 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
  */
 @RunWith(Suite.class)
 @SuiteClasses({ RuleSetTest.class, RuleSetVersionTest.class, RuleIdentityTest.class, RuleDefinitionTest.class,
-		RuleDefinitionParameterTest.class, RuleVersionTest.class })
+		RuleDefinitionParameterTest.class, RuleVersionTest.class, RuleDescriptionTest.class, RuleGroupItemTest.class,
+		AbstractFormulaTest.class })
 public class EntitiesTestSuite {
 
 }
