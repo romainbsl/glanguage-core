@@ -4,11 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
@@ -261,7 +263,7 @@ public class RuleSetVersionTest {
 
 	/**
 	 * Tests
-	 * {@link RuleSetVersion#getDefinedRuleVersion(LocalDateTime, java.util.Collection)}
+	 * {@link RuleSetVersion#getDefinedRuleVersion(LocalDateTime, Collection)}
 	 * when a rule is found
 	 */
 	@SuppressWarnings("unchecked")
@@ -302,7 +304,7 @@ public class RuleSetVersionTest {
 
 	/**
 	 * Tests
-	 * {@link RuleSetVersion#getDefinedRuleVersion(LocalDateTime, java.util.Collection)}
+	 * {@link RuleSetVersion#getDefinedRuleVersion(LocalDateTime, Collection)}
 	 * when no effective rule version is found
 	 */
 	@SuppressWarnings("unchecked")
@@ -337,7 +339,7 @@ public class RuleSetVersionTest {
 
 	/**
 	 * Tests
-	 * {@link RuleSetVersion#getDefinedRuleVersion(LocalDateTime, java.util.Collection)}
+	 * {@link RuleSetVersion#getDefinedRuleVersion(LocalDateTime, Collection)}
 	 * when no definition is found
 	 */
 	@SuppressWarnings("unchecked")
@@ -368,5 +370,31 @@ public class RuleSetVersionTest {
 		RuleVersion foundRuleVersion = ruleSetVersion.getDefinedRuleVersion(effectivity, ruleDefinitionParameters);
 
 		assertNull(foundRuleVersion);
+	}
+
+	/**
+	 * Tests {@link RuleSetVersion#isInExploitation(LocalDateTime)} when true
+	 */
+	@Test
+	public void testIsInExploitationTrue() {
+		LocalDateTime exploitationDate = LocalDateTime.of(2015, 1, 1, 0, 0);
+
+		RuleSetVersion ruleSetVersion = new RuleSetVersion();
+		ruleSetVersion.setExploitationStartDate(exploitationDate);
+
+		assertTrue(ruleSetVersion.isInExploitation(exploitationDate));
+	}
+
+	/**
+	 * Tests {@link RuleSetVersion#isInExploitation(LocalDateTime)} when false
+	 */
+	@Test
+	public void testIsInExploitationFalse() {
+		LocalDateTime exploitationDate = LocalDateTime.of(2015, 1, 1, 0, 0);
+
+		RuleSetVersion ruleSetVersion = new RuleSetVersion();
+		ruleSetVersion.setExploitationStartDate(exploitationDate);
+
+		assertFalse(ruleSetVersion.isInExploitation(LocalDateTime.of(2014, 12, 31, 0, 0)));
 	}
 }
