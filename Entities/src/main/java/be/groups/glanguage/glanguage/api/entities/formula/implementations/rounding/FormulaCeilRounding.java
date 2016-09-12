@@ -13,12 +13,12 @@ import be.groups.glanguage.glanguage.api.entities.rule.RoundingType;
 @DiscriminatorValue(value = FormulaDescription.Values.F_CEIL)
 public class FormulaCeilRounding extends RoundingFormula {
 
-	public FormulaCeilRounding() {
+	protected FormulaCeilRounding() {
 		super();
 	}
 
 	public FormulaCeilRounding(AbstractFormula parameter, AbstractFormula precision) {
-		super(parameter, precision);
+		super(FormulaDescription.F_CEIL, parameter, precision);
 	}
 
 	@Override

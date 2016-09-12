@@ -6,12 +6,7 @@ package be.groups.glanguage.glanguage.api.entities.rule.definition;
  * @author michotte
  */
 public enum DefinitionLevel {
-	
-	DEFAULT,
-	SOCIAL_SECRETARY,
-	EMPLOYER,
-	JOINT_COMMITTEE,
-	COLLECTIVE_LABOR_AGREEMENT,
-	CUSTOM;
-	
+
+	DEFAULT, SOCIAL_SECRETARY, EMPLOYER, JOINT_COMMITTEE, COLLECTIVE_LABOR_AGREEMENT, CUSTOM;
+
 }

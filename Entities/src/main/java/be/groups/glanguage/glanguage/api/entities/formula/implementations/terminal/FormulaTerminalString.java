@@ -21,36 +21,39 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 @DiscriminatorValue(FormulaDescription.Values.TERMINAL_STRING)
 public class FormulaTerminalString extends AbstractTerminalFormula {
 
-	public FormulaTerminalString() {
+	protected FormulaTerminalString() {
 		super();
 	}
-	
+
 	public FormulaTerminalString(String constantValue) {
-		super(constantValue);
+		super(FormulaDescription.TERMINAL_STRING, constantValue);
 	}
-	
+
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
-		throw new IllegalAccessError("Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
 	}
-	
+
 	@Transient
 	@Override
 	public Double getNumericValue() {
-		throw new IllegalAccessError("Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
 	}
-	
+
 	@Transient
 	@Override
 	public Boolean getBooleanValue() {
-		throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
 	}
-	
+
 	@Transient
 	@Override
 	public LocalDate getDateValue() {
 		throw new IllegalAccessError("Cannot invoke getDateValue() method on " + this.getClass().getName() + " object");
 	}
-		
+
 }

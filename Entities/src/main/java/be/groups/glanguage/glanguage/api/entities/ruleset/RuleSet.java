@@ -17,42 +17,42 @@ public class RuleSet {
 	 * Technical unique ID
 	 */
 	private int id;
-		
+
 	/**
 	 * Alias in French language
 	 */
 	private String aliasFr;
-	
+
 	/**
 	 * Alias in Dutch language
 	 */
 	private String aliasNl;
-	
+
 	/**
 	 * Alias in German language
 	 */
 	private String aliasDe;
-	
+
 	/**
 	 * Alias in other language
 	 */
 	private String aliasX;
-	
+
 	/**
 	 * Description in French language
 	 */
 	private String descriptionFr;
-	
+
 	/**
 	 * Description in Dutch language
 	 */
 	private String descriptionNl;
-	
+
 	/**
 	 * Description in German language
 	 */
 	private String descriptionDe;
-	
+
 	/**
 	 * Description in other language
 	 */
@@ -150,73 +150,83 @@ public class RuleSet {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
 	/**
-	 * @param aliasFr the aliasFr to set
+	 * @param aliasFr
+	 *            the aliasFr to set
 	 */
 	public void setAliasFr(String aliasFr) {
 		this.aliasFr = aliasFr;
 	}
 
 	/**
-	 * @param aliasNl the aliasNl to set
+	 * @param aliasNl
+	 *            the aliasNl to set
 	 */
 	public void setAliasNl(String aliasNl) {
 		this.aliasNl = aliasNl;
 	}
 
 	/**
-	 * @param aliasDe the aliasDe to set
+	 * @param aliasDe
+	 *            the aliasDe to set
 	 */
 	public void setAliasDe(String aliasDe) {
 		this.aliasDe = aliasDe;
 	}
 
 	/**
-	 * @param aliasX the aliasX to set
+	 * @param aliasX
+	 *            the aliasX to set
 	 */
 	public void setAliasX(String aliasX) {
 		this.aliasX = aliasX;
 	}
 
 	/**
-	 * @param descriptionFr the descriptionFr to set
+	 * @param descriptionFr
+	 *            the descriptionFr to set
 	 */
 	public void setDescriptionFr(String descriptionFr) {
 		this.descriptionFr = descriptionFr;
 	}
 
 	/**
-	 * @param descriptionNl the descriptionNl to set
+	 * @param descriptionNl
+	 *            the descriptionNl to set
 	 */
 	public void setDescriptionNl(String descriptionNl) {
 		this.descriptionNl = descriptionNl;
 	}
 
 	/**
-	 * @param descriptionDe the descriptionDe to set
+	 * @param descriptionDe
+	 *            the descriptionDe to set
 	 */
 	public void setDescriptionDe(String descriptionDe) {
 		this.descriptionDe = descriptionDe;
 	}
 
 	/**
-	 * @param descriptionX the descriptionX to set
+	 * @param descriptionX
+	 *            the descriptionX to set
 	 */
 	public void setDescriptionX(String descriptionX) {
 		this.descriptionX = descriptionX;
 	}
 
 	/**
-	 * @param versions the versions to set
+	 * @param versions
+	 *            the versions to set
 	 */
 	public void setVersions(Set<RuleSetVersion> versions) {
 		this.versions = versions;
 	}
-	
+
 }

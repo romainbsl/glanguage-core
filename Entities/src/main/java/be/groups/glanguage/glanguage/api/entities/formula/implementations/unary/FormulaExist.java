@@ -12,12 +12,12 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 @DiscriminatorValue(FormulaDescription.Values.OP_EXIST)
 public class FormulaExist extends UnaryFormula {
 
-	public FormulaExist() {
+	protected FormulaExist() {
 		super();
 	}
 
 	public FormulaExist(AbstractFormula child) {
-		super(child);
+		super(FormulaDescription.OP_EXIST, child);
 	}
 
 	@Override

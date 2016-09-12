@@ -25,12 +25,13 @@ public class FormulaTerminalDate extends AbstractTerminalFormula {
 
 	private LocalDate date;
 
-	public FormulaTerminalDate() {
+	protected FormulaTerminalDate() {
 		super();
 	}
 
 	public FormulaTerminalDate(String constantValue) {
-		super(constantValue);
+		super(FormulaDescription.TERMINAL_DATE, constantValue);
+
 		try {
 			this.date = LocalDate.parse(getConstantValue(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		} catch (DateTimeParseException dtpe) {
@@ -40,7 +41,7 @@ public class FormulaTerminalDate extends AbstractTerminalFormula {
 	}
 
 	public FormulaTerminalDate(LocalDate constantValue) {
-		super(constantValue.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		this(constantValue.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 	}
 
 	@Transient

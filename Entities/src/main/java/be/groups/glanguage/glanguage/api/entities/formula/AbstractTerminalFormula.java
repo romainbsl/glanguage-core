@@ -7,18 +7,20 @@ import javax.persistence.Transient;
 
 @Entity
 public abstract class AbstractTerminalFormula extends AbstractFormula {
-	
-	public AbstractTerminalFormula() {
+
+	protected AbstractTerminalFormula() {
 		super();
 	}
 
-	public AbstractTerminalFormula(String constantValue) {
+	public AbstractTerminalFormula(FormulaDescription description, String constantValue) {
+		super(description);
+
 		if (constantValue == null) {
 			throw new IllegalArgumentException("Constant value must be non-null");
 		}
 		this.setConstantValue(constantValue);
 	}
-	
+
 	@Transient
 	@Override
 	public FormulaReturnType getReturnType() {
@@ -30,19 +32,19 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
 	public LinkedList<AbstractFormula> getParameters() {
 		return null;
 	}
-	
+
 	@Transient
 	@Override
 	public String getStringValue() {
 		return getConstantValue();
 	}
-	
+
 	@Transient
 	@Override
 	public boolean isTerminal() {
 		return true;
 	}
-	
+
 	@Override
 	public String asText() {
 		return getConstantValue();

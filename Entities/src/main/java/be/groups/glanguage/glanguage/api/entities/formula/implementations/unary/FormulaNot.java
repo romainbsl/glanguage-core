@@ -22,13 +22,13 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 @Entity
 @DiscriminatorValue(FormulaDescription.Values.OP_NOT)
 public class FormulaNot extends UnaryFormula {
-	
-	public FormulaNot() {
+
+	protected FormulaNot() {
 		super();
 	}
 
 	public FormulaNot(AbstractFormula child) {
-		super(child);
+		super(FormulaDescription.OP_NOT, child);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class FormulaNot extends UnaryFormula {
 	public String getStringValue() {
 		throw new IllegalAccessError("Cannot invoke getStringValue() method on FormulaNot object");
 	}
-	
+
 	@Transient
 	@Override
 	public Boolean getBooleanValue() {

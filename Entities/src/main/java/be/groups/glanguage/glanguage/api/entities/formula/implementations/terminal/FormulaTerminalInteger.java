@@ -22,13 +22,14 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 public class FormulaTerminalInteger extends AbstractTerminalFormula {
 
 	private Integer integerValue;
-	
-	public FormulaTerminalInteger() {
+
+	protected FormulaTerminalInteger() {
 		super();
 	}
-		
+
 	public FormulaTerminalInteger(String constantValue) {
-		super(constantValue);
+		super(FormulaDescription.TERMINAL_INTEGER, constantValue);
+
 		try {
 			this.integerValue = Integer.valueOf(constantValue);
 		} catch (NumberFormatException nfe) {
@@ -41,19 +42,20 @@ public class FormulaTerminalInteger extends AbstractTerminalFormula {
 	public Integer getIntegerValue() {
 		return integerValue;
 	}
-	
+
 	@Transient
 	@Override
 	public Double getNumericValue() {
 		return integerValue.doubleValue();
 	}
-	
+
 	@Transient
 	@Override
 	public Boolean getBooleanValue() {
-		throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
 	}
-	
+
 	@Transient
 	@Override
 	public LocalDate getDateValue() {

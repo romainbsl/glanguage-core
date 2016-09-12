@@ -1,6 +1,5 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -18,22 +17,25 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 @DiscriminatorValue(FormulaDescription.Values.F_BRACKETS)
 public class FormulaBracket extends AbstractFormula {
 
-    public FormulaBracket() {
+	protected FormulaBracket() {
 		super();
 	}
 
 	/**
-     * Initialisation de la formule avec la formule attachée {@code formule}.
-     *
-     * @param Formule formule
-     */
-    public FormulaBracket(AbstractFormula child) {
-        if (child == null) {
-        	throw new IllegalArgumentException("Child must be non-null");
-        }
-    	this.parameters = new ArrayList<>();
-    	this.parameters.add(child);
-    }
+	 * Initialisation de la formule avec la formule attachée {@code formule}.
+	 *
+	 * @param Formule
+	 *            formule
+	 */
+	public FormulaBracket(AbstractFormula child) {
+		super(FormulaDescription.F_BRACKETS);
+
+		if (child == null) {
+			throw new IllegalArgumentException("Child must be non-null");
+		}
+		this.parameters = new ArrayList<>();
+		this.parameters.add(child);
+	}
 
 	@Override
 	public boolean isTerminal() {

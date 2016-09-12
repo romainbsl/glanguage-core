@@ -13,12 +13,12 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 @DiscriminatorValue(FormulaDescription.Values.OP_MODULO)
 public class FormulaModulo extends BinaryFormula {
 
-    public FormulaModulo() {
+	protected FormulaModulo() {
 		super();
 	}
 
 	public FormulaModulo(AbstractFormula child1, AbstractFormula child2) {
-		super(child1, child2);
+		super(FormulaDescription.OP_MODULO, child1, child2);
 	}
 
 	@Override
@@ -32,22 +32,25 @@ public class FormulaModulo extends BinaryFormula {
 
 	@Override
 	public Integer getIntegerValue() {
-		return getParameters().get(0).getIntegerValue() % getParameters().get(1).getIntegerValue();		
+		return getParameters().get(0).getIntegerValue() % getParameters().get(1).getIntegerValue();
 	}
 
 	@Override
 	public Double getNumericValue() {
-		throw new IllegalAccessError("Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Override
 	public String getStringValue() {
-		throw new IllegalAccessError("Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Override
 	public Boolean getBooleanValue() {
-		throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Override

@@ -1,4 +1,5 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,8 +17,14 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 @Entity
 @DiscriminatorValue(FormulaDescription.Values.F_IN)
 public class FormulaIn extends AbstractNonTerminalFormula {
+
+	protected FormulaIn() {
+		super();
+	}
 	
 	public FormulaIn(AbstractFormula element, List<AbstractFormula> inList) {
+		super(FormulaDescription.F_IN);
+		
 		if (element == null) {
 			throw new IllegalArgumentException("element must be non-null");
 		}
@@ -28,82 +35,88 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 		this.parameters.add(element);
 		inList.stream().forEach(e -> this.parameters.add(e));
 	}
-	
+
 	@Override
 	public Boolean getBooleanValue() {
 		AbstractFormula element = getParameters().get(0);
 		Iterator<AbstractFormula> itInList = getParameters().listIterator(1);
 		boolean result = false;
 		switch (getElementsType()) {
-			case INTEGER:
-				int i = element.getIntegerValue();
+		case INTEGER:
+			int i = element.getIntegerValue();
+			while (!result && itInList.hasNext()) {
+				result = i == itInList.next().getIntegerValue();
+			}
+			return result;
+		case NUMERIC:
+			double d = element.getNumericValue();
+			while (!result && itInList.hasNext()) {
+				result = d == itInList.next().getNumericValue();
+			}
+			return result;
+		case DATE:
+			LocalDate date = element.getDateValue();
+			if (date != null) {
 				while (!result && itInList.hasNext()) {
-					result = i == itInList.next().getIntegerValue();
+					result = date.equals(itInList.next().getDateValue());
 				}
-				return result;
-			case NUMERIC:
-				double d = element.getNumericValue();
+			}
+			return result;
+		case BOOLEAN:
+			boolean b = element.getBooleanValue();
+			while (!result && itInList.hasNext()) {
+				result = (b == itInList.next().getBooleanValue());
+			}
+			return result;
+		case STRING:
+			String s = element.getStringValue();
+			if (s != null) {
 				while (!result && itInList.hasNext()) {
-					result = d == itInList.next().getNumericValue();
+					result = s.equals(itInList.next().getStringValue());
 				}
-				return result;
-			case DATE:
-				LocalDate date = element.getDateValue();
-				if (date != null) {
-					while (!result && itInList.hasNext()) {
-						result = date.equals(itInList.next().getDateValue());
-					}
-				}
-				return result;
-			case BOOLEAN:
-				boolean b = element.getBooleanValue();
-				while (!result && itInList.hasNext()) {
-					result = (b == itInList.next().getBooleanValue());
-				}
-				return result;
-			case STRING:
-				String s = element.getStringValue();
-				if (s != null) {
-					while (!result && itInList.hasNext()) {
-						result = s.equals(itInList.next().getStringValue());
-					}
-				}
-				return result;
-			case UNDEFINED:
-				throw new IllegalArgumentException("Cannot compare undefined values in " + this.getClass().getName() + " object");
-			default:
-				throw new IllegalArgumentException("Cannot compare unknown values in " + this.getClass().getName() + " object");
+			}
+			return result;
+		case UNDEFINED:
+			throw new IllegalArgumentException(
+					"Cannot compare undefined values in " + this.getClass().getName() + " object");
+		default:
+			throw new IllegalArgumentException(
+					"Cannot compare unknown values in " + this.getClass().getName() + " object");
 		}
 	}
 
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
-		throw new IllegalAccessError("Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
 	}
-	
+
 	@Transient
 	@Override
 	public Double getNumericValue() {
-		throw new IllegalAccessError("Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
 	}
-	
+
 	@Transient
 	@Override
 	public String getStringValue() {
-		throw new IllegalAccessError("Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
 	}
-	
+
 	@Transient
 	@Override
 	public LocalDate getDateValue() {
 		throw new IllegalAccessError("Cannot invoke getDateValue() method on " + this.getClass().getName() + " object");
 	}
-	
+
 	/**
 	 * Type of the elements<br>
 	 * All element's types are supposed to be in accordance<br>
-	 * The only remaining case is mixed integer and numeric types (in accordance to each other), numeric type prevails
+	 * The only remaining case is mixed integer and numeric types (in accordance
+	 * to each other), numeric type prevails
 	 * 
 	 * @return
 	 */
@@ -111,13 +124,13 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 		AbstractFormula element = getParameters().get(0);
 		Iterator<AbstractFormula> itInList = getParameters().listIterator(1);
 		FormulaReturnType returnType = element.getReturnType();
-        if (returnType.equals(FormulaReturnType.INTEGER)) {
-            while (returnType.equals(FormulaReturnType.INTEGER) && itInList.hasNext()) {
-            	returnType = itInList.next().getReturnType();
-            }
-        }
-        return returnType;
-    }
+		if (returnType.equals(FormulaReturnType.INTEGER)) {
+			while (returnType.equals(FormulaReturnType.INTEGER) && itInList.hasNext()) {
+				returnType = itInList.next().getReturnType();
+			}
+		}
+		return returnType;
+	}
 
 	@Override
 	protected FormulaReturnType computeReturnType() {
@@ -137,5 +150,5 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 		sb.append(")");
 		return sb.toString();
 	}
-	
+
 }

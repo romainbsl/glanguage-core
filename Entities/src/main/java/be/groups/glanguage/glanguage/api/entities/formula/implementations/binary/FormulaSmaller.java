@@ -22,60 +22,66 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 @Entity
 @DiscriminatorValue(FormulaDescription.Values.OP_SMALLER)
 public class FormulaSmaller extends BinaryFormula {
-	
-	public FormulaSmaller() {
+
+	protected FormulaSmaller() {
 		super();
 	}
 
 	public FormulaSmaller(AbstractFormula child1, AbstractFormula child2) {
-		super(child1, child2);
+		super(FormulaDescription.OP_SMALLER, child1, child2);
 	}
-	
+
 	@Transient
 	@Override
 	public Boolean getBooleanValue() {
-		switch(getReturnType()) {
-			case BOOLEAN:
-				throw new IllegalArgumentException("Cannot compare boolean values in " + this.getClass().getName() + " object");
-			case DATE:
-				return getParameters().get(0).getDateValue().isBefore(getParameters().get(1).getDateValue());
-			case INTEGER:
-				return getParameters().get(0).getIntegerValue() < getParameters().get(1).getIntegerValue();
-			case NUMERIC:
-				return getParameters().get(0).getNumericValue() < getParameters().get(1).getNumericValue();
-			case STRING:
-				return getParameters().get(0).getStringValue().compareTo(getParameters().get(1).getStringValue()) < 0;
-			case UNDEFINED:
-				throw new IllegalArgumentException("Cannot compare undefined values in " + this.getClass().getName() + " object");
-			default:
-				throw new IllegalArgumentException("Cannot compare unknown values in " + this.getClass().getName() + " object");
+		switch (getReturnType()) {
+		case BOOLEAN:
+			throw new IllegalArgumentException(
+					"Cannot compare boolean values in " + this.getClass().getName() + " object");
+		case DATE:
+			return getParameters().get(0).getDateValue().isBefore(getParameters().get(1).getDateValue());
+		case INTEGER:
+			return getParameters().get(0).getIntegerValue() < getParameters().get(1).getIntegerValue();
+		case NUMERIC:
+			return getParameters().get(0).getNumericValue() < getParameters().get(1).getNumericValue();
+		case STRING:
+			return getParameters().get(0).getStringValue().compareTo(getParameters().get(1).getStringValue()) < 0;
+		case UNDEFINED:
+			throw new IllegalArgumentException(
+					"Cannot compare undefined values in " + this.getClass().getName() + " object");
+		default:
+			throw new IllegalArgumentException(
+					"Cannot compare unknown values in " + this.getClass().getName() + " object");
 		}
 	}
 
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
-		throw new IllegalAccessError("Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
 	}
-	
+
 	@Transient
 	@Override
 	public Double getNumericValue() {
-		throw new IllegalAccessError("Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
 	}
-	
+
 	@Transient
 	@Override
 	public String getStringValue() {
-		throw new IllegalAccessError("Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
 	}
-	
+
 	@Transient
 	@Override
 	public LocalDate getDateValue() {
 		throw new IllegalAccessError("Cannot invoke getDateValue() method on " + this.getClass().getName() + " object");
 	}
-	
+
 	@Override
 	protected FormulaReturnType computeReturnType() {
 		return getDescription().getReturnType();

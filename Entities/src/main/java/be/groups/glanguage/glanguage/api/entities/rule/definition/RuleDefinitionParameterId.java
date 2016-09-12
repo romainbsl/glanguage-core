@@ -16,15 +16,15 @@ import javax.persistence.Embeddable;
 public class RuleDefinitionParameterId implements Serializable {
 
 	private static final long serialVersionUID = -512381237663922211L;
-	
-	private int ruleDefinitionId;	
-	private int levelId;	
+
+	private int ruleDefinitionId;
+	private int levelId;
 	private String value;
-	
+
 	public RuleDefinitionParameterId() {
 		super();
 	}
-	
+
 	/**
 	 * @return the ruleDefinitionId
 	 */
@@ -32,6 +32,7 @@ public class RuleDefinitionParameterId implements Serializable {
 	public int getRuleDefinitionId() {
 		return ruleDefinitionId;
 	}
+
 	/**
 	 * @return the levelId
 	 */
@@ -39,6 +40,7 @@ public class RuleDefinitionParameterId implements Serializable {
 	public int getLevelId() {
 		return levelId;
 	}
+
 	/**
 	 * @return the value
 	 */
@@ -46,20 +48,26 @@ public class RuleDefinitionParameterId implements Serializable {
 	public String getValue() {
 		return value;
 	}
+
 	/**
-	 * @param ruleDefinitionId the ruleDefinitionId to set
+	 * @param ruleDefinitionId
+	 *            the ruleDefinitionId to set
 	 */
 	public void setRuleDefinitionId(int ruleDefinitionId) {
 		this.ruleDefinitionId = ruleDefinitionId;
 	}
+
 	/**
-	 * @param levelId the levelId to set
+	 * @param levelId
+	 *            the levelId to set
 	 */
 	public void setLevelId(int levelId) {
 		this.levelId = levelId;
 	}
+
 	/**
-	 * @param value the value to set
+	 * @param value
+	 *            the value to set
 	 */
 	public void setValue(String value) {
 		this.value = value;
@@ -95,5 +103,5 @@ public class RuleDefinitionParameterId implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }

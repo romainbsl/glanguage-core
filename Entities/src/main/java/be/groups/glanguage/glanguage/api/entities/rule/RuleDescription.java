@@ -11,66 +11,66 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "RULE_DESCRIPTION")
 public class RuleDescription {
-	
+
 	/**
 	 * Technical unique Id
 	 */
 	private int id;
-	
+
 	/**
 	 * RuleVersion's of which this is the description
 	 */
 	private List<RuleVersion> ruleVersions;
-	
+
 	/**
 	 * Code
 	 */
 	private String code;
-	
+
 	/**
 	 * Alias in French language
 	 */
 	private String aliasFr;
-	
+
 	/**
 	 * Alias in Dutch language
 	 */
 	private String aliasNl;
-	
+
 	/**
 	 * Alias in German language
 	 */
 	private String aliasDe;
-	
+
 	/**
 	 * Alias in other language
 	 */
 	private String aliasX;
-	
+
 	/**
 	 * Description in French language
 	 */
 	private String descriptionFr;
-	
+
 	/**
 	 * Description in Dutch language
 	 */
 	private String descriptionNl;
-	
+
 	/**
 	 * Description in German language
 	 */
 	private String descriptionDe;
-	
+
 	/**
 	 * Description in other language
 	 */
 	private String descriptionX;
-	
+
 	public RuleDescription() {
 		super();
 	}
-	
+
 	/**
 	 * @return the id
 	 */
@@ -79,7 +79,7 @@ public class RuleDescription {
 	public int getId() {
 		return id;
 	}
-	
+
 	/**
 	 * @return the ruleVersion
 	 */
@@ -87,7 +87,7 @@ public class RuleDescription {
 	public List<RuleVersion> getRuleVersions() {
 		return ruleVersions;
 	}
-	
+
 	/**
 	 * @return the code
 	 */
@@ -95,7 +95,7 @@ public class RuleDescription {
 	public String getCode() {
 		return code;
 	}
-	
+
 	/**
 	 * @return the aliasFr
 	 */
@@ -103,7 +103,7 @@ public class RuleDescription {
 	public String getAliasFr() {
 		return aliasFr;
 	}
-	
+
 	/**
 	 * @return the aliasNl
 	 */
@@ -111,7 +111,7 @@ public class RuleDescription {
 	public String getAliasNl() {
 		return aliasNl;
 	}
-	
+
 	/**
 	 * @return the aliasDe
 	 */
@@ -119,7 +119,7 @@ public class RuleDescription {
 	public String getAliasDe() {
 		return aliasDe;
 	}
-	
+
 	/**
 	 * @return the aliasX
 	 */
@@ -127,7 +127,7 @@ public class RuleDescription {
 	public String getAliasX() {
 		return aliasX;
 	}
-	
+
 	/**
 	 * @return the descriptionFr
 	 */
@@ -135,7 +135,7 @@ public class RuleDescription {
 	public String getDescriptionFr() {
 		return descriptionFr;
 	}
-	
+
 	/**
 	 * @return the descriptionNl
 	 */
@@ -143,7 +143,7 @@ public class RuleDescription {
 	public String getDescriptionNl() {
 		return descriptionNl;
 	}
-	
+
 	/**
 	 * @return the descriptionDe
 	 */
@@ -151,7 +151,7 @@ public class RuleDescription {
 	public String getDescriptionDe() {
 		return descriptionDe;
 	}
-	
+
 	/**
 	 * @return the descriptionX
 	 */
@@ -159,79 +159,90 @@ public class RuleDescription {
 	public String getDescriptionX() {
 		return descriptionX;
 	}
-	
+
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	/**
-	 * @param ruleVersions the ruleVersions to set
+	 * @param ruleVersions
+	 *            the ruleVersions to set
 	 */
 	public void setRuleVersions(List<RuleVersion> ruleVersions) {
 		this.ruleVersions = ruleVersions;
 	}
-	
+
 	/**
-	 * @param code the code to set
+	 * @param code
+	 *            the code to set
 	 */
 	public void setCode(String code) {
 		this.code = code;
 	}
-	
+
 	/**
-	 * @param aliasFr the aliasFr to set
+	 * @param aliasFr
+	 *            the aliasFr to set
 	 */
 	public void setAliasFr(String aliasFr) {
 		this.aliasFr = aliasFr;
 	}
-	
+
 	/**
-	 * @param aliasNl the aliasNl to set
+	 * @param aliasNl
+	 *            the aliasNl to set
 	 */
 	public void setAliasNl(String aliasNl) {
 		this.aliasNl = aliasNl;
 	}
-	
+
 	/**
-	 * @param aliasDe the aliasDe to set
+	 * @param aliasDe
+	 *            the aliasDe to set
 	 */
 	public void setAliasDe(String aliasDe) {
 		this.aliasDe = aliasDe;
 	}
-	
+
 	/**
-	 * @param aliasX the aliasX to set
+	 * @param aliasX
+	 *            the aliasX to set
 	 */
 	public void setAliasX(String aliasX) {
 		this.aliasX = aliasX;
 	}
-	
+
 	/**
-	 * @param descriptionFr the descriptionFr to set
+	 * @param descriptionFr
+	 *            the descriptionFr to set
 	 */
 	public void setDescriptionFr(String descriptionFr) {
 		this.descriptionFr = descriptionFr;
 	}
-	
+
 	/**
-	 * @param descriptionNl the descriptionNl to set
+	 * @param descriptionNl
+	 *            the descriptionNl to set
 	 */
 	public void setDescriptionNl(String descriptionNl) {
 		this.descriptionNl = descriptionNl;
 	}
-	
+
 	/**
-	 * @param descriptionDe the descriptionDe to set
+	 * @param descriptionDe
+	 *            the descriptionDe to set
 	 */
 	public void setDescriptionDe(String descriptionDe) {
 		this.descriptionDe = descriptionDe;
 	}
-	
+
 	/**
-	 * @param descriptionX the descriptionX to set
+	 * @param descriptionX
+	 *            the descriptionX to set
 	 */
 	public void setDescriptionX(String descriptionX) {
 		this.descriptionX = descriptionX;

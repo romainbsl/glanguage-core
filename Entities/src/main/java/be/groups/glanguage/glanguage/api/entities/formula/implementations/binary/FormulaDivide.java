@@ -13,13 +13,13 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 @DiscriminatorValue(FormulaDescription.Values.OP_DIVIDE)
 public class FormulaDivide extends BinaryFormula {
 
-    public FormulaDivide() {
+	protected FormulaDivide() {
 		super();
 	}
 
 	public FormulaDivide(AbstractFormula child1, AbstractFormula child2) {
-       super(child1, child2);
-    }
+		super(FormulaDescription.OP_DIVIDE, child1, child2);
+	}
 
 	@Override
 	public Double getNumericValue() {
@@ -28,17 +28,20 @@ public class FormulaDivide extends BinaryFormula {
 
 	@Override
 	public Integer getIntegerValue() {
-		throw new IllegalAccessError("Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Override
 	public String getStringValue() {
-		throw new IllegalAccessError("Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Override
 	public Boolean getBooleanValue() {
-		throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Override

@@ -12,13 +12,13 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 @DiscriminatorValue(FormulaDescription.Values.OP_MULTIPLY)
 public class FormulaMultiply extends BinaryFormula {
 
-    public FormulaMultiply() {
+	protected FormulaMultiply() {
 		super();
 	}
 
 	public FormulaMultiply(AbstractFormula child1, AbstractFormula child2) {
-		super(child1, child2);
-    }
+		super(FormulaDescription.OP_MULTIPLY, child1, child2);
+	}
 
 	@Override
 	public Integer getIntegerValue() {
@@ -32,12 +32,14 @@ public class FormulaMultiply extends BinaryFormula {
 
 	@Override
 	public String getStringValue() {
-		throw new IllegalAccessError("Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Override
 	public Boolean getBooleanValue() {
-		throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Override

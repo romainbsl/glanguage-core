@@ -5,16 +5,20 @@ import javax.persistence.Transient;
 
 @Entity
 public abstract class AbstractNonTerminalFormula extends AbstractFormula {
-	
+
 	/**
 	 * Return type
 	 */
 	private FormulaReturnType returnType;
 
-	public AbstractNonTerminalFormula() {
+	protected AbstractNonTerminalFormula() {
 		super();
 	}
-	
+
+	public AbstractNonTerminalFormula(FormulaDescription description) {
+		super(description);
+	}
+
 	@Transient
 	@Override
 	public FormulaReturnType getReturnType() {
@@ -23,10 +27,10 @@ public abstract class AbstractNonTerminalFormula extends AbstractFormula {
 		}
 		return returnType;
 	}
-	
+
 	protected abstract FormulaReturnType computeReturnType();
-	
-	@Transient	
+
+	@Transient
 	@Override
 	public boolean isTerminal() {
 		return false;

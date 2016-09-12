@@ -6,12 +6,7 @@ package be.groups.glanguage.glanguage.api.entities.rule;
  * @author michotte
  */
 public enum RoundingType {
-	
-	UNDEFINED,
-	ARITHMETIC,
-	CEIL,
-	FLOOR,
-	TRUNC,
-	BANKERS;
-	
+
+	UNDEFINED, ARITHMETIC, CEIL, FLOOR, TRUNC, BANKERS;
+
 }

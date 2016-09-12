@@ -23,19 +23,18 @@ public class FormulaTerminalBoolean extends AbstractTerminalFormula {
 
 	private Boolean booleanValue;
 
-	public FormulaTerminalBoolean() {
+	protected FormulaTerminalBoolean() {
 		super();
 	}
 
 	public FormulaTerminalBoolean(String constantValue) {
-		super(constantValue);
+		super(FormulaDescription.TERMINAL_BOOLEAN, constantValue);
 
 		initializeBooleanValue(constantValue);
 	}
 
 	public FormulaTerminalBoolean(Boolean constantValue) {
-		super(constantValue.toString());
-		this.booleanValue = Boolean.valueOf(constantValue);
+		this(constantValue.toString());
 	}
 
 	@Transient

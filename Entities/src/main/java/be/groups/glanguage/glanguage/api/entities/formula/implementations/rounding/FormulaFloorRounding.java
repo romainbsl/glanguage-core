@@ -13,12 +13,12 @@ import be.groups.glanguage.glanguage.api.entities.rule.RoundingType;
 @DiscriminatorValue(value = FormulaDescription.Values.F_FLOOR)
 public class FormulaFloorRounding extends RoundingFormula {
 
-	public FormulaFloorRounding() {
+	protected FormulaFloorRounding() {
 		super();
 	}
 
 	public FormulaFloorRounding(AbstractFormula parameter, AbstractFormula precision) {
-		super(parameter, precision);
+		super(FormulaDescription.F_FLOOR, parameter, precision);
 	}
 
 	@Override

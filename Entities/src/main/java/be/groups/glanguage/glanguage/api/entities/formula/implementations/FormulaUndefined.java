@@ -48,5 +48,5 @@ public class FormulaUndefined extends AbstractTerminalFormula {
 	public LocalDate getDateValue() {
 		return null;
 	}
-	
+
 }

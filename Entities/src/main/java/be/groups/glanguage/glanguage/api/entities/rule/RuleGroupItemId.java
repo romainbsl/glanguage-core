@@ -38,14 +38,16 @@ public class RuleGroupItemId implements Serializable {
 	}
 
 	/**
-	 * @param ruleVersionId the ruleVersionId to set
+	 * @param ruleVersionId
+	 *            the ruleVersionId to set
 	 */
 	public void setRuleVersionId(int ruleVersionId) {
 		this.ruleVersionId = ruleVersionId;
 	}
 
 	/**
-	 * @param ruleCode the ruleCode to set
+	 * @param ruleCode
+	 *            the ruleCode to set
 	 */
 	public void setRuleId(int ruleId) {
 		this.ruleId = ruleId;
@@ -75,5 +77,5 @@ public class RuleGroupItemId implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }
