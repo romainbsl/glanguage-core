@@ -16,11 +16,13 @@ import javax.persistence.EntityManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import be.groups.common.persistence.util.TransactionHelper;
 import be.groups.common.test.utils.Environment;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTest;
 import be.groups.marmota.persistence.DatabaseIdentifier;
 import be.groups.marmota.persistence.JpaUtil;
 import be.groups.marmota.test.TNSNames;
@@ -68,6 +70,7 @@ public class RuleIdentityTest {
 	 * Tests {@link RuleIdentity} JPA mapping
 	 */
 	@Test
+	@Category(JpaMappingTest.class)
 	public void testJpaMapping() {
 		RuleIdentity ruleIdentity = em.find(RuleIdentity.class, 900000);
 

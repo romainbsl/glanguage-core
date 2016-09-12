@@ -18,6 +18,7 @@ import javax.persistence.EntityManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import be.groups.common.persistence.util.TransactionHelper;
 import be.groups.common.test.utils.Environment;
@@ -25,6 +26,7 @@ import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLeve
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameterId;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTest;
 import be.groups.marmota.persistence.DatabaseIdentifier;
 import be.groups.marmota.persistence.JpaUtil;
 import be.groups.marmota.test.TNSNames;
@@ -72,6 +74,7 @@ public class RuleDefinitionTest {
 	 * Tests {@link RuleDefinition} JPA mapping
 	 */
 	@Test
+	@Category(JpaMappingTest.class)
 	public void testJpaMapping() {
 		RuleDefinition ruleDefinition = em.find(RuleDefinition.class, 900001);
 
