@@ -1,7 +1,9 @@
 package be.groups.glanguage.glanguage.api.entities.rule.definition;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import javax.persistence.EntityManager;
 
@@ -75,6 +77,48 @@ public class RuleDefinitionParameterTest {
 		/* Checking relationships */
 		assertNotNull(ruleDefinitionParameter.getRuleDefinition());
 		assertEquals(900001, ruleDefinitionParameter.getRuleDefinition().getId());
+	}
+
+	/**
+	 * Tests {@link RuleDefinitionParameter#match(RuleDefinitionParameter)} when
+	 * levels are not matching
+	 */
+	@Test
+	public void testMatchLevelsNotMatching() {
+		RuleDefinitionParameter firstRuleDefinitionParameter = new RuleDefinitionParameter(DefinitionLevel.EMPLOYER,
+				"100000");
+		RuleDefinitionParameter secondRuleDefinitionParameter = new RuleDefinitionParameter(
+				DefinitionLevel.JOINT_COMMITTEE, "355");
+
+		assertFalse(firstRuleDefinitionParameter.match(secondRuleDefinitionParameter));
+	}
+
+	/**
+	 * Tests {@link RuleDefinitionParameter#match(RuleDefinitionParameter)} when
+	 * levels are matching, but not values
+	 */
+	@Test
+	public void testMatchLevelsMatchingValuesNotMatching() {
+		RuleDefinitionParameter firstRuleDefinitionParameter = new RuleDefinitionParameter(DefinitionLevel.EMPLOYER,
+				"100000");
+		RuleDefinitionParameter secondRuleDefinitionParameter = new RuleDefinitionParameter(DefinitionLevel.EMPLOYER,
+				"120000");
+
+		assertFalse(firstRuleDefinitionParameter.match(secondRuleDefinitionParameter));
+	}
+
+	/**
+	 * Tests {@link RuleDefinitionParameter#match(RuleDefinitionParameter)} when
+	 * levels and values are matching
+	 */
+	@Test
+	public void testMatchMatching() {
+		RuleDefinitionParameter firstRuleDefinitionParameter = new RuleDefinitionParameter(DefinitionLevel.EMPLOYER,
+				"100000");
+		RuleDefinitionParameter secondRuleDefinitionParameter = new RuleDefinitionParameter(DefinitionLevel.EMPLOYER,
+				"100000");
+
+		assertTrue(firstRuleDefinitionParameter.match(secondRuleDefinitionParameter));
 	}
 
 }
