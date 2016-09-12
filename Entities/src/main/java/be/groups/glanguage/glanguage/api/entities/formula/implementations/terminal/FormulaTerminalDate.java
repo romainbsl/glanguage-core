@@ -9,6 +9,7 @@ import java.time.format.DateTimeParseException;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
@@ -23,7 +24,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
 public class FormulaTerminalDate extends AbstractTerminalFormula {
 
 	private LocalDate date;
-	
+
 	public FormulaTerminalDate() {
 		super();
 	}
@@ -33,7 +34,8 @@ public class FormulaTerminalDate extends AbstractTerminalFormula {
 		try {
 			this.date = LocalDate.parse(getConstantValue(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		} catch (DateTimeParseException dtpe) {
-			throw new IllegalArgumentException("Contant value must reprensent a date formatted as \"dd/MM/yyyy\" : " + constantValue);
+			throw new IllegalArgumentException(
+					"Contant value must reprensent a date formatted as \"dd/MM/yyyy\" : " + constantValue);
 		}
 	}
 
@@ -41,24 +43,31 @@ public class FormulaTerminalDate extends AbstractTerminalFormula {
 		super(constantValue.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 	}
 
+	@Transient
 	@Override
 	public Integer getIntegerValue() {
-		throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
 	}
 
+	@Transient
 	@Override
 	public Double getNumericValue() {
-		throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
 	}
 
+	@Transient
 	@Override
 	public Boolean getBooleanValue() {
-		throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
 	}
 
+	@Transient
 	@Override
 	public LocalDate getDateValue() {
 		return date;
 	}
-	
+
 }
