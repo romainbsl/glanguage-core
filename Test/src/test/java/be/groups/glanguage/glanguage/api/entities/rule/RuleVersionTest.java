@@ -1,7 +1,9 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
 
@@ -84,10 +86,10 @@ public class RuleVersionTest {
 
 		assertNotNull(ruleVersion.getRuleDescription());
 		assertEquals(900000, ruleVersion.getRuleDescription().getId());
-		
+
 		assertNotNull(ruleVersion.getGroupItems());
 		assertEquals(1, ruleVersion.getGroupItems().size());
-		
+
 		RuleGroupItemId ruleGroupItemId = new RuleGroupItemId();
 		ruleGroupItemId.setRuleId(900001);
 		ruleGroupItemId.setRuleVersionId(900003);
@@ -98,6 +100,69 @@ public class RuleVersionTest {
 
 		assertNotNull(ruleVersion.getFormula());
 		assertEquals(900004, ruleVersion.getFormula().getId());
+	}
+
+	/**
+	 * Tests {@link RuleVersion#isEffective(LocalDateTime)} when effectivity
+	 * period is opened and effectivity date falls after start date
+	 */
+	@Test
+	public void testIsEffectiveOpenedPeriodEffective() {
+		RuleVersion ruleVersion = new RuleVersion();
+		ruleVersion.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
+
+		assertTrue(ruleVersion.isEffective(LocalDateTime.of(2015, 1, 1, 0, 0)));
+	}
+
+	/**
+	 * Tests {@link RuleVersion#isEffective(LocalDateTime)} when effectivity
+	 * period is opened and effectivity date falls before start date
+	 */
+	@Test
+	public void testIsEffectiveOpenedPeriodNotEffective() {
+		RuleVersion ruleVersion = new RuleVersion();
+		ruleVersion.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
+
+		assertFalse(ruleVersion.isEffective(LocalDateTime.of(2014, 12, 31, 0, 0)));
+	}
+
+	/**
+	 * Tests {@link RuleVersion#isEffective(LocalDateTime)} when effectivity
+	 * period is closed and effectivity date falls between start and end date
+	 */
+	@Test
+	public void testIsEffectiveClosedPeriodEffective() {
+		RuleVersion ruleVersion = new RuleVersion();
+		ruleVersion.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
+		ruleVersion.setEffectivityEndDate(LocalDateTime.of(2015, 12, 31, 0, 0));
+
+		assertTrue(ruleVersion.isEffective(LocalDateTime.of(2015, 2, 1, 0, 0)));
+	}
+
+	/**
+	 * Tests {@link RuleVersion#isEffective(LocalDateTime)} when effectivity
+	 * period is closed and effectivity date falls before start date
+	 */
+	@Test
+	public void testIsEffectiveClosedPeriodNotEffectiveBefore() {
+		RuleVersion ruleVersion = new RuleVersion();
+		ruleVersion.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
+		ruleVersion.setEffectivityEndDate(LocalDateTime.of(2015, 12, 31, 0, 0));
+
+		assertFalse(ruleVersion.isEffective(LocalDateTime.of(2014, 12, 31, 0, 0)));
+	}
+
+	/**
+	 * Tests {@link RuleVersion#isEffective(LocalDateTime)} when effectivity
+	 * period is closed and effectivity date falls after end date
+	 */
+	@Test
+	public void testIsEffectiveClosedPeriodNotEffectiveAfter() {
+		RuleVersion ruleVersion = new RuleVersion();
+		ruleVersion.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
+		ruleVersion.setEffectivityEndDate(LocalDateTime.of(2015, 12, 31, 0, 0));
+
+		assertFalse(ruleVersion.isEffective(LocalDateTime.of(2016, 1, 1, 0, 0)));
 	}
 
 }
