@@ -8,7 +8,7 @@ package be.groups.glanguage.glanguage.api.entities.formula;
 public enum FormulaPriority {
 	
 	UNDEFINED,
-	INSTRUTION,
+	INSTRUCTION,
 	OR,
 	AND,
 	COMPARISON,

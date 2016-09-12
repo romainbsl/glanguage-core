@@ -7,11 +7,11 @@ import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
 @Entity
-@DiscriminatorValue(FormulaType.Values.F_RULE_REFERENCE)
+@DiscriminatorValue(FormulaDescription.Values.F_RULE_REFERENCE)
 public class FormulaRuleReference extends AbstractFormula {
 	
 	private RuleVersion referencedRule;

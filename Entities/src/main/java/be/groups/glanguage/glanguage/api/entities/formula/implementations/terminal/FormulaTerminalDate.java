@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 
 /**
  * Formula representing a constant integer value
@@ -20,7 +20,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(FormulaType.Values.TERMINAL_DATE)
+@DiscriminatorValue(FormulaDescription.Values.TERMINAL_DATE)
 public class FormulaTerminalDate extends AbstractTerminalFormula {
 
 	private LocalDate date;

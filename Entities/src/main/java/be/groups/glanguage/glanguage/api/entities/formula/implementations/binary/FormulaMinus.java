@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 
 /**
  * Formula representing a mathematical subtraction<br>
@@ -23,7 +23,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(FormulaType.Values.OP_MINUS)
+@DiscriminatorValue(FormulaDescription.Values.OP_MINUS)
 public class FormulaMinus extends BinaryFormula {
 	
 	public FormulaMinus() {

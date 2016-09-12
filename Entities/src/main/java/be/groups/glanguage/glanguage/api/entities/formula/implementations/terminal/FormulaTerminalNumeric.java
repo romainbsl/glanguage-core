@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 
 /**
  * Formula representing a constant integer value
@@ -18,7 +18,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(FormulaType.Values.TERMINAL_NUMERIC)
+@DiscriminatorValue(FormulaDescription.Values.TERMINAL_NUMERIC)
 public class FormulaTerminalNumeric extends AbstractTerminalFormula {
 	
 	private Double doubleValue;

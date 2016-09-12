@@ -11,7 +11,7 @@ import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 
 /**
  * Formula representing a logical and operation<br>
@@ -21,7 +21,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(FormulaType.Values.OP_AND)
+@DiscriminatorValue(FormulaDescription.Values.OP_AND)
 public class FormulaAnd extends BinaryFormula {
 	
 	public FormulaAnd() {

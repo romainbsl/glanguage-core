@@ -7,10 +7,10 @@ import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 
 @Entity
-@DiscriminatorValue(FormulaType.Values.OP_DIVIDE)
+@DiscriminatorValue(FormulaDescription.Values.OP_DIVIDE)
 public class FormulaDivide extends BinaryFormula {
 
     public FormulaDivide() {
@@ -48,7 +48,7 @@ public class FormulaDivide extends BinaryFormula {
 
 	@Override
 	protected FormulaReturnType computeReturnType() {
-		if (getParameters().get(1).getType().equals(FormulaReturnType.NUMERIC)) {
+		if (getParameters().get(1).getReturnType().equals(FormulaReturnType.NUMERIC)) {
 			return FormulaReturnType.NUMERIC;
 		} else {
 			return getParameters().get(0).getReturnType();

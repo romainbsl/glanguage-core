@@ -29,7 +29,7 @@ public abstract class BinaryFormula extends AbstractNonTerminalFormula {
 
 	@Override
 	protected FormulaReturnType computeReturnType() {
-		if (getParameters().get(1).getType().equals(FormulaReturnType.NUMERIC)) {
+		if (getParameters().get(1).getReturnType().equals(FormulaReturnType.NUMERIC)) {
 			return FormulaReturnType.NUMERIC;
 		} else {
 			return getParameters().get(0).getReturnType();

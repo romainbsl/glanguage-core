@@ -1,144 +1,216 @@
 package be.groups.glanguage.glanguage.api.entities.formula;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+public enum FormulaDescription {
+	/*
+	 * Enum constants
+	 */
+	/* Undefined */
+	UNDEFINED(Values.UNDEFINED, FormulaPriority.UNDEFINED, FormulaReturnType.UNDEFINED),
 
-/**
- * Formula description
- * 
- * @author michotte
- */
-@Entity
-@Table(name = "FORMULA_DESCRIPTION")
-@SuppressWarnings("unused")
-public class FormulaDescription {
+	/* Standard functions */
+	F_ABS(Values.F_ABS, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
 
-	/**
-	 * Technical unique id
+	F_BANKERS_ROUNDED(Values.F_BANKERS_ROUNDED, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
+
+	F_CEIL(Values.F_CEIL, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
+
+	F_FLOOR(Values.F_FLOOR, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
+
+	F_FORMATDATE(Values.F_FORMATDATE, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
+
+	F_FORMATINTEGER(Values.F_FORMATINTEGER, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
+
+	F_FORMATNUMERIC(Values.F_FORMATNUMERIC, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
+
+	F_FORMATSTRING(Values.F_FORMATSTRING, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
+
+	F_ROUNDED(Values.F_ROUNDED, FormulaPriority.UNARY, FormulaReturnType.UNDEFINED),
+
+	F_STRINGITEM(Values.F_STRINGITEM, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
+
+	F_SUBSTRING(Values.F_SUBSTRING, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
+
+	F_SIGN(Values.F_SIGN, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
+
+	F_TRUNC(Values.F_TRUNC, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
+
+	F_MIN(Values.F_MIN, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
+
+	F_MAX(Values.F_MAX, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
+
+	F_SMIN(Values.F_SMIN, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
+
+	F_SMAX(Values.F_SMAX, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
+
+	F_DATE(Values.F_DATE, FormulaPriority.INSTRUCTION, FormulaReturnType.INTEGER),
+
+	F_MINUTES(Values.F_MINUTES, FormulaPriority.INSTRUCTION, FormulaReturnType.INTEGER),
+
+	F_HOURS(Values.F_HOURS, FormulaPriority.INSTRUCTION, FormulaReturnType.INTEGER),
+
+	F_DAYS(Values.F_DAYS, FormulaPriority.INSTRUCTION, FormulaReturnType.INTEGER),
+
+	F_MONTHS(Values.F_MONTHS, FormulaPriority.INSTRUCTION, FormulaReturnType.INTEGER),
+
+	F_YEARS(Values.F_YEARS, FormulaPriority.INSTRUCTION, FormulaReturnType.INTEGER),
+
+	F_BRACKETS(Values.F_BRACKETS, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
+
+	F_IN(Values.F_IN, FormulaPriority.INSTRUCTION, FormulaReturnType.BOOLEAN),
+
+	F_PUT_TEXT(Values.F_PUT_TEXT, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
+
+	F_RULE_REFERENCE(Values.F_RULE_REFERENCE, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
+
+	F_STRINGLENGTH(Values.F_STRINGLENGTH, FormulaPriority.INSTRUCTION, FormulaReturnType.INTEGER),
+
+	/* Unary operations */
+	OP_NOT(Values.OP_NOT, FormulaPriority.UNARY, FormulaReturnType.BOOLEAN),
+
+	OP_UNARY_PLUS(Values.OP_UNARY_PLUS, FormulaPriority.UNARY, FormulaReturnType.UNDEFINED),
+
+	OP_UNARY_MINUS(Values.OP_UNARY_MINUS, FormulaPriority.UNARY, FormulaReturnType.UNDEFINED),
+
+	OP_EXIST(Values.OP_EXIST, FormulaPriority.UNARY, FormulaReturnType.BOOLEAN),
+
+	/* Binary operations */
+	OP_MULTIPLY(Values.OP_MULTIPLY, FormulaPriority.MULTIPLICATION, FormulaReturnType.UNDEFINED),
+
+	OP_DIVIDE(Values.OP_DIVIDE, FormulaPriority.MULTIPLICATION, FormulaReturnType.UNDEFINED),
+
+	OP_INTEGER_DIVISION(Values.OP_INTEGER_DIVISION, FormulaPriority.MULTIPLICATION, FormulaReturnType.INTEGER),
+
+	OP_MODULO(Values.OP_MODULO, FormulaPriority.UNDEFINED, FormulaReturnType.INTEGER),
+
+	OP_PLUS(Values.OP_PLUS, FormulaPriority.ADDITION, FormulaReturnType.UNDEFINED),
+
+	OP_MINUS(Values.OP_MINUS, FormulaPriority.ADDITION, FormulaReturnType.UNDEFINED),
+
+	OP_EQUAL(Values.OP_EQUAL, FormulaPriority.COMPARISON, FormulaReturnType.BOOLEAN),
+
+	OP_DIFFERENCE(Values.OP_DIFFERENCE, FormulaPriority.COMPARISON, FormulaReturnType.BOOLEAN),
+
+	OP_SMALLER(Values.OP_SMALLER, FormulaPriority.COMPARISON, FormulaReturnType.BOOLEAN),
+
+	OP_SMALLER_OR_EQUAL(Values.OP_SMALLER_OR_EQUAL, FormulaPriority.COMPARISON, FormulaReturnType.BOOLEAN),
+
+	OP_GREATER(Values.OP_GREATER, FormulaPriority.COMPARISON, FormulaReturnType.BOOLEAN),
+
+	OP_GREATER_OR_EQUAL(Values.OP_GREATER_OR_EQUAL, FormulaPriority.COMPARISON, FormulaReturnType.BOOLEAN),
+
+	OP_AND(Values.OP_AND, FormulaPriority.AND, FormulaReturnType.BOOLEAN),
+
+	OP_OR(Values.OP_OR, FormulaPriority.OR, FormulaReturnType.BOOLEAN),
+
+	/* Terminal */
+	TERMINAL_INTEGER(Values.TERMINAL_INTEGER, FormulaPriority.ATOMIC, FormulaReturnType.INTEGER),
+
+	TERMINAL_NUMERIC(Values.TERMINAL_NUMERIC, FormulaPriority.ATOMIC, FormulaReturnType.NUMERIC),
+
+	TERMINAL_STRING(Values.TERMINAL_STRING, FormulaPriority.ATOMIC, FormulaReturnType.STRING),
+
+	TERMINAL_BOOLEAN(Values.TERMINAL_BOOLEAN, FormulaPriority.ATOMIC, FormulaReturnType.BOOLEAN),
+
+	TERMINAL_DATE(Values.TERMINAL_DATE, FormulaPriority.ATOMIC, FormulaReturnType.DATE);
+
+	/*
+	 * Fields
 	 */
 	private Integer id;
 
-	/**
-	 * Name
-	 */
-	private String name;
-
-	/**
-	 * Name
-	 */
-	private String description;
-	
-	
-	/**
-	 * Type
-	 */
-	private FormulaType type;
-
-	/**
-	 * Priority
-	 */
 	private FormulaPriority priority;
-	
-	/**
-	 * ReturnType
-	 */
+
 	private FormulaReturnType returnType;
-	
-	public FormulaDescription() {
-		super();
+
+	/*
+	 * Constructors
+	 */
+	private FormulaDescription(String id, FormulaPriority priority, FormulaReturnType returnType) {
+		this.id = Integer.valueOf(id);
+		this.priority = priority;
+		this.returnType = returnType;
 	}
 
-	/**
-	 * @return the id
+	/*
+	 * Getters
 	 */
-	@Id
-	@Column(name = "ID")
 	public Integer getId() {
 		return id;
 	}
 
-	/**
-	 * @return the name
-	 */
-	@Column(name = "NAME")
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @return the description
-	 */
-	@Column(name = "DESCRIPTION")
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * @return the priority
-	 */
-	@Column(name = "FORMULA_PRIORITY_ID")
-	@Convert(converter = FormulaPriorityConverter.class)
 	public FormulaPriority getPriority() {
 		return priority;
 	}
 
-	/**
-	 * @return the returnType
-	 */
-	@Column(name = "FORMULA_RETURN_TYPE_ID")
-	@Convert(converter = FormulaReturnTypeConverter.class)
 	public FormulaReturnType getReturnType() {
 		return returnType;
 	}
 
-	/**
-	 * @return the type
+	/*
+	 * Classes
 	 */
-	@Transient
-	public FormulaType getType() {
-		if (type == null) {
-			type = FormulaType.translate(id);
-		}
-		return type;
-	}
-	
-	/**
-	 * @param id the id to set
-	 */
-	private void setId(Integer id) {
-		this.id = id;
-	}
+	public static class Values {
+		/* Undefined */
+		public static final String UNDEFINED = "0";
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+		/* Standard functions */
+		public static final String F_ABS = "1";
+		public static final String F_BANKERS_ROUNDED = "2";
+		public static final String F_CEIL = "3";
+		public static final String F_FLOOR = "4";
+		public static final String F_FORMATDATE = "5";
+		public static final String F_FORMATINTEGER = "6";
+		public static final String F_FORMATNUMERIC = "7";
+		public static final String F_FORMATSTRING = "8";
+		public static final String F_ROUNDED = "9";
+		public static final String F_STRINGITEM = "10";
+		public static final String F_SUBSTRING = "11";
+		public static final String F_SIGN = "12";
+		public static final String F_TRUNC = "13";
+		public static final String F_MIN = "17";
+		public static final String F_MAX = "18";
+		public static final String F_SMIN = "19";
+		public static final String F_SMAX = "20";
+		public static final String F_DATE = "21";
+		public static final String F_MINUTES = "22";
+		public static final String F_HOURS = "23";
+		public static final String F_DAYS = "24";
+		public static final String F_MONTHS = "25";
+		public static final String F_YEARS = "26";
+		public static final String F_BRACKETS = "27";
+		public static final String F_IN = "28";
+		public static final String F_PUT_TEXT = "29";
+		public static final String F_RULE_REFERENCE = "30";
+		public static final String F_STRINGLENGTH = "31";
 
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
+		/* Unary operations */
+		public static final String OP_NOT = "101";
+		public static final String OP_UNARY_PLUS = "102";
+		public static final String OP_UNARY_MINUS = "103";
+		public static final String OP_EXIST = "104";
 
-	/**
-	 * @param priority the priority to set
-	 */
-	private void setPriority(FormulaPriority priority) {
-		this.priority = priority;
-	}
+		/* Binary operations */
+		public static final String OP_MULTIPLY = "201";
+		public static final String OP_DIVIDE = "202";
+		public static final String OP_INTEGER_DIVISION = "203";
+		public static final String OP_MODULO = "204";
+		public static final String OP_PLUS = "205";
+		public static final String OP_MINUS = "206";
+		public static final String OP_EQUAL = "207";
+		public static final String OP_DIFFERENCE = "208";
+		public static final String OP_SMALLER = "209";
+		public static final String OP_SMALLER_OR_EQUAL = "210";
+		public static final String OP_GREATER = "211";
+		public static final String OP_GREATER_OR_EQUAL = "212";
+		public static final String OP_AND = "213";
+		public static final String OP_OR = "214";
 
-	/**
-	 * @param returnType the returnType to set
-	 */
-	private void setReturnType(FormulaReturnType returnType) {
-		this.returnType = returnType;
+		/* Terminal */
+		public static final String TERMINAL_INTEGER = "1001";
+		public static final String TERMINAL_NUMERIC = "1002";
+		public static final String TERMINAL_STRING = "1003";
+		public static final String TERMINAL_BOOLEAN = "1004";
+		public static final String TERMINAL_DATE = "1005";
 	}
 
 }

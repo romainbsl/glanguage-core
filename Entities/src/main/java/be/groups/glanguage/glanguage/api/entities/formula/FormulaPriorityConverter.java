@@ -11,7 +11,7 @@ public class FormulaPriorityConverter implements AttributeConverter<FormulaPrior
 		switch (attribute) {
             case UNDEFINED:
                 return 0;
-            case INSTRUTION:
+            case INSTRUCTION:
                 return 1;
             case OR:
                 return 2;
@@ -38,7 +38,7 @@ public class FormulaPriorityConverter implements AttributeConverter<FormulaPrior
             case 0:
                 return FormulaPriority.UNDEFINED;
             case 1:
-                return FormulaPriority.INSTRUTION;
+                return FormulaPriority.INSTRUCTION;
             case 2:
                 return FormulaPriority.OR;
             case 3:
