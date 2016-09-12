@@ -1,16 +1,15 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,7 +23,8 @@ import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatc
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
 
 /**
- * A RuleDefintion is a definition of a RuleIdentity for a specific DefinitionLevel
+ * A RuleDefintion is a definition of a RuleIdentity for a specific
+ * DefinitionLevel
  * 
  * @author michotte
  */
@@ -32,31 +32,34 @@ import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinition
 @Table(name = "RULE_DEFINITION")
 @SuppressWarnings("unused")
 public class RuleDefinition {
-	
+
 	/**
 	 * Technical unique ID
 	 */
 	private int id;
-	
+
 	/**
 	 * The RuleIdentity of which this is a definition
 	 */
 	private RuleIdentity ruleIdentity;
-	
+
 	/**
 	 * The sorted set of definition parameters
 	 */
 	private SortedSet<RuleDefinitionParameter> definitionParameters;
-	
+
 	/**
 	 * Versions
 	 */
 	private List<RuleVersion> versions;
-	
+
 	public RuleDefinition() {
 		super();
+
+		this.definitionParameters = new TreeSet<>();
+		this.versions = new ArrayList<>();
 	}
-	
+
 	/**
 	 * @return the id
 	 */
@@ -65,7 +68,7 @@ public class RuleDefinition {
 	public int getId() {
 		return id;
 	}
-	
+
 	/**
 	 * @return the identity
 	 */
@@ -74,7 +77,7 @@ public class RuleDefinition {
 	public RuleIdentity getRuleIdentity() {
 		return ruleIdentity;
 	}
-	
+
 	/**
 	 * @return the definitionParameters
 	 */
@@ -83,7 +86,7 @@ public class RuleDefinition {
 	public SortedSet<RuleDefinitionParameter> getDefinitionParameters() {
 		return definitionParameters;
 	}
-	
+
 	/**
 	 * @return the versions
 	 */
@@ -92,27 +95,32 @@ public class RuleDefinition {
 	public List<RuleVersion> getVersions() {
 		return versions;
 	}
-	
+
 	/**
-	 * Get the version effective at specified effective date and in exploitation at specified observe date
+	 * Get the version effective at specified effective date and in exploitation
+	 * at specified observe date
 	 * 
-	 * @param effective the date on which the version returned is effective
-	 * @param observe the date on which the version returned is in exploitation
-	 * @return the version that is effective at the specified effective date and in exploitation at specified observe date if it
-	 *         exists, null otherwise
+	 * @param effective
+	 *            the date on which the version returned is effective
+	 * @param observe
+	 *            the date on which the version returned is in exploitation
+	 * @return the version that is effective at the specified effective date and
+	 *         in exploitation at specified observe date if it exists, null
+	 *         otherwise
 	 */
 	@Transient
 	public RuleVersion getVersion(LocalDateTime effective, LocalDateTime observe) {
 		Iterator<RuleVersion> itRuleVersions = getVersions().iterator();
 		while (itRuleVersions.hasNext()) {
 			RuleVersion ruleVersion = itRuleVersions.next();
-			if (ruleVersion.isEffective(effective) && ruleVersion.getRuleSetVersions().stream().anyMatch(rv -> rv.isInExploitation(observe))) {
+			if (ruleVersion.isEffective(effective)
+					&& ruleVersion.getRuleSetVersions().stream().anyMatch(rv -> rv.isInExploitation(observe))) {
 				return ruleVersion;
 			}
 		}
 		return null;
 	}
-	
+
 	@Transient
 	public DefinitionLevel getLevel() {
 		if (definitionParameters == null || definitionParameters.isEmpty()) {
@@ -133,39 +141,43 @@ public class RuleDefinition {
 			}
 		}
 	}
-	
+
 	public boolean match(Collection<RuleDefinitionParameter> definitionParameters) {
 		return DefinitionMatcher.match(this.definitionParameters, definitionParameters);
 	}
-	
+
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	private void setId(int id) {
 		this.id = id;
 	}
-	
+
 	/**
-	 * @param identity the identity to set
+	 * @param identity
+	 *            the identity to set
 	 */
 	private void setRuleIdentity(RuleIdentity ruleIdentity) {
 		this.ruleIdentity = ruleIdentity;
 	}
-	
+
 	/**
-	 * @param definitionParameters the definitionParameters to set
+	 * @param definitionParameters
+	 *            the definitionParameters to set
 	 */
 	public void setDefinitionParameters(SortedSet<RuleDefinitionParameter> definitionParameters) {
 		this.definitionParameters = definitionParameters;
 	}
-	
+
 	/**
-	 * @param versions the versions to set
+	 * @param versions
+	 *            the versions to set
 	 */
 	private void setVersions(List<RuleVersion> versions) {
 		this.versions = versions;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -173,7 +185,7 @@ public class RuleDefinition {
 		result = prime * result + id;
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -187,5 +199,5 @@ public class RuleDefinition {
 			return false;
 		return true;
 	}
-	
+
 }
