@@ -9,13 +9,13 @@ import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 
 /**
  *
  */
 @Entity
-@DiscriminatorValue(FormulaType.Values.F_BRACKETS)
+@DiscriminatorValue(FormulaDescription.Values.F_BRACKETS)
 public class FormulaBracket extends AbstractFormula {
 
     public FormulaBracket() {

@@ -2,8 +2,14 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.unary
 
 import java.time.LocalDate;
 
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+
+@Entity
+@DiscriminatorValue(FormulaDescription.Values.OP_EXIST)
 public class FormulaExist extends UnaryFormula {
 
 	public FormulaExist() {
@@ -12,21 +18,24 @@ public class FormulaExist extends UnaryFormula {
 
 	public FormulaExist(AbstractFormula child) {
 		super(child);
-    }    
+	}
 
 	@Override
 	public Integer getIntegerValue() {
-		throw new IllegalAccessError("Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Override
 	public Double getNumericValue() {
-		throw new IllegalAccessError("Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Override
 	public String getStringValue() {
-		throw new IllegalAccessError("Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
+		throw new IllegalAccessError(
+				"Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Override

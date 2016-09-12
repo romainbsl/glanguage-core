@@ -6,10 +6,10 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 
 @Entity
-@DiscriminatorValue(FormulaType.Values.OP_MULTIPLY)
+@DiscriminatorValue(FormulaDescription.Values.OP_MULTIPLY)
 public class FormulaMultiply extends BinaryFormula {
 
     public FormulaMultiply() {

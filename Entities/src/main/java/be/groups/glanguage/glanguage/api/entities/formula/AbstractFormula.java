@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
@@ -105,8 +106,7 @@ public abstract class AbstractFormula {
 	/**
 	 * @return the description
 	 */
-	@ManyToOne
-	@JoinColumn(name = "FORMULA_DESCRIPTION_ID", insertable = false, updatable = false, nullable = false)
+	@Convert(converter = FormulaDescriptionConverter.class)
 	public FormulaDescription getDescription() {
 		return description;
 	}
@@ -143,11 +143,6 @@ public abstract class AbstractFormula {
 	@Column(name = "VALUE", nullable = true)
 	public String getConstantValue() {
 		return constantValue;
-	}
-
-	@Transient
-	public FormulaType getType() {
-		return description.getType();
 	}
 
 	@Transient	

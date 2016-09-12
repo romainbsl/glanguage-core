@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 
 /**
  * Formula representing a logical not operation<br>
@@ -20,7 +20,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(FormulaType.Values.OP_NOT)
+@DiscriminatorValue(FormulaDescription.Values.OP_NOT)
 public class FormulaNot extends UnaryFormula {
 	
 	public FormulaNot() {

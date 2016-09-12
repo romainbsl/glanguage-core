@@ -11,7 +11,7 @@ import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 
 /**
  * Formula representing a logical not equal operation<br>
@@ -20,7 +20,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(FormulaType.Values.OP_EQUAL)
+@DiscriminatorValue(FormulaDescription.Values.OP_EQUAL)
 public class FormulaDifference extends BinaryFormula {
 	
 	public FormulaDifference() {

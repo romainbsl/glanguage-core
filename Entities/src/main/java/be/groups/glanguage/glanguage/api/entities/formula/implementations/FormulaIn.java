@@ -11,10 +11,10 @@ import javax.persistence.Transient;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 
 @Entity
-@DiscriminatorValue(FormulaType.Values.F_IN)
+@DiscriminatorValue(FormulaDescription.Values.F_IN)
 public class FormulaIn extends AbstractNonTerminalFormula {
 	
 	public FormulaIn(AbstractFormula element, List<AbstractFormula> inList) {

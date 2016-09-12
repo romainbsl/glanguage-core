@@ -11,7 +11,7 @@ import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 
 /**
  * Formula representing a logical smaller or equal operation<br>
@@ -20,7 +20,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(FormulaType.Values.OP_SMALLER_OR_EQUAL)
+@DiscriminatorValue(FormulaDescription.Values.OP_SMALLER_OR_EQUAL)
 public class FormulaSmallerOrEqual extends BinaryFormula {
 	
 	public FormulaSmallerOrEqual() {

@@ -6,10 +6,10 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 
 @Entity
-@DiscriminatorValue(FormulaType.Values.OP_UNARY_MINUS)
+@DiscriminatorValue(FormulaDescription.Values.OP_UNARY_MINUS)
 public class FormulaUnaryMinus extends UnaryFormula {
 	
 	public FormulaUnaryMinus(AbstractFormula child) {
