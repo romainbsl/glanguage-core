@@ -31,6 +31,12 @@ public class FormulaOr extends BinaryFormula {
 	public FormulaOr(AbstractFormula child1, AbstractFormula child2) {
 		super(child1, child2);
 	}
+	
+	@Transient
+	@Override
+	public Boolean getBooleanValue() {
+		return getParameters().get(0).getBooleanValue() || getParameters().get(1).getBooleanValue();
+	}
 
 	@Transient
 	@Override
@@ -48,12 +54,6 @@ public class FormulaOr extends BinaryFormula {
 	@Override
 	public String getStringValue() {
 		throw new IllegalAccessError("Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
-	}
-	
-	@Transient
-	@Override
-	public Boolean getBooleanValue() {
-		return getParameters().get(0).getBooleanValue() || getParameters().get(1).getBooleanValue();
 	}
 	
 	@Transient

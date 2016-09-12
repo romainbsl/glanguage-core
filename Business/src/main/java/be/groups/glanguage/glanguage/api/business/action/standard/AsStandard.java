@@ -10,13 +10,14 @@ import org.slf4j.LoggerFactory;
 import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaIn;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaRuleReference;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaAnd;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDifference;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDivide;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaEqual;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaGreater;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaGreaterOrEqual;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaIn;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaIntegerDivision;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMinus;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaModulo;
@@ -25,6 +26,11 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaPlus;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmaller;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerOrEqual;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBoolean;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDate;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalInteger;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumeric;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalString;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaExist;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaNot;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaUnaryMinus;
@@ -139,143 +145,143 @@ public class AsStandard implements SemanticalAction {
 	}
 	
 	@Override
-	public AbstractFormula formuleReference(String nom) {
-		return new RefRegle(nom);
+	public AbstractFormula referenceFormula(String ruleId) {
+		return new FormulaRuleReference(ruleId);
 	}
 	
 	@Override
-	public AbstractFormula formuleConstanteEntiere(String s) {
-		return new CteEntier(new Integer(s));
+	public AbstractFormula terminalIntegerFormula(String s) {
+		return new FormulaTerminalInteger(s);
 	}
 	
 	@Override
-	public AbstractFormula formuleConstanteNumerique(String s) {
-		return new CteNumerique(new Double(s));
+	public AbstractFormula terminalNumericFormula(String s) {
+		return new FormulaTerminalNumeric(s);
 	}
 	
 	@Override
-	public AbstractFormula formuleConstanteDate(Date d) {
-		return new CteDate(d);
+	public AbstractFormula terminalDateFormula(LocalDate d) {
+		return new FormulaTerminalDate(d);
+	}
+	
+//	@Override
+//	public AbstractFormula formuleConstanteDuree(String duree) {
+//		SDuration d;
+//		int i = 0;
+//		int k = 0;
+//		int annees = 0;
+//		int mois = 0;
+//		int jours = 0;
+//		int heures = 0;
+//		
+//		while (i < duree.length()) {
+//			switch (duree.charAt(i)) {
+//				case '0':
+//				case '1':
+//				case '2':
+//				case '3':
+//				case '4':
+//				case '5':
+//				case '6':
+//				case '7':
+//				case '8':
+//				case '9':
+//					k = k * 10 + Character.getNumericValue(duree.charAt(i));
+//					break;
+//				case 'y':
+//					annees = k;
+//					k = 0;
+//					break;
+//				case 'm':
+//					mois = k;
+//					k = 0;
+//					break;
+//				case 'd':
+//					jours = k;
+//					k = 0;
+//					break;
+//				case ':':
+//					heures = k;
+//					k = 0;
+//				default:
+//					break;
+//			}
+//			i = i + 1;
+//		}
+//		d = new SDuration(jours, mois, annees);
+//		d.set(d.getDays(), heures, k, 0);
+//		return new CteDuree(d);
+//	}
+	
+	@Override
+	public AbstractFormula terminalBooleanFormula(boolean b) {
+		return new FormulaTerminalBoolean(b);
 	}
 	
 	@Override
-	public AbstractFormula formuleConstanteDuree(String duree) {
-		SDuration d;
-		int i = 0;
-		int k = 0;
-		int annees = 0;
-		int mois = 0;
-		int jours = 0;
-		int heures = 0;
-		
-		while (i < duree.length()) {
-			switch (duree.charAt(i)) {
-				case '0':
-				case '1':
-				case '2':
-				case '3':
-				case '4':
-				case '5':
-				case '6':
-				case '7':
-				case '8':
-				case '9':
-					k = k * 10 + Character.getNumericValue(duree.charAt(i));
-					break;
-				case 'y':
-					annees = k;
-					k = 0;
-					break;
-				case 'm':
-					mois = k;
-					k = 0;
-					break;
-				case 'd':
-					jours = k;
-					k = 0;
-					break;
-				case ':':
-					heures = k;
-					k = 0;
-				default:
-					break;
-			}
-			i = i + 1;
-		}
-		d = new SDuration(jours, mois, annees);
-		d.set(d.getDays(), heures, k, 0);
-		return new CteDuree(d);
+	public AbstractFormula terminalStringFormula(String s) {
+		return new FormulaTerminalString(s);
 	}
 	
 	@Override
-	public AbstractFormula formuleConstanteBooleen(boolean b) {
-		return new CteBooleen(b);
+	public AbstractFormula emptyFormula() {
+		return null;
 	}
 	
 	@Override
-	public AbstractFormula formuleConstanteChaine(String s) {
-		return new CteChaine(s);
-	}
-	
-	@Override
-	public AbstractFormula formuleVide() {
-		return new FormuleVide();
-	}
-	
-	@Override
-	public AbstractFormula fonctionStandard(EnumerationSLangage cf, LinkedList<Formule> param) {
+	public AbstractFormula standardFunction(FormulaType formulaType, LinkedList<AbstractFormula> parameters) {
 		AbstractFormula result = null;
-		switch (cf) {
+		switch (formulaType) {
 			case F_CEIL:
+				return new FormulaCeilRounding(parameters.get(0), parameters.get(1));
 			case F_FLOOR:
 			case F_ROUNDED:
 			case F_TRUNC:
 			case F_BANKERS_ROUNDED:
-				result = new FormuleFonctionArrondi(cf, param);
-				break;
+				return new FormuleFonctionArrondi(formulaType, parameters);
 			case F_FORMATDATE:
-				result = new FormuleFormatDate(cf, param);
+				result = new FormuleFormatDate(cf, parameters);
 				break;
 			case F_FORMATINTEGER:
-				result = new FormuleFormatInteger(cf, param);
+				result = new FormuleFormatInteger(cf, parameters);
 				break;
 			case F_FORMATNUMERIC:
-				result = new FormuleFormatNumeric(cf, param);
+				result = new FormuleFormatNumeric(cf, parameters);
 				break;
 			case F_FORMATSTRING:
-				result = new FormuleFormatString(cf, param);
+				result = new FormuleFormatString(cf, parameters);
 				break;
 			case F_STRINGITEM:
-				result = new FormuleStringItem(cf, param);
+				result = new FormuleStringItem(cf, parameters);
 				break;
 			case F_SUBSTRING:
-				result = new FormuleSubstring(cf, param);
+				result = new FormuleSubstring(cf, parameters);
 				break;
 			case F_MAX:
 			case F_MIN:
 			case F_SMIN:
 			case F_SMAX:
-				result = new FormuleFonctionExtremum(cf, param);
+				result = new FormuleFonctionExtremum(cf, parameters);
 				break;
 			case F_DATE:
-				result = new FormuleFonctionDivers(cf, param);
+				result = new FormuleFonctionDivers(cf, parameters);
 				break;
 			case F_MINUTES:
 			case F_HOURS:
 			case F_DAYS:
 			case F_MONTHS:
 			case F_YEARS:
-				result = new FormuleFonctionDuree(cf, param);
+				result = new FormuleFonctionDuree(cf, parameters);
 				break;
 			case F_ABS:
 			case F_SIGN:
-				result = new FormuleFonctionMath(cf, param);
+				result = new FormuleFonctionMath(cf, parameters);
 				break;
 			case F_PUT_TEXT:
-				result = new FormulePutText(cf, param);
+				result = new FormulePutText(cf, parameters);
 				break;
 			case F_STRINGLENGTH:
-				result = new FormuleStringLength(cf, param);
+				result = new FormuleStringLength(cf, parameters);
 				break;
 			default:
 				logger.log(Level.ERROR,

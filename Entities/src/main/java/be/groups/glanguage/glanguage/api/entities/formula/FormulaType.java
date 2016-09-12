@@ -32,8 +32,10 @@ public enum FormulaType {
 	F_DAYS(Values.F_DAYS), 
 	F_MONTHS(Values.F_MONTHS), 
 	F_YEARS(Values.F_YEARS), 
-	F_PARENTHESIS(Values.F_PARENTHESIS),
+	F_BRACKETS(Values.F_BRACKETS),
+	F_IN(Values.F_IN),
 	F_PUT_TEXT(Values.F_PUT_TEXT), 
+	F_RULE_REFERENCE(Values.F_RULE_REFERENCE),
 	F_STRINGLENGTH(Values.F_STRINGLENGTH),
 																	
 	/* Unary operations */
@@ -143,10 +145,14 @@ public enum FormulaType {
 				return F_MONTHS;
 			case Values.F_YEARS:
 				return F_YEARS;
-			case Values.F_PARENTHESIS:
-				return F_PARENTHESIS;
+			case Values.F_BRACKETS:
+				return F_BRACKETS;
+			case Values.F_IN:
+				return F_IN;
 			case Values.F_PUT_TEXT:
 				return F_PUT_TEXT;
+			case Values.F_RULE_REFERENCE:
+				return F_RULE_REFERENCE;
 			case Values.F_STRINGLENGTH:
 				return F_STRINGLENGTH;
 				
@@ -237,9 +243,11 @@ public enum FormulaType {
 		public static final String F_DAYS = "24";
 		public static final String F_MONTHS = "25";
 		public static final String F_YEARS = "26";
-		public static final String F_PARENTHESIS = "27";
-		public static final String F_PUT_TEXT = "28";
-		public static final String F_STRINGLENGTH = "29";
+		public static final String F_BRACKETS = "27";
+		public static final String F_IN = "28";
+		public static final String F_PUT_TEXT = "29";
+		public static final String F_RULE_REFERENCE = "30";
+		public static final String F_STRINGLENGTH = "31";
 		
 		/* Unary operations */
 		public static final String OP_NOT = "101";
