@@ -18,11 +18,11 @@
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaNot</class>
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaOr</class>
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaPlus</class>
- 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaTerminalBoolean</class>
- 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaTerminalDate</class>
- 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaTerminalInteger</class>
- 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaTerminalNumeric</class>
- 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaTerminalString</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBoolean</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDate</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalInteger</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumeric</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalString</class>
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaUndefined</class>
  		
  		<class>be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity</class>

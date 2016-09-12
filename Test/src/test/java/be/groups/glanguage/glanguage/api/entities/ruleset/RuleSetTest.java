@@ -1,15 +1,22 @@
 package be.groups.glanguage.glanguage.api.entities.ruleset;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import be.groups.common.persistence.util.TransactionHelper;
 import be.groups.common.test.utils.Environment;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTest;
 import be.groups.marmota.persistence.DatabaseIdentifier;
 import be.groups.marmota.persistence.JpaUtil;
 import be.groups.marmota.test.TNSNames;
@@ -57,28 +64,33 @@ public class RuleSetTest {
 	 * Tests {@link RuleSet} JPA mapping
 	 */
 	@Test
+	@Category(JpaMappingTest.class)
 	public void testJpaMapping() {
 		RuleSet ruleSet = em.find(RuleSet.class, 900000);
 
+		/* Checking entity */
 		assertNotNull(ruleSet);
 
 		assertEquals(900000, ruleSet.getId());
 
-		assertEquals("test_fr", ruleSet.getAliasFr());
-		assertEquals("test_nl", ruleSet.getAliasNl());
-		assertEquals("test_de", ruleSet.getAliasDe());
-		assertEquals("test_x", ruleSet.getAliasX());
+		assertEquals("rs1_fr", ruleSet.getAliasFr());
+		assertEquals("rs1_nl", ruleSet.getAliasNl());
+		assertEquals("rs1_de", ruleSet.getAliasDe());
+		assertEquals("rs1_x", ruleSet.getAliasX());
 
-		assertEquals("descr_test_fr", ruleSet.getDescriptionFr());
-		assertEquals("descr_test_nl", ruleSet.getDescriptionNl());
-		assertEquals("descr_test_de", ruleSet.getDescriptionDe());
-		assertEquals("descr_test_x", ruleSet.getDescriptionX());
+		assertEquals("rs1_descr_fr", ruleSet.getDescriptionFr());
+		assertEquals("rs1_descr_nl", ruleSet.getDescriptionNl());
+		assertEquals("rs1_descr_de", ruleSet.getDescriptionDe());
+		assertEquals("rs1_descr_x", ruleSet.getDescriptionX());
 
+		/* Checking relationships */
 		assertNotNull(ruleSet.getVersions());
-		assertEquals(2, ruleSet.getVersions().size());
+		assertEquals(3, ruleSet.getVersions().size());
+		assertEquals(3, ruleSet.getVersions().stream().map(v -> v.getId()).distinct().count());
 
-		ruleSet.getVersions().stream().forEach(v -> {
-			assertEquals(ruleSet, v.getRuleSet());
+		List<Integer> ruleSetVersionIds = Arrays.asList(900000, 900001, 900002);
+		ruleSet.getVersions().forEach(v -> {
+			assertTrue(ruleSetVersionIds.contains(v.getId()));
 		});
 	}
 

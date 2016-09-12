@@ -26,7 +26,7 @@ public class RuleDefinitionParameter implements Comparable<RuleDefinitionParamet
 	/**
 	 * Id
 	 */
-	private RuleDefintionParameterId id;
+	private RuleDefinitionParameterId id;
 	
 	/**
 	 * The description this is part of
@@ -57,7 +57,7 @@ public class RuleDefinitionParameter implements Comparable<RuleDefinitionParamet
 	 * @return the id
 	 */
 	@EmbeddedId
-	public RuleDefintionParameterId getId() {
+	public RuleDefinitionParameterId getId() {
 		return id;
 	}
 
@@ -101,7 +101,7 @@ public class RuleDefinitionParameter implements Comparable<RuleDefinitionParamet
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(RuleDefintionParameterId id) {
+	public void setId(RuleDefinitionParameterId id) {
 		this.id = id;
 	}
 
