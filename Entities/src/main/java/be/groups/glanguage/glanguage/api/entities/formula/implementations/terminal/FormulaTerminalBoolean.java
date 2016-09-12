@@ -69,10 +69,13 @@ public class FormulaTerminalBoolean extends AbstractTerminalFormula {
 	}
 
 	private void initializeBooleanValue(String constantValue) {
-		if (!(constantValue.equalsIgnoreCase("true") || constantValue.equalsIgnoreCase("false"))) {
-			throw new IllegalArgumentException("Contant value must reprensent a boolean value : " + constantValue);
+		if (constantValue != null) {
+			if (!(constantValue.equalsIgnoreCase("true") || constantValue.equalsIgnoreCase("false"))) {
+				throw new IllegalArgumentException("Contant value must reprensent a boolean value : " + constantValue);
+			}
+
+			this.booleanValue = Boolean.valueOf(constantValue);
 		}
-		this.booleanValue = Boolean.valueOf(constantValue);
 	}
 
 }

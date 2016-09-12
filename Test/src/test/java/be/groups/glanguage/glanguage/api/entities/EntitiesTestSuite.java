@@ -5,6 +5,11 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormulaTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBooleanTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDateTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalIntegerTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumericTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalStringTest;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinitionTest;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDescriptionTest;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleGroupItemTest;
@@ -22,7 +27,8 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
 @RunWith(Suite.class)
 @SuiteClasses({ RuleSetTest.class, RuleSetVersionTest.class, RuleIdentityTest.class, RuleDefinitionTest.class,
 		RuleDefinitionParameterTest.class, RuleVersionTest.class, RuleDescriptionTest.class, RuleGroupItemTest.class,
-		AbstractFormulaTest.class })
+		AbstractFormulaTest.class, FormulaTerminalBooleanTest.class, FormulaTerminalIntegerTest.class,
+		FormulaTerminalNumericTest.class, FormulaTerminalStringTest.class, FormulaTerminalDateTest.class })
 public class EntitiesTestSuite {
 
 }
