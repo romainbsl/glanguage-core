@@ -49,10 +49,10 @@ public class FormulaTerminalDateTest {
 	/**
 	 * Tests {@link FormulaTerminalDate#getStringValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test
 	public void testGetStringValue() {
 		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
-		formula.getStringValue();
+		assertEquals("01/01/2015", formula.getStringValue());
 	}
 
 	/**

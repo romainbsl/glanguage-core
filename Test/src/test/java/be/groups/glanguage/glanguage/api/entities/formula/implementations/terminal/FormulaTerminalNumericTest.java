@@ -47,10 +47,10 @@ public class FormulaTerminalNumericTest {
 	/**
 	 * Tests {@link FormulaTerminalNumeric#getStringValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test
 	public void testGetStringValue() {
 		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
-		formula.getStringValue();
+		assertEquals("1.5", formula.getStringValue());
 	}
 
 	/**

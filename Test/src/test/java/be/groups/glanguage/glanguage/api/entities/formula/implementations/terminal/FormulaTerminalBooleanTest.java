@@ -56,10 +56,10 @@ public class FormulaTerminalBooleanTest {
 	/**
 	 * Tests {@link FormulaTerminalBoolean#getStringValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test
 	public void testGetStringValue() {
 		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(true);
-		formula.getStringValue();
+		assertEquals("true", formula.getStringValue());
 	}
 
 	/**
