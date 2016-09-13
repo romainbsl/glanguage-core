@@ -1,5 +1,9 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -29,6 +33,14 @@ public class FormulaFloorRounding extends RoundingFormula {
 	@Override
 	public AbstractFormula getDefaultPrecision() {
 		return new FormulaTerminalInteger("1");
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
+		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
 	}
 
 	@Override

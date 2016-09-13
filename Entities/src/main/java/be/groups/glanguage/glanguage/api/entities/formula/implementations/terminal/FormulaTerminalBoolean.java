@@ -3,8 +3,6 @@
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal;
 
-import java.time.LocalDate;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -42,26 +40,8 @@ public class FormulaTerminalBoolean extends AbstractTerminalFormula {
 	
 	@Transient
 	@Override
-	public Integer getIntegerValue() {
-		throw new IllegalAccessError("Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
-	}
-	
-	@Transient
-	@Override
-	public Double getNumericValue() {
-		throw new IllegalAccessError("Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
-	}
-	
-	@Transient
-	@Override
 	public Boolean getBooleanValue() {
 		return booleanValue;
 	}
-	
-	@Transient
-	@Override
-	public LocalDate getDateValue() {
-		throw new IllegalAccessError("Cannot invoke getDateValue() method on " + this.getClass().getName() + " object");
-	}
-		
+
 }

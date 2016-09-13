@@ -1,6 +1,5 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -11,9 +10,6 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 
-/**
- *
- */
 @Entity
 @DiscriminatorValue(FormulaDescription.Values.F_BRACKETS)
 public class FormulaBracket extends AbstractFormula {
