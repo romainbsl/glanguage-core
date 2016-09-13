@@ -52,7 +52,8 @@ public class FormulaDifference extends BinaryFormula {
 	@Transient
 	@Override
 	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.values()));
+		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC,
+				FormulaReturnType.STRING, FormulaReturnType.BOOLEAN, FormulaReturnType.DATE));
 	}
 
 	/**
@@ -62,11 +63,21 @@ public class FormulaDifference extends BinaryFormula {
 	@Override
 	protected Map<FormulaReturnType, Set<FormulaReturnType>> getParametersCombinationMatrix() {
 		Map<FormulaReturnType, Set<FormulaReturnType>> combinations = new HashMap<>();
-		combinations.put(FormulaReturnType.INTEGER, new HashSet<>(Arrays.asList(FormulaReturnType.values())));
-		combinations.put(FormulaReturnType.NUMERIC, new HashSet<>(Arrays.asList(FormulaReturnType.values())));
-		combinations.put(FormulaReturnType.STRING, new HashSet<>(Arrays.asList(FormulaReturnType.values())));
-		combinations.put(FormulaReturnType.BOOLEAN, new HashSet<>(Arrays.asList(FormulaReturnType.values())));
-		combinations.put(FormulaReturnType.DATE, new HashSet<>(Arrays.asList(FormulaReturnType.values())));
+		combinations.put(FormulaReturnType.INTEGER,
+				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC,
+						FormulaReturnType.STRING, FormulaReturnType.BOOLEAN, FormulaReturnType.DATE)));
+		combinations.put(FormulaReturnType.NUMERIC,
+				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC,
+						FormulaReturnType.STRING, FormulaReturnType.BOOLEAN, FormulaReturnType.DATE)));
+		combinations.put(FormulaReturnType.STRING,
+				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC,
+						FormulaReturnType.STRING, FormulaReturnType.BOOLEAN, FormulaReturnType.DATE)));
+		combinations.put(FormulaReturnType.BOOLEAN,
+				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC,
+						FormulaReturnType.STRING, FormulaReturnType.BOOLEAN, FormulaReturnType.DATE)));
+		combinations.put(FormulaReturnType.DATE,
+				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC,
+						FormulaReturnType.STRING, FormulaReturnType.BOOLEAN, FormulaReturnType.DATE)));
 
 		return combinations;
 	}

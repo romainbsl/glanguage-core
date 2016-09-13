@@ -93,7 +93,8 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 	 */
 	@Override
 	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.values()));
+		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC,
+				FormulaReturnType.STRING, FormulaReturnType.BOOLEAN, FormulaReturnType.DATE));
 	}
 
 	/**

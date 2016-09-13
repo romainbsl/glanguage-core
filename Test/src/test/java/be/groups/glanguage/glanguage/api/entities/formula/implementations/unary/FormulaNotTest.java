@@ -59,6 +59,21 @@ public class FormulaNotTest {
 	}
 
 	/**
+	 * Tests {@link FormulaNot#getBooleanValue()} when parameter exist but has
+	 * wrong type
+	 */
+	@Test(expected = IllegalStateException.class)
+	public void testGetBooleanValueParameterWrongType() {
+		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(childFormula.getStringValue()).thenReturn("some_value");
+
+		FormulaNot formula = new FormulaNot(childFormula);
+
+		formula.getBooleanValue();
+	}
+
+	/**
 	 * Tests {@link FormulaNot#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
