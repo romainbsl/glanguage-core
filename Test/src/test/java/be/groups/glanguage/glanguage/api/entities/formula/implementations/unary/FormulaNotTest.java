@@ -1,7 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.unary;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -11,136 +10,136 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 
 /**
- * Test class for {@link FormulaExist}
+ * Test class for {@link FormulaNot}
  * 
  * @author DUPIREFR
  */
-public class FormulaExistTest {
-
+public class FormulaNotTest {
 	/*
 	 * Tests
 	 */
 	/**
-	 * Tests {@link FormulaExist#isTerminal()}
+	 * Tests {@link FormulaNot#isTerminal()}
 	 */
 	@Test
 	public void testIsTerminal() {
-		FormulaExist formula = new FormulaExist();
+		FormulaNot formula = new FormulaNot();
 
 		assertFalse(formula.isTerminal());
 	}
 
 	/**
-	 * Tests {@link FormulaExist#getBooleanValue()} when parameter exists
+	 * Tests {@link FormulaNot#getBooleanValue()} when parameter exists
 	 */
 	@Test
 	public void testGetBooleanValueParameterExists() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getValue()).thenReturn("some_value");
+		when(childFormula.getBooleanValue()).thenReturn(true);
 
-		FormulaExist formula = new FormulaExist(childFormula);
-
-		assertEquals(Boolean.TRUE, formula.getBooleanValue());
-	}
-
-	/**
-	 * Tests {@link FormulaExist#getBooleanValue()} when parameter doesn't exist
-	 */
-	@Test
-	public void testGetBooleanValueParameterNotExist() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-
-		FormulaExist formula = new FormulaExist(childFormula);
+		FormulaNot formula = new FormulaNot(childFormula);
 
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaExist#getIntegerValue()}
+	 * Tests {@link FormulaNot#getBooleanValue()} when parameter doesn't exist
+	 */
+	@Test(expected = NullPointerException.class)
+	public void testGetBooleanValueParameterNotExist() {
+		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getBooleanValue()).thenReturn(null);
+
+		FormulaNot formula = new FormulaNot(childFormula);
+
+		formula.getBooleanValue();
+	}
+
+	/**
+	 * Tests {@link FormulaNot#getIntegerValue()}
 	 */
 	@Test(expected = IllegalAccessError.class)
 	public void testGetIntegerValue() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getValue()).thenReturn("some_value");
+		when(childFormula.getBooleanValue()).thenReturn(true);
 
-		FormulaExist formula = new FormulaExist(childFormula);
+		FormulaNot formula = new FormulaNot(childFormula);
 
 		formula.getIntegerValue();
 	}
 
 	/**
-	 * Tests {@link FormulaExist#getNumericValue()}
+	 * Tests {@link FormulaNot#getNumericValue()}
 	 */
 	@Test(expected = IllegalAccessError.class)
 	public void testGetNumericValue() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getValue()).thenReturn("some_value");
+		when(childFormula.getBooleanValue()).thenReturn(true);
 
-		FormulaExist formula = new FormulaExist(childFormula);
+		FormulaNot formula = new FormulaNot(childFormula);
 
 		formula.getNumericValue();
 	}
 
 	/**
-	 * Tests {@link FormulaExist#getStringValue()}
+	 * Tests {@link FormulaNot#getStringValue()}
 	 */
 	@Test(expected = IllegalAccessError.class)
 	public void testGetStringValue() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getValue()).thenReturn("some_value");
+		when(childFormula.getBooleanValue()).thenReturn(true);
 
-		FormulaExist formula = new FormulaExist(childFormula);
+		FormulaNot formula = new FormulaNot(childFormula);
 
 		formula.getStringValue();
 	}
 
 	/**
-	 * Tests {@link FormulaExist#getDateValue()}
+	 * Tests {@link FormulaNot#getDateValue()}
 	 */
 	@Test(expected = IllegalAccessError.class)
 	public void testGetDateValue() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getValue()).thenReturn("some_value");
+		when(childFormula.getBooleanValue()).thenReturn(true);
 
-		FormulaExist formula = new FormulaExist(childFormula);
+		FormulaNot formula = new FormulaNot(childFormula);
 
 		formula.getDateValue();
 	}
 
 	/**
-	 * Tests {@link FormulaExist#getReturnType()}
+	 * Tests {@link FormulaNot#getReturnType()}
 	 */
 	@Test
 	public void testGetReturnType() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getValue()).thenReturn("some_value");
+		when(childFormula.getBooleanValue()).thenReturn(true);
 
-		FormulaExist formula = new FormulaExist(childFormula);
+		FormulaNot formula = new FormulaNot(childFormula);
 
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 
 	/**
-	 * Tests {@link FormulaExist#operationAsText()}
+	 * Tests {@link FormulaNot#operationAsText()}
 	 */
 	@Test
 	public void testOperationAsText() {
-		FormulaExist formula = new FormulaExist();
+		FormulaNot formula = new FormulaNot();
 
-		assertEquals("?", formula.operationAsText());
+		assertEquals("not", formula.operationAsText());
 	}
 
 	/**
-	 * Tests {@link FormulaExist#operationAsText()}
+	 * Tests {@link FormulaNot#operationAsText()}
 	 */
 	@Test
 	public void testAsText() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.asText()).thenReturn("some_rule");
 
-		FormulaExist formula = new FormulaExist(childFormula);
+		FormulaNot formula = new FormulaNot(childFormula);
 
-		assertEquals("? some_rule", formula.asText());
+		assertEquals("not some_rule", formula.asText());
 	}
 
 }
