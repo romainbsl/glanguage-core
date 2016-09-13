@@ -33,6 +33,11 @@ public class FormulaUnaryMinus extends UnaryFormula {
 		return -getParameters().get(0).getNumericValue();
 	}
 
+	@Override
+	protected FormulaReturnType computeReturnType() {
+		return getParameters().get(0).getReturnType();
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
