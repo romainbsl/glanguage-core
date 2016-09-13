@@ -375,6 +375,25 @@ public class FormulaGreaterTest {
 	}
 
 	/**
+	 * Tests {@link FormulaGreater#getBooleanValue()} when at least one parameter
+	 * has wrong type
+	 */
+	@Test(expected = IllegalStateException.class)
+	public void testGetBooleanValueParametersWrongType() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(leftFormula.getIntegerValue()).thenReturn(1);
+
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(rightFormula.getStringValue()).thenReturn("some_value");
+
+		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+
+		formula.getBooleanValue();
+	}
+
+	/**
 	 * Tests {@link FormulaGreater#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
