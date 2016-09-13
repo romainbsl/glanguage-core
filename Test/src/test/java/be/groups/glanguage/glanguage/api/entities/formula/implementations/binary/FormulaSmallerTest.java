@@ -13,27 +13,27 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 
 /**
- * Test class for {@link FormulaGreater}
+ * Test class for {@link FormulaSmaller}
  * 
  * @author DUPIREFR
  */
-public class FormulaGreaterTest {
+public class FormulaSmallerTest {
 
 	/*
 	 * Tests
 	 */
 	/**
-	 * Tests {@link FormulaGreater#isTerminal()}
+	 * Tests {@link FormulaSmaller#isTerminal()}
 	 */
 	@Test
 	public void testIsTerminal() {
-		FormulaGreater formula = new FormulaGreater();
+		FormulaSmaller formula = new FormulaSmaller();
 
 		assertFalse(formula.isTerminal());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * integers and left > right
 	 */
 	@Test
@@ -46,13 +46,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(0);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
-		assertEquals(Boolean.TRUE, formula.getBooleanValue());
+		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * integers and left = right
 	 */
 	@Test
@@ -65,13 +65,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(1);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * integers and left < right
 	 */
 	@Test
@@ -84,13 +84,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(2);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
-		assertEquals(Boolean.FALSE, formula.getBooleanValue());
+		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * numerics and left > right
 	 */
 	@Test
@@ -103,13 +103,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.5);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
-		assertEquals(Boolean.TRUE, formula.getBooleanValue());
+		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * numerics and left = right
 	 */
 	@Test
@@ -122,13 +122,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(1.5);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * numerics and left < right
 	 */
 	@Test
@@ -141,13 +141,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(2.5);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
-		assertEquals(Boolean.FALSE, formula.getBooleanValue());
+		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * integer and numeric and left > right
 	 */
 	@Test
@@ -160,13 +160,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.5);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
-		assertEquals(Boolean.TRUE, formula.getBooleanValue());
+		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * integer and numeric and left = right
 	 */
 	@Test
@@ -179,13 +179,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(1.0);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * integer and numeric and left < right
 	 */
 	@Test
@@ -198,13 +198,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(2.5);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
-		assertEquals(Boolean.FALSE, formula.getBooleanValue());
+		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * numeric and integer and left > right
 	 */
 	@Test
@@ -217,13 +217,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(0.0);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
-		assertEquals(Boolean.TRUE, formula.getBooleanValue());
+		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * numeric and integer and left = right
 	 */
 	@Test
@@ -236,13 +236,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(1.0);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * numeric and integer and left < right
 	 */
 	@Test
@@ -255,13 +255,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(2.0);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
-		assertEquals(Boolean.FALSE, formula.getBooleanValue());
+		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * strings and left > right
 	 */
 	@Test
@@ -274,13 +274,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(rightFormula.getStringValue()).thenReturn("aaa");
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
-		assertEquals(Boolean.TRUE, formula.getBooleanValue());
+		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * strings and left = right
 	 */
 	@Test
@@ -293,13 +293,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(rightFormula.getStringValue()).thenReturn("aaa");
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * strings and left < right
 	 */
 	@Test
@@ -312,13 +312,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(rightFormula.getStringValue()).thenReturn("aab");
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
-		assertEquals(Boolean.FALSE, formula.getBooleanValue());
+		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * dates and left > right
 	 */
 	@Test
@@ -331,13 +331,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		when(rightFormula.getDateValue()).thenReturn(LocalDate.of(2014, 1, 1));
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
-		assertEquals(Boolean.TRUE, formula.getBooleanValue());
+		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * dates and left = right
 	 */
 	@Test
@@ -350,13 +350,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		when(rightFormula.getDateValue()).thenReturn(LocalDate.of(2015, 1, 1));
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when parameters exist, are
 	 * dates and left < right
 	 */
 	@Test
@@ -369,13 +369,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		when(rightFormula.getDateValue()).thenReturn(LocalDate.of(2016, 1, 1));
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
-		assertEquals(Boolean.FALSE, formula.getBooleanValue());
+		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getBooleanValue()} when at least one parameter
+	 * Tests {@link FormulaSmaller#getBooleanValue()} when at least one parameter
 	 * has wrong type
 	 */
 	@Test(expected = IllegalStateException.class)
@@ -388,13 +388,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(true);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
 		formula.getBooleanValue();
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getIntegerValue()}
+	 * Tests {@link FormulaSmaller#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
@@ -406,13 +406,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(0);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
 		formula.getIntegerValue();
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getNumericValue()}
+	 * Tests {@link FormulaSmaller#getNumericValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
@@ -424,13 +424,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(0);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
 		formula.getNumericValue();
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getStringValue()}
+	 * Tests {@link FormulaSmaller#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
@@ -442,13 +442,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(0);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
 		formula.getStringValue();
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getDateValue()}
+	 * Tests {@link FormulaSmaller#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
@@ -460,13 +460,13 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(0);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
 		formula.getDateValue();
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getReturnType()}
+	 * Tests {@link FormulaSmaller#getReturnType()}
 	 */
 	@Test
 	public void testGetReturnType() {
@@ -478,23 +478,23 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(0);
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#operationAsText()}
+	 * Tests {@link FormulaSmaller#operationAsText()}
 	 */
 	@Test
 	public void testOperationAsText() {
-		FormulaGreater formula = new FormulaGreater();
+		FormulaSmaller formula = new FormulaSmaller();
 
-		assertEquals(">", formula.operationAsText());
+		assertEquals("<", formula.operationAsText());
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#operationAsText()}
+	 * Tests {@link FormulaSmaller#operationAsText()}
 	 */
 	@Test
 	public void testAsText() {
@@ -506,9 +506,9 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.asText()).thenReturn("some_rule2");
 
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
-		assertEquals("some_rule1 > some_rule2", formula.asText());
+		assertEquals("some_rule1 < some_rule2", formula.asText());
 	}
 
 }

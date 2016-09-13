@@ -6,8 +6,11 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormulaTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaAndTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaGreaterOrEqualTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaGreaterTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaOrTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerOrEqualTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBooleanTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDateTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalIntegerTest;
@@ -36,7 +39,8 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
 		AbstractFormulaTest.class, FormulaTerminalBooleanTest.class, FormulaTerminalIntegerTest.class,
 		FormulaTerminalNumericTest.class, FormulaTerminalStringTest.class, FormulaTerminalDateTest.class,
 		FormulaExistTest.class, FormulaNotTest.class, FormulaUnaryMinusTest.class, FormulaAndTest.class,
-		FormulaOrTest.class, FormulaGreaterTest.class })
+		FormulaOrTest.class, FormulaGreaterTest.class, FormulaGreaterOrEqualTest.class, FormulaSmallerTest.class,
+		FormulaSmallerOrEqualTest.class })
 public class EntitiesTestSuite {
 
 }
