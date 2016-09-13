@@ -6,6 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormulaTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaAndTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaOrTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBooleanTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDateTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalIntegerTest;
@@ -33,7 +34,8 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
 		RuleDefinitionParameterTest.class, RuleVersionTest.class, RuleDescriptionTest.class, RuleGroupItemTest.class,
 		AbstractFormulaTest.class, FormulaTerminalBooleanTest.class, FormulaTerminalIntegerTest.class,
 		FormulaTerminalNumericTest.class, FormulaTerminalStringTest.class, FormulaTerminalDateTest.class,
-		FormulaExistTest.class, FormulaNotTest.class, FormulaUnaryMinusTest.class, FormulaAndTest.class })
+		FormulaExistTest.class, FormulaNotTest.class, FormulaUnaryMinusTest.class, FormulaAndTest.class,
+		FormulaOrTest.class })
 public class EntitiesTestSuite {
 
 }
