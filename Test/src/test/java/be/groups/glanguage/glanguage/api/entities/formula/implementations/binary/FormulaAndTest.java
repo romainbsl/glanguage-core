@@ -37,9 +37,11 @@ public class FormulaAndTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothTrue() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(leftFormula.getBooleanValue()).thenReturn(true);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(true);
 
 		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
@@ -54,9 +56,11 @@ public class FormulaAndTest {
 	@Test
 	public void testGetBooleanValueParametersExistLeftFalse() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(leftFormula.getBooleanValue()).thenReturn(false);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(true);
 
 		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
@@ -71,9 +75,11 @@ public class FormulaAndTest {
 	@Test
 	public void testGetBooleanValueParametersExistRightFalse() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(leftFormula.getBooleanValue()).thenReturn(true);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 
 		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
@@ -88,9 +94,11 @@ public class FormulaAndTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothFalse() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(leftFormula.getBooleanValue()).thenReturn(false);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 
 		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
@@ -104,9 +112,11 @@ public class FormulaAndTest {
 	@Test(expected = NullPointerException.class)
 	public void testGetBooleanValueLeftNotExists() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(leftFormula.getBooleanValue()).thenReturn(null);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(true);
 
 		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
@@ -121,9 +131,11 @@ public class FormulaAndTest {
 	@Test(expected = NullPointerException.class)
 	public void testGetBooleanValueLeftTrueRightNotExists() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(leftFormula.getBooleanValue()).thenReturn(true);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(null);
 
 		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
@@ -138,9 +150,11 @@ public class FormulaAndTest {
 	@Test
 	public void testGetBooleanValueLeftFalseRightNotExists() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(leftFormula.getBooleanValue()).thenReturn(false);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(null);
 
 		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
@@ -155,9 +169,11 @@ public class FormulaAndTest {
 	@Test(expected = NullPointerException.class)
 	public void testGetBooleanValueParametersNotExist() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(leftFormula.getBooleanValue()).thenReturn(null);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(null);
 
 		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
@@ -168,12 +184,14 @@ public class FormulaAndTest {
 	/**
 	 * Tests {@link FormulaAnd#getIntegerValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(leftFormula.getBooleanValue()).thenReturn(false);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 
 		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
@@ -184,12 +202,14 @@ public class FormulaAndTest {
 	/**
 	 * Tests {@link FormulaAnd#getNumericValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(leftFormula.getBooleanValue()).thenReturn(false);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 
 		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
@@ -200,12 +220,14 @@ public class FormulaAndTest {
 	/**
 	 * Tests {@link FormulaAnd#getStringValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(leftFormula.getBooleanValue()).thenReturn(false);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 
 		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
@@ -216,12 +238,14 @@ public class FormulaAndTest {
 	/**
 	 * Tests {@link FormulaAnd#getDateValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(leftFormula.getBooleanValue()).thenReturn(false);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 
 		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
@@ -235,9 +259,11 @@ public class FormulaAndTest {
 	@Test
 	public void testGetReturnType() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(leftFormula.getBooleanValue()).thenReturn(false);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 
 		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
@@ -261,9 +287,11 @@ public class FormulaAndTest {
 	@Test
 	public void testAsText() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(leftFormula.asText()).thenReturn("some_rule1");
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.asText()).thenReturn("some_rule2");
 
 		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);

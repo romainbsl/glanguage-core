@@ -7,12 +7,9 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 
-/**
- *
- */
 @Entity
 @DiscriminatorValue(FormulaDescription.Values.F_BRACKETS)
 public class FormulaBracket extends AbstractFormula {

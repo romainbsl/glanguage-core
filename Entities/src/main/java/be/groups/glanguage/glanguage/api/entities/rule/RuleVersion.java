@@ -2,7 +2,6 @@ package be.groups.glanguage.glanguage.api.entities.rule;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Set;
 import java.util.SortedSet;
 

@@ -2,17 +2,20 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 
 @Entity
 @DiscriminatorValue(FormulaDescription.Values.F_IN)
@@ -21,10 +24,10 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 	protected FormulaIn() {
 		super();
 	}
-	
+
 	public FormulaIn(AbstractFormula element, List<AbstractFormula> inList) {
 		super(FormulaDescription.F_IN);
-		
+
 		if (element == null) {
 			throw new IllegalArgumentException("element must be non-null");
 		}
@@ -37,7 +40,7 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 	}
 
 	@Override
-	public Boolean getBooleanValue() {
+	public Boolean getBooleanValueImpl() {
 		AbstractFormula element = getParameters().get(0);
 		Iterator<AbstractFormula> itInList = getParameters().listIterator(1);
 		boolean result = false;
@@ -85,31 +88,24 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 		}
 	}
 
-	@Transient
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public Integer getIntegerValue() {
-		throw new IllegalAccessError(
-				"Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
+	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
+		return new HashSet<>(Arrays.asList(FormulaReturnType.values()));
 	}
 
-	@Transient
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public Double getNumericValue() {
-		throw new IllegalAccessError(
-				"Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
-	}
+	protected boolean isParametersCombinationAuthorized() {
+		Set<FormulaReturnType> returnTypes = parameters.stream().map(p -> p.getReturnType()).distinct()
+				.collect(Collectors.toSet());
 
-	@Transient
-	@Override
-	public String getStringValue() {
-		throw new IllegalAccessError(
-				"Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
-	}
-
-	@Transient
-	@Override
-	public LocalDate getDateValue() {
-		throw new IllegalAccessError("Cannot invoke getDateValue() method on " + this.getClass().getName() + " object");
+		return returnTypes.size() == 1 || returnTypes.size() == 2
+				&& returnTypes.containsAll(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
 	}
 
 	/**

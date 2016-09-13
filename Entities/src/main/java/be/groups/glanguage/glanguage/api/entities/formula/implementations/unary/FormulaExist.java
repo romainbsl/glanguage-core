@@ -1,12 +1,15 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.unary;
 
-import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 
 @Entity
 @DiscriminatorValue(FormulaDescription.Values.OP_EXIST)
@@ -21,31 +24,16 @@ public class FormulaExist extends UnaryFormula {
 	}
 
 	@Override
-	public Integer getIntegerValue() {
-		throw new IllegalAccessError(
-				"Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
-	}
-
-	@Override
-	public Double getNumericValue() {
-		throw new IllegalAccessError(
-				"Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
-	}
-
-	@Override
-	public String getStringValue() {
-		throw new IllegalAccessError(
-				"Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
-	}
-
-	@Override
-	public Boolean getBooleanValue() {
+	public Boolean getBooleanValueImpl() {
 		return getParameters().get(0).getValue() != null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public LocalDate getDateValue() {
-		throw new IllegalAccessError("Cannot invoke getDateValue() method on " + this.getClass().getName() + " object");
+	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
+		return new HashSet<>(Arrays.asList(FormulaReturnType.values()));
 	}
 
 	@Override

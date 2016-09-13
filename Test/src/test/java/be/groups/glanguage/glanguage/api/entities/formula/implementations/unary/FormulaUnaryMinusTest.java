@@ -33,9 +33,10 @@ public class FormulaUnaryMinusTest {
 	/**
 	 * Tests {@link FormulaUnaryMinus#getBooleanValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 
 		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
@@ -49,6 +50,7 @@ public class FormulaUnaryMinusTest {
 	@Test
 	public void testGetIntegerValueParameterExists() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 
 		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
@@ -62,6 +64,7 @@ public class FormulaUnaryMinusTest {
 	@Test(expected = NullPointerException.class)
 	public void testGetIntegerValueParameterNotExists() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(null);
 
 		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
@@ -75,6 +78,7 @@ public class FormulaUnaryMinusTest {
 	@Test
 	public void testGetNumericValueParameterExists() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(childFormula.getNumericValue()).thenReturn(1.5);
 
 		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
@@ -88,6 +92,7 @@ public class FormulaUnaryMinusTest {
 	@Test(expected = NullPointerException.class)
 	public void testGetNumericValueParameterNotExists() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(childFormula.getNumericValue()).thenReturn(null);
 
 		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
@@ -98,9 +103,10 @@ public class FormulaUnaryMinusTest {
 	/**
 	 * Tests {@link FormulaUnaryMinus#getStringValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 
 		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
@@ -111,9 +117,10 @@ public class FormulaUnaryMinusTest {
 	/**
 	 * Tests {@link FormulaUnaryMinus#getDateValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 
 		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
@@ -127,6 +134,7 @@ public class FormulaUnaryMinusTest {
 	@Test
 	public void testGetReturnTypeInteger() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 
 		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
@@ -140,6 +148,7 @@ public class FormulaUnaryMinusTest {
 	@Test
 	public void testGetReturnTypeNumeric() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(childFormula.getNumericValue()).thenReturn(1.5);
 
 		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
@@ -163,6 +172,7 @@ public class FormulaUnaryMinusTest {
 	@Test
 	public void testAsText() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.asText()).thenReturn("some_rule");
 
 		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);

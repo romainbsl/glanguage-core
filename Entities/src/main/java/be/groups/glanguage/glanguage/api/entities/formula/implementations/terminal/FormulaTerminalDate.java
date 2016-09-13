@@ -46,27 +46,6 @@ public class FormulaTerminalDate extends AbstractTerminalFormula {
 
 	@Transient
 	@Override
-	public Integer getIntegerValue() {
-		throw new IllegalAccessError(
-				"Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
-	}
-
-	@Transient
-	@Override
-	public Double getNumericValue() {
-		throw new IllegalAccessError(
-				"Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
-	}
-
-	@Transient
-	@Override
-	public Boolean getBooleanValue() {
-		throw new IllegalAccessError(
-				"Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
-	}
-
-	@Transient
-	@Override
 	public LocalDate getDateValue() {
 		return date;
 	}

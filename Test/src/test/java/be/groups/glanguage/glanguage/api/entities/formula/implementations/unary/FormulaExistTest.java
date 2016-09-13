@@ -36,6 +36,7 @@ public class FormulaExistTest {
 	@Test
 	public void testGetBooleanValueParameterExists() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.getValue()).thenReturn("some_value");
 
 		FormulaExist formula = new FormulaExist(childFormula);
@@ -49,6 +50,8 @@ public class FormulaExistTest {
 	@Test
 	public void testGetBooleanValueParameterNotExist() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(childFormula.getValue()).thenReturn(null);
 
 		FormulaExist formula = new FormulaExist(childFormula);
 
@@ -58,9 +61,10 @@ public class FormulaExistTest {
 	/**
 	 * Tests {@link FormulaExist#getIntegerValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.getValue()).thenReturn("some_value");
 
 		FormulaExist formula = new FormulaExist(childFormula);
@@ -71,9 +75,10 @@ public class FormulaExistTest {
 	/**
 	 * Tests {@link FormulaExist#getNumericValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.getValue()).thenReturn("some_value");
 
 		FormulaExist formula = new FormulaExist(childFormula);
@@ -84,9 +89,10 @@ public class FormulaExistTest {
 	/**
 	 * Tests {@link FormulaExist#getStringValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.getValue()).thenReturn("some_value");
 
 		FormulaExist formula = new FormulaExist(childFormula);
@@ -97,9 +103,10 @@ public class FormulaExistTest {
 	/**
 	 * Tests {@link FormulaExist#getDateValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.getValue()).thenReturn("some_value");
 
 		FormulaExist formula = new FormulaExist(childFormula);
@@ -113,6 +120,7 @@ public class FormulaExistTest {
 	@Test
 	public void testGetReturnType() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.getValue()).thenReturn("some_value");
 
 		FormulaExist formula = new FormulaExist(childFormula);
@@ -136,6 +144,7 @@ public class FormulaExistTest {
 	@Test
 	public void testAsText() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.asText()).thenReturn("some_rule");
 
 		FormulaExist formula = new FormulaExist(childFormula);

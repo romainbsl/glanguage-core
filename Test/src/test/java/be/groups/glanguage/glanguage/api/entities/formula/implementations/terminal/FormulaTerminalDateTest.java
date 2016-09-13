@@ -31,7 +31,7 @@ public class FormulaTerminalDateTest {
 	/**
 	 * Tests {@link FormulaTerminalDate#getIntegerValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
 		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
 		formula.getIntegerValue();
@@ -40,7 +40,7 @@ public class FormulaTerminalDateTest {
 	/**
 	 * Tests {@link FormulaTerminalDate#getNumericValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
 		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
 		formula.getNumericValue();
@@ -67,7 +67,7 @@ public class FormulaTerminalDateTest {
 	/**
 	 * Tests {@link FormulaTerminalDate#getBooleanValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
 		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
 		formula.getBooleanValue();

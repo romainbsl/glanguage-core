@@ -1,6 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -376,7 +377,7 @@ public class FormulaGreaterTest {
 	/**
 	 * Tests {@link FormulaGreater#getIntegerValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
@@ -394,7 +395,7 @@ public class FormulaGreaterTest {
 	/**
 	 * Tests {@link FormulaGreater#getNumericValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
@@ -412,7 +413,7 @@ public class FormulaGreaterTest {
 	/**
 	 * Tests {@link FormulaGreater#getStringValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
@@ -430,7 +431,7 @@ public class FormulaGreaterTest {
 	/**
 	 * Tests {@link FormulaGreater#getDateValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
@@ -479,9 +480,11 @@ public class FormulaGreaterTest {
 	@Test
 	public void testAsText() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(leftFormula.asText()).thenReturn("some_rule1");
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.asText()).thenReturn("some_rule2");
 
 		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);

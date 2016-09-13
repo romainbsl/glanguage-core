@@ -56,7 +56,7 @@ public class FormulaTerminalIntegerTest {
 	/**
 	 * Tests {@link FormulaTerminalInteger#getDateValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger("1");
 		formula.getDateValue();
@@ -65,7 +65,7 @@ public class FormulaTerminalIntegerTest {
 	/**
 	 * Tests {@link FormulaTerminalInteger#getBooleanValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger("1");
 		formula.getBooleanValue();

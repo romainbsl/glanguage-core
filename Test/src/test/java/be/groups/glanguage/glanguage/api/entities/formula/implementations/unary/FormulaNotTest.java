@@ -1,6 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.unary;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -35,6 +36,7 @@ public class FormulaNotTest {
 	@Test
 	public void testGetBooleanValueParameterExists() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
 
 		FormulaNot formula = new FormulaNot(childFormula);
@@ -48,6 +50,7 @@ public class FormulaNotTest {
 	@Test(expected = NullPointerException.class)
 	public void testGetBooleanValueParameterNotExist() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(null);
 
 		FormulaNot formula = new FormulaNot(childFormula);
@@ -58,9 +61,10 @@ public class FormulaNotTest {
 	/**
 	 * Tests {@link FormulaNot#getIntegerValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
 
 		FormulaNot formula = new FormulaNot(childFormula);
@@ -71,9 +75,10 @@ public class FormulaNotTest {
 	/**
 	 * Tests {@link FormulaNot#getNumericValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
 
 		FormulaNot formula = new FormulaNot(childFormula);
@@ -84,9 +89,10 @@ public class FormulaNotTest {
 	/**
 	 * Tests {@link FormulaNot#getStringValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
 
 		FormulaNot formula = new FormulaNot(childFormula);
@@ -97,9 +103,10 @@ public class FormulaNotTest {
 	/**
 	 * Tests {@link FormulaNot#getDateValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
 
 		FormulaNot formula = new FormulaNot(childFormula);
@@ -113,6 +120,7 @@ public class FormulaNotTest {
 	@Test
 	public void testGetReturnType() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
 
 		FormulaNot formula = new FormulaNot(childFormula);
@@ -136,6 +144,7 @@ public class FormulaNotTest {
 	@Test
 	public void testAsText() {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.asText()).thenReturn("some_rule");
 
 		FormulaNot formula = new FormulaNot(childFormula);

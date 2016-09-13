@@ -3,15 +3,19 @@
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 
 /**
  * Formula representing a logical equal operation<br>
@@ -33,40 +37,38 @@ public class FormulaEqual extends BinaryFormula {
 
 	@Transient
 	@Override
-	public Boolean getBooleanValue() {
+	public Boolean getBooleanValueImpl() {
 		return getParameters().get(0).getValue().equals(getParameters().get(1).getValue());
-	}
-
-	@Transient
-	@Override
-	public Integer getIntegerValue() {
-		throw new IllegalAccessError(
-				"Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
-	}
-
-	@Transient
-	@Override
-	public Double getNumericValue() {
-		throw new IllegalAccessError(
-				"Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
-	}
-
-	@Transient
-	@Override
-	public String getStringValue() {
-		throw new IllegalAccessError(
-				"Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
-	}
-
-	@Transient
-	@Override
-	public LocalDate getDateValue() {
-		throw new IllegalAccessError("Cannot invoke getDateValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Override
 	protected FormulaReturnType computeReturnType() {
 		return getDescription().getReturnType();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Transient
+	@Override
+	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
+		return new HashSet<>(Arrays.asList(FormulaReturnType.values()));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Transient
+	@Override
+	protected Map<FormulaReturnType, Set<FormulaReturnType>> getParametersCombinationMatrix() {
+		Map<FormulaReturnType, Set<FormulaReturnType>> combinations = new HashMap<>();
+		combinations.put(FormulaReturnType.INTEGER, new HashSet<>(Arrays.asList(FormulaReturnType.values())));
+		combinations.put(FormulaReturnType.NUMERIC, new HashSet<>(Arrays.asList(FormulaReturnType.values())));
+		combinations.put(FormulaReturnType.STRING, new HashSet<>(Arrays.asList(FormulaReturnType.values())));
+		combinations.put(FormulaReturnType.BOOLEAN, new HashSet<>(Arrays.asList(FormulaReturnType.values())));
+		combinations.put(FormulaReturnType.DATE, new HashSet<>(Arrays.asList(FormulaReturnType.values())));
+
+		return combinations;
 	}
 
 	@Override

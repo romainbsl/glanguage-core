@@ -1,8 +1,11 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
@@ -38,6 +41,22 @@ public abstract class BinaryFormula extends AbstractNonTerminalFormula {
 			return getParameters().get(0).getReturnType();
 		}
 	}
+
+	@Transient
+	@Override
+	protected final boolean isParametersCombinationAuthorized() {
+		return getParametersCombinationMatrix().get(parameters.get(0).getReturnType())
+				.contains(parameters.get(1).getReturnType());
+	}
+
+	/**
+	 * Gives this parameters combination matrix (for a parameter type, which
+	 * type is accepted for the other parameter)
+	 * 
+	 * @return this parameters combination matrix
+	 */
+	@Transient
+	protected abstract Map<FormulaReturnType, Set<FormulaReturnType>> getParametersCombinationMatrix();
 
 	@Override
 	public String asText() {

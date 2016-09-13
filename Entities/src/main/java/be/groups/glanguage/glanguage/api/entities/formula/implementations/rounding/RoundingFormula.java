@@ -1,7 +1,8 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
@@ -28,7 +29,7 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 	}
 
 	@Override
-	public Integer getIntegerValue() {
+	public Integer getIntegerValueImpl() {
 		switch (getParameters().get(0).getReturnType()) {
 		case INTEGER:
 			return Rounder.round(getParameters().get(0).getIntegerValue(), getRoundingType(),
@@ -42,7 +43,7 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 	}
 
 	@Override
-	public Double getNumericValue() {
+	public Double getNumericValueImpl() {
 		switch (getParameters().get(0).getReturnType()) {
 		case INTEGER:
 			return Rounder.round(getParameters().get(0).getIntegerValue(), getRoundingType(),
@@ -53,23 +54,6 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 		default:
 			throw new IllegalArgumentException("Parameter to be rounded must be of type INTEGER or NUMERIC");
 		}
-	}
-
-	@Override
-	public String getStringValue() {
-		throw new IllegalAccessError(
-				"Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
-	}
-
-	@Override
-	public Boolean getBooleanValue() {
-		throw new IllegalAccessError(
-				"Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
-	}
-
-	@Override
-	public LocalDate getDateValue() {
-		throw new IllegalAccessError("Cannot invoke getDateValue() method on " + this.getClass().getName() + " object");
 	}
 
 	public abstract RoundingType getRoundingType();
@@ -78,6 +62,12 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 
 	private void setPrecision(AbstractFormula precision) {
 		this.parameters.set(1, precision);
+	}
+
+	@Transient
+	@Override
+	public boolean isParametersCombinationAuthorized() {
+		return true;
 	}
 
 	@Override

@@ -29,7 +29,7 @@ public class FormulaTerminalStringTest {
 	/**
 	 * Tests {@link FormulaTerminalString#getIntegerValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
 		FormulaTerminalString formula = new FormulaTerminalString("string");
 		formula.getIntegerValue();
@@ -38,7 +38,7 @@ public class FormulaTerminalStringTest {
 	/**
 	 * Tests {@link FormulaTerminalString#getNumericValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
 		FormulaTerminalString formula = new FormulaTerminalString("string");
 		formula.getNumericValue();
@@ -56,7 +56,7 @@ public class FormulaTerminalStringTest {
 	/**
 	 * Tests {@link FormulaTerminalString#getDateValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		FormulaTerminalString formula = new FormulaTerminalString("string");
 		formula.getDateValue();
@@ -65,7 +65,7 @@ public class FormulaTerminalStringTest {
 	/**
 	 * Tests {@link FormulaTerminalString#getBooleanValue()}
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
 		FormulaTerminalString formula = new FormulaTerminalString("string");
 		formula.getBooleanValue();

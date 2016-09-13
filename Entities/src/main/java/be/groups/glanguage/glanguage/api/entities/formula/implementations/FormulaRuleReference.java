@@ -6,8 +6,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
 @Entity
@@ -22,7 +22,7 @@ public class FormulaRuleReference extends AbstractFormula {
 
 	public FormulaRuleReference(String ruleId) {
 		super(FormulaDescription.F_RULE_REFERENCE);
-		
+
 		setConstantValue(ruleId);
 	}
 

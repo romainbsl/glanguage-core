@@ -1,12 +1,18 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 
 @Entity
 @DiscriminatorValue(FormulaDescription.Values.OP_MULTIPLY)
@@ -21,30 +27,37 @@ public class FormulaMultiply extends BinaryFormula {
 	}
 
 	@Override
-	public Integer getIntegerValue() {
+	public Integer getIntegerValueImpl() {
 		return getParameters().get(0).getIntegerValue() * getParameters().get(1).getIntegerValue();
 	}
 
 	@Override
-	public Double getNumericValue() {
+	public Double getNumericValueImpl() {
 		return getParameters().get(0).getNumericValue() * getParameters().get(1).getNumericValue();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Transient
 	@Override
-	public String getStringValue() {
-		throw new IllegalAccessError(
-				"Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
+	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
+		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Transient
 	@Override
-	public Boolean getBooleanValue() {
-		throw new IllegalAccessError(
-				"Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
-	}
+	protected Map<FormulaReturnType, Set<FormulaReturnType>> getParametersCombinationMatrix() {
+		Map<FormulaReturnType, Set<FormulaReturnType>> combinations = new HashMap<>();
+		combinations.put(FormulaReturnType.INTEGER,
+				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC)));
+		combinations.put(FormulaReturnType.NUMERIC,
+				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC)));
 
-	@Override
-	public LocalDate getDateValue() {
-		throw new IllegalAccessError("Cannot invoke getDateValue() method on " + this.getClass().getName() + " object");
+		return combinations;
 	}
 
 	@Override
