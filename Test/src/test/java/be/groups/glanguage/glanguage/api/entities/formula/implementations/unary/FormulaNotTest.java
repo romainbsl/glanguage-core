@@ -15,6 +15,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
  * @author DUPIREFR
  */
 public class FormulaNotTest {
+	
 	/*
 	 * Tests
 	 */

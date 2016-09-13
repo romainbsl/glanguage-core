@@ -12,6 +12,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.termin
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalStringTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaExistTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaNotTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaUnaryMinusTest;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinitionTest;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDescriptionTest;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleGroupItemTest;
@@ -31,7 +32,7 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
 		RuleDefinitionParameterTest.class, RuleVersionTest.class, RuleDescriptionTest.class, RuleGroupItemTest.class,
 		AbstractFormulaTest.class, FormulaTerminalBooleanTest.class, FormulaTerminalIntegerTest.class,
 		FormulaTerminalNumericTest.class, FormulaTerminalStringTest.class, FormulaTerminalDateTest.class,
-		FormulaExistTest.class, FormulaNotTest.class })
+		FormulaExistTest.class, FormulaNotTest.class, FormulaUnaryMinusTest.class })
 public class EntitiesTestSuite {
 
 }
