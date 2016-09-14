@@ -3,7 +3,6 @@
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal;
 
-import java.time.Duration;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
