@@ -43,72 +43,15 @@ public class FormulaMultiplyTest {
 	public void testGetIntegerValueIntInt() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
+		when(leftFormula.getNumericValue()).thenReturn(2.0);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(2);
+		when(rightFormula.getNumericValue()).thenReturn(3.0);
 
 		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
 
-		assertEquals(Integer.valueOf(2), formula.getIntegerValue());
-	}
-
-	/**
-	 * Tests {@link FormulaMultiply#getIntegerValue()} when first parameter is
-	 * integer and second numeric
-	 */
-	@Test
-	public void testGetIntegerValueIntNum() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(2.5);
-
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
-
-		assertEquals(Integer.valueOf(2), formula.getIntegerValue());
-	}
-
-	/**
-	 * Tests {@link FormulaMultiply#getIntegerValue()} when first parameter is
-	 * numeric and second integer
-	 */
-	@Test
-	public void testGetIntegerValueNumInt() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getNumericValue()).thenReturn(1.3);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(2);
-
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
-
-		assertEquals(Integer.valueOf(2), formula.getIntegerValue());
-	}
-
-	/**
-	 * Tests {@link FormulaMultiply#getIntegerValue()} when both parameters are
-	 * numerics
-	 */
-	@Test
-	public void testGetIntegerValueNumNum() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getNumericValue()).thenReturn(1.5);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(2.6);
-
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
-
-		assertEquals(Integer.valueOf(3), formula.getIntegerValue());
+		assertEquals(Integer.valueOf(6), formula.getIntegerValue());
 	}
 
 	/**
@@ -138,7 +81,7 @@ public class FormulaMultiplyTest {
 	public void testGetNumericValueIntNum() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
+		when(leftFormula.getNumericValue()).thenReturn(2.0);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
@@ -146,7 +89,7 @@ public class FormulaMultiplyTest {
 
 		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
 
-		assertEquals(Double.valueOf(2.3), formula.getNumericValue(), DELTA);
+		assertEquals(Double.valueOf(4.6), formula.getNumericValue(), DELTA);
 	}
 
 	/**
@@ -161,30 +104,11 @@ public class FormulaMultiplyTest {
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(1);
+		when(rightFormula.getNumericValue()).thenReturn(2.0);
 
 		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
 
-		assertEquals(Double.valueOf(2.3), formula.getNumericValue(), DELTA);
-	}
-
-	/**
-	 * Tests {@link FormulaMultiply#getNumericValue()} when both parameters are
-	 * integers
-	 */
-	@Test
-	public void testGetNumericValueIntInt() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(2);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(1);
-
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
-
-		assertEquals(Double.valueOf(2), formula.getNumericValue(), DELTA);
+		assertEquals(Double.valueOf(4.6), formula.getNumericValue(), DELTA);
 	}
 
 	/**
@@ -194,11 +118,11 @@ public class FormulaMultiplyTest {
 	public void testGetStringValue() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getValue()).thenReturn(1);
+		when(leftFormula.getNumericValue()).thenReturn(2.0);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getValue()).thenReturn(0);
+		when(rightFormula.getNumericValue()).thenReturn(3.0);
 
 		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
 
@@ -212,11 +136,11 @@ public class FormulaMultiplyTest {
 	public void testGetBooleanValue() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getValue()).thenReturn(1);
+		when(leftFormula.getNumericValue()).thenReturn(2.0);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getValue()).thenReturn(0);
+		when(rightFormula.getNumericValue()).thenReturn(3.0);
 
 		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
 
@@ -230,11 +154,11 @@ public class FormulaMultiplyTest {
 	public void testGetDateValue() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getValue()).thenReturn(1);
+		when(leftFormula.getNumericValue()).thenReturn(2.0);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getValue()).thenReturn(0);
+		when(rightFormula.getNumericValue()).thenReturn(3.0);
 
 		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
 
@@ -249,11 +173,9 @@ public class FormulaMultiplyTest {
 	public void testGetReturnTypeIntInt() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(0);
 
 		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
 
@@ -268,11 +190,9 @@ public class FormulaMultiplyTest {
 	public void testGetReturnTypeIntNum() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(2.5);
 
 		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
 
@@ -287,11 +207,9 @@ public class FormulaMultiplyTest {
 	public void testGetReturnTypeNumInt() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getNumericValue()).thenReturn(2.5);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(1);
 
 		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
 
@@ -306,11 +224,9 @@ public class FormulaMultiplyTest {
 	public void testGetReturnTypeNumNum() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getValue()).thenReturn(1);
 
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getValue()).thenReturn(0);
 
 		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
 
@@ -328,7 +244,7 @@ public class FormulaMultiplyTest {
 	}
 
 	/**
-	 * Tests {@link FormulaMultiply#operationAsText()}
+	 * Tests {@link FormulaMultiply#asText()}
 	 */
 	@Test
 	public void testAsText() {

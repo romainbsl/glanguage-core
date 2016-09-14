@@ -494,7 +494,7 @@ public class FormulaGreaterTest {
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#operationAsText()}
+	 * Tests {@link FormulaGreater#asText()}
 	 */
 	@Test
 	public void testAsText() {

@@ -494,7 +494,7 @@ public class FormulaSmallerTest {
 	}
 
 	/**
-	 * Tests {@link FormulaSmaller#operationAsText()}
+	 * Tests {@link FormulaSmaller#asText()}
 	 */
 	@Test
 	public void testAsText() {

@@ -182,7 +182,7 @@ public class FormulaUnaryMinusTest {
 	}
 
 	/**
-	 * Tests {@link FormulaUnaryMinus#operationAsText()}
+	 * Tests {@link FormulaUnaryMinus#asText()}
 	 */
 	@Test
 	public void testAsText() {

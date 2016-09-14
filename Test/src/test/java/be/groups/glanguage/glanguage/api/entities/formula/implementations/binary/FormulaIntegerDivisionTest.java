@@ -149,7 +149,7 @@ public class FormulaIntegerDivisionTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaIntegerDivision#operationAsText()}
+	 * Tests {@link FormulaIntegerDivision#asText()}
 	 */
 	@Test
 	public void testAsText() {

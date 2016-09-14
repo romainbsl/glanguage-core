@@ -380,7 +380,7 @@ public class FormulaDifferenceTest {
 	}
 
 	/**
-	 * Tests {@link FormulaDifference#operationAsText()}
+	 * Tests {@link FormulaDifference#asText()}
 	 */
 	@Test
 	public void testAsText() {

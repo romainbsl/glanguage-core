@@ -494,7 +494,7 @@ public class FormulaGreaterOrEqualTest {
 	}
 
 	/**
-	 * Tests {@link FormulaGreaterOrEqual#operationAsText()}
+	 * Tests {@link FormulaGreaterOrEqual#asText()}
 	 */
 	@Test
 	public void testAsText() {

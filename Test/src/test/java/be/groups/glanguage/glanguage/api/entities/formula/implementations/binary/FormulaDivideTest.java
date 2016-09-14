@@ -154,7 +154,7 @@ public class FormulaDivideTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaDivide#operationAsText()}
+	 * Tests {@link FormulaDivide#asText()}
 	 */
 	@Test
 	public void testAsText() {

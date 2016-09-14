@@ -42,71 +42,15 @@ public class FormulaPlusTest {
 	public void testGetIntegerValueIntInt() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
+		when(leftFormula.getNumericValue()).thenReturn(1.0);
 		
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(2);
+		when(rightFormula.getNumericValue()).thenReturn(2.0);
 		
 		FormulaPlus formula = new FormulaPlus(leftFormula, rightFormula);
 		
 		assertEquals(Integer.valueOf(3), formula.getIntegerValue());
-	}
-	
-	/**
-	 * Tests {@link FormulaPlus#getIntegerValue()} when first parameter is integer and second
-	 * numeric
-	 */
-	@Test
-	public void testGetIntegerValueIntNum() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
-		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(2.5);
-		
-		FormulaPlus formula = new FormulaPlus(leftFormula, rightFormula);
-		
-		assertEquals(Integer.valueOf(3), formula.getIntegerValue());
-	}
-	
-	/**
-	 * Tests {@link FormulaPlus#getIntegerValue()} when first parameter is numeric and second
-	 * integer
-	 */
-	@Test
-	public void testGetIntegerValueNumInt() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getNumericValue()).thenReturn(1.5);
-		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(2);
-		
-		FormulaPlus formula = new FormulaPlus(leftFormula, rightFormula);
-		
-		assertEquals(Integer.valueOf(3), formula.getIntegerValue());
-	}
-	
-	/**
-	 * Tests {@link FormulaPlus#getIntegerValue()} when both parameters are numerics
-	 */
-	@Test
-	public void testGetIntegerValueNumNum() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getNumericValue()).thenReturn(1.5);
-		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(2.6);
-		
-		FormulaPlus formula = new FormulaPlus(leftFormula, rightFormula);
-		
-		assertEquals(Integer.valueOf(4), formula.getIntegerValue());
 	}
 	
 	/**
@@ -135,7 +79,7 @@ public class FormulaPlusTest {
 	public void testGetNumericValueIntNum() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
+		when(leftFormula.getNumericValue()).thenReturn(1.0);
 		
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
@@ -158,29 +102,11 @@ public class FormulaPlusTest {
 		
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(1);
+		when(rightFormula.getNumericValue()).thenReturn(1.0);
 		
 		FormulaPlus formula = new FormulaPlus(leftFormula, rightFormula);
 		
 		assertEquals(Double.valueOf(3.3), formula.getNumericValue(), DELTA);
-	}
-	
-	/**
-	 * Tests {@link FormulaPlus#getNumericValue()} when both parameters are integers
-	 */
-	@Test
-	public void testGetNumericValueIntInt() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(2);
-		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(1);
-		
-		FormulaPlus formula = new FormulaPlus(leftFormula, rightFormula);
-		
-		assertEquals(Double.valueOf(3.0), formula.getNumericValue(), DELTA);
 	}
 	
 	/**
@@ -208,11 +134,11 @@ public class FormulaPlusTest {
 	public void testGetBooleanValue() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getValue()).thenReturn(1);
+		when(leftFormula.getNumericValue()).thenReturn(1.0);
 		
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getValue()).thenReturn(0);
+		when(rightFormula.getNumericValue()).thenReturn(2.0);
 		
 		FormulaPlus formula = new FormulaPlus(leftFormula, rightFormula);
 		
@@ -226,11 +152,11 @@ public class FormulaPlusTest {
 	public void testGetDateValue() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getValue()).thenReturn(1);
+		when(leftFormula.getNumericValue()).thenReturn(1.0);
 		
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getValue()).thenReturn(0);
+		when(rightFormula.getNumericValue()).thenReturn(2.0);
 		
 		FormulaPlus formula = new FormulaPlus(leftFormula, rightFormula);
 		
@@ -244,11 +170,9 @@ public class FormulaPlusTest {
 	public void testGetReturnTypeIntInt() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
 		
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(0);
 		
 		FormulaPlus formula = new FormulaPlus(leftFormula, rightFormula);
 		
@@ -263,11 +187,9 @@ public class FormulaPlusTest {
 	public void testGetReturnTypeIntNum() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
 		
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(2.5);
 		
 		FormulaPlus formula = new FormulaPlus(leftFormula, rightFormula);
 		
@@ -282,11 +204,9 @@ public class FormulaPlusTest {
 	public void testGetReturnTypeNumInt() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getNumericValue()).thenReturn(2.5);
 		
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(1);
 		
 		FormulaPlus formula = new FormulaPlus(leftFormula, rightFormula);
 		
@@ -300,11 +220,9 @@ public class FormulaPlusTest {
 	public void testGetReturnTypeNumNum() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
 		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getValue()).thenReturn(1);
 		
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getValue()).thenReturn(0);
 		
 		FormulaPlus formula = new FormulaPlus(leftFormula, rightFormula);
 		
@@ -322,7 +240,7 @@ public class FormulaPlusTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaPlus#operationAsText()}
+	 * Tests {@link FormulaPlus#asText()}
 	 */
 	@Test
 	public void testAsText() {

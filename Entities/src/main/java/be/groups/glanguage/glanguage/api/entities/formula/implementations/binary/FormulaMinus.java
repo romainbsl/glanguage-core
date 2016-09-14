@@ -43,26 +43,13 @@ public class FormulaMinus extends BinaryFormula {
 	@Transient
 	@Override
 	public Integer getIntegerValueImpl() {
-		AbstractFormula leftParameter = getParameters().get(0);
-		AbstractFormula rightParameter = getParameters().get(1);
-		
-		return Double.valueOf((leftParameter.getReturnType().equals(FormulaReturnType.INTEGER)
-				? leftParameter.getIntegerValue().doubleValue() : leftParameter.getNumericValue())
-				- (rightParameter.getReturnType().equals(FormulaReturnType.INTEGER) ? rightParameter.getIntegerValue().doubleValue()
-						: rightParameter.getNumericValue()))
-				.intValue();
+		return getNumericValue().intValue();
 	}
 	
 	@Transient
 	@Override
 	public Double getNumericValueImpl() {
-		AbstractFormula leftParameter = getParameters().get(0);
-		AbstractFormula rightParameter = getParameters().get(1);
-		
-		return Double.valueOf((leftParameter.getReturnType().equals(FormulaReturnType.INTEGER)
-				? leftParameter.getIntegerValue().doubleValue() : leftParameter.getNumericValue())
-				- (rightParameter.getReturnType().equals(FormulaReturnType.INTEGER) ? rightParameter.getIntegerValue().doubleValue()
-						: rightParameter.getNumericValue()));
+		return getParameters().get(0).getNumericValue() - getParameters().get(1).getNumericValue();
 	}
 	
 	/**
