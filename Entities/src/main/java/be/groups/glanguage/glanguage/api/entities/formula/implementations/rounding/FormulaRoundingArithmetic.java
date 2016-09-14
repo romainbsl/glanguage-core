@@ -14,20 +14,20 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.termin
 import be.groups.glanguage.glanguage.api.entities.rule.RoundingType;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.F_FLOOR)
-public class FormulaFloorRounding extends RoundingFormula {
+@DiscriminatorValue(value = FormulaDescription.Values.F_ROUNDED)
+public class FormulaRoundingArithmetic extends RoundingFormula {
 
-	protected FormulaFloorRounding() {
+	protected FormulaRoundingArithmetic() {
 		super();
 	}
 
-	public FormulaFloorRounding(AbstractFormula parameter, AbstractFormula precision) {
-		super(FormulaDescription.F_FLOOR, parameter, precision);
+	public FormulaRoundingArithmetic(AbstractFormula parameter, AbstractFormula precision) {
+		super(FormulaDescription.F_ROUNDED, parameter, precision);
 	}
 
 	@Override
 	public RoundingType getRoundingType() {
-		return RoundingType.FLOOR;
+		return RoundingType.ARITHMETIC;
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class FormulaFloorRounding extends RoundingFormula {
 
 	@Override
 	public String operationAsText() {
-		return "floor";
+		return "round";
 	}
 
 	@Override

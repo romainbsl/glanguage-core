@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.formula;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -29,8 +30,7 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
  * An AbstractFormula has : <br>
  * - a FormulaDescription <br>
  * - a parent Formula of which this is a parameter <br>
- * - an sequence number representing the position of this in the parent's
- * parameters sequence <br>
+ * - an sequence number representing the position of this in the parent's parameters sequence <br>
  * - a set of sub-Formula's representing the parameters of this Formula <br>
  * - an evaluated status <br>
  * - a value <br>
@@ -204,58 +204,54 @@ public abstract class AbstractFormula {
 
 	@Transient
 	public abstract LocalDate getDateValue();
+	
+	@Transient
+	public abstract Duration getDurationValue();
 
 	/**
-	 * @param id
-	 *            the id to set
+	 * @param id the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
 	/**
-	 * @param ruleVersions
-	 *            the ruleVersions to set
+	 * @param ruleVersions the ruleVersions to set
 	 */
 	public void setRuleVersions(Set<RuleVersion> ruleVersions) {
 		this.ruleVersions = ruleVersions;
 	}
 
 	/**
-	 * @param description
-	 *            the description to set
+	 * @param description the description to set
 	 */
 	public void setDescription(FormulaDescription description) {
 		this.description = description;
 	}
 
 	/**
-	 * @param parentFormula
-	 *            the parentFormula to set
+	 * @param parentFormula the parentFormula to set
 	 */
 	public void setParentFormula(AbstractFormula parentFormula) {
 		this.parentFormula = parentFormula;
 	}
 
 	/**
-	 * @param parameters
-	 *            the parameters to set
+	 * @param parameters the parameters to set
 	 */
 	public void setParameters(List<AbstractFormula> parameters) {
 		this.parameters = parameters;
 	}
 
 	/**
-	 * @param sequenceNumber
-	 *            the sequenceNumber to set
+	 * @param sequenceNumber the sequenceNumber to set
 	 */
 	public void setSequenceNumber(Integer sequenceNumber) {
 		this.sequenceNumber = sequenceNumber;
 	}
 
 	/**
-	 * @param constantValue
-	 *            the constantValue to set
+	 * @param constantValue the constantValue to set
 	 */
 	public void setConstantValue(String constantValue) {
 		this.constantValue = constantValue;

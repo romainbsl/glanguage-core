@@ -3,6 +3,7 @@
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal;
 
+import java.time.Duration;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -19,32 +20,33 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 @DiscriminatorValue(FormulaDescription.Values.TERMINAL_NUMERIC)
 public class FormulaTerminalNumeric extends AbstractTerminalFormula {
 
-	private Double doubleValue;
-
 	protected FormulaTerminalNumeric() {
 		super();
 	}
 
 	public FormulaTerminalNumeric(String constantValue) {
 		super(FormulaDescription.TERMINAL_NUMERIC, constantValue);
-
-		try {
-			this.doubleValue = Double.valueOf(constantValue);
-		} catch (NumberFormatException nfe) {
-			throw new IllegalArgumentException("Contant value must reprensent a numeric value : " + constantValue);
-		}
 	}
 
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
-		return doubleValue.intValue();
+		return getNumericValue().intValue();
 	}
 
 	@Transient
 	@Override
 	public Double getNumericValue() {
-		return doubleValue;
+		try {
+			return Double.valueOf(getConstantValue());
+		} catch (NumberFormatException nfe) {
+			throw new IllegalArgumentException("Contant value must reprensent a numeric value : " + getConstantValue());
+		}
 	}
 
+	@Override
+	public Duration getDurationValue() {
+		throw new IllegalAccessError("Cannot invoke getDurationValue() method on " + this.getClass().getName() + " object");
+	}
+	
 }

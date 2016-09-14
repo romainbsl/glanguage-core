@@ -36,7 +36,7 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 		}
 		this.parameters = new ArrayList<>();
 		this.parameters.add(element);
-		inList.stream().forEach(e -> this.parameters.add(e));
+		this.parameters.addAll(inList);
 	}
 
 	@Override
@@ -45,48 +45,47 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 		Iterator<AbstractFormula> itInList = getParameters().listIterator(1);
 		boolean result = false;
 		switch (getElementsType()) {
-		case INTEGER:
-			int i = element.getIntegerValue();
-			while (!result && itInList.hasNext()) {
-				result = i == itInList.next().getIntegerValue();
-			}
-			return result;
-		case NUMERIC:
-			double d = element.getNumericValue();
-			while (!result && itInList.hasNext()) {
-				result = d == itInList.next().getNumericValue();
-			}
-			return result;
-		case DATE:
-			LocalDate date = element.getDateValue();
-			if (date != null) {
+			case INTEGER:
+				int i = element.getIntegerValue();
 				while (!result && itInList.hasNext()) {
-					result = date.equals(itInList.next().getDateValue());
+					result = i == itInList.next().getIntegerValue();
 				}
-			}
-			return result;
-		case BOOLEAN:
-			boolean b = element.getBooleanValue();
-			while (!result && itInList.hasNext()) {
-				result = (b == itInList.next().getBooleanValue());
-			}
-			return result;
-		case STRING:
-			String s = element.getStringValue();
-			if (s != null) {
+				return result;
+			case NUMERIC:
+				double d = element.getNumericValue();
 				while (!result && itInList.hasNext()) {
-					result = s.equals(itInList.next().getStringValue());
+					result = d == itInList.next().getNumericValue();
 				}
-			}
-			return result;
-		case UNDEFINED:
-			throw new IllegalArgumentException(
-					"Cannot compare undefined values in " + this.getClass().getName() + " object");
-		default:
-			throw new IllegalArgumentException(
-					"Cannot compare unknown values in " + this.getClass().getName() + " object");
+				return result;
+			case DATE:
+				LocalDate date = element.getDateValue();
+				if (date != null) {
+					while (!result && itInList.hasNext()) {
+						result = date.equals(itInList.next().getDateValue());
+					}
+				}
+				return result;
+			case BOOLEAN:
+				boolean b = element.getBooleanValue();
+				while (!result && itInList.hasNext()) {
+					result = (b == itInList.next().getBooleanValue());
+				}
+				return result;
+			case STRING:
+				String s = element.getStringValue();
+				if (s != null) {
+					while (!result && itInList.hasNext()) {
+						result = s.equals(itInList.next().getStringValue());
+					}
+				}
+				return result;
+			case UNDEFINED:
+				throw new IllegalArgumentException("Cannot compare undefined values in " + this.getClass().getName() + " object");
+			default:
+				throw new IllegalArgumentException("Cannot compare unknown values in " + this.getClass().getName() + " object");
 		}
 	}
+
 
 	/**
 	 * {@inheritDoc}
@@ -118,15 +117,13 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 	 * @return
 	 */
 	private FormulaReturnType getElementsType() {
-		AbstractFormula element = getParameters().get(0);
-		Iterator<AbstractFormula> itInList = getParameters().listIterator(1);
-		FormulaReturnType returnType = element.getReturnType();
-		if (returnType.equals(FormulaReturnType.INTEGER)) {
-			while (returnType.equals(FormulaReturnType.INTEGER) && itInList.hasNext()) {
-				returnType = itInList.next().getReturnType();
-			}
+		Set<FormulaReturnType> returnTypes = parameters.stream().map(p -> p.getReturnType()).distinct()
+				.collect(Collectors.toSet());
+		if (returnTypes.size() == 1) {
+			return returnTypes.iterator().next();
+		} else {
+			return FormulaReturnType.NUMERIC;
 		}
-		return returnType;
 	}
 
 	@Override

@@ -23,21 +23,12 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 @DiscriminatorValue(FormulaDescription.Values.TERMINAL_DATE)
 public class FormulaTerminalDate extends AbstractTerminalFormula {
 
-	private LocalDate date;
-
 	protected FormulaTerminalDate() {
 		super();
 	}
 
 	public FormulaTerminalDate(String constantValue) {
 		super(FormulaDescription.TERMINAL_DATE, constantValue);
-
-		try {
-			this.date = LocalDate.parse(getConstantValue(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		} catch (DateTimeParseException dtpe) {
-			throw new IllegalArgumentException(
-					"Contant value must reprensent a date formatted as \"dd/MM/yyyy\" : " + constantValue);
-		}
 	}
 
 	public FormulaTerminalDate(LocalDate constantValue) {
@@ -47,7 +38,11 @@ public class FormulaTerminalDate extends AbstractTerminalFormula {
 	@Transient
 	@Override
 	public LocalDate getDateValue() {
-		return date;
+		try {
+			return LocalDate.parse(getConstantValue(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		} catch (DateTimeParseException dtpe) {
+			throw new IllegalArgumentException("Contant value must reprensent a date formatted as \"dd/mm/yyyy\" : " + getConstantValue());
+		}
 	}
 
 }

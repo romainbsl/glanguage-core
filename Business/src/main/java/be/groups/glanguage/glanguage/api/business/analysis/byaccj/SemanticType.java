@@ -1,7 +1,7 @@
 package be.groups.glanguage.glanguage.api.business.analysis.byaccj;
 
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 import be.groups.glanguage.glanguage.api.business.analysis.IdentifierParameterList;
@@ -17,7 +17,7 @@ public class SemanticType {
 	
 	public double dval;
 	
-	public Date dateVal;
+	public LocalDate dateVal;
 	
 	public String stringVal;
 	

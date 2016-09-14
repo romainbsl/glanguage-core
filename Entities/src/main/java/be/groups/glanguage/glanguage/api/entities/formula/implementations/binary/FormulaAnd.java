@@ -3,6 +3,7 @@
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,6 +37,7 @@ public class FormulaAnd extends BinaryFormula {
 		super(FormulaDescription.OP_AND, child1, child2);
 	}
 
+	@Transient
 	@Override
 	protected Boolean getBooleanValueImpl() {
 		return parameters.get(0).getBooleanValue() && parameters.get(1).getBooleanValue();
