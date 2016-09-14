@@ -1,10 +1,11 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum;
 
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
@@ -17,21 +18,30 @@ public class FormulaExtremumMax extends ExtremumFormula {
 		super();
 	}
 	
-	public FormulaExtremumMax(LinkedList<AbstractFormula> parameters) {
+	public FormulaExtremumMax(List<AbstractFormula> parameters) {
 		super(parameters);
 	}
 	
+	@Transient
+	@Override
+	public Integer getIntegerValueImpl() {
+		return getNumericValue().intValue();
+	}
+	
+	@Transient
 	@Override
 	public Double getNumericValueImpl() {
 		Iterator<AbstractFormula> itParameters = getParameters().iterator();
-		double temp;
-		double result = Double.MIN_VALUE;
+		Double temp;
+		Double result = Double.MIN_VALUE;
 		do {
 			temp = itParameters.next().getNumericValue();
+			
 			if (result < temp) {
 				result = temp;
 			}
 		} while (itParameters.hasNext());
+		
 		return result;
 	}
 	
@@ -39,5 +49,5 @@ public class FormulaExtremumMax extends ExtremumFormula {
 	public String operationAsText() {
 		return "max";
 	}
-
+	
 }

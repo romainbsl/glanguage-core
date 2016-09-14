@@ -19,6 +19,10 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaPlusTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerOrEqualTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMaxTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMinTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumSignedMaxTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumSignedMinTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBooleanTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDateTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalIntegerTest;
@@ -49,7 +53,8 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
 		FormulaNotTest.class, FormulaUnaryMinusTest.class, FormulaAndTest.class, FormulaOrTest.class, FormulaGreaterTest.class,
 		FormulaGreaterOrEqualTest.class, FormulaSmallerTest.class, FormulaSmallerOrEqualTest.class, FormulaEqualTest.class,
 		FormulaDifferenceTest.class, FormulaPlusTest.class, FormulaMinusTest.class, FormulaMultiplyTest.class, FormulaDivideTest.class,
-		FormulaIntegerDivisionTest.class, FormulaModuloTest.class})
+		FormulaIntegerDivisionTest.class, FormulaModuloTest.class, FormulaExtremumMaxTest.class, FormulaExtremumMinTest.class,
+		FormulaExtremumSignedMaxTest.class, FormulaExtremumSignedMinTest.class})
 public class EntitiesTestSuite {
 
 }
