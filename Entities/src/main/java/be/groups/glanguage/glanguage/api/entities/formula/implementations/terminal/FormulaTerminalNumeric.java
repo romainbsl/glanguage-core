@@ -43,10 +43,5 @@ public class FormulaTerminalNumeric extends AbstractTerminalFormula {
 			throw new IllegalArgumentException("Contant value must reprensent a numeric value : " + getConstantValue());
 		}
 	}
-
-	@Override
-	public Duration getDurationValue() {
-		throw new IllegalAccessError("Cannot invoke getDurationValue() method on " + this.getClass().getName() + " object");
-	}
 	
 }

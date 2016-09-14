@@ -42,7 +42,7 @@ public abstract class AbstractNonTerminalFormula extends AbstractFormula {
 	 * @return true if this parameters are authorized, otherwise false
 	 */
 	protected boolean areParametersAuthorized() {
-		return parameters.stream().anyMatch(p -> !getAuthorizedParametersTypes().contains(p.getReturnType()));
+		return !parameters.stream().anyMatch(p -> !getAuthorizedParametersTypes().contains(p.getReturnType()));
 	}
 
 	/**
