@@ -186,19 +186,19 @@ public class FormulaPlusTest {
 	/**
 	 * Tests {@link FormulaPlus#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test
 	public void testGetStringValue() {
 		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getValue()).thenReturn(1);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(leftFormula.getStringValue()).thenReturn("some_value1");
 		
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getValue()).thenReturn(0);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(rightFormula.getStringValue()).thenReturn("some_value2");
 		
 		FormulaPlus formula = new FormulaPlus(leftFormula, rightFormula);
 		
-		formula.getStringValue();
+		assertEquals("some_value1some_value2", formula.getStringValue());
 	}
 	
 	/**

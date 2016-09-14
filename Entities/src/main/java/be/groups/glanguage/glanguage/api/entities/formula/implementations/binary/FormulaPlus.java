@@ -66,13 +66,22 @@ public class FormulaPlus extends BinaryFormula {
 						: rightParameter.getNumericValue()));
 	}
 	
+	@Transient
+	@Override
+	public String getStringValueImpl() {
+		AbstractFormula leftParameter = getParameters().get(0);
+		AbstractFormula rightParameter = getParameters().get(1);
+		
+		return leftParameter.getStringValue() + rightParameter.getStringValue();
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Transient
 	@Override
 	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
+		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC, FormulaReturnType.STRING));
 	}
 	
 	/**
@@ -86,7 +95,8 @@ public class FormulaPlus extends BinaryFormula {
 				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC)));
 		combinations.put(FormulaReturnType.NUMERIC,
 				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC)));
-				
+		combinations.put(FormulaReturnType.STRING, new HashSet<>(Arrays.asList(FormulaReturnType.STRING)));
+		
 		return combinations;
 	}
 	
