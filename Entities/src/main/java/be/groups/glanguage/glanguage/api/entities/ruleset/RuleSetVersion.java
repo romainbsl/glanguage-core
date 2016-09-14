@@ -28,17 +28,17 @@ import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinition
 @Entity
 @Table(name = "RULE_SET_VERSION")
 public class RuleSetVersion {
-	
+
 	/**
 	 * Technical unique ID
 	 */
 	private int id;
-	
+
 	/**
 	 * Date from which this is in production inclusively
 	 */
 	private LocalDateTime exploitationStartDate;
-	
+
 	/**
 	 * Version
 	 */
@@ -48,7 +48,7 @@ public class RuleSetVersion {
 	 * Author
 	 */
 	private String author;
-	
+
 	/**
 	 * Status
 	 */
@@ -58,7 +58,7 @@ public class RuleSetVersion {
 	 * Label
 	 */
 	private String label;
-	
+
 	/**
 	 * RuleSet this is a version of
 	 */
@@ -73,26 +73,26 @@ public class RuleSetVersion {
 	 * Set of children RuleSetVersion's
 	 */
 	private Set<RuleSetVersion> children;
-	
+
 	/**
 	 * Set of RuleSetVersions included in this
 	 */
 	private Set<RuleSetVersion> includes;
-	
+
 	/**
 	 * Set of RuleSetVersions this is included in
 	 */
 	private Set<RuleSetVersion> includedIn;
-	
+
 	/**
 	 * Set of RuleVersions
 	 */
 	private Set<RuleVersion> ruleVersions;
-	
+
 	public RuleSetVersion() {
 		super();
 	}
-	
+
 	/**
 	 * @return the id
 	 */
@@ -101,7 +101,7 @@ public class RuleSetVersion {
 	public int getId() {
 		return id;
 	}
-	
+
 	/**
 	 * @return the exploitationStartDate
 	 */
@@ -110,7 +110,7 @@ public class RuleSetVersion {
 	public LocalDateTime getExploitationStartDate() {
 		return exploitationStartDate;
 	}
-	
+
 	/**
 	 * @return the version
 	 */
@@ -118,7 +118,7 @@ public class RuleSetVersion {
 	public String getVersion() {
 		return version;
 	}
-	
+
 	/**
 	 * @return the author
 	 */
@@ -169,19 +169,16 @@ public class RuleSetVersion {
 	public RuleSet getRuleSet() {
 		return ruleSet;
 	}
-	
+
 	/**
 	 * @return the includes
 	 */
 	@ManyToMany
-	@JoinTable(
-			name = "RULE_SET_VERSION_GROUP_ITEM",
-			joinColumns = @JoinColumn(name = "INCLUDING_RULE_SET_VERSION_ID", referencedColumnName = "ID") ,
-			inverseJoinColumns = @JoinColumn(name = "INCLUDED_RULE_SET_VERSION_ID", referencedColumnName = "ID") )
+	@JoinTable(name = "RULE_SET_VERSION_GROUP_ITEM", joinColumns = @JoinColumn(name = "INCLUDING_RULE_SET_VERSION_ID", referencedColumnName = "ID") , inverseJoinColumns = @JoinColumn(name = "INCLUDED_RULE_SET_VERSION_ID", referencedColumnName = "ID") )
 	public Set<RuleSetVersion> getIncludes() {
 		return includes;
 	}
-	
+
 	/**
 	 * @return the includedIn
 	 */
@@ -189,41 +186,42 @@ public class RuleSetVersion {
 	public Set<RuleSetVersion> getIncludedIn() {
 		return includedIn;
 	}
-	
+
 	/**
 	 * @return the ruleVersions
 	 */
 	@ManyToMany
-	@JoinTable(
-			name = "RULE_SET_VERSION_RULE_VERSION",
-			joinColumns = @JoinColumn(name = "RULE_SET_VERSION_ID", referencedColumnName = "ID") ,
-			inverseJoinColumns = @JoinColumn(name = "RULE_VERSION_ID", referencedColumnName = "ID") )
+	@JoinTable(name = "RULE_SET_VERSION_RULE_VERSION", joinColumns = @JoinColumn(name = "RULE_SET_VERSION_ID", referencedColumnName = "ID") , inverseJoinColumns = @JoinColumn(name = "RULE_VERSION_ID", referencedColumnName = "ID") )
 	@OrderBy("EFFECTIVITY_START_DATE DESC")
 	public Set<RuleVersion> getRuleVersions() {
 		return ruleVersions;
 	}
-	
+
 	/**
 	 * Get all RuleVersions for a code
 	 * 
-	 * @param code 
+	 * @param code
 	 * @return
 	 */
 	@Transient
 	private List<RuleVersion> getRuleVersions(String code) {
-		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code)).collect(Collectors.toList());
+		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code))
+				.collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Get the default definition RuleVersion for a code and effective at specified effective date
+	 * Get the default definition RuleVersion for a code and effective at
+	 * specified effective date
 	 * 
-	 * @param effective the date on which the version returned is effective
-	 * @return the default definition RuleVersion that is effective at the specified date if it exists, null otherwise
+	 * @param effective
+	 *            the date on which the version returned is effective
+	 * @return the default definition RuleVersion that is effective at the
+	 *         specified date if it exists, null otherwise
 	 */
 	@Transient
 	public RuleVersion getDefaultRuleVersion(String code, LocalDateTime effective) {
-		Optional<RuleVersion> ruleVersion = getRuleVersions(code).stream()
-				.filter(rv -> rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT) && rv.isEffective(effective))
+		Optional<RuleVersion> ruleVersion = getRuleVersions(code).stream().filter(
+				rv -> rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT) && rv.isEffective(effective))
 				.findFirst();
 		if (ruleVersion.isPresent()) {
 			return ruleVersion.get();
@@ -232,115 +230,137 @@ public class RuleSetVersion {
 	}
 
 	/**
-	 * Get the RuleVersion effective at specified effective date and whose RuleDefinition matches the definition parameters
+	 * Get the RuleVersion effective at specified effective date and whose
+	 * RuleDefinition matches the definition parameters
 	 * 
-	 * @param effective the date on which the RuleVersion returned is effective
-	 * @param definitionParameters the definition parameters that the RuleVersion's RuleDefintion matches
-	 * @return the default definition RuleVersion that is effective at the specified date if it exists, null otherwise
+	 * @param effective
+	 *            the date on which the RuleVersion returned is effective
+	 * @param definitionParameters
+	 *            the definition parameters that the RuleVersion's RuleDefintion
+	 *            matches
+	 * @return the default definition RuleVersion that is effective at the
+	 *         specified date if it exists, null otherwise
 	 */
 	@Transient
-	public RuleVersion getDefinedRuleVersion(LocalDateTime effective, Collection<RuleDefinitionParameter> definitionParameters) {
+	public RuleVersion getDefinedRuleVersion(LocalDateTime effective,
+			Collection<RuleDefinitionParameter> definitionParameters) {
 		Optional<RuleVersion> ruleVersion = getRuleVersions().stream()
-				.filter(rv -> rv.getRuleDefinition().match(definitionParameters) && rv.isEffective(effective)).findFirst();
+				.filter(rv -> rv.getRuleDefinition().match(definitionParameters) && rv.isEffective(effective))
+				.findFirst();
 		if (ruleVersion.isPresent()) {
 			return ruleVersion.get();
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Is this in exploitation at a specified date ? <br>
-	 * This is in exploitation at a specified date if the specified date is between this start date and this end date inclusively
+	 * This is in exploitation at a specified date if the specified date is
+	 * between this start date and this end date inclusively
 	 * 
-	 * @param date The date at which this is in exploitation or not
-	 * @return true If this is in exploitation at the specified date, false otherwise
+	 * @param date
+	 *            The date at which this is in exploitation or not
+	 * @return true If this is in exploitation at the specified date, false
+	 *         otherwise
 	 */
 	public boolean isInExploitation(LocalDateTime date) {
 		return !date.isBefore(getExploitationStartDate());
 	}
-	
+
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	/**
-	 * @param exploitationStartDate the exploitationStartDate to set
+	 * @param exploitationStartDate
+	 *            the exploitationStartDate to set
 	 */
 	public void setExploitationStartDate(LocalDateTime exploitationStartDate) {
 		this.exploitationStartDate = exploitationStartDate;
 	}
-	
+
 	/**
-	 * @param version the version to set
+	 * @param version
+	 *            the version to set
 	 */
 	public void setVersion(String version) {
 		this.version = version;
 	}
-	
+
 	/**
-	 * @param author the author to set
+	 * @param author
+	 *            the author to set
 	 */
 	public void setAuthor(String author) {
 		this.author = author;
 	}
 
 	/**
-	 * @param status the status to set
+	 * @param status
+	 *            the status to set
 	 */
 	public void setStatus(RuleSetVersionStatus status) {
 		this.status = status;
 	}
 
 	/**
-	 * @param label the label to set
+	 * @param label
+	 *            the label to set
 	 */
 	public void setLabel(String label) {
 		this.label = label;
 	}
 
 	/**
-	 * @param parent the parent to set
+	 * @param parent
+	 *            the parent to set
 	 */
 	public void setParent(RuleSetVersion parent) {
 		this.parent = parent;
 	}
 
 	/**
-	 * @param children the children to set
+	 * @param children
+	 *            the children to set
 	 */
 	public void setChildren(Set<RuleSetVersion> children) {
 		this.children = children;
 	}
 
 	/**
-	 * @param ruleSet the ruleSet to set
+	 * @param ruleSet
+	 *            the ruleSet to set
 	 */
 	public void setRuleSet(RuleSet ruleSet) {
 		this.ruleSet = ruleSet;
 	}
-	
+
 	/**
-	 * @param includes the includes to set
+	 * @param includes
+	 *            the includes to set
 	 */
 	public void setIncludes(Set<RuleSetVersion> includes) {
 		this.includes = includes;
 	}
-	
+
 	/**
-	 * @param includedIn the includedIn to set
+	 * @param includedIn
+	 *            the includedIn to set
 	 */
 	public void setIncludedIn(Set<RuleSetVersion> includedIn) {
 		this.includedIn = includedIn;
 	}
-	
+
 	/**
-	 * @param ruleVersions the ruleVersions to set
+	 * @param ruleVersions
+	 *            the ruleVersions to set
 	 */
 	public void setRuleVersions(Set<RuleVersion> ruleVersions) {
 		this.ruleVersions = ruleVersions;
 	}
-	
+
 }

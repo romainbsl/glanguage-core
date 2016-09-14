@@ -9,6 +9,7 @@ import java.time.format.DateTimeParseException;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
@@ -23,42 +24,30 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 public class FormulaTerminalDate extends AbstractTerminalFormula {
 
 	private LocalDate date;
-	
-	public FormulaTerminalDate() {
+
+	protected FormulaTerminalDate() {
 		super();
 	}
 
 	public FormulaTerminalDate(String constantValue) {
-		super(constantValue);
+		super(FormulaDescription.TERMINAL_DATE, constantValue);
+
 		try {
 			this.date = LocalDate.parse(getConstantValue(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		} catch (DateTimeParseException dtpe) {
-			throw new IllegalArgumentException("Contant value must reprensent a date formatted as \"dd/MM/yyyy\" : " + constantValue);
+			throw new IllegalArgumentException(
+					"Contant value must reprensent a date formatted as \"dd/MM/yyyy\" : " + constantValue);
 		}
 	}
 
 	public FormulaTerminalDate(LocalDate constantValue) {
-		super(constantValue.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		this(constantValue.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 	}
 
-	@Override
-	public Integer getIntegerValue() {
-		throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
-	}
-
-	@Override
-	public Double getNumericValue() {
-		throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
-	}
-
-	@Override
-	public Boolean getBooleanValue() {
-		throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
-	}
-
+	@Transient
 	@Override
 	public LocalDate getDateValue() {
 		return date;
 	}
-	
+
 }

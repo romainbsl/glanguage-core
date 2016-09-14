@@ -2,7 +2,6 @@ package be.groups.glanguage.glanguage.api.entities.rule;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Set;
 import java.util.SortedSet;
 
@@ -41,7 +40,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
 	 * RuleDescription
 	 */
 	private RuleDescription ruleDescription;
-	
+
 	/**
 	 * Date until which this is effective inclusively
 	 */
@@ -101,7 +100,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
 	 * Version
 	 */
 	private String version;
-	
+
 	/**
 	 * Set of RuleSetVersion this is included in
 	 */
@@ -230,7 +229,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
 	/**
 	 * @return the ruleSetVersions
 	 */
-	@ManyToMany(mappedBy="ruleVersions")
+	@ManyToMany(mappedBy = "ruleVersions")
 	public Set<RuleSetVersion> getRuleSetVersions() {
 		return ruleSetVersions;
 	}
@@ -367,104 +366,120 @@ public class RuleVersion implements Comparable<RuleVersion> {
 	public boolean isValuable() {
 		return getFormula().isValuable();
 	}
-	
+
 	/**
 	 * Is this effective at a specified date ? <br>
-	 * This is effective at a specified date if the specified date is between this start date and this end date inclusively
+	 * This is effective at a specified date if the specified date is between
+	 * this start date and this end date inclusively
 	 * 
-	 * @param date The date at which this is effective or not
+	 * @param date
+	 *            The date at which this is effective or not
 	 * @return true If this is effective at the specified date, false otherwise
 	 */
 	public boolean isEffective(LocalDateTime date) {
-		return !date.isBefore(getEffectivityStartDate()) && (getEffectivityEndDate() == null || !date.isAfter(getEffectivityEndDate()));
+		return !date.isBefore(getEffectivityStartDate())
+				&& (getEffectivityEndDate() == null || !date.isAfter(getEffectivityEndDate()));
 	}
 
 	/**
-	 * @param ruleDescription the ruleDescription to set
+	 * @param ruleDescription
+	 *            the ruleDescription to set
 	 */
 	public void setRuleDescription(RuleDescription ruleDescription) {
 		this.ruleDescription = ruleDescription;
 	}
 
 	/**
-	 * @param effectivityEndDate the endDate to set
+	 * @param effectivityEndDate
+	 *            the endDate to set
 	 */
 	public void setEffectivityEndDate(LocalDateTime effectivityEndDate) {
 		this.effectivityEndDate = effectivityEndDate;
 	}
 
 	/**
-	 * @param effectitvityStartDate the effectitvityStartDate to set
+	 * @param effectitvityStartDate
+	 *            the effectitvityStartDate to set
 	 */
 	public void setEffectivityStartDate(LocalDateTime effectitvityStartDate) {
 		this.effectivityStartDate = effectitvityStartDate;
 	}
 
 	/**
-	 * @param applicabilityCondition the applicabilityCondition to set
+	 * @param applicabilityCondition
+	 *            the applicabilityCondition to set
 	 */
 	public void setApplicabilityCondition(AbstractFormula applicabilityCondition) {
 		this.applicabilityCondition = applicabilityCondition;
 	}
 
 	/**
-	 * @param code the code to set
+	 * @param code
+	 *            the code to set
 	 */
 	public void setFormula(AbstractFormula formula) {
 		this.formula = formula;
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	private void setId(int id) {
 		this.id = id;
 	}
 
 	/**
-	 * @param code the code to set
+	 * @param code
+	 *            the code to set
 	 */
 	public void setRoundingPrecision(Double precision) {
 		this.roundingPrecision = precision;
 	}
 
 	/**
-	 * @param code the code to set
+	 * @param code
+	 *            the code to set
 	 */
 	public void setRoundingType(RoundingType roundingType) {
 		this.roundingType = roundingType;
 	}
 
 	/**
-	 * @param ruleDefinition the definition to set
+	 * @param ruleDefinition
+	 *            the definition to set
 	 */
 	public void setRuleDefinition(RuleDefinition ruleDefinition) {
 		this.ruleDefinition = ruleDefinition;
 	}
 
 	/**
-	 * @param ruleType the ruleType to set
+	 * @param ruleType
+	 *            the ruleType to set
 	 */
 	public void setRuleType(RuleType ruleType) {
 		this.ruleType = ruleType;
 	}
 
 	/**
-	 * @param subRulesIdentity the subRulesIdentity to set
+	 * @param subRulesIdentity
+	 *            the subRulesIdentity to set
 	 */
 	public void setGroupItems(SortedSet<RuleGroupItem> groupItems) {
 		this.groupItems = groupItems;
 	}
 
 	/**
-	 * @param version the version to set
+	 * @param version
+	 *            the version to set
 	 */
 	public void setVersion(String version) {
 		this.version = version;
 	}
 
 	/**
-	 * @param ruleSetVersions the ruleSetVersions to set
+	 * @param ruleSetVersions
+	 *            the ruleSetVersions to set
 	 */
 	public void setRuleSetVersions(Set<RuleSetVersion> ruleSetVersions) {
 		this.ruleSetVersions = ruleSetVersions;
@@ -481,7 +496,8 @@ public class RuleVersion implements Comparable<RuleVersion> {
 	/**
 	 * Set the value in the cache
 	 * 
-	 * @param code the code to set
+	 * @param code
+	 *            the code to set
 	 */
 	private void setValue(Object value) {
 		this.value = value;

@@ -1,11 +1,15 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalInteger;
 import be.groups.glanguage.glanguage.api.entities.rule.RoundingType;
 
@@ -13,12 +17,12 @@ import be.groups.glanguage.glanguage.api.entities.rule.RoundingType;
 @DiscriminatorValue(value = FormulaDescription.Values.F_TRUNC)
 public class FormulaTruncRounding extends RoundingFormula {
 
-	public FormulaTruncRounding() {
+	protected FormulaTruncRounding() {
 		super();
 	}
 
 	public FormulaTruncRounding(AbstractFormula parameter, AbstractFormula precision) {
-		super(parameter, precision);
+		super(FormulaDescription.F_TRUNC, parameter, precision);
 	}
 
 	@Override
@@ -29,6 +33,14 @@ public class FormulaTruncRounding extends RoundingFormula {
 	@Override
 	public AbstractFormula getDefaultPrecision() {
 		return new FormulaTerminalInteger("2");
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
+		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
 	}
 
 	@Override

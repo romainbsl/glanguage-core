@@ -1,5 +1,4 @@
 create table FORMULA (FORMULA_DESCRIPTION_ID number(10,0) not null, ID number(10,0) not null, VALUE varchar2(255 char), SEQUENCE_NUMBER number(10,0), PARENT_FORMULA_ID number(10,0), primary key (ID))
-create table FORMULA_DESCRIPTION (ID number(10,0) not null, DESCRIPTION varchar2(255 char), NAME varchar2(255 char), FORMULA_PRIORITY_ID number(10,0), FORMULA_RETURN_TYPE_ID number(10,0), primary key (ID))
 create table RULE_DEFINITION (ID number(10,0) not null, RULE_IDENTITY_ID number(10,0), primary key (ID))
 create table RULE_DEFINITION_PARAMETER (LEVEL_ID number(10,0) not null, RULE_DEFINITION_ID number(10,0) not null, VALUE varchar2(255 char) not null, primary key (LEVEL_ID, RULE_DEFINITION_ID, VALUE))
 create table RULE_DESCRIPTION (ID number(10,0) not null, ALIAS_DE varchar2(255 char), ALIAS_FR varchar2(255 char), ALIAS_NL varchar2(255 char), ALIAS_X varchar2(255 char), CODE varchar2(255 char), DESCRIPTION_DE varchar2(255 char), DESCRIPTION_FR varchar2(255 char), DESCRIPTION_NL varchar2(255 char), DESCRIPTION_X varchar2(255 char), primary key (ID))
@@ -12,7 +11,6 @@ create table RULE_SET_VERSION_RULE_VERSION (RULE_SET_VERSION_ID number(10,0) not
 create table RULE_VERSION (ID number(10,0) not null, EFFECTIVITY_END_DATE timestamp, EFFECTIVITY_START_DATE timestamp, ROUNDING_PRECISION double precision, ROUNDING_TYPE_ID number(10,0), RULE_TYPE number(10,0), VERSION varchar2(255 char), APPLICABILITY_CONDITION_ID number(10,0), FORMULA_ID number(10,0), RULE_DEFINITION_ID number(10,0), RULE_DESCRIPTION_ID number(10,0), primary key (ID))
 alter table FORMULA add constraint UK_alffufkrxu54gw2wdd30oqyyl  unique (PARENT_FORMULA_ID, SEQUENCE_NUMBER)
 alter table RULE_GROUP_ITEM add constraint UK_m4qtcppj5uegr4xl2chusyc2e  unique (RULE_VERSION_ID, SEQUENCE_NUMBER)
-alter table FORMULA add constraint FK_5duebqvavvrf5tb1owb5uhbu7 foreign key (FORMULA_DESCRIPTION_ID) references FORMULA_DESCRIPTION
 alter table FORMULA add constraint FK_gvo4fpigpsm3d89nday4wtd97 foreign key (PARENT_FORMULA_ID) references FORMULA
 alter table RULE_DEFINITION add constraint FK_k7hrdkxpn1wwcgcnyk8dkhxcf foreign key (RULE_IDENTITY_ID) references RULE_IDENTITY
 alter table RULE_DEFINITION_PARAMETER add constraint FK_h78fdggdxc2w29mi8qi64so9p foreign key (RULE_DEFINITION_ID) references RULE_DEFINITION

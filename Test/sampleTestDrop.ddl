@@ -1,5 +1,4 @@
 drop table FORMULA cascade constraints
-drop table FORMULA_DESCRIPTION cascade constraints
 drop table RULE_DEFINITION cascade constraints
 drop table RULE_DEFINITION_PARAMETER cascade constraints
 drop table RULE_DESCRIPTION cascade constraints

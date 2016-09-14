@@ -1,49 +1,54 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.unary;
 
-import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 
 @Entity
 @DiscriminatorValue(FormulaDescription.Values.OP_UNARY_MINUS)
 public class FormulaUnaryMinus extends UnaryFormula {
-	
-	public FormulaUnaryMinus(AbstractFormula child) {
-		super(child);
+
+	protected FormulaUnaryMinus() {
+		super();
 	}
-	
+
+	public FormulaUnaryMinus(AbstractFormula child) {
+		super(FormulaDescription.OP_UNARY_MINUS, child);
+	}
+
 	@Override
-	public Integer getIntegerValue() {
+	public Integer getIntegerValueImpl() {
 		return -getParameters().get(0).getIntegerValue();
 	}
-	
+
 	@Override
-	public Double getNumericValue() {
+	public Double getNumericValueImpl() {
 		return -getParameters().get(0).getNumericValue();
 	}
-	
+
 	@Override
-	public String getStringValue() {
-		throw new IllegalAccessError("Cannot invoke getStringValue() method on FormulaUnaryMinus object");
+	protected FormulaReturnType computeReturnType() {
+		return getParameters().get(0).getReturnType();
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public Boolean getBooleanValue() {
-		throw new IllegalAccessError("Cannot invoke getBooleanValue() method on FormulaUnaryMinus object");
+	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
+		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
 	}
-	
-	@Override
-	public LocalDate getDateValue() {
-		throw new IllegalAccessError("Cannot invoke getDateValue() method on FormulaUnaryMinus object");
-	}
-	
+
 	@Override
 	public String operationAsText() {
 		return "-";
 	}
-	
+
 }
