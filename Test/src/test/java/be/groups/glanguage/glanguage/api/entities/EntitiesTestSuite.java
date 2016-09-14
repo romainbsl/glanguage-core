@@ -7,10 +7,16 @@ import org.junit.runners.Suite.SuiteClasses;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormulaTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaAndTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDifferenceTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDivideTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaEqualTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaGreaterOrEqualTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaGreaterTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaIntegerDivisionTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMinusTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaModuloTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMultiplyTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaOrTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaPlusTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerOrEqualTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBooleanTest;
@@ -36,13 +42,14 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
  * @author DUPIREFR
  */
 @RunWith(Suite.class)
-@SuiteClasses({ RuleSetTest.class, RuleSetVersionTest.class, RuleIdentityTest.class, RuleDefinitionTest.class,
+@SuiteClasses({RuleSetTest.class, RuleSetVersionTest.class, RuleIdentityTest.class, RuleDefinitionTest.class,
 		RuleDefinitionParameterTest.class, RuleVersionTest.class, RuleDescriptionTest.class, RuleGroupItemTest.class,
 		AbstractFormulaTest.class, FormulaTerminalBooleanTest.class, FormulaTerminalIntegerTest.class,
-		FormulaTerminalNumericTest.class, FormulaTerminalStringTest.class, FormulaTerminalDateTest.class,
-		FormulaExistTest.class, FormulaNotTest.class, FormulaUnaryMinusTest.class, FormulaAndTest.class,
-		FormulaOrTest.class, FormulaGreaterTest.class, FormulaGreaterOrEqualTest.class, FormulaSmallerTest.class,
-		FormulaSmallerOrEqualTest.class, FormulaEqualTest.class, FormulaDifferenceTest.class })
+		FormulaTerminalNumericTest.class, FormulaTerminalStringTest.class, FormulaTerminalDateTest.class, FormulaExistTest.class,
+		FormulaNotTest.class, FormulaUnaryMinusTest.class, FormulaAndTest.class, FormulaOrTest.class, FormulaGreaterTest.class,
+		FormulaGreaterOrEqualTest.class, FormulaSmallerTest.class, FormulaSmallerOrEqualTest.class, FormulaEqualTest.class,
+		FormulaDifferenceTest.class, FormulaPlusTest.class, FormulaMinusTest.class, FormulaMultiplyTest.class, FormulaDivideTest.class,
+		FormulaIntegerDivisionTest.class, FormulaModuloTest.class})
 public class EntitiesTestSuite {
 
 }

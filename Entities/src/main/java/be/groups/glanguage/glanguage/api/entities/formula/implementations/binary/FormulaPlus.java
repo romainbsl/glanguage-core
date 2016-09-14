@@ -17,8 +17,8 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 /**
  * Formula representing a mathematical addition<br>
  * This formula has exactly two (2) parameters<br>
- * This formula adds its second parameter value to its first parameter value and
- * return the value<br>
+ * This formula adds its second parameter value to its first parameter value and return the value
+ * <br>
  * This formula can add :
  * <ul>
  * <li>two integers - returning an integer value</li>
@@ -32,27 +32,40 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 @Entity
 @DiscriminatorValue(FormulaDescription.Values.OP_PLUS)
 public class FormulaPlus extends BinaryFormula {
-
+	
 	protected FormulaPlus() {
 		super();
 	}
-
+	
 	public FormulaPlus(AbstractFormula child1, AbstractFormula child2) {
 		super(FormulaDescription.OP_PLUS, child1, child2);
 	}
-
+	
 	@Transient
 	@Override
 	public Integer getIntegerValueImpl() {
-		return getParameters().get(0).getIntegerValue() + getParameters().get(1).getIntegerValue();
+		AbstractFormula leftParameter = getParameters().get(0);
+		AbstractFormula rightParameter = getParameters().get(1);
+		
+		return Double.valueOf((leftParameter.getReturnType().equals(FormulaReturnType.INTEGER)
+				? leftParameter.getIntegerValue().doubleValue() : leftParameter.getNumericValue())
+				+ (rightParameter.getReturnType().equals(FormulaReturnType.INTEGER) ? rightParameter.getIntegerValue().doubleValue()
+						: rightParameter.getNumericValue()))
+				.intValue();
 	}
-
+	
 	@Transient
 	@Override
 	public Double getNumericValueImpl() {
-		return getParameters().get(0).getNumericValue() + getParameters().get(1).getNumericValue();
+		AbstractFormula leftParameter = getParameters().get(0);
+		AbstractFormula rightParameter = getParameters().get(1);
+		
+		return Double.valueOf((leftParameter.getReturnType().equals(FormulaReturnType.INTEGER)
+				? leftParameter.getIntegerValue().doubleValue() : leftParameter.getNumericValue())
+				+ (rightParameter.getReturnType().equals(FormulaReturnType.INTEGER) ? rightParameter.getIntegerValue().doubleValue()
+						: rightParameter.getNumericValue()));
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -61,7 +74,7 @@ public class FormulaPlus extends BinaryFormula {
 	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
 		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -73,13 +86,13 @@ public class FormulaPlus extends BinaryFormula {
 				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC)));
 		combinations.put(FormulaReturnType.NUMERIC,
 				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC)));
-
+				
 		return combinations;
 	}
-
+	
 	@Override
 	public String operationAsText() {
 		return "+";
 	}
-
+	
 }
