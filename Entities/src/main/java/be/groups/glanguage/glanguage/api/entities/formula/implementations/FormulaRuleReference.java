@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 
+import java.time.Duration;
 import java.time.LocalDate;
 
 import javax.persistence.DiscriminatorValue;
@@ -122,6 +123,19 @@ public class FormulaRuleReference extends AbstractFormula {
 					+ " object if referenced rule (version id : " + referencedRule.getId() + ") is not of type DATE");
 		}
 		return referencedRule.getDateValue();
+	}
+
+	@Override
+	public Duration getDurationValue() {
+		if (referencedRule == null) {
+			throw new IllegalAccessError("Cannot invoke getDurationValue() method on " + this.getClass().getName()
+					+ " object while referenced rule (version id : " + referencedRule.getId()
+					+ ") is not set - while branching is not done");
+		} else if (!getReturnType().equals(FormulaReturnType.DURATION)) {
+			throw new IllegalAccessError("Cannot invoke getDurationValue() method on " + this.getClass().getName()
+					+ " object if referenced rule (version id : " + referencedRule.getId() + ") is not of type DURATION");
+		}
+		return referencedRule.getDurationValue();
 	}
 
 	/**

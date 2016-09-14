@@ -19,32 +19,28 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 @DiscriminatorValue(FormulaDescription.Values.TERMINAL_INTEGER)
 public class FormulaTerminalInteger extends AbstractTerminalFormula {
 
-	private Integer integerValue;
-
 	protected FormulaTerminalInteger() {
 		super();
 	}
 
 	public FormulaTerminalInteger(String constantValue) {
 		super(FormulaDescription.TERMINAL_INTEGER, constantValue);
-
-		try {
-			this.integerValue = Integer.valueOf(constantValue);
-		} catch (NumberFormatException nfe) {
-			throw new IllegalArgumentException("Contant value must reprensent an integer value : " + constantValue);
-		}
 	}
 
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
-		return integerValue;
+		try {
+			return Integer.valueOf(getConstantValue());
+		} catch (NumberFormatException nfe) {
+			throw new IllegalArgumentException("Contant value must reprensent an integer value : " + getConstantValue());
+		}
 	}
 
 	@Transient
 	@Override
 	public Double getNumericValue() {
-		return integerValue.doubleValue();
+		return getIntegerValue().doubleValue();
 	}
 
 }

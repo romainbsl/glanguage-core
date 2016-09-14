@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -242,6 +243,8 @@ public class RuleVersion implements Comparable<RuleVersion> {
 				return getBooleanValue();
 			case DATE:
 				return getDateValue();
+			case DURATION:
+				return getDurationValue();
 			case INTEGER:
 				return getIntegerValue();
 			case NUMERIC:
@@ -270,6 +273,14 @@ public class RuleVersion implements Comparable<RuleVersion> {
 			setValue(formula.getDateValue());
 		}
 		return (LocalDate) value;
+	}
+
+	@Transient
+	public Duration getDurationValue() {
+		if (value == null) {
+			setValue(formula.getDurationValue());
+		}
+		return (Duration) value;
 	}
 
 	@Transient

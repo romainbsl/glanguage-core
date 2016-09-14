@@ -25,5 +25,5 @@ public class FormulaTerminalString extends AbstractTerminalFormula {
 	public FormulaTerminalString(String constantValue) {
 		super(FormulaDescription.TERMINAL_STRING, constantValue);
 	}
-
+		
 }

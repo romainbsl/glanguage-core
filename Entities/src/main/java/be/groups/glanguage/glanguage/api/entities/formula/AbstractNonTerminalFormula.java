@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.formula;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -41,8 +42,7 @@ public abstract class AbstractNonTerminalFormula extends AbstractFormula {
 	 * @return true if this parameters are authorized, otherwise false
 	 */
 	protected boolean areParametersAuthorized() {
-		return parameters.stream().filter(p -> !getAuthorizedParametersTypes().contains(p.getReturnType()))
-				.count() == 0;
+		return parameters.stream().anyMatch(p -> !getAuthorizedParametersTypes().contains(p.getReturnType()));
 	}
 
 	/**
@@ -91,6 +91,12 @@ public abstract class AbstractNonTerminalFormula extends AbstractFormula {
 	public final LocalDate getDateValue() {
 		return getValueImpl(this::getDateValueImpl);
 	}
+	
+	@Transient
+	@Override
+	public final Duration getDurationValue() {
+		return getValueImpl(this::getDurationValueImpl);		
+	}
 
 	private <T> T getValueImpl(Supplier<T> method) {
 		if (areParametersAuthorized()) {
@@ -133,6 +139,12 @@ public abstract class AbstractNonTerminalFormula extends AbstractFormula {
 	protected LocalDate getDateValueImpl() {
 		throw new UnsupportedOperationException(
 				"Cannot invoke getDateValue() method on " + this.getClass().getName() + " object");
+	}
+
+	@Transient
+	protected Duration getDurationValueImpl() {
+		throw new UnsupportedOperationException(
+				"Cannot invoke getDurationValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Transient

@@ -27,7 +27,6 @@ public class FormulaTerminalBoolean extends AbstractTerminalFormula {
 
 	public FormulaTerminalBoolean(String constantValue) {
 		super(FormulaDescription.TERMINAL_BOOLEAN, constantValue);
-
 		initializeBooleanValue(constantValue);
 	}
 
@@ -41,7 +40,6 @@ public class FormulaTerminalBoolean extends AbstractTerminalFormula {
 		if (booleanValue == null) {
 			initializeBooleanValue(getConstantValue());
 		}
-
 		return booleanValue;
 	}
 
@@ -50,8 +48,7 @@ public class FormulaTerminalBoolean extends AbstractTerminalFormula {
 			if (!(constantValue.equalsIgnoreCase("true") || constantValue.equalsIgnoreCase("false"))) {
 				throw new IllegalArgumentException("Contant value must reprensent a boolean value : " + constantValue);
 			}
-
-			this.booleanValue = Boolean.valueOf(constantValue);
 		}
 	}
+
 }

@@ -14,25 +14,25 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.termin
 import be.groups.glanguage.glanguage.api.entities.rule.RoundingType;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.F_CEIL)
-public class FormulaCeilRounding extends RoundingFormula {
+@DiscriminatorValue(value = FormulaDescription.Values.F_BANKERS_ROUNDED)
+public class FormulaRoundingBankers extends RoundingFormula {
 
-	protected FormulaCeilRounding() {
+	protected FormulaRoundingBankers() {
 		super();
 	}
 
-	public FormulaCeilRounding(AbstractFormula parameter, AbstractFormula precision) {
-		super(FormulaDescription.F_CEIL, parameter, precision);
+	public FormulaRoundingBankers(AbstractFormula parameter, AbstractFormula precision) {
+		super(FormulaDescription.F_BANKERS_ROUNDED, parameter, precision);
 	}
 
 	@Override
 	public RoundingType getRoundingType() {
-		return RoundingType.CEIL;
+		return RoundingType.BANKERS;
 	}
 
 	@Override
 	public AbstractFormula getDefaultPrecision() {
-		return new FormulaTerminalInteger("1");
+		return new FormulaTerminalInteger("2");
 	}
 
 	/**
@@ -42,10 +42,17 @@ public class FormulaCeilRounding extends RoundingFormula {
 	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
 		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
 	}
+	
+	@Override
+	protected boolean isParametersCombinationAuthorized() {
+		return (getParameters().get(0).getReturnType().equals(FormulaReturnType.INTEGER)
+				|| getParameters().get(0).getReturnType().equals(FormulaReturnType.NUMERIC))
+				&& getParameters().get(1).getReturnType().equals(FormulaReturnType.INTEGER);
+	}
 
 	@Override
 	public String operationAsText() {
-		return "ceil";
+		return "bankers_rounded";
 	}
 
 	@Override

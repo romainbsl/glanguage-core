@@ -14,25 +14,25 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.termin
 import be.groups.glanguage.glanguage.api.entities.rule.RoundingType;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.F_BANKERS_ROUNDED)
-public class FormulaBankersRounding extends RoundingFormula {
+@DiscriminatorValue(value = FormulaDescription.Values.F_CEIL)
+public class FormulaRoundingCeil extends RoundingFormula {
 
-	protected FormulaBankersRounding() {
+	protected FormulaRoundingCeil() {
 		super();
 	}
 
-	public FormulaBankersRounding(AbstractFormula parameter, AbstractFormula precision) {
-		super(FormulaDescription.F_BANKERS_ROUNDED, parameter, precision);
+	public FormulaRoundingCeil(AbstractFormula parameter, AbstractFormula precision) {
+		super(FormulaDescription.F_CEIL, parameter, precision);
 	}
 
 	@Override
 	public RoundingType getRoundingType() {
-		return RoundingType.BANKERS;
+		return RoundingType.CEIL;
 	}
 
 	@Override
 	public AbstractFormula getDefaultPrecision() {
-		return new FormulaTerminalInteger("2");
+		return new FormulaTerminalInteger("1");
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class FormulaBankersRounding extends RoundingFormula {
 
 	@Override
 	public String operationAsText() {
-		return "bankers_rounded";
+		return "ceil";
 	}
 
 	@Override

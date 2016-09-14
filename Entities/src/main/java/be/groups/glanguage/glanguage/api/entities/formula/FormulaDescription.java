@@ -16,17 +16,17 @@ public enum FormulaDescription {
 
 	F_FLOOR(Values.F_FLOOR, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
 
-	F_FORMATDATE(Values.F_FORMATDATE, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
+	F_FORMAT_DATE(Values.F_FORMAT_DATE, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
 
-	F_FORMATINTEGER(Values.F_FORMATINTEGER, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
+	F_FORMAT_INTEGER(Values.F_FORMAT_INTEGER, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
 
-	F_FORMATNUMERIC(Values.F_FORMATNUMERIC, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
+	F_FORMAT_NUMERIC(Values.F_FORMAT_NUMERIC, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
 
-	F_FORMATSTRING(Values.F_FORMATSTRING, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
+	F_FORMAT_STRING(Values.F_FORMAT_STRING, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
 
 	F_ROUNDED(Values.F_ROUNDED, FormulaPriority.UNARY, FormulaReturnType.UNDEFINED),
 
-	F_STRINGITEM(Values.F_STRINGITEM, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
+	F_STRING_ITEM(Values.F_STRING_ITEM, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
 
 	F_SUBSTRING(Values.F_SUBSTRING, FormulaPriority.INSTRUCTION, FormulaReturnType.STRING),
 
@@ -62,7 +62,7 @@ public enum FormulaDescription {
 
 	F_RULE_REFERENCE(Values.F_RULE_REFERENCE, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
 
-	F_STRINGLENGTH(Values.F_STRINGLENGTH, FormulaPriority.INSTRUCTION, FormulaReturnType.INTEGER),
+	F_STRING_LENGTH(Values.F_STRING_LENGTH, FormulaPriority.INSTRUCTION, FormulaReturnType.INTEGER),
 
 	/* Unary operations */
 	OP_NOT(Values.OP_NOT, FormulaPriority.UNARY, FormulaReturnType.BOOLEAN),
@@ -111,7 +111,9 @@ public enum FormulaDescription {
 
 	TERMINAL_BOOLEAN(Values.TERMINAL_BOOLEAN, FormulaPriority.ATOMIC, FormulaReturnType.BOOLEAN),
 
-	TERMINAL_DATE(Values.TERMINAL_DATE, FormulaPriority.ATOMIC, FormulaReturnType.DATE);
+	TERMINAL_DATE(Values.TERMINAL_DATE, FormulaPriority.ATOMIC, FormulaReturnType.DATE),
+	
+	TERMINAL_DURATION(Values.TERMINAL_DURATION, FormulaPriority.ATOMIC, FormulaReturnType.DURATION);
 
 	/*
 	 * Fields
@@ -158,12 +160,12 @@ public enum FormulaDescription {
 		public static final String F_BANKERS_ROUNDED = "2";
 		public static final String F_CEIL = "3";
 		public static final String F_FLOOR = "4";
-		public static final String F_FORMATDATE = "5";
-		public static final String F_FORMATINTEGER = "6";
-		public static final String F_FORMATNUMERIC = "7";
-		public static final String F_FORMATSTRING = "8";
+		public static final String F_FORMAT_DATE = "5";
+		public static final String F_FORMAT_INTEGER = "6";
+		public static final String F_FORMAT_NUMERIC = "7";
+		public static final String F_FORMAT_STRING = "8";
 		public static final String F_ROUNDED = "9";
-		public static final String F_STRINGITEM = "10";
+		public static final String F_STRING_ITEM = "10";
 		public static final String F_SUBSTRING = "11";
 		public static final String F_SIGN = "12";
 		public static final String F_TRUNC = "13";
@@ -181,7 +183,7 @@ public enum FormulaDescription {
 		public static final String F_IN = "28";
 		public static final String F_PUT_TEXT = "29";
 		public static final String F_RULE_REFERENCE = "30";
-		public static final String F_STRINGLENGTH = "31";
+		public static final String F_STRING_LENGTH = "31";
 
 		/* Unary operations */
 		public static final String OP_NOT = "101";
@@ -211,6 +213,7 @@ public enum FormulaDescription {
 		public static final String TERMINAL_STRING = "1003";
 		public static final String TERMINAL_BOOLEAN = "1004";
 		public static final String TERMINAL_DATE = "1005";
+		public static final String TERMINAL_DURATION = "1006";
 	}
 
 }

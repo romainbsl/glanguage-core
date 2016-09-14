@@ -7,7 +7,7 @@ package be.groups.glanguage.glanguage.api.entities.formula;
  */
 public enum FormulaReturnType {
 
-	UNDEFINED, INTEGER, NUMERIC, STRING, BOOLEAN, DATE;
+	UNDEFINED, INTEGER, NUMERIC, STRING, BOOLEAN, DATE, DURATION;
 
 	/**
 	 * Translate a specified returnTypeId into a ReturnType object

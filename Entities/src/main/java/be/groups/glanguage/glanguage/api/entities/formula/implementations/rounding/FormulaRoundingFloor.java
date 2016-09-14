@@ -14,25 +14,25 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.termin
 import be.groups.glanguage.glanguage.api.entities.rule.RoundingType;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.F_TRUNC)
-public class FormulaTruncRounding extends RoundingFormula {
+@DiscriminatorValue(value = FormulaDescription.Values.F_FLOOR)
+public class FormulaRoundingFloor extends RoundingFormula {
 
-	protected FormulaTruncRounding() {
+	protected FormulaRoundingFloor() {
 		super();
 	}
 
-	public FormulaTruncRounding(AbstractFormula parameter, AbstractFormula precision) {
-		super(FormulaDescription.F_TRUNC, parameter, precision);
+	public FormulaRoundingFloor(AbstractFormula parameter, AbstractFormula precision) {
+		super(FormulaDescription.F_FLOOR, parameter, precision);
 	}
 
 	@Override
 	public RoundingType getRoundingType() {
-		return RoundingType.TRUNC;
+		return RoundingType.FLOOR;
 	}
 
 	@Override
 	public AbstractFormula getDefaultPrecision() {
-		return new FormulaTerminalInteger("2");
+		return new FormulaTerminalInteger("1");
 	}
 
 	/**
@@ -42,10 +42,15 @@ public class FormulaTruncRounding extends RoundingFormula {
 	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
 		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
 	}
+	
+	@Override
+	protected boolean isParametersCombinationAuthorized() {
+		return areParametersAuthorized();
+	}
 
 	@Override
 	public String operationAsText() {
-		return "trunc";
+		return "floor";
 	}
 
 	@Override
