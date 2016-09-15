@@ -52,9 +52,4 @@ public class FormulaRoundingTrunc extends RoundingFormula {
 		return "trunc";
 	}
 	
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		return getParameters().get(1).getReturnType();
-	}
-	
 }

@@ -53,9 +53,4 @@ public class FormulaRoundingFloor extends RoundingFormula {
 		return "floor";
 	}
 
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		return getParameters().get(1).getReturnType();
-	}
-
 }

@@ -48,9 +48,4 @@ public class FormulaRoundingCeil extends RoundingFormula {
 		return "ceil";
 	}
 
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		return getParameters().get(1).getReturnType();
-	}
-
 }

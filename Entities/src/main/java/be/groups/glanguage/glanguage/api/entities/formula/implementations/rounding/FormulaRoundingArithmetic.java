@@ -48,9 +48,4 @@ public class FormulaRoundingArithmetic extends RoundingFormula {
 		return "round";
 	}
 
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		return getParameters().get(1).getReturnType();
-	}
-
 }
