@@ -42,11 +42,6 @@ public class FormulaRoundingFloor extends RoundingFormula {
 	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
 		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
 	}
-	
-	@Override
-	protected boolean isParametersCombinationAuthorized() {
-		return areParametersAuthorized();
-	}
 
 	@Override
 	public String operationAsText() {

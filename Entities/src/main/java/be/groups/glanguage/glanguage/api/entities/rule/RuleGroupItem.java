@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 /**
@@ -21,6 +22,7 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	private RuleVersion ruleVersion;
 	private RuleIdentity ruleIdentity;
 	private int sequenceNumber;
+	private RuleVersion effectiveRuleVersion;
 
 	public RuleGroupItem() {
 		super();
@@ -39,7 +41,7 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	 */
 	@ManyToOne
 	@JoinColumn(name = "RULE_VERSION_ID", referencedColumnName = "ID", insertable = false, updatable = false)
-	public RuleVersion getRuleVersion() {
+	public RuleVersion getGroupRule() {
 		return ruleVersion;
 	}
 
@@ -48,10 +50,15 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	 */
 	@ManyToOne
 	@JoinColumn(name = "RULE_IDENTITY_ID", referencedColumnName = "ID", insertable = false, updatable = false)
-	public RuleIdentity getRuleIdentity() {
+	public RuleIdentity getItemRule() {
 		return ruleIdentity;
 	}
 
+	@Transient
+	public RuleVersion getEffectiveRule() {
+		return effectiveRuleVersion;
+	}
+	
 	/**
 	 * @return the sequenceNumber
 	 */
@@ -94,7 +101,7 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 
 	@Override
 	public int compareTo(RuleGroupItem o) {
-		int i = ruleVersion.getId() - o.getRuleVersion().getId();
+		int i = ruleVersion.getId() - o.getGroupRule().getId();
 		if (i == 0) {
 			i = sequenceNumber - o.getSequenceNumber();
 		}

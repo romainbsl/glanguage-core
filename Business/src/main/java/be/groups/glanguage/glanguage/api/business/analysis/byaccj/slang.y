@@ -4,7 +4,7 @@ package be.groups.glanguage.glanguage.api.business.analysis.byaccj;
 
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 import be.groups.glanguage.glanguage.api.business.analysis.byaccj.SlangLex;
 import be.groups.glanguage.glanguage.api.business.analysis.IdentifierParameterList;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
@@ -18,15 +18,9 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 %}
 
-	// -------------------------------------------------------------
-	// --  Declaration des termes manipules in cette grammaire  --
-	// ------------------------------------------------------------- --
+	/* Declaration of the terms manipulated in this grammar */
 
-
-
-	// Les operateurs, avec leur type d'associativite et precedence
-	//         (de la priorite la plus faible a la plus forte)
-	//   ------------------------------------------------------------ --
+	/* The operators, with their type of precedence and associativity, from lowest to highest priority */
 %left	T_OR
 %left	T_AND
 %left	'=' T_DIFFERENT '<' T_SMALLER_EQ '>' T_GREATER_EQ
@@ -37,9 +31,9 @@ import java.io.IOException;
 %right	ATOMIC_CALL
 
 
-	// Terminaux
-	// --------- --
-	// Mots cles --
+	/* Terminals */
+	
+	/* Keywords */
 %token	T_APPLIC
 %token	T_BOOLEAN
 %token	T_DATE
@@ -59,13 +53,12 @@ import java.io.IOException;
 %token	T_TRUE
 %token	T_UNKNOWN
 
-	// Appels 'objet' --
-// %token	T_APPLICABLE -> utiliser T_APPLIC--
+	/* Object calls */
 %token	T_FORMULA
 
-	// Meta langage --
+	/* Meta language */
 
-	// Mois de l'annee --
+	/* Months of year */
 %token	T_JANUARY
 %token	T_FEBRUARY
 %token	T_MARCH
@@ -79,7 +72,7 @@ import java.io.IOException;
 %token	T_NOVEMBER
 %token	T_DECEMBER
 
-	// Fonctions standard --
+	/* Standard functions */
 %token	T_ABS
 %token 	T_BANKERS_ROUNDED
 %token	T_CEIL
@@ -109,15 +102,14 @@ import java.io.IOException;
 %token	T_PUT_TEXT
 %token	T_STRINGLENGTH
 
-	// Valeurs --
+	/* Valeurs */
 %token	<stringVal> V_INTEGER V_QUANTITY V_DURATION V_STRING
 %token	<stringVal> V_IDENT
 
-	// End of file --
+	/* End of file */
 %token  T_EOF
 
-	// Non-Terminaux, avec leur type
-	   //--------------------------- --
+	/* Non-Terminals, with their type */
 %type	<formulaReturnType>	type
 %type	<stringList>	identifierList
 %type	<formulaList>	expressionList
@@ -126,7 +118,7 @@ import java.io.IOException;
 %type	<abstractFormula>	constant
 %type	<dateVal>	date
 %type	<objectVal>		separator
-%type	<integerVal>	mois
+%type	<integerVal>	month
 %type	<abstractFormula>	entity
 %type	<formulaList>	functionalCall
 %type	<abstractFormula>	objectCall
@@ -136,24 +128,21 @@ import java.io.IOException;
 %type	<abstractFormula>	instruction
 %type	<abstractFormula>	else
 
-	// Options
-	//----- --
-%start initialize		// Start --
+	/* Options */
+%start initialize		/* Start */
 
 %%
 
-	// ----------------------------
-	   //  Language grammar  --
-	   //-------------------------- --
+	/* Language grammar */
 
-	// Start --
-
+	/* Start */
 initialize:
 	{aSem.initialize(); if (yydebug) debug("initialize");} 
 	expr
 	T_EOF {if (yydebug) debug("teof yacc");aSem.endAnalysis(); if (yydebug) debug("endAnalysis"); /*return 0;*/} 
 	;
 
+	/* Types */
 type:
 	T_INTEGER		
 				{
@@ -177,8 +166,7 @@ type:
 				}
 	;
 
-	// Expressions
-	   //--------- --
+	/* Expressions */
 
 identifierList:
 	V_IDENT									
@@ -246,75 +234,75 @@ expr:
 				}
 	| T_NOT expr				
 				{
-					$$ = aSem.unaryOperation (FormulaType.OP_NOT, $2);
+					$$ = aSem.unaryOperation (FormulaDescription.OP_NOT, $2);
 				}
 	| '+' expr %prec UNARY_OP	
 				{
-					$$ = aSem.unaryOperation (FormulaType.OP_UNARY_PLUS, $2);if (yydebug) debug(" + in expr");
+					$$ = aSem.unaryOperation (FormulaDescription.OP_UNARY_PLUS, $2);if (yydebug) debug(" + in expr");
 				}
 	| '-' expr %prec UNARY_OP	
 				{
-					$$ = aSem.unaryOperation (FormulaType.OP_UNARY_MINUS, $2);if (yydebug) debug("- in expr");
+					$$ = aSem.unaryOperation (FormulaDescription.OP_UNARY_MINUS, $2);if (yydebug) debug("- in expr");
 				}
 	| '?' expr					
 				{
-					$$ = aSem.unaryOperation (FormulaType.OP_EXIST, $2);if (yydebug) debug("? in expr");
+					$$ = aSem.unaryOperation (FormulaDescription.OP_EXIST, $2);if (yydebug) debug("? in expr");
 				}
 	| expr '*' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_MULTIPLY, $1, $3);if (yydebug) debug("* in expr");
+					$$ = aSem.binaryOperation (FormulaDescription.OP_MULTIPLY, $1, $3);if (yydebug) debug("* in expr");
 				}
 	| expr '/' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_DIVIDE, $1, $3);if (yydebug) debug("/ in expr");
+					$$ = aSem.binaryOperation (FormulaDescription.OP_DIVIDE, $1, $3);if (yydebug) debug("/ in expr");
 				}
 	| expr T_INTEGER_DIV expr	
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_INTEGER_DIVISION, $1, $3);
+					$$ = aSem.binaryOperation (FormulaDescription.OP_INTEGER_DIVISION, $1, $3);
 				}
 	| expr T_MODULO expr		
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_MODULO, $1, $3);
+					$$ = aSem.binaryOperation (FormulaDescription.OP_MODULO, $1, $3);
 				}
 	| expr '+' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_PLUS, $1, $3);if (yydebug) debug("+expr in expr");
+					$$ = aSem.binaryOperation (FormulaDescription.OP_PLUS, $1, $3);if (yydebug) debug("+expr in expr");
 				}
 	| expr '-' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_MINUS, $1, $3);if (yydebug) debug("-expr in expr");
+					$$ = aSem.binaryOperation (FormulaDescription.OP_MINUS, $1, $3);if (yydebug) debug("-expr in expr");
 				}
 	| expr '=' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_EQUAL, $1, $3);if (yydebug) debug("=expr in expr");
+					$$ = aSem.binaryOperation (FormulaDescription.OP_EQUAL, $1, $3);if (yydebug) debug("=expr in expr");
 				}
 	| expr T_DIFFERENT expr		
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_DIFFERENCE, $1, $3);
+					$$ = aSem.binaryOperation (FormulaDescription.OP_DIFFERENCE, $1, $3);
 				}
 	| expr '<' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_SMALLER, $1, $3);
+					$$ = aSem.binaryOperation (FormulaDescription.OP_SMALLER, $1, $3);
 				}
 	| expr T_SMALLER_EQ expr	
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_SMALLER_OR_EQUAL, $1, $3);
+					$$ = aSem.binaryOperation (FormulaDescription.OP_SMALLER_OR_EQUAL, $1, $3);
 				}
 	| expr '>' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_GREATER, $1, $3);
+					$$ = aSem.binaryOperation (FormulaDescription.OP_GREATER, $1, $3);
 				}
 	| expr T_GREATER_EQ expr	
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_GREATER_OR_EQUAL, $1, $3);
+					$$ = aSem.binaryOperation (FormulaDescription.OP_GREATER_OR_EQUAL, $1, $3);
 				}
 	| expr T_AND expr			
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_AND, $1, $3);
+					$$ = aSem.binaryOperation (FormulaDescription.OP_AND, $1, $3);
 				}
 	| expr T_OR expr			
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_OR, $1, $3);
+					$$ = aSem.binaryOperation (FormulaDescription.OP_OR, $1, $3);
 				}
 	;
 
@@ -357,17 +345,20 @@ constant:
 					$$ = aSem.emptyFormula();
 				}
 	;
+	
 date:
-	'\'' V_INTEGER separator mois separator V_INTEGER '\''	  
+	'\'' V_INTEGER separator month separator V_INTEGER '\''	  
 				{
 					$$ = aSem.createDate (aSem.checkInteger ($2, 1, 31), $4, aSem.checkInteger ($6, 1, -1));
 				}
 	;
+	
 separator:
 	'/'
 	| '-'
 	;
-mois:
+	
+month:
 	V_INTEGER		
 				{
 					$$ = aSem.checkInteger ($1, 1, 12);
@@ -422,13 +413,13 @@ mois:
 				}
 	;
 
-
 entity:
 	V_IDENT					
 				{
 					$$ = aSem.referenceFormula ($1); if (yydebug) debug("v_ident entity");
 				}
 	;
+	
 functionalCall:
 	// Empty --				
 				{
@@ -440,6 +431,7 @@ functionalCall:
 					$$ = $2; if (yydebug) debug("functionalCall expressionList");
 				}
 	;
+	
 objectCall:
 	V_IDENT '.' T_APPLIC		
 				{
@@ -450,58 +442,59 @@ objectCall:
 					$$ = aSem.formulaCall ($1);
 				}
 	;
+	
 standardFunction:
 	T_ABS '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_ABS, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_ABS, $3);
 				}
 	| T_BANKERS_ROUNDED '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_BANKERS_ROUNDED, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_BANKERS_ROUNDED, $3);
 				}
 	| T_CEIL '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_CEIL, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_CEIL, $3);
 				}
 	| T_FLOOR '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_FLOOR, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_FLOOR, $3);
 				}
 	| T_FORMATDATE '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_FORMAT_DATE, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_FORMAT_DATE, $3);
 				}
 	| T_FORMATINTEGER '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_FORMAT_INTEGER, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_FORMAT_INTEGER, $3);
 				}
 	| T_FORMATNUMERIC '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_FORMAT_NUMERIC, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_FORMAT_NUMERIC, $3);
 				}
 	| T_FORMATSTRING '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_FORMAT_STRING, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_FORMAT_STRING, $3);
 				}
 	| T_ROUNDED '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_ROUNDED, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_ROUNDED, $3);
 				}
 	| T_SIGN '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_SIGN, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_SIGN, $3);
 				}
 	| T_STRINGITEM '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_STRING_ITEM, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_STRING_ITEM, $3);
 				}				
 	| T_SUBSTRING '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_SUBSTRING, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_SUBSTRING, $3);
 				}				
 	| T_TRUNC '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_TRUNC, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_TRUNC, $3);
 				}
 	| T_GET type getCall				
 				{
@@ -509,63 +502,63 @@ standardFunction:
 				}
 	| T_MULTIPLY '(' V_IDENT ')'		
 				{
-					$$ = aSem.groupFunction (FormulaType.F_MULT, $3);
+					$$ = aSem.groupFunction (FormulaDescription.G_MULT, $3);
 				}
 	| T_SUM '(' V_IDENT ')'				
 				{
-					$$ = aSem.groupFunction (FormulaType.F_SUM, $3);
+					$$ = aSem.groupFunction (FormulaDescription.G_SUM, $3);
 				}
 	| T_SUMV '(' V_IDENT ')'			
 				{
-					$$ = aSem.groupFunction (FormulaType.F_SUMV, $3);
+					$$ = aSem.groupFunction (FormulaDescription.G_SUMV, $3);
 				}
 	| T_MIN '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_MIN, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_MIN, $3);
 				}
 	| T_MAX '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_MAX, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_MAX, $3);
 				}
 	| T_SMIN '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_SMIN, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_SMIN, $3);
 				}
 	| T_SMAX '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_SMAX, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_SMAX, $3);
 				}
 	| T_DATE '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_DATE, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_DATE, $3);
 				}
  	| T_MINUTES '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_MINUTES, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_MINUTES, $3);
 				}
  	| T_HOURS '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_HOURS, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_HOURS, $3);
 				}
 	| T_DAYS '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_DAYS, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_DAYS, $3);
 				}
 	| T_MONTHS '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_MONTHS, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_MONTHS, $3);
 				}
 	| T_YEARS '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_YEARS, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_YEARS, $3);
 				}
 	| T_PUT_TEXT '(' expressionList ')'
 				{
-					$$ = aSem.standardFunction (FormulaType.F_PUT_TEXT, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_PUT_TEXT, $3);
 				}
 	| T_STRINGLENGTH '(' expressionList ')'
 				{
-					$$ = aSem.standardFunction (FormulaType.F_STRING_LENGTH, $3);
+					$$ = aSem.standardFunction (FormulaDescription.F_STRING_LENGTH, $3);
 				}
 	;
 
@@ -604,6 +597,7 @@ instruction:
 					$$ = aSem.ifInstruction($2,$4,$5);
 				}
 	;
+	
 else:
 	T_ELSEIF expr T_THEN expr else	
 				{
@@ -621,7 +615,6 @@ else:
 					$$ = $2;
 				}
 	;
-
 
 %%
 	/** Logger */

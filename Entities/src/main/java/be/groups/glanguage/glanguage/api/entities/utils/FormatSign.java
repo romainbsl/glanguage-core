@@ -1,5 +1,10 @@
 package be.groups.glanguage.glanguage.api.entities.utils;
 
+/**
+ * Enumeration for sign formats
+ * 
+ * @author michotte
+ */
 public enum FormatSign {
 	NONE,
 	NEGATIVE_ONLY,

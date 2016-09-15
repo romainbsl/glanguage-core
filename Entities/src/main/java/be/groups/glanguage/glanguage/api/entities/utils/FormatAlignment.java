@@ -1,5 +1,12 @@
 package be.groups.glanguage.glanguage.api.entities.utils;
 
+/**
+ * Copied from be.groups.kernel.utils.format.Alignement<br>
+ * Enumeration for text alignment types
+ * 
+ * @author Agustin BERROCAL MENA
+ * @author michotte
+ */
 public enum FormatAlignment {
     NO_JUSTIFY,
     LEFT_JUSTIFY,

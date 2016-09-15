@@ -76,11 +76,11 @@ public class RuleGroupItemTest {
 		assertEquals(1, ruleGroupItem.getSequenceNumber());
 		
 		/* Checking relationships */
-		assertNotNull(ruleGroupItem.getRuleVersion());
-		assertEquals(900003, ruleGroupItem.getRuleVersion().getId());
+		assertNotNull(ruleGroupItem.getGroupRule());
+		assertEquals(900003, ruleGroupItem.getGroupRule().getId());
 		
-		assertNotNull(ruleGroupItem.getRuleIdentity());
-		assertEquals(900001, ruleGroupItem.getRuleIdentity().getId());
+		assertNotNull(ruleGroupItem.getItemRule());
+		assertEquals(900001, ruleGroupItem.getItemRule().getId());
 	}
 
 }
