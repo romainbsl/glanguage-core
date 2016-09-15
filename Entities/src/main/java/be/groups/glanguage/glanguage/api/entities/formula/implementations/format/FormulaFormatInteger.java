@@ -3,7 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.forma
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.DiscriminatorValue;
@@ -24,7 +24,9 @@ public class FormulaFormatInteger extends FormatFormula {
 		super();
 	}
 	
-	public FormulaFormatInteger(LinkedList<AbstractFormula> parameters) {
+	public FormulaFormatInteger(List<AbstractFormula> parameters) {
+		super(FormulaDescription.F_FORMAT_INTEGER);
+		
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
 		}

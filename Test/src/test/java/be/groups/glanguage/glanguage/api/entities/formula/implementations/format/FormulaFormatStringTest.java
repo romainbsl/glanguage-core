@@ -366,7 +366,7 @@ public class FormulaFormatStringTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaFormatString#operationAsText()}
+	 * Tests {@link FormulaFormatString#asText()}
 	 */
 	@Test
 	public void testAsText() {
