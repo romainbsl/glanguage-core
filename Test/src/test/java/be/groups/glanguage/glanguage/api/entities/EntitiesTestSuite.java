@@ -27,6 +27,8 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.format
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatIntegerTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatNumericTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatStringTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathAbsTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathSignTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBooleanTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDateTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalIntegerTest;
@@ -59,7 +61,8 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
 		FormulaDifferenceTest.class, FormulaPlusTest.class, FormulaMinusTest.class, FormulaMultiplyTest.class, FormulaDivideTest.class,
 		FormulaIntegerDivisionTest.class, FormulaModuloTest.class, FormulaExtremumMaxTest.class, FormulaExtremumMinTest.class,
 		FormulaExtremumSignedMaxTest.class, FormulaExtremumSignedMinTest.class, FormulaFormatStringTest.class,
-		FormulaFormatIntegerTest.class, FormulaFormatNumericTest.class, FormulaFormatDateTest.class})
+		FormulaFormatIntegerTest.class, FormulaFormatNumericTest.class, FormulaFormatDateTest.class, FormulaMathAbsTest.class,
+		FormulaMathSignTest.class})
 public class EntitiesTestSuite {
 
 }
