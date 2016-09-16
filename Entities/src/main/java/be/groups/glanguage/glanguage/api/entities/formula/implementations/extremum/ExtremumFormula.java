@@ -1,18 +1,15 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 @Entity
 public abstract class ExtremumFormula extends AbstractNonTerminalFormula {
@@ -35,30 +32,11 @@ public abstract class ExtremumFormula extends AbstractNonTerminalFormula {
 			}
 		});
 	}
-	
+
+	@Transient
 	@Override
-	public Integer getIntegerValueImpl() {
+	public Integer getIntegerValue() {
 		return getNumericValue().intValue();
-	}
-	
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		FormulaReturnType returnType = FormulaReturnType.INTEGER;
-		Iterator<AbstractFormula> itParameters = getParameters().iterator();
-		while (returnType.equals(FormulaReturnType.INTEGER) && itParameters.hasNext()) {
-			returnType = itParameters.next().getReturnType();
-		}
-		return returnType;
-	}
-	
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
-	}
-	
-	@Override
-	protected boolean isParametersCombinationAuthorized() {
-		return areParametersAuthorized();
 	}
 	
 	@Override

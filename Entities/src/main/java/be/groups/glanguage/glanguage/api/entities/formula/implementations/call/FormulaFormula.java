@@ -6,10 +6,10 @@ import java.time.LocalDate;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
-@DiscriminatorValue(FormulaDescription.Values.C_RULE_REFERENCE)
+@DiscriminatorValue(FormulaType.Values.C_RULE_REFERENCE)
 public class FormulaFormula extends RuleCallFormula {
 
 	protected FormulaFormula() {
@@ -17,7 +17,7 @@ public class FormulaFormula extends RuleCallFormula {
 	}
 
 	public FormulaFormula(String ruleId) {
-		super(FormulaDescription.C_RULE_REFERENCE, ruleId);
+		super( ruleId);
 	}
 
 	@Override

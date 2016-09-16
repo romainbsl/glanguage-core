@@ -7,7 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import be.groups.glanguage.glanguage.api.business.analysis.byaccj.SlangTab;
 
 
 /**

@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 import be.groups.glanguage.glanguage.api.business.analysis.IdentifierParameterList;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * BYACC/J Semantic type

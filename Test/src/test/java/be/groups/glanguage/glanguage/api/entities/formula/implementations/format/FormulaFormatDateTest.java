@@ -12,7 +12,7 @@ import java.util.List;
 import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * Test class for {@link FormulaFormatDate}

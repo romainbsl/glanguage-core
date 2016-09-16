@@ -7,10 +7,10 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.F_SMIN)
+@DiscriminatorValue(FormulaType.Values.F_SMIN)
 public class FormulaExtremumSignedMin extends ExtremumFormula {
 	
 	public FormulaExtremumSignedMin() {
@@ -22,7 +22,7 @@ public class FormulaExtremumSignedMin extends ExtremumFormula {
 	}
 	
 	@Override
-	public Double getNumericValueImpl() {
+	public Double getNumericValue() {
 		Iterator<AbstractFormula> itParameters = getParameters().iterator();
 		double temp;
 		double sign = 0.0;

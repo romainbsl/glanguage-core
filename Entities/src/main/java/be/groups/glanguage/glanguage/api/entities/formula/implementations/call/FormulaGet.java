@@ -7,13 +7,14 @@ import java.util.LinkedList;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.C_GET)
+@DiscriminatorValue(value = FormulaType.Values.C_GET)
 public class FormulaGet extends CallFormula {
 					
 	public FormulaGet() {
@@ -22,7 +23,8 @@ public class FormulaGet extends CallFormula {
 	
 	public FormulaGet(FormulaReturnType returnType, LinkedList<String> identifiers,
 			LinkedList<LinkedList<AbstractFormula>> parameters) {
-		super(FormulaDescription.C_GET);
+		super();
+		
 		setConstantValue(String.valueOf(returnType.ordinal()));
 		this.parameters = new ArrayList<>(identifiers.size());
 		for (int i = 0; i < identifiers.size(); i++) {
@@ -30,8 +32,9 @@ public class FormulaGet extends CallFormula {
 		}
 	}
 	
+	@Transient
 	@Override
-	public Boolean getBooleanValueImpl() {
+	public Boolean getBooleanValue() {
 		try {
 			return (Boolean) callFunctionAny(getTargetedObject(), getParameters().get(getParameters().size() - 1).getConstantValue(),
 					getParametersAsArray());
@@ -40,9 +43,10 @@ public class FormulaGet extends CallFormula {
 			throw cce;
 		}
 	}
-	
+
+	@Transient
 	@Override
-	public LocalDate getDateValueImpl() {
+	public LocalDate getDateValue() {
 		try {
 			return (LocalDate) callFunctionAny(getTargetedObject(), getConstantValue(), getParametersAsArray());
 		} catch (ClassCastException cce) {
@@ -50,9 +54,10 @@ public class FormulaGet extends CallFormula {
 			throw cce;
 		}
 	}
-	
+
+	@Transient
 	@Override
-	public Duration getDurationValueImpl() {
+	public Duration getDurationValue() {
 		try {
 			return (Duration) callFunctionAny(getTargetedObject(), getConstantValue(), getParametersAsArray());
 		} catch (ClassCastException cce) {
@@ -60,9 +65,10 @@ public class FormulaGet extends CallFormula {
 			throw cce;
 		}
 	}
-	
+
+	@Transient
 	@Override
-	public Integer getIntegerValueImpl() {
+	public Integer getIntegerValue() {
 		try {
 			return (Integer) callFunctionAny(getTargetedObject(), getConstantValue(), getParametersAsArray());
 		} catch (ClassCastException cce) {
@@ -70,9 +76,10 @@ public class FormulaGet extends CallFormula {
 			throw cce;
 		}
 	}
-	
+
+	@Transient
 	@Override
-	public Double getNumericValueImpl() {
+	public Double getNumericValue() {
 		try {
 			return (Double) callFunctionAny(getTargetedObject(), getConstantValue(), getParametersAsArray());
 		} catch (ClassCastException cce) {
@@ -80,20 +87,16 @@ public class FormulaGet extends CallFormula {
 			throw cce;
 		}
 	}
-	
+
+	@Transient
 	@Override
-	public String getStringValueImpl() {
+	public String getStringValue() {
 		try {
 			return (String) callFunctionAny(getTargetedObject(), getConstantValue(), getParametersAsArray());
 		} catch (ClassCastException cce) {
 			// TODO report evaluation error
 			throw cce;
 		}
-	}
-	
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		return getParameters().get(0).getReturnType();
 	}
 
 	@Override
@@ -109,7 +112,8 @@ public class FormulaGet extends CallFormula {
 		}
 		return sb.toString();
 	}
-	
+
+	@Transient
 	private Object getTargetedObject() {
 		Object result = null; // TODO get main facade
 		for (AbstractFormula primitive : getParameters()) {
@@ -117,7 +121,8 @@ public class FormulaGet extends CallFormula {
 		}
 		return result;
 	}
-	
+
+	@Transient
 	private AbstractFormula[] getParametersAsArray() {
 		AbstractFormula[] parameters = null;
 		AbstractFormula lastParameter = getParameters().get(getParameters().size() - 1);

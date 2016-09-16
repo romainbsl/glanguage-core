@@ -1,21 +1,14 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
-@DiscriminatorValue(FormulaDescription.Values.OP_MULTIPLY)
+@DiscriminatorValue(FormulaType.Values.OP_MULTIPLY)
 public class FormulaMultiply extends BinaryFormula {
 	
 	protected FormulaMultiply() {
@@ -23,41 +16,19 @@ public class FormulaMultiply extends BinaryFormula {
 	}
 	
 	public FormulaMultiply(AbstractFormula child1, AbstractFormula child2) {
-		super(FormulaDescription.OP_MULTIPLY, child1, child2);
+		super( child1, child2);
 	}
-	
+
+	@Transient
 	@Override
-	public Integer getIntegerValueImpl() {
+	public Integer getIntegerValue() {
 		return getNumericValue().intValue();
 	}
-	
+
+	@Transient
 	@Override
-	public Double getNumericValueImpl() {
+	public Double getNumericValue() {
 		return getParameters().get(0).getNumericValue() * getParameters().get(1).getNumericValue();
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Transient
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Transient
-	@Override
-	protected Map<FormulaReturnType, Set<FormulaReturnType>> getParametersCombinationMatrix() {
-		Map<FormulaReturnType, Set<FormulaReturnType>> combinations = new HashMap<>();
-		combinations.put(FormulaReturnType.INTEGER,
-				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC)));
-		combinations.put(FormulaReturnType.NUMERIC,
-				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC)));
-				
-		return combinations;
 	}
 	
 	@Override

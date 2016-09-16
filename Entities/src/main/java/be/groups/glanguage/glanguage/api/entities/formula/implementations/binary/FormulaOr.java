@@ -3,19 +3,12 @@
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Formula representing a logical or operation<br>
@@ -25,7 +18,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(FormulaDescription.Values.OP_OR)
+@DiscriminatorValue(FormulaType.Values.OP_OR)
 public class FormulaOr extends BinaryFormula {
 
 	protected FormulaOr() {
@@ -33,38 +26,13 @@ public class FormulaOr extends BinaryFormula {
 	}
 
 	public FormulaOr(AbstractFormula child1, AbstractFormula child2) {
-		super(FormulaDescription.OP_OR, child1, child2);
+		super( child1, child2);
 	}
 
 	@Transient
 	@Override
-	public Boolean getBooleanValueImpl() {
+	public Boolean getBooleanValue() {
 		return getParameters().get(0).getBooleanValue() || getParameters().get(1).getBooleanValue();
-	}
-
-	protected FormulaReturnType computeReturnType() {
-		return getDescription().getReturnType();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Transient
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.BOOLEAN));
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Transient
-	@Override
-	protected Map<FormulaReturnType, Set<FormulaReturnType>> getParametersCombinationMatrix() {
-		Map<FormulaReturnType, Set<FormulaReturnType>> combinations = new HashMap<>();
-		combinations.put(FormulaReturnType.BOOLEAN, new HashSet<>(Arrays.asList(FormulaReturnType.BOOLEAN)));
-
-		return combinations;
 	}
 
 	@Override

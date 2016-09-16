@@ -3,17 +3,12 @@
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.unary;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Formula representing a logical not operation<br>
@@ -23,7 +18,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(FormulaDescription.Values.OP_NOT)
+@DiscriminatorValue(FormulaType.Values.OP_NOT)
 public class FormulaNot extends UnaryFormula {
 
 	protected FormulaNot() {
@@ -31,21 +26,13 @@ public class FormulaNot extends UnaryFormula {
 	}
 
 	public FormulaNot(AbstractFormula child) {
-		super(FormulaDescription.OP_NOT, child);
+		super( child);
 	}
 
 	@Transient
 	@Override
-	public Boolean getBooleanValueImpl() {
+	public Boolean getBooleanValue() {
 		return !getParameters().get(0).getBooleanValue();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.BOOLEAN));
 	}
 
 	@Override

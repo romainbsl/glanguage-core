@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
-@DiscriminatorValue(FormulaDescription.Values.F_BRACKETS)
+@DiscriminatorValue(FormulaType.Values.F_BRACKETS)
 public class FormulaBracket extends AbstractFormula {
 	
 	protected FormulaBracket() {
@@ -20,7 +20,7 @@ public class FormulaBracket extends AbstractFormula {
 	}
 	
 	public FormulaBracket(AbstractFormula child) {
-		super(FormulaDescription.F_BRACKETS);		
+		super();		
 		if (child == null) {
 			throw new IllegalArgumentException("Child must be non-null");
 		}
@@ -32,42 +32,44 @@ public class FormulaBracket extends AbstractFormula {
 	public boolean isTerminal() {
 		return false;
 	}
-	
-	@Override
-	public FormulaReturnType getReturnType() {
-		return getParameters().get(0).getReturnType();
-	}
-	
+
+	@Transient
 	@Override
 	public Integer getIntegerValue() {
 		return getParameters().get(0).getIntegerValue();
 	}
-	
+
+	@Transient
 	@Override
 	public Double getNumericValue() {
 		return getParameters().get(0).getNumericValue();
 	}
-	
+
+	@Transient
 	@Override
 	public String getStringValue() {
 		return getParameters().get(0).getStringValue();
 	}
-	
+
+	@Transient
 	@Override
 	public Boolean getBooleanValue() {
 		return getParameters().get(0).getBooleanValue();
 	}
-	
+
+	@Transient
 	@Override
 	public LocalDate getDateValue() {
 		return getParameters().get(0).getDateValue();
 	}
 
+	@Transient
 	@Override
 	public Duration getDurationValue() {
 		return getParameters().get(0).getDurationValue();
 	}	
-	
+
+	@Transient
 	@Override
 	public String asText() {
 		return "(" + getParameters().get(0).asText() + ")";

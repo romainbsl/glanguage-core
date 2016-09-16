@@ -1,4 +1,4 @@
-package be.groups.glanguage.glanguage.api.entities.formula;
+package be.groups.glanguage.glanguage.api.entities.formula.description;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

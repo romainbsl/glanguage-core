@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
 import be.groups.glanguage.glanguage.api.business.analysis.IdentifierParameterList;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaAnomaly;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaDate;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaIn;
@@ -86,7 +86,7 @@ public class AsStandard implements SemanticalAction {
 	public LinkedList<AbstractFormula> getFormulaList() {
 		return formulaList;
 	}
-
+	
 	@Override
 	public void initialize() {
 		this.formulaList = new LinkedList<>();
@@ -108,9 +108,9 @@ public class AsStandard implements SemanticalAction {
 	}
 	
 	@Override
-	public AbstractFormula unaryOperation(FormulaDescription formulaDescription, AbstractFormula formula) {
+	public AbstractFormula unaryOperation(FormulaType formulaDescriptionId, AbstractFormula formula) {
 		AbstractFormula result = null;
-		switch (formulaDescription) {
+		switch (formulaDescriptionId) {
 			case OP_NOT:
 				result = new FormulaNot(formula);
 				break;
@@ -124,16 +124,17 @@ public class AsStandard implements SemanticalAction {
 				result = new FormulaExist(formula);
 				break;
 			default:
-				throw new InternalError("Internal error : unknown unary formula type : " + formulaDescription.getId());
+				throw new InternalError("Internal error : unknown unary formula type : " + formulaDescriptionId);
 		}
 		return result;
 	}
 	
 	
 	@Override
-	public AbstractFormula binaryOperation(FormulaDescription formulaDescription, AbstractFormula formula1, AbstractFormula formula2) {
+	public AbstractFormula binaryOperation(FormulaType formulaDescriptionId, AbstractFormula formula1,
+			AbstractFormula formula2) {
 		AbstractFormula result = null;
-		switch (formulaDescription) {
+		switch (formulaDescriptionId) {
 			case OP_MULTIPLY:
 				result = new FormulaMultiply(formula1, formula2);
 				break;
@@ -177,7 +178,7 @@ public class AsStandard implements SemanticalAction {
 				result = new FormulaOr(formula1, formula2);
 				break;
 			default:
-				throw new InternalError("Internal error : unknown binary formula type : " + formulaDescription.getId());
+				throw new InternalError("Internal error : unknown binary formula type : " + formulaDescriptionId);
 		}
 		return result;
 	}
@@ -228,8 +229,8 @@ public class AsStandard implements SemanticalAction {
 	}
 	
 	@Override
-	public AbstractFormula standardFunction(FormulaDescription formulaDescription, LinkedList<AbstractFormula> parameters) {
-		switch (formulaDescription) {
+	public AbstractFormula standardFunction(FormulaType formulaDescriptionId, LinkedList<AbstractFormula> parameters) {
+		switch (formulaDescriptionId) {
 			case F_CEIL:
 				return new FormulaRoundingCeil(parameters.get(0), parameters.get(1));
 			case F_FLOOR:
@@ -281,13 +282,13 @@ public class AsStandard implements SemanticalAction {
 			case F_STRING_LENGTH:
 				return new FormulaStringLength(parameters);
 			default:
-				throw new InternalError("Internal error : unknown standard function formula type : " + formulaDescription.getId());
+				throw new InternalError("Internal error : unknown standard function formula type : " + formulaDescriptionId);
 		}
 	}
-
+	
 	@Override
-	public AbstractFormula groupFunction(FormulaDescription formulaDescription, String groupName) {
-		switch(formulaDescription) {
+	public AbstractFormula groupFunction(FormulaType formulaDescriptionId, String groupName) {
+		switch (formulaDescriptionId) {
 			case G_MULT:
 				return new FormulaGroupMultiply(groupName);
 			case G_SUM:
@@ -295,25 +296,25 @@ public class AsStandard implements SemanticalAction {
 			case G_SUMV:
 				return null; // TODO
 			default:
-				throw new InternalError("Internal error : unknown group function formula type : " + formulaDescription.getId());
+				throw new InternalError("Internal error : unknown group function formula type : " + formulaDescriptionId);
 		}
 	}
-
+	
 	@Override
 	public AbstractFormula getFunction(FormulaReturnType returnType, IdentifierParameterList identifierParameterlist) {
 		return new FormulaGet(returnType, identifierParameterlist.getIdentifiers(), identifierParameterlist.getParameters());
 	}
-
+	
 	@Override
 	public AbstractFormula applicabiltyCall(String code) {
 		return new FormulaApplicability(code);
 	}
-
+	
 	@Override
 	public AbstractFormula formulaCall(String code) {
 		return new FormulaFormula(code);
 	}
-
+	
 	@Override
 	public AbstractFormula ifInstruction(AbstractFormula condition, AbstractFormula ifStatement, AbstractFormula elseStatement) {
 		return new FormulaInstructionIf(condition, ifStatement, elseStatement);
@@ -325,14 +326,15 @@ public class AsStandard implements SemanticalAction {
 			throw new IllegalArgumentException("integer parameter must be non-null");
 		}
 		try {
-    		int result = new Integer(n);
-    		if (result < min || (max > 0 && result > max)) {
-    			throw new IllegalArgumentException("integer '" + n + "' is out of the bounds [" + min + "," + (max > 0 ? max : Integer.MAX_VALUE) + "]");
-    		}
-    		return result;
+			int result = new Integer(n);
+			if (result < min || (max > 0 && result > max)) {
+				throw new IllegalArgumentException(
+						"integer '" + n + "' is out of the bounds [" + min + "," + (max > 0 ? max : Integer.MAX_VALUE) + "]");
+			}
+			return result;
 		} catch (NumberFormatException nfe) {
 			throw new IllegalArgumentException("parameter must represent an integer : " + n);
 		}
 	}
-
+	
 }

@@ -4,12 +4,13 @@ import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.F_SIGN)
+@DiscriminatorValue(FormulaType.Values.F_SIGN)
 public class FormulaMathSign extends MathFormula {
 	
 	public FormulaMathSign() {
@@ -17,11 +18,12 @@ public class FormulaMathSign extends MathFormula {
 	}
 	
 	public FormulaMathSign(List<AbstractFormula> parameters) {
-		super(FormulaDescription.F_SIGN, parameters);
+		super(parameters);
 	}
-	
+
+	@Transient
 	@Override
-	public Double getNumericValueImpl() {
+	public Double getNumericValue() {
 		return Double.valueOf(Double.compare(getParameters().get(0).getNumericValue(), 0.0));
 	}
 	

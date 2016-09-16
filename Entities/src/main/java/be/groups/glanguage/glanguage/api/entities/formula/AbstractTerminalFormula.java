@@ -14,19 +14,13 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
 		super();
 	}
 	
-	public AbstractTerminalFormula(FormulaDescription description, String constantValue) {
-		super(description);
+	public AbstractTerminalFormula(String constantValue) {
+		super();
 		
 		if (constantValue == null) {
 			throw new IllegalArgumentException("Constant value must be non-null");
 		}
 		this.setConstantValue(constantValue);
-	}
-	
-	@Transient
-	@Override
-	public FormulaReturnType getReturnType() {
-		return getDescription().getReturnType();
 	}
 	
 	@Transient

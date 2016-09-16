@@ -8,10 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.F_MAX)
+@DiscriminatorValue(FormulaType.Values.F_MAX)
 public class FormulaExtremumMax extends ExtremumFormula {
 	
 	public FormulaExtremumMax() {
@@ -24,13 +24,13 @@ public class FormulaExtremumMax extends ExtremumFormula {
 	
 	@Transient
 	@Override
-	public Integer getIntegerValueImpl() {
+	public Integer getIntegerValue() {
 		return getNumericValue().intValue();
 	}
 	
 	@Transient
 	@Override
-	public Double getNumericValueImpl() {
+	public Double getNumericValue() {
 		Iterator<AbstractFormula> itParameters = getParameters().iterator();
 		Double temp;
 		Double result = Double.MIN_VALUE;

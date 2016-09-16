@@ -1,21 +1,19 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.format;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.utils.FormatAlignment;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.F_FORMAT_STRING)
+@DiscriminatorValue(FormulaType.Values.F_FORMAT_STRING)
 public class FormulaFormatString extends FormatFormula {
 	
 	public FormulaFormatString() {
@@ -23,7 +21,7 @@ public class FormulaFormatString extends FormatFormula {
 	}
 	
 	public FormulaFormatString(List<AbstractFormula> parameters) {
-		super(FormulaDescription.F_FORMAT_STRING);
+		super();
 		
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
@@ -49,9 +47,10 @@ public class FormulaFormatString extends FormatFormula {
 		this.parameters = new ArrayList<>();
 		this.parameters.addAll(parameters);
 	}
-	
+
+	@Transient
 	@Override
-	public String getStringValueImpl() {
+	public String getStringValue() {
 		String result;
 		StringBuilder sb = new StringBuilder();
 		String str = getParameters().get(0).getStringValue();
@@ -112,19 +111,6 @@ public class FormulaFormatString extends FormatFormula {
 		}
 		result = sb.toString();
 		return result;
-	}
-	
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.STRING));
-	}
-	
-	@Override
-	protected boolean isParametersCombinationAuthorized() {
-		return getParameters().get(0).getReturnType().equals(FormulaReturnType.STRING)
-				&& getParameters().get(1).getReturnType().equals(FormulaReturnType.INTEGER)
-				&& getParameters().get(2).getReturnType().equals(FormulaReturnType.STRING)
-				&& getParameters().get(3).getReturnType().equals(FormulaReturnType.STRING);
 	}
 	
 	@Override

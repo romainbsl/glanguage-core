@@ -9,10 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.F_YEARS)
+@DiscriminatorValue(FormulaType.Values.F_YEARS)
 public class FormulaDurationYears extends DurationFormula {
 	
 	public FormulaDurationYears() {
@@ -20,12 +20,12 @@ public class FormulaDurationYears extends DurationFormula {
 	}
 	
 	public FormulaDurationYears(LinkedList<AbstractFormula> parameters) {
-		super(FormulaDescription.F_YEARS, parameters);
+		super( parameters);
 	}
 	
 	@Transient
 	@Override
-	public Integer getIntegerValueImpl() {
+	public Integer getIntegerValue() {
 		switch (getParameters().get(0).getReturnType()) {
 			case DATE:
 				getParameters().get(0).getDateValue().getYear();
@@ -40,7 +40,7 @@ public class FormulaDurationYears extends DurationFormula {
 	
 	@Transient
 	@Override
-	public Duration getDurationValueImpl() {
+	public Duration getDurationValue() {
 		return Duration.ofDays(Period.ofYears(getParameters().get(0).getIntegerValue()).getDays());
 	}
 	

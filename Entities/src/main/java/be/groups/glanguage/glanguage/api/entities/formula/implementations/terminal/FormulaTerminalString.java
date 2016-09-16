@@ -7,7 +7,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Formula representing a constant integer value
@@ -15,7 +15,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(FormulaDescription.Values.TERMINAL_STRING)
+@DiscriminatorValue(FormulaType.Values.TERMINAL_STRING)
 public class FormulaTerminalString extends AbstractTerminalFormula {
 
 	protected FormulaTerminalString() {
@@ -23,7 +23,7 @@ public class FormulaTerminalString extends AbstractTerminalFormula {
 	}
 
 	public FormulaTerminalString(String constantValue) {
-		super(FormulaDescription.TERMINAL_STRING, constantValue);
+		super(constantValue);
 	}
 		
 }

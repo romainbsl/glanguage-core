@@ -1,14 +1,13 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.string;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
+
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 public class FormulaStringLength extends AbstractNonTerminalFormula {
 	
@@ -32,35 +31,22 @@ public class FormulaStringLength extends AbstractNonTerminalFormula {
 		this.parameters = new ArrayList<>();
 		parameters.stream().forEachOrdered(e -> this.parameters.add(e));
 	}
-	
+
+	@Transient
 	@Override
-	public String getStringValueImpl() {
+	public String getStringValue() {
 		return String.valueOf(getIntegerValue());
 	}
-	
+
+	@Transient
 	@Override
-	public Integer getIntegerValueImpl() {
+	public Integer getIntegerValue() {
 		return getParameters().get(0).getStringValue() != null ? getParameters().get(0).getStringValue().length() : 0;
-	}
-	
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		return getDescription().getReturnType();
 	}
 		
 	@Override
 	public String asText() {
 		return "stringLength(" + getParameters().get(0).asText() + ")";
-	}
-
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.STRING));
-	}
-
-	@Override
-	protected boolean isParametersCombinationAuthorized() {
-		return areParametersAuthorized();
 	}
 
 }

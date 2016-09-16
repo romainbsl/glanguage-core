@@ -1,7 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.group;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -10,24 +9,20 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
 @Entity
 public abstract class GroupFormula extends AbstractNonTerminalFormula {
-	
-	private static final Set<FormulaReturnType> authorizedParametersTypes =
-			new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
-			
+
 	private RuleVersion groupRule;
 	
 	public GroupFormula() {
 		super();
 	}
 	
-	public GroupFormula(FormulaDescription description, String groupId) {
-		super(description);
+	public GroupFormula(String groupId) {
+		super();
 		if (groupId == null || groupId.isEmpty()) {
 			throw new IllegalArgumentException("groupId must be a non-null non-empty string");
 		}
@@ -60,7 +55,7 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
 	
 	@Transient
 	@Override
-	public Integer getIntegerValueImpl() {
+	public Integer getIntegerValue() {
 		return getNumericValue().intValue();
 	}
 	
@@ -78,37 +73,37 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
 		this.groupRule = groupRule;
 	}
 	
+	@Transient
 	@Override
-	protected FormulaReturnType computeReturnType() {
+	public boolean isValid() {
 		if (groupRule != null) {
-			Set<FormulaReturnType> returnTypes =
-					groupRule.getGroupItems().stream().map(i -> i.getEffectiveRule().getReturnType()).distinct()
-							.collect(Collectors.toSet());
-			if (returnTypes.stream().allMatch(e -> getAuthorizedParametersTypes().contains(e))) {
-				if (returnTypes.size() == 1) {
-					return returnTypes.iterator().next();
-				} else {
-					return FormulaReturnType.NUMERIC;
-				}
+			Set<FormulaReturnType> returnTypes = groupRule.getGroupItems().stream().map(i -> i.getEffectiveRule().getReturnType())
+					.distinct().collect(Collectors.toSet());
+					
+			if (returnTypes.stream().allMatch(e -> Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC).contains(e))) {
+				return true;
 			} else {
-				throw new IllegalArgumentException("All rules in referenced rule group  (version id : " + getConstantValue()
-						+ ") must be of type INTEGER or NUMERIC");
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	@Transient
+	@Override
+	public FormulaReturnType getReturnType() {
+		if (groupRule != null) {
+			Set<FormulaReturnType> returnTypes = groupRule.getGroupItems().stream().map(i -> i.getEffectiveRule().getReturnType())
+					.distinct().collect(Collectors.toSet());
+			if (returnTypes.size() == 1) {
+				return returnTypes.iterator().next();
+			} else {
+				return FormulaReturnType.NUMERIC;
 			}
 		} else {
 			return FormulaReturnType.UNDEFINED;
 		}
-	}
-	
-	@Transient
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return authorizedParametersTypes;
-	}
-	
-	@Transient
-	@Override
-	protected boolean isParametersCombinationAuthorized() {
-		return areParametersAuthorized();
 	}
 	
 	@Override

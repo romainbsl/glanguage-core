@@ -8,11 +8,10 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.C_PRIMITIVE)
+@DiscriminatorValue(value = FormulaType.Values.C_PRIMITIVE)
 public class FormulaPrimitive extends CallFormula {
 	
 	public FormulaPrimitive() {
@@ -20,7 +19,8 @@ public class FormulaPrimitive extends CallFormula {
 	}
 
 	public FormulaPrimitive(String primitive, LinkedList<AbstractFormula> parameters) {
-		super(FormulaDescription.C_PRIMITIVE);
+		super();
+		
 		if (primitive == null || primitive.isEmpty()) {
 			throw new IllegalArgumentException("primitive must be a non-null non-empty string");
 		}
@@ -38,11 +38,6 @@ public class FormulaPrimitive extends CallFormula {
 			parameters = getParameters().toArray(parameters);
 		}
 		return callFunctionAny(object, getConstantValue(), parameters);
-	}
-	
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		return FormulaReturnType.UNDEFINED;
 	}
 
 	@Override

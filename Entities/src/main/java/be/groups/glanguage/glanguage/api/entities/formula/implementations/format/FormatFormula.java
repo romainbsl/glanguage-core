@@ -6,23 +6,12 @@ import java.util.stream.Collectors;
 import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 
 @Entity
 public abstract class FormatFormula extends AbstractNonTerminalFormula {
 	
 	protected FormatFormula() {
 		super();
-	}
-	
-	public FormatFormula(FormulaDescription description) {
-		super(description);
-	}
-	
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		return getDescription().getReturnType();
 	}
 	
 	@Override

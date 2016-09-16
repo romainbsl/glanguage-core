@@ -1,4 +1,6 @@
-package be.groups.glanguage.glanguage.api.entities.formula;
+package be.groups.glanguage.glanguage.api.entities.formula.description;
+
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 
 /**
  * Priorities of {@link AbstractFormula}'s

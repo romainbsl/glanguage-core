@@ -1,7 +1,6 @@
-package be.groups.glanguage.glanguage.api.entities.formula;
+package be.groups.glanguage.glanguage.api.entities.formula.description;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import javax.persistence.EntityManager;
 
@@ -12,24 +11,24 @@ import org.junit.experimental.categories.Category;
 
 import be.groups.common.persistence.util.TransactionHelper;
 import be.groups.common.test.utils.Environment;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
 import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTest;
 import be.groups.marmota.persistence.DatabaseIdentifier;
 import be.groups.marmota.persistence.JpaUtil;
 import be.groups.marmota.test.TNSNames;
 
 /**
- * Test class for {@link AbstractFormula}
+ * Test class for {@link FormulaDescription}
  * 
  * @author DUPIREFR
  */
-public class AbstractFormulaTest {
-
+public class FormulaDescriptionTest {
+	
 	/*
 	 * Static fields
 	 */
 	private static EntityManager em;
-
+	
 	/*
 	 * Setups
 	 */
@@ -37,45 +36,52 @@ public class AbstractFormulaTest {
 	public static void setUpBeforeClass() {
 		Environment.setUp();
 		TNSNames.setUp();
-
+		
 		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
-
+		
 		if (!TransactionHelper.isActive()) {
 			TransactionHelper.begin();
 		}
-
+		
 		em = JpaUtil.getEntityManager();
 	}
-
+	
 	@AfterClass
 	public static void close() {
 		if (TransactionHelper.isActive()) {
 			TransactionHelper.rollback();
 		}
 	}
-
+	
 	/*
 	 * Tests
 	 */
 	/**
-	 * Tests {@link AbstractFormula} JPA mapping
+	 * Tests {@link RuleIdentity} JPA mapping
 	 */
 	@Test
 	@Category(JpaMappingTest.class)
 	public void testJpaMapping() {
-		AbstractFormula formula = em.find(AbstractFormula.class, 900003);
-
+		FormulaDescription formulaDescription = em.find(FormulaDescription.class, 1);
+		
 		/* Checking entity */
-		assertNotNull(formula);
-
-		assertEquals(900003, formula.getId());
-
-		assertEquals("TRUE", formula.getConstantValue());
-		assertEquals(Integer.valueOf(4), formula.getSequenceNumber());
+		assertNotNull(formulaDescription);
+		
+		assertEquals(FormulaType.OP_OR, formulaDescription.getType());
+		
+		assertEquals("OR", formulaDescription.getName());
+		
+		assertEquals("Opération booléenne OU", formulaDescription.getDescriptionFr());
+		assertEquals("OF boolean operatie", formulaDescription.getDescriptionNl());
+		assertNull(formulaDescription.getDescriptionDe());
+		assertEquals("OR boolean operator", formulaDescription.getDescriptionX());
+		
+		assertEquals(FormulaPriority.OR, formulaDescription.getPriority());
 		
 		/* Checking relationships */
-		assertNotNull(formula.getDescription());
-		assertEquals(Integer.valueOf(1004), formula.getDescription().getId());
+		assertNotNull(formulaDescription.getParametersCombinations());
+		assertEquals(1, formulaDescription.getParametersCombinations().size());
+		assertEquals(Integer.valueOf(1), formulaDescription.getParametersCombinations().get(0).getId());
 	}
-
+	
 }

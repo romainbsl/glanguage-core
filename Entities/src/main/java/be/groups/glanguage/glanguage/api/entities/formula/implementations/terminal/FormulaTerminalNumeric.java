@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Formula representing a constant integer value
@@ -16,7 +16,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(FormulaDescription.Values.TERMINAL_NUMERIC)
+@DiscriminatorValue(FormulaType.Values.TERMINAL_NUMERIC)
 public class FormulaTerminalNumeric extends AbstractTerminalFormula {
 
 	protected FormulaTerminalNumeric() {
@@ -24,7 +24,7 @@ public class FormulaTerminalNumeric extends AbstractTerminalFormula {
 	}
 
 	public FormulaTerminalNumeric(String constantValue) {
-		super(FormulaDescription.TERMINAL_NUMERIC, constantValue);
+		super(constantValue);
 	}
 
 	@Transient

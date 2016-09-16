@@ -4,10 +4,10 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
@@ -17,11 +17,15 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
 /**
@@ -35,65 +39,64 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
  * - an evaluated status <br>
  * - a value <br>
  * <br>
- * An AbstractFormula can be evaluated - can be given a value which type
- * corresponds to its {@link FormulaReturnType}. <br>
+ * An AbstractFormula can be evaluated - can be given a value which type corresponds to its
+ * {@link FormulaReturnType}. <br>
  * How an AbstractFormula is evaluated depends on its {@link FormulaType}. <br>
- * Evaluating an AbstractFormula consists in applying its own evaluation method
- * on the results of the evaluation of its sub- {@link AbstractFormula}'s
- * parameters.
+ * Evaluating an AbstractFormula consists in applying its own evaluation method on the results of
+ * the evaluation of its sub- {@link AbstractFormula}'s parameters.
  * 
  * @author michotte
  */
 @Entity
-@Table(name = "FORMULA", uniqueConstraints = @UniqueConstraint(columnNames = { "parent_formula_id",
-		"sequence_number" }) )
+@Table(name = "FORMULA", uniqueConstraints = @UniqueConstraint(columnNames = {"parent_formula_id", "sequence_number"}) )
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "FORMULA_DESCRIPTION_ID", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class AbstractFormula {
-
+	
 	/**
 	 * Technical unique ID
 	 */
 	private int id;
-
+	
 	/**
 	 * Set of RuleVersion this is the formula
 	 */
 	private Set<RuleVersion> ruleVersions;
-
+	
 	/**
 	 * Formula description
 	 */
 	private FormulaDescription description;
-
+	
 	/**
 	 * Parent formula
 	 */
 	private AbstractFormula parentFormula;
-
+	
 	/**
 	 * Parameters
 	 */
 	protected List<AbstractFormula> parameters;
-
+	
+	/**
+	 * Types of the parameters
+	 */
+	private List<FormulaReturnType> parametersTypes;
+	
 	/**
 	 * Sequence number of this parameter in parent formula
 	 */
 	private Integer sequenceNumber;
-
+	
 	/**
 	 * Constant value (if type is terminal)
 	 */
 	private String constantValue;
-
+	
 	protected AbstractFormula() {
 		super();
 	}
-
-	public AbstractFormula(FormulaDescription description) {
-		this.description = description;
-	}
-
+	
 	/**
 	 * @return the id
 	 */
@@ -102,7 +105,7 @@ public abstract class AbstractFormula {
 	public int getId() {
 		return id;
 	}
-
+	
 	/**
 	 * @return the ruleVersions
 	 */
@@ -110,16 +113,16 @@ public abstract class AbstractFormula {
 	public Set<RuleVersion> getRuleVersions() {
 		return ruleVersions;
 	}
-
+	
 	/**
 	 * @return the description
 	 */
-	@Column(name = "FORMULA_DESCRIPTION_ID", nullable = false, insertable = false, updatable = false)
-	@Convert(converter = FormulaDescriptionConverter.class)
+	@OneToOne
+	@JoinColumn(name = "FORMULA_DESCRIPTION_ID", referencedColumnName = "ID", insertable = false, updatable = false)
 	public FormulaDescription getDescription() {
 		return description;
 	}
-
+	
 	/**
 	 * @return the parentFormula
 	 */
@@ -128,7 +131,7 @@ public abstract class AbstractFormula {
 	public AbstractFormula getParentFormula() {
 		return parentFormula;
 	}
-
+	
 	/**
 	 * @return the parameters
 	 */
@@ -137,7 +140,7 @@ public abstract class AbstractFormula {
 	public List<AbstractFormula> getParameters() {
 		return parameters;
 	}
-
+	
 	/**
 	 * @return the sequenceNumber
 	 */
@@ -145,7 +148,7 @@ public abstract class AbstractFormula {
 	public Integer getSequenceNumber() {
 		return sequenceNumber;
 	}
-
+	
 	/**
 	 * @return the constantValue
 	 */
@@ -153,13 +156,32 @@ public abstract class AbstractFormula {
 	public String getConstantValue() {
 		return constantValue;
 	}
-
+	
 	@Transient
 	public abstract boolean isTerminal();
-
+	
 	@Transient
-	public abstract FormulaReturnType getReturnType();
-
+	public boolean isValid() {
+		if (parametersTypes == null) {
+			initParametersTypes();
+		}
+		
+		return description.isValid(parametersTypes);
+	}
+	
+	@Transient
+	public FormulaReturnType getReturnType() {
+		if (parametersTypes == null) {
+			initParametersTypes();
+		}
+		
+		return description.getReturnType(parametersTypes);
+	}
+	
+	private void initParametersTypes() {
+		parametersTypes = parameters.stream().map(p -> p.getReturnType()).collect(Collectors.toList());
+	}
+	
 	/**
 	 * @return Default true
 	 */
@@ -167,96 +189,96 @@ public abstract class AbstractFormula {
 	public boolean isValuable() {
 		return true;
 	}
-
+	
 	@Transient
 	public Object getValue() {
 		try {
 			switch (getReturnType()) {
-			case INTEGER:
-				return getIntegerValue();
-			case NUMERIC:
-				return getNumericValue();
-			case STRING:
-				return getStringValue();
-			case BOOLEAN:
-				return getBooleanValue();
-			case DATE:
-				return getDateValue();
-			default:
-				return null;
+				case INTEGER:
+					return getIntegerValue();
+				case NUMERIC:
+					return getNumericValue();
+				case STRING:
+					return getStringValue();
+				case BOOLEAN:
+					return getBooleanValue();
+				case DATE:
+					return getDateValue();
+				default:
+					return null;
 			}
 		} catch (Exception e) {
 			return null;
 		}
 	}
-
+	
 	@Transient
 	public abstract Integer getIntegerValue();
-
+	
 	@Transient
 	public abstract Double getNumericValue();
-
+	
 	@Transient
 	public abstract String getStringValue();
-
+	
 	@Transient
 	public abstract Boolean getBooleanValue();
-
+	
 	@Transient
 	public abstract LocalDate getDateValue();
 	
 	@Transient
 	public abstract Duration getDurationValue();
-
+	
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	
 	/**
 	 * @param ruleVersions the ruleVersions to set
 	 */
 	public void setRuleVersions(Set<RuleVersion> ruleVersions) {
 		this.ruleVersions = ruleVersions;
 	}
-
+	
 	/**
 	 * @param description the description to set
 	 */
 	public void setDescription(FormulaDescription description) {
 		this.description = description;
 	}
-
+	
 	/**
 	 * @param parentFormula the parentFormula to set
 	 */
 	public void setParentFormula(AbstractFormula parentFormula) {
 		this.parentFormula = parentFormula;
 	}
-
+	
 	/**
 	 * @param parameters the parameters to set
 	 */
 	public void setParameters(List<AbstractFormula> parameters) {
 		this.parameters = parameters;
 	}
-
+	
 	/**
 	 * @param sequenceNumber the sequenceNumber to set
 	 */
 	public void setSequenceNumber(Integer sequenceNumber) {
 		this.sequenceNumber = sequenceNumber;
 	}
-
+	
 	/**
 	 * @param constantValue the constantValue to set
 	 */
 	public void setConstantValue(String constantValue) {
 		this.constantValue = constantValue;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -264,7 +286,7 @@ public abstract class AbstractFormula {
 		result = prime * result + id;
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -278,7 +300,7 @@ public abstract class AbstractFormula {
 			return false;
 		return true;
 	}
-
+	
 	public abstract String asText();
-
+	
 }
