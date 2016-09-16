@@ -102,7 +102,7 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
 	/**
 	 * @return the groupItems
 	 */
-	@OneToMany(mappedBy = "ruleIdentity")
+	@OneToMany(mappedBy = "itemRule")
 	public Collection<RuleGroupItem> getGroupItems() {
 		return groupItems;
 	}
