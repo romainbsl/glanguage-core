@@ -154,7 +154,7 @@ public class FormulaExistTest {
 	}
 
 	/**
-	 * Tests {@link FormulaExist#operationAsText()}
+	 * Tests {@link FormulaExist#asText()}
 	 */
 	@Test
 	public void testAsText() {

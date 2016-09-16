@@ -301,7 +301,7 @@ public class FormulaAndTest {
 	}
 
 	/**
-	 * Tests {@link FormulaAnd#operationAsText()}
+	 * Tests {@link FormulaAnd#asText()}
 	 */
 	@Test
 	public void testAsText() {

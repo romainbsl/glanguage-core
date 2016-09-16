@@ -154,7 +154,7 @@ public class FormulaNotTest {
 	}
 
 	/**
-	 * Tests {@link FormulaNot#operationAsText()}
+	 * Tests {@link FormulaNot#asText()}
 	 */
 	@Test
 	public void testAsText() {

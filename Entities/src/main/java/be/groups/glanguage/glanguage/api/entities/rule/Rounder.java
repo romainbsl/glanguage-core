@@ -1,53 +1,37 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
 /**
- * Class that handles the rounding operation of a value according to a
- * RoundingType and a precision
+ * Class that handles the rounding operation of a value according to a RoundingType and a precision
  * 
  * @author michotte
  */
 public class Rounder {
-
+	
 	public static final double TOLERANCE = Math.exp(-6);
-
+	
 	public static Double round(Integer value, RoundingType roundingType, Double precision) {
-		switch (roundingType) {
-		case ARITHMETIC:
-			return round(value.doubleValue(), precision);
-		case CEIL:
-			return ceil(value.doubleValue(), precision);
-		case FLOOR:
-			return floor(value.doubleValue(), precision);
-		case BANKERS:
-			return bankersRound(value.doubleValue(), precision.intValue());
-		case TRUNC:
-			return trunc(value.doubleValue(), precision.intValue());
-		case UNDEFINED:
-			// fall through
-		default:
-			throw new IllegalArgumentException("The RoundingType " + roundingType.name() + " is not a valid one !");
-		}
+		return round(value.doubleValue(), roundingType, precision);
 	}
-
+	
 	public static Double round(Double value, RoundingType roundingType, Double precision) {
 		switch (roundingType) {
-		case ARITHMETIC:
-			return round(value, precision);
-		case CEIL:
-			return ceil(value, precision);
-		case FLOOR:
-			return floor(value, precision);
-		case BANKERS:
-			return bankersRound(value, precision.intValue());
-		case TRUNC:
-			return trunc(value, precision.intValue());
-		case UNDEFINED:
-			// fall through
-		default:
-			throw new IllegalArgumentException("The RoundingType " + roundingType.name() + " is not a valid one !");
+			case ARITHMETIC:
+				return round(value, precision);
+			case CEIL:
+				return ceil(value, precision);
+			case FLOOR:
+				return floor(value, precision);
+			case BANKERS:
+				return bankersRound(value, precision.intValue());
+			case TRUNC:
+				return trunc(value, precision.intValue());
+			case UNDEFINED:
+				// fall through
+			default:
+				throw new IllegalArgumentException("The RoundingType " + roundingType.name() + " is not a valid one !");
 		}
 	}
-
+	
 	/**
 	 * Multiple of 'precision' closest to 'value'
 	 * 
@@ -58,7 +42,7 @@ public class Rounder {
 	private static Double round(double value, double precision) {
 		return (Math.round(value / precision) * precision);
 	}
-
+	
 	/**
 	 * Greatest value multiple of 'anOtherDoubleValue' no greater than 'value'
 	 * 
@@ -73,7 +57,7 @@ public class Rounder {
 			return (Math.floor(value / precision) * precision);
 		}
 	}
-
+	
 	/**
 	 * Smallest value multiple of 'precision' no smaller than 'value'
 	 * 
@@ -88,7 +72,7 @@ public class Rounder {
 			return (Math.ceil(value / precision) * precision);
 		}
 	}
-
+	
 	/**
 	 * Truncate 'value' to 'numberOfDecimals' decimals
 	 * 
@@ -97,10 +81,14 @@ public class Rounder {
 	 * @return
 	 */
 	private static Double trunc(double value, int numberOfDecimals) {
-		double power = Math.pow(10, numberOfDecimals);
-		return ((int) (value * power)) / power;
+		if (numberOfDecimals > 10) {
+			throw new IllegalArgumentException("Number of decimals cannot exceed 10");
+		} else {
+			double power = Math.pow(10, numberOfDecimals);
+			return ((long) (value * power)) / power;
+		}
 	}
-
+	
 	/**
 	 * Round 'value' applying bankers rounding <br>
 	 * 
@@ -117,29 +105,52 @@ public class Rounder {
 	 * @return
 	 */
 	private static Double bankersRound(double value, int numberOfDecimals) {
-		double result;
-		double power;
-		double l_d;
-		int l_i;
-		boolean is_negative;
-
-		is_negative = (value < 0.0);
-		power = Math.pow(10, numberOfDecimals);
-		l_d = value * power;
-		l_i = (int) l_d;
-		l_d = l_d - l_i;
-		l_d = l_d * 10;
-		l_d = Math.abs(l_d);
-		if (l_d <= 5) {
-			result = ((int) (value * power)) / power;
+		if (numberOfDecimals > 10) {
+			throw new IllegalArgumentException("Number of decimals cannot exceed 10");
 		} else {
-			if (is_negative) {
-				result = ((int) (value * power) - 1) / power;
-			} else {
-				result = ((int) (value * power) + 1) / power;
-			}
+    		double result;
+    		
+    		boolean isNegative;
+    		
+    		double power;
+    		double poweredValue;
+    		long longPart;
+    		
+    		long lastDecimal;
+    		double afterLastDecimal;
+    		
+    		isNegative = (value < 0.0);
+    		
+    		power = Math.pow(10, numberOfDecimals);
+    		poweredValue = value * power;
+    		longPart = (long) poweredValue;
+    		
+    		afterLastDecimal = Math.abs((poweredValue - longPart) * 10);
+    		
+    		if (afterLastDecimal < 5) {
+    			result = longPart / power;
+    		} else if (afterLastDecimal == 5) {
+    			lastDecimal = longPart % 10;
+    			
+    			if (lastDecimal % 2 != 0) {
+    				if (isNegative) {
+    					result = (longPart - 1) / power;
+    				} else {
+    					result = (longPart + 1) / power;
+    				}
+    			} else {
+    				result = longPart / power;
+    			}
+    		} else {
+    			if (isNegative) {
+    				result = (longPart - 1) / power;
+    			} else {
+    				result = (longPart + 1) / power;
+    			}
+    		}
+    		
+    		return result;
 		}
-		return result;
 	}
-
+	
 }

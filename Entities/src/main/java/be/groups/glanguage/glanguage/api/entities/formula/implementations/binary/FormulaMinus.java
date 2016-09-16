@@ -17,8 +17,8 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 /**
  * Formula representing a mathematical subtraction<br>
  * This Formula has exactly two (2) parameters<br>
- * This Formula subtracts its second parameter value from its first parameter
- * value and return the resulting value<br>
+ * This Formula subtracts its second parameter value from its first parameter value and return the
+ * resulting value<br>
  * This Formula can subtract :
  * <ul>
  * <li>two integers - returning an integer value</li>
@@ -31,27 +31,27 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 @Entity
 @DiscriminatorValue(FormulaDescription.Values.OP_MINUS)
 public class FormulaMinus extends BinaryFormula {
-
+	
 	protected FormulaMinus() {
 		super();
 	}
-
+	
 	public FormulaMinus(AbstractFormula child1, AbstractFormula child2) {
 		super(FormulaDescription.OP_MINUS, child1, child2);
 	}
-
+	
 	@Transient
 	@Override
 	public Integer getIntegerValueImpl() {
-		return getParameters().get(0).getIntegerValue() - getParameters().get(1).getIntegerValue();
+		return getNumericValue().intValue();
 	}
-
+	
 	@Transient
 	@Override
 	public Double getNumericValueImpl() {
 		return getParameters().get(0).getNumericValue() - getParameters().get(1).getNumericValue();
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -60,7 +60,7 @@ public class FormulaMinus extends BinaryFormula {
 	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
 		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -72,13 +72,13 @@ public class FormulaMinus extends BinaryFormula {
 				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC)));
 		combinations.put(FormulaReturnType.NUMERIC,
 				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC)));
-
+				
 		return combinations;
 	}
-
+	
 	@Override
 	public String operationAsText() {
 		return "-";
 	}
-
+	
 }

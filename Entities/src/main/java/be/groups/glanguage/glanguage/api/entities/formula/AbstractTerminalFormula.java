@@ -69,6 +69,7 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
 				"Cannot invoke getDateValue() method on " + this.getClass().getName() + " object");
 	}
 	
+	@Transient
 	@Override
 	public Duration getDurationValue() {
 		throw new UnsupportedOperationException(

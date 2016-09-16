@@ -380,7 +380,7 @@ public class FormulaEqualTest {
 	}
 
 	/**
-	 * Tests {@link FormulaEqual#operationAsText()}
+	 * Tests {@link FormulaEqual#asText()}
 	 */
 	@Test
 	public void testAsText() {

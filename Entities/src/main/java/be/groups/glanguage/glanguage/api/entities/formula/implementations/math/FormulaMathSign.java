@@ -1,6 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.math;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -16,8 +16,8 @@ public class FormulaMathSign extends MathFormula {
 		super();
 	}
 	
-	public FormulaMathSign(LinkedList<AbstractFormula> parameters) {
-		super(parameters);
+	public FormulaMathSign(List<AbstractFormula> parameters) {
+		super(FormulaDescription.F_SIGN, parameters);
 	}
 	
 	@Override

@@ -46,7 +46,7 @@ public class FormulaDivide extends BinaryFormula {
 	@Transient
 	@Override
 	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
+		return new HashSet<>(Arrays.asList(FormulaReturnType.NUMERIC));
 	}
 
 	/**
@@ -56,10 +56,8 @@ public class FormulaDivide extends BinaryFormula {
 	@Override
 	protected Map<FormulaReturnType, Set<FormulaReturnType>> getParametersCombinationMatrix() {
 		Map<FormulaReturnType, Set<FormulaReturnType>> combinations = new HashMap<>();
-		combinations.put(FormulaReturnType.INTEGER,
-				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC)));
 		combinations.put(FormulaReturnType.NUMERIC,
-				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC)));
+				new HashSet<>(Arrays.asList(FormulaReturnType.NUMERIC)));
 
 		return combinations;
 	}

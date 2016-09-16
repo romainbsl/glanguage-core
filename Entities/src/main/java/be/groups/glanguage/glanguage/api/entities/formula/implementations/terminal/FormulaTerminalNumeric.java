@@ -3,7 +3,6 @@
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal;
 
-import java.time.Duration;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -42,11 +41,6 @@ public class FormulaTerminalNumeric extends AbstractTerminalFormula {
 		} catch (NumberFormatException nfe) {
 			throw new IllegalArgumentException("Contant value must reprensent a numeric value : " + getConstantValue());
 		}
-	}
-
-	@Override
-	public Duration getDurationValue() {
-		throw new IllegalAccessError("Cannot invoke getDurationValue() method on " + this.getClass().getName() + " object");
 	}
 	
 }

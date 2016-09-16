@@ -280,7 +280,7 @@ public class FormulaDifferenceTest {
 	}
 
 	/**
-	 * Tests {@link FormulaEqual#getIntegerValue()}
+	 * Tests {@link FormulaDifference#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
@@ -380,7 +380,7 @@ public class FormulaDifferenceTest {
 	}
 
 	/**
-	 * Tests {@link FormulaDifference#operationAsText()}
+	 * Tests {@link FormulaDifference#asText()}
 	 */
 	@Test
 	public void testAsText() {
