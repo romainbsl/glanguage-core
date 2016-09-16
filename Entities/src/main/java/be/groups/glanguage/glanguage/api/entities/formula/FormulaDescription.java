@@ -60,10 +60,11 @@ public enum FormulaDescription {
 
 	F_PUT_TEXT(Values.F_PUT_TEXT, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
 
-	F_RULE_REFERENCE(Values.F_RULE_REFERENCE, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
-
 	F_STRING_LENGTH(Values.F_STRING_LENGTH, FormulaPriority.INSTRUCTION, FormulaReturnType.INTEGER),
 
+	/* Instructions */
+	I_IF(Values.I_IF, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
+	
 	/* Unary operations */
 	OP_NOT(Values.OP_NOT, FormulaPriority.UNARY, FormulaReturnType.BOOLEAN),
 
@@ -101,6 +102,24 @@ public enum FormulaDescription {
 	OP_AND(Values.OP_AND, FormulaPriority.AND, FormulaReturnType.BOOLEAN),
 
 	OP_OR(Values.OP_OR, FormulaPriority.OR, FormulaReturnType.BOOLEAN),
+	
+	/* Group function */
+	G_MULT(Values.G_MULT, FormulaPriority.ATOMIC, FormulaReturnType.NUMERIC),
+	
+	G_SUM(Values.G_SUM, FormulaPriority.ATOMIC, FormulaReturnType.NUMERIC),
+
+	G_SUMV(Values.G_SUMV, FormulaPriority.ATOMIC, FormulaReturnType.NUMERIC),
+	
+	/* Calls */
+	C_APPLICABILITY(Values.C_APPLICABILITY, FormulaPriority.ATOMIC, FormulaReturnType.BOOLEAN),
+	
+	C_FORMULA(Values.C_FORMULA, FormulaPriority.ATOMIC, FormulaReturnType.BOOLEAN),
+	
+	C_GET(Values.C_GET, FormulaPriority.ATOMIC, FormulaReturnType.UNDEFINED),
+	
+	C_PRIMITIVE(Values.C_PRIMITIVE, FormulaPriority.ATOMIC, FormulaReturnType.UNDEFINED),
+
+	C_RULE_REFERENCE(Values.C_RULE_REFERENCE, FormulaPriority.INSTRUCTION, FormulaReturnType.UNDEFINED),
 
 	/* Terminal */
 	TERMINAL_INTEGER(Values.TERMINAL_INTEGER, FormulaPriority.ATOMIC, FormulaReturnType.INTEGER),
@@ -182,8 +201,7 @@ public enum FormulaDescription {
 		public static final String F_BRACKETS = "27";
 		public static final String F_IN = "28";
 		public static final String F_PUT_TEXT = "29";
-		public static final String F_RULE_REFERENCE = "30";
-		public static final String F_STRING_LENGTH = "31";
+		public static final String F_STRING_LENGTH = "30";
 
 		/* Unary operations */
 		public static final String OP_NOT = "101";
@@ -206,7 +224,22 @@ public enum FormulaDescription {
 		public static final String OP_GREATER_OR_EQUAL = "212";
 		public static final String OP_AND = "213";
 		public static final String OP_OR = "214";
-
+		
+		/* Instructions */
+		public static final String I_IF = "301";
+		
+		/* Group function */
+		public static final String G_MULT = "501";		
+		public static final String G_SUM = "502";
+		public static final String G_SUMV ="503";
+		
+		/* Calls */
+		public static final String C_APPLICABILITY = "701";
+		public static final String C_FORMULA = "702";
+		public static final String C_GET = "703";
+		public static final String C_PRIMITIVE = "704";
+		public static final String C_RULE_REFERENCE = "705";
+		
 		/* Terminal */
 		public static final String TERMINAL_INTEGER = "1001";
 		public static final String TERMINAL_NUMERIC = "1002";

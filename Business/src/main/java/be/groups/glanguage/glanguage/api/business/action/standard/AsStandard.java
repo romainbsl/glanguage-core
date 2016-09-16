@@ -14,7 +14,6 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaAnomaly;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaDate;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaIn;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaRuleReference;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaAnd;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDifference;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDivide;
@@ -29,6 +28,15 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaPlus;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmaller;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerOrEqual;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaApplicability;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaRuleReference;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationDays;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationHours;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationMinutes;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationMonths;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationYears;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMax;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMin;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumSignedMax;
@@ -37,6 +45,8 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.format
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatInteger;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatNumeric;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatString;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.group.FormulaGroupMultiply;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaInstructionIf;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathAbs;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathSign;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingArithmetic;
@@ -252,13 +262,16 @@ public class AsStandard implements SemanticalAction {
 				return new FormulaExtremumSignedMin(parameters);
 			case F_DATE:
 				return new FormulaDate(parameters);
-//			case F_MINUTES:
-//			case F_HOURS:
-//			case F_DAYS:
-//			case F_MONTHS:
-//			case F_YEARS:
-//				result = new FormuleFonctionDuree(cf, parameters);
-//				break;
+			case F_MINUTES:
+				return new FormulaDurationMinutes(parameters);
+			case F_HOURS:
+				return new FormulaDurationHours(parameters);
+			case F_DAYS:
+				return new FormulaDurationDays(parameters);
+			case F_MONTHS:
+				return new FormulaDurationMonths(parameters);
+			case F_YEARS:
+				return new FormulaDurationYears(parameters);
 			case F_ABS:
 				return new FormulaMathAbs(parameters);
 			case F_SIGN:
@@ -271,91 +284,55 @@ public class AsStandard implements SemanticalAction {
 				throw new InternalError("Internal error : unknown standard function formula type : " + formulaDescription.getId());
 		}
 	}
-	
-	@Override
-	public AbstractFormula fonctionGroupe(EnumerationSLangage cf, String nomGroupe) {
-		AbstractFormula result = null;
-		switch (cf) {
-			case F_MULT:
-			case F_SUM:
-			case F_SUMV:
-				result = new FormuleFonctionGroupe(cf, nomGroupe);
-				break;
-			default:
-				logger.error("Erreur lors de l'évaluation : Group function code " + cf + " " + DefinitionsSLangage.nomFonction(cf));
-				break;
-		}
-		return result;
-	}
-	
-	@Override
-	public AbstractFormula fonctionGet(EnumerationTypeSLangage type, ListeIdentifiantParametre liste) {
-		return new FormuleGet(type, liste.identifiants, liste.parametres);
-	}
-	
-	@Override
-	public AbstractFormula appelApplicable(String code) {
-		return new AppelApplicable(code);
-	}
-	
-	@Override
-	public AbstractFormula appelFormule(String code) {
-		return new AppelFormule(code);
-	}
-	
-	@Override
-	public AbstractFormula instructionIf(Formule cond, AbstractFormula si, AbstractFormula sinon) {
-		return new InstructionIf(cond, si, sinon);
-	}
-	
-	@Override
-	/**
-	 * Verifier que la chaine 'n' contient bien un entier positif
-	 * et que 'a' <= 'n', puis que 'n' <= 'b' (si b > 0)
-	 */
-	@Requires("n != null && Integer.parseInt(n) == new Integer(n)")
-	public int verifierEntier(String n, int a, int b) {
-		int result = new Integer(n);
-		if (result < a || (b > 0 && result > b)) {
-			logger.error("L'entier '" + n + "' n'est pas dans l'interval [" + a + "," + b + "]");
-		}
-		return result;
-	}
-
-	@Override
-	public int checkInteger(String n, int min, int max) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public AbstractFormula groupFunction(FormulaDescription formulaDescription, String groupName) {
-		// TODO Auto-generated method stub
-		return null;
+		switch(formulaDescription) {
+			case G_MULT:
+				return new FormulaGroupMultiply(groupName);
+			case G_SUM:
+				return new FormulaGroupMultiply(groupName);
+			case G_SUMV:
+				return null; // TODO
+			default:
+				throw new InternalError("Internal error : unknown group function formula type : " + formulaDescription.getId());
+		}
 	}
 
 	@Override
-	public AbstractFormula getFunction(FormulaReturnType returnType, IdentifierParameterList list) {
-		// TODO Auto-generated method stub
-		return null;
+	public AbstractFormula getFunction(FormulaReturnType returnType, IdentifierParameterList identifierParameterlist) {
+		return new FormulaGet(returnType, identifierParameterlist.getIdentifiers(), identifierParameterlist.getParameters());
 	}
 
 	@Override
 	public AbstractFormula applicabiltyCall(String code) {
-		// TODO Auto-generated method stub
-		return null;
+		return new FormulaApplicability(code);
 	}
 
 	@Override
 	public AbstractFormula formulaCall(String code) {
-		// TODO Auto-generated method stub
-		return null;
+		return new FormulaFormula(code);
 	}
 
 	@Override
 	public AbstractFormula ifInstruction(AbstractFormula condition, AbstractFormula ifStatement, AbstractFormula elseStatement) {
-		// TODO Auto-generated method stub
-		return null;
+		return new FormulaInstructionIf(condition, ifStatement, elseStatement);
 	}
 	
+	@Override
+	public int checkInteger(String n, int min, int max) {
+		if (n == null) {
+			throw new IllegalArgumentException("integer parameter must be non-null");
+		}
+		try {
+    		int result = new Integer(n);
+    		if (result < min || (max > 0 && result > max)) {
+    			throw new IllegalArgumentException("integer '" + n + "' is out of the bounds [" + min + "," + (max > 0 ? max : Integer.MAX_VALUE) + "]");
+    		}
+    		return result;
+		} catch (NumberFormatException nfe) {
+			throw new IllegalArgumentException("parameter must represent an integer : " + n);
+		}
+	}
+
 }

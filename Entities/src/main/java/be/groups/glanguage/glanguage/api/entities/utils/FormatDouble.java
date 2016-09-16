@@ -8,7 +8,11 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- *
+ * Copied from be.groups.kernel.utils.format.FormatDouble<br>
+ * Double formatter
+ * 
+ * @author Agustin BERROCAL MENA
+ * @author michotte
  */
 public class FormatDouble extends FormatInteger {
 	

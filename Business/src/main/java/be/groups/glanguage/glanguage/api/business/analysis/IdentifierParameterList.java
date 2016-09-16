@@ -20,13 +20,13 @@ public class IdentifierParameterList {
     /**
      * List of dentifiers
      */
-    public LinkedList<String> identifiers;
+    private LinkedList<String> identifiers;
 
     /**
      * List arameters associated to identifiers<br>
      * n-th element of this list corresponds to n-th element of {@code identifiers}
      */
-    public LinkedList<LinkedList<AbstractFormula>> parameters;
+    private LinkedList<LinkedList<AbstractFormula>> parameters;
     
     
     /**
@@ -63,4 +63,33 @@ public class IdentifierParameterList {
     	identifiers.add(identifier);
         parameters.add(formulaList);
     }
+
+	/**
+	 * @return the identifiers
+	 */
+	public LinkedList<String> getIdentifiers() {
+		return identifiers;
+	}
+
+	/**
+	 * @return the parameters
+	 */
+	public LinkedList<LinkedList<AbstractFormula>> getParameters() {
+		return parameters;
+	}
+
+	/**
+	 * @param identifiers the identifiers to set
+	 */
+	public void setIdentifiers(LinkedList<String> identifiers) {
+		this.identifiers = identifiers;
+	}
+
+	/**
+	 * @param parameters the parameters to set
+	 */
+	public void setParameters(LinkedList<LinkedList<AbstractFormula>> parameters) {
+		this.parameters = parameters;
+	}
+    
 }

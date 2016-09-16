@@ -3,7 +3,11 @@ package be.groups.glanguage.glanguage.api.entities.utils;
 import java.text.DecimalFormat;
 
 /**
- * Formatter for integral numbers
+ * Copied from be.groups.kernel.utils.format.FormatInteger<br>
+ * Integer formatter
+ * 
+ * @author Agustin BERROCAL MENA
+ * @author michotte
  */
 public class FormatInteger {
     
