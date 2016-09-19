@@ -31,20 +31,6 @@ public class FormulaUnaryMinusTest {
 	}
 
 	/**
-	 * Tests {@link FormulaUnaryMinus#getBooleanValue()}
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(childFormula.getIntegerValue()).thenReturn(1);
-
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
-
-		formula.getBooleanValue();
-	}
-
-	/**
 	 * Tests {@link FormulaUnaryMinus#getIntegerValue()} when parameter exists
 	 */
 	@Test
@@ -115,6 +101,20 @@ public class FormulaUnaryMinusTest {
 	}
 
 	/**
+	 * Tests {@link FormulaUnaryMinus#getBooleanValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetBooleanValue() {
+		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(childFormula.getIntegerValue()).thenReturn(1);
+
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
+
+		formula.getBooleanValue();
+	}
+
+	/**
 	 * Tests {@link FormulaUnaryMinus#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -126,6 +126,20 @@ public class FormulaUnaryMinusTest {
 		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
 
 		formula.getDateValue();
+	}
+	
+	/**
+	 * Tests {@link FormulaUnaryMinus#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(childFormula.getIntegerValue()).thenReturn(1);
+
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
+		
+		formula.getDurationValue();
 	}
 
 	/**
