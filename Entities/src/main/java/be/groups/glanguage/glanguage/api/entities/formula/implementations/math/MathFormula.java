@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
@@ -31,6 +32,12 @@ public abstract class MathFormula extends AbstractNonTerminalFormula {
 		}
 		this.parameters = new ArrayList<>();
 		this.parameters.add(parameters.get(0));
+	}
+	
+	@Transient
+	@Override
+	public Integer getIntegerValue() {
+		return getNumericValue().intValue();
 	}
 	
 	@Override

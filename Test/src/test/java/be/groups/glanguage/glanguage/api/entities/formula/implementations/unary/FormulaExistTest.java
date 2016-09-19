@@ -59,21 +59,6 @@ public class FormulaExistTest {
 	}
 
 	/**
-	 * Tests {@link FormulaExist#getBooleanValue()} when parameter exist but has
-	 * wrong type
-	 */
-	@Test(expected = IllegalStateException.class)
-	public void testGetBooleanValueParameterWrongType() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.UNDEFINED);
-		when(childFormula.getValue()).thenReturn("some_value");
-
-		FormulaExist formula = new FormulaExist(childFormula);
-
-		formula.getBooleanValue();
-	}
-
-	/**
 	 * Tests {@link FormulaExist#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)

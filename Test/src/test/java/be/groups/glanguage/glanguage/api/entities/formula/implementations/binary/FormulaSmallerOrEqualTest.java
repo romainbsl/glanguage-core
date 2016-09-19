@@ -375,25 +375,6 @@ public class FormulaSmallerOrEqualTest {
 	}
 
 	/**
-	 * Tests {@link FormulaSmallerOrEqual#getBooleanValue()} when at least one parameter
-	 * has wrong type
-	 */
-	@Test(expected = IllegalStateException.class)
-	public void testGetBooleanValueParametersWrongType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(true);
-
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(leftFormula, rightFormula);
-
-		formula.getBooleanValue();
-	}
-
-	/**
 	 * Tests {@link FormulaSmallerOrEqual#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)

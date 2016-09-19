@@ -101,21 +101,6 @@ public class FormulaUnaryMinusTest {
 	}
 
 	/**
-	 * Tests {@link FormulaUnaryMinus#getIntegerValue()} when parameter exist but has
-	 * wrong type
-	 */
-	@Test(expected = IllegalStateException.class)
-	public void testGetBooleanValueParameterWrongType() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(childFormula.getStringValue()).thenReturn("some_value");
-
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
-
-		formula.getIntegerValue();
-	}
-
-	/**
 	 * Tests {@link FormulaUnaryMinus#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
