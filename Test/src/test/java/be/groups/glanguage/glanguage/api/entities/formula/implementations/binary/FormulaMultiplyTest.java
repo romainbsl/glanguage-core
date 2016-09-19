@@ -164,6 +164,24 @@ public class FormulaMultiplyTest {
 
 		formula.getDateValue();
 	}
+	
+	/**
+	 * Tests {@link FormulaMultiply#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(leftFormula.getNumericValue()).thenReturn(2.0);
+
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rightFormula.getNumericValue()).thenReturn(3.0);
+
+		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
+		
+		formula.getDurationValue();
+	}
 
 	/**
 	 * Tests {@link FormulaMultiply#operationAsText()}

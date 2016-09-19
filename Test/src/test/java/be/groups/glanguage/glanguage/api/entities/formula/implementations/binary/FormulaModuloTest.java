@@ -121,6 +121,24 @@ public class FormulaModuloTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaModulo#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(leftFormula.getIntegerValue()).thenReturn(3);
+		
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rightFormula.getIntegerValue()).thenReturn(2);
+
+		FormulaModulo formula = new FormulaModulo(leftFormula, rightFormula);
+		
+		formula.getDurationValue();
+	}
+	
+	/**
 	 * Tests {@link FormulaModulo#operationAsText()}
 	 */
 	@Test

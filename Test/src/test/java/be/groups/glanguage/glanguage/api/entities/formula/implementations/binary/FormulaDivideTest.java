@@ -36,24 +36,6 @@ public class FormulaDivideTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaDivide#getNumericValue()}
-	 */
-	@Test
-	public void testGetNumericValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getNumericValue()).thenReturn(3.2);
-		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(2.5);
-		
-		FormulaDivide formula = new FormulaDivide(leftFormula, rightFormula);
-		
-		assertEquals(Double.valueOf(1.28), formula.getNumericValue(), DELTA);
-	}
-	
-	/**
 	 * Tests {@link FormulaDivide#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -69,6 +51,24 @@ public class FormulaDivideTest {
 		FormulaDivide formula = new FormulaDivide(leftFormula, rightFormula);
 		
 		formula.getIntegerValue();
+	}
+	
+	/**
+	 * Tests {@link FormulaDivide#getNumericValue()}
+	 */
+	@Test
+	public void testGetNumericValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(leftFormula.getNumericValue()).thenReturn(3.2);
+		
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(rightFormula.getNumericValue()).thenReturn(2.5);
+		
+		FormulaDivide formula = new FormulaDivide(leftFormula, rightFormula);
+		
+		assertEquals(Double.valueOf(1.28), formula.getNumericValue(), DELTA);
 	}
 	
 	/**
@@ -123,6 +123,24 @@ public class FormulaDivideTest {
 		FormulaDivide formula = new FormulaDivide(leftFormula, rightFormula);
 		
 		formula.getDateValue();
+	}
+	
+	/**
+	 * Tests {@link FormulaDivide#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(leftFormula.getValue()).thenReturn(1);
+		
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(rightFormula.getValue()).thenReturn(0);
+
+		FormulaDivide formula = new FormulaDivide(leftFormula, rightFormula);
+		
+		formula.getDurationValue();
 	}
 	
 	/**

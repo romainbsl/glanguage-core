@@ -33,6 +33,60 @@ public class FormulaDifferenceTest {
 	}
 
 	/**
+	 * Tests {@link FormulaDifference#getIntegerValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetIntegerValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(leftFormula.getValue()).thenReturn(1);
+
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rightFormula.getValue()).thenReturn(0);
+
+		FormulaDifference formula = new FormulaDifference(leftFormula, rightFormula);
+
+		formula.getIntegerValue();
+	}
+
+	/**
+	 * Tests {@link FormulaDifference#getNumericValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetNumericValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(leftFormula.getValue()).thenReturn(1);
+
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rightFormula.getValue()).thenReturn(0);
+
+		FormulaDifference formula = new FormulaDifference(leftFormula, rightFormula);
+
+		formula.getNumericValue();
+	}
+
+	/**
+	 * Tests {@link FormulaDifference#getStringValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetStringValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(leftFormula.getValue()).thenReturn(1);
+
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rightFormula.getValue()).thenReturn(0);
+
+		FormulaDifference formula = new FormulaDifference(leftFormula, rightFormula);
+
+		formula.getStringValue();
+	}
+
+	/**
 	 * Tests {@link FormulaDifference#getBooleanValue()} when parameters exist,
 	 * are integers and left <> right
 	 */
@@ -261,60 +315,6 @@ public class FormulaDifferenceTest {
 	}
 
 	/**
-	 * Tests {@link FormulaDifference#getIntegerValue()}
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetIntegerValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getValue()).thenReturn(0);
-
-		FormulaDifference formula = new FormulaDifference(leftFormula, rightFormula);
-
-		formula.getIntegerValue();
-	}
-
-	/**
-	 * Tests {@link FormulaDifference#getNumericValue()}
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getValue()).thenReturn(0);
-
-		FormulaDifference formula = new FormulaDifference(leftFormula, rightFormula);
-
-		formula.getNumericValue();
-	}
-
-	/**
-	 * Tests {@link FormulaDifference#getStringValue()}
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getValue()).thenReturn(0);
-
-		FormulaDifference formula = new FormulaDifference(leftFormula, rightFormula);
-
-		formula.getStringValue();
-	}
-
-	/**
 	 * Tests {@link FormulaDifference#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -330,6 +330,24 @@ public class FormulaDifferenceTest {
 		FormulaDifference formula = new FormulaDifference(leftFormula, rightFormula);
 
 		formula.getDateValue();
+	}
+	
+	/**
+	 * Tests {@link FormulaDifference#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(leftFormula.getValue()).thenReturn(1);
+
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rightFormula.getValue()).thenReturn(0);
+
+		FormulaDifference formula = new FormulaDifference(leftFormula, rightFormula);
+		
+		formula.getDurationValue();
 	}
 
 	/**

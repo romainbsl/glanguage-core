@@ -121,6 +121,24 @@ public class FormulaIntegerDivisionTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaIntegerDivision#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(leftFormula.getIntegerValue()).thenReturn(3);
+		
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rightFormula.getIntegerValue()).thenReturn(2);
+
+		FormulaIntegerDivision formula = new FormulaIntegerDivision(leftFormula, rightFormula);
+		
+		formula.getDurationValue();
+	}
+	
+	/**
 	 * Tests {@link FormulaIntegerDivision#operationAsText()}
 	 */
 	@Test

@@ -33,6 +33,60 @@ public class FormulaGreaterTest {
 	}
 
 	/**
+	 * Tests {@link FormulaGreater#getIntegerValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetIntegerValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(leftFormula.getIntegerValue()).thenReturn(1);
+
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rightFormula.getIntegerValue()).thenReturn(0);
+
+		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+
+		formula.getIntegerValue();
+	}
+
+	/**
+	 * Tests {@link FormulaGreater#getNumericValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetNumericValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(leftFormula.getIntegerValue()).thenReturn(1);
+
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rightFormula.getIntegerValue()).thenReturn(0);
+
+		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+
+		formula.getNumericValue();
+	}
+
+	/**
+	 * Tests {@link FormulaGreater#getStringValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetStringValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(leftFormula.getIntegerValue()).thenReturn(1);
+
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rightFormula.getIntegerValue()).thenReturn(0);
+
+		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+
+		formula.getStringValue();
+	}
+
+	/**
 	 * Tests {@link FormulaGreater#getBooleanValue()} when parameters exist, are
 	 * integers and left > right
 	 */
@@ -375,60 +429,6 @@ public class FormulaGreaterTest {
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getIntegerValue()}
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetIntegerValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(0);
-
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
-
-		formula.getIntegerValue();
-	}
-
-	/**
-	 * Tests {@link FormulaGreater#getNumericValue()}
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(0);
-
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
-
-		formula.getNumericValue();
-	}
-
-	/**
-	 * Tests {@link FormulaGreater#getStringValue()}
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(0);
-
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
-
-		formula.getStringValue();
-	}
-
-	/**
 	 * Tests {@link FormulaGreater#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -444,6 +444,24 @@ public class FormulaGreaterTest {
 		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
 
 		formula.getDateValue();
+	}
+	
+	/**
+	 * Tests {@link FormulaGreater#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(leftFormula.getValue()).thenReturn(1);
+
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rightFormula.getValue()).thenReturn(0);
+
+		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		
+		formula.getDurationValue();
 	}
 
 	/**

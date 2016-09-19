@@ -31,6 +31,60 @@ public class FormulaAndTest {
 	}
 
 	/**
+	 * Tests {@link FormulaAnd#getIntegerValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetIntegerValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(leftFormula.getBooleanValue()).thenReturn(false);
+
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(rightFormula.getBooleanValue()).thenReturn(false);
+
+		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+
+		formula.getIntegerValue();
+	}
+
+	/**
+	 * Tests {@link FormulaAnd#getNumericValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetNumericValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(leftFormula.getBooleanValue()).thenReturn(false);
+
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(rightFormula.getBooleanValue()).thenReturn(false);
+
+		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+
+		formula.getNumericValue();
+	}
+
+	/**
+	 * Tests {@link FormulaAnd#getStringValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetStringValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(leftFormula.getBooleanValue()).thenReturn(false);
+
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(rightFormula.getBooleanValue()).thenReturn(false);
+
+		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+
+		formula.getStringValue();
+	}
+
+	/**
 	 * Tests {@link FormulaAnd#getBooleanValue()} when parameters exist and both
 	 * true
 	 */
@@ -182,60 +236,6 @@ public class FormulaAndTest {
 	}
 
 	/**
-	 * Tests {@link FormulaAnd#getIntegerValue()}
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetIntegerValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(false);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(false);
-
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
-
-		formula.getIntegerValue();
-	}
-
-	/**
-	 * Tests {@link FormulaAnd#getNumericValue()}
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(false);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(false);
-
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
-
-		formula.getNumericValue();
-	}
-
-	/**
-	 * Tests {@link FormulaAnd#getStringValue()}
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(false);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(false);
-
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
-
-		formula.getStringValue();
-	}
-
-	/**
 	 * Tests {@link FormulaAnd#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -251,6 +251,24 @@ public class FormulaAndTest {
 		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
 
 		formula.getDateValue();
+	}
+	
+	/**
+	 * Tests {@link FormulaAnd#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(leftFormula.getBooleanValue()).thenReturn(false);
+
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(rightFormula.getBooleanValue()).thenReturn(false);
+
+		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+		
+		formula.getDurationValue();
 	}
 
 	/**

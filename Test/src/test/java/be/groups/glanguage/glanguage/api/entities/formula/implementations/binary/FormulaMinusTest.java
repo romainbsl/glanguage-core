@@ -164,6 +164,24 @@ public class FormulaMinusTest {
 
 		formula.getDateValue();
 	}
+	
+	/**
+	 * Tests {@link FormulaMinus#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(leftFormula.getNumericValue()).thenReturn(2.0);
+
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rightFormula.getNumericValue()).thenReturn(1.0);
+
+		FormulaMinus formula = new FormulaMinus(leftFormula, rightFormula);
+		
+		formula.getDurationValue();
+	}
 
 	/**
 	 * Tests {@link FormulaMinus#operationAsText()}
