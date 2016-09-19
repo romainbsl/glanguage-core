@@ -99,7 +99,6 @@ public class AsStandard implements SemanticalAction {
 	
 	@Override
 	public void beginAnalysis() {
-		initialize();
 	}
 	
 	@Override

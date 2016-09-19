@@ -138,7 +138,7 @@ import java.io.IOException;
 	/* Start */
 initialize:
 	{aSem.initialize(); if (yydebug) debug("initialize");} 
-	expr
+	l_expr
 	T_EOF {if (yydebug) debug("teof yacc");aSem.endAnalysis(); if (yydebug) debug("endAnalysis"); /*return 0;*/} 
 	;
 
@@ -626,11 +626,11 @@ else:
 	/** Semantical actions set for parsing */
 	public SemanticalAction aSem;
 
-	/** Error flag */
-	private boolean error;
-
 	/** String represeneting the formula to analyze */
 	private String formulaString;
+
+	/** Error flag */
+	private boolean error;
 
 	/**
 	 * Set anlyzer semantical actions set
@@ -641,7 +641,53 @@ else:
 		this.aSem = aSem;
 		assert (this.aSem == aSem);
 	}
+	
+	/**
+	 * @param formulaString the formulaString to set
+	 */
+	public void setFormulaString(String formulaString) {
+		this.formulaString = formulaString;
+	}
 
+	/**
+	 * Do grammatical analysis of the formulaString by calling inject(String) method 
+	 */
+	public void analyze(){
+		if(scanner == null)	scanner = new SlangLex (System.in);
+		try{
+			error = false;
+			this.aSem.beginAnalysis();
+			inject(formulaString);
+		}catch (Exception exp){
+			logger.error("analyze()", exp);
+		}finally{
+		}
+	}
+	
+	/**
+	 * Does an error occurs during parsing
+	 */
+	public boolean isError(){
+		return error;
+	}
+
+	/**
+	 * Inject the String {@code formulaString} 
+	 *
+	 * @param formulaString
+	 */
+	private void inject(String formulaString){
+		int i;
+		this.aSem.initialize();
+		this.scanner.setFormulaString(formulaString);
+		this.scanner.initializeLex();
+		i = yyparse();
+		if(i != 0)
+			// L'erreur est-elle deja signalee ?
+			if(!isError())
+				yyerror("unknown");
+	}
+	
 	/** 
 	 * Next terminal, given by scanner 
 	 */
@@ -666,43 +712,3 @@ else:
 		logger.error("ER_GRAMMATICAL_ANALYSIS - " + scanner.yytext() + " - " + scanner.lineNumber + " \nError type : " + str);
 	}
 
-	/**
-	 * Inject the String {@code formulaString} 
-	 *
-	 * @param formulaString
-	 */
-	private void inject(String formulaString){
-		int i;
-		this.aSem.initialize();
-		this.formulaString = formulaString;
-		this.scanner.setFormulaString(formulaString);
-		this.scanner.initializeLex();
-		i = yyparse();
-		if(i != 0)
-			// L'erreur est-elle deja signalee ?
-			if(!isError())
-				yyerror("unknown");
-	}
-
-	/**
-	 * Do grammatical analysis of the formulaString by calling inject(String) method 
-	 */
-	public void analyze(){
-		if(scanner == null)	scanner = new SlangLex (System.in);
-		try{
-			error = false;
-			this.aSem.beginAnalysis();
-			inject(formulaString);
-		}catch (Exception exp){
-			logger.error("analyze()", exp);
-		}finally{
-		}
-	}
-
-	/**
-	 * Does an error occurs during parsing
-	 */
-	public boolean isError(){
-		return (error);
-	}
-	
