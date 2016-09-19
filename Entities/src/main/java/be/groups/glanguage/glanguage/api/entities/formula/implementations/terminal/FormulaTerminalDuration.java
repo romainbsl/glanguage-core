@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -38,21 +39,28 @@ public class FormulaTerminalDuration extends AbstractTerminalFormula {
 	
 	public Duration getDurationValue() {
 		try {
-			if (getConstantValue().contains("T")) {
-				if (getConstantValue().contains("Y") ||
-						(getConstantValue().contains("M") && getConstantValue().indexOf("M") < getConstantValue().indexOf("T"))) {
-					String[] split = getConstantValue().split("T");
+			String text = new String(getConstantValue());
+			text = text.substring(1, text.length() - 1);
+			if (text.contains("T")) {
+				if (text.contains("Y") ||
+						(text.contains("M") && text.indexOf("M") < text.indexOf("T"))) {
+					String[] split = text.split("T");
 					assert(split.length == 2);
-					return Duration.parse(Period.parse(split[0]).getDays() + "DT" + split[1]);
+					Period period = Period.parse(split[0]);
+					int days = (period.getYears() * 365) + (period.getMonths() * 31) + period.getDays(); 
+					String tmp = "P" + days + "DT" + split[1];
+					return Duration.parse(tmp);
 				} else {
-					return Duration.parse(getConstantValue());
+					return Duration.parse(text);
 				}
 			} else {
-				return Duration.ofDays(Period.parse(getConstantValue()).getDays());
+				Period period = Period.parse(text);
+				int days = (period.getYears() * 365) + (period.getMonths() * 31) + period.getDays(); 
+				return Duration.ofDays(days);
 			}
 		} catch (DateTimeParseException dtpe) {
 			throw new IllegalArgumentException(
-					"Contant value must reprensent a duration formatted as \"P[nY][nM][nD][T[nH][nM][n][.nS]]\" : "
+					"Contant value must reprensent a duration formatted as 'P[nY][nM][nD][T[nH][nM][n][.nS]]' : "
 							+ getConstantValue());
 		}
 	}
