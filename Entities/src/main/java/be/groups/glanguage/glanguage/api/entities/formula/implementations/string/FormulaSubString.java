@@ -1,14 +1,13 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.string;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
+
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 public class FormulaSubString extends AbstractNonTerminalFormula {
 	
@@ -38,9 +37,10 @@ public class FormulaSubString extends AbstractNonTerminalFormula {
 		this.parameters = new ArrayList<>();
 		parameters.stream().forEachOrdered(e -> this.parameters.add(e));
 	}
-	
+
+	@Transient
 	@Override
-	public String getStringValueImpl() {
+	public String getStringValue() {
 		String str;
 		int beginIndex, endIndex;
 		
@@ -58,23 +58,6 @@ public class FormulaSubString extends AbstractNonTerminalFormula {
 			throw new IllegalArgumentException("Bounds not valid in " + this.getClass().getName() + " object : string = " + str
 					+ " (length = " + str.length() + ") , beginIndex = " + beginIndex + ", endIndex = " + endIndex);
 		}
-	}
-	
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		return getDescription().getReturnType();
-	}
-
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.STRING));
-	}
-
-	@Override
-	protected boolean isParametersCombinationAuthorized() {
-		return getParameters().get(0).getReturnType().equals(FormulaReturnType.STRING)
-				&& getParameters().get(0).getReturnType().equals(FormulaReturnType.INTEGER)
-				&& getParameters().get(0).getReturnType().equals(FormulaReturnType.INTEGER);
 	}
 
 	@Override

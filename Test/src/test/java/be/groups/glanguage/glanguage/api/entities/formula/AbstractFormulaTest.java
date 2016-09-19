@@ -71,7 +71,7 @@ public class AbstractFormulaTest {
 
 		assertEquals("TRUE", formula.getConstantValue());
 		assertEquals(Integer.valueOf(4), formula.getSequenceNumber());
-
+		
 		/* Checking relationships */
 		assertNotNull(formula.getDescription());
 		assertEquals(Integer.valueOf(1004), formula.getDescription().getId());

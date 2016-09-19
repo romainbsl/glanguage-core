@@ -12,7 +12,7 @@ import java.util.List;
 import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * Test class for {@link FormulaFormatDate}
@@ -164,26 +164,6 @@ public class FormulaFormatDateTest {
 		FormulaFormatDate formula = new FormulaFormatDate(parameters);
 		
 		formula.getDateValue();
-	}
-	
-	/**
-	 * Tests {@link FormulaFormatDate#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
-		AbstractFormula param1 = mock(AbstractFormula.class);
-		when(param1.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		parameters.add(param1);
-		
-		AbstractFormula param2 = mock(AbstractFormula.class);
-		when(param2.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		parameters.add(param2);
-		
-		FormulaFormatDate formula = new FormulaFormatDate(parameters);
-		
-		assertEquals(FormulaReturnType.STRING, formula.getReturnType());
 	}
 	
 	/**

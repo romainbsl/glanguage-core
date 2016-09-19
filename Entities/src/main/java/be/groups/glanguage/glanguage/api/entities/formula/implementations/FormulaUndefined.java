@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Formula representing a constant integer value
@@ -19,7 +19,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
  * @author dupirefr
  */
 @Entity
-@DiscriminatorValue(FormulaDescription.Values.UNDEFINED)
+@DiscriminatorValue(FormulaType.Values.UNDEFINED)
 public class FormulaUndefined extends AbstractTerminalFormula {
 	
 	public FormulaUndefined() {

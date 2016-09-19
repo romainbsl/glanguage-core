@@ -1,23 +1,21 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.format;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.utils.FormatAlignment;
 import be.groups.glanguage.glanguage.api.entities.utils.FormatDouble;
 import be.groups.glanguage.glanguage.api.entities.utils.FormatSign;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.F_FORMAT_NUMERIC)
+@DiscriminatorValue(FormulaType.Values.F_FORMAT_NUMERIC)
 public class FormulaFormatNumeric extends FormatFormula {
 	
 	public FormulaFormatNumeric() {
@@ -25,7 +23,7 @@ public class FormulaFormatNumeric extends FormatFormula {
 	}
 	
 	public FormulaFormatNumeric(List<AbstractFormula> parameters) {
-		super(FormulaDescription.F_FORMAT_NUMERIC);
+		super();
 		
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
@@ -60,9 +58,10 @@ public class FormulaFormatNumeric extends FormatFormula {
 		this.parameters = new ArrayList<>();
 		this.parameters.addAll(parameters);
 	}
-	
+
+	@Transient
 	@Override
-	public String getStringValueImpl() {
+	public String getStringValue() {
 		FormatDouble format = null;
 		double d;
 		int width, decimals;
@@ -148,22 +147,6 @@ public class FormulaFormatNumeric extends FormatFormula {
 		}
 		
 		return format.formatted(d);
-	}
-	
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC, FormulaReturnType.STRING));
-	}
-	
-	@Override
-	protected boolean isParametersCombinationAuthorized() {
-		return getParameters().get(0).getReturnType().equals(FormulaReturnType.NUMERIC)
-				&& getParameters().get(1).getReturnType().equals(FormulaReturnType.INTEGER)
-				&& getParameters().get(2).getReturnType().equals(FormulaReturnType.INTEGER)
-				&& getParameters().get(3).getReturnType().equals(FormulaReturnType.STRING)
-				&& getParameters().get(4).getReturnType().equals(FormulaReturnType.STRING)
-				&& getParameters().get(5).getReturnType().equals(FormulaReturnType.STRING)
-				&& getParameters().get(6).getReturnType().equals(FormulaReturnType.STRING);
 	}
 	
 	@Override

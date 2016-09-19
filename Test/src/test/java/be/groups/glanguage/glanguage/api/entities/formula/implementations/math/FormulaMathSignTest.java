@@ -11,7 +11,7 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * Test class for {@link FormulaMathSign}
@@ -171,32 +171,6 @@ public class FormulaMathSignTest {
 		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
 		
 		formula.getDateValue();
-	}
-	
-	/**
-	 * Tests {@link FormulaMathSign#getReturnType()} when integer
-	 */
-	@Test
-	public void testGetReturnTypeInteger() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
-		
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
-	}
-	
-	/**
-	 * Tests {@link FormulaMathSign#getReturnType()} when numeric
-	 */
-	@Test
-	public void testGetReturnTypeNumeric() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
-		
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
 	}
 	
 	/**

@@ -11,11 +11,11 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.F_HOURS)
+@DiscriminatorValue(FormulaType.Values.F_HOURS)
 public class FormulaDurationHours extends DurationFormula {
 	
 	public static final Set<FormulaReturnType> authorizedParametersTypes =
@@ -26,25 +26,19 @@ public class FormulaDurationHours extends DurationFormula {
 	}
 	
 	public FormulaDurationHours(LinkedList<AbstractFormula> parameters) {
-		super(FormulaDescription.F_HOURS, parameters);
+		super( parameters);
 	}
 	
 	@Transient
 	@Override
-	public Integer getIntegerValueImpl() {
+	public Integer getIntegerValue() {
 		return Math.toIntExact(getParameters().get(0).getDurationValue().toHours());
 	}
 	
 	@Transient
 	@Override
-	public Duration getDurationValueImpl() {
+	public Duration getDurationValue() {
 		return Duration.ofHours(getParameters().get(0).getIntegerValue());
-	}
-	
-	@Transient
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return authorizedParametersTypes;
 	}
 	
 	@Override

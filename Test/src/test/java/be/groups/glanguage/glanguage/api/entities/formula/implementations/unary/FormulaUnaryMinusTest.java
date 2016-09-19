@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * Test class for {@link FormulaUnaryMinus}
@@ -101,21 +101,6 @@ public class FormulaUnaryMinusTest {
 	}
 
 	/**
-	 * Tests {@link FormulaUnaryMinus#getIntegerValue()} when parameter exist but has
-	 * wrong type
-	 */
-	@Test(expected = IllegalStateException.class)
-	public void testGetBooleanValueParameterWrongType() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(childFormula.getStringValue()).thenReturn("some_value");
-
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
-
-		formula.getIntegerValue();
-	}
-
-	/**
 	 * Tests {@link FormulaUnaryMinus#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -141,34 +126,6 @@ public class FormulaUnaryMinusTest {
 		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
 
 		formula.getDateValue();
-	}
-
-	/**
-	 * Tests {@link FormulaUnaryMinus#getReturnType()} when integer
-	 */
-	@Test
-	public void testGetReturnTypeInteger() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(childFormula.getIntegerValue()).thenReturn(1);
-
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
-
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
-	}
-
-	/**
-	 * Tests {@link FormulaUnaryMinus#getReturnType()} when numeric
-	 */
-	@Test
-	public void testGetReturnTypeNumeric() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(childFormula.getNumericValue()).thenReturn(1.5);
-
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
-
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
 	}
 
 	/**

@@ -12,17 +12,37 @@
  		<class>be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula</class>
  		<class>be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula</class>
  		
- 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaAnd</class>
- 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMinus</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.description.FormulaParametersCombination</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.description.FormulaParameterDescription</class>
+ 		
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaUndefined</class>
+ 		
+ 		<!-- Standards formulas -->
+ 		
+ 		<!-- Instructions -->
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaInstructionIf</class>
+ 		
+ 		<!-- Unary operations -->
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaNot</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaExist</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaUnaryMinus</class>
+ 		
+ 		<!-- Binary operations -->
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaAnd</class>
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaOr</class>
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaPlus</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMinus</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMultiply</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDivide</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaIntegerDivision</class>
+ 		
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet</class>
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBoolean</class>
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDate</class>
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalInteger</class>
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumeric</class>
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalString</class>
- 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaUndefined</class>
  		
  		<class>be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity</class>
 		<class>be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition</class>

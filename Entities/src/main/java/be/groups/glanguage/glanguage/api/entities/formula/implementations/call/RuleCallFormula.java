@@ -5,8 +5,7 @@ import java.time.LocalDate;
 
 import javax.persistence.Transient;
 
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
 public abstract class RuleCallFormula extends CallFormula {
@@ -17,8 +16,9 @@ public abstract class RuleCallFormula extends CallFormula {
 		super();
 	}
 
-	public RuleCallFormula(FormulaDescription description, String ruleId) {
-		super(description);
+	public RuleCallFormula(String ruleId) {
+		super();
+		
 		if (ruleId == null || ruleId.isEmpty()) {
 			throw new IllegalArgumentException("ruleId must be a non-null non-empty string");
 		}
@@ -27,7 +27,7 @@ public abstract class RuleCallFormula extends CallFormula {
 
 	@Transient
 	@Override
-	public Integer getIntegerValueImpl() {
+	public Integer getIntegerValue() {
 		if (getReferencedRule() == null) {
 			throw new IllegalAccessError("Cannot invoke getIntegerValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (version id : " + getConstantValue()
@@ -45,7 +45,7 @@ public abstract class RuleCallFormula extends CallFormula {
 
 	@Transient
 	@Override
-	public Double getNumericValueImpl() {
+	public Double getNumericValue() {
 		if (getReferencedRule() == null) {
 			throw new IllegalAccessError("Cannot invoke getNumericValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (version id : " + getConstantValue()
@@ -63,7 +63,7 @@ public abstract class RuleCallFormula extends CallFormula {
 
 	@Transient
 	@Override
-	public String getStringValueImpl() {
+	public String getStringValue() {
 		if (getReferencedRule() == null) {
 			throw new IllegalAccessError("Cannot invoke getStringValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (version id : " + getConstantValue()
@@ -79,7 +79,7 @@ public abstract class RuleCallFormula extends CallFormula {
 
 	@Transient
 	@Override
-	public Boolean getBooleanValueImpl() {
+	public Boolean getBooleanValue() {
 		if (getReferencedRule() == null) {
 			throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (version id : " + getConstantValue()
@@ -96,7 +96,7 @@ public abstract class RuleCallFormula extends CallFormula {
 
 	@Transient
 	@Override
-	public LocalDate getDateValueImpl() {
+	public LocalDate getDateValue() {
 		if (getReferencedRule() == null) {
 			throw new IllegalAccessError("Cannot invoke getDateValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (version id : " + getConstantValue()
@@ -112,7 +112,7 @@ public abstract class RuleCallFormula extends CallFormula {
 
 	@Transient
 	@Override
-	public Duration getDurationValueImpl() {
+	public Duration getDurationValue() {
 		if (getReferencedRule() == null) {
 			throw new IllegalAccessError("Cannot invoke getDurationValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (version id : " + getConstantValue()
@@ -154,15 +154,6 @@ public abstract class RuleCallFormula extends CallFormula {
 	 */
 	public void setReferencedRule(RuleVersion referencedRule) {
 		this.referencedRule = referencedRule;
-	}
-
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		if (referencedRule != null && referencedRule.getFormula() != null) {
-			return referencedRule.getReturnType();
-		} else {
-			return FormulaReturnType.UNDEFINED;
-		}
 	}
 
 	@Override

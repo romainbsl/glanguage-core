@@ -8,13 +8,12 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Formula representing a constant integer value
@@ -22,7 +21,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.TERMINAL_DURATION)
+@DiscriminatorValue(FormulaType.Values.TERMINAL_DURATION)
 public class FormulaTerminalDuration extends AbstractTerminalFormula {
 	
 	public FormulaTerminalDuration() {
@@ -30,11 +29,11 @@ public class FormulaTerminalDuration extends AbstractTerminalFormula {
 	}
 	
 	public FormulaTerminalDuration(String constantValue) {
-		super(FormulaDescription.TERMINAL_DURATION, constantValue);
+		super(constantValue);
 	}
 	
 	public FormulaTerminalDuration(LocalDate date) {
-		super(FormulaDescription.TERMINAL_DURATION, date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		super(date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 	}
 	
 	public Duration getDurationValue() {

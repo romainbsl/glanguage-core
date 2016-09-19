@@ -4,15 +4,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Set;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 public class FormulaDate extends AbstractNonTerminalFormula {
 	
@@ -45,7 +42,7 @@ public class FormulaDate extends AbstractNonTerminalFormula {
 	}
 	
 	@Override
-	public LocalDate getDateValueImpl() {
+	public LocalDate getDateValue() {
 		LocalDate date = null;
 		if (getParameters().size() == 1) {
 			try {
@@ -69,11 +66,6 @@ public class FormulaDate extends AbstractNonTerminalFormula {
 	}
 	
 	@Override
-	protected FormulaReturnType computeReturnType() {
-		return getDescription().getReturnType();
-	}
-	
-	@Override
 	public String asText() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("date(");
@@ -85,19 +77,6 @@ public class FormulaDate extends AbstractNonTerminalFormula {
 		}
 		sb.append(")");
 		return sb.toString();
-	}
-	
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.STRING));
-	}
-	
-	@Override
-	protected boolean isParametersCombinationAuthorized() {
-		return (getParameters().size() == 1 && getParameters().get(0).getReturnType().equals(FormulaReturnType.STRING))
-				|| (getParameters().size() == 3 && getParameters().get(0).getReturnType().equals(FormulaReturnType.INTEGER)
-						&& getParameters().get(1).getReturnType().equals(FormulaReturnType.INTEGER)
-						&& getParameters().get(2).getReturnType().equals(FormulaReturnType.INTEGER));
 	}
 	
 }

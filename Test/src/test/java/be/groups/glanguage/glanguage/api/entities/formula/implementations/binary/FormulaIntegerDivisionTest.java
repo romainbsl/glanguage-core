@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * Test class for {@link FormulaIntegerDivision}
@@ -118,24 +118,6 @@ public class FormulaIntegerDivisionTest {
 		FormulaIntegerDivision formula = new FormulaIntegerDivision(leftFormula, rightFormula);
 		
 		formula.getDateValue();
-	}
-	
-	/**
-	 * Tests {@link FormulaIntegerDivision#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(3);
-		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(2);
-		
-		FormulaIntegerDivision formula = new FormulaIntegerDivision(leftFormula, rightFormula);
-		
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
 	}
 	
 	/**

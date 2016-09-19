@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * Test class for {@link FormulaRoundingArithmetic}
@@ -154,38 +154,6 @@ public class FormulaRoundingArithmeticTest {
 		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(leftFormula, rightFormula);
 		
 		formula.getDateValue();
-	}
-	
-	/**
-	 * Tests {@link FormulaRoundingArithmetic#getReturnType()} when first parameter is integer
-	 */
-	@Test
-	public void testGetReturnTypeInteger() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(leftFormula, rightFormula);
-		
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
-	}
-	
-	/**
-	 * Tests {@link FormulaRoundingArithmetic#getReturnType()} when first parameter is numeric
-	 */
-	@Test
-	public void testGetReturnTypeNumeric() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(leftFormula, rightFormula);
-		
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
 	}
 	
 	/**

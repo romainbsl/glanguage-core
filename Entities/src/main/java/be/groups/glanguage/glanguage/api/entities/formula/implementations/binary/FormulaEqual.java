@@ -3,19 +3,12 @@
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Formula representing a logical equal operation<br>
@@ -24,7 +17,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(FormulaDescription.Values.OP_EQUAL)
+@DiscriminatorValue(FormulaType.Values.OP_EQUAL)
 public class FormulaEqual extends BinaryFormula {
 
 	protected FormulaEqual() {
@@ -32,54 +25,13 @@ public class FormulaEqual extends BinaryFormula {
 	}
 
 	public FormulaEqual(AbstractFormula child1, AbstractFormula child2) {
-		super(FormulaDescription.OP_EQUAL, child1, child2);
+		super( child1, child2);
 	}
 
 	@Transient
 	@Override
-	public Boolean getBooleanValueImpl() {
+	public Boolean getBooleanValue() {
 		return getParameters().get(0).getValue().equals(getParameters().get(1).getValue());
-	}
-
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		return getDescription().getReturnType();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Transient
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC,
-				FormulaReturnType.STRING, FormulaReturnType.BOOLEAN, FormulaReturnType.DATE));
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Transient
-	@Override
-	protected Map<FormulaReturnType, Set<FormulaReturnType>> getParametersCombinationMatrix() {
-		Map<FormulaReturnType, Set<FormulaReturnType>> combinations = new HashMap<>();
-		combinations.put(FormulaReturnType.INTEGER,
-				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC,
-						FormulaReturnType.STRING, FormulaReturnType.BOOLEAN, FormulaReturnType.DATE)));
-		combinations.put(FormulaReturnType.NUMERIC,
-				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC,
-						FormulaReturnType.STRING, FormulaReturnType.BOOLEAN, FormulaReturnType.DATE)));
-		combinations.put(FormulaReturnType.STRING,
-				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC,
-						FormulaReturnType.STRING, FormulaReturnType.BOOLEAN, FormulaReturnType.DATE)));
-		combinations.put(FormulaReturnType.BOOLEAN,
-				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC,
-						FormulaReturnType.STRING, FormulaReturnType.BOOLEAN, FormulaReturnType.DATE)));
-		combinations.put(FormulaReturnType.DATE,
-				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC,
-						FormulaReturnType.STRING, FormulaReturnType.BOOLEAN, FormulaReturnType.DATE)));
-
-		return combinations;
 	}
 
 	@Override

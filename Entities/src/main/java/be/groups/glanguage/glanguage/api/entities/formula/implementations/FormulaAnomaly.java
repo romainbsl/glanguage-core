@@ -3,15 +3,13 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
+
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 public class FormulaAnomaly extends AbstractNonTerminalFormula {
 	
@@ -20,7 +18,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 	}
 	
 	public FormulaAnomaly(LinkedList<AbstractFormula> parameters) {
-		super(FormulaDescription.F_PUT_TEXT);
+		super();
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
 		}
@@ -37,33 +35,38 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 		this.parameters = new ArrayList<>();
 		this.parameters.addAll(parameters);
 	}
-	
+
+	@Transient
 	@Override
-	public Integer getIntegerValueImpl() {
+	public Integer getIntegerValue() {
 		reportAnomaly();
 		return 0;
 	}
-	
+
+	@Transient
 	@Override
-	public Double getNumericValueImpl() {
+	public Double getNumericValue() {
 		reportAnomaly();
 		return 0.0;
 	}
-	
+
+	@Transient
 	@Override
-	public String getStringValueImpl() {
+	public String getStringValue() {
 		reportAnomaly();
 		return "";
 	}
-	
+
+	@Transient
 	@Override
-	public LocalDate getDateValueImpl() {
+	public LocalDate getDateValue() {
 		reportAnomaly();
 		return LocalDate.MIN;
 	}
-	
+
+	@Transient
 	@Override
-	public Duration getDurationValueImpl() {
+	public Duration getDurationValue() {
 		reportAnomaly();
 		return Duration.ZERO;
 	}
@@ -86,23 +89,6 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 		}
 		sb.append(")");
 		return sb.toString();
-	}
-	
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		return getDescription().getReturnType();
-	}
-	
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.STRING));
-	}
-	
-	@Override
-	protected boolean isParametersCombinationAuthorized() {
-		return (getParameters().get(0).getReturnType().equals(FormulaReturnType.INTEGER)
-				|| getParameters().get(0).getReturnType().equals(FormulaReturnType.STRING))
-				&& (getParameters().size() == 1 || getParameters().get(1).getReturnType().equals(FormulaReturnType.STRING));
 	}
 	
 }

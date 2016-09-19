@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * Test class for {@link FormulaGreaterOrEqual}
@@ -375,25 +375,6 @@ public class FormulaGreaterOrEqualTest {
 	}
 
 	/**
-	 * Tests {@link FormulaGreaterOrEqual#getBooleanValue()} when at least one
-	 * parameter has wrong type
-	 */
-	@Test(expected = IllegalStateException.class)
-	public void testGetBooleanValueParametersWrongType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(true);
-
-		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(leftFormula, rightFormula);
-
-		formula.getBooleanValue();
-	}
-
-	/**
 	 * Tests {@link FormulaGreaterOrEqual#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -463,24 +444,6 @@ public class FormulaGreaterOrEqualTest {
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(leftFormula, rightFormula);
 
 		formula.getDateValue();
-	}
-
-	/**
-	 * Tests {@link FormulaGreaterOrEqual#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(0);
-
-		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(leftFormula, rightFormula);
-
-		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 
 	/**

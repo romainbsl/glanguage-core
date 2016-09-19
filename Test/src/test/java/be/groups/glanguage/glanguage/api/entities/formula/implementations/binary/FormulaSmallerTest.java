@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * Test class for {@link FormulaSmaller}
@@ -375,25 +375,6 @@ public class FormulaSmallerTest {
 	}
 
 	/**
-	 * Tests {@link FormulaSmaller#getBooleanValue()} when at least one parameter
-	 * has wrong type
-	 */
-	@Test(expected = IllegalStateException.class)
-	public void testGetBooleanValueParametersWrongType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(true);
-
-		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
-
-		formula.getBooleanValue();
-	}
-
-	/**
 	 * Tests {@link FormulaSmaller#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -463,24 +444,6 @@ public class FormulaSmallerTest {
 		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
 
 		formula.getDateValue();
-	}
-
-	/**
-	 * Tests {@link FormulaSmaller#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(0);
-
-		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
-
-		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 
 	/**

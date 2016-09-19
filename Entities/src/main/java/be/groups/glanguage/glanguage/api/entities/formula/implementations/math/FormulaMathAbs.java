@@ -4,12 +4,13 @@ import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.F_ABS)
+@DiscriminatorValue(FormulaType.Values.F_ABS)
 public class FormulaMathAbs extends MathFormula {
 	
 	public FormulaMathAbs() {
@@ -17,11 +18,12 @@ public class FormulaMathAbs extends MathFormula {
 	}
 
 	public FormulaMathAbs(List<AbstractFormula> parameters) {
-		super(FormulaDescription.F_ABS, parameters);
+		super(parameters);
 	}
 
+	@Transient
 	@Override
-	public Double getNumericValueImpl() {
+	public Double getNumericValue() {
 		return Math.abs(getParameters().get(0).getNumericValue());
 	}
 	

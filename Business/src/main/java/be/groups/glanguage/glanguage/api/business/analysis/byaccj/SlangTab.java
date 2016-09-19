@@ -19,28 +19,21 @@
 //#line 2 "slang.y"
 package be.groups.glanguage.glanguage.api.business.analysis.byaccj;
 
-
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.business.analysis.byaccj.SlangLex;
-import be.groups.glanguage.glanguage.api.business.analysis.IdentifierParameterList;
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracket;
-
+import java.io.IOException;
+//#line 35 "SlangTab.java"
 import java.util.LinkedList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-//#line 35 "SlangTab.java"
+import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
+import be.groups.glanguage.glanguage.api.business.analysis.IdentifierParameterList;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracket;
 
-
-
-
-public class SlangTab
-{
+public class SlangTab {
 
 boolean yydebug;        //do I want debug output?
 int yynerrs;            //number of errors so far
@@ -1159,109 +1152,109 @@ break;
 case 21:
 //#line 236 "slang.y"
 {
-					yyval.abstractFormula = aSem.unaryOperation (FormulaDescription.OP_NOT, val_peek(0).abstractFormula);
+					yyval.abstractFormula = aSem.unaryOperation (FormulaType.OP_NOT, val_peek(0).abstractFormula);
 				}
 break;
 case 22:
 //#line 240 "slang.y"
 {
-					yyval.abstractFormula = aSem.unaryOperation (FormulaDescription.OP_UNARY_PLUS, val_peek(0).abstractFormula);if (yydebug) debug(" + in expr");
+					yyval.abstractFormula = aSem.unaryOperation (FormulaType.OP_UNARY_PLUS, val_peek(0).abstractFormula);if (yydebug) debug(" + in expr");
 				}
 break;
 case 23:
 //#line 244 "slang.y"
 {
-					yyval.abstractFormula = aSem.unaryOperation (FormulaDescription.OP_UNARY_MINUS, val_peek(0).abstractFormula);if (yydebug) debug("- in expr");
+					yyval.abstractFormula = aSem.unaryOperation (FormulaType.OP_UNARY_MINUS, val_peek(0).abstractFormula);if (yydebug) debug("- in expr");
 				}
 break;
 case 24:
 //#line 248 "slang.y"
 {
-					yyval.abstractFormula = aSem.unaryOperation (FormulaDescription.OP_EXIST, val_peek(0).abstractFormula);if (yydebug) debug("? in expr");
+					yyval.abstractFormula = aSem.unaryOperation (FormulaType.OP_EXIST, val_peek(0).abstractFormula);if (yydebug) debug("? in expr");
 				}
 break;
 case 25:
 //#line 252 "slang.y"
 {
-					yyval.abstractFormula = aSem.binaryOperation (FormulaDescription.OP_MULTIPLY, val_peek(2).abstractFormula, val_peek(0).abstractFormula);if (yydebug) debug("* in expr");
+					yyval.abstractFormula = aSem.binaryOperation (FormulaType.OP_MULTIPLY, val_peek(2).abstractFormula, val_peek(0).abstractFormula);if (yydebug) debug("* in expr");
 				}
 break;
 case 26:
 //#line 256 "slang.y"
 {
-					yyval.abstractFormula = aSem.binaryOperation (FormulaDescription.OP_DIVIDE, val_peek(2).abstractFormula, val_peek(0).abstractFormula);if (yydebug) debug("/ in expr");
+					yyval.abstractFormula = aSem.binaryOperation (FormulaType.OP_DIVIDE, val_peek(2).abstractFormula, val_peek(0).abstractFormula);if (yydebug) debug("/ in expr");
 				}
 break;
 case 27:
 //#line 260 "slang.y"
 {
-					yyval.abstractFormula = aSem.binaryOperation (FormulaDescription.OP_INTEGER_DIVISION, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
+					yyval.abstractFormula = aSem.binaryOperation (FormulaType.OP_INTEGER_DIVISION, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
 				}
 break;
 case 28:
 //#line 264 "slang.y"
 {
-					yyval.abstractFormula = aSem.binaryOperation (FormulaDescription.OP_MODULO, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
+					yyval.abstractFormula = aSem.binaryOperation (FormulaType.OP_MODULO, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
 				}
 break;
 case 29:
 //#line 268 "slang.y"
 {
-					yyval.abstractFormula = aSem.binaryOperation (FormulaDescription.OP_PLUS, val_peek(2).abstractFormula, val_peek(0).abstractFormula);if (yydebug) debug("+expr in expr");
+					yyval.abstractFormula = aSem.binaryOperation (FormulaType.OP_PLUS, val_peek(2).abstractFormula, val_peek(0).abstractFormula);if (yydebug) debug("+expr in expr");
 				}
 break;
 case 30:
 //#line 272 "slang.y"
 {
-					yyval.abstractFormula = aSem.binaryOperation (FormulaDescription.OP_MINUS, val_peek(2).abstractFormula, val_peek(0).abstractFormula);if (yydebug) debug("-expr in expr");
+					yyval.abstractFormula = aSem.binaryOperation (FormulaType.OP_MINUS, val_peek(2).abstractFormula, val_peek(0).abstractFormula);if (yydebug) debug("-expr in expr");
 				}
 break;
 case 31:
 //#line 276 "slang.y"
 {
-					yyval.abstractFormula = aSem.binaryOperation (FormulaDescription.OP_EQUAL, val_peek(2).abstractFormula, val_peek(0).abstractFormula);if (yydebug) debug("=expr in expr");
+					yyval.abstractFormula = aSem.binaryOperation (FormulaType.OP_EQUAL, val_peek(2).abstractFormula, val_peek(0).abstractFormula);if (yydebug) debug("=expr in expr");
 				}
 break;
 case 32:
 //#line 280 "slang.y"
 {
-					yyval.abstractFormula = aSem.binaryOperation (FormulaDescription.OP_DIFFERENCE, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
+					yyval.abstractFormula = aSem.binaryOperation (FormulaType.OP_DIFFERENCE, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
 				}
 break;
 case 33:
 //#line 284 "slang.y"
 {
-					yyval.abstractFormula = aSem.binaryOperation (FormulaDescription.OP_SMALLER, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
+					yyval.abstractFormula = aSem.binaryOperation (FormulaType.OP_SMALLER, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
 				}
 break;
 case 34:
 //#line 288 "slang.y"
 {
-					yyval.abstractFormula = aSem.binaryOperation (FormulaDescription.OP_SMALLER_OR_EQUAL, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
+					yyval.abstractFormula = aSem.binaryOperation (FormulaType.OP_SMALLER_OR_EQUAL, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
 				}
 break;
 case 35:
 //#line 292 "slang.y"
 {
-					yyval.abstractFormula = aSem.binaryOperation (FormulaDescription.OP_GREATER, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
+					yyval.abstractFormula = aSem.binaryOperation (FormulaType.OP_GREATER, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
 				}
 break;
 case 36:
 //#line 296 "slang.y"
 {
-					yyval.abstractFormula = aSem.binaryOperation (FormulaDescription.OP_GREATER_OR_EQUAL, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
+					yyval.abstractFormula = aSem.binaryOperation (FormulaType.OP_GREATER_OR_EQUAL, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
 				}
 break;
 case 37:
 //#line 300 "slang.y"
 {
-					yyval.abstractFormula = aSem.binaryOperation (FormulaDescription.OP_AND, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
+					yyval.abstractFormula = aSem.binaryOperation (FormulaType.OP_AND, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
 				}
 break;
 case 38:
 //#line 304 "slang.y"
 {
-					yyval.abstractFormula = aSem.binaryOperation (FormulaDescription.OP_OR, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
+					yyval.abstractFormula = aSem.binaryOperation (FormulaType.OP_OR, val_peek(2).abstractFormula, val_peek(0).abstractFormula);
 				}
 break;
 case 39:
@@ -1437,79 +1430,79 @@ break;
 case 69:
 //#line 448 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_ABS, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_ABS, val_peek(1).formulaList);
 				}
 break;
 case 70:
 //#line 452 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_BANKERS_ROUNDED, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_BANKERS_ROUNDED, val_peek(1).formulaList);
 				}
 break;
 case 71:
 //#line 456 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_CEIL, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_CEIL, val_peek(1).formulaList);
 				}
 break;
 case 72:
 //#line 460 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_FLOOR, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_FLOOR, val_peek(1).formulaList);
 				}
 break;
 case 73:
 //#line 464 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_FORMAT_DATE, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_FORMAT_DATE, val_peek(1).formulaList);
 				}
 break;
 case 74:
 //#line 468 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_FORMAT_INTEGER, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_FORMAT_INTEGER, val_peek(1).formulaList);
 				}
 break;
 case 75:
 //#line 472 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_FORMAT_NUMERIC, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_FORMAT_NUMERIC, val_peek(1).formulaList);
 				}
 break;
 case 76:
 //#line 476 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_FORMAT_STRING, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_FORMAT_STRING, val_peek(1).formulaList);
 				}
 break;
 case 77:
 //#line 480 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_ROUNDED, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_ROUNDED, val_peek(1).formulaList);
 				}
 break;
 case 78:
 //#line 484 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_SIGN, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_SIGN, val_peek(1).formulaList);
 				}
 break;
 case 79:
 //#line 488 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_STRING_ITEM, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_STRING_ITEM, val_peek(1).formulaList);
 				}
 break;
 case 80:
 //#line 492 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_SUBSTRING, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_SUBSTRING, val_peek(1).formulaList);
 				}
 break;
 case 81:
 //#line 496 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_TRUNC, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_TRUNC, val_peek(1).formulaList);
 				}
 break;
 case 82:
@@ -1521,91 +1514,91 @@ break;
 case 83:
 //#line 504 "slang.y"
 {
-					yyval.abstractFormula = aSem.groupFunction (FormulaDescription.G_MULT, val_peek(1).stringVal);
+					yyval.abstractFormula = aSem.groupFunction (FormulaType.G_MULT, val_peek(1).stringVal);
 				}
 break;
 case 84:
 //#line 508 "slang.y"
 {
-					yyval.abstractFormula = aSem.groupFunction (FormulaDescription.G_SUM, val_peek(1).stringVal);
+					yyval.abstractFormula = aSem.groupFunction (FormulaType.G_SUM, val_peek(1).stringVal);
 				}
 break;
 case 85:
 //#line 512 "slang.y"
 {
-					yyval.abstractFormula = aSem.groupFunction (FormulaDescription.G_SUMV, val_peek(1).stringVal);
+					yyval.abstractFormula = aSem.groupFunction (FormulaType.G_SUMV, val_peek(1).stringVal);
 				}
 break;
 case 86:
 //#line 516 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_MIN, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_MIN, val_peek(1).formulaList);
 				}
 break;
 case 87:
 //#line 520 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_MAX, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_MAX, val_peek(1).formulaList);
 				}
 break;
 case 88:
 //#line 524 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_SMIN, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_SMIN, val_peek(1).formulaList);
 				}
 break;
 case 89:
 //#line 528 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_SMAX, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_SMAX, val_peek(1).formulaList);
 				}
 break;
 case 90:
 //#line 532 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_DATE, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_DATE, val_peek(1).formulaList);
 				}
 break;
 case 91:
 //#line 536 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_MINUTES, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_MINUTES, val_peek(1).formulaList);
 				}
 break;
 case 92:
 //#line 540 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_HOURS, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_HOURS, val_peek(1).formulaList);
 				}
 break;
 case 93:
 //#line 544 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_DAYS, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_DAYS, val_peek(1).formulaList);
 				}
 break;
 case 94:
 //#line 548 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_MONTHS, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_MONTHS, val_peek(1).formulaList);
 				}
 break;
 case 95:
 //#line 552 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_YEARS, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_YEARS, val_peek(1).formulaList);
 				}
 break;
 case 96:
 //#line 556 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_PUT_TEXT, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_PUT_TEXT, val_peek(1).formulaList);
 				}
 break;
 case 97:
 //#line 560 "slang.y"
 {
-					yyval.abstractFormula = aSem.standardFunction (FormulaDescription.F_STRING_LENGTH, val_peek(1).formulaList);
+					yyval.abstractFormula = aSem.standardFunction (FormulaType.F_STRING_LENGTH, val_peek(1).formulaList);
 				}
 break;
 case 98:

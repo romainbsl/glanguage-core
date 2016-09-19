@@ -6,11 +6,10 @@ import java.time.LocalDate;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.C_APPLICABILITY)
+@DiscriminatorValue(value = FormulaType.Values.C_APPLICABILITY)
 public class FormulaApplicability extends RuleCallFormula {
 	
 	public FormulaApplicability() {
@@ -18,12 +17,7 @@ public class FormulaApplicability extends RuleCallFormula {
 	}
 
 	public FormulaApplicability(String ruleId) {
-		super(FormulaDescription.C_APPLICABILITY, ruleId);
-	}
-
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		return getDescription().getReturnType();
+		super(ruleId);
 	}
 
 	@Override

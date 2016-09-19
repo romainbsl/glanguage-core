@@ -8,7 +8,7 @@ import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTest;
 
 @RunWith(Categories.class)
 @Categories.IncludeCategory(JpaMappingTest.class)
-@SuiteClasses({ ProjectTestSuite.class })
+@SuiteClasses({ProjectTestSuite.class})
 public class ProjectMappingTestSuite {
 
 }

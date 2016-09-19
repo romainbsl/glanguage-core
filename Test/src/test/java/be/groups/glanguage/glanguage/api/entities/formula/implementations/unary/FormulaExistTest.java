@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * Test class for {@link FormulaExist}
@@ -56,21 +56,6 @@ public class FormulaExistTest {
 		FormulaExist formula = new FormulaExist(childFormula);
 
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
-	}
-
-	/**
-	 * Tests {@link FormulaExist#getBooleanValue()} when parameter exist but has
-	 * wrong type
-	 */
-	@Test(expected = IllegalStateException.class)
-	public void testGetBooleanValueParameterWrongType() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.UNDEFINED);
-		when(childFormula.getValue()).thenReturn("some_value");
-
-		FormulaExist formula = new FormulaExist(childFormula);
-
-		formula.getBooleanValue();
 	}
 
 	/**
@@ -127,20 +112,6 @@ public class FormulaExistTest {
 		FormulaExist formula = new FormulaExist(childFormula);
 
 		formula.getDateValue();
-	}
-
-	/**
-	 * Tests {@link FormulaExist#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(childFormula.getValue()).thenReturn("some_value");
-
-		FormulaExist formula = new FormulaExist(childFormula);
-
-		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 
 	/**

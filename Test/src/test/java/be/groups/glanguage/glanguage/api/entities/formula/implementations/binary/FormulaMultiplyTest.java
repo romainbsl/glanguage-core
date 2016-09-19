@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * Test class for {@link FormulaMultiply}
@@ -163,74 +163,6 @@ public class FormulaMultiplyTest {
 		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
 
 		formula.getDateValue();
-	}
-
-	/**
-	 * Tests {@link FormulaMultiply#getReturnType()} when both parameters are
-	 * integers
-	 */
-	@Test
-	public void testGetReturnTypeIntInt() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
-
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
-	}
-
-	/**
-	 * Tests {@link FormulaMultiply#getReturnType()} when first parameter is integer
-	 * and the second is numeric
-	 */
-	@Test
-	public void testGetReturnTypeIntNum() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
-
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
-	}
-
-	/**
-	 * Tests {@link FormulaMultiply#getReturnType()} when first parameter is numeric
-	 * and the second is integer
-	 */
-	@Test
-	public void testGetReturnTypeNumInt() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
-
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
-	}
-
-	/**
-	 * Tests {@link FormulaMultiply#getReturnType()} when both parameters are
-	 * numerics
-	 */
-	@Test
-	public void testGetReturnTypeNumNum() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
-
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
 	}
 
 	/**

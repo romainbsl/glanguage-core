@@ -1,18 +1,11 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Formula representing a mathematical addition<br>
@@ -30,7 +23,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
  * @author michotte
  */
 @Entity
-@DiscriminatorValue(FormulaDescription.Values.OP_PLUS)
+@DiscriminatorValue(FormulaType.Values.OP_PLUS)
 public class FormulaPlus extends BinaryFormula {
 	
 	protected FormulaPlus() {
@@ -38,53 +31,28 @@ public class FormulaPlus extends BinaryFormula {
 	}
 	
 	public FormulaPlus(AbstractFormula child1, AbstractFormula child2) {
-		super(FormulaDescription.OP_PLUS, child1, child2);
+		super( child1, child2);
 	}
 	
 	@Transient
 	@Override
-	public Integer getIntegerValueImpl() {
+	public Integer getIntegerValue() {
 		return getNumericValue().intValue();
 	}
 	
 	@Transient
 	@Override
-	public Double getNumericValueImpl() {
+	public Double getNumericValue() {
 		return getParameters().get(0).getNumericValue() + getParameters().get(1).getNumericValue();
 	}
 	
 	@Transient
 	@Override
-	public String getStringValueImpl() {
+	public String getStringValue() {
 		AbstractFormula leftParameter = getParameters().get(0);
 		AbstractFormula rightParameter = getParameters().get(1);
 		
 		return leftParameter.getStringValue() + rightParameter.getStringValue();
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Transient
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC, FormulaReturnType.STRING));
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Transient
-	@Override
-	protected Map<FormulaReturnType, Set<FormulaReturnType>> getParametersCombinationMatrix() {
-		Map<FormulaReturnType, Set<FormulaReturnType>> combinations = new HashMap<>();
-		combinations.put(FormulaReturnType.INTEGER,
-				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC)));
-		combinations.put(FormulaReturnType.NUMERIC,
-				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC)));
-		combinations.put(FormulaReturnType.STRING, new HashSet<>(Arrays.asList(FormulaReturnType.STRING)));
-		
-		return combinations;
 	}
 	
 	@Override

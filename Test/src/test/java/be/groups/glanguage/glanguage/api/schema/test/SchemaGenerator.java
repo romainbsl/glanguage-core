@@ -7,7 +7,12 @@ import javax.persistence.Persistence;
 
 import org.junit.Test;
 
-public class ShemaGenerator {
+/**
+ * Helper class to generate database schema based on classes annotations
+ * 
+ * @author michotte
+ */
+public class SchemaGenerator {
 	
 	@Test
 	public void generateSchema() {		
@@ -19,4 +24,5 @@ public class ShemaGenerator {
 		Persistence.generateSchema("lyrics", properties);
 		System.exit(0);
 	}
+	
 }

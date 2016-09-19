@@ -3,7 +3,6 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -11,23 +10,24 @@ import java.util.stream.Collectors;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
-@DiscriminatorValue(FormulaDescription.Values.F_IN)
+@DiscriminatorValue(FormulaType.Values.F_IN)
 public class FormulaIn extends AbstractNonTerminalFormula {
-
+	
 	protected FormulaIn() {
 		super();
 	}
-
+	
 	public FormulaIn(AbstractFormula element, List<AbstractFormula> inList) {
-		super(FormulaDescription.F_IN);
-
+		super();
+		
 		if (element == null) {
 			throw new IllegalArgumentException("element must be non-null");
 		}
@@ -39,8 +39,9 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 		this.parameters.addAll(inList);
 	}
 
+	@Transient
 	@Override
-	public Boolean getBooleanValueImpl() {
+	public Boolean getBooleanValue() {
 		AbstractFormula element = getParameters().get(0);
 		Iterator<AbstractFormula> itInList = getParameters().listIterator(1);
 		boolean result = false;
@@ -85,52 +86,46 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 				throw new IllegalArgumentException("Cannot compare unknown values in " + this.getClass().getName() + " object");
 		}
 	}
-
-
-	/**
-	 * {@inheritDoc}
-	 */
+	
+	@Transient
 	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC,
-				FormulaReturnType.STRING, FormulaReturnType.BOOLEAN, FormulaReturnType.DATE));
+	public boolean isValid() {
+		FormulaReturnType elementReturnType = parameters.get(0).getReturnType();
+		List<FormulaReturnType> listReturnTypes =
+				parameters.subList(1, parameters.size()).stream().map(p -> p.getReturnType()).distinct().collect(Collectors.toList());
+				
+		if (listReturnTypes.size() == 1) {
+			return elementReturnType.equals(listReturnTypes.get(0));
+		} else {
+			List<FormulaReturnType> authorizedParametersTypes = Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC);
+			return listReturnTypes.stream().allMatch(t -> authorizedParametersTypes.contains(t))
+					&& authorizedParametersTypes.contains(elementReturnType);
+		}
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
+	
+	@Transient
 	@Override
-	protected boolean isParametersCombinationAuthorized() {
-		Set<FormulaReturnType> returnTypes = parameters.stream().map(p -> p.getReturnType()).distinct()
-				.collect(Collectors.toSet());
-
-		return returnTypes.size() == 1 || returnTypes.size() == 2
-				&& returnTypes.containsAll(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
+	public FormulaReturnType getReturnType() {
+		return FormulaReturnType.BOOLEAN;
 	}
-
+	
 	/**
 	 * Type of the elements<br>
 	 * All element's types are supposed to be in accordance<br>
-	 * The only remaining case is mixed integer and numeric types (in accordance
-	 * to each other), numeric type prevails
+	 * The only remaining case is mixed integer and numeric types (in accordance to each other),
+	 * numeric type prevails
 	 * 
 	 * @return
 	 */
 	private FormulaReturnType getElementsType() {
-		Set<FormulaReturnType> returnTypes = parameters.stream().map(p -> p.getReturnType()).distinct()
-				.collect(Collectors.toSet());
+		Set<FormulaReturnType> returnTypes = parameters.stream().map(p -> p.getReturnType()).distinct().collect(Collectors.toSet());
 		if (returnTypes.size() == 1) {
 			return returnTypes.iterator().next();
 		} else {
 			return FormulaReturnType.NUMERIC;
 		}
 	}
-
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		return getDescription().getReturnType();
-	}
-
+	
 	@Override
 	public String asText() {
 		AbstractFormula element = getParameters().get(0);
@@ -144,5 +139,5 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 		sb.append(")");
 		return sb.toString();
 	}
-
+	
 }

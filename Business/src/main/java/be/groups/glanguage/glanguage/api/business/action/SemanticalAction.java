@@ -5,8 +5,9 @@ import java.util.LinkedList;
 
 import be.groups.glanguage.glanguage.api.business.analysis.IdentifierParameterList;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBoolean;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDate;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDuration;
@@ -169,7 +170,7 @@ public interface SemanticalAction {
 	 * @return A unary operation {@link AbstractFormula} of type {@code formulaType} with {@code formula1} as parameter
 	 */
 	// @Requires ("DefinitionsSLangage.operateurUnaireCorrect (codeOp)")
-	public AbstractFormula unaryOperation(FormulaDescription formulaDescription, AbstractFormula formula);
+	public AbstractFormula unaryOperation(FormulaType formulaDescriptionId, AbstractFormula formula);
 	
 	/**
 	 * "Binary operation" node of type {@code opType} applied to {@link AbstractFormula}'s {@code formula1} and {@code formula2}
@@ -181,7 +182,7 @@ public interface SemanticalAction {
 	 *         {@code formula2} as second parameter
 	 */
 	// @Requires ("DefinitionsSLangage.operateurBinaireCorrect (codeOp)")
-	public AbstractFormula binaryOperation(FormulaDescription formulaDescription, AbstractFormula formula1, AbstractFormula formula2);
+	public AbstractFormula binaryOperation(FormulaType formulaDescriptionId, AbstractFormula formula1, AbstractFormula formula2);
 	
 	/**
 	 * "In operation" node returning a boolean value whether the result of {@link AbstractFormula} formula is contained in {@code list}
@@ -272,7 +273,7 @@ public interface SemanticalAction {
 	// "DefinitionsSLangage.fonctionCorrecte(cf)",
 	// "param != null"
 	// })
-	public AbstractFormula standardFunction(FormulaDescription formulaDescription, LinkedList<AbstractFormula> parameters);
+	public AbstractFormula standardFunction(FormulaType formulaDescriptionId, LinkedList<AbstractFormula> parameters);
 	
 	/**
 	 * "Standard group function" node
@@ -284,7 +285,7 @@ public interface SemanticalAction {
 	// @Requires ({
 	// "DefinitionsSLangage.fonctionCorrecte(cf) && nomGroupe != null && !nomGroupe.isEmpty()"
 	// })
-	public AbstractFormula groupFunction(FormulaDescription formulaDescription, String groupName);
+	public AbstractFormula groupFunction(FormulaType formulaDescriptionId, String groupName);
 	
 	
 	/**

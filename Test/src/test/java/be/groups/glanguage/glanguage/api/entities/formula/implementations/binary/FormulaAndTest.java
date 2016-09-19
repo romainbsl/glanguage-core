@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * Test class for {@link FormulaAnd}
@@ -182,25 +182,6 @@ public class FormulaAndTest {
 	}
 
 	/**
-	 * Tests {@link FormulaAnd#getBooleanValue()} when at least one parameter
-	 * has wrong type
-	 */
-	@Test(expected = IllegalStateException.class)
-	public void testGetBooleanValueParametersWrongType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(true);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(rightFormula.getStringValue()).thenReturn("some_value");
-
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
-
-		formula.getBooleanValue();
-	}
-
-	/**
 	 * Tests {@link FormulaAnd#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -270,24 +251,6 @@ public class FormulaAndTest {
 		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
 
 		formula.getDateValue();
-	}
-
-	/**
-	 * Tests {@link FormulaAnd#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(false);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(false);
-
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
-
-		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 
 	/**

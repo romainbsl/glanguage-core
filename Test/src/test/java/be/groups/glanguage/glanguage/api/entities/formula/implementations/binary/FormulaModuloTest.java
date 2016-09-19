@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * Test class for {@link FormulaModulo}
@@ -118,22 +118,6 @@ public class FormulaModuloTest {
 		FormulaModulo formula = new FormulaModulo(leftFormula, rightFormula);
 		
 		formula.getDateValue();
-	}
-	
-	/**
-	 * Tests {@link FormulaModulo#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaModulo formula = new FormulaModulo(leftFormula, rightFormula);
-		
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
 	}
 	
 	/**

@@ -2,10 +2,10 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.round
 
 import java.util.ArrayList;
 
+import javax.persistence.Transient;
+
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.Rounder;
 import be.groups.glanguage.glanguage.api.entities.rule.RoundingType;
 
@@ -15,8 +15,8 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public RoundingFormula(FormulaDescription description, AbstractFormula parameter, AbstractFormula precision) {
-		super(description);
+	public RoundingFormula(AbstractFormula parameter, AbstractFormula precision) {
+		super();
 		
 		this.parameters = new ArrayList<>();
 		parameters.add(parameter);
@@ -26,9 +26,10 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 			setPrecision(precision);
 		}
 	}
-	
+
+	@Transient
 	@Override
-	public Integer getIntegerValueImpl() {
+	public Integer getIntegerValue() {
 		switch (getParameters().get(0).getReturnType()) {
 			case INTEGER:
 				return Rounder.round(getParameters().get(0).getIntegerValue(), getRoundingType(),
@@ -40,9 +41,10 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 				throw new IllegalArgumentException("Parameter to be rounded must be of type INTEGER or NUMERIC");
 		}
 	}
-	
+
+	@Transient
 	@Override
-	public Double getNumericValueImpl() {
+	public Double getNumericValue() {
 		switch (getParameters().get(0).getReturnType()) {
 			case INTEGER:
 				return Rounder.round(getParameters().get(0).getIntegerValue(), getRoundingType(),
@@ -62,17 +64,7 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 	private void setPrecision(AbstractFormula precision) {
 		this.parameters.add(precision);
 	}
-	
-	@Override
-	protected boolean isParametersCombinationAuthorized() {
-		return areParametersAuthorized();
-	}
 
-	@Override
-	protected final FormulaReturnType computeReturnType() {
-		return getParameters().get(0).getReturnType();
-	}
-	
 	@Override
 	public String asText() {
 		return operationAsText() + "(" + getParameters().get(0).asText() + "; " + getParameters().get(1).asText()

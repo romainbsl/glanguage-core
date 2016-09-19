@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * Test class for {@link FormulaDifference}
@@ -261,25 +261,6 @@ public class FormulaDifferenceTest {
 	}
 
 	/**
-	 * Tests {@link FormulaDifference#getBooleanValue()} when at least one
-	 * parameter has wrong type
-	 */
-	@Test(expected = IllegalStateException.class)
-	public void testGetBooleanValueParametersWrongType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.UNDEFINED);
-		when(rightFormula.getValue()).thenReturn(true);
-
-		FormulaDifference formula = new FormulaDifference(leftFormula, rightFormula);
-
-		formula.getBooleanValue();
-	}
-
-	/**
 	 * Tests {@link FormulaDifference#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -349,24 +330,6 @@ public class FormulaDifferenceTest {
 		FormulaDifference formula = new FormulaDifference(leftFormula, rightFormula);
 
 		formula.getDateValue();
-	}
-
-	/**
-	 * Tests {@link FormulaDifference#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getValue()).thenReturn(0);
-
-		FormulaDifference formula = new FormulaDifference(leftFormula, rightFormula);
-
-		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 
 	/**

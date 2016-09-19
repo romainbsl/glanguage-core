@@ -2,12 +2,13 @@ package be.groups.glanguage.glanguage.api.entities.formula;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
@@ -17,11 +18,15 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
 /**
@@ -35,18 +40,16 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
  * - an evaluated status <br>
  * - a value <br>
  * <br>
- * An AbstractFormula can be evaluated - can be given a value which type
- * corresponds to its {@link FormulaReturnType}. <br>
+ * An AbstractFormula can be evaluated - can be given a value which type corresponds to its
+ * {@link FormulaReturnType}. <br>
  * How an AbstractFormula is evaluated depends on its {@link FormulaType}. <br>
- * Evaluating an AbstractFormula consists in applying its own evaluation method
- * on the results of the evaluation of its sub- {@link AbstractFormula}'s
- * parameters.
+ * Evaluating an AbstractFormula consists in applying its own evaluation method on the results of
+ * the evaluation of its sub- {@link AbstractFormula}'s parameters.
  * 
  * @author michotte
  */
 @Entity
-@Table(name = "FORMULA", uniqueConstraints = @UniqueConstraint(columnNames = {"parent_formula_id",
-		"sequence_number"}) )
+@Table(name = "FORMULA", uniqueConstraints = @UniqueConstraint(columnNames = {"parent_formula_id", "sequence_number"}) )
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "FORMULA_DESCRIPTION_ID", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class AbstractFormula {
@@ -77,6 +80,11 @@ public abstract class AbstractFormula {
 	protected List<AbstractFormula> parameters;
 	
 	/**
+	 * Types of the parameters
+	 */
+	private List<FormulaReturnType> parametersTypes;
+	
+	/**
 	 * Sequence number of this parameter in parent formula
 	 */
 	private Integer sequenceNumber;
@@ -88,10 +96,6 @@ public abstract class AbstractFormula {
 	
 	protected AbstractFormula() {
 		super();
-	}
-	
-	public AbstractFormula(FormulaDescription description) {
-		this.description = description;
 	}
 	
 	/**
@@ -114,8 +118,8 @@ public abstract class AbstractFormula {
 	/**
 	 * @return the description
 	 */
-	@Column(name = "FORMULA_DESCRIPTION_ID", nullable = false, insertable = false, updatable = false)
-	@Convert(converter = FormulaDescriptionConverter.class)
+	@OneToOne
+	@JoinColumn(name = "FORMULA_DESCRIPTION_ID", referencedColumnName = "ID", insertable = false, updatable = false)
 	public FormulaDescription getDescription() {
 		return description;
 	}
@@ -158,7 +162,27 @@ public abstract class AbstractFormula {
 	public abstract boolean isTerminal();
 	
 	@Transient
-	public abstract FormulaReturnType getReturnType();
+	public boolean isValid() {
+		if (parametersTypes == null) {
+			initParametersTypes();
+		}
+		
+		return description.isValid(parametersTypes);
+	}
+	
+	@Transient
+	public FormulaReturnType getReturnType() {
+		if (parametersTypes == null) {
+			initParametersTypes();
+		}
+		
+		return description.getReturnType(parametersTypes);
+	}
+	
+	private void initParametersTypes() {
+		parametersTypes = parametersTypes == null ? Arrays.asList()
+				: parameters.stream().map(p -> p.getReturnType()).collect(Collectors.toList());
+	}
 	
 	/**
 	 * @return Default true

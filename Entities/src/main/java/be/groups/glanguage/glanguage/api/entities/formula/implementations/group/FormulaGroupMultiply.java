@@ -6,12 +6,12 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.G_MULT)
+@DiscriminatorValue(FormulaType.Values.G_MULT)
 public class FormulaGroupMultiply extends GroupFormula {
 		
 	public FormulaGroupMultiply() {
@@ -19,12 +19,12 @@ public class FormulaGroupMultiply extends GroupFormula {
 	}
 
 	public FormulaGroupMultiply(String groupId) {
-		super(FormulaDescription.G_MULT, groupId);
+		super( groupId);
 	}
 	
 	@Transient
 	@Override
-	public Double getNumericValueImpl() {
+	public Double getNumericValue() {
 		if (getGroupRule() == null) {
 			throw new IllegalAccessError("Cannot invoke getRulesInGroup() method on " + this.getClass().getName()
 					+ " object while referenced rule (version id : " + getConstantValue()

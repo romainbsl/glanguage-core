@@ -23,7 +23,7 @@ import javax.persistence.Transient;
 
 import be.groups.common.entities.util.LocalDateTimeConverter;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
 
 /**

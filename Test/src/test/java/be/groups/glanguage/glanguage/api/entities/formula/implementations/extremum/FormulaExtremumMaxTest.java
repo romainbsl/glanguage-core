@@ -11,7 +11,7 @@ import java.util.List;
 import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * Test class for {@link FormulaExtremumMax}
@@ -227,78 +227,6 @@ public class FormulaExtremumMaxTest {
 		FormulaExtremumMax formula = new FormulaExtremumMax(parameters);
 		
 		formula.getDateValue();
-	}
-	
-	/**
-	 * Tests {@link FormulaExtremumMax#getReturnType()} when all parameters are integers
-	 */
-	@Test
-	public void testGetReturnTypeIntegers() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
-		AbstractFormula param1 = mock(AbstractFormula.class);
-		when(param1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		parameters.add(param1);
-		
-		AbstractFormula param2 = mock(AbstractFormula.class);
-		when(param2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		parameters.add(param2);
-		
-		AbstractFormula param3 = mock(AbstractFormula.class);
-		when(param3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		parameters.add(param3);
-		
-		FormulaExtremumMax formula = new FormulaExtremumMax(parameters);
-		
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
-	}
-	
-	/**
-	 * Tests {@link FormulaExtremumMax#getReturnType()} when integer and numeric parameters mix
-	 */
-	@Test
-	public void testGetReturnTypeIntNum() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
-		AbstractFormula param1 = mock(AbstractFormula.class);
-		when(param1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		parameters.add(param1);
-		
-		AbstractFormula param2 = mock(AbstractFormula.class);
-		when(param2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		parameters.add(param2);
-		
-		AbstractFormula param3 = mock(AbstractFormula.class);
-		when(param3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		parameters.add(param3);
-		
-		FormulaExtremumMax formula = new FormulaExtremumMax(parameters);
-		
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
-	}
-	
-	/**
-	 * Tests {@link FormulaExtremumMax#getReturnType()} when all parameters are numerics
-	 */
-	@Test
-	public void testGetReturnTypeNumerics() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
-		AbstractFormula param1 = mock(AbstractFormula.class);
-		when(param1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		parameters.add(param1);
-		
-		AbstractFormula param2 = mock(AbstractFormula.class);
-		when(param2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		parameters.add(param2);
-		
-		AbstractFormula param3 = mock(AbstractFormula.class);
-		when(param3.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		parameters.add(param3);
-		
-		FormulaExtremumMax formula = new FormulaExtremumMax(parameters);
-		
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
 	}
 	
 	/**

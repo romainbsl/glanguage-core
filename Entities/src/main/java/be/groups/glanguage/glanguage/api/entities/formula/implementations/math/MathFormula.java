@@ -1,18 +1,14 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.math;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 @Entity
 public abstract class MathFormula extends AbstractNonTerminalFormula {
@@ -21,8 +17,8 @@ public abstract class MathFormula extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public MathFormula(FormulaDescription description, List<AbstractFormula> parameters) {
-		super(description);
+	public MathFormula(List<AbstractFormula> parameters) {
+		super();
 		
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
@@ -40,23 +36,8 @@ public abstract class MathFormula extends AbstractNonTerminalFormula {
 	
 	@Transient
 	@Override
-	protected Integer getIntegerValueImpl() {
-		return getNumericValueImpl().intValue();
-	}
-	
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		return getParameters().get(0).getReturnType();
-	}
-	
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
-	}
-	
-	@Override
-	protected boolean isParametersCombinationAuthorized() {
-		return areParametersAuthorized();
+	public Integer getIntegerValue() {
+		return getNumericValue().intValue();
 	}
 	
 	@Override

@@ -2,20 +2,18 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.forma
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.F_FORMAT_DATE)
+@DiscriminatorValue(FormulaType.Values.F_FORMAT_DATE)
 public class FormulaFormatDate extends FormatFormula {
 	
 	public FormulaFormatDate() {
@@ -23,7 +21,7 @@ public class FormulaFormatDate extends FormatFormula {
 	}
 	
 	public FormulaFormatDate(List<AbstractFormula> parameters) {
-		super(FormulaDescription.F_FORMAT_DATE);
+		super();
 		
 		if (parameters.get(0) == null) {
 			throw new IllegalArgumentException("element must be non-null");
@@ -40,21 +38,11 @@ public class FormulaFormatDate extends FormatFormula {
 		this.parameters = new ArrayList<>();
 		parameters.stream().forEachOrdered(e -> this.parameters.add(e));
 	}
-	
+
+	@Transient
 	@Override
-	public String getStringValueImpl() {
+	public String getStringValue() {
 		return getParameters().get(0).getDateValue().format(DateTimeFormatter.ofPattern(getParameters().get(1).getStringValue()));
-	}
-	
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return new HashSet<>(Arrays.asList(FormulaReturnType.DATE, FormulaReturnType.STRING));
-	}
-	
-	@Override
-	protected boolean isParametersCombinationAuthorized() {
-		return getParameters().get(0).getReturnType().equals(FormulaReturnType.DATE)
-				&& getParameters().get(1).getReturnType().equals(FormulaReturnType.STRING);
 	}
 	
 	@Override

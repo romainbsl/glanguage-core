@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * Test class for {@link FormulaDivide}
@@ -123,24 +123,6 @@ public class FormulaDivideTest {
 		FormulaDivide formula = new FormulaDivide(leftFormula, rightFormula);
 		
 		formula.getDateValue();
-	}
-	
-	/**
-	 * Tests {@link FormulaDivide#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getValue()).thenReturn(1);
-		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getValue()).thenReturn(0);
-		
-		FormulaDivide formula = new FormulaDivide(leftFormula, rightFormula);
-		
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
 	}
 	
 	/**

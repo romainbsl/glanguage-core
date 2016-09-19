@@ -3,9 +3,6 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.instr
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -13,23 +10,20 @@ import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
-@DiscriminatorValue(value = FormulaDescription.Values.I_IF)
+@DiscriminatorValue(FormulaType.Values.I_IF)
 public class FormulaIfInstruction extends AbstractNonTerminalFormula {
-	
-	private static final Set<FormulaReturnType> authorizedParametersTypes =
-			new HashSet<>(Arrays.asList(FormulaReturnType.BOOLEAN, FormulaReturnType.DATE, FormulaReturnType.DURATION,
-					FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC, FormulaReturnType.STRING));
 
 	public FormulaIfInstruction() {
 		super();
 	}
 
 	public FormulaIfInstruction(AbstractFormula condition, AbstractFormula ifStatement, AbstractFormula elseStatement) {
-		super(FormulaDescription.I_IF);
+		super();
+		
 		if (condition == null) {
 			throw new IllegalArgumentException("condition must be non-null");
 		}
@@ -47,7 +41,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 
 	@Transient
 	@Override
-	public Integer getIntegerValueImpl() {
+	public Integer getIntegerValue() {
 		if (getParameters().get(0).getBooleanValue()) {
 			return getParameters().get(1).getIntegerValue();
 		} else {
@@ -61,7 +55,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 
 	@Transient
 	@Override
-	public Double getNumericValueImpl() {
+	public Double getNumericValue() {
 		if (getParameters().get(0).getBooleanValue()) {
 			return getParameters().get(1).getNumericValue();
 		} else {
@@ -75,7 +69,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 
 	@Transient
 	@Override
-	public String getStringValueImpl() {
+	public String getStringValue() {
 		if (getParameters().get(0).getBooleanValue()) {
 			return getParameters().get(1).getStringValue();
 		} else {
@@ -89,7 +83,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 
 	@Transient
 	@Override
-	public Boolean getBooleanValueImpl() {
+	public Boolean getBooleanValue() {
 		if (getParameters().get(0).getBooleanValue()) {
 			return getParameters().get(1).getBooleanValue();
 		} else {
@@ -103,7 +97,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 
 	@Transient
 	@Override
-	public LocalDate getDateValueImpl() {
+	public LocalDate getDateValue() {
 		if (getParameters().get(0).getBooleanValue()) {
 			return getParameters().get(1).getDateValue();
 		} else {
@@ -117,7 +111,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 
 	@Transient
 	@Override
-	public Duration getDurationValueImpl() {
+	public Duration getDurationValue() {
 		if (getParameters().get(0).getBooleanValue()) {
 			return getParameters().get(1).getDurationValue();
 		} else {
@@ -127,25 +121,6 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 				return Duration.ZERO;
 			}
 		}
-	}
-	
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		if (getParameters().size() > 2 && getParameters().get(1).getReturnType().equals(FormulaReturnType.INTEGER)) {
-			return getParameters().get(2).getReturnType();
-		} else {
-			return getParameters().get(1).getReturnType();
-		}
-	}
-
-	@Override
-	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
-		return authorizedParametersTypes;
-	}
-
-	@Override
-	protected boolean isParametersCombinationAuthorized() {
-		return true;
 	}
 
 	@Override
