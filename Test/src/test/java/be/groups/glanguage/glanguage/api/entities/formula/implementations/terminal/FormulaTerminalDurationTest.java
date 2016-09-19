@@ -2,16 +2,10 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.termi
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.time.Duration;
-import java.util.Arrays;
 
 import org.junit.Test;
-
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 /**
  * Test class for {@link FormulaTerminalDuration}
@@ -82,36 +76,44 @@ public class FormulaTerminalDurationTest {
 	 */
 	@Test
 	public void testGetDurationValue() {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration("P1Y2M3DT4H5M6.7S");
+		FormulaTerminalDuration formula = new FormulaTerminalDuration("'P1Y2M3DT4H5M6.7S'");
 		assertEquals(Duration.parse("P430DT4H5M6.7S"), formula.getDurationValue());
 	}
 	
 	/**
-	 * Tests {@link FormulaTerminalDuration#isValid()}
+	 * Tests {@link FormulaTerminalDuration#getDurationValue()} without time
 	 */
 	@Test
-	public void testIsValid() {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration("string");
-		
-		FormulaDescription formulaDescription = mock(FormulaDescription.class);
-		when(formulaDescription.isValid(Arrays.asList())).thenReturn(true);
-		formula.setDescription(formulaDescription);
-		
-		assertTrue(formula.isValid());
+	public void testGetDurationValueWithoutTime() {
+		FormulaTerminalDuration formula = new FormulaTerminalDuration("'P1Y2M3D'");
+		assertEquals(Duration.parse("P430D"), formula.getDurationValue());
 	}
 	
 	/**
-	 * Tests {@link FormulaTerminalNumeric#getReturnType()}
+	 * Tests {@link FormulaTerminalDuration#getDurationValue()} without year
 	 */
 	@Test
-	public void testGetReturnType() {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration("string");
-		
-		FormulaDescription formulaDescription = mock(FormulaDescription.class);
-		when(formulaDescription.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.STRING);
-		formula.setDescription(formulaDescription);
-		
-		assertEquals(FormulaReturnType.STRING, formula.getReturnType());
+	public void testGetDurationValueWithoutYear() {
+		FormulaTerminalDuration formula = new FormulaTerminalDuration("'P2M3DT4H5M6.7S'");
+		assertEquals(Duration.parse("P65DT4H5M6.7S"), formula.getDurationValue());
+	}
+	
+	/**
+	 * Tests {@link FormulaTerminalDuration#getDurationValue()} without year and month
+	 */
+	@Test
+	public void testGetDurationValueWithoutYearAndMonth() {
+		FormulaTerminalDuration formula = new FormulaTerminalDuration("'P3DT4H5M6.7S'");
+		assertEquals(Duration.parse("P3DT4H5M6.7S"), formula.getDurationValue());
+	}
+	
+	/**
+	 * Tests {@link FormulaTerminalDuration#getDurationValue()} without dates
+	 */
+	@Test
+	public void testGetDurationValueWithoutDates() {
+		FormulaTerminalDuration formula = new FormulaTerminalDuration("'PT4H5M6.7S'");
+		assertEquals(Duration.parse("PT4H5M6.7S"), formula.getDurationValue());
 	}
 	
 	/**

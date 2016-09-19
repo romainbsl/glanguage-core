@@ -39,6 +39,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.roundi
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingTruncTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBooleanTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDateTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDurationTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalIntegerTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumericTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalStringTest;
@@ -64,15 +65,16 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
 @SuiteClasses({RuleSetTest.class, RuleSetVersionTest.class, RuleIdentityTest.class, RuleDefinitionTest.class,
 		RuleDefinitionParameterTest.class, RuleVersionTest.class, RuleDescriptionTest.class, RuleGroupItemTest.class,
 		RounderTest.class, AbstractFormulaTest.class, FormulaDescriptionTest.class, FormulaParametersCombinationTest.class,
-		FormulaParameterDescriptionTest.class, FormulaTerminalBooleanTest.class, FormulaTerminalIntegerTest.class,
-		FormulaTerminalNumericTest.class, FormulaTerminalStringTest.class, FormulaTerminalDateTest.class, FormulaExistTest.class,
-		FormulaNotTest.class, FormulaUnaryMinusTest.class, FormulaAndTest.class, FormulaOrTest.class, FormulaGreaterTest.class,
-		FormulaGreaterOrEqualTest.class, FormulaSmallerTest.class, FormulaSmallerOrEqualTest.class, FormulaEqualTest.class,
-		FormulaDifferenceTest.class, FormulaPlusTest.class, FormulaMinusTest.class, FormulaMultiplyTest.class, FormulaDivideTest.class,
-		FormulaIntegerDivisionTest.class, FormulaModuloTest.class, FormulaExtremumMaxTest.class, FormulaExtremumMinTest.class,
-		FormulaExtremumSignedMaxTest.class, FormulaExtremumSignedMinTest.class, FormulaFormatStringTest.class,
-		FormulaFormatIntegerTest.class, FormulaFormatNumericTest.class, FormulaFormatDateTest.class, FormulaMathAbsTest.class,
-		FormulaMathSignTest.class, FormulaRoundingArithmeticTest.class, FormulaRoundingCeilTest.class, FormulaRoundingFloorTest.class,
+		FormulaParameterDescriptionTest.class, FormulaTerminalBooleanTest.class, FormulaTerminalDurationTest.class,
+		FormulaTerminalIntegerTest.class, FormulaTerminalNumericTest.class, FormulaTerminalStringTest.class,
+		FormulaTerminalDateTest.class, FormulaExistTest.class, FormulaNotTest.class, FormulaUnaryMinusTest.class, FormulaAndTest.class,
+		FormulaOrTest.class, FormulaGreaterTest.class, FormulaGreaterOrEqualTest.class, FormulaSmallerTest.class,
+		FormulaSmallerOrEqualTest.class, FormulaEqualTest.class, FormulaDifferenceTest.class, FormulaPlusTest.class,
+		FormulaMinusTest.class, FormulaMultiplyTest.class, FormulaDivideTest.class, FormulaIntegerDivisionTest.class,
+		FormulaModuloTest.class, FormulaExtremumMaxTest.class, FormulaExtremumMinTest.class, FormulaExtremumSignedMaxTest.class,
+		FormulaExtremumSignedMinTest.class, FormulaFormatStringTest.class, FormulaFormatIntegerTest.class,
+		FormulaFormatNumericTest.class, FormulaFormatDateTest.class, FormulaMathAbsTest.class, FormulaMathSignTest.class,
+		FormulaRoundingArithmeticTest.class, FormulaRoundingCeilTest.class, FormulaRoundingFloorTest.class,
 		FormulaRoundingTruncTest.class, FormulaRoundingBankersTest.class})
 		
 		

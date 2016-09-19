@@ -7,15 +7,13 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
-
 /**
  * Test class for {@link FormulaTerminalDate}
  * 
  * @author DUPIREFR
  */
 public class FormulaTerminalDateTest {
-
+	
 	/*
 	 * Tests
 	 */
@@ -27,7 +25,7 @@ public class FormulaTerminalDateTest {
 		FormulaTerminalDate formula = new FormulaTerminalDate();
 		assertTrue(formula.isTerminal());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalDate#getIntegerValue()}
 	 */
@@ -36,7 +34,7 @@ public class FormulaTerminalDateTest {
 		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
 		formula.getIntegerValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalDate#getNumericValue()}
 	 */
@@ -45,7 +43,7 @@ public class FormulaTerminalDateTest {
 		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
 		formula.getNumericValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalDate#getStringValue()}
 	 */
@@ -54,7 +52,7 @@ public class FormulaTerminalDateTest {
 		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
 		assertEquals("01/01/2015", formula.getStringValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalDate#getDateValue()}
 	 */
@@ -63,7 +61,7 @@ public class FormulaTerminalDateTest {
 		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
 		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalDate#getBooleanValue()}
 	 */
@@ -72,16 +70,7 @@ public class FormulaTerminalDateTest {
 		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
 		formula.getBooleanValue();
 	}
-
-	/**
-	 * Tests {@link FormulaTerminalDate#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
-		assertEquals(FormulaReturnType.DATE, formula.getReturnType());
-	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalDate#asText()}
 	 */
@@ -90,5 +79,5 @@ public class FormulaTerminalDateTest {
 		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
 		assertEquals("01/01/2015", formula.asText());
 	}
-
+	
 }

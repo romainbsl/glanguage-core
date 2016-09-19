@@ -5,8 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
-
 /**
  * Test class for {@link FormulaTerminalString}
  * 
@@ -69,15 +67,6 @@ public class FormulaTerminalStringTest {
 	public void testGetBooleanValue() {
 		FormulaTerminalString formula = new FormulaTerminalString("string");
 		formula.getBooleanValue();
-	}
-
-	/**
-	 * Tests {@link FormulaTerminalString#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		FormulaTerminalString formula = new FormulaTerminalString("string");
-		assertEquals(FormulaReturnType.STRING, formula.getReturnType());
 	}
 
 	/**

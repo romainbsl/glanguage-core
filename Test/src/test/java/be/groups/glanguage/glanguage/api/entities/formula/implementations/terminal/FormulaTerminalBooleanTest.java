@@ -5,8 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
-
 /**
  * Test class for {@link FormulaTerminalBoolean}
  * 
@@ -70,16 +68,7 @@ public class FormulaTerminalBooleanTest {
 		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(true);
 		formula.getDateValue();
 	}
-
-	/**
-	 * Tests {@link FormulaTerminalBoolean#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(true);
-		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
-	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalBoolean#asText()}
 	 */

@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -179,7 +180,8 @@ public abstract class AbstractFormula {
 	}
 	
 	private void initParametersTypes() {
-		parametersTypes = parameters.stream().map(p -> p.getReturnType()).collect(Collectors.toList());
+		parametersTypes = parametersTypes == null ? Arrays.asList()
+				: parameters.stream().map(p -> p.getReturnType()).collect(Collectors.toList());
 	}
 	
 	/**
