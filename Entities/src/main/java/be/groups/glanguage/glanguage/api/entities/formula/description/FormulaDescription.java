@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.formula.description;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -145,7 +146,7 @@ public class FormulaDescription {
 			initParametersCombinationsReturnTypes();
 		}
 		
-		return parametersCombinationsReturnTypes.containsKey(parametersTypes);
+		return parametersCombinationsReturnTypes.containsKey(parametersTypes == null ? Arrays.asList() : parametersTypes);
 	}
 	
 	@Transient
@@ -154,7 +155,7 @@ public class FormulaDescription {
 			initParametersCombinationsReturnTypes();
 		}
 		
-		return parametersCombinationsReturnTypes.get(parametersTypes);
+		return parametersCombinationsReturnTypes.get(parametersTypes == null ? Arrays.asList() : parametersTypes);
 	}
 	
 	private void initParametersCombinationsReturnTypes() {
