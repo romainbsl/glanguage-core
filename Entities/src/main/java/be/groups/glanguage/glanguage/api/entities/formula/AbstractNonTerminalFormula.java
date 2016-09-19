@@ -12,7 +12,7 @@ public abstract class AbstractNonTerminalFormula extends AbstractFormula {
 	protected AbstractNonTerminalFormula() {
 		super();
 	}
-	
+
 	@Transient
 	@Override
 	public Integer getIntegerValue() {

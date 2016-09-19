@@ -46,7 +46,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.format
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatNumeric;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatString;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.group.FormulaGroupMultiply;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaInstructionIf;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaIfInstruction;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathAbs;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathSign;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingArithmetic;
@@ -99,7 +99,6 @@ public class AsStandard implements SemanticalAction {
 	
 	@Override
 	public void beginAnalysis() {
-		initialize();
 	}
 	
 	@Override
@@ -317,7 +316,7 @@ public class AsStandard implements SemanticalAction {
 	
 	@Override
 	public AbstractFormula ifInstruction(AbstractFormula condition, AbstractFormula ifStatement, AbstractFormula elseStatement) {
-		return new FormulaInstructionIf(condition, ifStatement, elseStatement);
+		return new FormulaIfInstruction(condition, ifStatement, elseStatement);
 	}
 	
 	@Override

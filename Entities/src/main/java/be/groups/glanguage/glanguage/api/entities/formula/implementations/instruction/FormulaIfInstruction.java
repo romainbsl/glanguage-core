@@ -15,14 +15,15 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 
 @Entity
 @DiscriminatorValue(FormulaType.Values.I_IF)
-public class FormulaInstructionIf extends AbstractNonTerminalFormula {
+public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 
-	public FormulaInstructionIf() {
+	public FormulaIfInstruction() {
 		super();
 	}
 
-	public FormulaInstructionIf(AbstractFormula condition, AbstractFormula ifStatement, AbstractFormula elseStatement) {
+	public FormulaIfInstruction(AbstractFormula condition, AbstractFormula ifStatement, AbstractFormula elseStatement) {
 		super();
+		
 		if (condition == null) {
 			throw new IllegalArgumentException("condition must be non-null");
 		}
@@ -33,7 +34,9 @@ public class FormulaInstructionIf extends AbstractNonTerminalFormula {
 			throw new IllegalArgumentException("ifStatement must be non-null");
 		}
 		this.parameters = new ArrayList<>();
-		parameters.addAll(parameters);
+		parameters.add(condition);
+		parameters.add(ifStatement);
+		parameters.add(elseStatement);
 	}
 
 	@Transient
@@ -139,9 +142,9 @@ public class FormulaInstructionIf extends AbstractNonTerminalFormula {
 		sb.append(getParameters().get(1).asText());
 		sb.append("\n");
 		if (getParameters().size() > 2) {
-			if (getParameters().get(2) instanceof FormulaInstructionIf) {
+			if (getParameters().get(2) instanceof FormulaIfInstruction) {
 				elseIf = true;
-				sb.append(((FormulaInstructionIf) getParameters().get(2)).asText(true));
+				sb.append(((FormulaIfInstruction) getParameters().get(2)).asText(true));
 			} else {
 				sb.append("else");
 				sb.append("\n\t");

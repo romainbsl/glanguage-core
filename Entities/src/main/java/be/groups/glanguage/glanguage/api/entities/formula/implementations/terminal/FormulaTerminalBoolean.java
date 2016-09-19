@@ -51,6 +51,7 @@ public class FormulaTerminalBoolean extends AbstractTerminalFormula {
 			} else {
 				this.booleanValue = Boolean.valueOf(constantValue);
 			}
+			this.booleanValue = Boolean.valueOf(constantValue);
 		}
 	}
 

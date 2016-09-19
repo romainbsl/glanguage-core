@@ -192,23 +192,21 @@ public abstract class AbstractFormula {
 	
 	@Transient
 	public Object getValue() {
-		try {
-			switch (getReturnType()) {
-				case INTEGER:
-					return getIntegerValue();
-				case NUMERIC:
-					return getNumericValue();
-				case STRING:
-					return getStringValue();
-				case BOOLEAN:
-					return getBooleanValue();
-				case DATE:
-					return getDateValue();
-				default:
-					return null;
-			}
-		} catch (Exception e) {
-			return null;
+		switch (getReturnType()) {
+			case INTEGER:
+				return getIntegerValue();
+			case NUMERIC:
+				return getNumericValue();
+			case STRING:
+				return getStringValue();
+			case BOOLEAN:
+				return getBooleanValue();
+			case DATE:
+				return getDateValue();
+			case DURATION:
+				return getDurationValue();
+			default:
+				return null;
 		}
 	}
 	
