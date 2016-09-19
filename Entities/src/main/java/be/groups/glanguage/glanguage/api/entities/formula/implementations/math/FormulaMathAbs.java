@@ -1,6 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.math;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -16,8 +16,8 @@ public class FormulaMathAbs extends MathFormula {
 		super();
 	}
 
-	public FormulaMathAbs(LinkedList<AbstractFormula> parameters) {
-		super(parameters);
+	public FormulaMathAbs(List<AbstractFormula> parameters) {
+		super(FormulaDescription.F_ABS, parameters);
 	}
 
 	@Override

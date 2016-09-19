@@ -1,7 +1,5 @@
 package be.groups.glanguage.glanguage.api.entities.utils;
 
-
-
 import java.text.DecimalFormat;
 
 /**

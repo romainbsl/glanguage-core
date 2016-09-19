@@ -19,8 +19,8 @@ import javax.persistence.UniqueConstraint;
 public class RuleGroupItem implements Comparable<RuleGroupItem> {
 
 	private RuleGroupItemId id;
-	private RuleVersion ruleVersion;
-	private RuleIdentity ruleIdentity;
+	private RuleVersion groupRule;
+	private RuleIdentity itemRule;
 	private int sequenceNumber;
 	private RuleVersion effectiveRuleVersion;
 
@@ -42,7 +42,7 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	@ManyToOne
 	@JoinColumn(name = "RULE_VERSION_ID", referencedColumnName = "ID", insertable = false, updatable = false)
 	public RuleVersion getGroupRule() {
-		return ruleVersion;
+		return groupRule;
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	@ManyToOne
 	@JoinColumn(name = "RULE_IDENTITY_ID", referencedColumnName = "ID", insertable = false, updatable = false)
 	public RuleIdentity getItemRule() {
-		return ruleIdentity;
+		return itemRule;
 	}
 
 	@Transient
@@ -76,19 +76,19 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	}
 
 	/**
-	 * @param ruleVersion
+	 * @param groupRule
 	 *            the ruleVersion to set
 	 */
-	public void setRuleVersion(RuleVersion ruleVersion) {
-		this.ruleVersion = ruleVersion;
+	public void setGroupRule(RuleVersion groupRule) {
+		this.groupRule = groupRule;
 	}
 
 	/**
-	 * @param ruleIdentity
+	 * @param itemRule
 	 *            the ruleIdentity to set
 	 */
-	public void setRuleIdentity(RuleIdentity ruleIdentity) {
-		this.ruleIdentity = ruleIdentity;
+	public void setItemRule(RuleIdentity itemRule) {
+		this.itemRule = itemRule;
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 
 	@Override
 	public int compareTo(RuleGroupItem o) {
-		int i = ruleVersion.getId() - o.getGroupRule().getId();
+		int i = groupRule.getId() - o.getGroupRule().getId();
 		if (i == 0) {
 			i = sequenceNumber - o.getSequenceNumber();
 		}

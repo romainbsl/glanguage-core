@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.DiscriminatorValue;
@@ -22,7 +22,9 @@ public class FormulaFormatDate extends FormatFormula {
 		super();
 	}
 	
-	public FormulaFormatDate(LinkedList<AbstractFormula> parameters) {
+	public FormulaFormatDate(List<AbstractFormula> parameters) {
+		super(FormulaDescription.F_FORMAT_DATE);
+		
 		if (parameters.get(0) == null) {
 			throw new IllegalArgumentException("element must be non-null");
 		}

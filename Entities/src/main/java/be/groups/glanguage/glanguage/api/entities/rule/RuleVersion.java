@@ -213,7 +213,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
 	/**
 	 * @return the groupItems
 	 */
-	@OneToMany(mappedBy = "ruleVersion")
+	@OneToMany(mappedBy = "groupRule")
 	@OrderBy(value = "SEQUENCE_NUMBER ASC")
 	public SortedSet<RuleGroupItem> getGroupItems() {
 		return groupItems;

@@ -1,7 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum;
 
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -16,32 +16,32 @@ public class FormulaExtremumSignedMin extends ExtremumFormula {
 	public FormulaExtremumSignedMin() {
 		super();
 	}
-
-	public FormulaExtremumSignedMin(LinkedList<AbstractFormula> parameters) {
+	
+	public FormulaExtremumSignedMin(List<AbstractFormula> parameters) {
 		super(parameters);
 	}
-
+	
 	@Override
 	public Double getNumericValueImpl() {
 		Iterator<AbstractFormula> itParameters = getParameters().iterator();
-        double temp;
-        double sign = 0.0;
+		double temp;
+		double sign = 0.0;
 		double result = Double.MAX_VALUE;
-        do {     
-        	temp = itParameters.next().getNumericValue();
-            if (sign == 0.0) {
-            	if (Double.compare(temp, 0.0) >= 0) {
-            		sign = 1.0;
-            	} else {
-            		sign = -1.0;
-            	}
-            }
-            temp = Math.abs(temp);
-        	if (result > temp) {
-                result = temp;
-            }
-        } while (itParameters.hasNext());
-        return result * sign;
+		do {
+			temp = itParameters.next().getNumericValue();
+			if (sign == 0.0) {
+				if (Double.compare(temp, 0.0) >= 0) {
+					sign = 1.0;
+				} else {
+					sign = -1.0;
+				}
+			}
+			temp = Math.abs(temp);
+			if (result > temp) {
+				result = temp;
+			}
+		} while (itParameters.hasNext());
+		return result * sign;
 	}
 	
 	@Override

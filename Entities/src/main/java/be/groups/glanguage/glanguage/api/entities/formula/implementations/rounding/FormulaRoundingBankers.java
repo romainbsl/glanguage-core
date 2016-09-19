@@ -55,9 +55,4 @@ public class FormulaRoundingBankers extends RoundingFormula {
 		return "bankers_rounded";
 	}
 
-	@Override
-	protected FormulaReturnType computeReturnType() {
-		return getParameters().get(1).getReturnType();
-	}
-
 }

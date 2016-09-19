@@ -17,25 +17,25 @@ import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 @Entity
 @DiscriminatorValue(FormulaDescription.Values.OP_MULTIPLY)
 public class FormulaMultiply extends BinaryFormula {
-
+	
 	protected FormulaMultiply() {
 		super();
 	}
-
+	
 	public FormulaMultiply(AbstractFormula child1, AbstractFormula child2) {
 		super(FormulaDescription.OP_MULTIPLY, child1, child2);
 	}
-
+	
 	@Override
 	public Integer getIntegerValueImpl() {
-		return getParameters().get(0).getIntegerValue() * getParameters().get(1).getIntegerValue();
+		return getNumericValue().intValue();
 	}
-
+	
 	@Override
 	public Double getNumericValueImpl() {
 		return getParameters().get(0).getNumericValue() * getParameters().get(1).getNumericValue();
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -44,7 +44,7 @@ public class FormulaMultiply extends BinaryFormula {
 	protected Set<FormulaReturnType> getAuthorizedParametersTypes() {
 		return new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC));
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -56,13 +56,13 @@ public class FormulaMultiply extends BinaryFormula {
 				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC)));
 		combinations.put(FormulaReturnType.NUMERIC,
 				new HashSet<>(Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC)));
-
+				
 		return combinations;
 	}
-
+	
 	@Override
 	public String operationAsText() {
 		return "*";
 	}
-
+	
 }

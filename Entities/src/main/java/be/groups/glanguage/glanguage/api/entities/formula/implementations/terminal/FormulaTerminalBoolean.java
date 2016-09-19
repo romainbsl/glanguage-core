@@ -47,6 +47,8 @@ public class FormulaTerminalBoolean extends AbstractTerminalFormula {
 		if (constantValue != null) {
 			if (!(constantValue.equalsIgnoreCase("true") || constantValue.equalsIgnoreCase("false"))) {
 				throw new IllegalArgumentException("Contant value must reprensent a boolean value : " + constantValue);
+			} else {
+				this.booleanValue = Boolean.valueOf(constantValue);
 			}
 			this.booleanValue = Boolean.valueOf(constantValue);
 		}

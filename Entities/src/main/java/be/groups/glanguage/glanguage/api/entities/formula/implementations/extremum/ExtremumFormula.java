@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 
@@ -20,7 +21,7 @@ public abstract class ExtremumFormula extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public ExtremumFormula(LinkedList<AbstractFormula> parameters) {
+	public ExtremumFormula(List<AbstractFormula> parameters) {
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
 		}
@@ -62,7 +63,10 @@ public abstract class ExtremumFormula extends AbstractNonTerminalFormula {
 	
 	@Override
 	public String asText() {
-		return operationAsText() + "(" + getParameters().get(0).asText() + ")";
+		String parametersString = getParameters().stream().map(p -> p.asText()).collect(Collectors.toList()).toString();
+		parametersString = parametersString.substring(1, parametersString.length() - 1);
+		
+		return operationAsText() + "(" + parametersString + ")";
 	}
 	
 	public abstract String operationAsText();

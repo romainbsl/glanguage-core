@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.Rounder;
 import be.groups.glanguage.glanguage.api.entities.rule.RoundingType;
 
@@ -19,7 +20,7 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 		
 		this.parameters = new ArrayList<>();
 		parameters.add(parameter);
-		if (precision != null) {
+		if (precision == null) {
 			setPrecision(getDefaultPrecision());
 		} else {
 			setPrecision(precision);
@@ -59,18 +60,23 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 	public abstract AbstractFormula getDefaultPrecision();
 	
 	private void setPrecision(AbstractFormula precision) {
-		this.parameters.set(1, precision);
+		this.parameters.add(precision);
 	}
 	
 	@Override
 	protected boolean isParametersCombinationAuthorized() {
 		return areParametersAuthorized();
 	}
+
+	@Override
+	protected final FormulaReturnType computeReturnType() {
+		return getParameters().get(0).getReturnType();
+	}
 	
 	@Override
 	public String asText() {
-		return operationAsText() + "( " + getParameters().get(0).asText() + "; " + getParameters().get(1).asText()
-				+ " )";
+		return operationAsText() + "(" + getParameters().get(0).asText() + "; " + getParameters().get(1).asText()
+				+ ")";
 	}
 	
 	public abstract String operationAsText();

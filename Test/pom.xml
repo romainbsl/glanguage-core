@@ -39,5 +39,10 @@
 			<artifactId>glanguage-api-business</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>be.groups.glanguage</groupId>
+			<artifactId>glanguage-api-ws</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

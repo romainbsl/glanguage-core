@@ -300,7 +300,7 @@ public class FormulaOrTest {
 	}
 
 	/**
-	 * Tests {@link FormulaOr#operationAsText()}
+	 * Tests {@link FormulaOr#asText()}
 	 */
 	@Test
 	public void testAsText() {
