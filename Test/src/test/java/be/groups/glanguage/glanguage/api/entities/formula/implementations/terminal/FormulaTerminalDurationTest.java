@@ -54,21 +54,21 @@ public class FormulaTerminalDurationTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaTerminalDuration#getDateValue()}
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration("P1Y2M3DT4H5M6.7S");
-		formula.getDateValue();
-	}
-	
-	/**
 	 * Tests {@link FormulaTerminalDuration#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
 		FormulaTerminalDuration formula = new FormulaTerminalDuration("P1Y2M3DT4H5M6.7S");
 		formula.getBooleanValue();
+	}
+	
+	/**
+	 * Tests {@link FormulaTerminalDuration#getDateValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDateValue() {
+		FormulaTerminalDuration formula = new FormulaTerminalDuration("P1Y2M3DT4H5M6.7S");
+		formula.getDateValue();
 	}
 	
 	/**
