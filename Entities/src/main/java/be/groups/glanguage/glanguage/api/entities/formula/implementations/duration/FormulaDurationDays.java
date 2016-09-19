@@ -27,7 +27,7 @@ public class FormulaDurationDays extends DurationFormula {
 	public Integer getIntegerValue() {
 		switch (getParameters().get(0).getReturnType()) {
 			case DATE:
-				getParameters().get(0).getDateValue().getDayOfMonth();
+				return getParameters().get(0).getDateValue().getDayOfMonth();
 			case DURATION:
 				return Math.toIntExact(getParameters().get(0).getDurationValue().toDays());
 			default:
@@ -40,7 +40,7 @@ public class FormulaDurationDays extends DurationFormula {
 	@Transient
 	@Override
 	public Duration getDurationValue() {
-		return Duration.ofDays(getParameters().get(0).getIntegerValue());
+		return Duration.ofDays(getIntegerValue());
 	}
 	
 	@Override

@@ -2,7 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.durat
 
 import java.time.Duration;
 import java.time.Period;
-import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -19,8 +19,8 @@ public class FormulaDurationMonths extends DurationFormula {
 		super();
 	}
 	
-	public FormulaDurationMonths(LinkedList<AbstractFormula> parameters) {
-		super( parameters);
+	public FormulaDurationMonths(List<AbstractFormula> parameters) {
+		super(parameters);
 	}
 	
 	@Transient
@@ -28,20 +28,19 @@ public class FormulaDurationMonths extends DurationFormula {
 	public Integer getIntegerValue() {
 		switch (getParameters().get(0).getReturnType()) {
 			case DATE:
-				getParameters().get(0).getDateValue().getMonthValue();
+				return getParameters().get(0).getDateValue().getMonthValue();
 			case DURATION:
-				return Period.ofDays(Math.toIntExact(getParameters().get(0).getDurationValue().toDays())).getMonths();
+				return Math.toIntExact(getParameters().get(0).getDurationValue().toDays()) / MONTH_AVG_DAYS_COUNT;
 			default:
-				throw new UnsupportedOperationException(
-						"Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object with a parameter of type "
-								+ getParameters().get(0).getReturnType());
+				throw new UnsupportedOperationException("Cannot invoke getIntegerValue() method on " + this.getClass().getName()
+						+ " object with a parameter of type " + getParameters().get(0).getReturnType());
 		}
 	}
 	
 	@Transient
 	@Override
 	public Duration getDurationValue() {
-		return Duration.ofDays(Period.ofMonths(getParameters().get(0).getIntegerValue()).getDays());
+		return Duration.ofDays(Period.ofMonths(getIntegerValue()).getMonths() * MONTH_AVG_DAYS_COUNT);
 	}
 	
 	@Override
