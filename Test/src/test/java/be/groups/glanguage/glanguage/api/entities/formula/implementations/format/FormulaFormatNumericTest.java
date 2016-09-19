@@ -757,6 +757,53 @@ public class FormulaFormatNumericTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaFormatNumeric#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		List<AbstractFormula> parameters = new ArrayList<>();
+		
+		AbstractFormula param1 = mock(AbstractFormula.class);
+		when(param1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(param1.getNumericValue()).thenReturn(-11.57);
+		parameters.add(param1);
+		
+		AbstractFormula param2 = mock(AbstractFormula.class);
+		when(param2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(param2.getIntegerValue()).thenReturn(5);
+		parameters.add(param2);
+		
+		AbstractFormula param3 = mock(AbstractFormula.class);
+		when(param3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(param3.getIntegerValue()).thenReturn(1);
+		parameters.add(param3);
+		
+		AbstractFormula param4 = mock(AbstractFormula.class);
+		when(param4.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(param4.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		parameters.add(param4);
+		
+		AbstractFormula param5 = mock(AbstractFormula.class);
+		when(param5.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(param5.getStringValue()).thenReturn("*");
+		parameters.add(param5);
+		
+		AbstractFormula param6 = mock(AbstractFormula.class);
+		when(param6.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(param6.getStringValue()).thenReturn(FormatSign.Values.BOTH);
+		parameters.add(param6);
+		
+		AbstractFormula param7 = mock(AbstractFormula.class);
+		when(param7.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(param7.getStringValue()).thenReturn(",");
+		parameters.add(param7);
+		
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		
+		formula.getDurationValue();
+	}
+	
+	/**
 	 * Tests {@link FormulaFormatNumeric#operationAsText()}
 	 */
 	@Test

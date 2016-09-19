@@ -328,6 +328,38 @@ public class FormulaFormatStringTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaFormatString#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		List<AbstractFormula> parameters = new ArrayList<>();
+		
+		AbstractFormula param1 = mock(AbstractFormula.class);
+		when(param1.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(param1.getStringValue()).thenReturn("some_rule1");
+		parameters.add(param1);
+		
+		AbstractFormula param2 = mock(AbstractFormula.class);
+		when(param2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(param2.getIntegerValue()).thenReturn(10);
+		parameters.add(param2);
+		
+		AbstractFormula param3 = mock(AbstractFormula.class);
+		when(param3.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(param3.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		parameters.add(param3);
+		
+		AbstractFormula param4 = mock(AbstractFormula.class);
+		when(param4.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(param4.getStringValue()).thenReturn("0");
+		parameters.add(param4);
+		
+		FormulaFormatString formula = new FormulaFormatString(parameters);
+		
+		formula.getDurationValue();
+	}
+	
+	/**
 	 * Tests {@link FormulaFormatString#operationAsText()}
 	 */
 	@Test
