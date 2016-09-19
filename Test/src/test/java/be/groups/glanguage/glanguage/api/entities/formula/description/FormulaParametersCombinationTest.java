@@ -1,8 +1,9 @@
 package be.groups.glanguage.glanguage.api.entities.formula.description;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
+
+import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -19,11 +20,11 @@ import be.groups.marmota.persistence.JpaUtil;
 import be.groups.marmota.test.TNSNames;
 
 /**
- * Test class for {@link FormulaDescription}
+ * Test class for {@link FormulaParametersCombination}
  * 
  * @author DUPIREFR
  */
-public class FormulaDescriptionTest {
+public class FormulaParametersCombinationTest {
 	
 	/*
 	 * Static fields
@@ -58,33 +59,32 @@ public class FormulaDescriptionTest {
 	 * Tests
 	 */
 	/**
-	 * Tests {@link FormulaDescription} JPA mapping
+	 * Tests {@link FormulaParametersCombination} JPA mapping
 	 */
 	@Test
 	@Category(JpaMappingTest.class)
 	public void testJpaMapping() {
-		FormulaDescription formulaDescription = em.find(FormulaDescription.class, 214);
+		FormulaParametersCombination parametersCombination = em.find(FormulaParametersCombination.class, 2);
 		
 		/* Checking entity */
-		assertNotNull(formulaDescription);
+		assertNotNull(parametersCombination);
 		
-		assertEquals(Integer.valueOf(214), formulaDescription.getId());
+		assertEquals(Integer.valueOf(2), parametersCombination.getId());
 		
-		assertEquals(FormulaType.OP_OR, formulaDescription.getType());
-		
-		assertEquals("OR", formulaDescription.getName());
-		
-		assertEquals("Opération booléenne OU", formulaDescription.getDescriptionFr());
-		assertEquals("OF boolean operatie", formulaDescription.getDescriptionNl());
-		assertNull(formulaDescription.getDescriptionDe());
-		assertEquals("OR boolean operator", formulaDescription.getDescriptionX());
-		
-		assertEquals(FormulaPriority.OR, formulaDescription.getPriority());
+		assertEquals(FormulaReturnType.BOOLEAN, parametersCombination.getReturnType());
 		
 		/* Checking relationships */
-		assertNotNull(formulaDescription.getParametersCombinations());
-		assertEquals(1, formulaDescription.getParametersCombinations().size());
-		assertEquals(Integer.valueOf(3), formulaDescription.getParametersCombinations().get(0).getId());
+		assertNotNull(parametersCombination.getDescription());
+		assertEquals(Integer.valueOf(213), parametersCombination.getDescription().getId());
+		
+		assertNotNull(parametersCombination.getParametersDescriptions());
+		assertEquals(2, parametersCombination.getParametersDescriptions().size());
+		assertEquals(2, parametersCombination.getParametersDescriptions().stream().map(d -> d.getId()).distinct().count());
+		
+		List<Integer> parametersDescriptionsIds = Arrays.asList(2, 3);
+		parametersCombination.getParametersDescriptions().forEach(d -> {
+			assertTrue(parametersDescriptionsIds.contains(d.getId()));
+		});
 	}
 	
 }

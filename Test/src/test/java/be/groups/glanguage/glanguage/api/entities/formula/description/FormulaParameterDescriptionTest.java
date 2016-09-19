@@ -1,7 +1,6 @@
-package be.groups.glanguage.glanguage.api.entities.formula;
+package be.groups.glanguage.glanguage.api.entities.formula.description;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import javax.persistence.EntityManager;
 
@@ -18,17 +17,17 @@ import be.groups.marmota.persistence.JpaUtil;
 import be.groups.marmota.test.TNSNames;
 
 /**
- * Test class for {@link AbstractFormula}
+ * Test class for {@link FormulaParameterDescription}
  * 
  * @author DUPIREFR
  */
-public class AbstractFormulaTest {
-
+public class FormulaParameterDescriptionTest {
+	
 	/*
 	 * Static fields
 	 */
 	private static EntityManager em;
-
+	
 	/*
 	 * Setups
 	 */
@@ -36,45 +35,50 @@ public class AbstractFormulaTest {
 	public static void setUpBeforeClass() {
 		Environment.setUp();
 		TNSNames.setUp();
-
+		
 		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
-
+		
 		if (!TransactionHelper.isActive()) {
 			TransactionHelper.begin();
 		}
-
+		
 		em = JpaUtil.getEntityManager();
 	}
-
+	
 	@AfterClass
 	public static void close() {
 		if (TransactionHelper.isActive()) {
 			TransactionHelper.rollback();
 		}
 	}
-
+	
 	/*
 	 * Tests
 	 */
 	/**
-	 * Tests {@link AbstractFormula} JPA mapping
+	 * Tests {@link FormulaParameterDescription} JPA mapping
 	 */
 	@Test
 	@Category(JpaMappingTest.class)
 	public void testJpaMapping() {
-		AbstractFormula formula = em.find(AbstractFormula.class, 900003);
-
+		FormulaParameterDescription parameterDescription = em.find(FormulaParameterDescription.class, 1);
+		
 		/* Checking entity */
-		assertNotNull(formula);
-
-		assertEquals(900003, formula.getId());
-
-		assertEquals("TRUE", formula.getConstantValue());
-		assertEquals(Integer.valueOf(4), formula.getSequenceNumber());
+		assertNotNull(parameterDescription);
+		
+		assertEquals(Integer.valueOf(1), parameterDescription.getId());
+		
+		assertEquals("operand", parameterDescription.getName());
+		assertEquals("Objet à nier", parameterDescription.getDescriptionFr());
+		assertEquals("Object te ontkennen", parameterDescription.getDescriptionNl());
+		assertEquals("Item to negate", parameterDescription.getDescriptionX());
+		assertNull(parameterDescription.getDescriptionDe());
+		
+		assertEquals(FormulaReturnType.BOOLEAN, parameterDescription.getReturnType());
 		
 		/* Checking relationships */
-		assertNotNull(formula.getDescription());
-		assertEquals(Integer.valueOf(1004), formula.getDescription().getId());
+		assertNotNull(parameterDescription.getParametersCombination());
+		assertEquals(Integer.valueOf(1), parameterDescription.getParametersCombination().getId());
 	}
-
+	
 }
