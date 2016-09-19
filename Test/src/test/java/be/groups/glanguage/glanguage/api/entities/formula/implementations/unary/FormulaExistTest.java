@@ -130,20 +130,6 @@ public class FormulaExistTest {
 	}
 
 	/**
-	 * Tests {@link FormulaExist#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(childFormula.getValue()).thenReturn("some_value");
-
-		FormulaExist formula = new FormulaExist(childFormula);
-
-		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
-	}
-
-	/**
 	 * Tests {@link FormulaExist#operationAsText()}
 	 */
 	@Test

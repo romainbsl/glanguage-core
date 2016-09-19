@@ -157,38 +157,6 @@ public class FormulaRoundingBankersTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaRoundingBankers#getReturnType()} when first parameter is integer
-	 */
-	@Test
-	public void testGetReturnTypeInteger() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaRoundingBankers formula = new FormulaRoundingBankers(leftFormula, rightFormula);
-		
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
-	}
-	
-	/**
-	 * Tests {@link FormulaRoundingBankers#getReturnType()} when first parameter is numeric
-	 */
-	@Test
-	public void testGetReturnTypeNumeric() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaRoundingBankers formula = new FormulaRoundingBankers(leftFormula, rightFormula);
-		
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
-	}
-	
-	/**
 	 * Tests {@link FormulaRoundingBankers#operationAsText()}
 	 */
 	@Test

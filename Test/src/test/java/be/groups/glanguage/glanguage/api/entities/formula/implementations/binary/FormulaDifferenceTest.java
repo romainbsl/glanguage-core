@@ -352,24 +352,6 @@ public class FormulaDifferenceTest {
 	}
 
 	/**
-	 * Tests {@link FormulaDifference#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getValue()).thenReturn(0);
-
-		FormulaDifference formula = new FormulaDifference(leftFormula, rightFormula);
-
-		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
-	}
-
-	/**
 	 * Tests {@link FormulaDifference#operationAsText()}
 	 */
 	@Test

@@ -157,38 +157,6 @@ public class FormulaRoundingArithmeticTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaRoundingArithmetic#getReturnType()} when first parameter is integer
-	 */
-	@Test
-	public void testGetReturnTypeInteger() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(leftFormula, rightFormula);
-		
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
-	}
-	
-	/**
-	 * Tests {@link FormulaRoundingArithmetic#getReturnType()} when first parameter is numeric
-	 */
-	@Test
-	public void testGetReturnTypeNumeric() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(leftFormula, rightFormula);
-		
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
-	}
-	
-	/**
 	 * Tests {@link FormulaRoundingArithmetic#operationAsText()}
 	 */
 	@Test

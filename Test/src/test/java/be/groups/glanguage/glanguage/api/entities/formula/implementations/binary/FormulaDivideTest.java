@@ -126,24 +126,6 @@ public class FormulaDivideTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaDivide#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getValue()).thenReturn(1);
-		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getValue()).thenReturn(0);
-		
-		FormulaDivide formula = new FormulaDivide(leftFormula, rightFormula);
-		
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
-	}
-	
-	/**
 	 * Tests {@link FormulaDivide#operationAsText()}
 	 */
 	@Test

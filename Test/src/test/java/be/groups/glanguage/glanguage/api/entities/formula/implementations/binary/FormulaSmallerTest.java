@@ -466,24 +466,6 @@ public class FormulaSmallerTest {
 	}
 
 	/**
-	 * Tests {@link FormulaSmaller#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(0);
-
-		FormulaSmaller formula = new FormulaSmaller(leftFormula, rightFormula);
-
-		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
-	}
-
-	/**
 	 * Tests {@link FormulaSmaller#operationAsText()}
 	 */
 	@Test

@@ -174,32 +174,6 @@ public class FormulaMathSignTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaMathSign#getReturnType()} when integer
-	 */
-	@Test
-	public void testGetReturnTypeInteger() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
-		
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
-	}
-	
-	/**
-	 * Tests {@link FormulaMathSign#getReturnType()} when numeric
-	 */
-	@Test
-	public void testGetReturnTypeNumeric() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
-		
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
-	}
-	
-	/**
 	 * Tests {@link FormulaMathSign#operationAsText()}
 	 */
 	@Test

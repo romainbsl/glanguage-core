@@ -466,24 +466,6 @@ public class FormulaGreaterTest {
 	}
 
 	/**
-	 * Tests {@link FormulaGreater#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(1);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getIntegerValue()).thenReturn(0);
-
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
-
-		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
-	}
-
-	/**
 	 * Tests {@link FormulaGreater#operationAsText()}
 	 */
 	@Test

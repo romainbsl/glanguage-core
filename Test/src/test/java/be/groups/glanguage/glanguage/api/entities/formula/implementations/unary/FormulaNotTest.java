@@ -130,20 +130,6 @@ public class FormulaNotTest {
 	}
 
 	/**
-	 * Tests {@link FormulaNot#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(childFormula.getBooleanValue()).thenReturn(true);
-
-		FormulaNot formula = new FormulaNot(childFormula);
-
-		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
-	}
-
-	/**
 	 * Tests {@link FormulaNot#operationAsText()}
 	 */
 	@Test

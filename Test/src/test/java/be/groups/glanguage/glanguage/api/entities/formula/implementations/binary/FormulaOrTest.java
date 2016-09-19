@@ -272,24 +272,6 @@ public class FormulaOrTest {
 	}
 
 	/**
-	 * Tests {@link FormulaOr#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(false);
-
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(false);
-
-		FormulaOr formula = new FormulaOr(leftFormula, rightFormula);
-
-		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
-	}
-
-	/**
 	 * Tests {@link FormulaOr#operationAsText()}
 	 */
 	@Test

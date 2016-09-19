@@ -144,34 +144,6 @@ public class FormulaUnaryMinusTest {
 	}
 
 	/**
-	 * Tests {@link FormulaUnaryMinus#getReturnType()} when integer
-	 */
-	@Test
-	public void testGetReturnTypeInteger() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(childFormula.getIntegerValue()).thenReturn(1);
-
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
-
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
-	}
-
-	/**
-	 * Tests {@link FormulaUnaryMinus#getReturnType()} when numeric
-	 */
-	@Test
-	public void testGetReturnTypeNumeric() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(childFormula.getNumericValue()).thenReturn(1.5);
-
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
-
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
-	}
-
-	/**
 	 * Tests {@link FormulaUnaryMinus#operationAsText()}
 	 */
 	@Test

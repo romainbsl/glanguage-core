@@ -569,38 +569,6 @@ public class FormulaFormatIntegerTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaFormatInteger#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
-		AbstractFormula param1 = mock(AbstractFormula.class);
-		when(param1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		parameters.add(param1);
-		
-		AbstractFormula param2 = mock(AbstractFormula.class);
-		when(param2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		parameters.add(param2);
-		
-		AbstractFormula param3 = mock(AbstractFormula.class);
-		when(param3.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		parameters.add(param3);
-		
-		AbstractFormula param4 = mock(AbstractFormula.class);
-		when(param4.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		parameters.add(param4);
-		
-		AbstractFormula param5 = mock(AbstractFormula.class);
-		when(param5.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		parameters.add(param5);
-		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
-		
-		assertEquals(FormulaReturnType.STRING, formula.getReturnType());
-	}
-	
-	/**
 	 * Tests {@link FormulaFormatInteger#operationAsText()}
 	 */
 	@Test

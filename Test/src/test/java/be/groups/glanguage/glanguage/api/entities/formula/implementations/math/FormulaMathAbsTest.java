@@ -173,32 +173,6 @@ public class FormulaMathAbsTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaMathAbs#getReturnType()} when integer
-	 */
-	@Test
-	public void testGetReturnTypeInteger() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
-		
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
-	}
-	
-	/**
-	 * Tests {@link FormulaMathAbs#getReturnType()} when numeric
-	 */
-	@Test
-	public void testGetReturnTypeNumeric() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
-		
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
-	}
-	
-	/**
 	 * Tests {@link FormulaMathAbs#operationAsText()}
 	 */
 	@Test

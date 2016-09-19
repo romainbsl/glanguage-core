@@ -328,34 +328,6 @@ public class FormulaFormatStringTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaFormatString#getReturnType()}
-	 */
-	@Test
-	public void testGetReturnType() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
-		AbstractFormula param1 = mock(AbstractFormula.class);
-		when(param1.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		parameters.add(param1);
-		
-		AbstractFormula param2 = mock(AbstractFormula.class);
-		when(param2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		parameters.add(param2);
-		
-		AbstractFormula param3 = mock(AbstractFormula.class);
-		when(param3.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		parameters.add(param3);
-		
-		AbstractFormula param4 = mock(AbstractFormula.class);
-		when(param4.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		parameters.add(param4);
-		
-		FormulaFormatString formula = new FormulaFormatString(parameters);
-		
-		assertEquals(FormulaReturnType.STRING, formula.getReturnType());
-	}
-	
-	/**
 	 * Tests {@link FormulaFormatString#operationAsText()}
 	 */
 	@Test
