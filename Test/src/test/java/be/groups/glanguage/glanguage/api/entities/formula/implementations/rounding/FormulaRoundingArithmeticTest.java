@@ -157,6 +157,24 @@ public class FormulaRoundingArithmeticTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaRoundingArithmetic#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(leftFormula.getNumericValue()).thenReturn(1.567);
+		
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(rightFormula.getNumericValue()).thenReturn(0.01);
+		
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(leftFormula, rightFormula);
+		
+		formula.getDurationValue();
+	}
+	
+	/**
 	 * Tests {@link FormulaRoundingArithmetic#operationAsText()}
 	 */
 	@Test
