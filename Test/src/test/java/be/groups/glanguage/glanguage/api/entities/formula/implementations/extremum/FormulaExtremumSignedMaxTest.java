@@ -230,6 +230,33 @@ public class FormulaExtremumSignedMaxTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaExtremumSignedMax#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		List<AbstractFormula> parameters = new ArrayList<>();
+		
+		AbstractFormula param1 = mock(AbstractFormula.class);
+		when(param1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(param1.getNumericValue()).thenReturn(-1.5);
+		parameters.add(param1);
+		
+		AbstractFormula param2 = mock(AbstractFormula.class);
+		when(param2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(param2.getNumericValue()).thenReturn(2.5);
+		parameters.add(param2);
+		
+		AbstractFormula param3 = mock(AbstractFormula.class);
+		when(param3.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(param3.getNumericValue()).thenReturn(2.8);
+		parameters.add(param3);
+		
+		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(parameters);
+		
+		formula.getDurationValue();
+	}
+	
+	/**
 	 * Tests {@link FormulaExtremumSignedMax#operationAsText()}
 	 */
 	@Test
