@@ -34,20 +34,6 @@ public class FormulaMathSignTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaMathSign#getBooleanValue()}
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(childFormula.getIntegerValue()).thenReturn(1);
-		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
-		
-		formula.getBooleanValue();
-	}
-	
-	/**
 	 * Tests {@link FormulaMathSign#getIntegerValue()} when parameter exists and is positive
 	 */
 	@Test
@@ -83,6 +69,20 @@ public class FormulaMathSignTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getNumericValue()).thenReturn(null);
+		
+		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
+		
+		formula.getIntegerValue();
+	}
+	
+	/**
+	 * Tests {@link FormulaMathSign#getIntegerValue()} when parameter exist but has wrong type
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetIntegerValueParameterWrongType() {
+		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(childFormula.getStringValue()).thenReturn("some_value");
 		
 		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
 		
@@ -132,20 +132,6 @@ public class FormulaMathSignTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaMathSign#getIntegerValue()} when parameter exist but has wrong type
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetIntegerValueParameterWrongType() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(childFormula.getStringValue()).thenReturn("some_value");
-		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
-		
-		formula.getIntegerValue();
-	}
-	
-	/**
 	 * Tests {@link FormulaMathSign#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -160,6 +146,20 @@ public class FormulaMathSignTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaMathSign#getBooleanValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetBooleanValue() {
+		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(childFormula.getIntegerValue()).thenReturn(1);
+		
+		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
+		
+		formula.getBooleanValue();
+	}
+	
+	/**
 	 * Tests {@link FormulaMathSign#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -171,6 +171,20 @@ public class FormulaMathSignTest {
 		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
 		
 		formula.getDateValue();
+	}
+	
+	/**
+	 * Tests {@link FormulaMathSign#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(childFormula.getIntegerValue()).thenReturn(1);
+		
+		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
+		
+		formula.getDurationValue();
 	}
 	
 	/**

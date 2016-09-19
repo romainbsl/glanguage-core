@@ -33,20 +33,6 @@ public class FormulaMathAbsTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaMathAbs#getBooleanValue()}
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(childFormula.getIntegerValue()).thenReturn(1);
-		
-		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
-		
-		formula.getBooleanValue();
-	}
-	
-	/**
 	 * Tests {@link FormulaMathAbs#getIntegerValue()} when parameter exists and is positive
 	 */
 	@Test
@@ -82,6 +68,20 @@ public class FormulaMathAbsTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getNumericValue()).thenReturn(null);
+		
+		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
+		
+		formula.getIntegerValue();
+	}
+	
+	/**
+	 * Tests {@link FormulaMathAbs#getIntegerValue()} when parameter exist but has wrong type
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetIntegerValueParameterWrongType() {
+		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(childFormula.getStringValue()).thenReturn("some_value");
 		
 		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
 		
@@ -131,20 +131,6 @@ public class FormulaMathAbsTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaMathAbs#getIntegerValue()} when parameter exist but has wrong type
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetIntegerValueParameterWrongType() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(childFormula.getStringValue()).thenReturn("some_value");
-		
-		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
-		
-		formula.getIntegerValue();
-	}
-	
-	/**
 	 * Tests {@link FormulaMathAbs#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -159,6 +145,20 @@ public class FormulaMathAbsTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaMathAbs#getBooleanValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetBooleanValue() {
+		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(childFormula.getIntegerValue()).thenReturn(1);
+		
+		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
+		
+		formula.getBooleanValue();
+	}
+	
+	/**
 	 * Tests {@link FormulaMathAbs#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -170,6 +170,20 @@ public class FormulaMathAbsTest {
 		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
 		
 		formula.getDateValue();
+	}
+	
+	/**
+	 * Tests {@link FormulaMathAbs#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(childFormula.getIntegerValue()).thenReturn(1);
+		
+		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
+		
+		formula.getDurationValue();
 	}
 	
 	/**
