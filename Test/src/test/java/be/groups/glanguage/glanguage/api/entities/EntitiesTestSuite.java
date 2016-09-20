@@ -35,6 +35,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.format
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatIntegerTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatNumericTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatStringTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaIfInstructionTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathAbsTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathSignTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingArithmeticTest;
@@ -82,7 +83,7 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
 		FormulaRoundingArithmeticTest.class, FormulaRoundingCeilTest.class, FormulaRoundingFloorTest.class,
 		FormulaRoundingTruncTest.class, FormulaRoundingBankersTest.class, FormulaDurationDaysTest.class,
 		FormulaDurationHoursTest.class, FormulaDurationMinutesTest.class, FormulaDurationMonthsTest.class,
-		FormulaDurationYearsTest.class})
+		FormulaDurationYearsTest.class, FormulaIfInstructionTest.class})
 public class EntitiesTestSuite {
 
 }
