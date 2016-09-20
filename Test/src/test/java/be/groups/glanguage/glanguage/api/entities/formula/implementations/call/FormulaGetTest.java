@@ -39,7 +39,8 @@ public class FormulaGetTest {
 	 */
 	@Test
 	public void testGetIntegerValue() {
-		fail("Not yet implemented"); // TODO
+		// TODO implement test
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -47,7 +48,8 @@ public class FormulaGetTest {
 	 */
 	@Test
 	public void testGetNumericValue() {
-		fail("Not yet implemented"); // TODO
+		// TODO implement test
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -55,7 +57,8 @@ public class FormulaGetTest {
 	 */
 	@Test
 	public void testGetStringValue() {
-		fail("Not yet implemented"); // TODO
+		// TODO implement test
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -63,7 +66,8 @@ public class FormulaGetTest {
 	 */
 	@Test
 	public void testGetBooleanValue() {
-		fail("Not yet implemented"); // TODO
+		// TODO implement test
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -71,7 +75,8 @@ public class FormulaGetTest {
 	 */
 	@Test
 	public void testGetDateValue() {
-		fail("Not yet implemented"); // TODO
+		// TODO implement test
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -79,7 +84,8 @@ public class FormulaGetTest {
 	 */
 	@Test
 	public void testGetDurationValue() {
-		fail("Not yet implemented"); // TODO
+		// TODO implement test
+		fail("Not yet implemented");
 	}
 	
 	/**
