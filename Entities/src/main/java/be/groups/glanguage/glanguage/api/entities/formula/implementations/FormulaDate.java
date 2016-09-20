@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.List;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
@@ -17,7 +17,7 @@ public class FormulaDate extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public FormulaDate(LinkedList<AbstractFormula> parameters) {
+	public FormulaDate(List<AbstractFormula> parameters) {
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
 		}
@@ -46,7 +46,7 @@ public class FormulaDate extends AbstractNonTerminalFormula {
 		LocalDate date = null;
 		if (getParameters().size() == 1) {
 			try {
-				date = LocalDate.parse(getConstantValue(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+				date = LocalDate.parse(getParameters().get(0).getStringValue(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 			} catch (DateTimeParseException dtpe) {
 				throw new IllegalArgumentException(
 						"Parameter must reprensent a date formatted as \"dd/MM/yyyy\" : " + getParameters().get(0).asText());
@@ -72,7 +72,7 @@ public class FormulaDate extends AbstractNonTerminalFormula {
 		sb.append(getParameters().get(0).asText());
 		Iterator<AbstractFormula> itParameters = getParameters().listIterator(1);
 		while (itParameters.hasNext()) {
-			sb.append(" ; ");
+			sb.append("; ");
 			sb.append(itParameters.next().asText());
 		}
 		sb.append(")");

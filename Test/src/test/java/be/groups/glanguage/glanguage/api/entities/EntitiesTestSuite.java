@@ -8,6 +8,10 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormulaTest;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescriptionTest;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaParameterDescriptionTest;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaParametersCombinationTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaAnomalyTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracketTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaDateTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaInTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaAndTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDifferenceTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDivideTest;
@@ -93,7 +97,8 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
 		FormulaDurationHoursTest.class, FormulaDurationMinutesTest.class, FormulaDurationMonthsTest.class,
 		FormulaDurationYearsTest.class, FormulaIfInstructionTest.class, FormulaStringItemTest.class, FormulaStringLengthTest.class,
 		FormulaSubStringTest.class, FormulaApplicabilityTest.class, FormulaFormulaTest.class, FormulaGetTest.class,
-		FormulaPrimitiveTest.class, FormulaRuleReferenceTest.class})
+		FormulaPrimitiveTest.class, FormulaRuleReferenceTest.class, FormulaAnomalyTest.class, FormulaBracketTest.class,
+		FormulaDateTest.class, FormulaInTest.class})
 public class EntitiesTestSuite {
 
 }
