@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaDivide}
@@ -25,6 +26,16 @@ public class FormulaDivideTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaDivide#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaDivide formula = new FormulaDivide();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.OP_DIVIDE), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaDivide#isTerminal()}
 	 */
@@ -137,7 +148,7 @@ public class FormulaDivideTest {
 		AbstractFormula rightFormula = mock(AbstractFormula.class);
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getValue()).thenReturn(0);
-
+		
 		FormulaDivide formula = new FormulaDivide(leftFormula, rightFormula);
 		
 		formula.getDurationValue();

@@ -160,7 +160,7 @@ public abstract class AbstractFormula {
 	}
 	
 	@Transient
-	public Integer getDecriminatorValue() {
+	public Integer getDiscriminatorValue() {
 		return Integer.valueOf(this.getClass().getAnnotation(DiscriminatorValue.class).value());
 	}
 	
