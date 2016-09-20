@@ -4,6 +4,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
@@ -19,12 +21,14 @@ public class FormulaMultiply extends BinaryFormula {
 		super( child1, child2);
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
 		return getNumericValue().intValue();
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Double getNumericValue() {

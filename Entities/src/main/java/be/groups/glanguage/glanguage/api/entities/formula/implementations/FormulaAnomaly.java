@@ -7,6 +7,8 @@ import java.util.LinkedList;
 
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
@@ -36,6 +38,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 		this.parameters.addAll(parameters);
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
@@ -43,6 +46,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 		return 0;
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Double getNumericValue() {
@@ -50,6 +54,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 		return 0.0;
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public String getStringValue() {
@@ -57,6 +62,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 		return "";
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public LocalDate getDateValue() {
@@ -64,6 +70,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 		return LocalDate.MIN;
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Duration getDurationValue() {

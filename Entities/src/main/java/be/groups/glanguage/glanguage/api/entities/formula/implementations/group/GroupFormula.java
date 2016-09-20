@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
@@ -53,6 +55,7 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
 		return groupRule.getGroupItems().stream().map(i -> i.getEffectiveRule()).collect(Collectors.toList());
 	}
 	
+	@JsonIgnore
 	@Transient
 	@Override
 	public Integer getIntegerValue() {

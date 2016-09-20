@@ -9,6 +9,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -16,14 +18,14 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 @Entity
 @DiscriminatorValue(value = FormulaType.Values.C_GET)
 public class FormulaGet extends CallFormula {
-					
+	
 	public FormulaGet() {
 		super();
 	}
 	
 	public FormulaGet(FormulaReturnType returnType, LinkedList<String> identifiers,
 			LinkedList<LinkedList<AbstractFormula>> parameters) {
-		super();
+		this();
 		
 		setConstantValue(String.valueOf(returnType.ordinal()));
 		this.parameters = new ArrayList<>(identifiers.size());
@@ -32,6 +34,7 @@ public class FormulaGet extends CallFormula {
 		}
 	}
 	
+	@JsonIgnore
 	@Transient
 	@Override
 	public Boolean getBooleanValue() {
@@ -43,7 +46,8 @@ public class FormulaGet extends CallFormula {
 			throw cce;
 		}
 	}
-
+	
+	@JsonIgnore
 	@Transient
 	@Override
 	public LocalDate getDateValue() {
@@ -54,7 +58,8 @@ public class FormulaGet extends CallFormula {
 			throw cce;
 		}
 	}
-
+	
+	@JsonIgnore
 	@Transient
 	@Override
 	public Duration getDurationValue() {
@@ -65,7 +70,8 @@ public class FormulaGet extends CallFormula {
 			throw cce;
 		}
 	}
-
+	
+	@JsonIgnore
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
@@ -76,7 +82,8 @@ public class FormulaGet extends CallFormula {
 			throw cce;
 		}
 	}
-
+	
+	@JsonIgnore
 	@Transient
 	@Override
 	public Double getNumericValue() {
@@ -87,7 +94,8 @@ public class FormulaGet extends CallFormula {
 			throw cce;
 		}
 	}
-
+	
+	@JsonIgnore
 	@Transient
 	@Override
 	public String getStringValue() {
@@ -98,7 +106,7 @@ public class FormulaGet extends CallFormula {
 			throw cce;
 		}
 	}
-
+	
 	@Override
 	public String asText() {
 		StringBuilder sb = new StringBuilder();
@@ -112,7 +120,7 @@ public class FormulaGet extends CallFormula {
 		}
 		return sb.toString();
 	}
-
+	
 	@Transient
 	private Object getTargetedObject() {
 		Object result = null; // TODO get main facade
@@ -121,7 +129,7 @@ public class FormulaGet extends CallFormula {
 		}
 		return result;
 	}
-
+	
 	@Transient
 	private AbstractFormula[] getParametersAsArray() {
 		AbstractFormula[] parameters = null;

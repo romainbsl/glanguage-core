@@ -11,6 +11,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -156,6 +157,11 @@ public abstract class AbstractFormula {
 	@Column(name = "VALUE", nullable = true)
 	public String getConstantValue() {
 		return constantValue;
+	}
+	
+	@Transient
+	public Integer getDecriminatorValue() {
+		return Integer.valueOf(this.getClass().getAnnotation(DiscriminatorValue.class).value());
 	}
 	
 	@Transient

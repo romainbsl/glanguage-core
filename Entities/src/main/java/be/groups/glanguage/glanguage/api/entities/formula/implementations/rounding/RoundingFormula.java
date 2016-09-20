@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.rule.Rounder;
@@ -27,6 +29,7 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 		}
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
@@ -42,6 +45,7 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 		}
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Double getNumericValue() {

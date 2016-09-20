@@ -5,6 +5,8 @@ import java.util.LinkedList;
 
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
@@ -37,7 +39,8 @@ public class FormulaSubString extends AbstractNonTerminalFormula {
 		this.parameters = new ArrayList<>();
 		parameters.stream().forEachOrdered(e -> this.parameters.add(e));
 	}
-
+	
+	@JsonIgnore
 	@Transient
 	@Override
 	public String getStringValue() {

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
@@ -34,6 +36,7 @@ public abstract class MathFormula extends AbstractNonTerminalFormula {
 		this.parameters.add(parameters.get(0));
 	}
 	
+	@JsonIgnore
 	@Transient
 	@Override
 	public Integer getIntegerValue() {

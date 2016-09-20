@@ -8,6 +8,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
@@ -39,6 +41,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 		parameters.add(elseStatement);
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
@@ -53,6 +56,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 		}
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Double getNumericValue() {
@@ -67,6 +71,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 		}
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public String getStringValue() {
@@ -81,6 +86,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 		}
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Boolean getBooleanValue() {
@@ -95,6 +101,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 		}
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public LocalDate getDateValue() {
@@ -109,6 +116,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 		}
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Duration getDurationValue() {

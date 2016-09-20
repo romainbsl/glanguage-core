@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
@@ -25,6 +27,7 @@ public abstract class RuleCallFormula extends CallFormula {
 		setConstantValue(ruleId);
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
@@ -43,6 +46,7 @@ public abstract class RuleCallFormula extends CallFormula {
 
 	public abstract Integer doGetIntegerValue();
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Double getNumericValue() {
@@ -61,6 +65,7 @@ public abstract class RuleCallFormula extends CallFormula {
 
 	public abstract Double doGetNumericValue();
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public String getStringValue() {
@@ -77,6 +82,7 @@ public abstract class RuleCallFormula extends CallFormula {
 
 	public abstract String doGetStringValue();
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Boolean getBooleanValue() {
@@ -94,6 +100,7 @@ public abstract class RuleCallFormula extends CallFormula {
 
 	public abstract Boolean doGetBooleanValue();
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public LocalDate getDateValue() {
@@ -110,6 +117,7 @@ public abstract class RuleCallFormula extends CallFormula {
 
 	public abstract LocalDate doGetDateValue();
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Duration getDurationValue() {

@@ -6,6 +6,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
@@ -21,6 +23,7 @@ public class FormulaMathAbs extends MathFormula {
 		super(parameters);
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Double getNumericValue() {

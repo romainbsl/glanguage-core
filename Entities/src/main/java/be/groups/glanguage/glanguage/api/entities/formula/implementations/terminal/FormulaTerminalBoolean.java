@@ -7,6 +7,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
@@ -35,6 +37,7 @@ public class FormulaTerminalBoolean extends AbstractTerminalFormula {
 		this(constantValue.toString());
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Boolean getBooleanValue() {

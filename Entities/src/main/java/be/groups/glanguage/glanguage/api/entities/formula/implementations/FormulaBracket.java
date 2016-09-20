@@ -8,6 +8,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
@@ -33,36 +35,42 @@ public class FormulaBracket extends AbstractFormula {
 		return false;
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
 		return getParameters().get(0).getIntegerValue();
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Double getNumericValue() {
 		return getParameters().get(0).getNumericValue();
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public String getStringValue() {
 		return getParameters().get(0).getStringValue();
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Boolean getBooleanValue() {
 		return getParameters().get(0).getBooleanValue();
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public LocalDate getDateValue() {
 		return getParameters().get(0).getDateValue();
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public Duration getDurationValue() {
