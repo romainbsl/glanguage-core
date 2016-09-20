@@ -43,6 +43,9 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.roundi
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingCeilTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingFloorTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingTruncTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaStringItemTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaStringLengthTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaSubStringTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBooleanTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDateTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDurationTest;
@@ -83,7 +86,8 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
 		FormulaRoundingArithmeticTest.class, FormulaRoundingCeilTest.class, FormulaRoundingFloorTest.class,
 		FormulaRoundingTruncTest.class, FormulaRoundingBankersTest.class, FormulaDurationDaysTest.class,
 		FormulaDurationHoursTest.class, FormulaDurationMinutesTest.class, FormulaDurationMonthsTest.class,
-		FormulaDurationYearsTest.class, FormulaIfInstructionTest.class})
+		FormulaDurationYearsTest.class, FormulaIfInstructionTest.class, FormulaStringItemTest.class, FormulaStringLengthTest.class,
+		FormulaSubStringTest.class})
 public class EntitiesTestSuite {
 
 }
