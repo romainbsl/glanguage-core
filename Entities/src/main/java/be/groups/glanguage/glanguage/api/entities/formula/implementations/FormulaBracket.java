@@ -11,6 +11,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
@@ -21,8 +22,8 @@ public class FormulaBracket extends AbstractFormula {
 		super();
 	}
 	
-	public FormulaBracket(AbstractFormula child) {
-		super();		
+	public FormulaBracket(FormulaDescription description, AbstractFormula child) {
+		super(description);		
 		if (child == null) {
 			throw new IllegalArgumentException("Child must be non-null");
 		}

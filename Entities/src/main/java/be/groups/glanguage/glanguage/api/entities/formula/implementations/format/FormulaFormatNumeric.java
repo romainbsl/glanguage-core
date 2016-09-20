@@ -10,6 +10,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.utils.FormatAlignment;
@@ -24,8 +25,8 @@ public class FormulaFormatNumeric extends FormatFormula {
 		super();
 	}
 	
-	public FormulaFormatNumeric(List<AbstractFormula> parameters) {
-		super();
+	public FormulaFormatNumeric(FormulaDescription description, List<AbstractFormula> parameters) {
+		super(description);
 		
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");

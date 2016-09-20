@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 public class FormulaStringLength extends AbstractNonTerminalFormula {
@@ -17,7 +18,8 @@ public class FormulaStringLength extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public FormulaStringLength(List<AbstractFormula> parameters) {
+	public FormulaStringLength(FormulaDescription description, List<AbstractFormula> parameters) {
+		super(description);
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
 		}

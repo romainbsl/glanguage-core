@@ -229,7 +229,7 @@ expr:
 				}
 	| '(' expr ')'				
 				{
-					$$ = new FormulaBracket ($2);if (yydebug) debug("parenthese in expr");
+					$$ = aSem.bracketFormula ($2);if (yydebug) debug("parenthese in expr");
 				}
 	| T_NOT expr				
 				{

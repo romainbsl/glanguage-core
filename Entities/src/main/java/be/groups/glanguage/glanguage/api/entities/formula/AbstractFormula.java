@@ -99,6 +99,11 @@ public abstract class AbstractFormula {
 		super();
 	}
 	
+	protected AbstractFormula(FormulaDescription description) {
+		super();
+		this.description = description;
+	}
+	
 	/**
 	 * @return the id
 	 */

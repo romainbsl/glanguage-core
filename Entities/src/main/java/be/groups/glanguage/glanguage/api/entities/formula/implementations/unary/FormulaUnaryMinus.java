@@ -7,6 +7,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
@@ -17,8 +18,8 @@ public class FormulaUnaryMinus extends UnaryFormula {
 		super();
 	}
 
-	public FormulaUnaryMinus(AbstractFormula child) {
-		super( child);
+	public FormulaUnaryMinus(FormulaDescription description, AbstractFormula child) {
+		super(description, child);
 	}
 
 	@JsonIgnore

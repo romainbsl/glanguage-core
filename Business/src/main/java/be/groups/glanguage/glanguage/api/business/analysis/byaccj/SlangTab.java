@@ -1152,7 +1152,7 @@ break;
 case 20:
 //#line 231 "slang.y"
 {
-					yyval.abstractFormula = new FormulaBracket (val_peek(1).abstractFormula);if (yydebug) debug("parenthese in expr");
+					yyval.abstractFormula = aSem.bracketFormula (val_peek(1).abstractFormula);if (yydebug) debug("parenthese in expr");
 				}
 break;
 case 21:
