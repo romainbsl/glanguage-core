@@ -17,7 +17,7 @@ public class FormulaFormula extends RuleCallFormula {
 	}
 
 	public FormulaFormula(String ruleId) {
-		super( ruleId);
+		super(ruleId);
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.string;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.Transient;
 
@@ -17,7 +17,7 @@ public class FormulaSubString extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public FormulaSubString(LinkedList<AbstractFormula> parameters) {
+	public FormulaSubString(List<AbstractFormula> parameters) {
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
 		}
@@ -37,7 +37,7 @@ public class FormulaSubString extends AbstractNonTerminalFormula {
 			throw new IllegalArgumentException("third parameter must of type INTEGER");
 		}
 		this.parameters = new ArrayList<>();
-		parameters.stream().forEachOrdered(e -> this.parameters.add(e));
+		this.parameters.addAll(parameters);
 	}
 	
 	@JsonIgnore
@@ -51,21 +51,17 @@ public class FormulaSubString extends AbstractNonTerminalFormula {
 		beginIndex = getParameters().get(1).getIntegerValue() - 1;
 		endIndex = getParameters().get(2).getIntegerValue() - 1;
 		
-		if (endIndex + 1 > str.length()) {
-			endIndex = str.length() - 1;
-		}
-		
-		if ((0 <= beginIndex) && (beginIndex <= endIndex) && (endIndex <= str.length())) {
+		if ((0 <= beginIndex) && (beginIndex <= endIndex) && (endIndex < str.length())) {
 			return str.substring(beginIndex, endIndex + 1);
 		} else {
 			throw new IllegalArgumentException("Bounds not valid in " + this.getClass().getName() + " object : string = " + str
 					+ " (length = " + str.length() + ") , beginIndex = " + beginIndex + ", endIndex = " + endIndex);
 		}
 	}
-
+	
 	@Override
 	public String asText() {
-		return "subString(" + getParameters().get(0).asText() + " ; " + getParameters().get(1).asText() + " ; "
+		return "subString(" + getParameters().get(0).asText() + "; " + getParameters().get(1).asText() + "; "
 				+ getParameters().get(2).asText() + ")";
 	}
 	

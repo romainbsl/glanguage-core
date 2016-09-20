@@ -167,6 +167,28 @@ public class FormulaFormatDateTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaFormatDate#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		List<AbstractFormula> parameters = new ArrayList<>();
+		
+		AbstractFormula param1 = mock(AbstractFormula.class);
+		when(param1.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(param1.getDateValue()).thenReturn(LocalDate.of(2015, 1, 10));
+		parameters.add(param1);
+		
+		AbstractFormula param2 = mock(AbstractFormula.class);
+		when(param2.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(param2.getStringValue()).thenReturn("yyyy-MM-dd");
+		parameters.add(param2);
+		
+		FormulaFormatDate formula = new FormulaFormatDate(parameters);
+		
+		formula.getDurationValue();
+	}
+	
+	/**
 	 * Tests {@link FormulaFormatDate#operationAsText()}
 	 */
 	@Test

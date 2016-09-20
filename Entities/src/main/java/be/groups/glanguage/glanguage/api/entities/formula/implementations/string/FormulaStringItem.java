@@ -1,7 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.string;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.Transient;
 
@@ -17,7 +17,7 @@ public class FormulaStringItem extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public FormulaStringItem(LinkedList<AbstractFormula> parameters) {
+	public FormulaStringItem(List<AbstractFormula> parameters) {
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
 		}
@@ -37,7 +37,7 @@ public class FormulaStringItem extends AbstractNonTerminalFormula {
 			throw new IllegalArgumentException("third parameter must of type INTEGER");
 		}
 		this.parameters = new ArrayList<>();
-		parameters.stream().forEachOrdered(e -> this.parameters.add(e));
+		this.parameters.addAll(parameters);
 	}
 
 	@JsonIgnore
@@ -54,7 +54,8 @@ public class FormulaStringItem extends AbstractNonTerminalFormula {
 		if (separatorString.isEmpty() || index <= 0) {
 			return "";
 		} else {
-			if (separatorString.equals("|")) { // '|' is a special character in regex, it must be escaped
+			if (separatorString.equals("|")) { // '|' is a special character in regex, it must be
+											   // escaped
 				separatorRegex = "\\" + separatorString.charAt(0);
 			} else {
 				separatorRegex = "" + separatorString.charAt(0);
@@ -71,7 +72,7 @@ public class FormulaStringItem extends AbstractNonTerminalFormula {
 	
 	@Override
 	public String asText() {
-		return "stringItem(" + getParameters().get(0).asText() + " ; " + getParameters().get(1).asText() + " ; "
+		return "stringItem(" + getParameters().get(0).asText() + "; " + getParameters().get(1).asText() + "; "
 				+ getParameters().get(2).asText() + ")";
 	}
 	

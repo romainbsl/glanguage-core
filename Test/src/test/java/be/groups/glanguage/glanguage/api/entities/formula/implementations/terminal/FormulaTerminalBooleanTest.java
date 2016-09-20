@@ -25,15 +25,6 @@ public class FormulaTerminalBooleanTest {
 	}
 
 	/**
-	 * Tests {@link FormulaTerminalBoolean#getBooleanValue()}
-	 */
-	@Test
-	public void testGetBooleanValue() {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(true);
-		assertEquals(Boolean.TRUE, formula.getBooleanValue());
-	}
-
-	/**
 	 * Tests {@link FormulaTerminalBoolean#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -61,12 +52,30 @@ public class FormulaTerminalBooleanTest {
 	}
 
 	/**
+	 * Tests {@link FormulaTerminalBoolean#getBooleanValue()}
+	 */
+	@Test
+	public void testGetBooleanValue() {
+		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(true);
+		assertEquals(Boolean.TRUE, formula.getBooleanValue());
+	}
+
+	/**
 	 * Tests {@link FormulaTerminalBoolean#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(true);
 		formula.getDateValue();
+	}
+	
+	/**
+	 * Tests {@link FormulaTerminalDuration#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(true);
+		formula.getDurationValue();
 	}
 	
 	/**

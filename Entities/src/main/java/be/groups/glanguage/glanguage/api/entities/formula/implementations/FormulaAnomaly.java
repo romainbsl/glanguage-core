@@ -3,7 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.Transient;
 
@@ -19,7 +19,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public FormulaAnomaly(LinkedList<AbstractFormula> parameters) {
+	public FormulaAnomaly(List<AbstractFormula> parameters) {
 		super();
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
@@ -37,7 +37,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 		this.parameters = new ArrayList<>();
 		this.parameters.addAll(parameters);
 	}
-
+	
 	@JsonIgnore
 	@Transient
 	@Override
@@ -45,7 +45,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 		reportAnomaly();
 		return 0;
 	}
-
+	
 	@JsonIgnore
 	@Transient
 	@Override
@@ -53,7 +53,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 		reportAnomaly();
 		return 0.0;
 	}
-
+	
 	@JsonIgnore
 	@Transient
 	@Override
@@ -61,7 +61,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 		reportAnomaly();
 		return "";
 	}
-
+	
 	@JsonIgnore
 	@Transient
 	@Override
@@ -69,7 +69,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 		reportAnomaly();
 		return LocalDate.MIN;
 	}
-
+	
 	@JsonIgnore
 	@Transient
 	@Override
@@ -91,7 +91,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 		sb.append("putText(");
 		sb.append(getParameters().get(0).asText());
 		if (getParameters().size() > 1) {
-			sb.append(" ; ");
+			sb.append("; ");
 			sb.append(getParameters().get(1).asText());
 		}
 		sb.append(")");

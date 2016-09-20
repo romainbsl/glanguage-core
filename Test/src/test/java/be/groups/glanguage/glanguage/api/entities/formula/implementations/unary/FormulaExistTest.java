@@ -31,34 +31,6 @@ public class FormulaExistTest {
 	}
 
 	/**
-	 * Tests {@link FormulaExist#getBooleanValue()} when parameter exists
-	 */
-	@Test
-	public void testGetBooleanValueParameterExists() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(childFormula.getValue()).thenReturn("some_value");
-
-		FormulaExist formula = new FormulaExist(childFormula);
-
-		assertEquals(Boolean.TRUE, formula.getBooleanValue());
-	}
-
-	/**
-	 * Tests {@link FormulaExist#getBooleanValue()} when parameter doesn't exist
-	 */
-	@Test
-	public void testGetBooleanValueParameterNotExist() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(childFormula.getValue()).thenReturn(null);
-
-		FormulaExist formula = new FormulaExist(childFormula);
-
-		assertEquals(Boolean.FALSE, formula.getBooleanValue());
-	}
-
-	/**
 	 * Tests {@link FormulaExist#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -101,6 +73,34 @@ public class FormulaExistTest {
 	}
 
 	/**
+	 * Tests {@link FormulaExist#getBooleanValue()} when parameter exists
+	 */
+	@Test
+	public void testGetBooleanValueParameterExists() {
+		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(childFormula.getValue()).thenReturn("some_value");
+
+		FormulaExist formula = new FormulaExist(childFormula);
+
+		assertEquals(Boolean.TRUE, formula.getBooleanValue());
+	}
+
+	/**
+	 * Tests {@link FormulaExist#getBooleanValue()} when parameter doesn't exist
+	 */
+	@Test
+	public void testGetBooleanValueParameterNotExist() {
+		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(childFormula.getValue()).thenReturn(null);
+
+		FormulaExist formula = new FormulaExist(childFormula);
+
+		assertEquals(Boolean.FALSE, formula.getBooleanValue());
+	}
+
+	/**
 	 * Tests {@link FormulaExist#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -112,6 +112,20 @@ public class FormulaExistTest {
 		FormulaExist formula = new FormulaExist(childFormula);
 
 		formula.getDateValue();
+	}
+	
+	/**
+	 * Tests {@link FormulaExist#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(childFormula.getValue()).thenReturn("some_value");
+
+		FormulaExist formula = new FormulaExist(childFormula);
+		
+		formula.getDurationValue();
 	}
 
 	/**

@@ -8,6 +8,10 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormulaTest;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescriptionTest;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaParameterDescriptionTest;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaParametersCombinationTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaAnomalyTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracketTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaDateTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaInTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaAndTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDifferenceTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDivideTest;
@@ -22,6 +26,16 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaPlusTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerOrEqualTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaApplicabilityTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaFormulaTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGetTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaPrimitiveTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaRuleReferenceTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationDaysTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationHoursTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationMinutesTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationMonthsTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationYearsTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMaxTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMinTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumSignedMaxTest;
@@ -30,6 +44,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.format
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatIntegerTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatNumericTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatStringTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaIfInstructionTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathAbsTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathSignTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingArithmeticTest;
@@ -37,6 +52,9 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.roundi
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingCeilTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingFloorTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingTruncTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaStringItemTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaStringLengthTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaSubStringTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBooleanTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDateTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDurationTest;
@@ -75,9 +93,12 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
 		FormulaExtremumSignedMinTest.class, FormulaFormatStringTest.class, FormulaFormatIntegerTest.class,
 		FormulaFormatNumericTest.class, FormulaFormatDateTest.class, FormulaMathAbsTest.class, FormulaMathSignTest.class,
 		FormulaRoundingArithmeticTest.class, FormulaRoundingCeilTest.class, FormulaRoundingFloorTest.class,
-		FormulaRoundingTruncTest.class, FormulaRoundingBankersTest.class})
-		
-		
+		FormulaRoundingTruncTest.class, FormulaRoundingBankersTest.class, FormulaDurationDaysTest.class,
+		FormulaDurationHoursTest.class, FormulaDurationMinutesTest.class, FormulaDurationMonthsTest.class,
+		FormulaDurationYearsTest.class, FormulaIfInstructionTest.class, FormulaStringItemTest.class, FormulaStringLengthTest.class,
+		FormulaSubStringTest.class, FormulaApplicabilityTest.class, FormulaFormulaTest.class, FormulaGetTest.class,
+		FormulaPrimitiveTest.class, FormulaRuleReferenceTest.class, FormulaAnomalyTest.class, FormulaBracketTest.class,
+		FormulaDateTest.class, FormulaInTest.class})
 public class EntitiesTestSuite {
 
 }

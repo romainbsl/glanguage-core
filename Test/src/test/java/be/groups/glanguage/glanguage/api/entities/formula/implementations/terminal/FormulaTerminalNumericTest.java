@@ -52,6 +52,15 @@ public class FormulaTerminalNumericTest {
 	}
 
 	/**
+	 * Tests {@link FormulaTerminalNumeric#getBooleanValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetBooleanValue() {
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
+		formula.getBooleanValue();
+	}
+
+	/**
 	 * Tests {@link FormulaTerminalNumeric#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -59,14 +68,14 @@ public class FormulaTerminalNumericTest {
 		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
 		formula.getDateValue();
 	}
-
+	
 	/**
-	 * Tests {@link FormulaTerminalNumeric#getBooleanValue()}
+	 * Tests {@link FormulaTerminalNumeric#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	public void testGetDurationValue() {
 		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
-		formula.getBooleanValue();
+		formula.getDurationValue();
 	}
 
 	/**

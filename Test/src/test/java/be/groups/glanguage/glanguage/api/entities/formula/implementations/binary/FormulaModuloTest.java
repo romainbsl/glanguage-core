@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaModulo}
@@ -20,6 +21,16 @@ public class FormulaModuloTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaModulo#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaModulo formula = new FormulaModulo();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.OP_MODULO), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaModulo#isTerminal()}
 	 */
@@ -118,6 +129,24 @@ public class FormulaModuloTest {
 		FormulaModulo formula = new FormulaModulo(leftFormula, rightFormula);
 		
 		formula.getDateValue();
+	}
+	
+	/**
+	 * Tests {@link FormulaModulo#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(leftFormula.getIntegerValue()).thenReturn(3);
+		
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rightFormula.getIntegerValue()).thenReturn(2);
+		
+		FormulaModulo formula = new FormulaModulo(leftFormula, rightFormula);
+		
+		formula.getDurationValue();
 	}
 	
 	/**

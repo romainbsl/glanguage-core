@@ -1,13 +1,12 @@
 %{
 package be.groups.glanguage.glanguage.api.business.analysis.byaccj;
 
-
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
-import be.groups.glanguage.glanguage.api.entities.formula.FormulaDescription;
 import be.groups.glanguage.glanguage.api.business.analysis.byaccj.SlangLex;
 import be.groups.glanguage.glanguage.api.business.analysis.IdentifierParameterList;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracket;
 
 import java.util.LinkedList;
@@ -234,75 +233,75 @@ expr:
 				}
 	| T_NOT expr				
 				{
-					$$ = aSem.unaryOperation (FormulaDescription.OP_NOT, $2);
+					$$ = aSem.unaryOperation (FormulaType.OP_NOT, $2);
 				}
 	| '+' expr %prec UNARY_OP	
 				{
-					$$ = aSem.unaryOperation (FormulaDescription.OP_UNARY_PLUS, $2);if (yydebug) debug(" + in expr");
+					$$ = aSem.unaryOperation (FormulaType.OP_UNARY_PLUS, $2);if (yydebug) debug(" + in expr");
 				}
 	| '-' expr %prec UNARY_OP	
 				{
-					$$ = aSem.unaryOperation (FormulaDescription.OP_UNARY_MINUS, $2);if (yydebug) debug("- in expr");
+					$$ = aSem.unaryOperation (FormulaType.OP_UNARY_MINUS, $2);if (yydebug) debug("- in expr");
 				}
 	| '?' expr					
 				{
-					$$ = aSem.unaryOperation (FormulaDescription.OP_EXIST, $2);if (yydebug) debug("? in expr");
+					$$ = aSem.unaryOperation (FormulaType.OP_EXIST, $2);if (yydebug) debug("? in expr");
 				}
 	| expr '*' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaDescription.OP_MULTIPLY, $1, $3);if (yydebug) debug("* in expr");
+					$$ = aSem.binaryOperation (FormulaType.OP_MULTIPLY, $1, $3);if (yydebug) debug("* in expr");
 				}
 	| expr '/' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaDescription.OP_DIVIDE, $1, $3);if (yydebug) debug("/ in expr");
+					$$ = aSem.binaryOperation (FormulaType.OP_DIVIDE, $1, $3);if (yydebug) debug("/ in expr");
 				}
 	| expr T_INTEGER_DIV expr	
 				{
-					$$ = aSem.binaryOperation (FormulaDescription.OP_INTEGER_DIVISION, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_INTEGER_DIVISION, $1, $3);
 				}
 	| expr T_MODULO expr		
 				{
-					$$ = aSem.binaryOperation (FormulaDescription.OP_MODULO, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_MODULO, $1, $3);
 				}
 	| expr '+' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaDescription.OP_PLUS, $1, $3);if (yydebug) debug("+expr in expr");
+					$$ = aSem.binaryOperation (FormulaType.OP_PLUS, $1, $3);if (yydebug) debug("+expr in expr");
 				}
 	| expr '-' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaDescription.OP_MINUS, $1, $3);if (yydebug) debug("-expr in expr");
+					$$ = aSem.binaryOperation (FormulaType.OP_MINUS, $1, $3);if (yydebug) debug("-expr in expr");
 				}
 	| expr '=' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaDescription.OP_EQUAL, $1, $3);if (yydebug) debug("=expr in expr");
+					$$ = aSem.binaryOperation (FormulaType.OP_EQUAL, $1, $3);if (yydebug) debug("=expr in expr");
 				}
 	| expr T_DIFFERENT expr		
 				{
-					$$ = aSem.binaryOperation (FormulaDescription.OP_DIFFERENCE, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_DIFFERENCE, $1, $3);
 				}
 	| expr '<' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaDescription.OP_SMALLER, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_SMALLER, $1, $3);
 				}
 	| expr T_SMALLER_EQ expr	
 				{
-					$$ = aSem.binaryOperation (FormulaDescription.OP_SMALLER_OR_EQUAL, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_SMALLER_OR_EQUAL, $1, $3);
 				}
 	| expr '>' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaDescription.OP_GREATER, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_GREATER, $1, $3);
 				}
 	| expr T_GREATER_EQ expr	
 				{
-					$$ = aSem.binaryOperation (FormulaDescription.OP_GREATER_OR_EQUAL, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_GREATER_OR_EQUAL, $1, $3);
 				}
 	| expr T_AND expr			
 				{
-					$$ = aSem.binaryOperation (FormulaDescription.OP_AND, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_AND, $1, $3);
 				}
 	| expr T_OR expr			
 				{
-					$$ = aSem.binaryOperation (FormulaDescription.OP_OR, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_OR, $1, $3);
 				}
 	;
 
@@ -423,7 +422,7 @@ entity:
 functionalCall:
 	// Empty --				
 				{
-					$$ = null; //new LinkedList<AbstractFormula>();//
+					$$ = new LinkedList<AbstractFormula>();
 					if (yydebug) debug("functionalCall empty");
 				}
 	| '(' expressionList ')'	
@@ -446,55 +445,55 @@ objectCall:
 standardFunction:
 	T_ABS '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_ABS, $3);
+					$$ = aSem.standardFunction (FormulaType.F_ABS, $3);
 				}
 	| T_BANKERS_ROUNDED '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_BANKERS_ROUNDED, $3);
+					$$ = aSem.standardFunction (FormulaType.F_BANKERS_ROUNDED, $3);
 				}
 	| T_CEIL '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_CEIL, $3);
+					$$ = aSem.standardFunction (FormulaType.F_CEIL, $3);
 				}
 	| T_FLOOR '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_FLOOR, $3);
+					$$ = aSem.standardFunction (FormulaType.F_FLOOR, $3);
 				}
 	| T_FORMATDATE '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_FORMAT_DATE, $3);
+					$$ = aSem.standardFunction (FormulaType.F_FORMAT_DATE, $3);
 				}
 	| T_FORMATINTEGER '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_FORMAT_INTEGER, $3);
+					$$ = aSem.standardFunction (FormulaType.F_FORMAT_INTEGER, $3);
 				}
 	| T_FORMATNUMERIC '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_FORMAT_NUMERIC, $3);
+					$$ = aSem.standardFunction (FormulaType.F_FORMAT_NUMERIC, $3);
 				}
 	| T_FORMATSTRING '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_FORMAT_STRING, $3);
+					$$ = aSem.standardFunction (FormulaType.F_FORMAT_STRING, $3);
 				}
 	| T_ROUNDED '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_ROUNDED, $3);
+					$$ = aSem.standardFunction (FormulaType.F_ROUNDED, $3);
 				}
 	| T_SIGN '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_SIGN, $3);
+					$$ = aSem.standardFunction (FormulaType.F_SIGN, $3);
 				}
 	| T_STRINGITEM '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_STRING_ITEM, $3);
+					$$ = aSem.standardFunction (FormulaType.F_STRING_ITEM, $3);
 				}				
 	| T_SUBSTRING '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_SUBSTRING, $3);
+					$$ = aSem.standardFunction (FormulaType.F_SUBSTRING, $3);
 				}				
 	| T_TRUNC '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_TRUNC, $3);
+					$$ = aSem.standardFunction (FormulaType.F_TRUNC, $3);
 				}
 	| T_GET type getCall				
 				{
@@ -502,63 +501,63 @@ standardFunction:
 				}
 	| T_MULTIPLY '(' V_IDENT ')'		
 				{
-					$$ = aSem.groupFunction (FormulaDescription.G_MULT, $3);
+					$$ = aSem.groupFunction (FormulaType.G_MULT, $3);
 				}
 	| T_SUM '(' V_IDENT ')'				
 				{
-					$$ = aSem.groupFunction (FormulaDescription.G_SUM, $3);
+					$$ = aSem.groupFunction (FormulaType.G_SUM, $3);
 				}
 	| T_SUMV '(' V_IDENT ')'			
 				{
-					$$ = aSem.groupFunction (FormulaDescription.G_SUMV, $3);
+					$$ = aSem.groupFunction (FormulaType.G_SUMV, $3);
 				}
 	| T_MIN '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_MIN, $3);
+					$$ = aSem.standardFunction (FormulaType.F_MIN, $3);
 				}
 	| T_MAX '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_MAX, $3);
+					$$ = aSem.standardFunction (FormulaType.F_MAX, $3);
 				}
 	| T_SMIN '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_SMIN, $3);
+					$$ = aSem.standardFunction (FormulaType.F_SMIN, $3);
 				}
 	| T_SMAX '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_SMAX, $3);
+					$$ = aSem.standardFunction (FormulaType.F_SMAX, $3);
 				}
 	| T_DATE '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_DATE, $3);
+					$$ = aSem.standardFunction (FormulaType.F_DATE, $3);
 				}
  	| T_MINUTES '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_MINUTES, $3);
+					$$ = aSem.standardFunction (FormulaType.F_MINUTES, $3);
 				}
  	| T_HOURS '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_HOURS, $3);
+					$$ = aSem.standardFunction (FormulaType.F_HOURS, $3);
 				}
 	| T_DAYS '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_DAYS, $3);
+					$$ = aSem.standardFunction (FormulaType.F_DAYS, $3);
 				}
 	| T_MONTHS '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_MONTHS, $3);
+					$$ = aSem.standardFunction (FormulaType.F_MONTHS, $3);
 				}
 	| T_YEARS '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_YEARS, $3);
+					$$ = aSem.standardFunction (FormulaType.F_YEARS, $3);
 				}
 	| T_PUT_TEXT '(' expressionList ')'
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_PUT_TEXT, $3);
+					$$ = aSem.standardFunction (FormulaType.F_PUT_TEXT, $3);
 				}
 	| T_STRINGLENGTH '(' expressionList ')'
 				{
-					$$ = aSem.standardFunction (FormulaDescription.F_STRING_LENGTH, $3);
+					$$ = aSem.standardFunction (FormulaType.F_STRING_LENGTH, $3);
 				}
 	;
 

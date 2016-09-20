@@ -31,34 +31,6 @@ public class FormulaNotTest {
 	}
 
 	/**
-	 * Tests {@link FormulaNot#getBooleanValue()} when parameter exists
-	 */
-	@Test
-	public void testGetBooleanValueParameterExists() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(childFormula.getBooleanValue()).thenReturn(true);
-
-		FormulaNot formula = new FormulaNot(childFormula);
-
-		assertEquals(Boolean.FALSE, formula.getBooleanValue());
-	}
-
-	/**
-	 * Tests {@link FormulaNot#getBooleanValue()} when parameter doesn't exist
-	 */
-	@Test(expected = NullPointerException.class)
-	public void testGetBooleanValueParameterNotExist() {
-		AbstractFormula childFormula = mock(AbstractFormula.class);
-		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(childFormula.getBooleanValue()).thenReturn(null);
-
-		FormulaNot formula = new FormulaNot(childFormula);
-
-		formula.getBooleanValue();
-	}
-
-	/**
 	 * Tests {@link FormulaNot#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -101,6 +73,34 @@ public class FormulaNotTest {
 	}
 
 	/**
+	 * Tests {@link FormulaNot#getBooleanValue()} when parameter exists
+	 */
+	@Test
+	public void testGetBooleanValueParameterExists() {
+		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(childFormula.getBooleanValue()).thenReturn(true);
+
+		FormulaNot formula = new FormulaNot(childFormula);
+
+		assertEquals(Boolean.FALSE, formula.getBooleanValue());
+	}
+
+	/**
+	 * Tests {@link FormulaNot#getBooleanValue()} when parameter doesn't exist
+	 */
+	@Test(expected = NullPointerException.class)
+	public void testGetBooleanValueParameterNotExist() {
+		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(childFormula.getBooleanValue()).thenReturn(null);
+
+		FormulaNot formula = new FormulaNot(childFormula);
+
+		formula.getBooleanValue();
+	}
+
+	/**
 	 * Tests {@link FormulaNot#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
@@ -112,6 +112,20 @@ public class FormulaNotTest {
 		FormulaNot formula = new FormulaNot(childFormula);
 
 		formula.getDateValue();
+	}
+	
+	/**
+	 * Tests {@link FormulaNot#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		AbstractFormula childFormula = mock(AbstractFormula.class);
+		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(childFormula.getBooleanValue()).thenReturn(true);
+
+		FormulaNot formula = new FormulaNot(childFormula);
+		
+		formula.getDurationValue();
 	}
 
 	/**

@@ -135,9 +135,13 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 		Iterator<AbstractFormula> itInList = getParameters().listIterator(1);
 		StringBuffer sb = new StringBuffer();
 		sb.append(element.asText());
-		sb.append("in (");
+		sb.append(" in (");
 		while (itInList.hasNext()) {
 			sb.append(itInList.next().asText());
+			
+			if (itInList.hasNext()) {
+				sb.append(", ");
+			}
 		}
 		sb.append(")");
 		return sb.toString();

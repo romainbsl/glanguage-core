@@ -54,6 +54,15 @@ public class FormulaTerminalDateTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaTerminalDate#getBooleanValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetBooleanValue() {
+		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
+		formula.getBooleanValue();
+	}
+	
+	/**
 	 * Tests {@link FormulaTerminalDate#getDateValue()}
 	 */
 	@Test
@@ -63,12 +72,12 @@ public class FormulaTerminalDateTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaTerminalDate#getBooleanValue()}
+	 * Tests {@link FormulaTerminalDate#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	public void testGetDurationValue() {
 		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
-		formula.getBooleanValue();
+		formula.getDurationValue();
 	}
 	
 	/**

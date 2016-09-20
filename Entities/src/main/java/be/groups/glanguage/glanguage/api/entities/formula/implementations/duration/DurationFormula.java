@@ -10,6 +10,8 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFor
 
 @Entity
 public abstract class DurationFormula extends AbstractNonTerminalFormula {
+	public static final int YEAR_AVG_DAYS_COUNT = 365;
+	public static final int MONTH_AVG_DAYS_COUNT = 31;
 	
 	public DurationFormula() {
 		super();

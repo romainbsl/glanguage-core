@@ -157,6 +157,24 @@ public class FormulaRoundingCeilTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaRoundingCeil#getDurationValue()}
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetDurationValue() {
+		AbstractFormula leftFormula = mock(AbstractFormula.class);
+		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(leftFormula.getNumericValue()).thenReturn(1.544);
+		
+		AbstractFormula rightFormula = mock(AbstractFormula.class);
+		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(rightFormula.getNumericValue()).thenReturn(0.01);
+		
+		FormulaRoundingCeil formula = new FormulaRoundingCeil(leftFormula, rightFormula);
+		
+		formula.getDurationValue();
+	}
+	
+	/**
 	 * Tests {@link FormulaRoundingCeil#operationAsText()}
 	 */
 	@Test
