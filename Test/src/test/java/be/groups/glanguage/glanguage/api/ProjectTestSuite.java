@@ -4,7 +4,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import be.groups.glanguage.glanguage.api.business.BusinessTestSuite;
 import be.groups.glanguage.glanguage.api.entities.EntitiesTestSuite;
+import be.groups.glanguage.glanguage.api.ws.WsTestSuite;
 
 /**
  * Test suite for the whole project
@@ -12,7 +14,7 @@ import be.groups.glanguage.glanguage.api.entities.EntitiesTestSuite;
  * @author DUPIREFR
  */
 @RunWith(Suite.class)
-@SuiteClasses({ EntitiesTestSuite.class })
+@SuiteClasses({EntitiesTestSuite.class, BusinessTestSuite.class, WsTestSuite.class})
 public class ProjectTestSuite {
 
 }

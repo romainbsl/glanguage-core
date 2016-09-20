@@ -75,7 +75,7 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetTest;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
 
 /**
- * Test suite for entities package
+ * Test suite for Entities module
  * 
  * @author DUPIREFR
  */
