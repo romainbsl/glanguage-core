@@ -22,6 +22,11 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaPlusTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerOrEqualTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationDaysTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationHoursTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationMinutesTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationMonthsTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationYearsTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMaxTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMinTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumSignedMaxTest;
@@ -75,9 +80,9 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
 		FormulaExtremumSignedMinTest.class, FormulaFormatStringTest.class, FormulaFormatIntegerTest.class,
 		FormulaFormatNumericTest.class, FormulaFormatDateTest.class, FormulaMathAbsTest.class, FormulaMathSignTest.class,
 		FormulaRoundingArithmeticTest.class, FormulaRoundingCeilTest.class, FormulaRoundingFloorTest.class,
-		FormulaRoundingTruncTest.class, FormulaRoundingBankersTest.class})
-		
-		
+		FormulaRoundingTruncTest.class, FormulaRoundingBankersTest.class, FormulaDurationDaysTest.class,
+		FormulaDurationHoursTest.class, FormulaDurationMinutesTest.class, FormulaDurationMonthsTest.class,
+		FormulaDurationYearsTest.class})
 public class EntitiesTestSuite {
 
 }

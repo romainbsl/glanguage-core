@@ -31,9 +31,8 @@ public class FormulaDurationDays extends DurationFormula {
 			case DURATION:
 				return Math.toIntExact(getParameters().get(0).getDurationValue().toDays());
 			default:
-				throw new UnsupportedOperationException(
-						"Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object with a parameter of type "
-								+ getParameters().get(0).getReturnType());
+				throw new UnsupportedOperationException("Cannot invoke getIntegerValue() method on " + this.getClass().getName()
+						+ " object with a parameter of type " + getParameters().get(0).getReturnType());
 		}
 	}
 	

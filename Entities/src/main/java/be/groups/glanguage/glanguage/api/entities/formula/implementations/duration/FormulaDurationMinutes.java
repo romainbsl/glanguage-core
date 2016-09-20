@@ -1,7 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.duration;
 
 import java.time.Duration;
-import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -13,13 +13,13 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_MINUTES)
 public class FormulaDurationMinutes extends DurationFormula {
-
+	
 	public FormulaDurationMinutes() {
 		super();
 	}
 	
-	public FormulaDurationMinutes(LinkedList<AbstractFormula> parameters) {
-		super( parameters);
+	public FormulaDurationMinutes(List<AbstractFormula> parameters) {
+		super(parameters);
 	}
 	
 	@Transient
@@ -31,7 +31,7 @@ public class FormulaDurationMinutes extends DurationFormula {
 	@Transient
 	@Override
 	public Duration getDurationValue() {
-		return Duration.ofMinutes(getParameters().get(0).getIntegerValue());
+		return Duration.ofMinutes(getIntegerValue());
 	}
 	
 	@Override
