@@ -3,7 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnTypeConverter;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
@@ -23,14 +24,13 @@ public class FormulaGet extends CallFormula {
 		super();
 	}
 	
-	public FormulaGet(FormulaReturnType returnType, LinkedList<String> identifiers,
-			LinkedList<LinkedList<AbstractFormula>> parameters) {
+	public FormulaGet(FormulaReturnType returnType, List<String> identifiers, List<List<AbstractFormula>> parameters) {
 		this();
 		
 		setConstantValue(String.valueOf(returnType.ordinal()));
 		this.parameters = new ArrayList<>(identifiers.size());
 		for (int i = 0; i < identifiers.size(); i++) {
-			this.parameters.add(new FormulaPrimitive(identifiers.get(i), parameters.get(1)));
+			this.parameters.add(new FormulaPrimitive(identifiers.get(i), parameters.get(i)));
 		}
 	}
 	
@@ -111,7 +111,11 @@ public class FormulaGet extends CallFormula {
 	public String asText() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("get ");
-		sb.append(getConstantValue());
+		
+		FormulaReturnTypeConverter converter = new FormulaReturnTypeConverter();
+		sb.append(converter.convertToEntityAttribute(Integer.valueOf(getConstantValue())));
+		sb.append(" ");
+		
 		for (int i = 0; i < getParameters().size(); i++) {
 			sb.append(getParameters().get(i).asText());
 			if (i < getParameters().size() - 1) {

@@ -22,6 +22,11 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaPlusTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerOrEqualTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaApplicabilityTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaFormulaTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGetTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaPrimitiveTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaRuleReferenceTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationDaysTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationHoursTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationMinutesTest;
@@ -87,7 +92,8 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
 		FormulaRoundingTruncTest.class, FormulaRoundingBankersTest.class, FormulaDurationDaysTest.class,
 		FormulaDurationHoursTest.class, FormulaDurationMinutesTest.class, FormulaDurationMonthsTest.class,
 		FormulaDurationYearsTest.class, FormulaIfInstructionTest.class, FormulaStringItemTest.class, FormulaStringLengthTest.class,
-		FormulaSubStringTest.class})
+		FormulaSubStringTest.class, FormulaApplicabilityTest.class, FormulaFormulaTest.class, FormulaGetTest.class,
+		FormulaPrimitiveTest.class, FormulaRuleReferenceTest.class})
 public class EntitiesTestSuite {
 
 }

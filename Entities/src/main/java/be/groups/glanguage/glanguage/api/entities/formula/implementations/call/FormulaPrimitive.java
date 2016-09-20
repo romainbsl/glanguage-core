@@ -2,7 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -17,8 +17,8 @@ public class FormulaPrimitive extends CallFormula {
 	public FormulaPrimitive() {
 		super();
 	}
-
-	public FormulaPrimitive(String primitive, LinkedList<AbstractFormula> parameters) {
+	
+	public FormulaPrimitive(String primitive, List<AbstractFormula> parameters) {
 		super();
 		
 		if (primitive == null || primitive.isEmpty()) {
@@ -30,7 +30,7 @@ public class FormulaPrimitive extends CallFormula {
 			this.parameters.addAll(parameters);
 		}
 	}
-
+	
 	protected Object getTargetedObject(Object object) {
 		AbstractFormula[] parameters = null;
 		if (getParameters() != null) {
@@ -39,22 +39,22 @@ public class FormulaPrimitive extends CallFormula {
 		}
 		return callFunctionAny(object, getConstantValue(), parameters);
 	}
-
+	
 	@Override
 	public String asText() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getConstantValue());
 		sb.append("(");
 		if (getParameters().size() > 0) {
-			sb.append(getParameters().get(0));
+			sb.append(getParameters().get(0).asText());
 			Iterator<AbstractFormula> itParameters = getParameters().listIterator(1);
 			while (itParameters.hasNext()) {
-				sb.append(" ; ");
+				sb.append("; ");
 				sb.append(itParameters.next().asText());
 			}
 		}
 		sb.append(")");
 		return sb.toString();
 	}
-
+	
 }
