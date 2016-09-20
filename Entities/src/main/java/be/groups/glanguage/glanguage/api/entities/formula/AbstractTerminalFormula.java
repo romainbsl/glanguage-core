@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public abstract class AbstractTerminalFormula extends AbstractFormula {
 	
@@ -29,6 +31,7 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
 		return null;
 	}
 	
+	@JsonIgnore
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
@@ -36,6 +39,7 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
 				"Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
 	}
 	
+	@JsonIgnore
 	@Transient
 	@Override
 	public Double getNumericValue() {
@@ -43,12 +47,14 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
 				"Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
 	}
 	
+	@JsonIgnore
 	@Transient
 	@Override
 	public String getStringValue() {
 		return getConstantValue();
 	}
 	
+	@JsonIgnore
 	@Transient
 	@Override
 	public Boolean getBooleanValue() {
@@ -56,6 +62,7 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
 				"Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
 	}
 	
+	@JsonIgnore
 	@Transient
 	@Override
 	public LocalDate getDateValue() {
@@ -63,6 +70,7 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
 				"Cannot invoke getDateValue() method on " + this.getClass().getName() + " object");
 	}
 	
+	@JsonIgnore
 	@Transient
 	@Override
 	public Duration getDurationValue() {

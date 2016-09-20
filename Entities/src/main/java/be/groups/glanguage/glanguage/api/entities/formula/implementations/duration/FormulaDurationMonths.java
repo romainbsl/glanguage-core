@@ -8,6 +8,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
@@ -23,6 +25,7 @@ public class FormulaDurationMonths extends DurationFormula {
 		super(parameters);
 	}
 	
+	@JsonIgnore
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
@@ -37,6 +40,7 @@ public class FormulaDurationMonths extends DurationFormula {
 		}
 	}
 	
+	@JsonIgnore
 	@Transient
 	@Override
 	public Duration getDurationValue() {

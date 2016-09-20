@@ -6,6 +6,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
@@ -22,6 +24,7 @@ public class FormulaGroupSum extends GroupFormula {
 		super( groupId);
 	}
 	
+	@JsonIgnore
 	@Transient
 	@Override
 	public Double getNumericValue() {
