@@ -16,10 +16,6 @@ public class JerseyApplication extends ResourceConfig {
         register(ApiListingResourceJSON.class);
         register(JerseyApiDeclarationProvider.class);
         register(JerseyResourceListingProvider.class);
-        register(dynamicBindingClass());
     }
-
-    protected Class<?> dynamicBindingClass() {
-        return BaseDynamicBinding.class;
-    }
+	
 }
