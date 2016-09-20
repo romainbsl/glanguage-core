@@ -21,7 +21,7 @@
  		<!-- Standards formulas -->
  		
  		<!-- Instructions -->
- 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaInstructionIf</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaIfInstruction</class>
  		
  		<!-- Unary operations -->
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaNot</class>

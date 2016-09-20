@@ -23,7 +23,7 @@
 		<!-- GroupS dependencies -->
 		<dependency>
 			<groupId>be.groups.glanguage</groupId>
-			<artifactId>glanguage-api-entities</artifactId>
+			<artifactId>glanguage-api-ws</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
@@ -33,16 +33,6 @@
 			<artifactId>mockito-core</artifactId>
 			<version>${mockito.version}</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>be.groups.glanguage</groupId>
-			<artifactId>glanguage-api-business</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>be.groups.glanguage</groupId>
-			<artifactId>glanguage-api-ws</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>
