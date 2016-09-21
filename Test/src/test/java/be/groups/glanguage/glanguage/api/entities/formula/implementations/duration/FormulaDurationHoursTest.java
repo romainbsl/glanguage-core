@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaDurationHours}
@@ -23,6 +24,16 @@ public class FormulaDurationHoursTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaDurationHours#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaDurationHours formula = new FormulaDurationHours();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_HOURS), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaDurationHours#isTerminal()}
 	 */

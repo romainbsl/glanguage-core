@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaDurationMonths}
@@ -24,6 +25,16 @@ public class FormulaDurationMonthsTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaDurationMonths#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaDurationMonths formula = new FormulaDurationMonths();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_MONTHS), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaDurationMonths#isTerminal()}
 	 */
