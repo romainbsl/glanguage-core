@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaAnomaly}
@@ -25,6 +26,16 @@ public class FormulaAnomalyTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaAnomaly#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaAnomaly formula = new FormulaAnomaly();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_PUT_TEXT), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaAnomaly#isTerminal()}
 	 */

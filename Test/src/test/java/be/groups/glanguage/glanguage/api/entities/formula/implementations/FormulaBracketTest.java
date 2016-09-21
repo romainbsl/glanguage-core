@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaBracket}
@@ -23,6 +24,16 @@ public class FormulaBracketTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaBracket#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaBracket formula = new FormulaBracket();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_BRACKETS), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaBracket#isTerminal()}
 	 */
