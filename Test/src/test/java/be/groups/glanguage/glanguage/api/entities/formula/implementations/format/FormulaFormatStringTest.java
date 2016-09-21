@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.utils.FormatAlignment;
 
 /**
@@ -24,6 +25,16 @@ public class FormulaFormatStringTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaFormatString#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaFormatString formula = new FormulaFormatString();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_FORMAT_STRING), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaFormatString#isTerminal()}
 	 */
