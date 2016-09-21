@@ -8,9 +8,12 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.EntityManager;
 
@@ -21,7 +24,7 @@ import org.junit.experimental.categories.Category;
 
 import be.groups.common.persistence.util.TransactionHelper;
 import be.groups.common.test.utils.Environment;
-import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTest;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
 import be.groups.marmota.persistence.DatabaseIdentifier;
 import be.groups.marmota.persistence.JpaUtil;
 import be.groups.marmota.test.TNSNames;
@@ -69,7 +72,7 @@ public class FormulaDescriptionTest {
 	 * Tests {@link FormulaDescription} JPA mapping
 	 */
 	@Test
-	@Category(JpaMappingTest.class)
+	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
 		FormulaDescription formulaDescription = em.find(FormulaDescription.class, 214);
 		
@@ -92,7 +95,7 @@ public class FormulaDescriptionTest {
 		/* Checking relationships */
 		assertNotNull(formulaDescription.getParametersCombinations());
 		assertEquals(1, formulaDescription.getParametersCombinations().size());
-		assertEquals(Integer.valueOf(3), formulaDescription.getParametersCombinations().get(0).getId());
+		assertEquals(Integer.valueOf(3), formulaDescription.getParametersCombinations().iterator().next().getId());
 	}
 	
 	/**
@@ -103,7 +106,7 @@ public class FormulaDescriptionTest {
 	public void testIsValidEmptyEmpty() {
 		FormulaDescription formulaDescription = new FormulaDescription();
 		
-		List<FormulaParametersCombination> parametersCombinations = new ArrayList<>();
+		Set<FormulaParametersCombination> parametersCombinations = new HashSet<>();
 		
 		FormulaParametersCombination parametersCombination = mock(FormulaParametersCombination.class);
 		when(parametersCombination.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
@@ -123,12 +126,12 @@ public class FormulaDescriptionTest {
 	public void testIsValidEmptyNotEmpty() {
 		FormulaDescription formulaDescription = new FormulaDescription();
 		
-		List<FormulaParametersCombination> parametersCombinations = new ArrayList<>();
+		Set<FormulaParametersCombination> parametersCombinations = new HashSet<>();
 		
 		FormulaParametersCombination parametersCombination = mock(FormulaParametersCombination.class);
 		when(parametersCombination.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		
-		List<FormulaParameterDescription> parametersDescriptions = new ArrayList<>();
+		SortedSet<FormulaParameterDescription> parametersDescriptions = new TreeSet<>();
 		
 		FormulaParameterDescription parameterDescription = mock(FormulaParameterDescription.class);
 		when(parameterDescription.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
@@ -151,7 +154,7 @@ public class FormulaDescriptionTest {
 	public void testIsValidNotEmptyEmpty() {
 		FormulaDescription formulaDescription = new FormulaDescription();
 		
-		List<FormulaParametersCombination> parametersCombinations = new ArrayList<>();
+		Set<FormulaParametersCombination> parametersCombinations = new HashSet<>();
 		
 		FormulaParametersCombination parametersCombination = mock(FormulaParametersCombination.class);
 		when(parametersCombination.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
@@ -169,12 +172,12 @@ public class FormulaDescriptionTest {
 	public void testIsValidMatching() {
 		FormulaDescription formulaDescription = new FormulaDescription();
 		
-		List<FormulaParametersCombination> parametersCombinations = new ArrayList<>();
+		Set<FormulaParametersCombination> parametersCombinations = new HashSet<>();
 		
 		FormulaParametersCombination parametersCombination = mock(FormulaParametersCombination.class);
 		when(parametersCombination.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		
-		List<FormulaParameterDescription> parametersDescriptions = new ArrayList<>();
+		SortedSet<FormulaParameterDescription> parametersDescriptions = new TreeSet<>();
 		
 		FormulaParameterDescription parameterDescription1 = mock(FormulaParameterDescription.class);
 		when(parameterDescription1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
@@ -199,12 +202,12 @@ public class FormulaDescriptionTest {
 	public void testIsValidNotMatching() {
 		FormulaDescription formulaDescription = new FormulaDescription();
 		
-		List<FormulaParametersCombination> parametersCombinations = new ArrayList<>();
+		Set<FormulaParametersCombination> parametersCombinations = new HashSet<>();
 		
 		FormulaParametersCombination parametersCombination = mock(FormulaParametersCombination.class);
 		when(parametersCombination.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		
-		List<FormulaParameterDescription> parametersDescriptions = new ArrayList<>();
+		SortedSet<FormulaParameterDescription> parametersDescriptions = new TreeSet<>();
 		
 		FormulaParameterDescription parameterDescription1 = mock(FormulaParameterDescription.class);
 		when(parameterDescription1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
@@ -230,7 +233,7 @@ public class FormulaDescriptionTest {
 	public void testGetReturnTypeEmptyEmpty() {
 		FormulaDescription formulaDescription = new FormulaDescription();
 		
-		List<FormulaParametersCombination> parametersCombinations = new ArrayList<>();
+		Set<FormulaParametersCombination> parametersCombinations = new HashSet<>();
 		
 		FormulaParametersCombination parametersCombination = mock(FormulaParametersCombination.class);
 		when(parametersCombination.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
@@ -250,12 +253,12 @@ public class FormulaDescriptionTest {
 	public void testGetReturnTypeEmptyNotEmpty() {
 		FormulaDescription formulaDescription = new FormulaDescription();
 		
-		List<FormulaParametersCombination> parametersCombinations = new ArrayList<>();
+		Set<FormulaParametersCombination> parametersCombinations = new HashSet<>();
 		
 		FormulaParametersCombination parametersCombination = mock(FormulaParametersCombination.class);
 		when(parametersCombination.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		
-		List<FormulaParameterDescription> parametersDescriptions = new ArrayList<>();
+		SortedSet<FormulaParameterDescription> parametersDescriptions = new TreeSet<>();
 		
 		FormulaParameterDescription parameterDescription = mock(FormulaParameterDescription.class);
 		when(parameterDescription.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
@@ -278,7 +281,7 @@ public class FormulaDescriptionTest {
 	public void testGetReturnTypeNotEmptyEmpty() {
 		FormulaDescription formulaDescription = new FormulaDescription();
 		
-		List<FormulaParametersCombination> parametersCombinations = new ArrayList<>();
+		Set<FormulaParametersCombination> parametersCombinations = new HashSet<>();
 		
 		FormulaParametersCombination parametersCombination = mock(FormulaParametersCombination.class);
 		when(parametersCombination.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
@@ -296,12 +299,12 @@ public class FormulaDescriptionTest {
 	public void testGetReturnTypeMatching() {
 		FormulaDescription formulaDescription = new FormulaDescription();
 		
-		List<FormulaParametersCombination> parametersCombinations = new ArrayList<>();
+		Set<FormulaParametersCombination> parametersCombinations = new HashSet<>();
 		
 		FormulaParametersCombination parametersCombination = mock(FormulaParametersCombination.class);
 		when(parametersCombination.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		
-		List<FormulaParameterDescription> parametersDescriptions = new ArrayList<>();
+		SortedSet<FormulaParameterDescription> parametersDescriptions = new TreeSet<>();
 		
 		FormulaParameterDescription parameterDescription1 = mock(FormulaParameterDescription.class);
 		when(parameterDescription1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
@@ -327,12 +330,12 @@ public class FormulaDescriptionTest {
 	public void testGetReturnTypeNotMatching() {
 		FormulaDescription formulaDescription = new FormulaDescription();
 		
-		List<FormulaParametersCombination> parametersCombinations = new ArrayList<>();
+		Set<FormulaParametersCombination> parametersCombinations = new HashSet<>();
 		
 		FormulaParametersCombination parametersCombination = mock(FormulaParametersCombination.class);
 		when(parametersCombination.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		
-		List<FormulaParameterDescription> parametersDescriptions = new ArrayList<>();
+		SortedSet<FormulaParameterDescription> parametersDescriptions = new TreeSet<>();
 		
 		FormulaParameterDescription parameterDescription1 = mock(FormulaParameterDescription.class);
 		when(parameterDescription1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);

@@ -28,7 +28,7 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleDescription;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
-import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTest;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
 import be.groups.marmota.persistence.DatabaseIdentifier;
 import be.groups.marmota.persistence.JpaUtil;
 import be.groups.marmota.test.TNSNames;
@@ -76,7 +76,7 @@ public class RuleSetVersionTest {
 	 * Tests {@link RuleSetVersion} JPA mapping
 	 */
 	@Test
-	@Category(JpaMappingTest.class)
+	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
 		RuleSetVersion ruleSetVersion = em.find(RuleSetVersion.class, 900001);
 

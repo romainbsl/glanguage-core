@@ -24,6 +24,8 @@ public class FormulaReturnTypeConverter implements AttributeConverter<FormulaRet
 				return 4;
 			case DATE:
 				return 5;
+			case DURATION:
+				return 6;
 			default:
 				throw new IllegalArgumentException("Unknown attribute " + attribute);
 			}
@@ -48,6 +50,8 @@ public class FormulaReturnTypeConverter implements AttributeConverter<FormulaRet
 				return FormulaReturnType.BOOLEAN;
 			case 5:
 				return FormulaReturnType.DATE;
+			case 6:
+				return FormulaReturnType.DURATION;
 			default:
 				throw new IllegalArgumentException("Unknown dbData " + dbData);
 			}

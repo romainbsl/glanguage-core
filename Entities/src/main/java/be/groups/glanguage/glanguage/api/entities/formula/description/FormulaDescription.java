@@ -1,13 +1,16 @@
 package be.groups.glanguage.glanguage.api.entities.formula.description;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -36,7 +39,7 @@ public class FormulaDescription {
 	
 	private FormulaPriority priority;
 	
-	private List<FormulaParametersCombination> parametersCombinations;
+	private Set<FormulaParametersCombination> parametersCombinations;
 	
 	private Map<List<FormulaReturnType>, FormulaReturnType> parametersCombinationsReturnTypes;
 	
@@ -93,8 +96,8 @@ public class FormulaDescription {
 		return priority;
 	}
 	
-	@OneToMany(mappedBy = "description")
-	public List<FormulaParametersCombination> getParametersCombinations() {
+	@OneToMany(mappedBy = "description", fetch = FetchType.EAGER)
+	public Set<FormulaParametersCombination> getParametersCombinations() {
 		return parametersCombinations;
 	}
 	
@@ -133,7 +136,7 @@ public class FormulaDescription {
 		this.priority = priority;
 	}
 	
-	public void setParametersCombinations(List<FormulaParametersCombination> parametersCombinations) {
+	public void setParametersCombinations(Set<FormulaParametersCombination> parametersCombinations) {
 		this.parametersCombinations = parametersCombinations;
 	}
 	
@@ -159,10 +162,11 @@ public class FormulaDescription {
 	}
 	
 	private void initParametersCombinationsReturnTypes() {
-		parametersCombinationsReturnTypes = parametersCombinations.stream()
-				.collect(Collectors.toMap(
-						c -> c.getParametersDescriptions().stream().map(d -> d.getReturnType()).collect(Collectors.toList()),
-						c -> c.getReturnType()));
+		parametersCombinationsReturnTypes = parametersCombinations == null ? new HashMap<>()
+				: parametersCombinations.stream()
+						.collect(Collectors.toMap(
+								c -> c.getParametersDescriptions().stream().map(d -> d.getReturnType()).collect(Collectors.toList()),
+								c -> c.getReturnType()));
 	}
 	
 }

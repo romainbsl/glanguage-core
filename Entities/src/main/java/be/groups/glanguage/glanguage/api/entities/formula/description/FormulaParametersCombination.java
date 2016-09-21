@@ -1,14 +1,16 @@
 package be.groups.glanguage.glanguage.api.entities.formula.description;
 
-import java.util.List;
+import java.util.SortedSet;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 /**
@@ -29,7 +31,7 @@ public class FormulaParametersCombination {
 	
 	private FormulaDescription description;
 	
-	private List<FormulaParameterDescription> parametersDescriptions;
+	private SortedSet<FormulaParameterDescription> parametersDescriptions;
 	
 	/*
 	 * Constructors
@@ -59,8 +61,9 @@ public class FormulaParametersCombination {
 		return description;
 	}
 	
-	@OneToMany(mappedBy = "parametersCombination")
-	public List<FormulaParameterDescription> getParametersDescriptions() {
+	@OneToMany(mappedBy = "parametersCombination", fetch = FetchType.EAGER)
+	@OrderBy("SEQUENCE_NUMBER")
+	public SortedSet<FormulaParameterDescription> getParametersDescriptions() {
 		return parametersDescriptions;
 	}
 	
@@ -79,7 +82,7 @@ public class FormulaParametersCombination {
 		this.description = description;
 	}
 	
-	public void setParametersDescriptions(List<FormulaParameterDescription> parametersDescriptions) {
+	public void setParametersDescriptions(SortedSet<FormulaParameterDescription> parametersDescriptions) {
 		this.parametersDescriptions = parametersDescriptions;
 	}
 	

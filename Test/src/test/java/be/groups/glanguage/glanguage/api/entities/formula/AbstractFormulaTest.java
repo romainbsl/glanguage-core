@@ -12,7 +12,7 @@ import org.junit.experimental.categories.Category;
 
 import be.groups.common.persistence.util.TransactionHelper;
 import be.groups.common.test.utils.Environment;
-import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTest;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
 import be.groups.marmota.persistence.DatabaseIdentifier;
 import be.groups.marmota.persistence.JpaUtil;
 import be.groups.marmota.test.TNSNames;
@@ -60,7 +60,7 @@ public class AbstractFormulaTest {
 	 * Tests {@link AbstractFormula} JPA mapping
 	 */
 	@Test
-	@Category(JpaMappingTest.class)
+	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
 		AbstractFormula formula = em.find(AbstractFormula.class, 900003);
 

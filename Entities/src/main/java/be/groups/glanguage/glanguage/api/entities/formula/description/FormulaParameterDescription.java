@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "FORMULA_PARAMETER_DESCRIPTION")
-public class FormulaParameterDescription {
+public class FormulaParameterDescription implements Comparable<FormulaParameterDescription> {
 	
 	/*
 	 * Fields
@@ -133,6 +133,17 @@ public class FormulaParameterDescription {
 	
 	public void setDescriptionX(String descriptionX) {
 		this.descriptionX = descriptionX;
+	}
+
+	/*
+	 * Methods
+	 */
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int compareTo(FormulaParameterDescription o) {
+		return this.sequenceNumber.compareTo(o.sequenceNumber);
 	}
 	
 }
