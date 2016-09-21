@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaNot}
@@ -21,15 +22,25 @@ public class FormulaNotTest {
 	 * Tests
 	 */
 	/**
+	 * Tests {@link FormulaNot#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaNot formula = new FormulaNot();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.OP_NOT), formula.getDiscriminatorValue());
+	}
+	
+	/**
 	 * Tests {@link FormulaNot#isTerminal()}
 	 */
 	@Test
 	public void testIsTerminal() {
 		FormulaNot formula = new FormulaNot();
-
+		
 		assertFalse(formula.isTerminal());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaNot#getIntegerValue()}
 	 */
@@ -38,12 +49,12 @@ public class FormulaNotTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
-
+		
 		FormulaNot formula = new FormulaNot(null, childFormula);
-
+		
 		formula.getIntegerValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaNot#getNumericValue()}
 	 */
@@ -52,12 +63,12 @@ public class FormulaNotTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
-
+		
 		FormulaNot formula = new FormulaNot(null, childFormula);
-
+		
 		formula.getNumericValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaNot#getStringValue()}
 	 */
@@ -66,12 +77,12 @@ public class FormulaNotTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
-
+		
 		FormulaNot formula = new FormulaNot(null, childFormula);
-
+		
 		formula.getStringValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaNot#getBooleanValue()} when parameter exists
 	 */
@@ -80,12 +91,12 @@ public class FormulaNotTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
-
+		
 		FormulaNot formula = new FormulaNot(null, childFormula);
-
+		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaNot#getBooleanValue()} when parameter doesn't exist
 	 */
@@ -94,12 +105,12 @@ public class FormulaNotTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(null);
-
+		
 		FormulaNot formula = new FormulaNot(null, childFormula);
-
+		
 		formula.getBooleanValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaNot#getDateValue()}
 	 */
@@ -108,9 +119,9 @@ public class FormulaNotTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
-
+		
 		FormulaNot formula = new FormulaNot(null, childFormula);
-
+		
 		formula.getDateValue();
 	}
 	
@@ -122,22 +133,22 @@ public class FormulaNotTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
-
+		
 		FormulaNot formula = new FormulaNot(null, childFormula);
 		
 		formula.getDurationValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaNot#operationAsText()}
 	 */
 	@Test
 	public void testOperationAsText() {
 		FormulaNot formula = new FormulaNot();
-
+		
 		assertEquals("not", formula.operationAsText());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaNot#asText()}
 	 */
@@ -146,10 +157,10 @@ public class FormulaNotTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.asText()).thenReturn("some_rule");
-
+		
 		FormulaNot formula = new FormulaNot(null, childFormula);
-
+		
 		assertEquals("not some_rule", formula.asText());
 	}
-
+	
 }
