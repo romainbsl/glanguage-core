@@ -7,6 +7,8 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+
 /**
  * Test class for {@link FormulaTerminalDate}
  * 
@@ -17,6 +19,16 @@ public class FormulaTerminalDateTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaTerminalDate#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaTerminalDate formula = new FormulaTerminalDate();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.TERMINAL_DATE), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaTerminalDate#isTerminal()}
 	 */

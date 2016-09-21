@@ -5,16 +5,28 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+
 /**
  * Test class for {@link FormulaTerminalString}
  * 
  * @author DUPIREFR
  */
 public class FormulaTerminalStringTest {
-
+	
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaTerminalString#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaTerminalString formula = new FormulaTerminalString();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.TERMINAL_STRING), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaTerminalString#isTerminal()}
 	 */
@@ -23,7 +35,7 @@ public class FormulaTerminalStringTest {
 		FormulaTerminalString formula = new FormulaTerminalString();
 		assertTrue(formula.isTerminal());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalString#getIntegerValue()}
 	 */
@@ -32,7 +44,7 @@ public class FormulaTerminalStringTest {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getIntegerValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalString#getNumericValue()}
 	 */
@@ -41,7 +53,7 @@ public class FormulaTerminalStringTest {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getNumericValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalString#getStringValue()}
 	 */
@@ -50,7 +62,7 @@ public class FormulaTerminalStringTest {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		assertEquals("string", formula.getStringValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalString#getBooleanValue()}
 	 */
@@ -59,7 +71,7 @@ public class FormulaTerminalStringTest {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getBooleanValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalString#getDateValue()}
 	 */
@@ -77,7 +89,7 @@ public class FormulaTerminalStringTest {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getDurationValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalString#asText()}
 	 */
@@ -86,5 +98,5 @@ public class FormulaTerminalStringTest {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		assertEquals("string", formula.asText());
 	}
-
+	
 }

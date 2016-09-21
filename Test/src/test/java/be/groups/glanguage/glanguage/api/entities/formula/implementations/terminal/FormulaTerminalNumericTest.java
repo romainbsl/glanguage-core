@@ -5,16 +5,28 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+
 /**
  * Test class for {@link FormulaTerminalNumeric}
  * 
  * @author DUPIREFR
  */
 public class FormulaTerminalNumericTest {
-
+	
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaTerminalNumeric#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.TERMINAL_NUMERIC), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaTerminalNumeric#isTerminal()}
 	 */
@@ -23,7 +35,7 @@ public class FormulaTerminalNumericTest {
 		FormulaTerminalNumeric formula = new FormulaTerminalNumeric();
 		assertTrue(formula.isTerminal());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalNumeric#getIntegerValue()}
 	 */
@@ -32,7 +44,7 @@ public class FormulaTerminalNumericTest {
 		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalNumeric#getNumericValue()}
 	 */
@@ -41,7 +53,7 @@ public class FormulaTerminalNumericTest {
 		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		assertEquals(Double.valueOf(1.5), formula.getNumericValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalNumeric#getStringValue()}
 	 */
@@ -50,7 +62,7 @@ public class FormulaTerminalNumericTest {
 		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		assertEquals("1.5", formula.getStringValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalNumeric#getBooleanValue()}
 	 */
@@ -59,7 +71,7 @@ public class FormulaTerminalNumericTest {
 		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		formula.getBooleanValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalNumeric#getDateValue()}
 	 */
@@ -77,7 +89,7 @@ public class FormulaTerminalNumericTest {
 		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		formula.getDurationValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalNumeric#asText()}
 	 */
@@ -86,5 +98,5 @@ public class FormulaTerminalNumericTest {
 		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		assertEquals("1.5", formula.asText());
 	}
-
+	
 }

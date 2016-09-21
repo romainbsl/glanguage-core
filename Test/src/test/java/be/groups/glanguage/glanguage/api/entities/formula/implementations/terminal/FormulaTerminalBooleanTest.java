@@ -5,16 +5,28 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+
 /**
  * Test class for {@link FormulaTerminalBoolean}
  * 
  * @author DUPIREFR
  */
 public class FormulaTerminalBooleanTest {
-
+	
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaTerminalBoolean#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaTerminalBoolean formula = new FormulaTerminalBoolean();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.TERMINAL_BOOLEAN), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaTerminalBoolean#isTerminal()}
 	 */
@@ -23,7 +35,7 @@ public class FormulaTerminalBooleanTest {
 		FormulaTerminalBoolean formula = new FormulaTerminalBoolean();
 		assertTrue(formula.isTerminal());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalBoolean#getIntegerValue()}
 	 */
@@ -32,7 +44,7 @@ public class FormulaTerminalBooleanTest {
 		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		formula.getIntegerValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalBoolean#getNumericValue()}
 	 */
@@ -41,7 +53,7 @@ public class FormulaTerminalBooleanTest {
 		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		formula.getNumericValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalBoolean#getStringValue()}
 	 */
@@ -50,7 +62,7 @@ public class FormulaTerminalBooleanTest {
 		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		assertEquals("true", formula.getStringValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalBoolean#getBooleanValue()}
 	 */
@@ -59,7 +71,7 @@ public class FormulaTerminalBooleanTest {
 		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalBoolean#getDateValue()}
 	 */
@@ -86,5 +98,5 @@ public class FormulaTerminalBooleanTest {
 		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		assertEquals("true", formula.asText());
 	}
-
+	
 }

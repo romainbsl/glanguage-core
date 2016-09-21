@@ -5,16 +5,28 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+
 /**
  * Test class for {@link FormulaTerminalInteger}
  * 
  * @author DUPIREFR
  */
 public class FormulaTerminalIntegerTest {
-
+	
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaTerminalInteger#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaTerminalInteger formula = new FormulaTerminalInteger();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.TERMINAL_INTEGER), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaTerminalInteger#isTerminal()}
 	 */
@@ -23,7 +35,7 @@ public class FormulaTerminalIntegerTest {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger();
 		assertTrue(formula.isTerminal());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalInteger#getIntegerValue()}
 	 */
@@ -32,7 +44,7 @@ public class FormulaTerminalIntegerTest {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalInteger#getNumericValue()}
 	 */
@@ -41,7 +53,7 @@ public class FormulaTerminalIntegerTest {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		assertEquals(Double.valueOf(1), formula.getNumericValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalInteger#getStringValue()}
 	 */
@@ -50,7 +62,7 @@ public class FormulaTerminalIntegerTest {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		assertEquals("1", formula.getStringValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalInteger#getBooleanValue()}
 	 */
@@ -59,7 +71,7 @@ public class FormulaTerminalIntegerTest {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		formula.getBooleanValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalInteger#getDateValue()}
 	 */
@@ -77,7 +89,7 @@ public class FormulaTerminalIntegerTest {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		formula.getDurationValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalInteger#asText()}
 	 */
@@ -86,5 +98,5 @@ public class FormulaTerminalIntegerTest {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		assertEquals("1", formula.asText());
 	}
-
+	
 }
