@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaSubString}
@@ -23,6 +24,16 @@ public class FormulaSubStringTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaSubString#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaSubString formula = new FormulaSubString();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_SUBSTRING), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaSubString#isTerminal()}
 	 */
