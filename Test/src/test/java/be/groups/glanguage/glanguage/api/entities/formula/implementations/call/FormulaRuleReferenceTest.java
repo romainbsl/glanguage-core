@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
 /**
@@ -25,6 +26,16 @@ public class FormulaRuleReferenceTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaRuleReference#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaRuleReference formula = new FormulaRuleReference();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.C_RULE_REFERENCE), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaRuleReference#isTerminal()}
 	 */

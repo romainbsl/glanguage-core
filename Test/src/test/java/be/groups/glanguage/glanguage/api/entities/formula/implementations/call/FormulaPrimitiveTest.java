@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaPrimitive}
@@ -22,6 +23,16 @@ public class FormulaPrimitiveTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaPrimitive#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaPrimitive formula = new FormulaPrimitive();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.C_PRIMITIVE), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaPrimitive#isTerminal()}
 	 */

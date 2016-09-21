@@ -12,6 +12,7 @@ import org.junit.Test;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
 /**
@@ -24,6 +25,16 @@ public class FormulaApplicabilityTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaApplicability#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaApplicability formula = new FormulaApplicability();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.C_APPLICABILITY), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaApplicability#isTerminal()}
 	 */
