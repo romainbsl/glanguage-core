@@ -39,7 +39,7 @@ public class FormulaNotTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
 
-		FormulaNot formula = new FormulaNot(childFormula);
+		FormulaNot formula = new FormulaNot(null, childFormula);
 
 		formula.getIntegerValue();
 	}
@@ -53,7 +53,7 @@ public class FormulaNotTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
 
-		FormulaNot formula = new FormulaNot(childFormula);
+		FormulaNot formula = new FormulaNot(null, childFormula);
 
 		formula.getNumericValue();
 	}
@@ -67,7 +67,7 @@ public class FormulaNotTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
 
-		FormulaNot formula = new FormulaNot(childFormula);
+		FormulaNot formula = new FormulaNot(null, childFormula);
 
 		formula.getStringValue();
 	}
@@ -81,7 +81,7 @@ public class FormulaNotTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
 
-		FormulaNot formula = new FormulaNot(childFormula);
+		FormulaNot formula = new FormulaNot(null, childFormula);
 
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -95,7 +95,7 @@ public class FormulaNotTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(null);
 
-		FormulaNot formula = new FormulaNot(childFormula);
+		FormulaNot formula = new FormulaNot(null, childFormula);
 
 		formula.getBooleanValue();
 	}
@@ -109,7 +109,7 @@ public class FormulaNotTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
 
-		FormulaNot formula = new FormulaNot(childFormula);
+		FormulaNot formula = new FormulaNot(null, childFormula);
 
 		formula.getDateValue();
 	}
@@ -123,7 +123,7 @@ public class FormulaNotTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.getBooleanValue()).thenReturn(true);
 
-		FormulaNot formula = new FormulaNot(childFormula);
+		FormulaNot formula = new FormulaNot(null, childFormula);
 		
 		formula.getDurationValue();
 	}
@@ -147,7 +147,7 @@ public class FormulaNotTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(childFormula.asText()).thenReturn("some_rule");
 
-		FormulaNot formula = new FormulaNot(childFormula);
+		FormulaNot formula = new FormulaNot(null, childFormula);
 
 		assertEquals("not some_rule", formula.asText());
 	}

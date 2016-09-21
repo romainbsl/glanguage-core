@@ -54,7 +54,7 @@ public class FormulaOrTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 		
-		FormulaOr formula = new FormulaOr(leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
 		
 		formula.getIntegerValue();
 	}
@@ -72,7 +72,7 @@ public class FormulaOrTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 		
-		FormulaOr formula = new FormulaOr(leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
 		
 		formula.getNumericValue();
 	}
@@ -90,7 +90,7 @@ public class FormulaOrTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 		
-		FormulaOr formula = new FormulaOr(leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
 		
 		formula.getStringValue();
 	}
@@ -108,7 +108,7 @@ public class FormulaOrTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(true);
 		
-		FormulaOr formula = new FormulaOr(leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -126,7 +126,7 @@ public class FormulaOrTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(true);
 		
-		FormulaOr formula = new FormulaOr(leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -144,7 +144,7 @@ public class FormulaOrTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 		
-		FormulaOr formula = new FormulaOr(leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -162,7 +162,7 @@ public class FormulaOrTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 		
-		FormulaOr formula = new FormulaOr(leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -180,7 +180,7 @@ public class FormulaOrTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(true);
 		
-		FormulaOr formula = new FormulaOr(leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
 		
 		formula.getBooleanValue();
 	}
@@ -198,7 +198,7 @@ public class FormulaOrTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(null);
 		
-		FormulaOr formula = new FormulaOr(leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -216,7 +216,7 @@ public class FormulaOrTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(null);
 		
-		FormulaOr formula = new FormulaOr(leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
 		
 		formula.getBooleanValue();
 	}
@@ -234,7 +234,7 @@ public class FormulaOrTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(null);
 		
-		FormulaOr formula = new FormulaOr(leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
 		
 		formula.getBooleanValue();
 	}
@@ -252,7 +252,7 @@ public class FormulaOrTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 		
-		FormulaOr formula = new FormulaOr(leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
 		
 		formula.getDateValue();
 	}
@@ -270,7 +270,7 @@ public class FormulaOrTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 		
-		FormulaOr formula = new FormulaOr(leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
 		
 		formula.getDurationValue();
 	}
@@ -298,7 +298,7 @@ public class FormulaOrTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.asText()).thenReturn("some_rule2");
 		
-		FormulaOr formula = new FormulaOr(leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
 		
 		assertEquals("some_rule1 or some_rule2", formula.asText());
 	}

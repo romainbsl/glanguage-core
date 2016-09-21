@@ -39,7 +39,7 @@ public class FormulaUnaryMinusTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
 
 		assertEquals(Integer.valueOf(-1), formula.getIntegerValue());
 	}
@@ -53,7 +53,7 @@ public class FormulaUnaryMinusTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(null);
 
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
 
 		formula.getIntegerValue();
 	}
@@ -67,7 +67,7 @@ public class FormulaUnaryMinusTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(childFormula.getNumericValue()).thenReturn(1.5);
 
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
 
 		assertEquals(Double.valueOf(-1.5), formula.getNumericValue());
 	}
@@ -81,7 +81,7 @@ public class FormulaUnaryMinusTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(childFormula.getNumericValue()).thenReturn(null);
 
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
 
 		formula.getNumericValue();
 	}
@@ -95,7 +95,7 @@ public class FormulaUnaryMinusTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
 
 		formula.getStringValue();
 	}
@@ -109,7 +109,7 @@ public class FormulaUnaryMinusTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
 
 		formula.getBooleanValue();
 	}
@@ -123,7 +123,7 @@ public class FormulaUnaryMinusTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
 
 		formula.getDateValue();
 	}
@@ -137,7 +137,7 @@ public class FormulaUnaryMinusTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
 		
 		formula.getDurationValue();
 	}
@@ -161,7 +161,7 @@ public class FormulaUnaryMinusTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.asText()).thenReturn("some_rule");
 
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
 
 		assertEquals("- some_rule", formula.asText());
 	}

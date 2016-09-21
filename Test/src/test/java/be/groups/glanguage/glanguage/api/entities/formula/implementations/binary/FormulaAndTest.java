@@ -54,7 +54,7 @@ public class FormulaAndTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 		
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+		FormulaAnd formula = new FormulaAnd(null, leftFormula, rightFormula);
 		
 		formula.getIntegerValue();
 	}
@@ -72,7 +72,7 @@ public class FormulaAndTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 		
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+		FormulaAnd formula = new FormulaAnd(null, leftFormula, rightFormula);
 		
 		formula.getNumericValue();
 	}
@@ -90,7 +90,7 @@ public class FormulaAndTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 		
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+		FormulaAnd formula = new FormulaAnd(null, leftFormula, rightFormula);
 		
 		formula.getStringValue();
 	}
@@ -108,7 +108,7 @@ public class FormulaAndTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(true);
 		
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+		FormulaAnd formula = new FormulaAnd(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -126,7 +126,7 @@ public class FormulaAndTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(true);
 		
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+		FormulaAnd formula = new FormulaAnd(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -144,7 +144,7 @@ public class FormulaAndTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 		
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+		FormulaAnd formula = new FormulaAnd(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -162,7 +162,7 @@ public class FormulaAndTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 		
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+		FormulaAnd formula = new FormulaAnd(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -180,7 +180,7 @@ public class FormulaAndTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(true);
 		
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+		FormulaAnd formula = new FormulaAnd(null, leftFormula, rightFormula);
 		
 		formula.getBooleanValue();
 	}
@@ -198,7 +198,7 @@ public class FormulaAndTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(null);
 		
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+		FormulaAnd formula = new FormulaAnd(null, leftFormula, rightFormula);
 		
 		formula.getBooleanValue();
 	}
@@ -216,7 +216,7 @@ public class FormulaAndTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(null);
 		
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+		FormulaAnd formula = new FormulaAnd(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -234,7 +234,7 @@ public class FormulaAndTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(null);
 		
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+		FormulaAnd formula = new FormulaAnd(null, leftFormula, rightFormula);
 		
 		formula.getBooleanValue();
 	}
@@ -252,7 +252,7 @@ public class FormulaAndTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 		
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+		FormulaAnd formula = new FormulaAnd(null, leftFormula, rightFormula);
 		
 		formula.getDateValue();
 	}
@@ -270,7 +270,7 @@ public class FormulaAndTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.getBooleanValue()).thenReturn(false);
 		
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+		FormulaAnd formula = new FormulaAnd(null, leftFormula, rightFormula);
 		
 		formula.getDurationValue();
 	}
@@ -298,7 +298,7 @@ public class FormulaAndTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(rightFormula.asText()).thenReturn("some_rule2");
 		
-		FormulaAnd formula = new FormulaAnd(leftFormula, rightFormula);
+		FormulaAnd formula = new FormulaAnd(null, leftFormula, rightFormula);
 		
 		assertEquals("some_rule1 and some_rule2", formula.asText());
 	}

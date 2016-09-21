@@ -42,7 +42,7 @@ public class FormulaDurationMinutesTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		when(childFormula.getDurationValue()).thenReturn(Duration.ofHours(2L));
 		
-		FormulaDurationMinutes formula = new FormulaDurationMinutes(Arrays.asList(childFormula));
+		FormulaDurationMinutes formula = new FormulaDurationMinutes(null, Arrays.asList(childFormula));
 		
 		assertEquals(Integer.valueOf(120), formula.getIntegerValue());
 	}
@@ -56,7 +56,7 @@ public class FormulaDurationMinutesTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		when(childFormula.getDurationValue()).thenReturn(Duration.ofHours(2L));
 		
-		FormulaDurationMinutes formula = new FormulaDurationMinutes(Arrays.asList(childFormula));
+		FormulaDurationMinutes formula = new FormulaDurationMinutes(null, Arrays.asList(childFormula));
 		
 		formula.getNumericValue();
 	}
@@ -70,7 +70,7 @@ public class FormulaDurationMinutesTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		when(childFormula.getDurationValue()).thenReturn(Duration.ofHours(2L));
 		
-		FormulaDurationMinutes formula = new FormulaDurationMinutes(Arrays.asList(childFormula));
+		FormulaDurationMinutes formula = new FormulaDurationMinutes(null, Arrays.asList(childFormula));
 		
 		formula.getStringValue();
 	}
@@ -84,7 +84,7 @@ public class FormulaDurationMinutesTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		when(childFormula.getDurationValue()).thenReturn(Duration.ofHours(2L));
 		
-		FormulaDurationMinutes formula = new FormulaDurationMinutes(Arrays.asList(childFormula));
+		FormulaDurationMinutes formula = new FormulaDurationMinutes(null, Arrays.asList(childFormula));
 		
 		formula.getBooleanValue();
 	}
@@ -98,7 +98,7 @@ public class FormulaDurationMinutesTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		when(childFormula.getDurationValue()).thenReturn(Duration.ofHours(2L));
 		
-		FormulaDurationMinutes formula = new FormulaDurationMinutes(Arrays.asList(childFormula));
+		FormulaDurationMinutes formula = new FormulaDurationMinutes(null, Arrays.asList(childFormula));
 		
 		formula.getDateValue();
 	}
@@ -112,7 +112,7 @@ public class FormulaDurationMinutesTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		when(childFormula.getDurationValue()).thenReturn(Duration.ofHours(2L));
 		
-		FormulaDurationMinutes formula = new FormulaDurationMinutes(Arrays.asList(childFormula));
+		FormulaDurationMinutes formula = new FormulaDurationMinutes(null, Arrays.asList(childFormula));
 		
 		assertEquals(Duration.ofMinutes(120L), formula.getDurationValue());
 	}
@@ -136,7 +136,7 @@ public class FormulaDurationMinutesTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.asText()).thenReturn("some_rule");
 		
-		FormulaDurationMinutes formula = new FormulaDurationMinutes(Arrays.asList(childFormula));
+		FormulaDurationMinutes formula = new FormulaDurationMinutes(null, Arrays.asList(childFormula));
 		
 		assertEquals("minutes(some_rule)", formula.asText());
 	}

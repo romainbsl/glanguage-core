@@ -29,7 +29,7 @@ public class FormulaTerminalBooleanTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(true);
+		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		formula.getIntegerValue();
 	}
 
@@ -38,7 +38,7 @@ public class FormulaTerminalBooleanTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(true);
+		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		formula.getNumericValue();
 	}
 
@@ -47,7 +47,7 @@ public class FormulaTerminalBooleanTest {
 	 */
 	@Test
 	public void testGetStringValue() {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(true);
+		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		assertEquals("true", formula.getStringValue());
 	}
 
@@ -56,7 +56,7 @@ public class FormulaTerminalBooleanTest {
 	 */
 	@Test
 	public void testGetBooleanValue() {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(true);
+		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 
@@ -65,7 +65,7 @@ public class FormulaTerminalBooleanTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(true);
+		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		formula.getDateValue();
 	}
 	
@@ -74,7 +74,7 @@ public class FormulaTerminalBooleanTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(true);
+		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		formula.getDurationValue();
 	}
 	
@@ -83,7 +83,7 @@ public class FormulaTerminalBooleanTest {
 	 */
 	@Test
 	public void testAsText() {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(true);
+		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		assertEquals("true", formula.asText());
 	}
 

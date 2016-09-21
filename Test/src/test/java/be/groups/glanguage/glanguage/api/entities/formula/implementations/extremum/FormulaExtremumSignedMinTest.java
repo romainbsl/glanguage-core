@@ -60,7 +60,7 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.getNumericValue()).thenReturn(2.0);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(parameters);
+		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
 		
 		assertEquals(Integer.valueOf(-2), formula.getIntegerValue());
 	}
@@ -87,7 +87,7 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.getNumericValue()).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(parameters);
+		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
 		
 		assertEquals(Double.valueOf(1.5), formula.getNumericValue(), DELTA);
 	}
@@ -115,7 +115,7 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.getNumericValue()).thenReturn(2.0);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(parameters);
+		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
 		
 		assertEquals(Double.valueOf(-1), formula.getNumericValue(), DELTA);
 	}
@@ -142,7 +142,7 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.getNumericValue()).thenReturn(2.0);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(parameters);
+		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
 		
 		assertEquals(Double.valueOf(-2), formula.getNumericValue(), DELTA);
 	}
@@ -170,7 +170,7 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.getNumericValue()).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(parameters);
+		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
 		
 		formula.getStringValue();
 	}
@@ -197,7 +197,7 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.getNumericValue()).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(parameters);
+		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
 		
 		formula.getBooleanValue();
 	}
@@ -224,7 +224,7 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.getNumericValue()).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(parameters);
+		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
 		
 		formula.getDateValue();
 	}
@@ -251,7 +251,7 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.getNumericValue()).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(parameters);
+		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
 		
 		formula.getDurationValue();
 	}
@@ -288,7 +288,7 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.asText()).thenReturn("some_rule3");
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(parameters);
+		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
 		
 		assertEquals("smin(some_rule1, some_rule2, some_rule3)", formula.asText());
 	}

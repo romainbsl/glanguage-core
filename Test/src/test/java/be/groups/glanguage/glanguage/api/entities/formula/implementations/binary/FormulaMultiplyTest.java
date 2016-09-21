@@ -59,7 +59,7 @@ public class FormulaMultiplyTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(3.0);
 		
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
+		FormulaMultiply formula = new FormulaMultiply(null, leftFormula, rightFormula);
 		
 		assertEquals(Integer.valueOf(6), formula.getIntegerValue());
 	}
@@ -77,7 +77,7 @@ public class FormulaMultiplyTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(2.3);
 		
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
+		FormulaMultiply formula = new FormulaMultiply(null, leftFormula, rightFormula);
 		
 		assertEquals(Double.valueOf(3.45), formula.getNumericValue(), DELTA);
 	}
@@ -96,7 +96,7 @@ public class FormulaMultiplyTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(2.3);
 		
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
+		FormulaMultiply formula = new FormulaMultiply(null, leftFormula, rightFormula);
 		
 		assertEquals(Double.valueOf(4.6), formula.getNumericValue(), DELTA);
 	}
@@ -115,7 +115,7 @@ public class FormulaMultiplyTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(2.0);
 		
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
+		FormulaMultiply formula = new FormulaMultiply(null, leftFormula, rightFormula);
 		
 		assertEquals(Double.valueOf(4.6), formula.getNumericValue(), DELTA);
 	}
@@ -133,7 +133,7 @@ public class FormulaMultiplyTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(3.0);
 		
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
+		FormulaMultiply formula = new FormulaMultiply(null, leftFormula, rightFormula);
 		
 		formula.getStringValue();
 	}
@@ -151,7 +151,7 @@ public class FormulaMultiplyTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(3.0);
 		
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
+		FormulaMultiply formula = new FormulaMultiply(null, leftFormula, rightFormula);
 		
 		formula.getBooleanValue();
 	}
@@ -169,7 +169,7 @@ public class FormulaMultiplyTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(3.0);
 		
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
+		FormulaMultiply formula = new FormulaMultiply(null, leftFormula, rightFormula);
 		
 		formula.getDateValue();
 	}
@@ -187,7 +187,7 @@ public class FormulaMultiplyTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(3.0);
 		
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
+		FormulaMultiply formula = new FormulaMultiply(null, leftFormula, rightFormula);
 		
 		formula.getDurationValue();
 	}
@@ -215,7 +215,7 @@ public class FormulaMultiplyTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.asText()).thenReturn("some_rule2");
 		
-		FormulaMultiply formula = new FormulaMultiply(leftFormula, rightFormula);
+		FormulaMultiply formula = new FormulaMultiply(null, leftFormula, rightFormula);
 		
 		assertEquals("some_rule1 * some_rule2", formula.asText());
 	}

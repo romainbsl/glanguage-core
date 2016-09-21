@@ -67,7 +67,7 @@ public class FormulaFormatIntegerTest {
 		when(param5.getStringValue()).thenReturn(FormatSign.Values.NONE);
 		parameters.add(param5);
 		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
+		FormulaFormatInteger formula = new FormulaFormatInteger(null, parameters);
 		
 		formula.getIntegerValue();
 	}
@@ -104,7 +104,7 @@ public class FormulaFormatIntegerTest {
 		when(param5.getStringValue()).thenReturn(FormatSign.Values.NONE);
 		parameters.add(param5);
 		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
+		FormulaFormatInteger formula = new FormulaFormatInteger(null, parameters);
 		
 		formula.getNumericValue();
 	}
@@ -141,7 +141,7 @@ public class FormulaFormatIntegerTest {
 		when(param5.getStringValue()).thenReturn(FormatSign.Values.NONE);
 		parameters.add(param5);
 		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
+		FormulaFormatInteger formula = new FormulaFormatInteger(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("10***", formula.getStringValue());
@@ -179,7 +179,7 @@ public class FormulaFormatIntegerTest {
 		when(param5.getStringValue()).thenReturn(FormatSign.Values.NONE);
 		parameters.add(param5);
 		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
+		FormulaFormatInteger formula = new FormulaFormatInteger(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("10001", formula.getStringValue());
@@ -217,7 +217,7 @@ public class FormulaFormatIntegerTest {
 		when(param5.getStringValue()).thenReturn(FormatSign.Values.NONE);
 		parameters.add(param5);
 		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
+		FormulaFormatInteger formula = new FormulaFormatInteger(null, parameters);
 		
 		assertEquals(6, formula.getStringValue().length());
 		assertEquals("100011", formula.getStringValue());
@@ -255,7 +255,7 @@ public class FormulaFormatIntegerTest {
 		when(param5.getStringValue()).thenReturn(FormatSign.Values.NONE);
 		parameters.add(param5);
 		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
+		FormulaFormatInteger formula = new FormulaFormatInteger(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("**10*", formula.getStringValue());
@@ -293,7 +293,7 @@ public class FormulaFormatIntegerTest {
 		when(param5.getStringValue()).thenReturn(FormatSign.Values.NONE);
 		parameters.add(param5);
 		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
+		FormulaFormatInteger formula = new FormulaFormatInteger(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("***10", formula.getStringValue());
@@ -332,7 +332,7 @@ public class FormulaFormatIntegerTest {
 		when(param5.getStringValue()).thenReturn(FormatSign.Values.NONE);
 		parameters.add(param5);
 		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
+		FormulaFormatInteger formula = new FormulaFormatInteger(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("10***", formula.getStringValue());
@@ -371,7 +371,7 @@ public class FormulaFormatIntegerTest {
 		when(param5.getStringValue()).thenReturn(FormatSign.Values.POSITIVE_ONLY);
 		parameters.add(param5);
 		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
+		FormulaFormatInteger formula = new FormulaFormatInteger(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("10***", formula.getStringValue());
@@ -410,7 +410,7 @@ public class FormulaFormatIntegerTest {
 		when(param5.getStringValue()).thenReturn(FormatSign.Values.NEGATIVE_ONLY);
 		parameters.add(param5);
 		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
+		FormulaFormatInteger formula = new FormulaFormatInteger(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("-10**", formula.getStringValue());
@@ -449,7 +449,7 @@ public class FormulaFormatIntegerTest {
 		when(param5.getStringValue()).thenReturn(FormatSign.Values.NEGATIVE_ONLY);
 		parameters.add(param5);
 		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
+		FormulaFormatInteger formula = new FormulaFormatInteger(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("10***", formula.getStringValue());
@@ -488,7 +488,7 @@ public class FormulaFormatIntegerTest {
 		when(param5.getStringValue()).thenReturn(FormatSign.Values.BOTH);
 		parameters.add(param5);
 		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
+		FormulaFormatInteger formula = new FormulaFormatInteger(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("-10**", formula.getStringValue());
@@ -526,7 +526,7 @@ public class FormulaFormatIntegerTest {
 		when(param5.getStringValue()).thenReturn(FormatSign.Values.NONE);
 		parameters.add(param5);
 		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
+		FormulaFormatInteger formula = new FormulaFormatInteger(null, parameters);
 		
 		formula.getBooleanValue();
 	}
@@ -563,7 +563,7 @@ public class FormulaFormatIntegerTest {
 		when(param5.getStringValue()).thenReturn(FormatSign.Values.NONE);
 		parameters.add(param5);
 		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
+		FormulaFormatInteger formula = new FormulaFormatInteger(null, parameters);
 		
 		formula.getDateValue();
 	}
@@ -600,7 +600,7 @@ public class FormulaFormatIntegerTest {
 		when(param5.getStringValue()).thenReturn(FormatSign.Values.NONE);
 		parameters.add(param5);
 		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
+		FormulaFormatInteger formula = new FormulaFormatInteger(null, parameters);
 		
 		formula.getDurationValue();
 	}
@@ -647,7 +647,7 @@ public class FormulaFormatIntegerTest {
 		when(param5.asText()).thenReturn(FormatSign.Values.NONE);
 		parameters.add(param5);
 		
-		FormulaFormatInteger formula = new FormulaFormatInteger(parameters);
+		FormulaFormatInteger formula = new FormulaFormatInteger(null, parameters);
 		
 		assertEquals("formatInteger(10; 5; " + FormatAlignment.Values.LEFT_JUSTIFY + "; *; " + FormatSign.Values.NONE + ")",
 				formula.asText());

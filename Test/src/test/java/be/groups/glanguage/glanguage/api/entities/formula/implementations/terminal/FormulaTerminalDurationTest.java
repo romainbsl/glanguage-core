@@ -31,7 +31,7 @@ public class FormulaTerminalDurationTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration("P1Y2M3DT4H5M6.7S");
+		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "P1Y2M3DT4H5M6.7S");
 		formula.getIntegerValue();
 	}
 	
@@ -40,7 +40,7 @@ public class FormulaTerminalDurationTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration("P1Y2M3DT4H5M6.7S");
+		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "P1Y2M3DT4H5M6.7S");
 		formula.getNumericValue();
 	}
 	
@@ -49,7 +49,7 @@ public class FormulaTerminalDurationTest {
 	 */
 	@Test
 	public void testGetStringValue() {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration("P1Y2M3DT4H5M6.7S");
+		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "P1Y2M3DT4H5M6.7S");
 		assertEquals("P1Y2M3DT4H5M6.7S", formula.getStringValue());
 	}
 	
@@ -58,7 +58,7 @@ public class FormulaTerminalDurationTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration("P1Y2M3DT4H5M6.7S");
+		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "P1Y2M3DT4H5M6.7S");
 		formula.getBooleanValue();
 	}
 	
@@ -67,7 +67,7 @@ public class FormulaTerminalDurationTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration("P1Y2M3DT4H5M6.7S");
+		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "P1Y2M3DT4H5M6.7S");
 		formula.getDateValue();
 	}
 	
@@ -76,7 +76,7 @@ public class FormulaTerminalDurationTest {
 	 */
 	@Test
 	public void testGetDurationValue() {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration("'P1Y2M3DT4H5M6.7S'");
+		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "'P1Y2M3DT4H5M6.7S'");
 		assertEquals(Duration.parse("P430DT4H5M6.7S"), formula.getDurationValue());
 	}
 	
@@ -85,7 +85,7 @@ public class FormulaTerminalDurationTest {
 	 */
 	@Test
 	public void testGetDurationValueWithoutTime() {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration("'P1Y2M3D'");
+		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "'P1Y2M3D'");
 		assertEquals(Duration.parse("P430D"), formula.getDurationValue());
 	}
 	
@@ -94,7 +94,7 @@ public class FormulaTerminalDurationTest {
 	 */
 	@Test
 	public void testGetDurationValueWithoutYear() {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration("'P2M3DT4H5M6.7S'");
+		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "'P2M3DT4H5M6.7S'");
 		assertEquals(Duration.parse("P65DT4H5M6.7S"), formula.getDurationValue());
 	}
 	
@@ -103,7 +103,7 @@ public class FormulaTerminalDurationTest {
 	 */
 	@Test
 	public void testGetDurationValueWithoutYearAndMonth() {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration("'P3DT4H5M6.7S'");
+		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "'P3DT4H5M6.7S'");
 		assertEquals(Duration.parse("P3DT4H5M6.7S"), formula.getDurationValue());
 	}
 	
@@ -112,7 +112,7 @@ public class FormulaTerminalDurationTest {
 	 */
 	@Test
 	public void testGetDurationValueWithoutDates() {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration("'PT4H5M6.7S'");
+		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "'PT4H5M6.7S'");
 		assertEquals(Duration.parse("PT4H5M6.7S"), formula.getDurationValue());
 	}
 	
@@ -121,7 +121,7 @@ public class FormulaTerminalDurationTest {
 	 */
 	@Test
 	public void testAsText() {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration("string");
+		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "string");
 		assertEquals("string", formula.asText());
 	}
 	

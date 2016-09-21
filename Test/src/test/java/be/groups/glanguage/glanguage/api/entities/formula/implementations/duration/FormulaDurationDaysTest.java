@@ -43,7 +43,7 @@ public class FormulaDurationDaysTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		when(childFormula.getDateValue()).thenReturn(LocalDate.of(2015, 1, 10));
 		
-		FormulaDurationDays formula = new FormulaDurationDays(Arrays.asList(childFormula));
+		FormulaDurationDays formula = new FormulaDurationDays(null, Arrays.asList(childFormula));
 		
 		assertEquals(Integer.valueOf(10), formula.getIntegerValue());
 	}
@@ -57,7 +57,7 @@ public class FormulaDurationDaysTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		when(childFormula.getDurationValue()).thenReturn(Duration.ofDays(10L));
 		
-		FormulaDurationDays formula = new FormulaDurationDays(Arrays.asList(childFormula));
+		FormulaDurationDays formula = new FormulaDurationDays(null, Arrays.asList(childFormula));
 		
 		assertEquals(Integer.valueOf(10), formula.getIntegerValue());
 	}
@@ -71,7 +71,7 @@ public class FormulaDurationDaysTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		when(childFormula.getDateValue()).thenReturn(LocalDate.of(2015, 1, 10));
 		
-		FormulaDurationDays formula = new FormulaDurationDays(Arrays.asList(childFormula));
+		FormulaDurationDays formula = new FormulaDurationDays(null, Arrays.asList(childFormula));
 		
 		formula.getNumericValue();
 	}
@@ -85,7 +85,7 @@ public class FormulaDurationDaysTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		when(childFormula.getDateValue()).thenReturn(LocalDate.of(2015, 1, 10));
 		
-		FormulaDurationDays formula = new FormulaDurationDays(Arrays.asList(childFormula));
+		FormulaDurationDays formula = new FormulaDurationDays(null, Arrays.asList(childFormula));
 		
 		formula.getStringValue();
 	}
@@ -99,7 +99,7 @@ public class FormulaDurationDaysTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		when(childFormula.getDateValue()).thenReturn(LocalDate.of(2015, 1, 10));
 		
-		FormulaDurationDays formula = new FormulaDurationDays(Arrays.asList(childFormula));
+		FormulaDurationDays formula = new FormulaDurationDays(null, Arrays.asList(childFormula));
 		
 		formula.getBooleanValue();
 	}
@@ -113,7 +113,7 @@ public class FormulaDurationDaysTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		when(childFormula.getDateValue()).thenReturn(LocalDate.of(2015, 1, 10));
 		
-		FormulaDurationDays formula = new FormulaDurationDays(Arrays.asList(childFormula));
+		FormulaDurationDays formula = new FormulaDurationDays(null, Arrays.asList(childFormula));
 		
 		formula.getDateValue();
 	}
@@ -127,7 +127,7 @@ public class FormulaDurationDaysTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		when(childFormula.getDateValue()).thenReturn(LocalDate.of(2015, 1, 10));
 		
-		FormulaDurationDays formula = new FormulaDurationDays(Arrays.asList(childFormula));
+		FormulaDurationDays formula = new FormulaDurationDays(null, Arrays.asList(childFormula));
 		
 		assertEquals(Duration.ofDays(10L), formula.getDurationValue());
 	}
@@ -141,7 +141,7 @@ public class FormulaDurationDaysTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		when(childFormula.getDurationValue()).thenReturn(Duration.ofDays(10L));
 		
-		FormulaDurationDays formula = new FormulaDurationDays(Arrays.asList(childFormula));
+		FormulaDurationDays formula = new FormulaDurationDays(null, Arrays.asList(childFormula));
 		
 		assertEquals(Duration.ofDays(10L), formula.getDurationValue());
 	}
@@ -165,7 +165,7 @@ public class FormulaDurationDaysTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.asText()).thenReturn("some_rule");
 		
-		FormulaDurationDays formula = new FormulaDurationDays(Arrays.asList(childFormula));
+		FormulaDurationDays formula = new FormulaDurationDays(null, Arrays.asList(childFormula));
 		
 		assertEquals("days(some_rule)", formula.asText());
 	}

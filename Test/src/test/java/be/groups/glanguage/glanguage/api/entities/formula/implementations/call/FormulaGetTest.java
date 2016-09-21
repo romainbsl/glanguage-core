@@ -42,7 +42,7 @@ public class FormulaGetTest {
 		// TODO implement test
 		fail("Not yet implemented");
 	}
-
+	
 	/**
 	 * Tests {@link FormulaGet#getNumericValue()}
 	 */
@@ -51,7 +51,7 @@ public class FormulaGetTest {
 		// TODO implement test
 		fail("Not yet implemented");
 	}
-
+	
 	/**
 	 * Tests {@link FormulaGet#getStringValue()}
 	 */
@@ -60,7 +60,7 @@ public class FormulaGetTest {
 		// TODO implement test
 		fail("Not yet implemented");
 	}
-
+	
 	/**
 	 * Tests {@link FormulaGet#getBooleanValue()}
 	 */
@@ -69,7 +69,7 @@ public class FormulaGetTest {
 		// TODO implement test
 		fail("Not yet implemented");
 	}
-
+	
 	/**
 	 * Tests {@link FormulaGet#getDateValue()}
 	 */
@@ -78,7 +78,7 @@ public class FormulaGetTest {
 		// TODO implement test
 		fail("Not yet implemented");
 	}
-
+	
 	/**
 	 * Tests {@link FormulaGet#getDurationValue()}
 	 */
@@ -103,9 +103,10 @@ public class FormulaGetTest {
 		AbstractFormula calls3Param2 = mock(AbstractFormula.class);
 		when(calls3Param2.asText()).thenReturn("some_rule2");
 		
-		List<List<AbstractFormula>> parameters = Arrays.asList(Arrays.asList(), Arrays.asList(), Arrays.asList(calls3Param1, calls3Param2));
-		
-		FormulaGet formula = new FormulaGet(returnType, identifiers, parameters);
+		List<List<AbstractFormula>> parameters =
+				Arrays.asList(Arrays.asList(), Arrays.asList(), Arrays.asList(calls3Param1, calls3Param2));
+				
+		FormulaGet formula = new FormulaGet(null, null, returnType, identifiers, parameters);
 		
 		assertEquals("get BOOLEAN call1().call2().call3(some_rule1; some_rule2)", formula.asText());
 	}

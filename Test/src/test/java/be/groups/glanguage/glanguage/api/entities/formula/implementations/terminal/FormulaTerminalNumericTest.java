@@ -29,7 +29,7 @@ public class FormulaTerminalNumericTest {
 	 */
 	@Test
 	public void testGetIntegerValue() {
-		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
 	}
 
@@ -38,7 +38,7 @@ public class FormulaTerminalNumericTest {
 	 */
 	@Test
 	public void testGetNumericValue() {
-		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		assertEquals(Double.valueOf(1.5), formula.getNumericValue());
 	}
 
@@ -47,7 +47,7 @@ public class FormulaTerminalNumericTest {
 	 */
 	@Test
 	public void testGetStringValue() {
-		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		assertEquals("1.5", formula.getStringValue());
 	}
 
@@ -56,7 +56,7 @@ public class FormulaTerminalNumericTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
-		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		formula.getBooleanValue();
 	}
 
@@ -65,7 +65,7 @@ public class FormulaTerminalNumericTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
-		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		formula.getDateValue();
 	}
 	
@@ -74,7 +74,7 @@ public class FormulaTerminalNumericTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
-		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		formula.getDurationValue();
 	}
 
@@ -83,7 +83,7 @@ public class FormulaTerminalNumericTest {
 	 */
 	@Test
 	public void testAsText() {
-		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		assertEquals("1.5", formula.asText());
 	}
 

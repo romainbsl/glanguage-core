@@ -59,7 +59,7 @@ public class FormulaMinusTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(2.0);
 		
-		FormulaMinus formula = new FormulaMinus(leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
 		
 		assertEquals(Integer.valueOf(-1), formula.getIntegerValue());
 	}
@@ -77,7 +77,7 @@ public class FormulaMinusTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(2.3);
 		
-		FormulaMinus formula = new FormulaMinus(leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
 		
 		assertEquals(Double.valueOf(-0.8), formula.getNumericValue(), DELTA);
 	}
@@ -96,7 +96,7 @@ public class FormulaMinusTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(2.3);
 		
-		FormulaMinus formula = new FormulaMinus(leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
 		
 		assertEquals(Double.valueOf(-1.3), formula.getNumericValue(), DELTA);
 	}
@@ -115,7 +115,7 @@ public class FormulaMinusTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(1.0);
 		
-		FormulaMinus formula = new FormulaMinus(leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
 		
 		assertEquals(Double.valueOf(1.3), formula.getNumericValue(), DELTA);
 	}
@@ -133,7 +133,7 @@ public class FormulaMinusTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(1.0);
 		
-		FormulaMinus formula = new FormulaMinus(leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
 		
 		formula.getStringValue();
 	}
@@ -151,7 +151,7 @@ public class FormulaMinusTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(1.0);
 		
-		FormulaMinus formula = new FormulaMinus(leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
 		
 		formula.getBooleanValue();
 	}
@@ -169,7 +169,7 @@ public class FormulaMinusTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(1.0);
 		
-		FormulaMinus formula = new FormulaMinus(leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
 		
 		formula.getDateValue();
 	}
@@ -187,7 +187,7 @@ public class FormulaMinusTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(1.0);
 		
-		FormulaMinus formula = new FormulaMinus(leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
 		
 		formula.getDurationValue();
 	}
@@ -215,7 +215,7 @@ public class FormulaMinusTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.asText()).thenReturn("some_rule2");
 		
-		FormulaMinus formula = new FormulaMinus(leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
 		
 		assertEquals("some_rule1 - some_rule2", formula.asText());
 	}

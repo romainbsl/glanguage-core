@@ -39,7 +39,7 @@ public class FormulaPrimitiveTest {
 	public void testGetIntegerValue() {
 		String primitive = "call";
 		
-		FormulaPrimitive formula = new FormulaPrimitive(primitive, Arrays.asList());
+		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
 		
 		formula.getIntegerValue();
 	}
@@ -51,7 +51,7 @@ public class FormulaPrimitiveTest {
 	public void testGetNumericValue() {
 		String primitive = "call";
 		
-		FormulaPrimitive formula = new FormulaPrimitive(primitive, Arrays.asList());
+		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
 		
 		formula.getNumericValue();
 	}
@@ -63,7 +63,7 @@ public class FormulaPrimitiveTest {
 	public void testGetStringValue() {
 		String primitive = "call";
 		
-		FormulaPrimitive formula = new FormulaPrimitive(primitive, Arrays.asList());
+		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
 		
 		formula.getStringValue();
 	}
@@ -75,7 +75,7 @@ public class FormulaPrimitiveTest {
 	public void testGetBooleanValue() {
 		String primitive = "call";
 		
-		FormulaPrimitive formula = new FormulaPrimitive(primitive, Arrays.asList());
+		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
 		
 		formula.getBooleanValue();
 	}
@@ -87,7 +87,7 @@ public class FormulaPrimitiveTest {
 	public void testGetDateValue() {
 		String primitive = "call";
 		
-		FormulaPrimitive formula = new FormulaPrimitive(primitive, Arrays.asList());
+		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
 		
 		formula.getDateValue();
 	}
@@ -99,7 +99,7 @@ public class FormulaPrimitiveTest {
 	public void testGetDurationValue() {
 		String primitive = "call";
 		
-		FormulaPrimitive formula = new FormulaPrimitive(primitive, Arrays.asList());
+		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
 		
 		formula.getDurationValue();
 	}
@@ -119,7 +119,7 @@ public class FormulaPrimitiveTest {
 		
 		List<AbstractFormula> parameters = Arrays.asList(calls3Param1, calls3Param2);
 		
-		FormulaPrimitive formula = new FormulaPrimitive(primitive, parameters);
+		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, parameters);
 		
 		assertEquals("call(some_rule1; some_rule2)", formula.asText());
 	}

@@ -29,7 +29,7 @@ public class FormulaTerminalIntegerTest {
 	 */
 	@Test
 	public void testGetIntegerValue() {
-		FormulaTerminalInteger formula = new FormulaTerminalInteger("1");
+		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
 	}
 
@@ -38,7 +38,7 @@ public class FormulaTerminalIntegerTest {
 	 */
 	@Test
 	public void testGetNumericValue() {
-		FormulaTerminalInteger formula = new FormulaTerminalInteger("1");
+		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		assertEquals(Double.valueOf(1), formula.getNumericValue());
 	}
 
@@ -47,7 +47,7 @@ public class FormulaTerminalIntegerTest {
 	 */
 	@Test
 	public void testGetStringValue() {
-		FormulaTerminalInteger formula = new FormulaTerminalInteger("1");
+		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		assertEquals("1", formula.getStringValue());
 	}
 
@@ -56,7 +56,7 @@ public class FormulaTerminalIntegerTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
-		FormulaTerminalInteger formula = new FormulaTerminalInteger("1");
+		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		formula.getBooleanValue();
 	}
 
@@ -65,7 +65,7 @@ public class FormulaTerminalIntegerTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
-		FormulaTerminalInteger formula = new FormulaTerminalInteger("1");
+		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		formula.getDateValue();
 	}
 	
@@ -74,7 +74,7 @@ public class FormulaTerminalIntegerTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
-		FormulaTerminalInteger formula = new FormulaTerminalInteger("1");
+		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		formula.getDurationValue();
 	}
 
@@ -83,7 +83,7 @@ public class FormulaTerminalIntegerTest {
 	 */
 	@Test
 	public void testAsText() {
-		FormulaTerminalInteger formula = new FormulaTerminalInteger("1");
+		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		assertEquals("1", formula.asText());
 	}
 

@@ -1,6 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
