@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaMathSign}
@@ -23,6 +24,16 @@ public class FormulaMathSignTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaMathSign#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaMathSign formula = new FormulaMathSign();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_SIGN), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaMathSign#isTerminal()}
 	 */
