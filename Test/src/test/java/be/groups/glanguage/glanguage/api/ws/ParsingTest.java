@@ -7,11 +7,11 @@ import javax.ws.rs.core.Response;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import be.groups.glanguage.glanguage.api.test.categories.WsTest;
+import be.groups.glanguage.glanguage.api.test.categories.WsTestCategory;
 
 public class ParsingTest extends BaseJerseyResourceTest {
 	
-	@Category(WsTest.class)
+	@Category(WsTestCategory.class)
 	@Test
 	public void test() {
 		String formulaString = "0";
