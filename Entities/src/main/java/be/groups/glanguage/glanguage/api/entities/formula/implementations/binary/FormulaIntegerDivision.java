@@ -7,6 +7,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
@@ -17,8 +18,8 @@ public class FormulaIntegerDivision extends BinaryFormula {
 		super();
 	}
 
-	public FormulaIntegerDivision(AbstractFormula child1, AbstractFormula child2) {
-		super( child1, child2);
+	public FormulaIntegerDivision(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) {
+		super(description, child1, child2);
 	}
 
 	@JsonIgnore

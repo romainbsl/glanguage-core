@@ -13,6 +13,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.DurationFormula;
 
@@ -29,12 +30,12 @@ public class FormulaTerminalDuration extends AbstractTerminalFormula {
 		super();
 	}
 	
-	public FormulaTerminalDuration(String constantValue) {
-		super(constantValue);
+	public FormulaTerminalDuration(FormulaDescription description, String constantValue) {
+		super(description, constantValue);
 	}
 	
-	public FormulaTerminalDuration(LocalDate date) {
-		super(date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+	public FormulaTerminalDuration(FormulaDescription description, LocalDate date) {
+		super(description, date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 	}
 	
 	public Duration getDurationValue() {

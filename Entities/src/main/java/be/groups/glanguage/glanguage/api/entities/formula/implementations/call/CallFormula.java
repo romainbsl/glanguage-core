@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.utils.Agents;
 
 @Entity
@@ -11,6 +12,10 @@ public abstract class CallFormula extends AbstractNonTerminalFormula {
 	
 	public CallFormula() {
 		super();
+	}
+	
+	public CallFormula(FormulaDescription description) {
+		super(description);
 	}
 
 	protected Object callFunctionAny(Object anObject, String aMethodName, AbstractFormula[] someMethodParameters) {

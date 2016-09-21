@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 
 @Entity
 public abstract class BinaryFormula extends AbstractNonTerminalFormula {
@@ -14,8 +15,8 @@ public abstract class BinaryFormula extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public BinaryFormula(AbstractFormula child1, AbstractFormula child2) {
-		super();
+	public BinaryFormula(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) {
+		super(description);
 		
 		if (child1 == null) {
 			throw new IllegalArgumentException("child1 must be non-null");

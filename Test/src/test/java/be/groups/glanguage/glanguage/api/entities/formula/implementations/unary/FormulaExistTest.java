@@ -39,7 +39,7 @@ public class FormulaExistTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.getValue()).thenReturn("some_value");
 
-		FormulaExist formula = new FormulaExist(childFormula);
+		FormulaExist formula = new FormulaExist(null, childFormula);
 
 		formula.getIntegerValue();
 	}
@@ -53,7 +53,7 @@ public class FormulaExistTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.getValue()).thenReturn("some_value");
 
-		FormulaExist formula = new FormulaExist(childFormula);
+		FormulaExist formula = new FormulaExist(null, childFormula);
 
 		formula.getNumericValue();
 	}
@@ -67,7 +67,7 @@ public class FormulaExistTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.getValue()).thenReturn("some_value");
 
-		FormulaExist formula = new FormulaExist(childFormula);
+		FormulaExist formula = new FormulaExist(null, childFormula);
 
 		formula.getStringValue();
 	}
@@ -81,7 +81,7 @@ public class FormulaExistTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.getValue()).thenReturn("some_value");
 
-		FormulaExist formula = new FormulaExist(childFormula);
+		FormulaExist formula = new FormulaExist(null, childFormula);
 
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -95,7 +95,7 @@ public class FormulaExistTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.getValue()).thenReturn(null);
 
-		FormulaExist formula = new FormulaExist(childFormula);
+		FormulaExist formula = new FormulaExist(null, childFormula);
 
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -109,7 +109,7 @@ public class FormulaExistTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.getValue()).thenReturn("some_value");
 
-		FormulaExist formula = new FormulaExist(childFormula);
+		FormulaExist formula = new FormulaExist(null, childFormula);
 
 		formula.getDateValue();
 	}
@@ -123,7 +123,7 @@ public class FormulaExistTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.getValue()).thenReturn("some_value");
 
-		FormulaExist formula = new FormulaExist(childFormula);
+		FormulaExist formula = new FormulaExist(null, childFormula);
 		
 		formula.getDurationValue();
 	}
@@ -147,7 +147,7 @@ public class FormulaExistTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.asText()).thenReturn("some_rule");
 
-		FormulaExist formula = new FormulaExist(childFormula);
+		FormulaExist formula = new FormulaExist(null, childFormula);
 
 		assertEquals("? some_rule", formula.asText());
 	}

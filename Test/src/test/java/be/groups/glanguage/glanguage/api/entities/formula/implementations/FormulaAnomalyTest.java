@@ -50,7 +50,7 @@ public class FormulaAnomalyTest {
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
 		
-		FormulaAnomaly formula = new FormulaAnomaly(parameters);
+		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
 		
 		assertEquals(Integer.valueOf(0), formula.getIntegerValue());
 	}
@@ -70,7 +70,7 @@ public class FormulaAnomalyTest {
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
 		
-		FormulaAnomaly formula = new FormulaAnomaly(parameters);
+		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
 		
 		assertEquals(Double.valueOf(0), formula.getNumericValue());
 	}
@@ -90,7 +90,7 @@ public class FormulaAnomalyTest {
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
 		
-		FormulaAnomaly formula = new FormulaAnomaly(parameters);
+		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
 		
 		assertEquals("", formula.getStringValue());
 	}
@@ -110,7 +110,7 @@ public class FormulaAnomalyTest {
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
 		
-		FormulaAnomaly formula = new FormulaAnomaly(parameters);
+		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
 		
 		formula.getBooleanValue();
 	}
@@ -130,7 +130,7 @@ public class FormulaAnomalyTest {
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
 		
-		FormulaAnomaly formula = new FormulaAnomaly(parameters);
+		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
 		
 		assertEquals(LocalDate.MIN, formula.getDateValue());
 	}
@@ -150,7 +150,7 @@ public class FormulaAnomalyTest {
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
 		
-		FormulaAnomaly formula = new FormulaAnomaly(parameters);
+		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
 		
 		assertEquals(Duration.ZERO, formula.getDurationValue());
 	}
@@ -170,7 +170,7 @@ public class FormulaAnomalyTest {
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
 		
-		FormulaAnomaly formula = new FormulaAnomaly(parameters);
+		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
 		
 		assertEquals("putText(1; System error)", formula.asText());
 	}

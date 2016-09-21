@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 
 @Entity
 public abstract class DurationFormula extends AbstractNonTerminalFormula {
@@ -17,8 +18,8 @@ public abstract class DurationFormula extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public DurationFormula(List<AbstractFormula> parameters) {
-		super();
+	public DurationFormula(FormulaDescription description, List<AbstractFormula> parameters) {
+		super(description);
 		
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");

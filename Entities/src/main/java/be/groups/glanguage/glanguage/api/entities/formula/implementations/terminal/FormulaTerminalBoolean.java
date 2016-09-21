@@ -10,6 +10,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
@@ -27,14 +28,14 @@ public class FormulaTerminalBoolean extends AbstractTerminalFormula {
 		super();
 	}
 
-	public FormulaTerminalBoolean(String constantValue) {
-		super(constantValue);
+	public FormulaTerminalBoolean(FormulaDescription description, String constantValue) {
+		super(description, constantValue);
 		
 		initializeBooleanValue(constantValue);
 	}
 
-	public FormulaTerminalBoolean(Boolean constantValue) {
-		this(constantValue.toString());
+	public FormulaTerminalBoolean(FormulaDescription description, Boolean constantValue) {
+		this(description, constantValue.toString());
 	}
 
 	@JsonIgnore

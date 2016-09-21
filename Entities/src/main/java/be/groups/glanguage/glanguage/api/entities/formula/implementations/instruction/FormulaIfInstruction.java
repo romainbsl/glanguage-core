@@ -12,19 +12,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
 @DiscriminatorValue(FormulaType.Values.I_IF)
 public class FormulaIfInstruction extends AbstractNonTerminalFormula {
-
+	
 	public FormulaIfInstruction() {
 		super();
 	}
-
-	public FormulaIfInstruction(AbstractFormula condition, AbstractFormula ifStatement, AbstractFormula elseStatement) {
-		super();
+	
+	public FormulaIfInstruction(FormulaDescription description, AbstractFormula condition, AbstractFormula ifStatement,
+			AbstractFormula elseStatement) {
+		super(description);
 		
 		if (condition == null) {
 			throw new IllegalArgumentException("condition must be non-null");
@@ -40,7 +42,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 		parameters.add(ifStatement);
 		parameters.add(elseStatement);
 	}
-
+	
 	@JsonIgnore
 	@Transient
 	@Override
@@ -55,7 +57,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 			}
 		}
 	}
-
+	
 	@JsonIgnore
 	@Transient
 	@Override
@@ -70,7 +72,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 			}
 		}
 	}
-
+	
 	@JsonIgnore
 	@Transient
 	@Override
@@ -85,7 +87,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 			}
 		}
 	}
-
+	
 	@JsonIgnore
 	@Transient
 	@Override
@@ -100,7 +102,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 			}
 		}
 	}
-
+	
 	@JsonIgnore
 	@Transient
 	@Override
@@ -115,7 +117,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 			}
 		}
 	}
-
+	
 	@JsonIgnore
 	@Transient
 	@Override
@@ -130,12 +132,12 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 			}
 		}
 	}
-
+	
 	@Override
 	public String asText() {
 		return asText(false);
 	}
-
+	
 	protected String asText(boolean fromIf) {
 		boolean elseIf = false;
 		StringBuilder sb = new StringBuilder();
@@ -166,5 +168,5 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 		}
 		return sb.toString();
 	}
-
+	
 }

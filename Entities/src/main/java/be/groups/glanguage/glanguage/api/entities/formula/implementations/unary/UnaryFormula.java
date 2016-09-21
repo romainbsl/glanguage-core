@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 
 @Entity
 public abstract class UnaryFormula extends AbstractNonTerminalFormula {
@@ -14,8 +15,8 @@ public abstract class UnaryFormula extends AbstractNonTerminalFormula {
 		super();
 	}
 
-	public UnaryFormula(AbstractFormula child) {
-		super();
+	public UnaryFormula(FormulaDescription description, AbstractFormula child) {
+		super(description);
 
 		if (child == null) {
 			throw new IllegalArgumentException("child must be non-null");

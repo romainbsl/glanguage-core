@@ -55,7 +55,7 @@ public class FormulaSubStringTest {
 		when(endIndex.getIntegerValue()).thenReturn(9);
 		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(parameters);
+		FormulaSubString formula = new FormulaSubString(null, parameters);
 		
 		formula.getIntegerValue();
 	}
@@ -82,7 +82,7 @@ public class FormulaSubStringTest {
 		when(endIndex.getIntegerValue()).thenReturn(9);
 		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(parameters);
+		FormulaSubString formula = new FormulaSubString(null, parameters);
 		
 		formula.getNumericValue();
 	}
@@ -109,7 +109,7 @@ public class FormulaSubStringTest {
 		when(endIndex.getIntegerValue()).thenReturn(9);
 		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(parameters);
+		FormulaSubString formula = new FormulaSubString(null, parameters);
 		
 		assertEquals("special", formula.getStringValue());
 	}
@@ -136,7 +136,7 @@ public class FormulaSubStringTest {
 		when(endIndex.getIntegerValue()).thenReturn(9);
 		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(parameters);
+		FormulaSubString formula = new FormulaSubString(null, parameters);
 		
 		formula.getStringValue();
 	}
@@ -164,7 +164,7 @@ public class FormulaSubStringTest {
 		when(endIndex.getIntegerValue()).thenReturn(2);
 		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(parameters);
+		FormulaSubString formula = new FormulaSubString(null, parameters);
 		
 		formula.getStringValue();
 	}
@@ -191,7 +191,7 @@ public class FormulaSubStringTest {
 		when(endIndex.getIntegerValue()).thenReturn(16);
 		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(parameters);
+		FormulaSubString formula = new FormulaSubString(null, parameters);
 		
 		formula.getStringValue();
 	}
@@ -218,7 +218,7 @@ public class FormulaSubStringTest {
 		when(endIndex.getIntegerValue()).thenReturn(9);
 		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(parameters);
+		FormulaSubString formula = new FormulaSubString(null, parameters);
 		
 		formula.getBooleanValue();
 	}
@@ -245,7 +245,7 @@ public class FormulaSubStringTest {
 		when(endIndex.getIntegerValue()).thenReturn(9);
 		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(parameters);
+		FormulaSubString formula = new FormulaSubString(null, parameters);
 		
 		formula.getDateValue();
 	}
@@ -272,7 +272,7 @@ public class FormulaSubStringTest {
 		when(endIndex.getIntegerValue()).thenReturn(9);
 		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(parameters);
+		FormulaSubString formula = new FormulaSubString(null, parameters);
 		
 		formula.getDurationValue();
 	}
@@ -299,7 +299,7 @@ public class FormulaSubStringTest {
 		when(index.asText()).thenReturn("7");
 		parameters.add(index);
 		
-		FormulaSubString formula = new FormulaSubString(parameters);
+		FormulaSubString formula = new FormulaSubString(null, parameters);
 		
 		assertEquals("subString(some_rule; 3; 7)", formula.asText());
 	}

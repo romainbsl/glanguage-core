@@ -10,6 +10,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
@@ -20,8 +21,8 @@ public class FormulaExtremumMax extends ExtremumFormula {
 		super();
 	}
 	
-	public FormulaExtremumMax(List<AbstractFormula> parameters) {
-		super(parameters);
+	public FormulaExtremumMax(FormulaDescription description, List<AbstractFormula> parameters) {
+		super(description, parameters);
 	}
 	
 	@JsonIgnore

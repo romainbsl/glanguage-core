@@ -7,6 +7,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
@@ -22,8 +23,8 @@ public class FormulaTerminalString extends AbstractTerminalFormula {
 		super();
 	}
 
-	public FormulaTerminalString(String constantValue) {
-		super(constantValue);
+	public FormulaTerminalString(FormulaDescription description, String constantValue) {
+		super(description, constantValue);
 	}
 		
 }

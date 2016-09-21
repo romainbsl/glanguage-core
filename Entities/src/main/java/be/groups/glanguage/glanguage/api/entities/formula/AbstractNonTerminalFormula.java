@@ -8,11 +8,17 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+
 @Entity
 public abstract class AbstractNonTerminalFormula extends AbstractFormula {
 	
 	protected AbstractNonTerminalFormula() {
 		super();
+	}
+	
+	protected AbstractNonTerminalFormula(FormulaDescription description) {
+		super(description);
 	}
 	
 	@JsonIgnore

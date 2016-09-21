@@ -55,7 +55,7 @@ public class FormulaStringItemTest {
 		when(index.getIntegerValue()).thenReturn(2);
 		parameters.add(index);
 		
-		FormulaStringItem formula = new FormulaStringItem(parameters);
+		FormulaStringItem formula = new FormulaStringItem(null, parameters);
 		
 		formula.getIntegerValue();
 	}
@@ -82,7 +82,7 @@ public class FormulaStringItemTest {
 		when(index.getIntegerValue()).thenReturn(2);
 		parameters.add(index);
 		
-		FormulaStringItem formula = new FormulaStringItem(parameters);
+		FormulaStringItem formula = new FormulaStringItem(null, parameters);
 		
 		formula.getNumericValue();
 	}
@@ -109,7 +109,7 @@ public class FormulaStringItemTest {
 		when(index.getIntegerValue()).thenReturn(2);
 		parameters.add(index);
 		
-		FormulaStringItem formula = new FormulaStringItem(parameters);
+		FormulaStringItem formula = new FormulaStringItem(null, parameters);
 		
 		assertEquals("special", formula.getStringValue());
 	}
@@ -136,7 +136,7 @@ public class FormulaStringItemTest {
 		when(index.getIntegerValue()).thenReturn(3);
 		parameters.add(index);
 		
-		FormulaStringItem formula = new FormulaStringItem(parameters);
+		FormulaStringItem formula = new FormulaStringItem(null, parameters);
 		
 		assertEquals("value", formula.getStringValue());
 	}
@@ -163,7 +163,7 @@ public class FormulaStringItemTest {
 		when(index.getIntegerValue()).thenReturn(4);
 		parameters.add(index);
 		
-		FormulaStringItem formula = new FormulaStringItem(parameters);
+		FormulaStringItem formula = new FormulaStringItem(null, parameters);
 		
 		assertEquals("", formula.getStringValue());
 	}
@@ -190,7 +190,7 @@ public class FormulaStringItemTest {
 		when(index.getIntegerValue()).thenReturn(2);
 		parameters.add(index);
 		
-		FormulaStringItem formula = new FormulaStringItem(parameters);
+		FormulaStringItem formula = new FormulaStringItem(null, parameters);
 		
 		assertEquals("value", formula.getStringValue());
 	}
@@ -217,7 +217,7 @@ public class FormulaStringItemTest {
 		when(index.getIntegerValue()).thenReturn(2);
 		parameters.add(index);
 		
-		FormulaStringItem formula = new FormulaStringItem(parameters);
+		FormulaStringItem formula = new FormulaStringItem(null, parameters);
 		
 		formula.getBooleanValue();
 	}
@@ -244,7 +244,7 @@ public class FormulaStringItemTest {
 		when(index.getIntegerValue()).thenReturn(2);
 		parameters.add(index);
 		
-		FormulaStringItem formula = new FormulaStringItem(parameters);
+		FormulaStringItem formula = new FormulaStringItem(null, parameters);
 		
 		formula.getDateValue();
 	}
@@ -271,7 +271,7 @@ public class FormulaStringItemTest {
 		when(index.getIntegerValue()).thenReturn(2);
 		parameters.add(index);
 		
-		FormulaStringItem formula = new FormulaStringItem(parameters);
+		FormulaStringItem formula = new FormulaStringItem(null, parameters);
 		
 		formula.getDurationValue();
 	}
@@ -298,7 +298,7 @@ public class FormulaStringItemTest {
 		when(index.asText()).thenReturn("2");
 		parameters.add(index);
 		
-		FormulaStringItem formula = new FormulaStringItem(parameters);
+		FormulaStringItem formula = new FormulaStringItem(null, parameters);
 		
 		assertEquals("stringItem(some_rule; /; 2)", formula.asText());
 	}

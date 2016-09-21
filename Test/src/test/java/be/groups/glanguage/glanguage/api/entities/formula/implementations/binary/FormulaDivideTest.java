@@ -59,7 +59,7 @@ public class FormulaDivideTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getValue()).thenReturn(0);
 		
-		FormulaDivide formula = new FormulaDivide(leftFormula, rightFormula);
+		FormulaDivide formula = new FormulaDivide(null, leftFormula, rightFormula);
 		
 		formula.getIntegerValue();
 	}
@@ -77,7 +77,7 @@ public class FormulaDivideTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(2.5);
 		
-		FormulaDivide formula = new FormulaDivide(leftFormula, rightFormula);
+		FormulaDivide formula = new FormulaDivide(null, leftFormula, rightFormula);
 		
 		assertEquals(Double.valueOf(1.28), formula.getNumericValue(), DELTA);
 	}
@@ -95,7 +95,7 @@ public class FormulaDivideTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getValue()).thenReturn(0);
 		
-		FormulaDivide formula = new FormulaDivide(leftFormula, rightFormula);
+		FormulaDivide formula = new FormulaDivide(null, leftFormula, rightFormula);
 		
 		formula.getStringValue();
 	}
@@ -113,7 +113,7 @@ public class FormulaDivideTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getValue()).thenReturn(0);
 		
-		FormulaDivide formula = new FormulaDivide(leftFormula, rightFormula);
+		FormulaDivide formula = new FormulaDivide(null, leftFormula, rightFormula);
 		
 		formula.getBooleanValue();
 	}
@@ -131,7 +131,7 @@ public class FormulaDivideTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getValue()).thenReturn(0);
 		
-		FormulaDivide formula = new FormulaDivide(leftFormula, rightFormula);
+		FormulaDivide formula = new FormulaDivide(null, leftFormula, rightFormula);
 		
 		formula.getDateValue();
 	}
@@ -149,7 +149,7 @@ public class FormulaDivideTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getValue()).thenReturn(0);
 		
-		FormulaDivide formula = new FormulaDivide(leftFormula, rightFormula);
+		FormulaDivide formula = new FormulaDivide(null, leftFormula, rightFormula);
 		
 		formula.getDurationValue();
 	}
@@ -177,7 +177,7 @@ public class FormulaDivideTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.asText()).thenReturn("some_rule2");
 		
-		FormulaDivide formula = new FormulaDivide(leftFormula, rightFormula);
+		FormulaDivide formula = new FormulaDivide(null, leftFormula, rightFormula);
 		
 		assertEquals("some_rule1 / some_rule2", formula.asText());
 	}

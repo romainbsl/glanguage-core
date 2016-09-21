@@ -9,6 +9,7 @@ import java.util.List;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 public class FormulaDate extends AbstractNonTerminalFormula {
@@ -17,7 +18,8 @@ public class FormulaDate extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public FormulaDate(List<AbstractFormula> parameters) {
+	public FormulaDate(FormulaDescription description, List<AbstractFormula> parameters) {
+		super(description);
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
 		}

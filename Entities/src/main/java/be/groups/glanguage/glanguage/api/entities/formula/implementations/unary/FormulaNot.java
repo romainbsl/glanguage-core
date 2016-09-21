@@ -10,6 +10,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
@@ -27,8 +28,8 @@ public class FormulaNot extends UnaryFormula {
 		super();
 	}
 
-	public FormulaNot(AbstractFormula child) {
-		super( child);
+	public FormulaNot(FormulaDescription description, AbstractFormula child) {
+		super(description, child);
 	}
 
 	@JsonIgnore

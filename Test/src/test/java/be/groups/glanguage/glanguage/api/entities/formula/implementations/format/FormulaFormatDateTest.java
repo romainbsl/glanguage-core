@@ -51,7 +51,7 @@ public class FormulaFormatDateTest {
 		when(param2.getStringValue()).thenReturn("yyyy-MM-dd");
 		parameters.add(param2);
 		
-		FormulaFormatDate formula = new FormulaFormatDate(parameters);
+		FormulaFormatDate formula = new FormulaFormatDate(null, parameters);
 		
 		formula.getIntegerValue();
 	}
@@ -73,7 +73,7 @@ public class FormulaFormatDateTest {
 		when(param2.getStringValue()).thenReturn("yyyy-MM-dd");
 		parameters.add(param2);
 		
-		FormulaFormatDate formula = new FormulaFormatDate(parameters);
+		FormulaFormatDate formula = new FormulaFormatDate(null, parameters);
 		
 		formula.getNumericValue();
 	}
@@ -95,7 +95,7 @@ public class FormulaFormatDateTest {
 		when(param2.getStringValue()).thenReturn("yyyy-MM-dd");
 		parameters.add(param2);
 		
-		FormulaFormatDate formula = new FormulaFormatDate(parameters);
+		FormulaFormatDate formula = new FormulaFormatDate(null, parameters);
 		
 		assertEquals("2015-01-10", formula.getStringValue());
 	}
@@ -117,7 +117,7 @@ public class FormulaFormatDateTest {
 		when(param2.getStringValue()).thenReturn("dd/MM/yyyy");
 		parameters.add(param2);
 		
-		FormulaFormatDate formula = new FormulaFormatDate(parameters);
+		FormulaFormatDate formula = new FormulaFormatDate(null, parameters);
 		
 		assertEquals("10/01/2015", formula.getStringValue());
 	}
@@ -139,7 +139,7 @@ public class FormulaFormatDateTest {
 		when(param2.getStringValue()).thenReturn("yyyy-MM-dd");
 		parameters.add(param2);
 		
-		FormulaFormatDate formula = new FormulaFormatDate(parameters);
+		FormulaFormatDate formula = new FormulaFormatDate(null, parameters);
 		
 		formula.getBooleanValue();
 	}
@@ -161,7 +161,7 @@ public class FormulaFormatDateTest {
 		when(param2.getStringValue()).thenReturn("yyyy-MM-dd");
 		parameters.add(param2);
 		
-		FormulaFormatDate formula = new FormulaFormatDate(parameters);
+		FormulaFormatDate formula = new FormulaFormatDate(null, parameters);
 		
 		formula.getDateValue();
 	}
@@ -183,7 +183,7 @@ public class FormulaFormatDateTest {
 		when(param2.getStringValue()).thenReturn("yyyy-MM-dd");
 		parameters.add(param2);
 		
-		FormulaFormatDate formula = new FormulaFormatDate(parameters);
+		FormulaFormatDate formula = new FormulaFormatDate(null, parameters);
 		
 		formula.getDurationValue();
 	}
@@ -215,7 +215,7 @@ public class FormulaFormatDateTest {
 		when(param2.asText()).thenReturn("yyyy-MM-dd");
 		parameters.add(param2);
 		
-		FormulaFormatDate formula = new FormulaFormatDate(parameters);
+		FormulaFormatDate formula = new FormulaFormatDate(null, parameters);
 		
 		assertEquals("formatDate(10/01/2015; yyyy-MM-dd)", formula.asText());
 	}

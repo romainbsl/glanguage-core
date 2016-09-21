@@ -195,6 +195,15 @@ public interface SemanticalAction {
 	public AbstractFormula inOperation(AbstractFormula formula, LinkedList<AbstractFormula> list);
 	
 	/**
+	 * "Bracket formula" node 
+	 *  
+	 * @param formulaDescriptionId
+	 * @param formula
+	 * @return
+	 */
+	public AbstractFormula bracketFormula(AbstractFormula formula);
+	
+	/**
 	 * "Reference to a rule" node
 	 * 
 	 * @param name The name of the rule referenced

@@ -43,7 +43,7 @@ public class FormulaRoundingArithmeticTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(10.0);
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
 		
 		assertEquals(Integer.valueOf(110), formula.getIntegerValue());
 	}
@@ -61,7 +61,7 @@ public class FormulaRoundingArithmeticTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
 		
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
 	}
@@ -79,7 +79,7 @@ public class FormulaRoundingArithmeticTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(10.0);
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
 		
 		assertEquals(Double.valueOf(110), formula.getNumericValue());
 	}
@@ -97,7 +97,7 @@ public class FormulaRoundingArithmeticTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
 		
 		assertEquals(Double.valueOf(1.57), formula.getNumericValue());
 	}
@@ -115,7 +115,7 @@ public class FormulaRoundingArithmeticTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
 		
 		formula.getStringValue();
 	}
@@ -133,7 +133,7 @@ public class FormulaRoundingArithmeticTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
 		
 		formula.getBooleanValue();
 	}
@@ -151,7 +151,7 @@ public class FormulaRoundingArithmeticTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
 		
 		formula.getDateValue();
 	}
@@ -169,7 +169,7 @@ public class FormulaRoundingArithmeticTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
 		
 		formula.getDurationValue();
 	}
@@ -197,7 +197,7 @@ public class FormulaRoundingArithmeticTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.asText()).thenReturn("0.01");
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
 		
 		assertEquals("round(some_rule; 0.01)", formula.asText());
 	}

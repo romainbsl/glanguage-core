@@ -53,7 +53,7 @@ public class FormulaInTest {
 		when(element3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(element3.getIntegerValue()).thenReturn(3);
 		
-		FormulaIn formula = new FormulaIn(parameter, Arrays.asList(element1, element2, element3));
+		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
 		
 		formula.getIntegerValue();
 	}
@@ -79,7 +79,7 @@ public class FormulaInTest {
 		when(element3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(element3.getIntegerValue()).thenReturn(3);
 		
-		FormulaIn formula = new FormulaIn(parameter, Arrays.asList(element1, element2, element3));
+		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
 		
 		formula.getNumericValue();
 	}
@@ -105,7 +105,7 @@ public class FormulaInTest {
 		when(element3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(element3.getIntegerValue()).thenReturn(3);
 		
-		FormulaIn formula = new FormulaIn(parameter, Arrays.asList(element1, element2, element3));
+		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
 		
 		formula.getStringValue();
 	}
@@ -131,7 +131,7 @@ public class FormulaInTest {
 		when(element3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(element3.getIntegerValue()).thenReturn(3);
 		
-		FormulaIn formula = new FormulaIn(parameter, Arrays.asList(element1, element2, element3));
+		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -157,7 +157,7 @@ public class FormulaInTest {
 		when(element3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(element3.getIntegerValue()).thenReturn(3);
 		
-		FormulaIn formula = new FormulaIn(parameter, Arrays.asList(element1, element2, element3));
+		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -171,7 +171,7 @@ public class FormulaInTest {
 		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue()).thenReturn(1);
 		
-		FormulaIn formula = new FormulaIn(parameter, Arrays.asList());
+		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList());
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -197,7 +197,7 @@ public class FormulaInTest {
 		when(element3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(element3.getIntegerValue()).thenReturn(3);
 		
-		FormulaIn formula = new FormulaIn(parameter, Arrays.asList(element1, element2, element3));
+		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
 		
 		formula.getDateValue();
 	}
@@ -223,7 +223,7 @@ public class FormulaInTest {
 		when(element3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(element3.getIntegerValue()).thenReturn(3);
 		
-		FormulaIn formula = new FormulaIn(parameter, Arrays.asList(element1, element2, element3));
+		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
 		
 		formula.getDurationValue();
 	}
@@ -232,7 +232,7 @@ public class FormulaInTest {
 	 * Tests {@link FormulaIn#asText()}
 	 */
 	@Test
-	public void testAsTextWith() {
+	public void testAsText() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.asText()).thenReturn("1");
 		
@@ -245,7 +245,7 @@ public class FormulaInTest {
 		AbstractFormula element3 = mock(AbstractFormula.class);
 		when(element3.asText()).thenReturn("3");
 		
-		FormulaIn formula = new FormulaIn(parameter, Arrays.asList(element1, element2, element3));
+		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
 		
 		assertEquals("1 in (1, 2, 3)", formula.asText());
 	}

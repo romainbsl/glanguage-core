@@ -14,6 +14,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
@@ -29,12 +30,12 @@ public class FormulaTerminalDate extends AbstractTerminalFormula {
 		super();
 	}
 
-	public FormulaTerminalDate(String constantValue) {
-		super(constantValue);
+	public FormulaTerminalDate(FormulaDescription description, String constantValue) {
+		super(description, constantValue);
 	}
 
-	public FormulaTerminalDate(LocalDate constantValue) {
-		this(constantValue.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+	public FormulaTerminalDate(FormulaDescription description, LocalDate constantValue) {
+		this(description, constantValue.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 	}
 
 	@JsonIgnore

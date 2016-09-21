@@ -54,7 +54,7 @@ public class FormulaIntegerDivisionTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(2);
 		
-		FormulaIntegerDivision formula = new FormulaIntegerDivision(leftFormula, rightFormula);
+		FormulaIntegerDivision formula = new FormulaIntegerDivision(null, leftFormula, rightFormula);
 		
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
 	}
@@ -72,7 +72,7 @@ public class FormulaIntegerDivisionTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(2);
 		
-		FormulaIntegerDivision formula = new FormulaIntegerDivision(leftFormula, rightFormula);
+		FormulaIntegerDivision formula = new FormulaIntegerDivision(null, leftFormula, rightFormula);
 		
 		formula.getNumericValue();
 	}
@@ -90,7 +90,7 @@ public class FormulaIntegerDivisionTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(2);
 		
-		FormulaIntegerDivision formula = new FormulaIntegerDivision(leftFormula, rightFormula);
+		FormulaIntegerDivision formula = new FormulaIntegerDivision(null, leftFormula, rightFormula);
 		
 		formula.getStringValue();
 	}
@@ -108,7 +108,7 @@ public class FormulaIntegerDivisionTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(2);
 		
-		FormulaIntegerDivision formula = new FormulaIntegerDivision(leftFormula, rightFormula);
+		FormulaIntegerDivision formula = new FormulaIntegerDivision(null, leftFormula, rightFormula);
 		
 		formula.getBooleanValue();
 	}
@@ -126,7 +126,7 @@ public class FormulaIntegerDivisionTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(2);
 		
-		FormulaIntegerDivision formula = new FormulaIntegerDivision(leftFormula, rightFormula);
+		FormulaIntegerDivision formula = new FormulaIntegerDivision(null, leftFormula, rightFormula);
 		
 		formula.getDateValue();
 	}
@@ -144,7 +144,7 @@ public class FormulaIntegerDivisionTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(2);
 		
-		FormulaIntegerDivision formula = new FormulaIntegerDivision(leftFormula, rightFormula);
+		FormulaIntegerDivision formula = new FormulaIntegerDivision(null, leftFormula, rightFormula);
 		
 		formula.getDurationValue();
 	}
@@ -172,7 +172,7 @@ public class FormulaIntegerDivisionTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.asText()).thenReturn("some_rule2");
 		
-		FormulaIntegerDivision formula = new FormulaIntegerDivision(leftFormula, rightFormula);
+		FormulaIntegerDivision formula = new FormulaIntegerDivision(null, leftFormula, rightFormula);
 		
 		assertEquals("some_rule1 / some_rule2", formula.asText());
 	}

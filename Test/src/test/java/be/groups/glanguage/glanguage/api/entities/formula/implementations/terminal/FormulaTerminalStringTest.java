@@ -29,7 +29,7 @@ public class FormulaTerminalStringTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
-		FormulaTerminalString formula = new FormulaTerminalString("string");
+		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getIntegerValue();
 	}
 
@@ -38,7 +38,7 @@ public class FormulaTerminalStringTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
-		FormulaTerminalString formula = new FormulaTerminalString("string");
+		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getNumericValue();
 	}
 
@@ -47,7 +47,7 @@ public class FormulaTerminalStringTest {
 	 */
 	@Test
 	public void testGetStringValue() {
-		FormulaTerminalString formula = new FormulaTerminalString("string");
+		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		assertEquals("string", formula.getStringValue());
 	}
 
@@ -56,7 +56,7 @@ public class FormulaTerminalStringTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
-		FormulaTerminalString formula = new FormulaTerminalString("string");
+		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getBooleanValue();
 	}
 
@@ -65,7 +65,7 @@ public class FormulaTerminalStringTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
-		FormulaTerminalString formula = new FormulaTerminalString("string");
+		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getDateValue();
 	}
 	
@@ -74,7 +74,7 @@ public class FormulaTerminalStringTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
-		FormulaTerminalString formula = new FormulaTerminalString("string");
+		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getDurationValue();
 	}
 
@@ -83,7 +83,7 @@ public class FormulaTerminalStringTest {
 	 */
 	@Test
 	public void testAsText() {
-		FormulaTerminalString formula = new FormulaTerminalString("string");
+		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		assertEquals("string", formula.asText());
 	}
 

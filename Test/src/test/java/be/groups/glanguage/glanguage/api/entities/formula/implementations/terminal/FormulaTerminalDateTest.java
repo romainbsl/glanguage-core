@@ -31,7 +31,7 @@ public class FormulaTerminalDateTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
-		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
+		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		formula.getIntegerValue();
 	}
 	
@@ -40,7 +40,7 @@ public class FormulaTerminalDateTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
-		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
+		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		formula.getNumericValue();
 	}
 	
@@ -49,7 +49,7 @@ public class FormulaTerminalDateTest {
 	 */
 	@Test
 	public void testGetStringValue() {
-		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
+		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		assertEquals("01/01/2015", formula.getStringValue());
 	}
 	
@@ -58,7 +58,7 @@ public class FormulaTerminalDateTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
-		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
+		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		formula.getBooleanValue();
 	}
 	
@@ -67,7 +67,7 @@ public class FormulaTerminalDateTest {
 	 */
 	@Test
 	public void testGetDateValue() {
-		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
+		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue());
 	}
 	
@@ -76,7 +76,7 @@ public class FormulaTerminalDateTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
-		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
+		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		formula.getDurationValue();
 	}
 	
@@ -85,7 +85,7 @@ public class FormulaTerminalDateTest {
 	 */
 	@Test
 	public void testAsText() {
-		FormulaTerminalDate formula = new FormulaTerminalDate("01/01/2015");
+		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		assertEquals("01/01/2015", formula.asText());
 	}
 	
