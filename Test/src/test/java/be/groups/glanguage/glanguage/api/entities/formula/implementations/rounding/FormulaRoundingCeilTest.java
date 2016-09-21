@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaRoundingCeil}
@@ -20,6 +21,16 @@ public class FormulaRoundingCeilTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaRoundingCeil#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaRoundingCeil formula = new FormulaRoundingCeil();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_CEIL), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaRoundingCeil#isTerminal()}
 	 */

@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaRoundingBankers}
@@ -20,6 +21,16 @@ public class FormulaRoundingBankersTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaRoundingBankers#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaRoundingBankers formula = new FormulaRoundingBankers();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_BANKERS_ROUNDED), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaRoundingBankers#isTerminal()}
 	 */
