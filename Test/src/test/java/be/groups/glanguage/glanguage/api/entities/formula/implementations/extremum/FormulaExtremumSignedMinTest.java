@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaExtremumSignedMin}
@@ -28,6 +29,16 @@ public class FormulaExtremumSignedMinTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaExtremumSignedMin#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_SMIN), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaExtremumSignedMin#isTerminal()}
 	 */
@@ -93,8 +104,8 @@ public class FormulaExtremumSignedMinTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaExtremumSignedMin#getNumericValue()} when numeric and integer parameters mix is
-	 * numeric
+	 * Tests {@link FormulaExtremumSignedMin#getNumericValue()} when numeric and integer parameters
+	 * mix is numeric
 	 */
 	@Test
 	public void testGetNumericValueIntNum() {

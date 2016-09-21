@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaExtremumMin}
@@ -28,6 +29,16 @@ public class FormulaExtremumMinTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaExtremumMin#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaExtremumMin formula = new FormulaExtremumMin();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_MIN), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaExtremumMin#isTerminal()}
 	 */

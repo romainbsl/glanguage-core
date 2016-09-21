@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaExtremumSignedMax}
@@ -28,6 +29,16 @@ public class FormulaExtremumSignedMaxTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaExtremumSignedMax#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_SMAX), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaExtremumSignedMax#isTerminal()}
 	 */
@@ -93,8 +104,8 @@ public class FormulaExtremumSignedMaxTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaExtremumSignedMax#getNumericValue()} when numeric and integer parameters mix is
-	 * numeric
+	 * Tests {@link FormulaExtremumSignedMax#getNumericValue()} when numeric and integer parameters
+	 * mix is numeric
 	 */
 	@Test
 	public void testGetNumericValueIntNum() {
