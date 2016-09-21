@@ -14,6 +14,7 @@ import org.junit.Test;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
 /**
@@ -26,6 +27,16 @@ public class FormulaFormulaTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaFormula#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaFormula formula = new FormulaFormula();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.C_FORMULA), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaFormula#isTerminal()}
 	 */
@@ -43,7 +54,7 @@ public class FormulaFormulaTest {
 	public void testGetIntegerValue() {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId);
 		
 		FormulaDescription description = mock(FormulaDescription.class);
 		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.INTEGER);
@@ -66,7 +77,7 @@ public class FormulaFormulaTest {
 	public void testGetIntegerValueWithoutRuleRef() {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId);
 		
 		formula.getIntegerValue();
 	}
@@ -78,7 +89,7 @@ public class FormulaFormulaTest {
 	public void testGetNumericValue() {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId);
 		
 		FormulaDescription description = mock(FormulaDescription.class);
 		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.NUMERIC);
@@ -101,7 +112,7 @@ public class FormulaFormulaTest {
 	public void testGetNumericValueWithoutRuleRef() {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId);
 		
 		formula.getNumericValue();
 	}
@@ -113,7 +124,7 @@ public class FormulaFormulaTest {
 	public void testGetStringValue() {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId);
 		
 		FormulaDescription description = mock(FormulaDescription.class);
 		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.STRING);
@@ -136,7 +147,7 @@ public class FormulaFormulaTest {
 	public void testGetStringValueWithoutRuleRef() {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId);
 		
 		formula.getStringValue();
 	}
@@ -148,7 +159,7 @@ public class FormulaFormulaTest {
 	public void testGetBooleanValue() {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId);
 		
 		FormulaDescription description = mock(FormulaDescription.class);
 		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.BOOLEAN);
@@ -171,7 +182,7 @@ public class FormulaFormulaTest {
 	public void testGetBooleanValueWithoutRuleRef() {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId);
 		
 		formula.getBooleanValue();
 	}
@@ -183,7 +194,7 @@ public class FormulaFormulaTest {
 	public void testGetDateValue() {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId);
 		
 		FormulaDescription description = mock(FormulaDescription.class);
 		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.DATE);
@@ -206,7 +217,7 @@ public class FormulaFormulaTest {
 	public void testGetDateValueWithoutRuleRef() {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId);
 		
 		formula.getDateValue();
 	}
@@ -218,7 +229,7 @@ public class FormulaFormulaTest {
 	public void testGetDurationValue() {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId);
 		
 		FormulaDescription description = mock(FormulaDescription.class);
 		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.DURATION);
@@ -241,7 +252,7 @@ public class FormulaFormulaTest {
 	public void testGetDurationValueWithoutRuleRef() {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId);
 		
 		formula.getDurationValue();
 	}
@@ -253,7 +264,7 @@ public class FormulaFormulaTest {
 	public void testAsText() {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId);
 		
 		assertEquals("some_rule.formula", formula.asText());
 	}

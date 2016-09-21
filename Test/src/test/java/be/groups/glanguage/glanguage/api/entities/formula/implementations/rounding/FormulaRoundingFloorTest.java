@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaRoundingFloor}
@@ -20,6 +21,16 @@ public class FormulaRoundingFloorTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaRoundingFloor#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaRoundingFloor formula = new FormulaRoundingFloor();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_FLOOR), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaRoundingFloor#isTerminal()}
 	 */
@@ -43,7 +54,7 @@ public class FormulaRoundingFloorTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(10.0);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(leftFormula, rightFormula);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, leftFormula, rightFormula);
 		
 		assertEquals(Integer.valueOf(110), formula.getIntegerValue());
 	}
@@ -61,7 +72,7 @@ public class FormulaRoundingFloorTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(leftFormula, rightFormula);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, leftFormula, rightFormula);
 		
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
 	}
@@ -79,7 +90,7 @@ public class FormulaRoundingFloorTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(10.0);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(leftFormula, rightFormula);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, leftFormula, rightFormula);
 		
 		assertEquals(Double.valueOf(110), formula.getNumericValue());
 	}
@@ -97,7 +108,7 @@ public class FormulaRoundingFloorTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(leftFormula, rightFormula);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, leftFormula, rightFormula);
 		
 		assertEquals(Double.valueOf(1.56), formula.getNumericValue());
 	}
@@ -115,7 +126,7 @@ public class FormulaRoundingFloorTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(leftFormula, rightFormula);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, leftFormula, rightFormula);
 		
 		formula.getStringValue();
 	}
@@ -133,7 +144,7 @@ public class FormulaRoundingFloorTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(leftFormula, rightFormula);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, leftFormula, rightFormula);
 		
 		formula.getBooleanValue();
 	}
@@ -151,7 +162,7 @@ public class FormulaRoundingFloorTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(leftFormula, rightFormula);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, leftFormula, rightFormula);
 		
 		formula.getDateValue();
 	}
@@ -169,7 +180,7 @@ public class FormulaRoundingFloorTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(leftFormula, rightFormula);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, leftFormula, rightFormula);
 		
 		formula.getDurationValue();
 	}
@@ -197,7 +208,7 @@ public class FormulaRoundingFloorTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.asText()).thenReturn("0.01");
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(leftFormula, rightFormula);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, leftFormula, rightFormula);
 		
 		assertEquals("floor(some_rule; 0.01)", formula.asText());
 	}

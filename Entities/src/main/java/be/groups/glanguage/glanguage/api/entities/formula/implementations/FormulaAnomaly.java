@@ -5,22 +5,28 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
+@Entity
+@DiscriminatorValue(FormulaType.Values.F_PUT_TEXT)
 public class FormulaAnomaly extends AbstractNonTerminalFormula {
 	
 	public FormulaAnomaly() {
 		super();
 	}
 	
-	public FormulaAnomaly(List<AbstractFormula> parameters) {
-		super();
+	public FormulaAnomaly(FormulaDescription description, List<AbstractFormula> parameters) {
+		super(description);
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
 		}

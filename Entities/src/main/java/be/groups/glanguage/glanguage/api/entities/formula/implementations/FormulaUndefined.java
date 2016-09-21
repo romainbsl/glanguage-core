@@ -13,6 +13,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
@@ -28,6 +29,10 @@ public class FormulaUndefined extends AbstractTerminalFormula {
 		super();
 	}
 	
+	protected FormulaUndefined(FormulaDescription description) {
+		super(description);
+	}
+		
 	@JsonIgnore
 	@Transient
 	@Override

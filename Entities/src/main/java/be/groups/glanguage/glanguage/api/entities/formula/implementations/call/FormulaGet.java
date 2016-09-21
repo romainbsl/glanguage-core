@@ -12,6 +12,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnTypeConverter;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -24,13 +25,14 @@ public class FormulaGet extends CallFormula {
 		super();
 	}
 	
-	public FormulaGet(FormulaReturnType returnType, List<String> identifiers, List<List<AbstractFormula>> parameters) {
-		this();
+	public FormulaGet(FormulaDescription description, FormulaDescription subFormulasdescription, FormulaReturnType returnType,
+			List<String> identifiers, List<List<AbstractFormula>> parameters) {
+		super(description);
 		
 		setConstantValue(String.valueOf(returnType.ordinal()));
 		this.parameters = new ArrayList<>(identifiers.size());
 		for (int i = 0; i < identifiers.size(); i++) {
-			this.parameters.add(new FormulaPrimitive(identifiers.get(i), parameters.get(i)));
+			this.parameters.add(new FormulaPrimitive(subFormulasdescription, identifiers.get(i), parameters.get(i)));
 		}
 	}
 	

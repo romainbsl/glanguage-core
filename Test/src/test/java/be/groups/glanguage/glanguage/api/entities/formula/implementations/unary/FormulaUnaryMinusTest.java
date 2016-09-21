@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaUnaryMinus}
@@ -16,20 +17,30 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaRet
  * @author DUPIREFR
  */
 public class FormulaUnaryMinusTest {
-
+	
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaUnaryMinus#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaUnaryMinus formula = new FormulaUnaryMinus();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.OP_UNARY_MINUS), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaUnaryMinus#isTerminal()}
 	 */
 	@Test
 	public void testIsTerminal() {
 		FormulaUnaryMinus formula = new FormulaUnaryMinus();
-
+		
 		assertFalse(formula.isTerminal());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaUnaryMinus#getIntegerValue()} when parameter exists
 	 */
@@ -38,12 +49,12 @@ public class FormulaUnaryMinusTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
-
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
-
+		
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
+		
 		assertEquals(Integer.valueOf(-1), formula.getIntegerValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaUnaryMinus#getIntegerValue()} when parameter doesn't exist
 	 */
@@ -52,12 +63,12 @@ public class FormulaUnaryMinusTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(null);
-
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
-
+		
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
+		
 		formula.getIntegerValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaUnaryMinus#getNumericValue()} when parameter exists
 	 */
@@ -66,12 +77,12 @@ public class FormulaUnaryMinusTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(childFormula.getNumericValue()).thenReturn(1.5);
-
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
-
+		
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
+		
 		assertEquals(Double.valueOf(-1.5), formula.getNumericValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaUnaryMinus#getNumericValue()} when parameter doesn't exist
 	 */
@@ -80,12 +91,12 @@ public class FormulaUnaryMinusTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(childFormula.getNumericValue()).thenReturn(null);
-
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
-
+		
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
+		
 		formula.getNumericValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaUnaryMinus#getStringValue()}
 	 */
@@ -94,12 +105,12 @@ public class FormulaUnaryMinusTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
-
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
-
+		
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
+		
 		formula.getStringValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaUnaryMinus#getBooleanValue()}
 	 */
@@ -108,12 +119,12 @@ public class FormulaUnaryMinusTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
-
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
-
+		
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
+		
 		formula.getBooleanValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaUnaryMinus#getDateValue()}
 	 */
@@ -122,9 +133,9 @@ public class FormulaUnaryMinusTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
-
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
-
+		
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
+		
 		formula.getDateValue();
 	}
 	
@@ -136,22 +147,22 @@ public class FormulaUnaryMinusTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
-
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
+		
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
 		
 		formula.getDurationValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaUnaryMinus#operationAsText()}
 	 */
 	@Test
 	public void testOperationAsText() {
 		FormulaUnaryMinus formula = new FormulaUnaryMinus();
-
+		
 		assertEquals("-", formula.operationAsText());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaUnaryMinus#asText()}
 	 */
@@ -160,10 +171,10 @@ public class FormulaUnaryMinusTest {
 		AbstractFormula childFormula = mock(AbstractFormula.class);
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.asText()).thenReturn("some_rule");
-
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(childFormula);
-
+		
+		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, childFormula);
+		
 		assertEquals("- some_rule", formula.asText());
 	}
-
+	
 }

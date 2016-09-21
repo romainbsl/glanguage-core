@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaRoundingCeil}
@@ -20,6 +21,16 @@ public class FormulaRoundingCeilTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaRoundingCeil#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaRoundingCeil formula = new FormulaRoundingCeil();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_CEIL), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaRoundingCeil#isTerminal()}
 	 */
@@ -43,7 +54,7 @@ public class FormulaRoundingCeilTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(10.0);
 		
-		FormulaRoundingCeil formula = new FormulaRoundingCeil(leftFormula, rightFormula);
+		FormulaRoundingCeil formula = new FormulaRoundingCeil(null, null, leftFormula, rightFormula);
 		
 		assertEquals(Integer.valueOf(120), formula.getIntegerValue());
 	}
@@ -61,7 +72,7 @@ public class FormulaRoundingCeilTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingCeil formula = new FormulaRoundingCeil(leftFormula, rightFormula);
+		FormulaRoundingCeil formula = new FormulaRoundingCeil(null, null, leftFormula, rightFormula);
 		
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
 	}
@@ -79,7 +90,7 @@ public class FormulaRoundingCeilTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(10.0);
 		
-		FormulaRoundingCeil formula = new FormulaRoundingCeil(leftFormula, rightFormula);
+		FormulaRoundingCeil formula = new FormulaRoundingCeil(null, null, leftFormula, rightFormula);
 		
 		assertEquals(Double.valueOf(120), formula.getNumericValue());
 	}
@@ -97,7 +108,7 @@ public class FormulaRoundingCeilTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingCeil formula = new FormulaRoundingCeil(leftFormula, rightFormula);
+		FormulaRoundingCeil formula = new FormulaRoundingCeil(null, null, leftFormula, rightFormula);
 		
 		assertEquals(Double.valueOf(1.55), formula.getNumericValue());
 	}
@@ -115,7 +126,7 @@ public class FormulaRoundingCeilTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingCeil formula = new FormulaRoundingCeil(leftFormula, rightFormula);
+		FormulaRoundingCeil formula = new FormulaRoundingCeil(null, null, leftFormula, rightFormula);
 		
 		formula.getStringValue();
 	}
@@ -133,7 +144,7 @@ public class FormulaRoundingCeilTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingCeil formula = new FormulaRoundingCeil(leftFormula, rightFormula);
+		FormulaRoundingCeil formula = new FormulaRoundingCeil(null, null, leftFormula, rightFormula);
 		
 		formula.getBooleanValue();
 	}
@@ -151,7 +162,7 @@ public class FormulaRoundingCeilTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingCeil formula = new FormulaRoundingCeil(leftFormula, rightFormula);
+		FormulaRoundingCeil formula = new FormulaRoundingCeil(null, null, leftFormula, rightFormula);
 		
 		formula.getDateValue();
 	}
@@ -169,7 +180,7 @@ public class FormulaRoundingCeilTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingCeil formula = new FormulaRoundingCeil(leftFormula, rightFormula);
+		FormulaRoundingCeil formula = new FormulaRoundingCeil(null, null, leftFormula, rightFormula);
 		
 		formula.getDurationValue();
 	}
@@ -197,7 +208,7 @@ public class FormulaRoundingCeilTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.asText()).thenReturn("0.01");
 		
-		FormulaRoundingCeil formula = new FormulaRoundingCeil(leftFormula, rightFormula);
+		FormulaRoundingCeil formula = new FormulaRoundingCeil(null, null, leftFormula, rightFormula);
 		
 		assertEquals("ceil(some_rule; 0.01)", formula.asText());
 	}

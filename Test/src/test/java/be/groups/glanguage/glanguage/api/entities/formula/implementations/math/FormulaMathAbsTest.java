@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaMathAbs}
@@ -22,6 +23,16 @@ public class FormulaMathAbsTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaMathAbs#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaMathAbs formula = new FormulaMathAbs();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_ABS), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaMathAbs#isTerminal()}
 	 */
@@ -41,7 +52,7 @@ public class FormulaMathAbsTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getNumericValue()).thenReturn(1.0);
 		
-		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
+		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(childFormula));
 		
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
 	}
@@ -55,7 +66,7 @@ public class FormulaMathAbsTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getNumericValue()).thenReturn(-1.0);
 		
-		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
+		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(childFormula));
 		
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
 	}
@@ -69,7 +80,7 @@ public class FormulaMathAbsTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getNumericValue()).thenReturn(null);
 		
-		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
+		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(childFormula));
 		
 		formula.getIntegerValue();
 	}
@@ -83,7 +94,7 @@ public class FormulaMathAbsTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.getStringValue()).thenReturn("some_value");
 		
-		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
+		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(childFormula));
 		
 		formula.getIntegerValue();
 	}
@@ -97,7 +108,7 @@ public class FormulaMathAbsTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(childFormula.getNumericValue()).thenReturn(1.5);
 		
-		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
+		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(childFormula));
 		
 		assertEquals(Double.valueOf(1.5), formula.getNumericValue());
 	}
@@ -111,7 +122,7 @@ public class FormulaMathAbsTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(childFormula.getNumericValue()).thenReturn(-1.5);
 		
-		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
+		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(childFormula));
 		
 		assertEquals(Double.valueOf(1.5), formula.getNumericValue());
 	}
@@ -125,7 +136,7 @@ public class FormulaMathAbsTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(childFormula.getNumericValue()).thenReturn(null);
 		
-		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
+		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(childFormula));
 		
 		formula.getNumericValue();
 	}
@@ -139,7 +150,7 @@ public class FormulaMathAbsTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 		
-		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
+		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(childFormula));
 		
 		formula.getStringValue();
 	}
@@ -153,7 +164,7 @@ public class FormulaMathAbsTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 		
-		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
+		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(childFormula));
 		
 		formula.getBooleanValue();
 	}
@@ -167,7 +178,7 @@ public class FormulaMathAbsTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 		
-		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
+		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(childFormula));
 		
 		formula.getDateValue();
 	}
@@ -181,7 +192,7 @@ public class FormulaMathAbsTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 		
-		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
+		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(childFormula));
 		
 		formula.getDurationValue();
 	}
@@ -205,7 +216,7 @@ public class FormulaMathAbsTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.asText()).thenReturn("some_rule");
 		
-		FormulaMathAbs formula = new FormulaMathAbs(Arrays.asList(childFormula));
+		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(childFormula));
 		
 		assertEquals("abs(some_rule)", formula.asText());
 	}

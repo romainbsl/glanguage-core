@@ -12,6 +12,7 @@ import org.junit.Test;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
 /**
@@ -24,6 +25,16 @@ public class FormulaApplicabilityTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaApplicability#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaApplicability formula = new FormulaApplicability();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.C_APPLICABILITY), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaApplicability#isTerminal()}
 	 */
@@ -41,7 +52,7 @@ public class FormulaApplicabilityTest {
 	public void testGetIntegerValue() {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(ruleId);
+		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
 		
 		FormulaDescription description = mock(FormulaDescription.class);
 		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.INTEGER);
@@ -64,7 +75,7 @@ public class FormulaApplicabilityTest {
 	public void testGetIntegerValueWithoutReference() {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(ruleId);
+		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
 		
 		formula.getIntegerValue();
 	}
@@ -76,7 +87,7 @@ public class FormulaApplicabilityTest {
 	public void testGetNumericValue() {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(ruleId);
+		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
 		
 		FormulaDescription description = mock(FormulaDescription.class);
 		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.NUMERIC);
@@ -99,7 +110,7 @@ public class FormulaApplicabilityTest {
 	public void testGetNumericValueWithoutReference() {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(ruleId);
+		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
 		
 		formula.getNumericValue();
 	}
@@ -111,7 +122,7 @@ public class FormulaApplicabilityTest {
 	public void testGetStringValue() {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(ruleId);
+		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
 		
 		FormulaDescription description = mock(FormulaDescription.class);
 		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.STRING);
@@ -134,7 +145,7 @@ public class FormulaApplicabilityTest {
 	public void testGetStringValueWithoutReference() {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(ruleId);
+		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
 		
 		formula.getStringValue();
 	}
@@ -146,7 +157,7 @@ public class FormulaApplicabilityTest {
 	public void testGetBooleanValueCondTrue() {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(ruleId);
+		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
 		
 		FormulaDescription description = mock(FormulaDescription.class);
 		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.BOOLEAN);
@@ -169,7 +180,7 @@ public class FormulaApplicabilityTest {
 	public void testGetBooleanValueCondFalse() {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(ruleId);
+		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
 		
 		FormulaDescription description = mock(FormulaDescription.class);
 		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.BOOLEAN);
@@ -192,7 +203,7 @@ public class FormulaApplicabilityTest {
 	public void testGetBooleanValueWithoutReference() {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(ruleId);
+		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
 		
 		formula.getBooleanValue();
 	}
@@ -204,7 +215,7 @@ public class FormulaApplicabilityTest {
 	public void testGetDateValue() {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(ruleId);
+		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
 		
 		FormulaDescription description = mock(FormulaDescription.class);
 		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.DATE);
@@ -227,7 +238,7 @@ public class FormulaApplicabilityTest {
 	public void testGetDateValueWithoutReference() {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(ruleId);
+		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
 		
 		formula.getDateValue();
 	}
@@ -239,7 +250,7 @@ public class FormulaApplicabilityTest {
 	public void testGetDurationValue() {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(ruleId);
+		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
 		
 		FormulaDescription description = mock(FormulaDescription.class);
 		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.DURATION);
@@ -262,7 +273,7 @@ public class FormulaApplicabilityTest {
 	public void testGetDurationValueWithoutReference() {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(ruleId);
+		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
 		
 		formula.getDurationValue();
 	}
@@ -274,7 +285,7 @@ public class FormulaApplicabilityTest {
 	public void testAsText() {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(ruleId);
+		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
 		
 		assertEquals("some_rule.applicable", formula.asText());
 	}

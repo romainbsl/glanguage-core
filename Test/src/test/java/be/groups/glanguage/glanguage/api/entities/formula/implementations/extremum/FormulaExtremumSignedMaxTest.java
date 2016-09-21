@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaExtremumSignedMax}
@@ -28,6 +29,16 @@ public class FormulaExtremumSignedMaxTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaExtremumSignedMax#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_SMAX), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaExtremumSignedMax#isTerminal()}
 	 */
@@ -60,7 +71,7 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.getNumericValue()).thenReturn(2.0);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(parameters);
+		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
 		
 		assertEquals(Integer.valueOf(-4), formula.getIntegerValue());
 	}
@@ -87,14 +98,14 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.getNumericValue()).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(parameters);
+		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
 		
 		assertEquals(Double.valueOf(-3.5), formula.getNumericValue(), DELTA);
 	}
 	
 	/**
-	 * Tests {@link FormulaExtremumSignedMax#getNumericValue()} when numeric and integer parameters mix is
-	 * numeric
+	 * Tests {@link FormulaExtremumSignedMax#getNumericValue()} when numeric and integer parameters
+	 * mix is numeric
 	 */
 	@Test
 	public void testGetNumericValueIntNum() {
@@ -115,7 +126,7 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.getNumericValue()).thenReturn(2.0);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(parameters);
+		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
 		
 		assertEquals(Double.valueOf(-3), formula.getNumericValue(), DELTA);
 	}
@@ -142,7 +153,7 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.getNumericValue()).thenReturn(2.0);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(parameters);
+		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
 		
 		assertEquals(Double.valueOf(-4), formula.getNumericValue(), DELTA);
 	}
@@ -170,7 +181,7 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.getNumericValue()).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(parameters);
+		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
 		
 		formula.getStringValue();
 	}
@@ -197,7 +208,7 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.getNumericValue()).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(parameters);
+		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
 		
 		formula.getBooleanValue();
 	}
@@ -224,7 +235,7 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.getNumericValue()).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(parameters);
+		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
 		
 		formula.getDateValue();
 	}
@@ -251,7 +262,7 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.getNumericValue()).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(parameters);
+		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
 		
 		formula.getDurationValue();
 	}
@@ -288,7 +299,7 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.asText()).thenReturn("some_rule3");
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(parameters);
+		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
 		
 		assertEquals("smax(some_rule1, some_rule2, some_rule3)", formula.asText());
 	}

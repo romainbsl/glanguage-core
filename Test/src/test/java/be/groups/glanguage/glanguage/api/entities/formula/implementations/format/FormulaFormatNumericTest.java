@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.utils.FormatAlignment;
 import be.groups.glanguage.glanguage.api.entities.utils.FormatSign;
 
@@ -25,6 +26,16 @@ public class FormulaFormatNumericTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaFormatNumeric#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaFormatNumeric formula = new FormulaFormatNumeric();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_FORMAT_NUMERIC), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaFormatNumeric#isTerminal()}
 	 */
@@ -77,7 +88,7 @@ public class FormulaFormatNumericTest {
 		when(param7.getStringValue()).thenReturn(",");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		formula.getIntegerValue();
 	}
@@ -124,7 +135,7 @@ public class FormulaFormatNumericTest {
 		when(param7.getStringValue()).thenReturn(",");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		formula.getNumericValue();
 	}
@@ -171,7 +182,7 @@ public class FormulaFormatNumericTest {
 		when(param7.getStringValue()).thenReturn(",");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("11,6*", formula.getStringValue());
@@ -219,7 +230,7 @@ public class FormulaFormatNumericTest {
 		when(param7.getStringValue()).thenReturn(",");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("113,6", formula.getStringValue());
@@ -267,7 +278,7 @@ public class FormulaFormatNumericTest {
 		when(param7.getStringValue()).thenReturn(",");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		assertEquals(6, formula.getStringValue().length());
 		assertEquals("1131,6", formula.getStringValue());
@@ -315,7 +326,7 @@ public class FormulaFormatNumericTest {
 		when(param7.getStringValue()).thenReturn(",");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("*1,6*", formula.getStringValue());
@@ -363,7 +374,7 @@ public class FormulaFormatNumericTest {
 		when(param7.getStringValue()).thenReturn(",");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("*11,6", formula.getStringValue());
@@ -412,7 +423,7 @@ public class FormulaFormatNumericTest {
 		when(param7.getStringValue()).thenReturn(",");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("11,6*", formula.getStringValue());
@@ -461,7 +472,7 @@ public class FormulaFormatNumericTest {
 		when(param7.getStringValue()).thenReturn(",");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("11,6*", formula.getStringValue());
@@ -510,7 +521,7 @@ public class FormulaFormatNumericTest {
 		when(param7.getStringValue()).thenReturn(",");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("-11,6", formula.getStringValue());
@@ -559,7 +570,7 @@ public class FormulaFormatNumericTest {
 		when(param7.getStringValue()).thenReturn(",");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("11,6*", formula.getStringValue());
@@ -608,7 +619,7 @@ public class FormulaFormatNumericTest {
 		when(param7.getStringValue()).thenReturn(",");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("-11,6", formula.getStringValue());
@@ -656,7 +667,7 @@ public class FormulaFormatNumericTest {
 		when(param7.getStringValue()).thenReturn(".");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		assertEquals(5, formula.getStringValue().length());
 		assertEquals("11.6*", formula.getStringValue());
@@ -704,7 +715,7 @@ public class FormulaFormatNumericTest {
 		when(param7.getStringValue()).thenReturn(",");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		formula.getBooleanValue();
 	}
@@ -751,7 +762,7 @@ public class FormulaFormatNumericTest {
 		when(param7.getStringValue()).thenReturn(",");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		formula.getDateValue();
 	}
@@ -798,7 +809,7 @@ public class FormulaFormatNumericTest {
 		when(param7.getStringValue()).thenReturn(",");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		formula.getDurationValue();
 	}
@@ -855,7 +866,7 @@ public class FormulaFormatNumericTest {
 		when(param7.asText()).thenReturn(",");
 		parameters.add(param7);
 		
-		FormulaFormatNumeric formula = new FormulaFormatNumeric(parameters);
+		FormulaFormatNumeric formula = new FormulaFormatNumeric(null, parameters);
 		
 		assertEquals("formatNumeric(11.57; 5; 1; " + FormatAlignment.Values.LEFT_JUSTIFY + "; *; " + FormatSign.Values.NONE + "; ,)",
 				formula.asText());

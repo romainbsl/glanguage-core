@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaDate}
@@ -23,6 +24,16 @@ public class FormulaDateTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaDate#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaDate formula = new FormulaDate();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_DATE), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaDate#isTerminal()}
 	 */
@@ -42,7 +53,7 @@ public class FormulaDateTest {
 		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(parameter.getStringValue()).thenReturn("11/09/1992");
 		
-		FormulaDate formula = new FormulaDate(Arrays.asList(parameter));
+		FormulaDate formula = new FormulaDate(null, Arrays.asList(parameter));
 		
 		formula.getIntegerValue();
 	}
@@ -56,7 +67,7 @@ public class FormulaDateTest {
 		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(parameter.getStringValue()).thenReturn("11/09/1992");
 		
-		FormulaDate formula = new FormulaDate(Arrays.asList(parameter));
+		FormulaDate formula = new FormulaDate(null, Arrays.asList(parameter));
 		
 		formula.getNumericValue();
 	}
@@ -70,7 +81,7 @@ public class FormulaDateTest {
 		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(parameter.getStringValue()).thenReturn("11/09/1992");
 		
-		FormulaDate formula = new FormulaDate(Arrays.asList(parameter));
+		FormulaDate formula = new FormulaDate(null, Arrays.asList(parameter));
 		
 		formula.getStringValue();
 	}
@@ -84,7 +95,7 @@ public class FormulaDateTest {
 		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(parameter.getStringValue()).thenReturn("11/09/1992");
 		
-		FormulaDate formula = new FormulaDate(Arrays.asList(parameter));
+		FormulaDate formula = new FormulaDate(null, Arrays.asList(parameter));
 		
 		formula.getBooleanValue();
 	}
@@ -98,7 +109,7 @@ public class FormulaDateTest {
 		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(parameter.getStringValue()).thenReturn("11/09/1992");
 		
-		FormulaDate formula = new FormulaDate(Arrays.asList(parameter));
+		FormulaDate formula = new FormulaDate(null, Arrays.asList(parameter));
 		
 		assertEquals(LocalDate.of(1992, 9, 11), formula.getDateValue());
 	}
@@ -120,7 +131,7 @@ public class FormulaDateTest {
 		when(yearParam.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(yearParam.getIntegerValue()).thenReturn(1992);
 		
-		FormulaDate formula = new FormulaDate(Arrays.asList(dayParam, monthParam, yearParam));
+		FormulaDate formula = new FormulaDate(null, Arrays.asList(dayParam, monthParam, yearParam));
 		
 		assertEquals(LocalDate.of(1992, 9, 11), formula.getDateValue());
 	}
@@ -134,7 +145,7 @@ public class FormulaDateTest {
 		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(parameter.getStringValue()).thenReturn("11/09/1992");
 		
-		FormulaDate formula = new FormulaDate(Arrays.asList(parameter));
+		FormulaDate formula = new FormulaDate(null, Arrays.asList(parameter));
 		
 		formula.getDurationValue();
 	}
@@ -148,7 +159,7 @@ public class FormulaDateTest {
 		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(parameter.asText()).thenReturn("11/09/1992");
 		
-		FormulaDate formula = new FormulaDate(Arrays.asList(parameter));
+		FormulaDate formula = new FormulaDate(null, Arrays.asList(parameter));
 		
 		assertEquals("date(11/09/1992)", formula.asText());
 	}
@@ -170,7 +181,7 @@ public class FormulaDateTest {
 		when(yearParam.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(yearParam.asText()).thenReturn("1992");
 		
-		FormulaDate formula = new FormulaDate(Arrays.asList(dayParam, monthParam, yearParam));
+		FormulaDate formula = new FormulaDate(null, Arrays.asList(dayParam, monthParam, yearParam));
 		
 		assertEquals("date(11; 9; 1992)", formula.asText());
 	}

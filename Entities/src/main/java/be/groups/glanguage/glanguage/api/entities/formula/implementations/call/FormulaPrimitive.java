@@ -8,6 +8,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
@@ -18,8 +19,8 @@ public class FormulaPrimitive extends CallFormula {
 		super();
 	}
 	
-	public FormulaPrimitive(String primitive, List<AbstractFormula> parameters) {
-		super();
+	public FormulaPrimitive(FormulaDescription description, String primitive, List<AbstractFormula> parameters) {
+		super(description);
 		
 		if (primitive == null || primitive.isEmpty()) {
 			throw new IllegalArgumentException("primitive must be a non-null non-empty string");

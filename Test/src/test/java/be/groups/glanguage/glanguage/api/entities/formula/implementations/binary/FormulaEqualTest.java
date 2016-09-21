@@ -56,7 +56,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getValue()).thenReturn(0);
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		formula.getIntegerValue();
 	}
@@ -74,7 +74,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getValue()).thenReturn(0);
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		formula.getNumericValue();
 	}
@@ -92,7 +92,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getValue()).thenReturn(0);
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		formula.getStringValue();
 	}
@@ -111,7 +111,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getValue()).thenReturn(0);
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -130,7 +130,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getValue()).thenReturn(1);
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -149,7 +149,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getValue()).thenReturn(0.5);
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -168,7 +168,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getValue()).thenReturn(1.5);
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -187,7 +187,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getValue()).thenReturn(0.5);
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -206,7 +206,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getValue()).thenReturn(1.0);
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -225,7 +225,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getValue()).thenReturn(0.0);
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -244,7 +244,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getValue()).thenReturn(1.0);
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -263,7 +263,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(rightFormula.getValue()).thenReturn("aaa");
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -282,7 +282,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(rightFormula.getValue()).thenReturn("aaa");
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -301,7 +301,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		when(rightFormula.getValue()).thenReturn(LocalDate.of(2014, 1, 1));
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -320,7 +320,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		when(rightFormula.getValue()).thenReturn(LocalDate.of(2015, 1, 1));
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -338,7 +338,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getValue()).thenReturn(0);
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		formula.getDateValue();
 	}
@@ -356,7 +356,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getValue()).thenReturn(0);
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		formula.getDurationValue();
 	}
@@ -384,7 +384,7 @@ public class FormulaEqualTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.asText()).thenReturn("some_rule2");
 		
-		FormulaEqual formula = new FormulaEqual(leftFormula, rightFormula);
+		FormulaEqual formula = new FormulaEqual(null, leftFormula, rightFormula);
 		
 		assertEquals("some_rule1 = some_rule2", formula.asText());
 	}

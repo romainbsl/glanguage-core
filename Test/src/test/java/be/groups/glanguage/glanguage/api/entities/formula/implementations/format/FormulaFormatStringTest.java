@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.utils.FormatAlignment;
 
 /**
@@ -24,6 +25,16 @@ public class FormulaFormatStringTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaFormatString#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaFormatString formula = new FormulaFormatString();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_FORMAT_STRING), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaFormatString#isTerminal()}
 	 */
@@ -61,7 +72,7 @@ public class FormulaFormatStringTest {
 		when(param4.getStringValue()).thenReturn("0");
 		parameters.add(param4);
 		
-		FormulaFormatString formula = new FormulaFormatString(parameters);
+		FormulaFormatString formula = new FormulaFormatString(null, parameters);
 		
 		formula.getIntegerValue();
 	}
@@ -93,7 +104,7 @@ public class FormulaFormatStringTest {
 		when(param4.getStringValue()).thenReturn("0");
 		parameters.add(param4);
 		
-		FormulaFormatString formula = new FormulaFormatString(parameters);
+		FormulaFormatString formula = new FormulaFormatString(null, parameters);
 		
 		formula.getNumericValue();
 	}
@@ -125,7 +136,7 @@ public class FormulaFormatStringTest {
 		when(param4.getStringValue()).thenReturn("0");
 		parameters.add(param4);
 		
-		FormulaFormatString formula = new FormulaFormatString(parameters);
+		FormulaFormatString formula = new FormulaFormatString(null, parameters);
 		
 		assertEquals(10, formula.getStringValue().length());
 		assertEquals("value00000", formula.getStringValue());
@@ -158,7 +169,7 @@ public class FormulaFormatStringTest {
 		when(param4.getStringValue()).thenReturn("0");
 		parameters.add(param4);
 		
-		FormulaFormatString formula = new FormulaFormatString(parameters);
+		FormulaFormatString formula = new FormulaFormatString(null, parameters);
 		
 		assertEquals(10, formula.getStringValue().length());
 		assertEquals("valueexact", formula.getStringValue());
@@ -191,7 +202,7 @@ public class FormulaFormatStringTest {
 		when(param4.getStringValue()).thenReturn("0");
 		parameters.add(param4);
 		
-		FormulaFormatString formula = new FormulaFormatString(parameters);
+		FormulaFormatString formula = new FormulaFormatString(null, parameters);
 		
 		assertEquals(10, formula.getStringValue().length());
 		assertEquals("value_too_", formula.getStringValue());
@@ -224,7 +235,7 @@ public class FormulaFormatStringTest {
 		when(param4.getStringValue()).thenReturn("0");
 		parameters.add(param4);
 		
-		FormulaFormatString formula = new FormulaFormatString(parameters);
+		FormulaFormatString formula = new FormulaFormatString(null, parameters);
 		
 		assertEquals(10, formula.getStringValue().length());
 		assertEquals("00value000", formula.getStringValue());
@@ -257,7 +268,7 @@ public class FormulaFormatStringTest {
 		when(param4.getStringValue()).thenReturn("0");
 		parameters.add(param4);
 		
-		FormulaFormatString formula = new FormulaFormatString(parameters);
+		FormulaFormatString formula = new FormulaFormatString(null, parameters);
 		
 		assertEquals(10, formula.getStringValue().length());
 		assertEquals("00000value", formula.getStringValue());
@@ -290,7 +301,7 @@ public class FormulaFormatStringTest {
 		when(param4.getStringValue()).thenReturn("0");
 		parameters.add(param4);
 		
-		FormulaFormatString formula = new FormulaFormatString(parameters);
+		FormulaFormatString formula = new FormulaFormatString(null, parameters);
 		
 		formula.getBooleanValue();
 	}
@@ -322,7 +333,7 @@ public class FormulaFormatStringTest {
 		when(param4.getStringValue()).thenReturn("0");
 		parameters.add(param4);
 		
-		FormulaFormatString formula = new FormulaFormatString(parameters);
+		FormulaFormatString formula = new FormulaFormatString(null, parameters);
 		
 		formula.getDateValue();
 	}
@@ -354,7 +365,7 @@ public class FormulaFormatStringTest {
 		when(param4.getStringValue()).thenReturn("0");
 		parameters.add(param4);
 		
-		FormulaFormatString formula = new FormulaFormatString(parameters);
+		FormulaFormatString formula = new FormulaFormatString(null, parameters);
 		
 		formula.getDurationValue();
 	}
@@ -396,7 +407,7 @@ public class FormulaFormatStringTest {
 		when(param4.asText()).thenReturn("0");
 		parameters.add(param4);
 		
-		FormulaFormatString formula = new FormulaFormatString(parameters);
+		FormulaFormatString formula = new FormulaFormatString(null, parameters);
 		
 		assertEquals("formatString(some_rule1; 10; " + FormatAlignment.Values.LEFT_JUSTIFY + "; 0)", formula.asText());
 	}

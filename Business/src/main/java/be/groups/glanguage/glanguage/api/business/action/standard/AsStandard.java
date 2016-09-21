@@ -8,10 +8,13 @@ import org.slf4j.LoggerFactory;
 
 import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
 import be.groups.glanguage.glanguage.api.business.analysis.IdentifierParameterList;
+import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaAnomaly;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracket;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaDate;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaIn;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaAnd;
@@ -98,8 +101,7 @@ public class AsStandard implements SemanticalAction {
 	}
 	
 	@Override
-	public void beginAnalysis() {
-	}
+	public void beginAnalysis() {}
 	
 	@Override
 	public LocalDate createDate(int d, int m, int y) {
@@ -109,18 +111,19 @@ public class AsStandard implements SemanticalAction {
 	@Override
 	public AbstractFormula unaryOperation(FormulaType formulaDescriptionId, AbstractFormula formula) {
 		AbstractFormula result = null;
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
 		switch (formulaDescriptionId) {
 			case OP_NOT:
-				result = new FormulaNot(formula);
+				result = new FormulaNot(formulaDescription, formula);
 				break;
 			case OP_UNARY_PLUS:
 				result = formula;
 				break;
 			case OP_UNARY_MINUS:
-				result = new FormulaUnaryMinus(formula);
+				result = new FormulaUnaryMinus(formulaDescription, formula);
 				break;
 			case OP_EXIST:
-				result = new FormulaExist(formula);
+				result = new FormulaExist(formulaDescription, formula);
 				break;
 			default:
 				throw new InternalError("Internal error : unknown unary formula type : " + formulaDescriptionId);
@@ -133,48 +136,49 @@ public class AsStandard implements SemanticalAction {
 	public AbstractFormula binaryOperation(FormulaType formulaDescriptionId, AbstractFormula formula1,
 			AbstractFormula formula2) {
 		AbstractFormula result = null;
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
 		switch (formulaDescriptionId) {
 			case OP_MULTIPLY:
-				result = new FormulaMultiply(formula1, formula2);
+				result = new FormulaMultiply(formulaDescription, formula1, formula2);
 				break;
 			case OP_DIVIDE:
-				result = new FormulaDivide(formula1, formula2);
+				result = new FormulaDivide(formulaDescription, formula1, formula2);
 				break;
 			case OP_INTEGER_DIVISION:
-				result = new FormulaIntegerDivision(formula1, formula2);
+				result = new FormulaIntegerDivision(formulaDescription, formula1, formula2);
 				break;
 			case OP_MODULO:
-				result = new FormulaModulo(formula1, formula2);
+				result = new FormulaModulo(formulaDescription, formula1, formula2);
 				break;
 			case OP_PLUS:
-				result = new FormulaPlus(formula1, formula2);
+				result = new FormulaPlus(formulaDescription, formula1, formula2);
 				break;
 			case OP_MINUS:
-				result = new FormulaMinus(formula1, formula2);
+				result = new FormulaMinus(formulaDescription, formula1, formula2);
 				break;
 			case OP_EQUAL:
-				result = new FormulaEqual(formula1, formula2);
+				result = new FormulaEqual(formulaDescription, formula1, formula2);
 				break;
 			case OP_DIFFERENCE:
-				result = new FormulaDifference(formula1, formula2);
+				result = new FormulaDifference(formulaDescription, formula1, formula2);
 				break;
 			case OP_SMALLER:
-				result = new FormulaSmaller(formula1, formula2);
+				result = new FormulaSmaller(formulaDescription, formula1, formula2);
 				break;
 			case OP_SMALLER_OR_EQUAL:
-				result = new FormulaSmallerOrEqual(formula1, formula2);
+				result = new FormulaSmallerOrEqual(formulaDescription, formula1, formula2);
 				break;
 			case OP_GREATER:
-				result = new FormulaGreater(formula1, formula2);
+				result = new FormulaGreater(formulaDescription, formula1, formula2);
 				break;
 			case OP_GREATER_OR_EQUAL:
-				result = new FormulaGreaterOrEqual(formula1, formula2);
+				result = new FormulaGreaterOrEqual(formulaDescription, formula1, formula2);
 				break;
 			case OP_AND:
-				result = new FormulaAnd(formula1, formula2);
+				result = new FormulaAnd(formulaDescription, formula1, formula2);
 				break;
 			case OP_OR:
-				result = new FormulaOr(formula1, formula2);
+				result = new FormulaOr(formulaDescription, formula1, formula2);
 				break;
 			default:
 				throw new InternalError("Internal error : unknown binary formula type : " + formulaDescriptionId);
@@ -183,43 +187,57 @@ public class AsStandard implements SemanticalAction {
 	}
 	
 	@Override
+	public AbstractFormula bracketFormula(AbstractFormula formula) {
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS);
+		return new FormulaBracket(formulaDescription, formula);
+	}
+	
+	@Override
 	public AbstractFormula inOperation(AbstractFormula element, LinkedList<AbstractFormula> inList) {
-		return new FormulaIn(element, inList);
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.F_IN);
+		return new FormulaIn(formulaDescription, element, inList);
 	}
 	
 	@Override
 	public AbstractFormula referenceFormula(String ruleId) {
-		return new FormulaRuleReference(ruleId);
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_RULE_REFERENCE);
+		return new FormulaRuleReference(formulaDescription, ruleId);
 	}
 	
 	@Override
 	public AbstractFormula terminalIntegerFormula(String s) {
-		return new FormulaTerminalInteger(s);
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER);
+		return new FormulaTerminalInteger(formulaDescription, s);
 	}
 	
 	@Override
 	public AbstractFormula terminalNumericFormula(String s) {
-		return new FormulaTerminalNumeric(s);
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_NUMERIC);
+		return new FormulaTerminalNumeric(formulaDescription, s);
 	}
 	
 	@Override
 	public AbstractFormula terminalDateFormula(LocalDate d) {
-		return new FormulaTerminalDate(d);
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DATE);
+		return new FormulaTerminalDate(formulaDescription, d);
 	}
 	
 	@Override
 	public AbstractFormula terminalDurationFormula(String duration) {
-		return new FormulaTerminalDuration(duration);
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DURATION);
+		return new FormulaTerminalDuration(formulaDescription, duration);
 	}
 	
 	@Override
 	public AbstractFormula terminalBooleanFormula(boolean b) {
-		return new FormulaTerminalBoolean(b);
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_BOOLEAN);
+		return new FormulaTerminalBoolean(formulaDescription, b);
 	}
 	
 	@Override
 	public AbstractFormula terminalStringFormula(String s) {
-		return new FormulaTerminalString(s);
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_STRING);
+		return new FormulaTerminalString(formulaDescription, s);
 	}
 	
 	@Override
@@ -229,57 +247,59 @@ public class AsStandard implements SemanticalAction {
 	
 	@Override
 	public AbstractFormula standardFunction(FormulaType formulaDescriptionId, LinkedList<AbstractFormula> parameters) {
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
+		FormulaDescription precisionFormulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER);
 		switch (formulaDescriptionId) {
 			case F_CEIL:
-				return new FormulaRoundingCeil(parameters.get(0), parameters.get(1));
+				return new FormulaRoundingCeil(formulaDescription, precisionFormulaDescription, parameters.get(0), parameters.get(1));
 			case F_FLOOR:
-				return new FormulaRoundingFloor(parameters.get(0), parameters.get(1));
+				return new FormulaRoundingFloor(formulaDescription, precisionFormulaDescription, parameters.get(0), parameters.get(1));
 			case F_ROUNDED:
-				return new FormulaRoundingArithmetic(parameters.get(0), parameters.get(1));
+				return new FormulaRoundingArithmetic(formulaDescription, precisionFormulaDescription, parameters.get(0), parameters.get(1));
 			case F_TRUNC:
-				return new FormulaRoundingTrunc(parameters.get(0), parameters.get(1));
+				return new FormulaRoundingTrunc(formulaDescription, precisionFormulaDescription, parameters.get(0), parameters.get(1));
 			case F_BANKERS_ROUNDED:
-				return new FormulaRoundingBankers(parameters.get(0), parameters.get(1));
+				return new FormulaRoundingBankers(formulaDescription, precisionFormulaDescription, parameters.get(0), parameters.get(1));
 			case F_FORMAT_DATE:
-				return new FormulaFormatDate(parameters);
+				return new FormulaFormatDate(formulaDescription, parameters);
 			case F_FORMAT_INTEGER:
-				return new FormulaFormatInteger(parameters);
+				return new FormulaFormatInteger(formulaDescription, parameters);
 			case F_FORMAT_NUMERIC:
-				return new FormulaFormatNumeric(parameters);
+				return new FormulaFormatNumeric(formulaDescription, parameters);
 			case F_FORMAT_STRING:
-				return new FormulaFormatString(parameters);
+				return new FormulaFormatString(formulaDescription, parameters);
 			case F_STRING_ITEM:
-				return new FormulaStringItem(parameters);
+				return new FormulaStringItem(formulaDescription, parameters);
 			case F_SUBSTRING:
-				return new FormulaSubString(parameters);
+				return new FormulaSubString(formulaDescription, parameters);
 			case F_MAX:
-				return new FormulaExtremumMax(parameters);
+				return new FormulaExtremumMax(formulaDescription, parameters);
 			case F_MIN:
-				return new FormulaExtremumMin(parameters);
+				return new FormulaExtremumMin(formulaDescription, parameters);
 			case F_SMAX:
-				return new FormulaExtremumSignedMax(parameters);
+				return new FormulaExtremumSignedMax(formulaDescription, parameters);
 			case F_SMIN:
-				return new FormulaExtremumSignedMin(parameters);
+				return new FormulaExtremumSignedMin(formulaDescription, parameters);
 			case F_DATE:
-				return new FormulaDate(parameters);
+				return new FormulaDate(formulaDescription, parameters);
 			case F_MINUTES:
-				return new FormulaDurationMinutes(parameters);
+				return new FormulaDurationMinutes(formulaDescription, parameters);
 			case F_HOURS:
-				return new FormulaDurationHours(parameters);
+				return new FormulaDurationHours(formulaDescription, parameters);
 			case F_DAYS:
-				return new FormulaDurationDays(parameters);
+				return new FormulaDurationDays(formulaDescription, parameters);
 			case F_MONTHS:
-				return new FormulaDurationMonths(parameters);
+				return new FormulaDurationMonths(formulaDescription, parameters);
 			case F_YEARS:
-				return new FormulaDurationYears(parameters);
+				return new FormulaDurationYears(formulaDescription, parameters);
 			case F_ABS:
-				return new FormulaMathAbs(parameters);
+				return new FormulaMathAbs(formulaDescription, parameters);
 			case F_SIGN:
-				return new FormulaMathSign(parameters);
+				return new FormulaMathSign(formulaDescription, parameters);
 			case F_PUT_TEXT:
-				return new FormulaAnomaly(parameters);
+				return new FormulaAnomaly(formulaDescription, parameters);
 			case F_STRING_LENGTH:
-				return new FormulaStringLength(parameters);
+				return new FormulaStringLength(formulaDescription, parameters);
 			default:
 				throw new InternalError("Internal error : unknown standard function formula type : " + formulaDescriptionId);
 		}
@@ -287,11 +307,12 @@ public class AsStandard implements SemanticalAction {
 	
 	@Override
 	public AbstractFormula groupFunction(FormulaType formulaDescriptionId, String groupName) {
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
 		switch (formulaDescriptionId) {
 			case G_MULT:
-				return new FormulaGroupMultiply(groupName);
+				return new FormulaGroupMultiply(formulaDescription, groupName);
 			case G_SUM:
-				return new FormulaGroupMultiply(groupName);
+				return new FormulaGroupMultiply(formulaDescription, groupName);
 			case G_SUMV:
 				return null; // TODO
 			default:
@@ -301,22 +322,28 @@ public class AsStandard implements SemanticalAction {
 	
 	@Override
 	public AbstractFormula getFunction(FormulaReturnType returnType, IdentifierParameterList identifierParameterlist) {
-		return new FormulaGet(returnType, identifierParameterlist.getIdentifiers(), identifierParameterlist.getParameters());
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_GET);
+		FormulaDescription subFormulasDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE);
+		return new FormulaGet(formulaDescription, subFormulasDescription, returnType, identifierParameterlist.getIdentifiers(),
+				identifierParameterlist.getParameters());
 	}
 	
 	@Override
 	public AbstractFormula applicabiltyCall(String code) {
-		return new FormulaApplicability(code);
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_APPLICABILITY);
+		return new FormulaApplicability(formulaDescription, code);
 	}
 	
 	@Override
 	public AbstractFormula formulaCall(String code) {
-		return new FormulaFormula(code);
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_FORMULA);
+		return new FormulaFormula(formulaDescription, code);
 	}
 	
 	@Override
 	public AbstractFormula ifInstruction(AbstractFormula condition, AbstractFormula ifStatement, AbstractFormula elseStatement) {
-		return new FormulaIfInstruction(condition, ifStatement, elseStatement);
+		FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.I_IF);
+		return new FormulaIfInstruction(formulaDescription, condition, ifStatement, elseStatement);
 	}
 	
 	@Override

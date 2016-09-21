@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaIfInstruction}
@@ -23,6 +24,16 @@ public class FormulaIfInstructionTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaIfInstruction#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaIfInstruction formula = new FormulaIfInstruction();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.I_IF), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaIfInstruction#isTerminal()}
 	 */
@@ -50,7 +61,7 @@ public class FormulaIfInstructionTest {
 		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(elseStatement.getIntegerValue()).thenReturn(1);
 		
-		FormulaIfInstruction formula = new FormulaIfInstruction(condition, ifStatement, elseStatement);
+		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
 		assertEquals(Integer.valueOf(2), formula.getIntegerValue());
 	}
@@ -72,7 +83,7 @@ public class FormulaIfInstructionTest {
 		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(elseStatement.getIntegerValue()).thenReturn(1);
 		
-		FormulaIfInstruction formula = new FormulaIfInstruction(condition, ifStatement, elseStatement);
+		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
 	}
@@ -95,7 +106,7 @@ public class FormulaIfInstructionTest {
 		when(subElseStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(subElseStatement.getIntegerValue()).thenReturn(1);
 		
-		FormulaIfInstruction subFormula = new FormulaIfInstruction(subCondition, subIfStatement, subElseStatement);
+		FormulaIfInstruction subFormula = new FormulaIfInstruction(null, subCondition, subIfStatement, subElseStatement);
 		
 		AbstractFormula condition = mock(AbstractFormula.class);
 		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
@@ -105,7 +116,7 @@ public class FormulaIfInstructionTest {
 		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(ifStatement.getIntegerValue()).thenReturn(3);
 		
-		FormulaIfInstruction formula = new FormulaIfInstruction(condition, ifStatement, subFormula);
+		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, subFormula);
 		
 		assertEquals(Integer.valueOf(2), formula.getIntegerValue());
 	}
@@ -127,7 +138,7 @@ public class FormulaIfInstructionTest {
 		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(elseStatement.getNumericValue()).thenReturn(1.5);
 		
-		FormulaIfInstruction formula = new FormulaIfInstruction(condition, ifStatement, elseStatement);
+		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
 		assertEquals(Double.valueOf(2.5), formula.getNumericValue());
 	}
@@ -149,7 +160,7 @@ public class FormulaIfInstructionTest {
 		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(elseStatement.getNumericValue()).thenReturn(1.5);
 		
-		FormulaIfInstruction formula = new FormulaIfInstruction(condition, ifStatement, elseStatement);
+		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
 		assertEquals(Double.valueOf(1.5), formula.getNumericValue());
 	}
@@ -171,7 +182,7 @@ public class FormulaIfInstructionTest {
 		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(elseStatement.getStringValue()).thenReturn("condIsFalse");
 		
-		FormulaIfInstruction formula = new FormulaIfInstruction(condition, ifStatement, elseStatement);
+		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
 		assertEquals("condIsTrue", formula.getStringValue());
 	}
@@ -193,7 +204,7 @@ public class FormulaIfInstructionTest {
 		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(elseStatement.getStringValue()).thenReturn("condIsFalse");
 		
-		FormulaIfInstruction formula = new FormulaIfInstruction(condition, ifStatement, elseStatement);
+		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
 		assertEquals("condIsFalse", formula.getStringValue());
 	}
@@ -215,7 +226,7 @@ public class FormulaIfInstructionTest {
 		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(elseStatement.getBooleanValue()).thenReturn(false);
 		
-		FormulaIfInstruction formula = new FormulaIfInstruction(condition, ifStatement, elseStatement);
+		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -237,7 +248,7 @@ public class FormulaIfInstructionTest {
 		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		when(elseStatement.getBooleanValue()).thenReturn(false);
 		
-		FormulaIfInstruction formula = new FormulaIfInstruction(condition, ifStatement, elseStatement);
+		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -259,7 +270,7 @@ public class FormulaIfInstructionTest {
 		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		when(elseStatement.getDateValue()).thenReturn(LocalDate.of(2014, 1, 1));
 		
-		FormulaIfInstruction formula = new FormulaIfInstruction(condition, ifStatement, elseStatement);
+		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
 		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue());
 	}
@@ -281,7 +292,7 @@ public class FormulaIfInstructionTest {
 		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		when(elseStatement.getDateValue()).thenReturn(LocalDate.of(2014, 1, 1));
 		
-		FormulaIfInstruction formula = new FormulaIfInstruction(condition, ifStatement, elseStatement);
+		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
 		assertEquals(LocalDate.of(2014, 1, 1), formula.getDateValue());
 	}
@@ -303,7 +314,7 @@ public class FormulaIfInstructionTest {
 		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		when(elseStatement.getDurationValue()).thenReturn(Duration.ofDays(3L));
 		
-		FormulaIfInstruction formula = new FormulaIfInstruction(condition, ifStatement, elseStatement);
+		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
 		assertEquals(Duration.ofDays(2L), formula.getDurationValue());
 	}
@@ -325,7 +336,7 @@ public class FormulaIfInstructionTest {
 		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		when(elseStatement.getDurationValue()).thenReturn(Duration.ofDays(3L));
 		
-		FormulaIfInstruction formula = new FormulaIfInstruction(condition, ifStatement, elseStatement);
+		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
 		assertEquals(Duration.ofDays(3L), formula.getDurationValue());
 	}
@@ -347,7 +358,7 @@ public class FormulaIfInstructionTest {
 		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(elseStatement.asText()).thenReturn("some_rule2");
 		
-		FormulaIfInstruction formula = new FormulaIfInstruction(condition, ifStatement, elseStatement);
+		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
 		assertEquals("if some_cond then\n\tsome_rule1\nelse\n\tsome_rule2\nend", formula.asText());
 	}
@@ -369,7 +380,7 @@ public class FormulaIfInstructionTest {
 		when(subElseStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(subElseStatement.asText()).thenReturn("some_rule3");
 		
-		FormulaIfInstruction subFormula = new FormulaIfInstruction(subCondition, subIfStatement, subElseStatement);
+		FormulaIfInstruction subFormula = new FormulaIfInstruction(null, subCondition, subIfStatement, subElseStatement);
 		
 		AbstractFormula condition = mock(AbstractFormula.class);
 		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
@@ -379,7 +390,7 @@ public class FormulaIfInstructionTest {
 		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(ifStatement.asText()).thenReturn("some_rule1");
 		
-		FormulaIfInstruction formula = new FormulaIfInstruction(condition, ifStatement, subFormula);
+		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, subFormula);
 		
 		assertEquals("if some_cond1 then\n\tsome_rule1\nelseif some_cond2 then\n\tsome_rule2\nelse\n\tsome_rule3\nend",
 				formula.asText());

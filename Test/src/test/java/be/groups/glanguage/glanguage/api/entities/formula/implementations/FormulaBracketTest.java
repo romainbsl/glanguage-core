@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaBracket}
@@ -23,6 +24,16 @@ public class FormulaBracketTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaBracket#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaBracket formula = new FormulaBracket();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_BRACKETS), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaBracket#isTerminal()}
 	 */
@@ -41,7 +52,7 @@ public class FormulaBracketTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getIntegerValue()).thenReturn(1);
 		
-		FormulaBracket formula = new FormulaBracket(parameter);
+		FormulaBracket formula = new FormulaBracket(null, parameter);
 		
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
 	}
@@ -54,7 +65,7 @@ public class FormulaBracketTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getNumericValue()).thenReturn(2.5);
 		
-		FormulaBracket formula = new FormulaBracket(parameter);
+		FormulaBracket formula = new FormulaBracket(null, parameter);
 		
 		assertEquals(Double.valueOf(2.5), formula.getNumericValue());
 	}
@@ -67,7 +78,7 @@ public class FormulaBracketTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getStringValue()).thenReturn("some_value");
 		
-		FormulaBracket formula = new FormulaBracket(parameter);
+		FormulaBracket formula = new FormulaBracket(null, parameter);
 		
 		assertEquals("some_value", formula.getStringValue());
 	}
@@ -80,7 +91,7 @@ public class FormulaBracketTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getBooleanValue()).thenReturn(true);
 		
-		FormulaBracket formula = new FormulaBracket(parameter);
+		FormulaBracket formula = new FormulaBracket(null, parameter);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -93,7 +104,7 @@ public class FormulaBracketTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getDateValue()).thenReturn(LocalDate.of(2015, 1, 1));
 		
-		FormulaBracket formula = new FormulaBracket(parameter);
+		FormulaBracket formula = new FormulaBracket(null, parameter);
 		
 		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue());
 	}
@@ -106,7 +117,7 @@ public class FormulaBracketTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getDurationValue()).thenReturn(Duration.ofDays(2L));
 		
-		FormulaBracket formula = new FormulaBracket(parameter);
+		FormulaBracket formula = new FormulaBracket(null, parameter);
 		
 		assertEquals(Duration.ofDays(2L), formula.getDurationValue());
 	}
@@ -120,7 +131,7 @@ public class FormulaBracketTest {
 		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(parameter.asText()).thenReturn("some_rule");
 		
-		FormulaBracket formula = new FormulaBracket(parameter);
+		FormulaBracket formula = new FormulaBracket(null, parameter);
 		
 		assertEquals("(some_rule)", formula.asText());
 	}

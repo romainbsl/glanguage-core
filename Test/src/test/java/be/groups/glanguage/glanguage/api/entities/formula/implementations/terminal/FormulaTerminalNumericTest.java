@@ -5,16 +5,28 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+
 /**
  * Test class for {@link FormulaTerminalNumeric}
  * 
  * @author DUPIREFR
  */
 public class FormulaTerminalNumericTest {
-
+	
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaTerminalNumeric#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.TERMINAL_NUMERIC), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaTerminalNumeric#isTerminal()}
 	 */
@@ -23,49 +35,49 @@ public class FormulaTerminalNumericTest {
 		FormulaTerminalNumeric formula = new FormulaTerminalNumeric();
 		assertTrue(formula.isTerminal());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalNumeric#getIntegerValue()}
 	 */
 	@Test
 	public void testGetIntegerValue() {
-		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalNumeric#getNumericValue()}
 	 */
 	@Test
 	public void testGetNumericValue() {
-		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		assertEquals(Double.valueOf(1.5), formula.getNumericValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalNumeric#getStringValue()}
 	 */
 	@Test
 	public void testGetStringValue() {
-		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		assertEquals("1.5", formula.getStringValue());
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalNumeric#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
-		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		formula.getBooleanValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalNumeric#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
-		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		formula.getDateValue();
 	}
 	
@@ -74,17 +86,17 @@ public class FormulaTerminalNumericTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
-		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		formula.getDurationValue();
 	}
-
+	
 	/**
 	 * Tests {@link FormulaTerminalNumeric#asText()}
 	 */
 	@Test
 	public void testAsText() {
-		FormulaTerminalNumeric formula = new FormulaTerminalNumeric("1.5");
+		FormulaTerminalNumeric formula = new FormulaTerminalNumeric(null, "1.5");
 		assertEquals("1.5", formula.asText());
 	}
-
+	
 }

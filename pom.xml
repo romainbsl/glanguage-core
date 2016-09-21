@@ -18,6 +18,7 @@
   	<module>Test</module>
   	<module>Business</module>
     <module>WS</module>
+    <module>DAO</module>
   </modules>
   
 </project>

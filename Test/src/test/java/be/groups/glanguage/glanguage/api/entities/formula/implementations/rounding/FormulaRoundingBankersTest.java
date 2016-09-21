@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaRoundingBankers}
@@ -20,6 +21,16 @@ public class FormulaRoundingBankersTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaRoundingBankers#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaRoundingBankers formula = new FormulaRoundingBankers();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_BANKERS_ROUNDED), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaRoundingBankers#isTerminal()}
 	 */
@@ -43,7 +54,7 @@ public class FormulaRoundingBankersTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(10.0);
 		
-		FormulaRoundingBankers formula = new FormulaRoundingBankers(leftFormula, rightFormula);
+		FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, leftFormula, rightFormula);
 		
 		assertEquals(Integer.valueOf(117), formula.getIntegerValue());
 	}
@@ -61,7 +72,7 @@ public class FormulaRoundingBankersTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(2.0);
 		
-		FormulaRoundingBankers formula = new FormulaRoundingBankers(leftFormula, rightFormula);
+		FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, leftFormula, rightFormula);
 		
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
 	}
@@ -79,7 +90,7 @@ public class FormulaRoundingBankersTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(10.0);
 		
-		FormulaRoundingBankers formula = new FormulaRoundingBankers(leftFormula, rightFormula);
+		FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, leftFormula, rightFormula);
 		
 		assertEquals(Double.valueOf(117), formula.getNumericValue());
 	}
@@ -97,7 +108,7 @@ public class FormulaRoundingBankersTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(2.0);
 		
-		FormulaRoundingBankers formula = new FormulaRoundingBankers(leftFormula, rightFormula);
+		FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, leftFormula, rightFormula);
 		
 		assertEquals(Double.valueOf(1.58), formula.getNumericValue());
 	}
@@ -115,7 +126,7 @@ public class FormulaRoundingBankersTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(2.0);
 		
-		FormulaRoundingBankers formula = new FormulaRoundingBankers(leftFormula, rightFormula);
+		FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, leftFormula, rightFormula);
 		
 		formula.getStringValue();
 	}
@@ -133,7 +144,7 @@ public class FormulaRoundingBankersTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(2.0);
 		
-		FormulaRoundingBankers formula = new FormulaRoundingBankers(leftFormula, rightFormula);
+		FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, leftFormula, rightFormula);
 		
 		formula.getBooleanValue();
 	}
@@ -151,7 +162,7 @@ public class FormulaRoundingBankersTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(2.0);
 		
-		FormulaRoundingBankers formula = new FormulaRoundingBankers(leftFormula, rightFormula);
+		FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, leftFormula, rightFormula);
 		
 		formula.getDateValue();
 	}
@@ -169,7 +180,7 @@ public class FormulaRoundingBankersTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(2.0);
 		
-		FormulaRoundingBankers formula = new FormulaRoundingBankers(leftFormula, rightFormula);
+		FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, leftFormula, rightFormula);
 		
 		formula.getDurationValue();
 	}
@@ -197,7 +208,7 @@ public class FormulaRoundingBankersTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.asText()).thenReturn("2");
 		
-		FormulaRoundingBankers formula = new FormulaRoundingBankers(leftFormula, rightFormula);
+		FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, leftFormula, rightFormula);
 		
 		assertEquals("bankers_rounded(some_rule; 2)", formula.asText());
 	}

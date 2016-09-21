@@ -9,6 +9,8 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+
 @Entity
 public abstract class AbstractTerminalFormula extends AbstractFormula {
 	
@@ -16,8 +18,12 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
 		super();
 	}
 	
-	public AbstractTerminalFormula(String constantValue) {
-		super();
+	public AbstractTerminalFormula(FormulaDescription description) {
+		super(description);
+	}
+	
+	public AbstractTerminalFormula(FormulaDescription description, String constantValue) {
+		this(description);
 		
 		if (constantValue == null) {
 			throw new IllegalArgumentException("Constant value must be non-null");

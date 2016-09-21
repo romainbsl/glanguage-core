@@ -11,6 +11,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
@@ -23,8 +24,8 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public GroupFormula(String groupId) {
-		super();
+	public GroupFormula(FormulaDescription description, String groupId) {
+		super(description);
 		if (groupId == null || groupId.isEmpty()) {
 			throw new IllegalArgumentException("groupId must be a non-null non-empty string");
 		}

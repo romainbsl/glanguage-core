@@ -8,6 +8,7 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
@@ -20,8 +21,8 @@ public class FormulaGroupMultiply extends GroupFormula {
 		super();
 	}
 
-	public FormulaGroupMultiply(String groupId) {
-		super( groupId);
+	public FormulaGroupMultiply(FormulaDescription description, String groupId) {
+		super(description, groupId);
 	}
 	
 	@JsonIgnore

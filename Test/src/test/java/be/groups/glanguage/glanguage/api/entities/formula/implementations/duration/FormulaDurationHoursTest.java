@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaDurationHours}
@@ -23,6 +24,16 @@ public class FormulaDurationHoursTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaDurationHours#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaDurationHours formula = new FormulaDurationHours();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_HOURS), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaDurationHours#isTerminal()}
 	 */
@@ -42,7 +53,7 @@ public class FormulaDurationHoursTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		when(childFormula.getDurationValue()).thenReturn(Duration.ofHours(2L));
 		
-		FormulaDurationHours formula = new FormulaDurationHours(Arrays.asList(childFormula));
+		FormulaDurationHours formula = new FormulaDurationHours(null, Arrays.asList(childFormula));
 		
 		assertEquals(Integer.valueOf(2), formula.getIntegerValue());
 	}
@@ -56,7 +67,7 @@ public class FormulaDurationHoursTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		when(childFormula.getDurationValue()).thenReturn(Duration.ofHours(2L));
 		
-		FormulaDurationHours formula = new FormulaDurationHours(Arrays.asList(childFormula));
+		FormulaDurationHours formula = new FormulaDurationHours(null, Arrays.asList(childFormula));
 		
 		formula.getNumericValue();
 	}
@@ -70,7 +81,7 @@ public class FormulaDurationHoursTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		when(childFormula.getDurationValue()).thenReturn(Duration.ofHours(2L));
 		
-		FormulaDurationHours formula = new FormulaDurationHours(Arrays.asList(childFormula));
+		FormulaDurationHours formula = new FormulaDurationHours(null, Arrays.asList(childFormula));
 		
 		formula.getStringValue();
 	}
@@ -84,7 +95,7 @@ public class FormulaDurationHoursTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		when(childFormula.getDurationValue()).thenReturn(Duration.ofHours(2L));
 		
-		FormulaDurationHours formula = new FormulaDurationHours(Arrays.asList(childFormula));
+		FormulaDurationHours formula = new FormulaDurationHours(null, Arrays.asList(childFormula));
 		
 		formula.getBooleanValue();
 	}
@@ -98,7 +109,7 @@ public class FormulaDurationHoursTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		when(childFormula.getDurationValue()).thenReturn(Duration.ofHours(2L));
 		
-		FormulaDurationHours formula = new FormulaDurationHours(Arrays.asList(childFormula));
+		FormulaDurationHours formula = new FormulaDurationHours(null, Arrays.asList(childFormula));
 		
 		formula.getDateValue();
 	}
@@ -112,7 +123,7 @@ public class FormulaDurationHoursTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		when(childFormula.getDurationValue()).thenReturn(Duration.ofHours(2L));
 		
-		FormulaDurationHours formula = new FormulaDurationHours(Arrays.asList(childFormula));
+		FormulaDurationHours formula = new FormulaDurationHours(null, Arrays.asList(childFormula));
 		
 		assertEquals(Duration.ofHours(2L), formula.getDurationValue());
 	}
@@ -136,7 +147,7 @@ public class FormulaDurationHoursTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.asText()).thenReturn("some_rule");
 		
-		FormulaDurationHours formula = new FormulaDurationHours(Arrays.asList(childFormula));
+		FormulaDurationHours formula = new FormulaDurationHours(null, Arrays.asList(childFormula));
 		
 		assertEquals("hours(some_rule)", formula.asText());
 	}

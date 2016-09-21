@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaStringLength}
@@ -23,6 +24,16 @@ public class FormulaStringLengthTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaStringLength#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaStringLength formula = new FormulaStringLength();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_STRING_LENGTH), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaStringLength#isTerminal()}
 	 */
@@ -45,7 +56,7 @@ public class FormulaStringLengthTest {
 		when(string.getStringValue()).thenReturn("a string");
 		parameters.add(string);
 		
-		FormulaStringLength formula = new FormulaStringLength(parameters);
+		FormulaStringLength formula = new FormulaStringLength(null, parameters);
 		
 		assertEquals(Integer.valueOf(8), formula.getIntegerValue());
 	}
@@ -62,7 +73,7 @@ public class FormulaStringLengthTest {
 		when(string.getStringValue()).thenReturn("a string");
 		parameters.add(string);
 		
-		FormulaStringLength formula = new FormulaStringLength(parameters);
+		FormulaStringLength formula = new FormulaStringLength(null, parameters);
 		
 		formula.getNumericValue();
 	}
@@ -79,7 +90,7 @@ public class FormulaStringLengthTest {
 		when(string.getStringValue()).thenReturn("a string");
 		parameters.add(string);
 		
-		FormulaStringLength formula = new FormulaStringLength(parameters);
+		FormulaStringLength formula = new FormulaStringLength(null, parameters);
 		
 		assertEquals("8", formula.getStringValue());
 	}
@@ -96,7 +107,7 @@ public class FormulaStringLengthTest {
 		when(string.getStringValue()).thenReturn("a string");
 		parameters.add(string);
 		
-		FormulaStringLength formula = new FormulaStringLength(parameters);
+		FormulaStringLength formula = new FormulaStringLength(null, parameters);
 		
 		formula.getBooleanValue();
 	}
@@ -113,7 +124,7 @@ public class FormulaStringLengthTest {
 		when(string.getStringValue()).thenReturn("a string");
 		parameters.add(string);
 		
-		FormulaStringLength formula = new FormulaStringLength(parameters);
+		FormulaStringLength formula = new FormulaStringLength(null, parameters);
 		
 		formula.getDateValue();
 	}
@@ -130,7 +141,7 @@ public class FormulaStringLengthTest {
 		when(string.getStringValue()).thenReturn("a string");
 		parameters.add(string);
 		
-		FormulaStringLength formula = new FormulaStringLength(parameters);
+		FormulaStringLength formula = new FormulaStringLength(null, parameters);
 		
 		formula.getDurationValue();
 	}
@@ -147,7 +158,7 @@ public class FormulaStringLengthTest {
 		when(string.asText()).thenReturn("some_rule");
 		parameters.add(string);
 		
-		FormulaStringLength formula = new FormulaStringLength(parameters);
+		FormulaStringLength formula = new FormulaStringLength(null, parameters);
 		
 		assertEquals("stringLength(some_rule)", formula.asText());
 	}

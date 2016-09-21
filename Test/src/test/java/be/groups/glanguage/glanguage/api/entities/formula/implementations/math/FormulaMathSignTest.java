@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaMathSign}
@@ -23,6 +24,16 @@ public class FormulaMathSignTest {
 	/*
 	 * Tests
 	 */
+	/**
+	 * Tests {@link FormulaMathSign#getDiscriminatorValue()}
+	 */
+	@Test
+	public void testGetDiscriminatorValue() {
+		FormulaMathSign formula = new FormulaMathSign();
+		
+		assertEquals(Integer.valueOf(FormulaType.Values.F_SIGN), formula.getDiscriminatorValue());
+	}
+	
 	/**
 	 * Tests {@link FormulaMathSign#isTerminal()}
 	 */
@@ -42,7 +53,7 @@ public class FormulaMathSignTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getNumericValue()).thenReturn(1.0);
 		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
+		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(childFormula));
 		
 		assertTrue(formula.getIntegerValue() >= 0);
 	}
@@ -56,7 +67,7 @@ public class FormulaMathSignTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getNumericValue()).thenReturn(-1.0);
 		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
+		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(childFormula));
 		
 		assertTrue(formula.getIntegerValue() <= 0);
 	}
@@ -70,7 +81,7 @@ public class FormulaMathSignTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getNumericValue()).thenReturn(null);
 		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
+		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(childFormula));
 		
 		formula.getIntegerValue();
 	}
@@ -84,7 +95,7 @@ public class FormulaMathSignTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(childFormula.getStringValue()).thenReturn("some_value");
 		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
+		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(childFormula));
 		
 		formula.getIntegerValue();
 	}
@@ -98,7 +109,7 @@ public class FormulaMathSignTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(childFormula.getNumericValue()).thenReturn(1.5);
 		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
+		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(childFormula));
 		
 		assertTrue(formula.getNumericValue() >= 0);
 	}
@@ -112,7 +123,7 @@ public class FormulaMathSignTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(childFormula.getNumericValue()).thenReturn(-1.5);
 		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
+		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(childFormula));
 		
 		assertTrue(formula.getNumericValue() <= 0);
 	}
@@ -126,7 +137,7 @@ public class FormulaMathSignTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(childFormula.getNumericValue()).thenReturn(null);
 		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
+		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(childFormula));
 		
 		formula.getNumericValue();
 	}
@@ -140,7 +151,7 @@ public class FormulaMathSignTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
+		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(childFormula));
 		
 		formula.getStringValue();
 	}
@@ -154,7 +165,7 @@ public class FormulaMathSignTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
+		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(childFormula));
 		
 		formula.getBooleanValue();
 	}
@@ -168,7 +179,7 @@ public class FormulaMathSignTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
+		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(childFormula));
 		
 		formula.getDateValue();
 	}
@@ -182,7 +193,7 @@ public class FormulaMathSignTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.getIntegerValue()).thenReturn(1);
 		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
+		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(childFormula));
 		
 		formula.getDurationValue();
 	}
@@ -206,7 +217,7 @@ public class FormulaMathSignTest {
 		when(childFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(childFormula.asText()).thenReturn("some_rule");
 		
-		FormulaMathSign formula = new FormulaMathSign(Arrays.asList(childFormula));
+		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(childFormula));
 		
 		assertEquals("sign(some_rule)", formula.asText());
 	}

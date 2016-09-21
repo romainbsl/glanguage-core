@@ -7,6 +7,7 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
@@ -18,8 +19,8 @@ public abstract class RuleCallFormula extends CallFormula {
 		super();
 	}
 
-	public RuleCallFormula(String ruleId) {
-		super();
+	public RuleCallFormula(FormulaDescription description, String ruleId) {
+		super(description);
 		
 		if (ruleId == null || ruleId.isEmpty()) {
 			throw new IllegalArgumentException("ruleId must be a non-null non-empty string");

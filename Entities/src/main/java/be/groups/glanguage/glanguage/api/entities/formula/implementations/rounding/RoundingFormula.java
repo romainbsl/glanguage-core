@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.rule.Rounder;
 import be.groups.glanguage.glanguage.api.entities.rule.RoundingType;
 
@@ -17,13 +18,13 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public RoundingFormula(AbstractFormula parameter, AbstractFormula precision) {
-		super();
+	public RoundingFormula(FormulaDescription description, FormulaDescription precisionFormulaDescription, AbstractFormula parameter, AbstractFormula precision) {
+		super(description);
 		
 		this.parameters = new ArrayList<>();
 		parameters.add(parameter);
 		if (precision == null) {
-			setPrecision(getDefaultPrecision());
+			setPrecision(getDefaultPrecision(precisionFormulaDescription));
 		} else {
 			setPrecision(precision);
 		}
@@ -63,7 +64,7 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 	
 	public abstract RoundingType getRoundingType();
 	
-	public abstract AbstractFormula getDefaultPrecision();
+	public abstract AbstractFormula getDefaultPrecision(FormulaDescription description);
 	
 	private void setPrecision(AbstractFormula precision) {
 		this.parameters.add(precision);

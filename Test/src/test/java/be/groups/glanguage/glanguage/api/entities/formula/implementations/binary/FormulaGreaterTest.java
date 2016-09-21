@@ -56,7 +56,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(0);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		formula.getIntegerValue();
 	}
@@ -74,7 +74,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(0);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		formula.getNumericValue();
 	}
@@ -92,7 +92,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(0);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		formula.getStringValue();
 	}
@@ -111,7 +111,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(0);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -130,7 +130,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(1);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -149,7 +149,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(2);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -168,7 +168,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.5);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -187,7 +187,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(1.5);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -206,7 +206,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(2.5);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -225,7 +225,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(0.5);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -244,7 +244,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(1.0);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -263,7 +263,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		when(rightFormula.getNumericValue()).thenReturn(2.5);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -282,7 +282,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(0.0);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -301,7 +301,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(1.0);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -320,7 +320,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getNumericValue()).thenReturn(2.0);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -339,7 +339,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(rightFormula.getStringValue()).thenReturn("aaa");
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -358,7 +358,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(rightFormula.getStringValue()).thenReturn("aaa");
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -377,7 +377,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(rightFormula.getStringValue()).thenReturn("aab");
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -396,7 +396,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		when(rightFormula.getDateValue()).thenReturn(LocalDate.of(2014, 1, 1));
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -415,7 +415,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		when(rightFormula.getDateValue()).thenReturn(LocalDate.of(2015, 1, 1));
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -434,7 +434,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		when(rightFormula.getDateValue()).thenReturn(LocalDate.of(2016, 1, 1));
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -452,7 +452,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getIntegerValue()).thenReturn(0);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		formula.getDateValue();
 	}
@@ -470,7 +470,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.getValue()).thenReturn(0);
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		formula.getDurationValue();
 	}
@@ -498,7 +498,7 @@ public class FormulaGreaterTest {
 		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(rightFormula.asText()).thenReturn("some_rule2");
 		
-		FormulaGreater formula = new FormulaGreater(leftFormula, rightFormula);
+		FormulaGreater formula = new FormulaGreater(null, leftFormula, rightFormula);
 		
 		assertEquals("some_rule1 > some_rule2", formula.asText());
 	}
