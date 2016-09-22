@@ -2,21 +2,27 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.binar
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 
 /**
  * Test class for {@link FormulaOr}
  * 
  * @author DUPIREFR
  */
-public class FormulaOrTest {
+public class FormulaOrTest extends BaseDatabaseTest {
 	
 	/*
 	 * Tests
@@ -42,19 +48,155 @@ public class FormulaOrTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaOr#isValid()} when both operands are boolean
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidBothBoolean() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		
+		FormulaOr formula = new FormulaOr(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR), operand1, operand2);
+		
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaOr#isValid()} when first operand is not boolean
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidFirstNotBoolean() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		
+		FormulaOr formula = new FormulaOr(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR), operand1, operand2);
+		
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaOr#isValid()} when second operand is not boolean
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidSecondNotBoolean() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaOr formula = new FormulaOr(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR), operand1, operand2);
+		
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaOr#isValid()} when both operands are not boolean
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidBothNotBoolean() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaOr formula = new FormulaOr(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR), operand1, operand2);
+		
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaOr#getReturnType()} when both operands are boolean
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeBothBoolean() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		
+		FormulaOr formula = new FormulaOr(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR), operand1, operand2);
+		
+		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaOr#getReturnType()} when first operand is not boolean
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeFirstNotBoolean() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		
+		FormulaOr formula = new FormulaOr(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR), operand1, operand2);
+		
+		assertNull(formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaOr#getReturnType()} when second operand is not boolean
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeSecondNotBoolean() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaOr formula = new FormulaOr(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR), operand1, operand2);
+		
+		assertNull(formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaOr#getReturnType()} when both operands are not boolean
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeBothNotBoolean() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaOr formula = new FormulaOr(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR), operand1, operand2);
+		
+		assertNull(formula.getReturnType());
+	}
+	
+	/**
 	 * Tests {@link FormulaOr#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(false);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand1.getBooleanValue()).thenReturn(false);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(false);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand2.getBooleanValue()).thenReturn(false);
 		
-		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, operand1, operand2);
 		
 		formula.getIntegerValue();
 	}
@@ -64,15 +206,15 @@ public class FormulaOrTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(false);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand1.getBooleanValue()).thenReturn(false);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(false);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand2.getBooleanValue()).thenReturn(false);
 		
-		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, operand1, operand2);
 		
 		formula.getNumericValue();
 	}
@@ -82,15 +224,15 @@ public class FormulaOrTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(false);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand1.getBooleanValue()).thenReturn(false);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(false);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand2.getBooleanValue()).thenReturn(false);
 		
-		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, operand1, operand2);
 		
 		formula.getStringValue();
 	}
@@ -100,15 +242,15 @@ public class FormulaOrTest {
 	 */
 	@Test
 	public void testGetBooleanValueParametersExistBothTrue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(true);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand1.getBooleanValue()).thenReturn(true);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(true);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand2.getBooleanValue()).thenReturn(true);
 		
-		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, operand1, operand2);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -118,15 +260,15 @@ public class FormulaOrTest {
 	 */
 	@Test
 	public void testGetBooleanValueParametersExistLeftFalse() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(false);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand1.getBooleanValue()).thenReturn(false);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(true);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand2.getBooleanValue()).thenReturn(true);
 		
-		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, operand1, operand2);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -136,15 +278,15 @@ public class FormulaOrTest {
 	 */
 	@Test
 	public void testGetBooleanValueParametersExistRightFalse() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(true);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand1.getBooleanValue()).thenReturn(true);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(false);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand2.getBooleanValue()).thenReturn(false);
 		
-		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, operand1, operand2);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -154,15 +296,15 @@ public class FormulaOrTest {
 	 */
 	@Test
 	public void testGetBooleanValueParametersExistBothFalse() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(false);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand1.getBooleanValue()).thenReturn(false);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(false);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand2.getBooleanValue()).thenReturn(false);
 		
-		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, operand1, operand2);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
@@ -172,15 +314,15 @@ public class FormulaOrTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testGetBooleanValueLeftNotExists() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(null);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand1.getBooleanValue()).thenReturn(null);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(true);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand2.getBooleanValue()).thenReturn(true);
 		
-		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, operand1, operand2);
 		
 		formula.getBooleanValue();
 	}
@@ -190,15 +332,15 @@ public class FormulaOrTest {
 	 */
 	@Test
 	public void testGetBooleanValueLeftTrueRightNotExists() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(true);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand1.getBooleanValue()).thenReturn(true);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(null);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand2.getBooleanValue()).thenReturn(null);
 		
-		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, operand1, operand2);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
@@ -208,15 +350,15 @@ public class FormulaOrTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testGetBooleanValueRightNotExists() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(false);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand1.getBooleanValue()).thenReturn(false);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(null);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand2.getBooleanValue()).thenReturn(null);
 		
-		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, operand1, operand2);
 		
 		formula.getBooleanValue();
 	}
@@ -226,15 +368,15 @@ public class FormulaOrTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testGetBooleanValueParametersNotExist() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(null);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand1.getBooleanValue()).thenReturn(null);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(null);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand2.getBooleanValue()).thenReturn(null);
 		
-		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, operand1, operand2);
 		
 		formula.getBooleanValue();
 	}
@@ -244,15 +386,15 @@ public class FormulaOrTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(false);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand1.getBooleanValue()).thenReturn(false);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(false);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand2.getBooleanValue()).thenReturn(false);
 		
-		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, operand1, operand2);
 		
 		formula.getDateValue();
 	}
@@ -262,15 +404,15 @@ public class FormulaOrTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.getBooleanValue()).thenReturn(false);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand1.getBooleanValue()).thenReturn(false);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.getBooleanValue()).thenReturn(false);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand2.getBooleanValue()).thenReturn(false);
 		
-		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, operand1, operand2);
 		
 		formula.getDurationValue();
 	}
@@ -290,15 +432,15 @@ public class FormulaOrTest {
 	 */
 	@Test
 	public void testAsText() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(leftFormula.asText()).thenReturn("some_rule1");
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand1.asText()).thenReturn("some_rule1");
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(rightFormula.asText()).thenReturn("some_rule2");
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand2.asText()).thenReturn("some_rule2");
 		
-		FormulaOr formula = new FormulaOr(null, leftFormula, rightFormula);
+		FormulaOr formula = new FormulaOr(null, operand1, operand2);
 		
 		assertEquals("some_rule1 or some_rule2", formula.asText());
 	}
