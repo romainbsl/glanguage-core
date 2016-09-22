@@ -84,11 +84,11 @@ public class FormulaDescriptionTest {
 		assertEquals(FormulaType.OP_OR, formulaDescription.getType());
 		
 		assertEquals("OR", formulaDescription.getName());
-		
-		assertEquals("Opération booléenne OU", formulaDescription.getDescriptionFr());
-		assertEquals("OF boolean operatie", formulaDescription.getDescriptionNl());
+				
+		assertEquals("'OU' logique", formulaDescription.getDescriptionFr());
+		assertEquals("Logische 'OF'", formulaDescription.getDescriptionNl());
 		assertNull(formulaDescription.getDescriptionDe());
-		assertEquals("OR boolean operator", formulaDescription.getDescriptionX());
+		assertEquals("Logical 'OR'", formulaDescription.getDescriptionX());
 		
 		assertEquals(FormulaPriority.OR, formulaDescription.getPriority());
 		
