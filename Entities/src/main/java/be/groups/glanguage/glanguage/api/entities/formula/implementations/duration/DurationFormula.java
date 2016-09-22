@@ -24,9 +24,7 @@ public abstract class DurationFormula extends AbstractNonTerminalFormula {
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
 		}
-		if (parameters.size() != 1) {
-			throw new IllegalArgumentException("there should be 1 parameter but there are " + parameters.size());
-		}
+
 		this.parameters = new ArrayList<>();
 		this.parameters.addAll(parameters);
 	}
