@@ -1,20 +1,31 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 
 /**
  * Test class for {@link FormulaTerminalDate}
  * 
  * @author DUPIREFR
  */
-public class FormulaTerminalDateTest {
+public class FormulaTerminalDateTest extends BaseDatabaseTest {
 	
 	/*
 	 * Tests
@@ -36,6 +47,64 @@ public class FormulaTerminalDateTest {
 	public void testIsTerminal() {
 		FormulaTerminalDate formula = new FormulaTerminalDate();
 		assertTrue(formula.isTerminal());
+	}
+	
+	/**
+	 * Tests {@link FormulaTerminalDate#isValid()} when no parameters
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidNoParameters() {
+		FormulaTerminalDate formula =
+				new FormulaTerminalDate(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DATE), "01/01/2015");
+				
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaTerminalDate#isValid()} when some parameters are present
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidParameters() {
+		FormulaTerminalDate formula =
+				new FormulaTerminalDate(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DATE), "01/01/2015");
+				
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		
+		formula.setParameters(Arrays.asList(parameter));
+		
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaTerminalDate#getReturnType()} when no parameters
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeNoParameters() {
+		FormulaTerminalDate formula =
+				new FormulaTerminalDate(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DATE), "01/01/2015");
+				
+		assertEquals(FormulaReturnType.DATE, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaTerminalDate#getReturnType()} when some parameters are present
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeParameters() {
+		FormulaTerminalDate formula =
+				new FormulaTerminalDate(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DATE), "01/01/2015");
+				
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		
+		formula.setParameters(Arrays.asList(parameter));
+		
+		assertNull(formula.getReturnType());
 	}
 	
 	/**
