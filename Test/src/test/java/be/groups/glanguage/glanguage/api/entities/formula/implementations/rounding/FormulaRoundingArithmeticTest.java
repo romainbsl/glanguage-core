@@ -2,21 +2,27 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.round
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 
 /**
  * Test class for {@link FormulaRoundingArithmetic}
  * 
  * @author DUPIREFR
  */
-public class FormulaRoundingArithmeticTest {
+public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
 	
 	/*
 	 * Tests
@@ -42,19 +48,235 @@ public class FormulaRoundingArithmeticTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaRoundingArithmetic#isValid()} when parameter is integer
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidInteger() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaRoundingArithmetic formula =
+				new FormulaRoundingArithmetic(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED),
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaRoundingArithmetic#isValid()} when parameter is numeric
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidNumeric() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		FormulaRoundingArithmetic formula =
+				new FormulaRoundingArithmetic(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED),
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaRoundingArithmetic#isValid()} when parameter is not integer or numeric
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidNotIntegerOrNumeric() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		
+		FormulaRoundingArithmetic formula =
+				new FormulaRoundingArithmetic(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED),
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaRoundingArithmetic#isValid()} when parameter is integer and precision is
+	 * integer
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidIntegerInteger() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula precision = mock(AbstractFormula.class);
+		when(precision.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaRoundingArithmetic formula =
+				new FormulaRoundingArithmetic(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED),
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaRoundingArithmetic#isValid()} when parameter is numeric and precision is
+	 * integer
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidNumericInteger() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		AbstractFormula precision = mock(AbstractFormula.class);
+		when(precision.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaRoundingArithmetic formula =
+				new FormulaRoundingArithmetic(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED),
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaRoundingArithmetic#isValid()} when parameter is numeric and precision is
+	 * numeric
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidNumericNumeric() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		AbstractFormula precision = mock(AbstractFormula.class);
+		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		FormulaRoundingArithmetic formula =
+				new FormulaRoundingArithmetic(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED),
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaRoundingArithmetic#getReturnType()} when parameter is integer
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeInteger() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaRoundingArithmetic formula =
+				new FormulaRoundingArithmetic(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED),
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						
+		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaRoundingArithmetic#getReturnType()} when parameter is numeric
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeNumeric() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		FormulaRoundingArithmetic formula =
+				new FormulaRoundingArithmetic(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED),
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaRoundingArithmetic#getReturnType()} when parameter is not integer or numeric
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeNotIntegerOrNumeric() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		
+		FormulaRoundingArithmetic formula =
+				new FormulaRoundingArithmetic(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED),
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						
+		assertNull(formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaRoundingArithmetic#getReturnType()} when parameter is integer and
+	 * precision is integer
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeIntegerInteger() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula precision = mock(AbstractFormula.class);
+		when(precision.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaRoundingArithmetic formula =
+				new FormulaRoundingArithmetic(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED),
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						
+		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaRoundingArithmetic#getReturnType()} when parameter is numeric and
+	 * precision is integer
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeNumericInteger() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		AbstractFormula precision = mock(AbstractFormula.class);
+		when(precision.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaRoundingArithmetic formula =
+				new FormulaRoundingArithmetic(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED),
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaRoundingArithmetic#getReturnType()} when parameter is numeric and
+	 * precision is numeric
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeNumericNumeric() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		AbstractFormula precision = mock(AbstractFormula.class);
+		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		FormulaRoundingArithmetic formula =
+				new FormulaRoundingArithmetic(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED),
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
+	}
+	
+	/**
 	 * Tests {@link FormulaRoundingArithmetic#getIntegerValue()} with integer parameter
 	 */
 	@Test
 	public void testGetIntegerValueInt() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(111);
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getIntegerValue()).thenReturn(111);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(10.0);
+		AbstractFormula precision = mock(AbstractFormula.class);
+		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getNumericValue()).thenReturn(10.0);
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, parameter, precision);
 		
 		assertEquals(Integer.valueOf(110), formula.getIntegerValue());
 	}
@@ -64,15 +286,15 @@ public class FormulaRoundingArithmeticTest {
 	 */
 	@Test
 	public void testGetIntegerValueNum() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getNumericValue()).thenReturn(1.567);
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getNumericValue()).thenReturn(1.567);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(0.01);
+		AbstractFormula precision = mock(AbstractFormula.class);
+		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, parameter, precision);
 		
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
 	}
@@ -82,15 +304,15 @@ public class FormulaRoundingArithmeticTest {
 	 */
 	@Test
 	public void testGetNumericValueInt() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getIntegerValue()).thenReturn(111);
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getIntegerValue()).thenReturn(111);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(10.0);
+		AbstractFormula precision = mock(AbstractFormula.class);
+		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getNumericValue()).thenReturn(10.0);
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, parameter, precision);
 		
 		assertEquals(Double.valueOf(110), formula.getNumericValue());
 	}
@@ -100,15 +322,15 @@ public class FormulaRoundingArithmeticTest {
 	 */
 	@Test
 	public void testGetNumericValueNum() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getNumericValue()).thenReturn(1.567);
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getNumericValue()).thenReturn(1.567);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(0.01);
+		AbstractFormula precision = mock(AbstractFormula.class);
+		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, parameter, precision);
 		
 		assertEquals(Double.valueOf(1.57), formula.getNumericValue());
 	}
@@ -118,15 +340,15 @@ public class FormulaRoundingArithmeticTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getNumericValue()).thenReturn(1.567);
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getNumericValue()).thenReturn(1.567);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(0.01);
+		AbstractFormula precision = mock(AbstractFormula.class);
+		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, parameter, precision);
 		
 		formula.getStringValue();
 	}
@@ -136,15 +358,15 @@ public class FormulaRoundingArithmeticTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getNumericValue()).thenReturn(1.567);
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getNumericValue()).thenReturn(1.567);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(0.01);
+		AbstractFormula precision = mock(AbstractFormula.class);
+		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, parameter, precision);
 		
 		formula.getBooleanValue();
 	}
@@ -154,15 +376,15 @@ public class FormulaRoundingArithmeticTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getNumericValue()).thenReturn(1.567);
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getNumericValue()).thenReturn(1.567);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(0.01);
+		AbstractFormula precision = mock(AbstractFormula.class);
+		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, parameter, precision);
 		
 		formula.getDateValue();
 	}
@@ -172,15 +394,15 @@ public class FormulaRoundingArithmeticTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getNumericValue()).thenReturn(1.567);
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getNumericValue()).thenReturn(1.567);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(0.01);
+		AbstractFormula precision = mock(AbstractFormula.class);
+		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getNumericValue()).thenReturn(0.01);
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, parameter, precision);
 		
 		formula.getDurationValue();
 	}
@@ -200,15 +422,15 @@ public class FormulaRoundingArithmeticTest {
 	 */
 	@Test
 	public void testAsText() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.asText()).thenReturn("some_rule");
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.asText()).thenReturn("some_rule");
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.asText()).thenReturn("0.01");
+		AbstractFormula precision = mock(AbstractFormula.class);
+		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.asText()).thenReturn("0.01");
 		
-		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, leftFormula, rightFormula);
+		FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null, null, parameter, precision);
 		
 		assertEquals("round(some_rule; 0.01)", formula.asText());
 	}
