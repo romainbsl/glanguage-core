@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 
 @Entity
 public abstract class MathFormula extends AbstractNonTerminalFormula {
@@ -26,15 +25,9 @@ public abstract class MathFormula extends AbstractNonTerminalFormula {
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
 		}
-		if (parameters.size() != 1) {
-			throw new IllegalArgumentException("there should be 1 parameter but there are " + parameters.size());
-		}
-		if (!(parameters.get(0).getReturnType().equals(FormulaReturnType.INTEGER)
-				|| parameters.get(0).getReturnType().equals(FormulaReturnType.NUMERIC))) {
-			throw new IllegalArgumentException("first parameter should be of type INTEGER or NUMERIC");
-		}
+		
 		this.parameters = new ArrayList<>();
-		this.parameters.add(parameters.get(0));
+		this.parameters.addAll(parameters);
 	}
 	
 	@JsonIgnore
