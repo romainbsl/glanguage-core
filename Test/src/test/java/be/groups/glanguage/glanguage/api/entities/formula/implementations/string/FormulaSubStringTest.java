@@ -2,24 +2,29 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.strin
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 
 /**
  * Test class for {@link FormulaSubString}
  * 
  * @author DUPIREFR
  */
-public class FormulaSubStringTest {
+public class FormulaSubStringTest extends BaseDatabaseTest {
 	
 	/*
 	 * Tests
@@ -45,28 +50,107 @@ public class FormulaSubStringTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaStringItem#isValid()} when parameters match
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidMatching() {
+		AbstractFormula string = mock(AbstractFormula.class);
+		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		
+		AbstractFormula beginIndex = mock(AbstractFormula.class);
+		when(beginIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula endIndex = mock(AbstractFormula.class);
+		when(endIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaStringItem formula = new FormulaStringItem(FormulaDescriptionFactory.getDescription(FormulaType.F_SUBSTRING),
+				Arrays.asList(string, beginIndex, endIndex));
+				
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaStringItem#isValid()} when parameters don't match
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidNotMatching() {
+		AbstractFormula string = mock(AbstractFormula.class);
+		when(string.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula beginIndex = mock(AbstractFormula.class);
+		when(beginIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula endIndex = mock(AbstractFormula.class);
+		when(endIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaStringItem formula = new FormulaStringItem(FormulaDescriptionFactory.getDescription(FormulaType.F_SUBSTRING),
+				Arrays.asList(string, beginIndex, endIndex));
+				
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaStringItem#getReturnType()} when parameters match
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeMatching() {
+		AbstractFormula string = mock(AbstractFormula.class);
+		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		
+		AbstractFormula beginIndex = mock(AbstractFormula.class);
+		when(beginIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula endIndex = mock(AbstractFormula.class);
+		when(endIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaStringItem formula = new FormulaStringItem(FormulaDescriptionFactory.getDescription(FormulaType.F_SUBSTRING),
+				Arrays.asList(string, beginIndex, endIndex));
+				
+		assertEquals(FormulaReturnType.STRING, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaStringItem#getReturnType()} when parameters don't match
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeNotMatching() {
+		AbstractFormula string = mock(AbstractFormula.class);
+		when(string.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula beginIndex = mock(AbstractFormula.class);
+		when(beginIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula endIndex = mock(AbstractFormula.class);
+		when(endIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaStringItem formula = new FormulaStringItem(FormulaDescriptionFactory.getDescription(FormulaType.F_SUBSTRING),
+				Arrays.asList(string, beginIndex, endIndex));
+				
+		assertNull(formula.getReturnType());
+	}
+	
+	/**
 	 * Tests {@link FormulaSubString#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue()).thenReturn("a special value");
-		parameters.add(string);
 		
 		AbstractFormula beginIndex = mock(AbstractFormula.class);
 		when(beginIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(beginIndex.getIntegerValue()).thenReturn(3);
-		parameters.add(beginIndex);
 		
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue()).thenReturn(9);
-		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(null, parameters);
+		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
 		
 		formula.getIntegerValue();
 	}
@@ -76,24 +160,19 @@ public class FormulaSubStringTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue()).thenReturn("a special value");
-		parameters.add(string);
 		
 		AbstractFormula beginIndex = mock(AbstractFormula.class);
 		when(beginIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(beginIndex.getIntegerValue()).thenReturn(3);
-		parameters.add(beginIndex);
 		
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue()).thenReturn(9);
-		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(null, parameters);
+		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
 		
 		formula.getNumericValue();
 	}
@@ -103,24 +182,19 @@ public class FormulaSubStringTest {
 	 */
 	@Test
 	public void testGetStringValue() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue()).thenReturn("a special value");
-		parameters.add(string);
 		
 		AbstractFormula beginIndex = mock(AbstractFormula.class);
 		when(beginIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(beginIndex.getIntegerValue()).thenReturn(3);
-		parameters.add(beginIndex);
 		
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue()).thenReturn(9);
-		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(null, parameters);
+		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
 		
 		assertEquals("special", formula.getStringValue());
 	}
@@ -130,24 +204,19 @@ public class FormulaSubStringTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetStringValueNegativeIndex() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue()).thenReturn("a special value");
-		parameters.add(string);
 		
 		AbstractFormula beginIndex = mock(AbstractFormula.class);
 		when(beginIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(beginIndex.getIntegerValue()).thenReturn(-1);
-		parameters.add(beginIndex);
 		
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue()).thenReturn(9);
-		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(null, parameters);
+		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
 		
 		formula.getStringValue();
 	}
@@ -158,24 +227,19 @@ public class FormulaSubStringTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetStringValueImpossibleRange() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue()).thenReturn("a special value");
-		parameters.add(string);
 		
 		AbstractFormula beginIndex = mock(AbstractFormula.class);
 		when(beginIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(beginIndex.getIntegerValue()).thenReturn(3);
-		parameters.add(beginIndex);
 		
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue()).thenReturn(2);
-		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(null, parameters);
+		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
 		
 		formula.getStringValue();
 	}
@@ -185,24 +249,19 @@ public class FormulaSubStringTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetStringValueIndexTooBig() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue()).thenReturn("a special value");
-		parameters.add(string);
 		
 		AbstractFormula beginIndex = mock(AbstractFormula.class);
 		when(beginIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(beginIndex.getIntegerValue()).thenReturn(3);
-		parameters.add(beginIndex);
 		
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue()).thenReturn(16);
-		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(null, parameters);
+		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
 		
 		formula.getStringValue();
 	}
@@ -212,24 +271,19 @@ public class FormulaSubStringTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue()).thenReturn("a special value");
-		parameters.add(string);
 		
 		AbstractFormula beginIndex = mock(AbstractFormula.class);
 		when(beginIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(beginIndex.getIntegerValue()).thenReturn(3);
-		parameters.add(beginIndex);
 		
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue()).thenReturn(9);
-		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(null, parameters);
+		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
 		
 		formula.getBooleanValue();
 	}
@@ -239,24 +293,19 @@ public class FormulaSubStringTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue()).thenReturn("a special value");
-		parameters.add(string);
 		
 		AbstractFormula beginIndex = mock(AbstractFormula.class);
 		when(beginIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(beginIndex.getIntegerValue()).thenReturn(3);
-		parameters.add(beginIndex);
 		
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue()).thenReturn(9);
-		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(null, parameters);
+		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
 		
 		formula.getDateValue();
 	}
@@ -266,24 +315,19 @@ public class FormulaSubStringTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue()).thenReturn("a special value");
-		parameters.add(string);
 		
 		AbstractFormula beginIndex = mock(AbstractFormula.class);
 		when(beginIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(beginIndex.getIntegerValue()).thenReturn(3);
-		parameters.add(beginIndex);
 		
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue()).thenReturn(9);
-		parameters.add(endIndex);
 		
-		FormulaSubString formula = new FormulaSubString(null, parameters);
+		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
 		
 		formula.getDurationValue();
 	}
@@ -293,24 +337,19 @@ public class FormulaSubStringTest {
 	 */
 	@Test
 	public void testAsText() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.asText()).thenReturn("some_rule");
-		parameters.add(string);
 		
-		AbstractFormula separator = mock(AbstractFormula.class);
-		when(separator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(separator.asText()).thenReturn("3");
-		parameters.add(separator);
+		AbstractFormula beginIndex = mock(AbstractFormula.class);
+		when(beginIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(beginIndex.asText()).thenReturn("3");
 		
-		AbstractFormula index = mock(AbstractFormula.class);
-		when(index.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(index.asText()).thenReturn("7");
-		parameters.add(index);
+		AbstractFormula endIndex = mock(AbstractFormula.class);
+		when(endIndex.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(endIndex.asText()).thenReturn("7");
 		
-		FormulaSubString formula = new FormulaSubString(null, parameters);
+		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
 		
 		assertEquals("subString(some_rule; 3; 7)", formula.asText());
 	}
