@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
@@ -26,20 +25,12 @@ public class FormulaFormatDate extends FormatFormula {
 	public FormulaFormatDate(FormulaDescription description, List<AbstractFormula> parameters) {
 		super(description);
 		
-		if (parameters.get(0) == null) {
-			throw new IllegalArgumentException("element must be non-null");
+		if (parameters == null) {
+			throw new IllegalArgumentException("parameters must be non-null");
 		}
-		if (!parameters.get(0).getReturnType().equals(FormulaReturnType.DATE)) {
-			throw new IllegalArgumentException("date must of type DATE");
-		}
-		if (parameters.get(1) == null) {
-			throw new IllegalArgumentException("format must be non-null");
-		}
-		if (!parameters.get(1).getReturnType().equals(FormulaReturnType.STRING)) {
-			throw new IllegalArgumentException("format must of type STRING");
-		}
+		
 		this.parameters = new ArrayList<>();
-		parameters.stream().forEachOrdered(e -> this.parameters.add(e));
+		this.parameters.addAll(parameters);
 	}
 
 	@JsonIgnore

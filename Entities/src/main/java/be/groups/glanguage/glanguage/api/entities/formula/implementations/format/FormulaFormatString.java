@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.utils.FormatAlignment;
 
@@ -29,28 +28,11 @@ public class FormulaFormatString extends FormatFormula {
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
 		}
-		if (parameters.size() != 4) {
-			throw new IllegalArgumentException("there should be 4 parameters but there are " + parameters.size());
-		}
-		if (parameters.get(0) == null) {
-			throw new IllegalArgumentException("first parameter must be non-null");
-		}
-		if (!parameters.get(0).getReturnType().equals(FormulaReturnType.STRING)) {
-			throw new IllegalArgumentException("first parameter must of type STRING");
-		}
-		if (!parameters.get(1).getReturnType().equals(FormulaReturnType.INTEGER)) {
-			throw new IllegalArgumentException("second parameter must of type INTEGER");
-		}
-		if (!parameters.get(2).getReturnType().equals(FormulaReturnType.STRING)) {
-			throw new IllegalArgumentException("third parameter must of type STRING");
-		}
-		if (!parameters.get(3).getReturnType().equals(FormulaReturnType.STRING)) {
-			throw new IllegalArgumentException("forth parameter must of type STRING");
-		}
+		
 		this.parameters = new ArrayList<>();
 		this.parameters.addAll(parameters);
 	}
-
+	
 	@JsonIgnore
 	@Transient
 	@Override
