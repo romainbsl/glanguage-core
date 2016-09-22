@@ -2,24 +2,29 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.strin
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 
 /**
  * Test class for {@link FormulaStringLength}
  * 
  * @author DUPIREFR
  */
-public class FormulaStringLengthTest {
+public class FormulaStringLengthTest extends BaseDatabaseTest {
 	
 	/*
 	 * Tests
@@ -45,18 +50,75 @@ public class FormulaStringLengthTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaStringLength#isValid()} when parameter is string
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidMatching() {
+		AbstractFormula string = mock(AbstractFormula.class);
+		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		
+		FormulaStringLength formula =
+				new FormulaStringLength(FormulaDescriptionFactory.getDescription(FormulaType.F_STRING_LENGTH), Arrays.asList(string));
+				
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaStringLength#isValid()} when parameter is not string
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidNotMatching() {
+		AbstractFormula string = mock(AbstractFormula.class);
+		when(string.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaStringLength formula =
+				new FormulaStringLength(FormulaDescriptionFactory.getDescription(FormulaType.F_STRING_LENGTH), Arrays.asList(string));
+				
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaStringLength#getReturnType()} when parameter is string
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeMatching() {
+		AbstractFormula string = mock(AbstractFormula.class);
+		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		
+		FormulaStringLength formula =
+				new FormulaStringLength(FormulaDescriptionFactory.getDescription(FormulaType.F_STRING_LENGTH), Arrays.asList(string));
+				
+		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaStringLength#getReturnType()} when parameter is not string
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeNotMatching() {
+		AbstractFormula string = mock(AbstractFormula.class);
+		when(string.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaStringLength formula =
+				new FormulaStringLength(FormulaDescriptionFactory.getDescription(FormulaType.F_STRING_LENGTH), Arrays.asList(string));
+				
+		assertNull(formula.getReturnType());
+	}
+	
+	/**
 	 * Tests {@link FormulaStringLength#getIntegerValue()}
 	 */
 	@Test
 	public void testGetIntegerValue() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue()).thenReturn("a string");
-		parameters.add(string);
 		
-		FormulaStringLength formula = new FormulaStringLength(null, parameters);
+		FormulaStringLength formula = new FormulaStringLength(null, Arrays.asList(string));
 		
 		assertEquals(Integer.valueOf(8), formula.getIntegerValue());
 	}
@@ -66,14 +128,11 @@ public class FormulaStringLengthTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue()).thenReturn("a string");
-		parameters.add(string);
 		
-		FormulaStringLength formula = new FormulaStringLength(null, parameters);
+		FormulaStringLength formula = new FormulaStringLength(null, Arrays.asList(string));
 		
 		formula.getNumericValue();
 	}
@@ -83,14 +142,11 @@ public class FormulaStringLengthTest {
 	 */
 	@Test
 	public void testGetStringValue() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue()).thenReturn("a string");
-		parameters.add(string);
 		
-		FormulaStringLength formula = new FormulaStringLength(null, parameters);
+		FormulaStringLength formula = new FormulaStringLength(null, Arrays.asList(string));
 		
 		assertEquals("8", formula.getStringValue());
 	}
@@ -100,14 +156,11 @@ public class FormulaStringLengthTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue()).thenReturn("a string");
-		parameters.add(string);
 		
-		FormulaStringLength formula = new FormulaStringLength(null, parameters);
+		FormulaStringLength formula = new FormulaStringLength(null, Arrays.asList(string));
 		
 		formula.getBooleanValue();
 	}
@@ -117,14 +170,11 @@ public class FormulaStringLengthTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue()).thenReturn("a string");
-		parameters.add(string);
 		
-		FormulaStringLength formula = new FormulaStringLength(null, parameters);
+		FormulaStringLength formula = new FormulaStringLength(null, Arrays.asList(string));
 		
 		formula.getDateValue();
 	}
@@ -134,14 +184,11 @@ public class FormulaStringLengthTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue()).thenReturn("a string");
-		parameters.add(string);
 		
-		FormulaStringLength formula = new FormulaStringLength(null, parameters);
+		FormulaStringLength formula = new FormulaStringLength(null, Arrays.asList(string));
 		
 		formula.getDurationValue();
 	}
@@ -151,14 +198,11 @@ public class FormulaStringLengthTest {
 	 */
 	@Test
 	public void testAsText() {
-		List<AbstractFormula> parameters = new ArrayList<>();
-		
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		when(string.asText()).thenReturn("some_rule");
-		parameters.add(string);
 		
-		FormulaStringLength formula = new FormulaStringLength(null, parameters);
+		FormulaStringLength formula = new FormulaStringLength(null, Arrays.asList(string));
 		
 		assertEquals("stringLength(some_rule)", formula.asText());
 	}

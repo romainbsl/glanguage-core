@@ -14,7 +14,7 @@ import org.junit.experimental.categories.Category;
 
 import be.groups.common.persistence.util.TransactionHelper;
 import be.groups.common.test.utils.Environment;
-import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTest;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
 import be.groups.marmota.persistence.DatabaseIdentifier;
 import be.groups.marmota.persistence.JpaUtil;
 import be.groups.marmota.test.TNSNames;
@@ -62,7 +62,7 @@ public class RuleDefinitionParameterTest {
 	 * Tests {@link RuleDefinitionParameter} JPA mapping
 	 */
 	@Test
-	@Category(JpaMappingTest.class)
+	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
 		RuleDefinitionParameterId ruleDefintionParameterId = new RuleDefinitionParameterId();
 		ruleDefintionParameterId.setLevelId(2);

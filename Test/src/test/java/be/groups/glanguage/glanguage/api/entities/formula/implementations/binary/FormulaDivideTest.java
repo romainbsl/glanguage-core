@@ -2,21 +2,27 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.binar
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 
 /**
  * Test class for {@link FormulaDivide}
  * 
  * @author DUPIREFR
  */
-public class FormulaDivideTest {
+public class FormulaDivideTest extends BaseDatabaseTest {
 	
 	/*
 	 * Constants
@@ -47,19 +53,91 @@ public class FormulaDivideTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaDivide#isValid()} when operands are numerics
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidMatching() {
+		AbstractFormula numerator = mock(AbstractFormula.class);
+		when(numerator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		AbstractFormula denominator = mock(AbstractFormula.class);
+		when(denominator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		FormulaDivide formula =
+				new FormulaDivide(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIVIDE), numerator, denominator);
+				
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaDivide#isValid()} when operands are not numerics
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidNotMatching() {
+		AbstractFormula numerator = mock(AbstractFormula.class);
+		when(numerator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula denominator = mock(AbstractFormula.class);
+		when(denominator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		FormulaDivide formula =
+				new FormulaDivide(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIVIDE), numerator, denominator);
+				
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaDivide#getReturnType()} when operands are numerics
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeMatching() {
+		AbstractFormula numerator = mock(AbstractFormula.class);
+		when(numerator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		AbstractFormula denominator = mock(AbstractFormula.class);
+		when(denominator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		FormulaDivide formula =
+				new FormulaDivide(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIVIDE), numerator, denominator);
+				
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaDivide#getReturnType()} when operands are not numerics
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeNotMatching() {
+		AbstractFormula numerator = mock(AbstractFormula.class);
+		when(numerator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula denominator = mock(AbstractFormula.class);
+		when(denominator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		FormulaDivide formula =
+				new FormulaDivide(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIVIDE), numerator, denominator);
+				
+		assertNull(formula.getReturnType());
+	}
+	
+	/**
 	 * Tests {@link FormulaDivide#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getValue()).thenReturn(1);
+		AbstractFormula numerator = mock(AbstractFormula.class);
+		when(numerator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(numerator.getValue()).thenReturn(1);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getValue()).thenReturn(0);
+		AbstractFormula denominator = mock(AbstractFormula.class);
+		when(denominator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(denominator.getValue()).thenReturn(0);
 		
-		FormulaDivide formula = new FormulaDivide(null, leftFormula, rightFormula);
+		FormulaDivide formula = new FormulaDivide(null, numerator, denominator);
 		
 		formula.getIntegerValue();
 	}
@@ -69,15 +147,15 @@ public class FormulaDivideTest {
 	 */
 	@Test
 	public void testGetNumericValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getNumericValue()).thenReturn(3.2);
+		AbstractFormula numerator = mock(AbstractFormula.class);
+		when(numerator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(numerator.getNumericValue()).thenReturn(3.2);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(2.5);
+		AbstractFormula denominator = mock(AbstractFormula.class);
+		when(denominator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(denominator.getNumericValue()).thenReturn(2.5);
 		
-		FormulaDivide formula = new FormulaDivide(null, leftFormula, rightFormula);
+		FormulaDivide formula = new FormulaDivide(null, numerator, denominator);
 		
 		assertEquals(Double.valueOf(1.28), formula.getNumericValue(), DELTA);
 	}
@@ -87,15 +165,15 @@ public class FormulaDivideTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getValue()).thenReturn(1);
+		AbstractFormula numerator = mock(AbstractFormula.class);
+		when(numerator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(numerator.getValue()).thenReturn(1);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getValue()).thenReturn(0);
+		AbstractFormula denominator = mock(AbstractFormula.class);
+		when(denominator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(denominator.getValue()).thenReturn(0);
 		
-		FormulaDivide formula = new FormulaDivide(null, leftFormula, rightFormula);
+		FormulaDivide formula = new FormulaDivide(null, numerator, denominator);
 		
 		formula.getStringValue();
 	}
@@ -105,15 +183,15 @@ public class FormulaDivideTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getValue()).thenReturn(1);
+		AbstractFormula numerator = mock(AbstractFormula.class);
+		when(numerator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(numerator.getValue()).thenReturn(1);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getValue()).thenReturn(0);
+		AbstractFormula denominator = mock(AbstractFormula.class);
+		when(denominator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(denominator.getValue()).thenReturn(0);
 		
-		FormulaDivide formula = new FormulaDivide(null, leftFormula, rightFormula);
+		FormulaDivide formula = new FormulaDivide(null, numerator, denominator);
 		
 		formula.getBooleanValue();
 	}
@@ -123,15 +201,15 @@ public class FormulaDivideTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getValue()).thenReturn(1);
+		AbstractFormula numerator = mock(AbstractFormula.class);
+		when(numerator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(numerator.getValue()).thenReturn(1);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getValue()).thenReturn(0);
+		AbstractFormula denominator = mock(AbstractFormula.class);
+		when(denominator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(denominator.getValue()).thenReturn(0);
 		
-		FormulaDivide formula = new FormulaDivide(null, leftFormula, rightFormula);
+		FormulaDivide formula = new FormulaDivide(null, numerator, denominator);
 		
 		formula.getDateValue();
 	}
@@ -141,15 +219,15 @@ public class FormulaDivideTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getValue()).thenReturn(1);
+		AbstractFormula numerator = mock(AbstractFormula.class);
+		when(numerator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(numerator.getValue()).thenReturn(1);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getValue()).thenReturn(0);
+		AbstractFormula denominator = mock(AbstractFormula.class);
+		when(denominator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(denominator.getValue()).thenReturn(0);
 		
-		FormulaDivide formula = new FormulaDivide(null, leftFormula, rightFormula);
+		FormulaDivide formula = new FormulaDivide(null, numerator, denominator);
 		
 		formula.getDurationValue();
 	}
@@ -169,15 +247,15 @@ public class FormulaDivideTest {
 	 */
 	@Test
 	public void testAsText() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.asText()).thenReturn("some_rule1");
+		AbstractFormula numerator = mock(AbstractFormula.class);
+		when(numerator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(numerator.asText()).thenReturn("some_rule1");
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.asText()).thenReturn("some_rule2");
+		AbstractFormula denominator = mock(AbstractFormula.class);
+		when(denominator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(denominator.asText()).thenReturn("some_rule2");
 		
-		FormulaDivide formula = new FormulaDivide(null, leftFormula, rightFormula);
+		FormulaDivide formula = new FormulaDivide(null, numerator, denominator);
 		
 		assertEquals("some_rule1 / some_rule2", formula.asText());
 	}

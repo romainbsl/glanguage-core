@@ -11,7 +11,7 @@
     </Appenders>
     <Loggers>
         <Logger name="com.wordnik" level="TRACE"/>
-        <Logger name="org.hibernate" level="TRACE"/>
+        <Logger name="org.hibernate" level="ERROR"/>
 
         <Logger name="be.groups" level="TRACE"/>
         <Logger name="be.groups.lyrics.filter.LoggingFilter" level="TRACE">

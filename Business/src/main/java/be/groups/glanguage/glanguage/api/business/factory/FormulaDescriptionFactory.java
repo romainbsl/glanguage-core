@@ -21,6 +21,8 @@ public class FormulaDescriptionFactory {
 			formulaDescriptionByType = new FormulaDescriptionDao().findAll().stream()
 					.collect(Collectors.toMap(FormulaDescription::getType, Function.identity()));
 		}
+		
 		return formulaDescriptionByType;
 	}
+	
 }

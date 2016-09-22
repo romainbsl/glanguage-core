@@ -31,7 +31,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 			throw new IllegalArgumentException("parameters must be non-null");
 		}
 		if (parameters.size() > 2) {
-			throw new IllegalArgumentException("there schould be 1 or 2 parameters but there are " + parameters.size());
+			throw new IllegalArgumentException("there should be 1 or 2 parameters but there are " + parameters.size());
 		}
 		if (!(parameters.get(0).getReturnType().equals(FormulaReturnType.INTEGER)
 				|| parameters.get(0).getReturnType().equals(FormulaReturnType.STRING))) {

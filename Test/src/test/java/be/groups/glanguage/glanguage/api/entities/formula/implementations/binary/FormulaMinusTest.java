@@ -2,21 +2,27 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.binar
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 
 /**
  * Test class for {@link FormulaMinus}
  * 
  * @author DUPIREFR
  */
-public class FormulaMinusTest {
+public class FormulaMinusTest extends BaseDatabaseTest {
 	
 	/*
 	 * Constants
@@ -47,19 +53,299 @@ public class FormulaMinusTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaMinus#isValid()} when both operands are integers
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidBothIntegers() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#isValid()} when first operand is integer and second numeric
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidFirstIntSecondNum() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#isValid()} when first operand is integer and second is not integer
+	 * or numeric
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidFirstIntSecondNotIntOrNum() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#isValid()} when second operand is integer and first is not integer
+	 * or numeric
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidSecondIntFirstNotIntOrNum() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#isValid()} when first operand is numeric and second integer
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidFirstNumSecondInt() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#isValid()} when first operand is numeric and second is not integer
+	 * or numeric
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidFirstNumSecondNotIntOrNum() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#isValid()} when second operand is numeric and first is not integer
+	 * or numeric
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidSecondNumFirstNotIntOrNum() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#isValid()} when both operands are numerics
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidBothNumerics() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#getReturnType()} when both operands are integers
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeBothIntegers() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#getReturnType()} when first operand is integer and second numeric
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeFirstIntSecondNum() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#getReturnType()} when first operand is integer and second is not
+	 * integer or numeric
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeFirstIntSecondNotIntOrNum() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertNull(formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#getReturnType()} when second operand is integer and first is not
+	 * integer or numeric
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeSecondIntFirstNotIntOrNum() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertNull(formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#getReturnType()} when first operand is numeric and second integer
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeFirstNumSecondInt() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#getReturnType()} when first operand is numeric and second is not
+	 * integer or numeric
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeFirstNumSecondNotIntOrNum() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertNull(formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#getReturnType()} when second operand is numeric and first is not
+	 * integer or numeric
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeSecondNumFirstNotIntOrNum() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertNull(formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#getReturnType()} when both operands are numerics
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeBothNumerics() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
+	}
+	
+	/**
 	 * Tests {@link FormulaMinus#getIntegerValue()} when both parameters are integers
 	 */
 	@Test
 	public void testGetIntegerValueIntInt() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getNumericValue()).thenReturn(1.0);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getNumericValue()).thenReturn(1.0);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getNumericValue()).thenReturn(2.0);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getNumericValue()).thenReturn(2.0);
 		
-		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, operand1, operand2);
 		
 		assertEquals(Integer.valueOf(-1), formula.getIntegerValue());
 	}
@@ -69,15 +355,15 @@ public class FormulaMinusTest {
 	 */
 	@Test
 	public void testGetNumericValueNumNum() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getNumericValue()).thenReturn(1.5);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getNumericValue()).thenReturn(1.5);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(2.3);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getNumericValue()).thenReturn(2.3);
 		
-		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, operand1, operand2);
 		
 		assertEquals(Double.valueOf(-0.8), formula.getNumericValue(), DELTA);
 	}
@@ -88,15 +374,15 @@ public class FormulaMinusTest {
 	 */
 	@Test
 	public void testGetNumericValueIntNum() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getNumericValue()).thenReturn(1.0);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getNumericValue()).thenReturn(1.0);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(rightFormula.getNumericValue()).thenReturn(2.3);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getNumericValue()).thenReturn(2.3);
 		
-		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, operand1, operand2);
 		
 		assertEquals(Double.valueOf(-1.3), formula.getNumericValue(), DELTA);
 	}
@@ -107,15 +393,15 @@ public class FormulaMinusTest {
 	 */
 	@Test
 	public void testGetNumericValueNumInt() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(leftFormula.getNumericValue()).thenReturn(2.3);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getNumericValue()).thenReturn(2.3);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getNumericValue()).thenReturn(1.0);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getNumericValue()).thenReturn(1.0);
 		
-		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, operand1, operand2);
 		
 		assertEquals(Double.valueOf(1.3), formula.getNumericValue(), DELTA);
 	}
@@ -125,15 +411,15 @@ public class FormulaMinusTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getNumericValue()).thenReturn(2.0);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getNumericValue()).thenReturn(2.0);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getNumericValue()).thenReturn(1.0);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getNumericValue()).thenReturn(1.0);
 		
-		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, operand1, operand2);
 		
 		formula.getStringValue();
 	}
@@ -143,15 +429,15 @@ public class FormulaMinusTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getNumericValue()).thenReturn(2.0);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getNumericValue()).thenReturn(2.0);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getNumericValue()).thenReturn(1.0);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getNumericValue()).thenReturn(1.0);
 		
-		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, operand1, operand2);
 		
 		formula.getBooleanValue();
 	}
@@ -161,15 +447,15 @@ public class FormulaMinusTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getNumericValue()).thenReturn(2.0);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getNumericValue()).thenReturn(2.0);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getNumericValue()).thenReturn(1.0);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getNumericValue()).thenReturn(1.0);
 		
-		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, operand1, operand2);
 		
 		formula.getDateValue();
 	}
@@ -179,15 +465,15 @@ public class FormulaMinusTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.getNumericValue()).thenReturn(2.0);
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getNumericValue()).thenReturn(2.0);
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.getNumericValue()).thenReturn(1.0);
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getNumericValue()).thenReturn(1.0);
 		
-		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, operand1, operand2);
 		
 		formula.getDurationValue();
 	}
@@ -207,15 +493,15 @@ public class FormulaMinusTest {
 	 */
 	@Test
 	public void testAsText() {
-		AbstractFormula leftFormula = mock(AbstractFormula.class);
-		when(leftFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(leftFormula.asText()).thenReturn("some_rule1");
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.asText()).thenReturn("some_rule1");
 		
-		AbstractFormula rightFormula = mock(AbstractFormula.class);
-		when(rightFormula.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(rightFormula.asText()).thenReturn("some_rule2");
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.asText()).thenReturn("some_rule2");
 		
-		FormulaMinus formula = new FormulaMinus(null, leftFormula, rightFormula);
+		FormulaMinus formula = new FormulaMinus(null, operand1, operand2);
 		
 		assertEquals("some_rule1 - some_rule2", formula.asText());
 	}

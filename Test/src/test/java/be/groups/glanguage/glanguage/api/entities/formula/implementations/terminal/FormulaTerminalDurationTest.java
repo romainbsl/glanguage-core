@@ -1,20 +1,31 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.time.Duration;
+import java.util.Arrays;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 
 /**
  * Test class for {@link FormulaTerminalDuration}
  * 
  * @author DUPIREFR
  */
-public class FormulaTerminalDurationTest {
+public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	
 	/*
 	 * Tests
@@ -36,6 +47,64 @@ public class FormulaTerminalDurationTest {
 	public void testIsTerminal() {
 		FormulaTerminalDuration formula = new FormulaTerminalDuration();
 		assertTrue(formula.isTerminal());
+	}
+	
+	/**
+	 * Tests {@link FormulaTerminalDuration#isValid()} when no parameters
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidNoParameters() {
+		FormulaTerminalDuration formula = new FormulaTerminalDuration(
+				FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DURATION), "P1Y2M3DT4H5M6.7S");
+				
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaTerminalDuration#isValid()} when some parameters are present
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidParameters() {
+		FormulaTerminalDuration formula = new FormulaTerminalDuration(
+				FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DURATION), "P1Y2M3DT4H5M6.7S");
+				
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		
+		formula.setParameters(Arrays.asList(parameter));
+		
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaTerminalDuration#getReturnType()} when no parameters
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeNoParameters() {
+		FormulaTerminalDuration formula = new FormulaTerminalDuration(
+				FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DURATION), "P1Y2M3DT4H5M6.7S");
+				
+		assertEquals(FormulaReturnType.DURATION, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaTerminalDuration#getReturnType()} when some parameters are present
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeParameters() {
+		FormulaTerminalDuration formula = new FormulaTerminalDuration(
+				FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DURATION), "P1Y2M3DT4H5M6.7S");
+				
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		
+		formula.setParameters(Arrays.asList(parameter));
+		
+		assertNull(formula.getReturnType());
 	}
 	
 	/**

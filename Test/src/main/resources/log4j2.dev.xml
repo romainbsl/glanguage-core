@@ -10,7 +10,7 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="org.hibernate" level="TRACE"/>
+        <Logger name="org.hibernate" level="INFO"/>
         <Logger name="org.hibernate.type" level="TRACE"/>
         <Logger name="be.groups" level="TRACE"/>
         <Logger name="be.groups.lyrics.filter.LoggingFilter" level="TRACE">

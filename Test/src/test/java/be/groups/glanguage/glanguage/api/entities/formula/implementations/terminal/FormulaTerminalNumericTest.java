@@ -1,18 +1,30 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 
 /**
  * Test class for {@link FormulaTerminalNumeric}
  * 
  * @author DUPIREFR
  */
-public class FormulaTerminalNumericTest {
+public class FormulaTerminalNumericTest extends BaseDatabaseTest {
 	
 	/*
 	 * Tests
@@ -34,6 +46,64 @@ public class FormulaTerminalNumericTest {
 	public void testIsTerminal() {
 		FormulaTerminalNumeric formula = new FormulaTerminalNumeric();
 		assertTrue(formula.isTerminal());
+	}
+	
+	/**
+	 * Tests {@link FormulaTerminalNumeric#isValid()} when no parameters
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidNoParameters() {
+		FormulaTerminalNumeric formula =
+				new FormulaTerminalNumeric(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_NUMERIC), "1.5");
+				
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaTerminalNumeric#isValid()} when some parameters are present
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidParameters() {
+		FormulaTerminalNumeric formula =
+				new FormulaTerminalNumeric(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_NUMERIC), "1.5");
+				
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		formula.setParameters(Arrays.asList(parameter));
+		
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaTerminalNumeric#getReturnType()} when no parameters
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeNoParameters() {
+		FormulaTerminalNumeric formula =
+				new FormulaTerminalNumeric(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_NUMERIC), "1.5");
+				
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaTerminalNumeric#getReturnType()} when some parameters are present
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeParameters() {
+		FormulaTerminalNumeric formula =
+				new FormulaTerminalNumeric(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_NUMERIC), "1.5");
+				
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		formula.setParameters(Arrays.asList(parameter));
+		
+		assertNull(formula.getReturnType());
 	}
 	
 	/**

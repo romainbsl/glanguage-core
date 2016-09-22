@@ -2,6 +2,8 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -9,17 +11,21 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 
 /**
  * Test class for {@link FormulaDate}
  * 
  * @author DUPIREFR
  */
-public class FormulaDateTest {
+public class FormulaDateTest extends BaseDatabaseTest {
 	
 	/*
 	 * Tests
@@ -42,6 +48,138 @@ public class FormulaDateTest {
 		FormulaDate formula = new FormulaDate();
 		
 		assertFalse(formula.isTerminal());
+	}
+	
+	/**
+	 * Tests {@link FormulaDate#isValid()} with string parameter
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidString() {
+		AbstractFormula string = mock(AbstractFormula.class);
+		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		
+		FormulaDate formula = new FormulaDate(FormulaDescriptionFactory.getDescription(FormulaType.F_DATE), Arrays.asList(string));
+		
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaDate#isValid()} with parameter different from string
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidNotString() {
+		AbstractFormula string = mock(AbstractFormula.class);
+		when(string.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		FormulaDate formula = new FormulaDate(FormulaDescriptionFactory.getDescription(FormulaType.F_DATE), Arrays.asList(string));
+		
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaDate#isValid()} with integers parameters
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidIntegers() {
+		AbstractFormula day = mock(AbstractFormula.class);
+		when(day.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula month = mock(AbstractFormula.class);
+		when(month.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula year = mock(AbstractFormula.class);
+		when(year.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaDate formula =
+				new FormulaDate(FormulaDescriptionFactory.getDescription(FormulaType.F_DATE), Arrays.asList(day, month, year));
+				
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaDate#isValid()} with integers parameters, but not enough
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidIntegersNotEnough() {
+		AbstractFormula day = mock(AbstractFormula.class);
+		when(day.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula month = mock(AbstractFormula.class);
+		when(month.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaDate formula = new FormulaDate(FormulaDescriptionFactory.getDescription(FormulaType.F_DATE), Arrays.asList(day, month));
+		
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaDate#getReturnType()} with string parameter
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeString() {
+		AbstractFormula string = mock(AbstractFormula.class);
+		when(string.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		
+		FormulaDate formula = new FormulaDate(FormulaDescriptionFactory.getDescription(FormulaType.F_DATE), Arrays.asList(string));
+		
+		assertEquals(FormulaReturnType.DATE, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaDate#getReturnType()} with parameter different from string
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeNotString() {
+		AbstractFormula string = mock(AbstractFormula.class);
+		when(string.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		
+		FormulaDate formula = new FormulaDate(FormulaDescriptionFactory.getDescription(FormulaType.F_DATE), Arrays.asList(string));
+		
+		assertNull(formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaDate#getReturnType()} with integers parameters
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeIntegers() {
+		AbstractFormula day = mock(AbstractFormula.class);
+		when(day.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula month = mock(AbstractFormula.class);
+		when(month.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula year = mock(AbstractFormula.class);
+		when(year.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaDate formula =
+				new FormulaDate(FormulaDescriptionFactory.getDescription(FormulaType.F_DATE), Arrays.asList(day, month, year));
+				
+		assertEquals(FormulaReturnType.DATE, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaDate#getReturnType()} with integers parameters, but not enough
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeIntegersNotEnough() {
+		AbstractFormula day = mock(AbstractFormula.class);
+		when(day.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		AbstractFormula month = mock(AbstractFormula.class);
+		when(month.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaDate formula = new FormulaDate(FormulaDescriptionFactory.getDescription(FormulaType.F_DATE), Arrays.asList(day, month));
+		
+		assertNull(formula.getReturnType());
 	}
 	
 	/**

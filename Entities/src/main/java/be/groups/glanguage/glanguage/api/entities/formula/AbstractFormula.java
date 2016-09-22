@@ -191,7 +191,7 @@ public abstract class AbstractFormula {
 	}
 	
 	private void initParametersTypes() {
-		parametersTypes = parametersTypes == null ? Arrays.asList()
+		parametersTypes = parameters == null ? Arrays.asList()
 				: parameters.stream().map(p -> p.getReturnType()).collect(Collectors.toList());
 	}
 	

@@ -4,10 +4,10 @@ import org.junit.experimental.categories.Categories;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite.SuiteClasses;
 
-import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTest;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
 
 @RunWith(Categories.class)
-@Categories.IncludeCategory(JpaMappingTest.class)
+@Categories.IncludeCategory(JpaMappingTestsCategory.class)
 @SuiteClasses({ProjectTestSuite.class})
 public class ProjectMappingTestSuite {
 
