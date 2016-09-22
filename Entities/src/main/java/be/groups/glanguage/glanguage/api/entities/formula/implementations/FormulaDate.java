@@ -13,7 +13,6 @@ import javax.persistence.Entity;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
@@ -26,27 +25,13 @@ public class FormulaDate extends AbstractNonTerminalFormula {
 	
 	public FormulaDate(FormulaDescription description, List<AbstractFormula> parameters) {
 		super(description);
+		
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");
 		}
+		
 		this.parameters = new ArrayList<>();
-		if (parameters.size() == 1) {
-			if (!parameters.get(0).getReturnType().equals(FormulaReturnType.STRING)) {
-				throw new IllegalArgumentException("if one parameter, it must be of type STRING");
-			}
-			this.parameters.add(parameters.get(0));
-		} else if (parameters.size() == 3) {
-			parameters.stream().forEachOrdered(e -> {
-				if (e.getReturnType().equals(FormulaReturnType.INTEGER)) {
-					this.parameters.add(e);
-				} else {
-					throw new IllegalArgumentException(
-							(parameters.indexOf(e) + 1) + "-th parameter must be of type INTEGER : " + e.asText());
-				}
-			});
-		} else {
-			throw new IllegalArgumentException("there should be 1 or 3 parameters but there are " + parameters.size());
-		}
+		this.parameters.addAll(parameters);
 	}
 	
 	@Override
