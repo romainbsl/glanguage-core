@@ -88,7 +88,7 @@ public class RuleSetVersionTest {
 		assertEquals(LocalDateTime.of(2016, 9, 7, 9, 0), ruleSetVersion.getExploitationStartDate());
 		assertEquals("1.0.1", ruleSetVersion.getVersion());
 
-		assertEquals("dupirefr", ruleSetVersion.getAuthor());
+		assertEquals("dupirefr", ruleSetVersion.getCreationAuthor());
 		assertEquals("hotfix", ruleSetVersion.getLabel());
 		assertEquals(RuleSetVersionStatus.PROD, ruleSetVersion.getStatus());
 

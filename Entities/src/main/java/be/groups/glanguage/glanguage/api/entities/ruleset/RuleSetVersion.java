@@ -45,9 +45,24 @@ public class RuleSetVersion {
 	private String version;
 
 	/**
-	 * Author
+	 * Creation author
 	 */
-	private String author;
+	private String creationAuthor;
+	
+	/**
+	 * Creation date
+	 */
+	private LocalDateTime creationDate;
+
+	/**
+	 * Modification author
+	 */
+	private String modificationAuthor;
+	
+	/**
+	 * Modification date
+	 */
+	private LocalDateTime modificationDate;
 
 	/**
 	 * Status
@@ -120,11 +135,37 @@ public class RuleSetVersion {
 	}
 
 	/**
-	 * @return the author
+	 * @return the creation author
 	 */
-	@Column(name = "AUTHOR")
-	public String getAuthor() {
-		return author;
+	@Column(name = "AUTHOR_CREATION")
+	public String getCreationAuthor() {
+		return creationAuthor;
+	}
+
+	/**
+	 * @return the creation date
+	 */
+	@Column(name = "DATE_CREATION")
+	@Convert(converter = LocalDateTimeConverter.class)
+	public LocalDateTime getCreationDate() {
+		return creationDate;
+	}
+
+	/**
+	 * @return the modification author
+	 */
+	@Column(name = "AUTHOR_MODIFICATION")
+	public String getModificationAuthor() {
+		return modificationAuthor;
+	}
+
+	/**
+	 * @return the modification date
+	 */
+	@Column(name = "DATE_MODIFICATION")
+	@Convert(converter = LocalDateTimeConverter.class)
+	public LocalDateTime getModificationDate() {
+		return modificationDate;
 	}
 
 	/**
@@ -292,11 +333,33 @@ public class RuleSetVersion {
 	}
 
 	/**
-	 * @param author
-	 *            the author to set
+	 * @param creationAuthor
+	 *            the creationAuthor to set
 	 */
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setCreationAuthor(String creationAuthor) {
+		this.creationAuthor = creationAuthor;
+	}
+
+	/**
+	 * @param creationDate the creationDate to set
+	 */
+	public void setCreationDate(LocalDateTime creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	/**
+	 * @param modificationAuthor
+	 *            the modificationAuthor to set
+	 */
+	public void setModificationAuthor(String modificationAuthor) {
+		this.modificationAuthor = modificationAuthor;
+	}
+
+	/**
+	 * @param modificationDate the modificationDate to set
+	 */
+	public void setModificationDate(LocalDateTime modificationDate) {
+		this.modificationDate = modificationDate;
 	}
 
 	/**
