@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "RULE_SET")
@@ -147,6 +148,11 @@ public class RuleSet {
 	@OrderBy("EXPLOITATION_START_DATE DESC")
 	public Set<RuleSetVersion> getVersions() {
 		return versions;
+	}
+
+	@Transient
+	public RuleSetVersion getVersion(String version) {
+		return versions.stream().filter(rsv -> rsv.getVersion().equals(version)).findFirst().orElse(null);
 	}
 
 	/**

@@ -11,7 +11,7 @@ public class BaseJerseyResourceTest extends JerseyTest {
     @Override
     protected javax.ws.rs.core.Application configure() {
         enableTestProperties();
-        return new be.groups.glanguage.glanguage.api.ws.Application();
+        return new Application();
     }
 
     @BeforeClass
