@@ -194,31 +194,31 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
 		}
 		// Search in this "custom" level definitions
 		for (RuleDefinition definition : customRuleDefintions) {
-			if (definition.match(parameters)) {
+			if (definition.matches(parameters)) {
 				return definition;
 			}
 		}
 		// Search in this "collective labor agreement" level definitions
 		for (RuleDefinition definition : collectiveLaborAgreementRuleDefintions) {
-			if (definition.match(parameters)) {
+			if (definition.matches(parameters)) {
 				return definition;
 			}
 		}
 		// Search in this "joint committee" level definitions
 		for (RuleDefinition definition : jointCommitteeRuleDefintions) {
-			if (definition.match(parameters)) {
+			if (definition.matches(parameters)) {
 				return definition;
 			}
 		}
 		// Search in this "employer" level definitions
 		for (RuleDefinition definition : employerRuleDefintions) {
-			if (definition.match(parameters)) {
+			if (definition.matches(parameters)) {
 				return definition;
 			}
 		}
 		// Search in this "social secretary" level definitions
 		for (RuleDefinition definition : socialSecretaryRuleDefintions) {
-			if (definition.match(parameters)) {
+			if (definition.matches(parameters)) {
 				return definition;
 			}
 		}

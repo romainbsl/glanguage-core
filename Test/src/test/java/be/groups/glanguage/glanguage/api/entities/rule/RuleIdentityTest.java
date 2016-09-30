@@ -126,7 +126,7 @@ public class RuleIdentityTest {
 
 		RuleDefinition employerRuleDefinition = mock(RuleDefinition.class);
 		when(employerRuleDefinition.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
-		when(employerRuleDefinition.match(ruleDefinitionParameters)).thenReturn(false);
+		when(employerRuleDefinition.matches(ruleDefinitionParameters)).thenReturn(false);
 
 		ruleIdentity.getRuleDefinitions().add(defaultRuleDefinition);
 		ruleIdentity.getRuleDefinitions().add(employerRuleDefinition);
@@ -151,7 +151,7 @@ public class RuleIdentityTest {
 
 		RuleDefinition employerRuleDefinition = mock(RuleDefinition.class);
 		when(employerRuleDefinition.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
-		when(employerRuleDefinition.match(ruleDefinitionParameters)).thenReturn(true);
+		when(employerRuleDefinition.matches(ruleDefinitionParameters)).thenReturn(true);
 
 		ruleIdentity.getRuleDefinitions().add(defaultRuleDefinition);
 		ruleIdentity.getRuleDefinitions().add(employerRuleDefinition);

@@ -83,7 +83,7 @@ public class RuleDefinitionParameterTest {
 	}
 
 	/**
-	 * Tests {@link RuleDefinitionParameter#match(RuleDefinitionParameter)} when
+	 * Tests {@link RuleDefinitionParameter#matches(RuleDefinitionParameter)} when
 	 * levels are not matching
 	 */
 	@Test
@@ -93,11 +93,11 @@ public class RuleDefinitionParameterTest {
 		RuleDefinitionParameter secondRuleDefinitionParameter = new RuleDefinitionParameter(
 				DefinitionLevel.JOINT_COMMITTEE, "355");
 
-		assertFalse(firstRuleDefinitionParameter.match(secondRuleDefinitionParameter));
+		assertFalse(firstRuleDefinitionParameter.matches(secondRuleDefinitionParameter));
 	}
 
 	/**
-	 * Tests {@link RuleDefinitionParameter#match(RuleDefinitionParameter)} when
+	 * Tests {@link RuleDefinitionParameter#matches(RuleDefinitionParameter)} when
 	 * levels are matching, but not values
 	 */
 	@Test
@@ -107,11 +107,11 @@ public class RuleDefinitionParameterTest {
 		RuleDefinitionParameter secondRuleDefinitionParameter = new RuleDefinitionParameter(DefinitionLevel.EMPLOYER,
 				"120000");
 
-		assertFalse(firstRuleDefinitionParameter.match(secondRuleDefinitionParameter));
+		assertFalse(firstRuleDefinitionParameter.matches(secondRuleDefinitionParameter));
 	}
 
 	/**
-	 * Tests {@link RuleDefinitionParameter#match(RuleDefinitionParameter)} when
+	 * Tests {@link RuleDefinitionParameter#matches(RuleDefinitionParameter)} when
 	 * levels and values are matching
 	 */
 	@Test
@@ -121,7 +121,7 @@ public class RuleDefinitionParameterTest {
 		RuleDefinitionParameter secondRuleDefinitionParameter = new RuleDefinitionParameter(DefinitionLevel.EMPLOYER,
 				"100000");
 
-		assertTrue(firstRuleDefinitionParameter.match(secondRuleDefinitionParameter));
+		assertTrue(firstRuleDefinitionParameter.matches(secondRuleDefinitionParameter));
 	}
 
 }

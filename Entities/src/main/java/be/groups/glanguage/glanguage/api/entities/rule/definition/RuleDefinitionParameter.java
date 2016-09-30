@@ -23,37 +23,37 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
 @Table(name = "RULE_DEFINITION_PARAMETER")
 @SuppressWarnings("unused")
 public class RuleDefinitionParameter implements Comparable<RuleDefinitionParameter> {
-
+	
 	/**
 	 * Id
 	 */
 	private RuleDefinitionParameterId id;
-
+	
 	/**
 	 * The description this is part of
 	 */
 	private RuleDefinition ruleDefinition;
-
+	
 	/**
 	 * The level of this parameter
 	 */
 	private DefinitionLevel level;
-
+	
 	/**
 	 * The value of this parameter
 	 */
 	private String value;
-
+	
 	public RuleDefinitionParameter() {
 		super();
 	}
-
+	
 	public RuleDefinitionParameter(DefinitionLevel level, String value) {
 		this();
 		this.level = level;
 		this.value = value;
 	}
-
+	
 	/**
 	 * @return the id
 	 */
@@ -61,7 +61,7 @@ public class RuleDefinitionParameter implements Comparable<RuleDefinitionParamet
 	public RuleDefinitionParameterId getId() {
 		return id;
 	}
-
+	
 	/**
 	 * @return the ruleDefinitionLevelDescription
 	 */
@@ -70,7 +70,7 @@ public class RuleDefinitionParameter implements Comparable<RuleDefinitionParamet
 	public RuleDefinition getRuleDefinition() {
 		return ruleDefinition;
 	}
-
+	
 	/**
 	 * @return the level
 	 */
@@ -79,7 +79,7 @@ public class RuleDefinitionParameter implements Comparable<RuleDefinitionParamet
 	public DefinitionLevel getLevel() {
 		return level;
 	}
-
+	
 	/**
 	 * @return the value
 	 */
@@ -87,60 +87,53 @@ public class RuleDefinitionParameter implements Comparable<RuleDefinitionParamet
 	public String getValue() {
 		return value;
 	}
-
+	
 	/**
-	 * Does this match another parameter This matches another parameter if they
-	 * have the same level and the same value
+	 * Does this match another parameter ?<br>
+	 * This matches another parameter if they have the same level and the same value
 	 * 
-	 * @param parameter
-	 *            the other parameter to match with
+	 * @param parameter the other parameter to match with
 	 * @return true if this matches another parameter, false otherwise
 	 */
-	public boolean match(RuleDefinitionParameter parameter) {
+	public boolean matches(RuleDefinitionParameter parameter) {
 		return this.level.equals(parameter.level) && this.value.equals(parameter.value);
 	}
-
+	
 	/**
-	 * @param id
-	 *            the id to set
+	 * @param id the id to set
 	 */
 	public void setId(RuleDefinitionParameterId id) {
 		this.id = id;
 	}
-
+	
 	/**
-	 * @param ruleDefinition
-	 *            the ruleDefinition to set
+	 * @param ruleDefinition the ruleDefinition to set
 	 */
 	private void setRuleDefinition(RuleDefinition ruleDefinition) {
 		this.ruleDefinition = ruleDefinition;
 	}
-
+	
 	/**
-	 * @param level
-	 *            the level to set
+	 * @param level the level to set
 	 */
 	private void setLevel(DefinitionLevel level) {
 		this.level = level;
 	}
-
+	
 	/**
-	 * @param value
-	 *            the value to set
+	 * @param value the value to set
 	 */
 	private void setValue(String value) {
 		this.value = value;
 	}
-
+	
 	/**
-	 * Compares this with the specified object for order Returns the result of
-	 * the comparison between this level and other level and if they are equal,
-	 * between this value and other value
+	 * Compares this with {@code other} for ordering<br>
+	 * Returns the result of the comparison between this level and other's level and if they are equal, between this value and other's
+	 * value
 	 * 
-	 * @param other
-	 *            the other object to compare to
-	 * @return a negative integer, zero, or a positive integer as this level is
-	 *         less than, equal to, or more than the specified object level
+	 * @param other the other object to compare to
+	 * @return a negative integer, zero, or a positive integer as this is less than, equal to, or more than the {@code other}
 	 */
 	public int compareTo(RuleDefinitionParameter other) {
 		int i = level.compareTo(other.level);
@@ -149,5 +142,5 @@ public class RuleDefinitionParameter implements Comparable<RuleDefinitionParamet
 		}
 		return i;
 	}
-
+	
 }

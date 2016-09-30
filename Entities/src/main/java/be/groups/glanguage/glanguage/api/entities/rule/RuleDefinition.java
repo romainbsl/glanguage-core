@@ -32,34 +32,34 @@ import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinition
 @Table(name = "RULE_DEFINITION")
 @SuppressWarnings("unused")
 public class RuleDefinition {
-
+	
 	/**
 	 * Technical unique ID
 	 */
 	private int id;
-
+	
 	/**
 	 * The RuleIdentity of which this is a definition
 	 */
 	private RuleIdentity ruleIdentity;
-
+	
 	/**
 	 * The sorted set of definition parameters
 	 */
 	private SortedSet<RuleDefinitionParameter> definitionParameters;
-
+	
 	/**
 	 * Versions
 	 */
 	private List<RuleVersion> versions;
-
+	
 	public RuleDefinition() {
 		super();
-
+		
 		this.definitionParameters = new TreeSet<>();
 		this.versions = new ArrayList<>();
 	}
-
+	
 	/**
 	 * @return the id
 	 */
@@ -68,7 +68,7 @@ public class RuleDefinition {
 	public int getId() {
 		return id;
 	}
-
+	
 	/**
 	 * @return the identity
 	 */
@@ -77,7 +77,7 @@ public class RuleDefinition {
 	public RuleIdentity getRuleIdentity() {
 		return ruleIdentity;
 	}
-
+	
 	/**
 	 * @return the definitionParameters
 	 */
@@ -86,7 +86,7 @@ public class RuleDefinition {
 	public SortedSet<RuleDefinitionParameter> getDefinitionParameters() {
 		return definitionParameters;
 	}
-
+	
 	/**
 	 * @return the versions
 	 */
@@ -95,15 +95,15 @@ public class RuleDefinition {
 	public List<RuleVersion> getVersions() {
 		return versions;
 	}
-
+	
 	/**
 	 * Get the version effective at specified effective date and in exploitation
 	 * at specified observe date
 	 * 
 	 * @param effective
-	 *            the date on which the version returned is effective
+	 *        the date on which the version returned is effective
 	 * @param observe
-	 *            the date on which the version returned is in exploitation
+	 *        the date on which the version returned is in exploitation
 	 * @return the version that is effective at the specified effective date and
 	 *         in exploitation at specified observe date if it exists, null
 	 *         otherwise
@@ -120,7 +120,7 @@ public class RuleDefinition {
 		}
 		return null;
 	}
-
+	
 	@Transient
 	public DefinitionLevel getLevel() {
 		if (definitionParameters == null || definitionParameters.isEmpty()) {
@@ -141,43 +141,50 @@ public class RuleDefinition {
 			}
 		}
 	}
-
-	public boolean match(Collection<RuleDefinitionParameter> definitionParameters) {
-		return DefinitionMatcher.match(this.definitionParameters, definitionParameters);
+	
+	/**
+	 * Does this match the {@code definitionParameters} parameters ?
+	 * 
+	 * @param definitionParameters
+	 * @return true if the parameters of this matches the {@code definitionParameters} parameters
+	 * @see DefinitionMatcher#matches(Collection, Collection)
+	 */
+	public boolean matches(Collection<RuleDefinitionParameter> definitionParameters) {
+		return DefinitionMatcher.matches(this.definitionParameters, definitionParameters);
 	}
-
+	
 	/**
 	 * @param id
-	 *            the id to set
+	 *        the id to set
 	 */
 	private void setId(int id) {
 		this.id = id;
 	}
-
+	
 	/**
 	 * @param identity
-	 *            the identity to set
+	 *        the identity to set
 	 */
 	private void setRuleIdentity(RuleIdentity ruleIdentity) {
 		this.ruleIdentity = ruleIdentity;
 	}
-
+	
 	/**
 	 * @param definitionParameters
-	 *            the definitionParameters to set
+	 *        the definitionParameters to set
 	 */
 	public void setDefinitionParameters(SortedSet<RuleDefinitionParameter> definitionParameters) {
 		this.definitionParameters = definitionParameters;
 	}
-
+	
 	/**
 	 * @param versions
-	 *            the versions to set
+	 *        the versions to set
 	 */
 	private void setVersions(List<RuleVersion> versions) {
 		this.versions = versions;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -185,7 +192,7 @@ public class RuleDefinition {
 		result = prime * result + id;
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -199,5 +206,5 @@ public class RuleDefinition {
 			return false;
 		return true;
 	}
-
+	
 }

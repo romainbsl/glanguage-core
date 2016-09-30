@@ -276,10 +276,10 @@ public class RuleSetVersionTest {
 		List<RuleDefinitionParameter> ruleDefinitionParameters = (List<RuleDefinitionParameter>) mock(List.class);
 
 		RuleDefinition defaultRuleDefinition = mock(RuleDefinition.class);
-		when(defaultRuleDefinition.match(ruleDefinitionParameters)).thenReturn(false);
+		when(defaultRuleDefinition.matches(ruleDefinitionParameters)).thenReturn(false);
 
 		RuleDefinition customRuleDefinition = mock(RuleDefinition.class);
-		when(customRuleDefinition.match(ruleDefinitionParameters)).thenReturn(true);
+		when(customRuleDefinition.matches(ruleDefinitionParameters)).thenReturn(true);
 
 		RuleVersion defaultRuleVersion = mock(RuleVersion.class);
 		when(defaultRuleVersion.getRuleDefinition()).thenReturn(defaultRuleDefinition);
@@ -317,10 +317,10 @@ public class RuleSetVersionTest {
 		List<RuleDefinitionParameter> ruleDefinitionParameters = (List<RuleDefinitionParameter>) mock(List.class);
 
 		RuleDefinition defaultRuleDefinition = mock(RuleDefinition.class);
-		when(defaultRuleDefinition.match(ruleDefinitionParameters)).thenReturn(false);
+		when(defaultRuleDefinition.matches(ruleDefinitionParameters)).thenReturn(false);
 
 		RuleDefinition customRuleDefinition = mock(RuleDefinition.class);
-		when(customRuleDefinition.match(ruleDefinitionParameters)).thenReturn(true);
+		when(customRuleDefinition.matches(ruleDefinitionParameters)).thenReturn(true);
 
 		RuleVersion defaultRuleVersion = mock(RuleVersion.class);
 		when(defaultRuleVersion.getRuleDefinition()).thenReturn(defaultRuleDefinition);
@@ -352,10 +352,10 @@ public class RuleSetVersionTest {
 		List<RuleDefinitionParameter> ruleDefinitionParameters = (List<RuleDefinitionParameter>) mock(List.class);
 
 		RuleDefinition defaultRuleDefinition = mock(RuleDefinition.class);
-		when(defaultRuleDefinition.match(ruleDefinitionParameters)).thenReturn(false);
+		when(defaultRuleDefinition.matches(ruleDefinitionParameters)).thenReturn(false);
 
 		RuleDefinition customRuleDefinition = mock(RuleDefinition.class);
-		when(customRuleDefinition.match(ruleDefinitionParameters)).thenReturn(false);
+		when(customRuleDefinition.matches(ruleDefinitionParameters)).thenReturn(false);
 
 		RuleVersion defaultRuleVersion = mock(RuleVersion.class);
 		when(defaultRuleVersion.getRuleDefinition()).thenReturn(defaultRuleDefinition);

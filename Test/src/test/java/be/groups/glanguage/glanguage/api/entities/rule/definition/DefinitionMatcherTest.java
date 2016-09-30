@@ -21,7 +21,7 @@ public class DefinitionMatcherTest {
 	 * Tests
 	 */
 	/**
-	 * Tests {@link DefinitionMatcher#match(Collection, Collection)} when both
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection)} when both
 	 * collections are empty
 	 */
 	@Test
@@ -30,11 +30,11 @@ public class DefinitionMatcherTest {
 
 		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
 
-		assertTrue(DefinitionMatcher.match(definition, criteria));
+		assertTrue(DefinitionMatcher.matches(definition, criteria));
 	}
 
 	/**
-	 * Tests {@link DefinitionMatcher#match(Collection, Collection)} when first
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection)} when first
 	 * collection is empty, but not the second
 	 */
 	@Test
@@ -46,11 +46,11 @@ public class DefinitionMatcherTest {
 		when(criteriaParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
 		criteria.add(criteriaParameter);
 
-		assertTrue(DefinitionMatcher.match(definition, criteria));
+		assertTrue(DefinitionMatcher.matches(definition, criteria));
 	}
 
 	/**
-	 * Tests {@link DefinitionMatcher#match(Collection, Collection)} when second
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection)} when second
 	 * collection is empty, but not the first
 	 */
 	@Test
@@ -62,11 +62,11 @@ public class DefinitionMatcherTest {
 
 		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
 
-		assertFalse(DefinitionMatcher.match(definition, criteria));
+		assertFalse(DefinitionMatcher.matches(definition, criteria));
 	}
 
 	/**
-	 * Tests {@link DefinitionMatcher#match(Collection, Collection)} when both
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection)} when both
 	 * collections contains elements, but levels don't match
 	 */
 	@Test
@@ -85,18 +85,18 @@ public class DefinitionMatcherTest {
 
 		RuleDefinitionParameter socialCriteriaParameter = mock(RuleDefinitionParameter.class);
 		when(socialCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
-		when(socialCriteriaParameter.match(socialDefinitionParameter)).thenReturn(true);
+		when(socialCriteriaParameter.matches(socialDefinitionParameter)).thenReturn(true);
 		criteria.add(socialCriteriaParameter);
 
 		RuleDefinitionParameter jointCommitteeCriteriaParameter = mock(RuleDefinitionParameter.class);
 		when(jointCommitteeCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.JOINT_COMMITTEE);
 		criteria.add(jointCommitteeCriteriaParameter);
 
-		assertFalse(DefinitionMatcher.match(definition, criteria));
+		assertFalse(DefinitionMatcher.matches(definition, criteria));
 	}
 
 	/**
-	 * Tests {@link DefinitionMatcher#match(Collection, Collection)} when both
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection)} when both
 	 * collections contains elements and levels match but not values
 	 */
 	@Test
@@ -115,19 +115,19 @@ public class DefinitionMatcherTest {
 
 		RuleDefinitionParameter socialCriteriaParameter = mock(RuleDefinitionParameter.class);
 		when(socialCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
-		when(socialCriteriaParameter.match(socialDefinitionParameter)).thenReturn(true);
+		when(socialCriteriaParameter.matches(socialDefinitionParameter)).thenReturn(true);
 		criteria.add(socialCriteriaParameter);
 
 		RuleDefinitionParameter employerCriteriaParameter = mock(RuleDefinitionParameter.class);
 		when(employerCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
-		when(employerCriteriaParameter.match(employerDefinitionParameter)).thenReturn(false);
+		when(employerCriteriaParameter.matches(employerDefinitionParameter)).thenReturn(false);
 		criteria.add(employerCriteriaParameter);
 
-		assertFalse(DefinitionMatcher.match(definition, criteria));
+		assertFalse(DefinitionMatcher.matches(definition, criteria));
 	}
 
 	/**
-	 * Tests {@link DefinitionMatcher#match(Collection, Collection)} when both
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection)} when both
 	 * collections contains elements and levels and values match
 	 */
 	@Test
@@ -146,15 +146,15 @@ public class DefinitionMatcherTest {
 
 		RuleDefinitionParameter socialCriteriaParameter = mock(RuleDefinitionParameter.class);
 		when(socialCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
-		when(socialCriteriaParameter.match(socialDefinitionParameter)).thenReturn(true);
+		when(socialCriteriaParameter.matches(socialDefinitionParameter)).thenReturn(true);
 		criteria.add(socialCriteriaParameter);
 
 		RuleDefinitionParameter employerCriteriaParameter = mock(RuleDefinitionParameter.class);
 		when(employerCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
-		when(employerCriteriaParameter.match(employerDefinitionParameter)).thenReturn(true);
+		when(employerCriteriaParameter.matches(employerDefinitionParameter)).thenReturn(true);
 		criteria.add(employerCriteriaParameter);
 
-		assertTrue(DefinitionMatcher.match(definition, criteria));
+		assertTrue(DefinitionMatcher.matches(definition, criteria));
 	}
 
 }
