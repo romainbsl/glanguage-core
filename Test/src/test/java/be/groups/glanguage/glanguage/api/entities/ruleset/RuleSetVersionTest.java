@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -276,10 +277,10 @@ public class RuleSetVersionTest {
 		List<RuleDefinitionParameter> ruleDefinitionParameters = (List<RuleDefinitionParameter>) mock(List.class);
 
 		RuleDefinition defaultRuleDefinition = mock(RuleDefinition.class);
-		when(defaultRuleDefinition.matches(ruleDefinitionParameters)).thenReturn(false);
+		when(defaultRuleDefinition.matches(eq(ruleDefinitionParameters), any())).thenReturn(false);
 
 		RuleDefinition customRuleDefinition = mock(RuleDefinition.class);
-		when(customRuleDefinition.matches(ruleDefinitionParameters)).thenReturn(true);
+		when(customRuleDefinition.matches(eq(ruleDefinitionParameters), any())).thenReturn(true);
 
 		RuleVersion defaultRuleVersion = mock(RuleVersion.class);
 		when(defaultRuleVersion.getRuleDefinition()).thenReturn(defaultRuleDefinition);
@@ -299,10 +300,12 @@ public class RuleSetVersionTest {
 		ruleSetVersion.getRuleVersions().add(customRuleVersionRightEffectivity);
 		ruleSetVersion.getRuleVersions().add(customRuleVersionWrongEffectivity);
 
-		RuleVersion foundRuleVersion = ruleSetVersion.getDefinedRuleVersion(effectivity, ruleDefinitionParameters);
+		List<RuleVersion> foundRuleVersions = ruleSetVersion.getDefinedRuleVersions(ruleDefinitionParameters, effectivity);
 
-		assertNotNull(foundRuleVersion);
-		assertEquals(customRuleVersionRightEffectivity, foundRuleVersion);
+		assertNotNull(foundRuleVersions);
+		assertFalse(foundRuleVersions.isEmpty());
+		assertEquals(1, foundRuleVersions.size());
+		assertEquals(customRuleVersionRightEffectivity, foundRuleVersions.get(0));
 	}
 
 	/**
@@ -317,10 +320,10 @@ public class RuleSetVersionTest {
 		List<RuleDefinitionParameter> ruleDefinitionParameters = (List<RuleDefinitionParameter>) mock(List.class);
 
 		RuleDefinition defaultRuleDefinition = mock(RuleDefinition.class);
-		when(defaultRuleDefinition.matches(ruleDefinitionParameters)).thenReturn(false);
+		when(defaultRuleDefinition.matches(eq(ruleDefinitionParameters), any())).thenReturn(false);
 
 		RuleDefinition customRuleDefinition = mock(RuleDefinition.class);
-		when(customRuleDefinition.matches(ruleDefinitionParameters)).thenReturn(true);
+		when(customRuleDefinition.matches(eq(ruleDefinitionParameters), any())).thenReturn(true);
 
 		RuleVersion defaultRuleVersion = mock(RuleVersion.class);
 		when(defaultRuleVersion.getRuleDefinition()).thenReturn(defaultRuleDefinition);
@@ -335,9 +338,10 @@ public class RuleSetVersionTest {
 		ruleSetVersion.getRuleVersions().add(defaultRuleVersion);
 		ruleSetVersion.getRuleVersions().add(customRuleVersion);
 
-		RuleVersion foundRuleVersion = ruleSetVersion.getDefinedRuleVersion(effectivity, ruleDefinitionParameters);
+		List<RuleVersion> foundRuleVersions = ruleSetVersion.getDefinedRuleVersions(ruleDefinitionParameters, effectivity);
 
-		assertNull(foundRuleVersion);
+		assertNotNull(foundRuleVersions);
+		assertTrue(foundRuleVersions.isEmpty());
 	}
 
 	/**
@@ -352,10 +356,10 @@ public class RuleSetVersionTest {
 		List<RuleDefinitionParameter> ruleDefinitionParameters = (List<RuleDefinitionParameter>) mock(List.class);
 
 		RuleDefinition defaultRuleDefinition = mock(RuleDefinition.class);
-		when(defaultRuleDefinition.matches(ruleDefinitionParameters)).thenReturn(false);
+		when(defaultRuleDefinition.matches(eq(ruleDefinitionParameters), any())).thenReturn(false);
 
 		RuleDefinition customRuleDefinition = mock(RuleDefinition.class);
-		when(customRuleDefinition.matches(ruleDefinitionParameters)).thenReturn(false);
+		when(customRuleDefinition.matches(eq(ruleDefinitionParameters), any())).thenReturn(false);
 
 		RuleVersion defaultRuleVersion = mock(RuleVersion.class);
 		when(defaultRuleVersion.getRuleDefinition()).thenReturn(defaultRuleDefinition);
@@ -370,9 +374,10 @@ public class RuleSetVersionTest {
 		ruleSetVersion.getRuleVersions().add(defaultRuleVersion);
 		ruleSetVersion.getRuleVersions().add(customRuleVersion);
 
-		RuleVersion foundRuleVersion = ruleSetVersion.getDefinedRuleVersion(effectivity, ruleDefinitionParameters);
+		List<RuleVersion> foundRuleVersions = ruleSetVersion.getDefinedRuleVersions(ruleDefinitionParameters, effectivity);
 
-		assertNull(foundRuleVersion);
+		assertNotNull(foundRuleVersions);
+		assertTrue(foundRuleVersions.isEmpty());
 	}
 
 	/**

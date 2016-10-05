@@ -142,5 +142,9 @@ public class RuleDefinitionParameter implements Comparable<RuleDefinitionParamet
 		}
 		return i;
 	}
+
+	public String toString() {
+		return "RuleDefinitionParameter [level=" + level + ", value=" + value + "]";
+	}
 	
 }

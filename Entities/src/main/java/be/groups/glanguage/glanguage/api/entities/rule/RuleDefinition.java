@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.DefinitionMatcherStrategy;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
 
 /**
@@ -121,6 +122,18 @@ public class RuleDefinition {
 		return null;
 	}
 	
+	/**
+	 * Get the level of definition<br>
+	 * The level of definition can be :
+	 * <ul>
+	 * <li>{@link DefinitionLevel#DEFAULT} if there is no definition parameter</li>
+	 * <li>{@link DefinitionLevel#CUSTOM} if there are parameters with different level</li>
+	 * <li>Others {@link DefinitionLevel} if there is only one parameter or if they are all of the same level, in these cases, the
+	 * definition level is the level of the parameter(s)</li>
+	 * </ul>
+	 * 
+	 * @return
+	 */
 	@Transient
 	public DefinitionLevel getLevel() {
 		if (definitionParameters == null || definitionParameters.isEmpty()) {
@@ -143,21 +156,23 @@ public class RuleDefinition {
 	}
 	
 	/**
-	 * Does this match the {@code definitionParameters} parameters ?
+	 * Does this matches the {@code definitionParameters} parameters according to {@code strategy} matching strategy ?
 	 * 
 	 * @param definitionParameters
-	 * @return true if the parameters of this matches the {@code definitionParameters} parameters
-	 * @see DefinitionMatcher#matches(Collection, Collection)
+	 * @param strategy
+	 * @return true if the parameters of this match the {@code definitionParameters} parameters according to {@code strategy} matching
+	 *         strategy, false otherwise
+	 * @see DefinitionMatcher#matchesAtLeastOneByLevel(Collection, Collection)
 	 */
-	public boolean matches(Collection<RuleDefinitionParameter> definitionParameters) {
-		return DefinitionMatcher.matches(this.definitionParameters, definitionParameters);
+	public boolean matches(Collection<RuleDefinitionParameter> definitionParameters, DefinitionMatcherStrategy strategy) {
+		return DefinitionMatcher.matches(this.definitionParameters, definitionParameters, strategy);
 	}
 	
 	/**
 	 * @param id
 	 *        the id to set
 	 */
-	private void setId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	
@@ -205,6 +220,11 @@ public class RuleDefinition {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return "RuleDefinition [id=" + id + ", definitionParameters=" + definitionParameters + "]";
 	}
 	
 }

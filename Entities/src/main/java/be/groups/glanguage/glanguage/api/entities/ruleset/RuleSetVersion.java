@@ -3,9 +3,11 @@ package be.groups.glanguage.glanguage.api.entities.ruleset;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -24,7 +26,10 @@ import be.groups.common.entities.util.LocalDateTimeConverter;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionException;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.DefinitionMatcherStrategy;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
 
 @Entity
@@ -251,7 +256,10 @@ public class RuleSetVersion {
 	 */
 	@Transient
 	public List<RuleIdentity> getRuleIdentitites() {
-		return getRuleVersions().stream().map(rv -> rv.getRuleDefinition().getRuleIdentity()).distinct().collect(Collectors.toList());
+		return getRuleVersions().stream()
+				.map(rv -> rv.getRuleDefinition().getRuleIdentity())
+				.distinct()
+				.collect(Collectors.toList());
 	}
 	
 	/**
@@ -261,7 +269,10 @@ public class RuleSetVersion {
 	 */
 	@Transient
 	public List<RuleDefinition> getRuleDefinitions() {
-		return getRuleVersions().stream().map(rv -> rv.getRuleDefinition()).distinct().collect(Collectors.toList());
+		return getRuleVersions().stream()
+				.map(rv -> rv.getRuleDefinition())
+				.distinct()
+				.collect(Collectors.toList());
 	}
 	
 	/**
@@ -273,23 +284,105 @@ public class RuleSetVersion {
 	 */
 	@Transient
 	public List<RuleDefinition> getDefaultRuleDefinitions() {
-		return getRuleVersions().stream().map(rv -> rv.getRuleDefinition()).distinct()
-				.filter(rd -> rd.getLevel().equals(DefinitionLevel.DEFAULT)).collect(Collectors.toList());
+		return getRuleVersions().stream()
+				.map(rv -> rv.getRuleDefinition()).distinct()
+				.filter(rd -> rd.getLevel().equals(DefinitionLevel.DEFAULT))
+				.collect(Collectors.toList());
 	}
 	
 	/**
-	 * Get all {@link RuleDefinition}'s that match {@code definitionParameters} parameters, corresponding to the
-	 * {@link RuleVersion}'s of this {@link RuleSetVersion}
+	 * Get all default {@link RuleDefinition}'s (those that have no definition parameters) that have a code equal to {@code code},
+	 * corresponding to the {@link RuleVersion}'s of this {@link RuleSetVersion}
 	 * 
 	 * @param definitionParameters
-	 * @return The list of all {@link RuleDefinition}'s that match {@code definitionParameters} parameters, corresponding to the
-	 *         {@link RuleVersion}'s of this {@link RuleSetVersion}
+	 * @return The list of all default {@link RuleDefinition}'s (those that have no definition parameters) that have a code equal to
+	 *         {@code code}, corresponding to the {@link RuleVersion}'s of this {@link RuleSetVersion}
 	 * @see RuleDefinition#matches(Collection)
 	 */
 	@Transient
+	public List<RuleDefinition> getDefaultRuleDefinitions(String code) {
+		return getRuleVersions().stream()
+				.filter(rv -> rv.getRuleDescription().getCode().equals(code))
+				.map(rv -> rv.getRuleDefinition())
+				.distinct()
+				.filter(rd -> rd.getLevel().equals(DefinitionLevel.DEFAULT))
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Get all {@link RuleDefinition}'s that match at least {@code definitionParameters} parameters
+	 * 
+	 * @param definitionParameters
+	 * @return The list of all {@link RuleDefinition}'s that match at least {@code definitionParameters} parameters
+	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
+	 */
+	@Transient
 	public List<RuleDefinition> getDefinedRuleDefinitions(Collection<RuleDefinitionParameter> definitionParameters) {
-		return getRuleVersions().stream().map(rv -> rv.getRuleDefinition()).distinct()
-				.filter(rd -> rd.matches(definitionParameters)).collect(Collectors.toList());
+		return getRuleVersions().stream()
+				.map(rv -> rv.getRuleDefinition())
+				.distinct()
+				.filter(rd -> rd.matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Get all {@link RuleDefinition}'s that have a code equal to {@code code} and that matches at least {@code definitionParameters}
+	 * parameters
+	 * 
+	 * @param definitionParameters
+	 * @return The list of all {@link RuleDefinition}'s that have a code equal to {@code code} and that matches at least
+	 *         {@code definitionParameters} parameters
+	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
+	 */
+	@Transient
+	public List<RuleDefinition> getDefinedRuleDefinitions(String code, Collection<RuleDefinitionParameter> definitionParameters) {
+		return getRuleVersions().stream()
+				.filter(rv -> rv.getRuleDescription().getCode().equals(code))
+				.map(rv -> rv.getRuleDefinition())
+				.distinct()
+				.filter(rd -> rd.matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Get all {@link RuleVersion}'s that have a code equal to {@code code}
+	 * 
+	 * @param code
+	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code}
+	 */
+	@Transient
+	public List<RuleVersion> getRuleVersions(String code) {
+		return getRuleVersions().stream()
+				.filter(rv -> rv.getRuleDescription().getCode().equals(code))
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Get all {@link RuleVersion}'s that are effective at {@code effectivityDate}
+	 * 
+	 * @param effectivityDate
+	 * @return The list of all {@link RuleVersion}'s that are effective at {@code effectivityDate}
+	 */
+	@Transient
+	public List<RuleVersion> getRuleVersions(LocalDateTime effectivityDate) {
+		return getRuleVersions().stream()
+				.filter(rv -> rv.isEffective(effectivityDate))
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at {@code effectivityDate}
+	 * 
+	 * @param effectivityDate
+	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at
+	 *         {@code effectivityDate}
+	 */
+	@Transient
+	public List<RuleVersion> getRuleVersions(String code, LocalDateTime effectivityDate) {
+		return getRuleVersions().stream()
+				.filter(rv -> rv.getRuleDescription().getCode().equals(code)
+						&& rv.isEffective(effectivityDate))
+				.collect(Collectors.toList());
 	}
 	
 	/**
@@ -299,7 +392,23 @@ public class RuleSetVersion {
 	 */
 	@Transient
 	public List<RuleVersion> getDefaultRuleVersions() {
-		return getRuleVersions().stream().filter(rv -> rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT))
+		return getRuleVersions().stream()
+				.filter(rv -> rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT))
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that have a default {@link RuleDefinition} (those that
+	 * have no definition parameters)
+	 * 
+	 * @param code
+	 * @return The list of all default defined {@link RuleVersion}'s
+	 */
+	@Transient
+	public List<RuleVersion> getDefaultRuleVersions(String code) {
+		return getRuleVersions().stream()
+				.filter(rv -> rv.getRuleDescription().getCode().equals(code)
+						&& rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT))
 				.collect(Collectors.toList());
 	}
 	
@@ -319,65 +428,6 @@ public class RuleSetVersion {
 	}
 	
 	/**
-	 * Get all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches {@code definitionParameters}
-	 * parameters
-	 * 
-	 * @param definitionParameters
-	 * @return The list of all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches {@code definitionParameters}
-	 *         parameters
-	 * @see RuleDefinition#matches(Collection)
-	 */
-	@Transient
-	public List<RuleVersion> getDefinedRuleVersions(Collection<RuleDefinitionParameter> definitionParameters) {
-		return getRuleVersions().stream().filter(rv -> rv.getRuleDefinition().matches(definitionParameters))
-				.collect(Collectors.toList());
-	}
-	
-	/**
-	 * Get all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches {@code definitionParameters}
-	 * parameters and that are effective at {@code effectivityDate}
-	 * 
-	 * @param definitionParameters
-	 * @param effectivityDate
-	 * @return The list of all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches {@code definitionParameters}
-	 *         parameters and effective at {@code effectivityDate}
-	 * @see RuleDefinition#matches(Collection)
-	 * @see RuleVersion#isEffective(LocalDateTime)
-	 */
-	@Transient
-	public List<RuleVersion> getDefinedRuleVersions(Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDateTime effectivityDate) {
-		return getRuleVersions().stream()
-				.filter(rv -> rv.isEffective(effectivityDate) && rv.getRuleDefinition().matches(definitionParameters))
-				.collect(Collectors.toList());
-	}
-	
-	/**
-	 * Get all {@link RuleVersion}'s that have a code equal to {@code code}
-	 * 
-	 * @param code
-	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code}
-	 */
-	@Transient
-	private List<RuleVersion> getRuleVersions(String code) {
-		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code))
-				.collect(Collectors.toList());
-	}
-	
-	/**
-	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that have a default {@link RuleDefinition} (those that
-	 * have no definition parameters)
-	 * 
-	 * @param code
-	 * @return The list of all default defined {@link RuleVersion}'s
-	 */
-	@Transient
-	public List<RuleVersion> getDefaultRuleVersions(String code) {
-		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code)
-				&& rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT)).collect(Collectors.toList());
-	}
-	
-	/**
 	 * Get the {@link RuleVersion} that have a code equal to {@code code} and that have a default {@link RuleDefinition} (those that
 	 * have no definition parameters) and that are effective at {@code effectivityDate}
 	 * 
@@ -389,68 +439,153 @@ public class RuleSetVersion {
 	 */
 	@Transient
 	public RuleVersion getDefaultRuleVersion(String code, LocalDateTime effectivityDate) {
-		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code)
-				&& rv.isEffective(effectivityDate) && rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT))
+		return getRuleVersions().stream()
+				.filter(rv -> rv.getRuleDescription().getCode().equals(code)
+						&& rv.isEffective(effectivityDate) && rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT))
 				.findFirst().orElse(null);
 	}
 	
 	/**
-	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that have a {@link RuleDefinition} that matches
-	 * {@code definitionParameters} parameters
+	 * Get all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches at least {@code definitionParameters}
+	 * parameters
+	 * 
+	 * @param definitionParameters
+	 * @return The list of all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches at least
+	 *         {@code definitionParameters} parameters
+	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
+	 */
+	@Transient
+	public List<RuleVersion> getDefinedRuleVersions(Collection<RuleDefinitionParameter> definitionParameters) {
+		return getRuleVersions().stream()
+				.filter(rv -> rv.getRuleDefinition().matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Get all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches at least {@code definitionParameters}
+	 * parameters and that are effective at {@code effectivityDate}
+	 * 
+	 * @param definitionParameters
+	 * @param effectivityDate
+	 * @return The list of all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches at least
+	 *         {@code definitionParameters} parameters and that are effective at {@code effectivityDate}
+	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
+	 * @see RuleVersion#isEffective(LocalDateTime)
+	 */
+	@Transient
+	public List<RuleVersion> getDefinedRuleVersions(Collection<RuleDefinitionParameter> definitionParameters,
+			LocalDateTime effectivityDate) {
+		return getRuleVersions().stream()
+				.filter(rv -> rv.isEffective(effectivityDate)
+						&& rv.getRuleDefinition().matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that have a {@link RuleDefinition} that matches at
+	 * least {@code definitionParameters} parameters
 	 * 
 	 * @param code
 	 * @param definitionParameters
 	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have a {@link RuleDefinition} that
-	 *         matches {@code definitionParameters} that are effective at {@code effectivityDate}
-	 * @see RuleDefinition#matches(Collection)
+	 *         matches at least {@code definitionParameters} that are effective at {@code effectivityDate}
+	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
 	 */
 	@Transient
 	public List<RuleVersion> getDefinedRuleVersions(String code, Collection<RuleDefinitionParameter> definitionParameters) {
-		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code)
-				&& rv.getRuleDefinition().matches(definitionParameters)).collect(Collectors.toList());
+		return getRuleVersions().stream()
+				.filter(rv -> rv.getRuleDescription().getCode().equals(code)
+						&& rv.getRuleDefinition().matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
+				.collect(Collectors.toList());
 	}
 	
 	/**
-	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that have a {@link RuleDefinition} that matches
-	 * {@code definitionParameters} parameters and that are effective at {@code effectivityDate}
+	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that have the {@link RuleDefinition} that best matches
+	 * {@code definitionParameters} parameters
+	 * 
+	 * @param code
+	 * @param definitionParameters
+	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have the {@link RuleDefinition}
+	 *         that best matches {@code definitionParameters} that are effective at {@code effectivityDate}
+	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
+	 */
+	@Transient
+	public List<RuleVersion> getBestDefinedRuleVersions(String code, Collection<RuleDefinitionParameter> definitionParameters) {
+		Stream<RuleVersion> versionsForCode = getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code));
+		Map<RuleDefinition, List<RuleVersion>> ruleVersionsByRuleDefinition =
+				versionsForCode.collect(Collectors.groupingBy(RuleVersion::getRuleDefinition));
+		RuleDefinition bestRuleDefinition = null;
+		try {
+			bestRuleDefinition =
+					DefinitionMatcher.getBestMatch(versionsForCode.map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()),
+							definitionParameters);
+			if (bestRuleDefinition != null) {
+				return ruleVersionsByRuleDefinition.get(bestRuleDefinition);
+			} else {
+				return null;
+			}
+		} catch (DefinitionException de) {
+			throw new RuntimeException(
+					"Unable to find the best defined rule version for code " + code + " - parameters not precise enough", de);
+		}
+	}
+	
+	/**
+	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that have a {@link RuleDefinition} that matches at
+	 * least {@code definitionParameters} parameters and that are effective at {@code effectivityDate}
 	 * 
 	 * @param code
 	 * @param definitionParameters
 	 * @param effectivityDate
 	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have a {@link RuleDefinition} that
-	 *         matches {@code definitionParameters} and that are effective at {@code effectivityDate}
-	 * @see RuleDefinition#matches(Collection)
+	 *         matches at least {@code definitionParameters} and that are effective at {@code effectivityDate}
+	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
 	 * @see RuleVersion#isEffective(LocalDateTime)
 	 */
 	@Transient
 	public List<RuleVersion> getDefinedRuleVersions(String code, Collection<RuleDefinitionParameter> definitionParameters,
 			LocalDateTime effectivityDate) {
-		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code)
-				&& rv.isEffective(effectivityDate) && rv.getRuleDefinition().matches(definitionParameters)).collect(Collectors.toList());
+		return getRuleVersions().stream()
+				.filter(rv -> rv.getRuleDescription().getCode().equals(code)
+						&& rv.isEffective(effectivityDate)
+						&& rv.getRuleDefinition().matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
+				.collect(Collectors.toList());
 	}
 	
 	/**
-	 * Get the RuleVersion effective at specified effective date and whose
-	 * RuleDefinition matches the definition parameters
+	 * Get the {@link RuleVersion} that have a code equal to {@code code} and that have the {@link RuleDefinition} that best matches
+	 * {@code definitionParameters} parameters and that is effective at {@code effectivityDate}
 	 * 
-	 * @param effective
-	 *        the date on which the RuleVersion returned is effective
+	 * @param code
 	 * @param definitionParameters
-	 *        the definition parameters that the RuleVersion's RuleDefintion
-	 *        matches
-	 * @return the default definition RuleVersion that is effective at the
-	 *         specified date if it exists, null otherwise
+	 * @param effectivityDate
+	 * @return The {@link RuleVersion}'s that have a code equal to {@code code} and that have the {@link RuleDefinition} that best
+	 *         matches {@code definitionParameters} and that is effective at {@code effectivityDate}
+	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
+	 * @see RuleVersion#isEffective(LocalDateTime)
 	 */
 	@Transient
-	public RuleVersion getDefinedRuleVersion(LocalDateTime effective,
-			Collection<RuleDefinitionParameter> definitionParameters) {
-		Optional<RuleVersion> ruleVersion = getRuleVersions().stream()
-				.filter(rv -> rv.getRuleDefinition().matches(definitionParameters) && rv.isEffective(effective))
-				.findFirst();
-		if (ruleVersion.isPresent()) {
-			return ruleVersion.get();
+	public RuleVersion getBestDefinedRuleVersion(String code, Collection<RuleDefinitionParameter> definitionParameters,
+			LocalDateTime effectivityDate) {
+		Stream<RuleVersion> effectiveVersionsForCode = getRuleVersions().stream()
+				.filter(rv -> rv.getRuleDescription().getCode().equals(code)
+						&& rv.isEffective(effectivityDate));
+		Map<RuleDefinition, RuleVersion> ruleVersionByRuleDefinition =
+				effectiveVersionsForCode.collect(Collectors.toMap(RuleVersion::getRuleDefinition, Function.identity()));
+		RuleDefinition bestRuleDefinition = null;
+		try {
+			bestRuleDefinition = DefinitionMatcher.getBestMatch(
+					effectiveVersionsForCode.map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()),
+					definitionParameters);
+			if (bestRuleDefinition != null) {
+				return ruleVersionByRuleDefinition.get(bestRuleDefinition);
+			} else {
+				return null;
+			}
+		} catch (DefinitionException de) {
+			throw new RuntimeException(
+					"Unable to find the best defined rule version for code " + code + " - parameters not precise enough", de);
 		}
-		return null;
 	}
 	
 	/**
