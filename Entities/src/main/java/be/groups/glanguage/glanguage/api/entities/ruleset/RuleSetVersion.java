@@ -26,7 +26,6 @@ import be.groups.common.entities.util.LocalDateTimeConverter;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionException;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.DefinitionMatcherStrategy;
@@ -256,10 +255,7 @@ public class RuleSetVersion {
 	 */
 	@Transient
 	public List<RuleIdentity> getRuleIdentitites() {
-		return getRuleVersions().stream()
-				.map(rv -> rv.getRuleDefinition().getRuleIdentity())
-				.distinct()
-				.collect(Collectors.toList());
+		return getRuleVersions().stream().map(rv -> rv.getRuleDefinition().getRuleIdentity()).distinct().collect(Collectors.toList());
 	}
 	
 	/**
@@ -269,10 +265,7 @@ public class RuleSetVersion {
 	 */
 	@Transient
 	public List<RuleDefinition> getRuleDefinitions() {
-		return getRuleVersions().stream()
-				.map(rv -> rv.getRuleDefinition())
-				.distinct()
-				.collect(Collectors.toList());
+		return getRuleVersions().stream().map(rv -> rv.getRuleDefinition()).distinct().collect(Collectors.toList());
 	}
 	
 	/**
@@ -284,10 +277,8 @@ public class RuleSetVersion {
 	 */
 	@Transient
 	public List<RuleDefinition> getDefaultRuleDefinitions() {
-		return getRuleVersions().stream()
-				.map(rv -> rv.getRuleDefinition()).distinct()
-				.filter(rd -> rd.getLevel().equals(DefinitionLevel.DEFAULT))
-				.collect(Collectors.toList());
+		return getRuleVersions().stream().map(rv -> rv.getRuleDefinition()).distinct()
+				.filter(rd -> rd.getLevel().equals(DefinitionLevel.DEFAULT)).collect(Collectors.toList());
 	}
 	
 	/**
@@ -301,11 +292,8 @@ public class RuleSetVersion {
 	 */
 	@Transient
 	public List<RuleDefinition> getDefaultRuleDefinitions(String code) {
-		return getRuleVersions().stream()
-				.filter(rv -> rv.getRuleDescription().getCode().equals(code))
-				.map(rv -> rv.getRuleDefinition())
-				.distinct()
-				.filter(rd -> rd.getLevel().equals(DefinitionLevel.DEFAULT))
+		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code))
+				.map(rv -> rv.getRuleDefinition()).distinct().filter(rd -> rd.getLevel().equals(DefinitionLevel.DEFAULT))
 				.collect(Collectors.toList());
 	}
 	
@@ -318,11 +306,8 @@ public class RuleSetVersion {
 	 */
 	@Transient
 	public List<RuleDefinition> getDefinedRuleDefinitions(Collection<RuleDefinitionParameter> definitionParameters) {
-		return getRuleVersions().stream()
-				.map(rv -> rv.getRuleDefinition())
-				.distinct()
-				.filter(rd -> rd.matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
-				.collect(Collectors.toList());
+		return getRuleVersions().stream().map(rv -> rv.getRuleDefinition()).distinct()
+				.filter(rd -> rd.matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST)).collect(Collectors.toList());
 	}
 	
 	/**
@@ -336,12 +321,9 @@ public class RuleSetVersion {
 	 */
 	@Transient
 	public List<RuleDefinition> getDefinedRuleDefinitions(String code, Collection<RuleDefinitionParameter> definitionParameters) {
-		return getRuleVersions().stream()
-				.filter(rv -> rv.getRuleDescription().getCode().equals(code))
-				.map(rv -> rv.getRuleDefinition())
-				.distinct()
-				.filter(rd -> rd.matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
-				.collect(Collectors.toList());
+		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code))
+				.map(rv -> rv.getRuleDefinition()).distinct()
+				.filter(rd -> rd.matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST)).collect(Collectors.toList());
 	}
 	
 	/**
@@ -352,9 +334,7 @@ public class RuleSetVersion {
 	 */
 	@Transient
 	public List<RuleVersion> getRuleVersions(String code) {
-		return getRuleVersions().stream()
-				.filter(rv -> rv.getRuleDescription().getCode().equals(code))
-				.collect(Collectors.toList());
+		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code)).collect(Collectors.toList());
 	}
 	
 	/**
@@ -365,9 +345,7 @@ public class RuleSetVersion {
 	 */
 	@Transient
 	public List<RuleVersion> getRuleVersions(LocalDateTime effectivityDate) {
-		return getRuleVersions().stream()
-				.filter(rv -> rv.isEffective(effectivityDate))
-				.collect(Collectors.toList());
+		return getRuleVersions().stream().filter(rv -> rv.isEffective(effectivityDate)).collect(Collectors.toList());
 	}
 	
 	/**
@@ -380,8 +358,7 @@ public class RuleSetVersion {
 	@Transient
 	public List<RuleVersion> getRuleVersions(String code, LocalDateTime effectivityDate) {
 		return getRuleVersions().stream()
-				.filter(rv -> rv.getRuleDescription().getCode().equals(code)
-						&& rv.isEffective(effectivityDate))
+				.filter(rv -> rv.getRuleDescription().getCode().equals(code) && rv.isEffective(effectivityDate))
 				.collect(Collectors.toList());
 	}
 	
@@ -392,8 +369,7 @@ public class RuleSetVersion {
 	 */
 	@Transient
 	public List<RuleVersion> getDefaultRuleVersions() {
-		return getRuleVersions().stream()
-				.filter(rv -> rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT))
+		return getRuleVersions().stream().filter(rv -> rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT))
 				.collect(Collectors.toList());
 	}
 	
@@ -406,10 +382,8 @@ public class RuleSetVersion {
 	 */
 	@Transient
 	public List<RuleVersion> getDefaultRuleVersions(String code) {
-		return getRuleVersions().stream()
-				.filter(rv -> rv.getRuleDescription().getCode().equals(code)
-						&& rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT))
-				.collect(Collectors.toList());
+		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code)
+				&& rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT)).collect(Collectors.toList());
 	}
 	
 	/**
@@ -439,10 +413,9 @@ public class RuleSetVersion {
 	 */
 	@Transient
 	public RuleVersion getDefaultRuleVersion(String code, LocalDateTime effectivityDate) {
-		return getRuleVersions().stream()
-				.filter(rv -> rv.getRuleDescription().getCode().equals(code)
-						&& rv.isEffective(effectivityDate) && rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT))
-				.findFirst().orElse(null);
+		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code)
+				&& rv.isEffective(effectivityDate) && rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT)).findFirst()
+				.orElse(null);
 	}
 	
 	/**
@@ -515,18 +488,12 @@ public class RuleSetVersion {
 		Map<RuleDefinition, List<RuleVersion>> ruleVersionsByRuleDefinition =
 				versionsForCode.collect(Collectors.groupingBy(RuleVersion::getRuleDefinition));
 		RuleDefinition bestRuleDefinition = null;
-		try {
-			bestRuleDefinition =
-					DefinitionMatcher.getBestMatch(versionsForCode.map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()),
-							definitionParameters);
-			if (bestRuleDefinition != null) {
-				return ruleVersionsByRuleDefinition.get(bestRuleDefinition);
-			} else {
-				return null;
-			}
-		} catch (DefinitionException de) {
-			throw new RuntimeException(
-					"Unable to find the best defined rule version for code " + code + " - parameters not precise enough", de);
+		bestRuleDefinition = DefinitionMatcher
+				.getBestMatch(versionsForCode.map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()), definitionParameters);
+		if (bestRuleDefinition != null) {
+			return ruleVersionsByRuleDefinition.get(bestRuleDefinition);
+		} else {
+			return null;
 		}
 	}
 	
@@ -546,8 +513,7 @@ public class RuleSetVersion {
 	public List<RuleVersion> getDefinedRuleVersions(String code, Collection<RuleDefinitionParameter> definitionParameters,
 			LocalDateTime effectivityDate) {
 		return getRuleVersions().stream()
-				.filter(rv -> rv.getRuleDescription().getCode().equals(code)
-						&& rv.isEffective(effectivityDate)
+				.filter(rv -> rv.getRuleDescription().getCode().equals(code) && rv.isEffective(effectivityDate)
 						&& rv.getRuleDefinition().matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
 				.collect(Collectors.toList());
 	}
@@ -568,23 +534,16 @@ public class RuleSetVersion {
 	public RuleVersion getBestDefinedRuleVersion(String code, Collection<RuleDefinitionParameter> definitionParameters,
 			LocalDateTime effectivityDate) {
 		Stream<RuleVersion> effectiveVersionsForCode = getRuleVersions().stream()
-				.filter(rv -> rv.getRuleDescription().getCode().equals(code)
-						&& rv.isEffective(effectivityDate));
+				.filter(rv -> rv.getRuleDescription().getCode().equals(code) && rv.isEffective(effectivityDate));
 		Map<RuleDefinition, RuleVersion> ruleVersionByRuleDefinition =
 				effectiveVersionsForCode.collect(Collectors.toMap(RuleVersion::getRuleDefinition, Function.identity()));
 		RuleDefinition bestRuleDefinition = null;
-		try {
-			bestRuleDefinition = DefinitionMatcher.getBestMatch(
-					effectiveVersionsForCode.map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()),
-					definitionParameters);
-			if (bestRuleDefinition != null) {
-				return ruleVersionByRuleDefinition.get(bestRuleDefinition);
-			} else {
-				return null;
-			}
-		} catch (DefinitionException de) {
-			throw new RuntimeException(
-					"Unable to find the best defined rule version for code " + code + " - parameters not precise enough", de);
+		bestRuleDefinition = DefinitionMatcher.getBestMatch(
+				effectiveVersionsForCode.map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()), definitionParameters);
+		if (bestRuleDefinition != null) {
+			return ruleVersionByRuleDefinition.get(bestRuleDefinition);
+		} else {
+			return null;
 		}
 	}
 	

@@ -70,6 +70,7 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleDescriptionTest;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleGroupItemTest;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentityTest;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersionTest;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcherTest;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameterTest;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetTest;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
@@ -98,7 +99,7 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
 		FormulaDurationYearsTest.class, FormulaIfInstructionTest.class, FormulaStringItemTest.class, FormulaStringLengthTest.class,
 		FormulaSubStringTest.class, FormulaApplicabilityTest.class, FormulaFormulaTest.class, FormulaGetTest.class,
 		FormulaPrimitiveTest.class, FormulaRuleReferenceTest.class, FormulaAnomalyTest.class, FormulaBracketTest.class,
-		FormulaDateTest.class, FormulaInTest.class})
+		FormulaDateTest.class, FormulaInTest.class, DefinitionMatcherTest.class})
 public class EntitiesTestSuite {
 
 }

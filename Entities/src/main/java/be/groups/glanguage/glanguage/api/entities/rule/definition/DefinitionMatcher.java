@@ -5,7 +5,9 @@ package be.groups.glanguage.glanguage.api.entities.rule.definition;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
@@ -43,95 +45,95 @@ public class DefinitionMatcher {
 	 * 
 	 * <b>API Note :</b><br>
 	 * Let {@code ruleDefinitions} contains :
-	 * <ul>
+	 * <ol>
 	 * <li>RD.0 the DEFAULT {@link RuleDefinition} (with no parameters)
 	 * <li>RD.1 a {@link RuleDefinition} with parameters :
-	 * <ul>
+	 * <ol>
 	 * <li>level {@link DefinitionLevel#EMPLOYER}, value 1</li>
-	 * </ul>
+	 * </ol>
 	 * </li>
 	 * <li>RD.2 a {@link RuleDefinition} with parameters :
-	 * <ul>
+	 * <ol>
 	 * <li>level {@link DefinitionLevel#EMPLOYER}, value 1</li>
 	 * <li>level {@link DefinitionLevel#JOINT_COMMITTEE}, value 2</li>
-	 * </ul>
+	 * </ol>
 	 * </li>
 	 * <li>RD.3 a {@link RuleDefinition} with parameters :
-	 * <ul>
+	 * <ol>
 	 * <li>level {@link DefinitionLevel#EMPLOYER}, value 1</li>
 	 * <li>level {@link DefinitionLevel#COLLECTIVE_LABOR_AGREEMENT}, value 2</li>
-	 * </ul>
+	 * </ol>
 	 * </li>
 	 * <li>RD.4 a {@link RuleDefinition} with parameters :
-	 * <ul>
+	 * <ol>
 	 * <li>level {@link DefinitionLevel#EMPLOYER}, value 1</li>
 	 * <li>level {@link DefinitionLevel#JOINT_COMMITTEE}, value 2</li>
 	 * <li>level {@link DefinitionLevel#COLLECTIVE_LABOR_AGREEMENT}, value 1</li>
-	 * </ul>
+	 * </ol>
 	 * </li>
-	 * </ul>
+	 * </ol>
 	 * If {@code parameters} contains :
 	 * <ol>
 	 * <li>
-	 * <ul>
+	 * <ol>
 	 * <li>level {@link DefinitionLevel#EMPLOYER}, value 1</li>
-	 * </ul>
+	 * </ol>
 	 * the returned {@link RuleDefinition} is RD.1
 	 * </li>
 	 * <li>
-	 * <ul>
+	 * <ol>
 	 * <li>level {@link DefinitionLevel#EMPLOYER}, value 1</li>
 	 * <li>level {@link DefinitionLevel#JOINT_COMMITTEE}, value 2</li>
-	 * </ul>
+	 * </ol>
 	 * the returned {@link RuleDefinition} is RD.2
 	 * </li>
 	 * <li>
-	 * <ul>
+	 * <ol>
 	 * <li>level {@link DefinitionLevel#EMPLOYER}, value 1</li>
 	 * <li>level {@link DefinitionLevel#COLLECTIVE_LABOR_AGREEMENT}, value 2</li>
-	 * </ul>
+	 * </ol>
 	 * the returned {@link RuleDefinition} is RD.3
 	 * </li>
 	 * <li>
-	 * <ul>
+	 * <ol>
 	 * <li>level {@link DefinitionLevel#EMPLOYER}, value 1</li>
 	 * <li>level {@link DefinitionLevel#JOINT_COMMITTEE}, value 2</li>
 	 * <li>level {@link DefinitionLevel#COLLECTIVE_LABOR_AGREEMENT}, value 1</li>
-	 * </ul>
+	 * </ol>
 	 * the returned {@link RuleDefinition} is RD.4
 	 * </li>
 	 * <li>
-	 * <ul>
+	 * <ol>
 	 * <li>level {@link DefinitionLevel#EMPLOYER}, value 1</li>
 	 * <li>level {@link DefinitionLevel#JOINT_COMMITTEE}, value 2</li>
 	 * <li>level {@link DefinitionLevel#COLLECTIVE_LABOR_AGREEMENT}, value 2</li>
-	 * </ul>
+	 * </ol>
 	 * the returned {@link RuleDefinition} is RD.2
 	 * </li>
 	 * <li>
-	 * <ul>
+	 * <ol>
 	 * <li>level {@link DefinitionLevel#EMPLOYER}, value 1</li>
 	 * <li>level {@link DefinitionLevel#JOINT_COMMITTEE}, value 1</li>
 	 * <li>level {@link DefinitionLevel#COLLECTIVE_LABOR_AGREEMENT}, value 2</li>
-	 * </ul>
+	 * </ol>
 	 * the returned {@link RuleDefinition} is RD.3
 	 * </li>
 	 * <li>
-	 * <ul>
+	 * <ol>
 	 * <li>level {@link DefinitionLevel#EMPLOYER}, value 2</li>
-	 * </ul>
+	 * </ol>
 	 * the returned {@link RuleDefinition} is RD.0
 	 * </li>
 	 * <li>
-	 * <ul>
+	 * <ol>
 	 * <li>level {@link DefinitionLevel#JOINT_COMMITTEE}, value 1</li>
-	 * </ul>
+	 * </ol>
 	 * the returned {@link RuleDefinition} is RD.0
 	 * </li>
 	 * <li>
-	 * <ul>
+	 * <ol>
 	 * <li>level {@link DefinitionLevel#JOINT_COMMITTEE}, value 2</li>
-	 * </ul>
+	 * </ol>
 	 * the returned {@link RuleDefinition} is RD.0
 	 * </li>
 	 * </ol>
@@ -155,7 +157,7 @@ public class DefinitionMatcher {
 		if (ruleDefinition != null) {
 			return ruleDefinition;
 		} else {
-			Collection<RuleDefinition> listToFilter = ruleDefinitions;
+			List<RuleDefinition> listToFilter = new ArrayList<>(ruleDefinitions);
 			List<RuleDefinition> filteredList = new ArrayList<>();
 			List<RuleDefinitionParameter> actualParameters = new ArrayList<>();
 			for (DefinitionLevel definitionLevel : DefinitionLevelFactory.getParameterDefinitionLevelsOrderedByPriority()) {
@@ -163,12 +165,12 @@ public class DefinitionMatcher {
 						parameters.stream().filter(p -> p.getLevel().equals(definitionLevel)).findFirst().orElse(null);
 				if (parameter != null) {
 					actualParameters.add(parameter);
-					filteredList = listToFilter.stream()
-							.filter(rd -> rd.matches(actualParameters, DefinitionMatcherStrategy.AT_LEAST))
+					filteredList = listToFilter.stream().filter(rd -> rd.matches(actualParameters, DefinitionMatcherStrategy.AT_LEAST))
 							.collect(Collectors.toList());
 					if (filteredList.isEmpty()) {
 						actualParameters.remove(actualParameters.size() - 1);
-						listToFilter = ruleDefinitions;
+						filteredList = listToFilter;
+						listToFilter = new ArrayList<>(ruleDefinitions);
 					} else
 						if (filteredList.size() == 1 && filteredList.get(0).matches(parameters, DefinitionMatcherStrategy.AT_MOST)) {
 						return filteredList.get(0);
@@ -178,10 +180,15 @@ public class DefinitionMatcher {
 				}
 			}
 			if (!filteredList.isEmpty()) {
-				throw new DefinitionException(actualParameters, filteredList);
-			} else {
-				return ruleDefinitions.stream().filter(rd -> rd.getLevel().equals(DefinitionLevel.DEFAULT)).findFirst().orElse(null);
+				Optional<RuleDefinition> definition =
+						filteredList.stream().filter(d -> d.matches(actualParameters, DefinitionMatcherStrategy.AT_MOST)).findFirst();
+				if (definition.isPresent()) {
+					return definition.get();
+				}
 			}
+			
+			// Return default definition
+			return ruleDefinitions.stream().filter(rd -> rd.getLevel().equals(DefinitionLevel.DEFAULT)).findFirst().orElse(null);
 		}
 	}
 	
@@ -229,37 +236,20 @@ public class DefinitionMatcher {
 	 */
 	private static boolean matchesAtLeastOneByLevel(Collection<RuleDefinitionParameter> first,
 			Collection<RuleDefinitionParameter> second) {
-		if (first.isEmpty()) {
+		if (first == null || first.isEmpty()) {
+			return true;
+		} else if (second == null || second.isEmpty()) {
 			return true;
 		} else {
 			boolean match = true;
-			List<RuleDefinitionParameter> socialSecretariatParameters = first.stream()
-					.filter(f -> f.getLevel() == DefinitionLevel.SOCIAL_SECRETARY).collect(Collectors.toList());
-			if (!socialSecretariatParameters.isEmpty()) {
-				match = socialSecretariatParameters.stream().anyMatch(f -> second.stream().anyMatch(s -> f.matches(s)));
-			}
-			if (match) {
-				List<RuleDefinitionParameter> employerParameters = first.stream()
-						.filter(f -> f.getLevel() == DefinitionLevel.EMPLOYER).collect(Collectors.toList());
-				if (!employerParameters.isEmpty()) {
-					match = employerParameters.stream().anyMatch(f -> second.stream().anyMatch(s -> f.matches(s)));
-				}
-				if (match) {
-					List<RuleDefinitionParameter> jointCommitteeParameters = first.stream()
-							.filter(f -> f.getLevel() == DefinitionLevel.JOINT_COMMITTEE).collect(Collectors.toList());
-					if (!jointCommitteeParameters.isEmpty()) {
-						match = jointCommitteeParameters.stream()
-								.anyMatch(f -> second.stream().anyMatch(s -> f.matches(s)));
-					}
-					if (match) {
-						List<RuleDefinitionParameter> collectiveLaborAgreementParameters = first.stream()
-								.filter(f -> f.getLevel() == DefinitionLevel.COLLECTIVE_LABOR_AGREEMENT)
-								.collect(Collectors.toList());
-						if (!collectiveLaborAgreementParameters.isEmpty()) {
-							match = collectiveLaborAgreementParameters.stream()
-									.anyMatch(f -> second.stream().anyMatch(s -> f.matches(s)));
-						}
-					}
+			Iterator<DefinitionLevel> itDefinitionLevels =
+					DefinitionLevelFactory.getParameterDefinitionLevelsOrderedByPriority().iterator();
+			while (match && itDefinitionLevels.hasNext()) {
+				DefinitionLevel definitionLevel = itDefinitionLevels.next();
+				List<RuleDefinitionParameter> parameters =
+						first.stream().filter(f -> f.getLevel().equals(definitionLevel)).collect(Collectors.toList());
+				if (!parameters.isEmpty()) {
+					match = parameters.stream().anyMatch(f -> second.stream().anyMatch(s -> f.matches(s)));
 				}
 			}
 			return match;
@@ -314,8 +304,8 @@ public class DefinitionMatcher {
 	
 	/**
 	 * Does {@code first} parameter collection match loosely {@code second} parameter collection ?<br>
-	 * {@code first} matches loosely {@code second} if there is at least one parameter of {@code first} collection that matches one
-	 * parameter of {@code second} collection
+	 * {@code first} matches loosely {@code second} if {@code first} or {@code second} is null or empty or if there is at least one
+	 * parameter of {@code first} collection that matches one parameter of {@code second} collection
 	 * 
 	 * @param first
 	 * @param second
@@ -323,12 +313,16 @@ public class DefinitionMatcher {
 	 * @see RuleDefinitionParameter#matches(RuleDefinitionParameter)
 	 */
 	private static boolean matchesLoosely(Collection<RuleDefinitionParameter> first, Collection<RuleDefinitionParameter> second) {
-		return ((first == null || first.isEmpty()) && (second == null || second.isEmpty()))
+		return first == null || first.isEmpty() || second == null || second.isEmpty()
 				|| first.stream().anyMatch(f -> second.stream().anyMatch(s -> f.matches(s)));
 	}
 	
 	public enum DefinitionMatcherStrategy {
-		STRICTLY, LOOSELY, AT_MOST, AT_LEAST, AT_LEAST_ONE_BY_LEVEL;
+		STRICTLY,
+		LOOSELY,
+		AT_MOST,
+		AT_LEAST,
+		AT_LEAST_ONE_BY_LEVEL;
 	}
 	
 }
