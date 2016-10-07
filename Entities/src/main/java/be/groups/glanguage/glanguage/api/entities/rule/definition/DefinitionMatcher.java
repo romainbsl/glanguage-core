@@ -142,10 +142,8 @@ public class DefinitionMatcher {
 	 * @param ruleDefinitions
 	 * @param parameters
 	 * @return the {@link RuleDefinition} in the collection of {@link RuleDefinitionParameters} {@code parameters} that best matches to
-	 *         the collection of {@link RuleDefinitionParameters} {@code parameters} if it
-	 *         exists, {@code getDefaultDefinition()} otherwise
-	 * @throws RuntimeException if there is more than one {@link RuleDefinition} that best matches to the collection of
-	 *         {@link RuleDefinitionParameters} {@code parameters}
+	 *         the collection of {@link RuleDefinitionParameters} {@code parameters} if it exists, or (one of) the default
+	 *         {@link RuleDefinition}('s arbitrarily) if it exists, null otherwise
 	 * @see DefinitionLevel
 	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
 	 * @see DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)
@@ -165,14 +163,15 @@ public class DefinitionMatcher {
 						parameters.stream().filter(p -> p.getLevel().equals(definitionLevel)).findFirst().orElse(null);
 				if (parameter != null) {
 					actualParameters.add(parameter);
-					filteredList = listToFilter.stream().filter(rd -> rd.matches(actualParameters, DefinitionMatcherStrategy.AT_LEAST))
+					filteredList = listToFilter.stream()
+							.filter(rd -> rd.matches(actualParameters, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL))
 							.collect(Collectors.toList());
 					if (filteredList.isEmpty()) {
 						actualParameters.remove(actualParameters.size() - 1);
 						filteredList = listToFilter;
 						listToFilter = new ArrayList<>(ruleDefinitions);
-					} else
-						if (filteredList.size() == 1 && filteredList.get(0).matches(parameters, DefinitionMatcherStrategy.AT_MOST)) {
+					} else if (filteredList.size() == 1
+							&& filteredList.get(0).matches(parameters, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)) {
 						return filteredList.get(0);
 					} else {
 						listToFilter = filteredList;
@@ -180,8 +179,8 @@ public class DefinitionMatcher {
 				}
 			}
 			if (!filteredList.isEmpty()) {
-				Optional<RuleDefinition> definition =
-						filteredList.stream().filter(d -> d.matches(actualParameters, DefinitionMatcherStrategy.AT_MOST)).findFirst();
+				Optional<RuleDefinition> definition = filteredList.stream()
+						.filter(d -> d.matches(parameters, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)).findFirst();
 				if (definition.isPresent()) {
 					return definition.get();
 				}
@@ -209,6 +208,8 @@ public class DefinitionMatcher {
 				return matchesAtLeastOneByLevel(first, second);
 			case AT_MOST:
 				return matchesAtMost(first, second);
+			case AT_MOST_ONE_BY_LEVEL:
+				return matchesAtMostOneByLevel(first, second);
 			case LOOSELY:
 				return matchesLoosely(first, second);
 			case STRICTLY:
@@ -222,10 +223,10 @@ public class DefinitionMatcher {
 	 * Does {@code first} parameter collection match {@code second} parameter collection ?<br>
 	 * {@code first} matches {@code second} if :
 	 * <ul>
-	 * <li>{@code first} is an empty collection</li>
+	 * <li>{@code second} is an empty collection</li>
 	 * <li>OR</li>
-	 * <li>for each different level of {@code first}'s parameters, there is at least one parameter that matches one of the
-	 * {@code second}'s parameters
+	 * <li>for each different level of {@code second}'s parameters, there is at least one parameter that matches one of the
+	 * {@code first}'s parameters
 	 * </li>
 	 * </ul>
 	 * 
@@ -236,10 +237,10 @@ public class DefinitionMatcher {
 	 */
 	private static boolean matchesAtLeastOneByLevel(Collection<RuleDefinitionParameter> first,
 			Collection<RuleDefinitionParameter> second) {
-		if (first == null || first.isEmpty()) {
+		if (second == null || second.isEmpty()) {
 			return true;
-		} else if (second == null || second.isEmpty()) {
-			return true;
+		} else if (first == null || first.isEmpty()) {
+			return false;
 		} else {
 			boolean match = true;
 			Iterator<DefinitionLevel> itDefinitionLevels =
@@ -247,9 +248,9 @@ public class DefinitionMatcher {
 			while (match && itDefinitionLevels.hasNext()) {
 				DefinitionLevel definitionLevel = itDefinitionLevels.next();
 				List<RuleDefinitionParameter> parameters =
-						first.stream().filter(f -> f.getLevel().equals(definitionLevel)).collect(Collectors.toList());
+						second.stream().filter(s -> s.getLevel().equals(definitionLevel)).collect(Collectors.toList());
 				if (!parameters.isEmpty()) {
-					match = parameters.stream().anyMatch(f -> second.stream().anyMatch(s -> f.matches(s)));
+					match = parameters.stream().anyMatch(s -> first.stream().anyMatch(f -> f.matches(s)));
 				}
 			}
 			return match;
@@ -270,6 +271,44 @@ public class DefinitionMatcher {
 	private static boolean matchesAtLeast(Collection<RuleDefinitionParameter> first, Collection<RuleDefinitionParameter> second) {
 		return second == null || second.isEmpty()
 				|| (first != null && !first.isEmpty() && second.stream().allMatch(s -> first.stream().anyMatch(f -> f.matches(s))));
+	}
+	
+	/**
+	 * Does {@code first} parameter collection match {@code second} parameter collection ?<br>
+	 * {@code first} matches {@code second} if :
+	 * <ul>
+	 * <li>{@code first} is an empty collection</li>
+	 * <li>OR</li>
+	 * <li>for each different level of {@code first}'s parameters, there is at least one parameter that matches one of the
+	 * {@code second}'s parameters
+	 * </li>
+	 * </ul>
+	 * 
+	 * @param first
+	 * @param second
+	 * @return true if {@code first} matches {@code second}, false otherwise
+	 * @see RuleDefinitionParameter#matches(RuleDefinitionParameter)
+	 */
+	private static boolean matchesAtMostOneByLevel(Collection<RuleDefinitionParameter> first,
+			Collection<RuleDefinitionParameter> second) {
+		if (first == null || first.isEmpty()) {
+			return true;
+		} else if (second == null || second.isEmpty()) {
+			return false;
+		} else {
+			boolean match = true;
+			Iterator<DefinitionLevel> itDefinitionLevels =
+					DefinitionLevelFactory.getParameterDefinitionLevelsOrderedByPriority().iterator();
+			while (match && itDefinitionLevels.hasNext()) {
+				DefinitionLevel definitionLevel = itDefinitionLevels.next();
+				List<RuleDefinitionParameter> parameters =
+						first.stream().filter(f -> f.getLevel().equals(definitionLevel)).collect(Collectors.toList());
+				if (!parameters.isEmpty()) {
+					match = parameters.stream().anyMatch(f -> second.stream().anyMatch(s -> f.matches(s)));
+				}
+			}
+			return match;
+		}
 	}
 	
 	/**
@@ -321,6 +360,7 @@ public class DefinitionMatcher {
 		STRICTLY,
 		LOOSELY,
 		AT_MOST,
+		AT_MOST_ONE_BY_LEVEL,
 		AT_LEAST,
 		AT_LEAST_ONE_BY_LEVEL;
 	}

@@ -1,6 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.ruleset;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -311,6 +312,36 @@ public class RuleSetVersion {
 	}
 	
 	/**
+	 * Get all {@link RuleVersion}'s that have the {@link RuleDefinition} that best matches {@code definitionParameters} parameters
+	 * 
+	 * @param definitionParameters
+	 * @return The list of all {@link RuleVersion}'s that have the {@link RuleDefinition} that best matches
+	 *         {@code definitionParameters}
+	 * @see DefinitionMatcher#getBestMatch(Collection, Collection)
+	 */
+	@Transient
+	public List<RuleDefinition> getBestDefinedRuleDefinitions(Collection<RuleDefinitionParameter> definitionParameters) {
+		List<RuleDefinition> result = new ArrayList<>();
+		/* In a rule set version, there can be multiple rule version by rule identity so we have to group then by rule identity */
+		Map<RuleIdentity, List<RuleVersion>> ruleVersionsByRuleIdentity =
+				getRuleVersions().stream().collect(Collectors.groupingBy(rv -> rv.getRuleDefinition().getRuleIdentity()));
+				
+		/* For each list of rule version by rule identity */
+		for (List<RuleVersion> ruleVersions : ruleVersionsByRuleIdentity.values()) {
+			/* Get the definition that best matches definitionParameters */
+			RuleDefinition bestRuleDefinition = DefinitionMatcher.getBestMatch(
+					ruleVersions.stream().map(rv -> rv.getRuleDefinition()).distinct().collect(Collectors.toList()),
+					definitionParameters);
+					
+			if (bestRuleDefinition != null) {
+				/* Add the best rule definition found to the result list */
+				result.add(bestRuleDefinition);
+			}
+		}
+		return result;
+	}
+	
+	/**
 	 * Get all {@link RuleDefinition}'s that have a code equal to {@code code} and that matches at least {@code definitionParameters}
 	 * parameters
 	 * 
@@ -324,6 +355,25 @@ public class RuleSetVersion {
 		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code))
 				.map(rv -> rv.getRuleDefinition()).distinct()
 				.filter(rd -> rd.matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST)).collect(Collectors.toList());
+	}
+	
+	/**
+	 * Get the {@link RuleDefinition} that have a code equal to {@code code} and that best matches {@code definitionParameters}
+	 * parameters
+	 * 
+	 * @param definitionParameters
+	 * @return The {@link RuleDefinition} that have a code equal to {@code code} and that best matches {@code definitionParameters}
+	 *         parameters
+	 * @see RuleDefinition#getBestMatch(Collection, DefinitionMatcherStrategy)
+	 */
+	@Transient
+	public RuleDefinition getBestDefinedRuleDefinition(String code, Collection<RuleDefinitionParameter> definitionParameters) {
+		/* Filter */
+		Stream<RuleVersion> versionsForCode = getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code));
+		
+		/* Return the definition that best matches definitionParameters */
+		return DefinitionMatcher.getBestMatch(
+				versionsForCode.map(rv -> rv.getRuleDefinition()).distinct().collect(Collectors.toList()), definitionParameters);
 	}
 	
 	/**
@@ -435,6 +485,39 @@ public class RuleSetVersion {
 	}
 	
 	/**
+	 * Get all {@link RuleVersion}'s that have the {@link RuleDefinition} that best matches {@code definitionParameters} parameters
+	 * 
+	 * @param definitionParameters
+	 * @return The list of all {@link RuleVersion}'s that have the {@link RuleDefinition} that best matches
+	 *         {@code definitionParameters}
+	 * @see DefinitionMatcher#getBestMatch(Collection, Collection)
+	 */
+	@Transient
+	public List<RuleVersion> getBestDefinedRuleVersions(Collection<RuleDefinitionParameter> definitionParameters) {
+		List<RuleVersion> result = new ArrayList<>();
+		/* In a rule set version, there can be multiple rule version by rule definition so we have to group then by rule identity */
+		Map<RuleDefinition, List<RuleVersion>> ruleVersionsByRuleDefinition =
+				getRuleVersions().stream().collect(Collectors.groupingBy(rv -> rv.getRuleDefinition()));
+				
+		/* In a rule set version, there can be multiple rule version by rule identity so we have to group then by rule identity */
+		Map<RuleIdentity, List<RuleVersion>> ruleVersionsByRuleIdentity =
+				getRuleVersions().stream().collect(Collectors.groupingBy(rv -> rv.getRuleDefinition().getRuleIdentity()));
+				
+		/* For each list of rule version by rule identity */
+		for (List<RuleVersion> ruleVersions : ruleVersionsByRuleIdentity.values()) {
+			/* Get the definition that best matches definitionParameters */
+			RuleDefinition bestRuleDefinition = DefinitionMatcher.getBestMatch(
+					ruleVersions.stream().map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()), definitionParameters);
+					
+			if (bestRuleDefinition != null) {
+				/* Add the list of rule version corresponding to the best rule definition found to the result list */
+				result.addAll(ruleVersionsByRuleDefinition.get(bestRuleDefinition));
+			}
+		}
+		return result;
+	}
+	
+	/**
 	 * Get all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches at least {@code definitionParameters}
 	 * parameters and that are effective at {@code effectivityDate}
 	 * 
@@ -452,6 +535,53 @@ public class RuleSetVersion {
 				.filter(rv -> rv.isEffective(effectivityDate)
 						&& rv.getRuleDefinition().matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
 				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Get all {@link RuleVersion}'s that have the {@link RuleDefinition} that best matches {@code definitionParameters} parameters and
+	 * that are effective at {@code effectivityDate}
+	 * 
+	 * @param definitionParameters
+	 * @param effectivityDate
+	 * @return The list of all {@link RuleVersion}'s that have the {@link RuleDefinition} that best matches
+	 *         {@code definitionParameters} and that are effective at {@code effectivityDate}
+	 * @see DefinitionMatcher#getBestMatch(Collection, Collection)
+	 * @see RuleVersion#isEffective(LocalDateTime)
+	 */
+	@Transient
+	public List<RuleVersion> getBestDefinedRuleVersions(Collection<RuleDefinitionParameter> definitionParameters,
+			LocalDateTime effectivityDate) {
+		List<RuleVersion> result = new ArrayList<>();
+		/* Filter */
+		List<RuleVersion> effectiveVersions =
+				getRuleVersions().stream().filter(rv -> rv.isEffective(effectivityDate)).collect(Collectors.toList());
+				
+		/*
+		 * In a rule set version, there can be only one rule version that is effective at a specified date by rule definition, in other
+		 * words, each filtered rule version has a distinct rule definition so we can map them one to one
+		 */
+		Map<RuleDefinition, RuleVersion> ruleVersionsByRuleDefinition =
+				effectiveVersions.stream().collect(Collectors.toMap(RuleVersion::getRuleDefinition, Function.identity()));
+				
+		/*
+		 * In a rule set version, there can be multiple rule version that are effective at a specified date by rule identity so we have
+		 * to group then by rule identity
+		 */
+		Map<RuleIdentity, List<RuleVersion>> ruleVersionsByRuleIdentity =
+				effectiveVersions.stream().collect(Collectors.groupingBy(rv -> rv.getRuleDefinition().getRuleIdentity()));
+				
+		/* For each list of rule version by rule identity */
+		for (List<RuleVersion> ruleVersions : ruleVersionsByRuleIdentity.values()) {
+			/* Get the definition that best matches definitionParameters */
+			RuleDefinition bestRuleDefinition = DefinitionMatcher.getBestMatch(
+					ruleVersions.stream().map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()), definitionParameters);
+					
+			if (bestRuleDefinition != null) {
+				/* Add the rule version corresponding to the best rule definition found to the result list */
+				result.add(ruleVersionsByRuleDefinition.get(bestRuleDefinition));
+			}
+		}
+		return result;
 	}
 	
 	/**
@@ -479,18 +609,28 @@ public class RuleSetVersion {
 	 * @param code
 	 * @param definitionParameters
 	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have the {@link RuleDefinition}
-	 *         that best matches {@code definitionParameters} that are effective at {@code effectivityDate}
-	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
+	 *         that best matches {@code definitionParameters}
+	 * @see DefinitionMatcher#getBestMatch(Collection, Collection)
 	 */
 	@Transient
 	public List<RuleVersion> getBestDefinedRuleVersions(String code, Collection<RuleDefinitionParameter> definitionParameters) {
-		Stream<RuleVersion> versionsForCode = getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code));
+		/* Filter */
+		List<RuleVersion> versionsForCode =
+				getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code)).collect(Collectors.toList());
+				
+		/*
+		 * In a rule set version, there can be multiple rule version that have a specific code by rule definition so we have to group
+		 * them by rule definition
+		 */
 		Map<RuleDefinition, List<RuleVersion>> ruleVersionsByRuleDefinition =
-				versionsForCode.collect(Collectors.groupingBy(RuleVersion::getRuleDefinition));
-		RuleDefinition bestRuleDefinition = null;
-		bestRuleDefinition = DefinitionMatcher
-				.getBestMatch(versionsForCode.map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()), definitionParameters);
+				versionsForCode.stream().collect(Collectors.groupingBy(RuleVersion::getRuleDefinition));
+				
+		/* Get the definition that best matches definitionParameters */
+		RuleDefinition bestRuleDefinition = DefinitionMatcher.getBestMatch(
+				versionsForCode.stream().map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()), definitionParameters);
+				
 		if (bestRuleDefinition != null) {
+			/* Return the list of rule version corresponding to the best rule definition found */
 			return ruleVersionsByRuleDefinition.get(bestRuleDefinition);
 		} else {
 			return null;
@@ -527,20 +667,30 @@ public class RuleSetVersion {
 	 * @param effectivityDate
 	 * @return The {@link RuleVersion}'s that have a code equal to {@code code} and that have the {@link RuleDefinition} that best
 	 *         matches {@code definitionParameters} and that is effective at {@code effectivityDate}
-	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
+	 * @see DefinitionMatcher#getBestMatch(Collection, Collection)
 	 * @see RuleVersion#isEffective(LocalDateTime)
 	 */
 	@Transient
 	public RuleVersion getBestDefinedRuleVersion(String code, Collection<RuleDefinitionParameter> definitionParameters,
 			LocalDateTime effectivityDate) {
-		Stream<RuleVersion> effectiveVersionsForCode = getRuleVersions().stream()
-				.filter(rv -> rv.getRuleDescription().getCode().equals(code) && rv.isEffective(effectivityDate));
+		/* Filter */
+		List<RuleVersion> effectiveVersionsForCode = getRuleVersions().stream()
+				.filter(rv -> rv.getRuleDescription().getCode().equals(code) && rv.isEffective(effectivityDate))
+				.collect(Collectors.toList());
+				
+		/*
+		 * In a rule set version, there can be only one rule version that is effective at a specified date by rule definition, in other
+		 * words, each filtered rule version has a distinct rule definition so we can map them one to one
+		 */
 		Map<RuleDefinition, RuleVersion> ruleVersionByRuleDefinition =
-				effectiveVersionsForCode.collect(Collectors.toMap(RuleVersion::getRuleDefinition, Function.identity()));
-		RuleDefinition bestRuleDefinition = null;
-		bestRuleDefinition = DefinitionMatcher.getBestMatch(
-				effectiveVersionsForCode.map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()), definitionParameters);
+				effectiveVersionsForCode.stream().collect(Collectors.toMap(RuleVersion::getRuleDefinition, Function.identity()));
+				
+		/* Get the definition that best matches definitionParameters */
+		RuleDefinition bestRuleDefinition = DefinitionMatcher.getBestMatch(
+				effectiveVersionsForCode.stream().map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()),
+				definitionParameters);
 		if (bestRuleDefinition != null) {
+			/* Return the rule version corresponding to the best rule definition found */
 			return ruleVersionByRuleDefinition.get(bestRuleDefinition);
 		} else {
 			return null;

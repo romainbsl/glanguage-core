@@ -57,7 +57,7 @@ public class DefinitionMatcherTest {
 		when(criteriaParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
 		criteria.add(criteriaParameter);
 		
-		assertTrue(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL));
+		assertFalse(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL));
 	}
 	
 	/**
@@ -103,7 +103,7 @@ public class DefinitionMatcherTest {
 		when(criteriaParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
 		criteria.add(criteriaParameter);
 		
-		assertTrue(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL));
+		assertFalse(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL));
 	}
 	
 	/**
@@ -221,7 +221,7 @@ public class DefinitionMatcherTest {
 	 * collections contains elements and levels and values match, but first has an additional parameter
 	 */
 	@Test
-	public void testMatchAtLeastOneByLevelBothNotEmptyFirstWithMoreParametersNotMatching() {
+	public void testMatchAtLeastOneByLevelBothNotEmptyFirstWithMoreParametersMatching() {
 		Collection<RuleDefinitionParameter> definition = new ArrayList<>();
 		
 		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
@@ -249,7 +249,7 @@ public class DefinitionMatcherTest {
 		when(jointCommitteeDefinitionParameter.matches(any())).thenReturn(false);
 		definition.add(jointCommitteeDefinitionParameter);
 		
-		assertFalse(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL));
+		assertTrue(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL));
 	}
 	
 	/**
@@ -257,7 +257,7 @@ public class DefinitionMatcherTest {
 	 * collections contains elements and levels and values match, but second has an additional parameter
 	 */
 	@Test
-	public void testMatchAtLeastOneByLevelBothNotEmptySecondWithMoreParametersMatching() {
+	public void testMatchAtLeastOneByLevelBothNotEmptySecondWithMoreParametersNotMatching() {
 		Collection<RuleDefinitionParameter> definition = new ArrayList<>();
 		
 		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
@@ -284,7 +284,7 @@ public class DefinitionMatcherTest {
 		when(employerDefinitionParameter.matches(employerCriteriaParameter)).thenReturn(true);
 		definition.add(employerDefinitionParameter);
 		
-		assertTrue(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL));
+		assertFalse(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL));
 	}
 	
 	/**
@@ -690,6 +690,338 @@ public class DefinitionMatcherTest {
 		assertFalse(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_LEAST));
 	}
 	
+	/*
+	 * Tests for strategy DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL
+	 */
+	
+	/**
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
+	 * collections are null
+	 */
+	@Test
+	public void testMatchAtMostOneByLevelBothNull() {
+		Collection<RuleDefinitionParameter> definition = null;
+		
+		Collection<RuleDefinitionParameter> criteria = null;
+		
+		assertTrue(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL));
+	}
+	
+	/**
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when first
+	 * collection is null, but not the second
+	 */
+	@Test
+	public void testMatchAtMostOneByLevelFirstNullSecondNot() {
+		Collection<RuleDefinitionParameter> definition = null;
+		
+		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
+		RuleDefinitionParameter criteriaParameter = mock(RuleDefinitionParameter.class);
+		when(criteriaParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		criteria.add(criteriaParameter);
+		
+		assertTrue(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL));
+	}
+	
+	/**
+	 * Tests
+	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when second
+	 * collection is null, but not the first
+	 */
+	@Test
+	public void testMatchAtMostOneByLevelSecondNullFirstNot() {
+		Collection<RuleDefinitionParameter> definition = new ArrayList<>();
+		RuleDefinitionParameter definitionParameter = mock(RuleDefinitionParameter.class);
+		when(definitionParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		definition.add(definitionParameter);
+		
+		Collection<RuleDefinitionParameter> criteria = null;
+		
+		assertFalse(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL));
+	}
+	
+	/**
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
+	 * collections are empty
+	 */
+	@Test
+	public void testMatchAtMostOneByLevelBothEmpty() {
+		Collection<RuleDefinitionParameter> definition = new ArrayList<>();
+		
+		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
+		
+		assertTrue(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL));
+	}
+	
+	/**
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when first
+	 * collection is empty, but not the second
+	 */
+	@Test
+	public void testMatchAtMostOneByLevelFirstEmptySecondNot() {
+		Collection<RuleDefinitionParameter> definition = new ArrayList<>();
+		
+		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
+		RuleDefinitionParameter criteriaParameter = mock(RuleDefinitionParameter.class);
+		when(criteriaParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		criteria.add(criteriaParameter);
+		
+		assertTrue(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL));
+	}
+	
+	/**
+	 * Tests
+	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when second
+	 * collection is empty, but not the first
+	 */
+	@Test
+	public void testMatchAtMostOneByLevelSecondEmptyFirstNot() {
+		Collection<RuleDefinitionParameter> definition = new ArrayList<>();
+		RuleDefinitionParameter definitionParameter = mock(RuleDefinitionParameter.class);
+		when(definitionParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		definition.add(definitionParameter);
+		
+		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
+		
+		assertFalse(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL));
+	}
+	
+	/**
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
+	 * collections contains elements, but levels don't match
+	 */
+	@Test
+	public void testMatchAtMostOneByLevelBothNotEmptyLevelsNotMatching() {
+		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
+		
+		RuleDefinitionParameter socialCriteriaParameter = mock(RuleDefinitionParameter.class);
+		when(socialCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		criteria.add(socialCriteriaParameter);
+		
+		RuleDefinitionParameter jointCommitteeCriteriaParameter = mock(RuleDefinitionParameter.class);
+		when(jointCommitteeCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.JOINT_COMMITTEE);
+		criteria.add(jointCommitteeCriteriaParameter);
+		
+		Collection<RuleDefinitionParameter> definition = new ArrayList<>();
+		
+		RuleDefinitionParameter socialDefinitionParameter = mock(RuleDefinitionParameter.class);
+		when(socialDefinitionParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		when(socialDefinitionParameter.matches(socialCriteriaParameter)).thenReturn(true);
+		definition.add(socialDefinitionParameter);
+		
+		RuleDefinitionParameter employerDefinitionParameter = mock(RuleDefinitionParameter.class);
+		when(employerDefinitionParameter.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
+		definition.add(employerDefinitionParameter);
+		
+		
+		assertFalse(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL));
+	}
+	
+	/**
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
+	 * collections contains elements and levels match but not values
+	 */
+	@Test
+	public void testMatchAtMostOneByLevelBothNotEmptyLevelsMatchingValuesNotMatching() {
+		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
+		
+		RuleDefinitionParameter socialCriteriaParameter = mock(RuleDefinitionParameter.class);
+		when(socialCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		criteria.add(socialCriteriaParameter);
+		
+		RuleDefinitionParameter employerCriteriaParameter = mock(RuleDefinitionParameter.class);
+		when(employerCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
+		criteria.add(employerCriteriaParameter);
+		
+		Collection<RuleDefinitionParameter> definition = new ArrayList<>();
+		
+		RuleDefinitionParameter socialDefinitionParameter = mock(RuleDefinitionParameter.class);
+		when(socialDefinitionParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		when(socialDefinitionParameter.matches(socialCriteriaParameter)).thenReturn(true);
+		definition.add(socialDefinitionParameter);
+		
+		RuleDefinitionParameter employerDefinitionParameter = mock(RuleDefinitionParameter.class);
+		when(employerDefinitionParameter.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
+		when(employerDefinitionParameter.matches(employerCriteriaParameter)).thenReturn(false);
+		definition.add(employerDefinitionParameter);
+		
+		assertFalse(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL));
+	}
+	
+	/**
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
+	 * collections contains elements and levels and values match
+	 */
+	@Test
+	public void testMatchAtMostOneByLevelBothNotEmptyMatching() {
+		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
+		
+		RuleDefinitionParameter socialCriteriaParameter = mock(RuleDefinitionParameter.class);
+		when(socialCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		criteria.add(socialCriteriaParameter);
+		
+		RuleDefinitionParameter employerCriteriaParameter = mock(RuleDefinitionParameter.class);
+		when(employerCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
+		criteria.add(employerCriteriaParameter);
+		
+		Collection<RuleDefinitionParameter> definition = new ArrayList<>();
+		
+		RuleDefinitionParameter socialDefinitionParameter = mock(RuleDefinitionParameter.class);
+		when(socialDefinitionParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		when(socialDefinitionParameter.matches(socialCriteriaParameter)).thenReturn(true);
+		definition.add(socialDefinitionParameter);
+		
+		RuleDefinitionParameter employerDefinitionParameter = mock(RuleDefinitionParameter.class);
+		when(employerDefinitionParameter.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
+		when(employerDefinitionParameter.matches(employerCriteriaParameter)).thenReturn(true);
+		definition.add(employerDefinitionParameter);
+		
+		assertTrue(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL));
+	}
+	
+	/**
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
+	 * collections contains elements and levels and values match, but first has an additional parameter
+	 */
+	@Test
+	public void testMatchAtMostOneByLevelBothNotEmptyFirstWithMoreParametersNotMatching() {
+		Collection<RuleDefinitionParameter> definition = new ArrayList<>();
+		
+		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
+		
+		RuleDefinitionParameter socialCriteriaParameter = mock(RuleDefinitionParameter.class);
+		when(socialCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		criteria.add(socialCriteriaParameter);
+		
+		RuleDefinitionParameter employerCriteriaParameter = mock(RuleDefinitionParameter.class);
+		when(employerCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
+		criteria.add(employerCriteriaParameter);
+		
+		RuleDefinitionParameter socialDefinitionParameter = mock(RuleDefinitionParameter.class);
+		when(socialDefinitionParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		when(socialDefinitionParameter.matches(socialCriteriaParameter)).thenReturn(true);
+		definition.add(socialDefinitionParameter);
+		
+		RuleDefinitionParameter employerDefinitionParameter = mock(RuleDefinitionParameter.class);
+		when(employerDefinitionParameter.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
+		when(employerDefinitionParameter.matches(employerCriteriaParameter)).thenReturn(true);
+		definition.add(employerDefinitionParameter);
+		
+		RuleDefinitionParameter jointCommitteeDefinitionParameter = mock(RuleDefinitionParameter.class);
+		when(jointCommitteeDefinitionParameter.getLevel()).thenReturn(DefinitionLevel.JOINT_COMMITTEE);
+		when(jointCommitteeDefinitionParameter.matches(any())).thenReturn(false);
+		definition.add(jointCommitteeDefinitionParameter);
+		
+		assertFalse(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL));
+	}
+	
+	/**
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
+	 * collections contains elements and levels and values match, but second has an additional parameter
+	 */
+	@Test
+	public void testMatchAtMostOneByLevelBothNotEmptySecondWithMoreParametersNotMatching() {
+		Collection<RuleDefinitionParameter> definition = new ArrayList<>();
+		
+		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
+		
+		RuleDefinitionParameter socialCriteriaParameter = mock(RuleDefinitionParameter.class);
+		when(socialCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		criteria.add(socialCriteriaParameter);
+		
+		RuleDefinitionParameter employerCriteriaParameter = mock(RuleDefinitionParameter.class);
+		when(employerCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
+		criteria.add(employerCriteriaParameter);
+		
+		RuleDefinitionParameter jointCommitteeCriteriaParameter = mock(RuleDefinitionParameter.class);
+		when(jointCommitteeCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.JOINT_COMMITTEE);
+		criteria.add(jointCommitteeCriteriaParameter);
+		
+		RuleDefinitionParameter socialDefinitionParameter = mock(RuleDefinitionParameter.class);
+		when(socialDefinitionParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		when(socialDefinitionParameter.matches(socialCriteriaParameter)).thenReturn(true);
+		definition.add(socialDefinitionParameter);
+		
+		RuleDefinitionParameter employerDefinitionParameter = mock(RuleDefinitionParameter.class);
+		when(employerDefinitionParameter.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
+		when(employerDefinitionParameter.matches(employerCriteriaParameter)).thenReturn(true);
+		definition.add(employerDefinitionParameter);
+		
+		assertTrue(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL));
+	}
+	
+	/**
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
+	 * collections contains elements and levels and values match, but first has two parameters of same level
+	 */
+	@Test
+	public void testMatchAtMostOneByLevelBothNotEmptyFirstWithTwoParametersOfSameLevelMatching() {
+		Collection<RuleDefinitionParameter> definition = new ArrayList<>();
+		
+		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
+		
+		RuleDefinitionParameter socialCriteriaParameter = mock(RuleDefinitionParameter.class);
+		when(socialCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		criteria.add(socialCriteriaParameter);
+		
+		RuleDefinitionParameter employerCriteriaParameter = mock(RuleDefinitionParameter.class);
+		when(employerCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
+		criteria.add(employerCriteriaParameter);
+		
+		RuleDefinitionParameter socialDefinitionParameter = mock(RuleDefinitionParameter.class);
+		when(socialDefinitionParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		when(socialDefinitionParameter.matches(socialCriteriaParameter)).thenReturn(true);
+		definition.add(socialDefinitionParameter);
+		
+		RuleDefinitionParameter employerDefinitionParameter1 = mock(RuleDefinitionParameter.class);
+		when(employerDefinitionParameter1.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
+		when(employerDefinitionParameter1.matches(employerCriteriaParameter)).thenReturn(false);
+		definition.add(employerDefinitionParameter1);
+		
+		RuleDefinitionParameter employerDefinitionParameter2 = mock(RuleDefinitionParameter.class);
+		when(employerDefinitionParameter2.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
+		when(employerDefinitionParameter2.matches(employerCriteriaParameter)).thenReturn(true);
+		definition.add(employerDefinitionParameter2);
+		
+		assertTrue(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL));
+	}
+	
+	/**
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
+	 * collections contains elements and levels and values match, but second has two parameters of same level
+	 */
+	@Test
+	public void testMatchAtMostOneByLevelBothNotEmptySecondWithTwoParametersOfSameLevelMatching() {
+		Collection<RuleDefinitionParameter> definition = new ArrayList<>();
+		
+		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
+		
+		RuleDefinitionParameter socialCriteriaParameter = mock(RuleDefinitionParameter.class);
+		when(socialCriteriaParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		criteria.add(socialCriteriaParameter);
+		
+		RuleDefinitionParameter employerCriteriaParameter1 = mock(RuleDefinitionParameter.class);
+		when(employerCriteriaParameter1.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
+		criteria.add(employerCriteriaParameter1);
+		
+		RuleDefinitionParameter employerCriteriaParameter2 = mock(RuleDefinitionParameter.class);
+		when(employerCriteriaParameter2.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
+		criteria.add(employerCriteriaParameter2);
+		
+		RuleDefinitionParameter socialDefinitionParameter = mock(RuleDefinitionParameter.class);
+		when(socialDefinitionParameter.getLevel()).thenReturn(DefinitionLevel.SOCIAL_SECRETARY);
+		when(socialDefinitionParameter.matches(socialCriteriaParameter)).thenReturn(true);
+		definition.add(socialDefinitionParameter);
+		
+		RuleDefinitionParameter employerDefinitionParameter = mock(RuleDefinitionParameter.class);
+		when(employerDefinitionParameter.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
+		when(employerDefinitionParameter.matches(employerCriteriaParameter1)).thenReturn(false);
+		when(employerDefinitionParameter.matches(employerCriteriaParameter2)).thenReturn(true);
+		definition.add(employerDefinitionParameter);
+		
+		assertTrue(DefinitionMatcher.matches(definition, criteria, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL));
+	}
+		
 	/*
 	 * Tests for strategy DefinitionMatcherStrategy.AT_MOST
 	 */
