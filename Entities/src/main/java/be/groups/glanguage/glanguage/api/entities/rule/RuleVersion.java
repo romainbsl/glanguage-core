@@ -34,7 +34,6 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
  */
 @Table(name = "RULE_VERSION")
 @Entity
-@SuppressWarnings("unused")
 public class RuleVersion implements Comparable<RuleVersion> {
 
 	/**
@@ -436,7 +435,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
 	 * @param id
 	 *            the id to set
 	 */
-	private void setId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

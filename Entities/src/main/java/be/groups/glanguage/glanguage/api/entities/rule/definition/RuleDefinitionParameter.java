@@ -21,7 +21,6 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
  */
 @Entity
 @Table(name = "RULE_DEFINITION_PARAMETER")
-@SuppressWarnings("unused")
 public class RuleDefinitionParameter implements Comparable<RuleDefinitionParameter> {
 	
 	/**
@@ -109,21 +108,21 @@ public class RuleDefinitionParameter implements Comparable<RuleDefinitionParamet
 	/**
 	 * @param ruleDefinition the ruleDefinition to set
 	 */
-	private void setRuleDefinition(RuleDefinition ruleDefinition) {
+	public void setRuleDefinition(RuleDefinition ruleDefinition) {
 		this.ruleDefinition = ruleDefinition;
 	}
 	
 	/**
 	 * @param level the level to set
 	 */
-	private void setLevel(DefinitionLevel level) {
+	public void setLevel(DefinitionLevel level) {
 		this.level = level;
 	}
 	
 	/**
 	 * @param value the value to set
 	 */
-	private void setValue(String value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 	

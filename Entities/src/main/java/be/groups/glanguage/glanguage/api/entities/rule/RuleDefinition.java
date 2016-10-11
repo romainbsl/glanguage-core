@@ -31,7 +31,6 @@ import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinition
  */
 @Entity
 @Table(name = "RULE_DEFINITION")
-@SuppressWarnings("unused")
 public class RuleDefinition {
 	
 	/**
@@ -136,13 +135,13 @@ public class RuleDefinition {
 	 */
 	@Transient
 	public DefinitionLevel getLevel() {
-		if (definitionParameters == null || definitionParameters.isEmpty()) {
+		if (getDefinitionParameters() == null || getDefinitionParameters().isEmpty()) {
 			return DefinitionLevel.DEFAULT;
-		} else if (definitionParameters.size() == 1) {
-			return definitionParameters.first().getLevel();
+		} else if (getDefinitionParameters().size() == 1) {
+			return getDefinitionParameters().first().getLevel();
 		} else {
-			DefinitionLevel referecenceLevel = definitionParameters.first().getLevel();
-			Iterator<RuleDefinitionParameter> itDefinitionParameters = definitionParameters.iterator();
+			DefinitionLevel referecenceLevel = getDefinitionParameters().first().getLevel();
+			Iterator<RuleDefinitionParameter> itDefinitionParameters = getDefinitionParameters().iterator();
 			boolean custom = false;
 			while (itDefinitionParameters.hasNext() && !custom) {
 				custom = !referecenceLevel.equals(itDefinitionParameters.next().getLevel());
@@ -165,7 +164,7 @@ public class RuleDefinition {
 	 * @see DefinitionMatcher#matchesAtLeastOneByLevel(Collection, Collection)
 	 */
 	public boolean matches(Collection<RuleDefinitionParameter> definitionParameters, DefinitionMatcherStrategy strategy) {
-		return DefinitionMatcher.matches(this.definitionParameters, definitionParameters, strategy);
+		return DefinitionMatcher.matches(getDefinitionParameters(), definitionParameters, strategy);
 	}
 	
 	/**
@@ -180,7 +179,7 @@ public class RuleDefinition {
 	 * @param identity
 	 *        the identity to set
 	 */
-	private void setRuleIdentity(RuleIdentity ruleIdentity) {
+	public void setRuleIdentity(RuleIdentity ruleIdentity) {
 		this.ruleIdentity = ruleIdentity;
 	}
 	
@@ -196,7 +195,7 @@ public class RuleDefinition {
 	 * @param versions
 	 *        the versions to set
 	 */
-	private void setVersions(List<RuleVersion> versions) {
+	public void setVersions(List<RuleVersion> versions) {
 		this.versions = versions;
 	}
 	
