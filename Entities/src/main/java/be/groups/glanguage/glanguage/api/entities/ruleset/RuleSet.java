@@ -3,6 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.ruleset;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -189,7 +190,7 @@ public class RuleSet {
 	 */
 	@Transient
 	public List<RuleIdentity> getRuleIdentities() {
-		return getVersions().stream().flatMap(rsv -> rsv.getRuleIdentitites().stream()).distinct().collect(Collectors.toList());
+		return getVersions().stream().flatMap(rsv -> rsv.getRuleIdentities().stream()).distinct().collect(Collectors.toList());
 	}
 	
 	/**
@@ -222,8 +223,8 @@ public class RuleSet {
 	 */
 	@Transient
 	public List<RuleDefinition> getRuleDefinitions(String code) {
-		return getVersions().stream().flatMap(rsv -> rsv.getDefaultRuleVersions(code).stream().map(rv -> rv.getRuleDefinition()))
-				.distinct().collect(Collectors.toList());
+		return getVersions().stream().flatMap(rsv -> rsv.getRuleVersions(code).stream().map(rv -> rv.getRuleDefinition())).distinct()
+				.collect(Collectors.toList());
 	}
 	
 	/**
@@ -397,7 +398,7 @@ public class RuleSet {
 	 */
 	@Transient
 	public List<RuleVersion> getDefaultRuleVersions(String code, LocalDateTime effectivityDate) {
-		return getVersions().stream().map(rsv -> rsv.getDefaultRuleVersion(code, effectivityDate)).distinct()
+		return getVersions().stream().map(rsv -> rsv.getDefaultRuleVersion(code, effectivityDate)).filter(Objects::nonNull).distinct()
 				.collect(Collectors.toList());
 	}
 	

@@ -255,7 +255,7 @@ public class RuleSetVersion {
 	 * @return The list of all {@link RuleIdentity}'s, corresponding to the {@link RuleVersion}'s of this {@link RuleSetVersion}
 	 */
 	@Transient
-	public List<RuleIdentity> getRuleIdentitites() {
+	public List<RuleIdentity> getRuleIdentities() {
 		return getRuleVersions().stream().map(rv -> rv.getRuleDefinition().getRuleIdentity()).distinct().collect(Collectors.toList());
 	}
 	

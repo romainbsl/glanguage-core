@@ -89,11 +89,13 @@ public class RuleSetVersionTest {
 		assertEquals(900001, ruleSetVersion.getId());
 		
 		assertEquals(LocalDateTime.of(2016, 9, 7, 9, 0), ruleSetVersion.getExploitationStartDate());
-		assertEquals("1.0.1", ruleSetVersion.getVersion());
-		
+		assertEquals("1.0.1", ruleSetVersion.getVersion());		
+		assertNotNull(ruleSetVersion.getCreationDate());
 		assertEquals("dupirefr", ruleSetVersion.getCreationAuthor());
 		assertEquals("hotfix", ruleSetVersion.getLabel());
 		assertEquals(RuleSetVersionStatus.PROD, ruleSetVersion.getStatus());
+		assertNull(ruleSetVersion.getModificationAuthor());
+		assertNull(ruleSetVersion.getModificationDate());
 		
 		/* Checking relationships */
 		assertNotNull(ruleSetVersion.getRuleSet());
@@ -414,7 +416,7 @@ public class RuleSetVersionTest {
 	@Test
 	public void testGetRuleIdentitiesRS1V1() {
 		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
-		Collection<RuleIdentity> ruleIdentities = rsv.getRuleIdentitites();
+		Collection<RuleIdentity> ruleIdentities = rsv.getRuleIdentities();
 		assertNotNull(ruleIdentities);
 		assertEquals(2, ruleIdentities.size());
 		assertTrue(ruleIdentities.contains(RuleSetVersionTestResources.r1));
@@ -427,7 +429,7 @@ public class RuleSetVersionTest {
 	@Test
 	public void testGetRuleIdentitiesRS1V2() {
 		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
-		Collection<RuleIdentity> ruleIdentities = rsv.getRuleIdentitites();
+		Collection<RuleIdentity> ruleIdentities = rsv.getRuleIdentities();
 		assertNotNull(ruleIdentities);
 		assertEquals(3, ruleIdentities.size());
 		assertTrue(ruleIdentities.contains(RuleSetVersionTestResources.r1));
