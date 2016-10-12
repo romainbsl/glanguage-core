@@ -27,6 +27,7 @@ import be.groups.common.persistence.util.TransactionHelper;
 import be.groups.common.test.utils.Environment;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDescription;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
@@ -405,6 +406,73 @@ public class RuleSetVersionTest {
 		ruleSetVersion.setExploitationStartDate(exploitationDate);
 		
 		assertFalse(ruleSetVersion.isInExploitation(LocalDateTime.of(2014, 12, 31, 0, 0)));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleIdentitites()} using {@link RuleSetVersionTestResources#rs1v1}
+	 */
+	@Test
+	public void testGetRuleIdentitiesRS1V1() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		Collection<RuleIdentity> ruleIdentities = rsv.getRuleIdentitites();
+		assertNotNull(ruleIdentities);
+		assertEquals(2, ruleIdentities.size());
+		assertTrue(ruleIdentities.contains(RuleSetVersionTestResources.r1));
+		assertTrue(ruleIdentities.contains(RuleSetVersionTestResources.r2));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleIdentitites()} using {@link RuleSetVersionTestResources#rs1v2}
+	 */
+	@Test
+	public void testGetRuleIdentitiesRS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		Collection<RuleIdentity> ruleIdentities = rsv.getRuleIdentitites();
+		assertNotNull(ruleIdentities);
+		assertEquals(3, ruleIdentities.size());
+		assertTrue(ruleIdentities.contains(RuleSetVersionTestResources.r1));
+		assertTrue(ruleIdentities.contains(RuleSetVersionTestResources.r2));
+		assertTrue(ruleIdentities.contains(RuleSetVersionTestResources.r3));
+	}
+	
+	/*
+	 * Tests get...RuleDefinition(s) method
+	 */
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleDefinitions()} using {@link RuleSetVersionTestResources#rs1v1}
+	 */
+	@Test
+	public void testGetRuleDefinitionsRS1V1() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		Collection<RuleDefinition> ruleDefinitions = rsv.getRuleDefinitions();
+		assertNotNull(ruleDefinitions);
+		assertEquals(6, ruleDefinitions.size());
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r1d0));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d0));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d1));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d2));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d3));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d4));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleDefinitions()} using {@link RuleSetVersionTestResources#rs1v2}
+	 */
+	@Test
+	public void testGetRuleDefinitionsRS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		Collection<RuleDefinition> ruleDefinitions = rsv.getRuleDefinitions();
+		assertNotNull(ruleDefinitions);
+		assertEquals(8, ruleDefinitions.size());
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r1d0));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d0));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d1));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d2));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d3));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d4));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d5));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r3d0));
 	}
 	
 	/**
@@ -1826,6 +1894,362 @@ public class RuleSetVersionTest {
 	 */
 	
 	/**
+	 * Test {@link RuleSetVersion#getRuleVersions()} using {@link RuleSetVersionTestResources#rs1v1}
+	 */
+	@Test
+	public void testGetRuleVersionsRS1V1() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions();
+		assertNotNull(ruleVersions);
+		assertEquals(7, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d2v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d3v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d4v1_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions()} using {@link RuleSetVersionTestResources#rs1v2}
+	 */
+	@Test
+	public void testGetRuleVersionsRS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions();
+		assertNotNull(ruleVersions);
+		assertEquals(10, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v3_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d2v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d3v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d4v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d5v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(String)} using {@link RuleSetVersionTestResources#rs1v1} when code is "r2"
+	 */
+	@Test
+	public void testGetRuleVersionsByCodeR2RS1V1() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions("r2");
+		assertNotNull(ruleVersions);
+		assertEquals(5, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d2v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d3v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d4v1_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(String)} using {@link RuleSetVersionTestResources#rs1v1} when code is "r3"
+	 */
+	@Test
+	public void testGetRuleVersionsByCodeR3RS1V1() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions("r3");
+		assertNotNull(ruleVersions);
+		assertTrue(ruleVersions.isEmpty());
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(String)} using {@link RuleSetVersionTestResources#rs1v2} when code is "r2"
+	 */
+	@Test
+	public void testGetRuleVersionsByCodeR2RS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions("r2");
+		assertNotNull(ruleVersions);
+		assertEquals(6, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d2v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d3v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d4v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d5v1_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(String)} using {@link RuleSetVersionTestResources#rs1v2} when code is "r3"
+	 */
+	@Test
+	public void testGetRuleVersionsByCodeR3RS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions("r3");
+		assertNotNull(ruleVersions);
+		assertEquals(1, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v1} when date is
+	 * 01/01/2015
+	 */
+	@Test
+	public void testGetEffectiveAt20150101RuleVersionsRS1V1() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions(LocalDateTime.of(2015, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertEquals(6, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d2v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d3v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d4v1_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v2} when date is
+	 * 01/01/2015
+	 */
+	@Test
+	public void testGetEffectiveAt20150101RuleVersionsRS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions(LocalDateTime.of(2015, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertEquals(6, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d2v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d3v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d4v1_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v1} when date is
+	 * 01/01/2016
+	 */
+	@Test
+	public void testGetEffectiveAt20160101RuleVersionsRS1V1() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions(LocalDateTime.of(2016, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertEquals(6, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d2v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d3v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d4v1_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v2} when date is
+	 * 01/01/2016
+	 */
+	@Test
+	public void testGetEffectiveAt20160101RuleVersionsRS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions(LocalDateTime.of(2016, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertEquals(8, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d2v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d3v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d4v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d5v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v1} when date is
+	 * 01/07/2016
+	 */
+	@Test
+	public void testGetEffectiveAt20160701RuleVersionsRS1V1() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions(LocalDateTime.of(2016, 7, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertEquals(6, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d2v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d3v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d4v1_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v2} when date is
+	 * 01/07/2016
+	 */
+	@Test
+	public void testGetEffectiveAt20160701RuleVersionsRS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions(LocalDateTime.of(2016, 7, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertEquals(8, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v3_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d2v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d3v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d4v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d5v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(String, LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v1} when code is
+	 * "r1" and date is 01/01/2015
+	 */
+	@Test
+	public void testGetEffectiveAt20150101RuleVersionsByCodeR1RS1V1() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions("r1", LocalDateTime.of(2015, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertEquals(1, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(String, LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v1} when code is
+	 * "r2" and date is 01/01/2015
+	 */
+	@Test
+	public void testGetEffectiveAt20150101RuleVersionsByCodeR2RS1V1() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions("r2", LocalDateTime.of(2015, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertEquals(5, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d2v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d3v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d4v1_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(String, LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v1} when code is
+	 * "r3" and date is 01/01/2015
+	 */
+	@Test
+	public void testGetEffectiveAt20150101RuleVersionsByCodeR3RS1V1() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions("r3", LocalDateTime.of(2015, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertTrue(ruleVersions.isEmpty());
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v2} when code is "r1" and
+	 * date is 01/01/2015
+	 */
+	@Test
+	public void testGetEffectiveAt20150101RuleVersionsByCodeR1RS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions("r1", LocalDateTime.of(2015, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertEquals(1, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_1));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(String, LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v1} when code is
+	 * "r2" and date is 01/01/2015
+	 */
+	@Test
+	public void testGetEffectiveAt20150101RuleVersionsByCodeR2RS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions("r2", LocalDateTime.of(2015, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertEquals(5, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d2v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d3v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d4v1_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(String, LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v1} when code is
+	 * "r3" and date is 01/01/2015
+	 */
+	@Test
+	public void testGetEffectiveAt20150101RuleVersionsByCodeR3RS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions("r3", LocalDateTime.of(2015, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertTrue(ruleVersions.isEmpty());
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(String, LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v1} when code is
+	 * "r3" and date is 01/01/2016
+	 */
+	@Test
+	public void testGetEffectiveAt20160101RuleVersionsByCodeR3RS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions("r3", LocalDateTime.of(2016, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertEquals(1, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v1} when code is "r1" and
+	 * date is 01/01/2016
+	 */
+	@Test
+	public void testGetEffectiveAt20160101RuleVersionsByCodeR1RS1V1() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions("r1", LocalDateTime.of(2016, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertEquals(1, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v2} when code is "r1" and
+	 * date is 01/01/2016
+	 */
+	@Test
+	public void testGetEffectiveAt20160101RuleVersionsByCodeR1RS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions("r1", LocalDateTime.of(2016, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertEquals(1, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_1));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v1} when code is "r1" and
+	 * date is 01/07/2016
+	 */
+	@Test
+	public void testGetEffectiveAt20160701RuleVersionsByCodeR1RS1V1() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions("r1", LocalDateTime.of(2016, 7, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertEquals(1, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_0));
+	}
+	
+	/**
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v2} when code is "r1" and
+	 * date is 01/07/2016
+	 */
+	@Test
+	public void testGetEffectiveAt20160701RuleVersionsByCodeR1RS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		Collection<RuleVersion> ruleVersions = rsv.getRuleVersions("r1", LocalDateTime.of(2016, 7, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertEquals(1, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v3_0));
+	}
+	
+	/**
 	 * Tests {@link RuleSetVersion#getDefaultRuleVersions()} using {@link RuleSetVersionTestResources#rs1v1}
 	 */
 	@Test
@@ -1852,12 +2276,117 @@ public class RuleSetVersionTest {
 		List<RuleVersion> ruleVersions = rsv.getDefaultRuleVersions();
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
-		assertEquals(4, ruleVersions.size());
+		assertEquals(5, ruleVersions.size());
 		for (RuleVersion ruleVersion : ruleVersions) {
 			assertTrue(ruleVersion.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT));
 		}
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_1));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v3_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getDefaultRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v1}
+	 */
+	@Test
+	public void testGetEffectiveAt20150101DefaultRuleVersionsRS1V1() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		List<RuleVersion> ruleVersions = rsv.getDefaultRuleVersions(LocalDateTime.of(2015, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertFalse(ruleVersions.isEmpty());
+		assertEquals(2, ruleVersions.size());
+		for (RuleVersion ruleVersion : ruleVersions) {
+			assertTrue(ruleVersion.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT));
+		}
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getDefaultRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v1}
+	 */
+	@Test
+	public void testGetEffectiveAt20160101DefaultRuleVersionsRS1V1() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		List<RuleVersion> ruleVersions = rsv.getDefaultRuleVersions(LocalDateTime.of(2016, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertFalse(ruleVersions.isEmpty());
+		assertEquals(2, ruleVersions.size());
+		for (RuleVersion ruleVersion : ruleVersions) {
+			assertTrue(ruleVersion.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT));
+		}
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getDefaultRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v1}
+	 */
+	@Test
+	public void testGetEffectiveAt20160701DefaultRuleVersionsRS1V1() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		List<RuleVersion> ruleVersions = rsv.getDefaultRuleVersions(LocalDateTime.of(2016, 7, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertFalse(ruleVersions.isEmpty());
+		assertEquals(2, ruleVersions.size());
+		for (RuleVersion ruleVersion : ruleVersions) {
+			assertTrue(ruleVersion.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT));
+		}
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getDefaultRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v2}
+	 */
+	@Test
+	public void testGetEffectiveAt20150101DefaultRuleVersionsRS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		List<RuleVersion> ruleVersions = rsv.getDefaultRuleVersions(LocalDateTime.of(2015, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertFalse(ruleVersions.isEmpty());
+		assertEquals(2, ruleVersions.size());
+		for (RuleVersion ruleVersion : ruleVersions) {
+			assertTrue(ruleVersion.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT));
+		}
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getDefaultRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v2}
+	 */
+	@Test
+	public void testGetEffectiveAt20160101DefaultRuleVersionsRS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		List<RuleVersion> ruleVersions = rsv.getDefaultRuleVersions(LocalDateTime.of(2016, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertFalse(ruleVersions.isEmpty());
+		assertEquals(3, ruleVersions.size());
+		for (RuleVersion ruleVersion : ruleVersions) {
+			assertTrue(ruleVersion.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT));
+		}
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getDefaultRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v2}
+	 */
+	@Test
+	public void testGetEffectiveAt20160701DefaultRuleVersionsRS1V2() {
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		List<RuleVersion> ruleVersions = rsv.getDefaultRuleVersions(LocalDateTime.of(2016, 7, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertFalse(ruleVersions.isEmpty());
+		assertEquals(3, ruleVersions.size());
+		for (RuleVersion ruleVersion : ruleVersions) {
+			assertTrue(ruleVersion.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT));
+		}
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v3_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
 	}
@@ -2029,6 +2558,67 @@ public class RuleSetVersionTest {
 	}
 	
 	/**
+	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection, LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v2}
+	 * when date is 01/01/2015 and collection has the following parameters :
+	 * <table>
+	 * <tr>
+	 * <th>Level</th>
+	 * <th>Value</th>
+	 * </tr>
+	 * <tr>
+	 * <td>EMPLOYER</td>
+	 * <td>1</td>
+	 * </tr>
+	 * </table>
+	 */
+	@Test
+	public void testGetEffectiveAt20150101DefinedRuleVersionsEmp1RS1V2() {
+		Collection<RuleDefinitionParameter> parameters = new ArrayList<>();
+		parameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1"));
+		
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		List<RuleVersion> ruleVersions = rsv.getDefinedRuleVersions(parameters, LocalDateTime.of(2015, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertFalse(ruleVersions.isEmpty());
+		assertEquals(4, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d2v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d3v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d4v1_0));
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection, LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v2}
+	 * when date is 01/01/2016 and collection has the following parameters :
+	 * <table>
+	 * <tr>
+	 * <th>Level</th>
+	 * <th>Value</th>
+	 * </tr>
+	 * <tr>
+	 * <td>EMPLOYER</td>
+	 * <td>1</td>
+	 * </tr>
+	 * </table>
+	 */
+	@Test
+	public void testGetEffectiveAt20160101DefinedRuleVersionsEmp1RS1V2() {
+		Collection<RuleDefinitionParameter> parameters = new ArrayList<>();
+		parameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1"));
+		
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		List<RuleVersion> ruleVersions = rsv.getDefinedRuleVersions(parameters, LocalDateTime.of(2016, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertFalse(ruleVersions.isEmpty());
+		assertEquals(5, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d2v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d3v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d4v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d5v1_0));
+	}
+	
+	/**
 	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection)} using {@link RuleSetVersionTestResources#rs1v2} when code is
 	 * "r1" and collection has the following parameters :
 	 * <table>
@@ -2074,6 +2664,92 @@ public class RuleSetVersionTest {
 		
 		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
 		List<RuleVersion> ruleDefinitions = rsv.getDefinedRuleVersions("r2", parameters);
+		assertNotNull(ruleDefinitions);
+		assertFalse(ruleDefinitions.isEmpty());
+		assertEquals(5, ruleDefinitions.size());
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d2v1_0));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d3v1_0));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d4v1_0));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d5v1_0));
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(String, Collection, LocalDateTime)} using
+	 * {@link RuleSetVersionTestResources#rs1v2} when code is "r2" and date is 01/01/2014 and collection has the following parameters :
+	 * <table>
+	 * <tr>
+	 * <th>Level</th>
+	 * <th>Value</th>
+	 * </tr>
+	 * <tr>
+	 * <td>EMPLOYER</td>
+	 * <td>1</td>
+	 * </tr>
+	 * </table>
+	 */
+	@Test
+	public void testGetEffectiveAt20140101DefinedRuleVersionsByCodeR2Emp1RS1V2() {
+		Collection<RuleDefinitionParameter> parameters = new ArrayList<>();
+		parameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1"));
+		
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		List<RuleVersion> ruleDefinitions = rsv.getDefinedRuleVersions("r2", parameters, LocalDateTime.of(2014, 1, 1, 0, 0));
+		assertNotNull(ruleDefinitions);
+		assertTrue(ruleDefinitions.isEmpty());
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(String, Collection, LocalDateTime)} using
+	 * {@link RuleSetVersionTestResources#rs1v2} when code is "r2" and date is 01/01/2015 and collection has the following parameters :
+	 * <table>
+	 * <tr>
+	 * <th>Level</th>
+	 * <th>Value</th>
+	 * </tr>
+	 * <tr>
+	 * <td>EMPLOYER</td>
+	 * <td>1</td>
+	 * </tr>
+	 * </table>
+	 */
+	@Test
+	public void testGetEffectiveAt20150101DefinedRuleVersionsByCodeR2Emp1RS1V2() {
+		Collection<RuleDefinitionParameter> parameters = new ArrayList<>();
+		parameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1"));
+		
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		List<RuleVersion> ruleDefinitions = rsv.getDefinedRuleVersions("r2", parameters, LocalDateTime.of(2015, 1, 1, 0, 0));
+		assertNotNull(ruleDefinitions);
+		assertFalse(ruleDefinitions.isEmpty());
+		assertEquals(4, ruleDefinitions.size());
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d2v1_0));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d3v1_0));
+		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r2d4v1_0));
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(String, Collection, LocalDateTime)} using
+	 * {@link RuleSetVersionTestResources#rs1v2} when code is "r2" and date is 01/01/2016 and collection has the following parameters :
+	 * <table>
+	 * <tr>
+	 * <th>Level</th>
+	 * <th>Value</th>
+	 * </tr>
+	 * <tr>
+	 * <td>EMPLOYER</td>
+	 * <td>1</td>
+	 * </tr>
+	 * </table>
+	 */
+	@Test
+	public void testGetEffectiveAt20160101DefinedRuleVersionsByCodeR2Emp1RS1V2() {
+		Collection<RuleDefinitionParameter> parameters = new ArrayList<>();
+		parameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1"));
+		
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		List<RuleVersion> ruleDefinitions = rsv.getDefinedRuleVersions("r2", parameters, LocalDateTime.of(2016, 1, 1, 0, 0));
 		assertNotNull(ruleDefinitions);
 		assertFalse(ruleDefinitions.isEmpty());
 		assertEquals(5, ruleDefinitions.size());
@@ -2190,9 +2866,99 @@ public class RuleSetVersionTest {
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertFalse(ruleVersions.isEmpty());
-		assertEquals(4, ruleVersions.size());
+		assertEquals(5, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_1));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v3_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection, LocalDateTime)} using
+	 * {@link RuleSetVersionTestResources#rs1v2} when date is 01/01/2015 collection has the following parameters :
+	 * <table>
+	 * <tr>
+	 * <th>Level</th>
+	 * <th>Value</th>
+	 * </tr>
+	 * <tr>
+	 * <td>EMPLOYER</td>
+	 * <td>1</td>
+	 * </tr>
+	 * </table>
+	 */
+	@Test
+	public void testGetEffectiveAt20150101BestDefinedRuleVersionsEmp1RS1V2() {
+		Collection<RuleDefinitionParameter> parameters = new ArrayList<>();
+		parameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1"));
+		
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		List<RuleVersion> ruleVersions = rsv.getBestDefinedRuleVersions(parameters, LocalDateTime.of(2015, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertFalse(ruleVersions.isEmpty());
+		assertFalse(ruleVersions.isEmpty());
+		assertEquals(2, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection, LocalDateTime)} using
+	 * {@link RuleSetVersionTestResources#rs1v2} when date is 01/01/2016 collection has the following parameters :
+	 * <table>
+	 * <tr>
+	 * <th>Level</th>
+	 * <th>Value</th>
+	 * </tr>
+	 * <tr>
+	 * <td>EMPLOYER</td>
+	 * <td>1</td>
+	 * </tr>
+	 * </table>
+	 */
+	@Test
+	public void testGetEffectiveAt20160101BestDefinedRuleVersionsEmp1RS1V2() {
+		Collection<RuleDefinitionParameter> parameters = new ArrayList<>();
+		parameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1"));
+		
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		List<RuleVersion> ruleVersions = rsv.getBestDefinedRuleVersions(parameters, LocalDateTime.of(2016, 1, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertFalse(ruleVersions.isEmpty());
+		assertFalse(ruleVersions.isEmpty());
+		assertEquals(3, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection, LocalDateTime)} using
+	 * {@link RuleSetVersionTestResources#rs1v2} when date is 01/07/2016 collection has the following parameters :
+	 * <table>
+	 * <tr>
+	 * <th>Level</th>
+	 * <th>Value</th>
+	 * </tr>
+	 * <tr>
+	 * <td>EMPLOYER</td>
+	 * <td>1</td>
+	 * </tr>
+	 * </table>
+	 */
+	@Test
+	public void testGetEffectiveAt20160701BestDefinedRuleVersionsEmp1RS1V2() {
+		Collection<RuleDefinitionParameter> parameters = new ArrayList<>();
+		parameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1"));
+		
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		List<RuleVersion> ruleVersions = rsv.getBestDefinedRuleVersions(parameters, LocalDateTime.of(2016, 7, 1, 0, 0));
+		assertNotNull(ruleVersions);
+		assertFalse(ruleVersions.isEmpty());
+		assertFalse(ruleVersions.isEmpty());
+		assertEquals(3, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v3_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d1v1_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
 	}
@@ -2354,9 +3120,10 @@ public class RuleSetVersionTest {
 		List<RuleVersion> ruleVersions = rsv.getBestDefinedRuleVersions(parameters);
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
-		assertEquals(4, ruleVersions.size());
+		assertEquals(5, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_1));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v3_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d2v1_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
 	}
@@ -2488,9 +3255,10 @@ public class RuleSetVersionTest {
 		List<RuleVersion> ruleVersions = rsv.getBestDefinedRuleVersions(parameters);
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
-		assertEquals(4, ruleVersions.size());
+		assertEquals(5, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_1));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v3_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d3v1_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
 	}
@@ -2633,9 +3401,10 @@ public class RuleSetVersionTest {
 		List<RuleVersion> ruleVersions = rsv.getBestDefinedRuleVersions(parameters);
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
-		assertEquals(4, ruleVersions.size());
+		assertEquals(5, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_1));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v3_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d4v1_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
 	}
@@ -2776,9 +3545,10 @@ public class RuleSetVersionTest {
 		List<RuleVersion> ruleVersions = rsv.getBestDefinedRuleVersions(parameters);
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
-		assertEquals(4, ruleVersions.size());
+		assertEquals(5, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_1));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v3_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d5v1_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
 	}
@@ -2917,9 +3687,10 @@ public class RuleSetVersionTest {
 		List<RuleVersion> ruleVersions = rsv.getBestDefinedRuleVersions(parameters);
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
-		assertEquals(4, ruleVersions.size());
+		assertEquals(5, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_1));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v3_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d3v1_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
 	}
@@ -3026,9 +3797,10 @@ public class RuleSetVersionTest {
 		List<RuleVersion> ruleVersions = rsv.getBestDefinedRuleVersions(parameters);
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
-		assertEquals(4, ruleVersions.size());
+		assertEquals(5, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_1));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v3_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
 	}
@@ -3113,6 +3885,84 @@ public class RuleSetVersionTest {
 	}
 	
 	/**
+	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetVersionTestResources#rs1v1} when code is
+	 * "r1" and collection has the following parameters :
+	 * <table>
+	 * <tr>
+	 * <th>Level</th>
+	 * <th>Value</th>
+	 * </tr>
+	 * <tr>
+	 * <td>JOINT COMMITTEE</td>
+	 * <td>1</td>
+	 * </tr>
+	 * </table>
+	 */
+	@Test
+	public void testGetBestDefinedRuleVersionsByCodeR1JC1RS1V1() {
+		Collection<RuleDefinitionParameter> parameters = new ArrayList<>();
+		parameters.add(new RuleDefinitionParameter(DefinitionLevel.JOINT_COMMITTEE, "1"));
+		
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		List<RuleVersion> ruleVersions = rsv.getBestDefinedRuleVersions("r1", parameters);
+		assertNotNull(ruleVersions);
+		assertFalse(ruleVersions.isEmpty());
+		assertEquals(2, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_0));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_0));
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetVersionTestResources#rs1v1} when code is
+	 * "r1" and date is 01/01/2015 and collection has the following parameters :
+	 * <table>
+	 * <tr>
+	 * <th>Level</th>
+	 * <th>Value</th>
+	 * </tr>
+	 * <tr>
+	 * <td>JOINT COMMITTEE</td>
+	 * <td>1</td>
+	 * </tr>
+	 * </table>
+	 */
+	@Test
+	public void testGetEffectiveAt20150101BestDefinedRuleVersionsByCodeR1JC1RS1V1() {
+		Collection<RuleDefinitionParameter> parameters = new ArrayList<>();
+		parameters.add(new RuleDefinitionParameter(DefinitionLevel.JOINT_COMMITTEE, "1"));
+		
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		RuleVersion ruleVersion = rsv.getBestDefinedRuleVersion("r1", parameters, LocalDateTime.of(2015, 1, 1, 0, 0));
+		assertNotNull(ruleVersion);
+		assertEquals(RuleSetVersionTestResources.r1d0v1_0, ruleVersion);
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetVersionTestResources#rs1v1} when code is
+	 * "r1" and date is 01/01/2016 and collection has the following parameters :
+	 * <table>
+	 * <tr>
+	 * <th>Level</th>
+	 * <th>Value</th>
+	 * </tr>
+	 * <tr>
+	 * <td>JOINT COMMITTEE</td>
+	 * <td>1</td>
+	 * </tr>
+	 * </table>
+	 */
+	@Test
+	public void testGetEffectiveAt20160101BestDefinedRuleVersionsByCodeR1JC1RS1V1() {
+		Collection<RuleDefinitionParameter> parameters = new ArrayList<>();
+		parameters.add(new RuleDefinitionParameter(DefinitionLevel.JOINT_COMMITTEE, "1"));
+		
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v1;
+		RuleVersion ruleVersion = rsv.getBestDefinedRuleVersion("r1", parameters, LocalDateTime.of(2016, 1, 1, 0, 0));
+		assertNotNull(ruleVersion);
+		assertEquals(RuleSetVersionTestResources.r1d0v2_0, ruleVersion);
+	}
+	
+	/**
 	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetVersionTestResources#rs1v2} when
 	 * collection has the following parameters :
 	 * <table>
@@ -3135,11 +3985,116 @@ public class RuleSetVersionTest {
 		List<RuleVersion> ruleVersions = rsv.getBestDefinedRuleVersions(parameters);
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
-		assertEquals(4, ruleVersions.size());
+		assertEquals(5, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_1));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v3_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetVersionTestResources#rs1v2} when code is
+	 * "r1" and collection has the following parameters :
+	 * <table>
+	 * <tr>
+	 * <th>Level</th>
+	 * <th>Value</th>
+	 * </tr>
+	 * <tr>
+	 * <td>JOINT COMMITTEE</td>
+	 * <td>1</td>
+	 * </tr>
+	 * </table>
+	 */
+	@Test
+	public void testGetBestDefinedRuleVersionsByCodeR1JC1RS1V2() {
+		Collection<RuleDefinitionParameter> parameters = new ArrayList<>();
+		parameters.add(new RuleDefinitionParameter(DefinitionLevel.JOINT_COMMITTEE, "1"));
+		
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		List<RuleVersion> ruleVersions = rsv.getBestDefinedRuleVersions("r1", parameters);
+		assertNotNull(ruleVersions);
+		assertFalse(ruleVersions.isEmpty());
+		assertEquals(3, ruleVersions.size());
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v3_0));
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetVersionTestResources#rs1v2} when code is
+	 * "r1" and date is 01/01/2015 and collection has the following parameters :
+	 * <table>
+	 * <tr>
+	 * <th>Level</th>
+	 * <th>Value</th>
+	 * </tr>
+	 * <tr>
+	 * <td>JOINT COMMITTEE</td>
+	 * <td>1</td>
+	 * </tr>
+	 * </table>
+	 */
+	@Test
+	public void testGetEffectiveAt20150101BestDefinedRuleVersionsByCodeR1JC1RS1V2() {
+		Collection<RuleDefinitionParameter> parameters = new ArrayList<>();
+		parameters.add(new RuleDefinitionParameter(DefinitionLevel.JOINT_COMMITTEE, "1"));
+		
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		RuleVersion ruleVersion = rsv.getBestDefinedRuleVersion("r1", parameters, LocalDateTime.of(2015, 1, 1, 0, 0));
+		assertNotNull(ruleVersion);
+		assertEquals(RuleSetVersionTestResources.r1d0v1_1, ruleVersion);
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetVersionTestResources#rs1v2} when code is
+	 * "r1" and date is 01/01/2016 and collection has the following parameters :
+	 * <table>
+	 * <tr>
+	 * <th>Level</th>
+	 * <th>Value</th>
+	 * </tr>
+	 * <tr>
+	 * <td>JOINT COMMITTEE</td>
+	 * <td>1</td>
+	 * </tr>
+	 * </table>
+	 */
+	@Test
+	public void testGetEffectiveAt20160101BestDefinedRuleVersionsByCodeR1JC1RS1V2() {
+		Collection<RuleDefinitionParameter> parameters = new ArrayList<>();
+		parameters.add(new RuleDefinitionParameter(DefinitionLevel.JOINT_COMMITTEE, "1"));
+		
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		RuleVersion ruleVersion = rsv.getBestDefinedRuleVersion("r1", parameters, LocalDateTime.of(2016, 1, 1, 0, 0));
+		assertNotNull(ruleVersion);
+		assertEquals(RuleSetVersionTestResources.r1d0v2_1, ruleVersion);
+	}
+	
+	/**
+	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetVersionTestResources#rs1v2} when code is
+	 * "r1" and date is 01/07/2016 and collection has the following parameters :
+	 * <table>
+	 * <tr>
+	 * <th>Level</th>
+	 * <th>Value</th>
+	 * </tr>
+	 * <tr>
+	 * <td>JOINT COMMITTEE</td>
+	 * <td>1</td>
+	 * </tr>
+	 * </table>
+	 */
+	@Test
+	public void testGetEffectiveAt20160701BestDefinedRuleVersionsByCodeR1JC1RS1V2() {
+		Collection<RuleDefinitionParameter> parameters = new ArrayList<>();
+		parameters.add(new RuleDefinitionParameter(DefinitionLevel.JOINT_COMMITTEE, "1"));
+		
+		RuleSetVersion rsv = RuleSetVersionTestResources.rs1v2;
+		RuleVersion ruleVersion = rsv.getBestDefinedRuleVersion("r1", parameters, LocalDateTime.of(2016, 7, 1, 0, 0));
+		assertNotNull(ruleVersion);
+		assertEquals(RuleSetVersionTestResources.r1d0v3_0, ruleVersion);
 	}
 	
 	/**
@@ -3251,9 +4206,10 @@ public class RuleSetVersionTest {
 		List<RuleVersion> ruleVersions = rsv.getBestDefinedRuleVersions(parameters);
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
-		assertEquals(4, ruleVersions.size());
+		assertEquals(5, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_1));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_1));
+		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v3_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
 	}

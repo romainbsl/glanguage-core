@@ -120,7 +120,7 @@ public class RuleSetVersionTestResources {
 		r1d0v2_1.setRuleDefinition(r1d0);
 		r1d0v2_1.setRuleDescription(r1Description);
 		/* R1 D0 V3_0 */
-		r1d0v3_0.setId(1021);
+		r1d0v3_0.setId(103);
 		r1d0v3_0.setEffectivityStartDate(LocalDateTime.of(2016, 7, 1, 0, 0));
 		r1d0v3_0.setEffectivityEndDate(LocalDateTime.MAX);
 		r1d0v3_0.setRuleDefinition(r1d0);
@@ -223,7 +223,7 @@ public class RuleSetVersionTestResources {
 		r2d5.getDefinitionParameters().add(parameterCollectiveLborAgreement2);
 		/* R2 D5 V1_0 */
 		r2d5v1_0.setId(251);
-		r2d5v1_0.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
+		r2d5v1_0.setEffectivityStartDate(LocalDateTime.of(2016, 1, 1, 0, 0));
 		r2d5v1_0.setEffectivityEndDate(LocalDateTime.MAX);
 		r2d5v1_0.setRuleDefinition(r2d5);
 		r2d5v1_0.setRuleDescription(r2Description);

@@ -329,14 +329,9 @@ public class RuleSetVersion {
 		/* For each list of rule version by rule identity */
 		for (List<RuleVersion> ruleVersions : ruleVersionsByRuleIdentity.values()) {
 			/* Get the definition that best matches definitionParameters */
-			RuleDefinition bestRuleDefinition = DefinitionMatcher.getBestMatch(
+			result.add(DefinitionMatcher.getBestMatch(
 					ruleVersions.stream().map(rv -> rv.getRuleDefinition()).distinct().collect(Collectors.toList()),
-					definitionParameters);
-					
-			if (bestRuleDefinition != null) {
-				/* Add the best rule definition found to the result list */
-				result.add(bestRuleDefinition);
-			}
+					definitionParameters));
 		}
 		return result;
 	}
@@ -364,7 +359,7 @@ public class RuleSetVersion {
 	 * @param definitionParameters
 	 * @return The {@link RuleDefinition} that have a code equal to {@code code} and that best matches {@code definitionParameters}
 	 *         parameters
-	 * @see RuleDefinition#getBestMatch(Collection, DefinitionMatcherStrategy)
+	 * @see DefinitionMatcher#getBestMatch(Collection, Collection)
 	 */
 	@Transient
 	public RuleDefinition getBestDefinedRuleDefinition(String code, Collection<RuleDefinitionParameter> definitionParameters) {
@@ -506,13 +501,8 @@ public class RuleSetVersion {
 		/* For each list of rule version by rule identity */
 		for (List<RuleVersion> ruleVersions : ruleVersionsByRuleIdentity.values()) {
 			/* Get the definition that best matches definitionParameters */
-			RuleDefinition bestRuleDefinition = DefinitionMatcher.getBestMatch(
-					ruleVersions.stream().map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()), definitionParameters);
-					
-			if (bestRuleDefinition != null) {
-				/* Add the list of rule version corresponding to the best rule definition found to the result list */
-				result.addAll(ruleVersionsByRuleDefinition.get(bestRuleDefinition));
-			}
+			result.addAll(ruleVersionsByRuleDefinition.get(DefinitionMatcher.getBestMatch(
+					ruleVersions.stream().map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()), definitionParameters)));
 		}
 		return result;
 	}
@@ -573,13 +563,8 @@ public class RuleSetVersion {
 		/* For each list of rule version by rule identity */
 		for (List<RuleVersion> ruleVersions : ruleVersionsByRuleIdentity.values()) {
 			/* Get the definition that best matches definitionParameters */
-			RuleDefinition bestRuleDefinition = DefinitionMatcher.getBestMatch(
-					ruleVersions.stream().map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()), definitionParameters);
-					
-			if (bestRuleDefinition != null) {
-				/* Add the rule version corresponding to the best rule definition found to the result list */
-				result.add(ruleVersionsByRuleDefinition.get(bestRuleDefinition));
-			}
+			result.add(ruleVersionsByRuleDefinition.get(DefinitionMatcher.getBestMatch(
+					ruleVersions.stream().map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()), definitionParameters)));
 		}
 		return result;
 	}
@@ -626,15 +611,8 @@ public class RuleSetVersion {
 				versionsForCode.stream().collect(Collectors.groupingBy(RuleVersion::getRuleDefinition));
 				
 		/* Get the definition that best matches definitionParameters */
-		RuleDefinition bestRuleDefinition = DefinitionMatcher.getBestMatch(
-				versionsForCode.stream().map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()), definitionParameters);
-				
-		if (bestRuleDefinition != null) {
-			/* Return the list of rule version corresponding to the best rule definition found */
-			return ruleVersionsByRuleDefinition.get(bestRuleDefinition);
-		} else {
-			return null;
-		}
+		return ruleVersionsByRuleDefinition.get(DefinitionMatcher.getBestMatch(
+				versionsForCode.stream().map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()), definitionParameters));
 	}
 	
 	/**
@@ -686,15 +664,9 @@ public class RuleSetVersion {
 				effectiveVersionsForCode.stream().collect(Collectors.toMap(RuleVersion::getRuleDefinition, Function.identity()));
 				
 		/* Get the definition that best matches definitionParameters */
-		RuleDefinition bestRuleDefinition = DefinitionMatcher.getBestMatch(
+		return ruleVersionByRuleDefinition.get(DefinitionMatcher.getBestMatch(
 				effectiveVersionsForCode.stream().map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()),
-				definitionParameters);
-		if (bestRuleDefinition != null) {
-			/* Return the rule version corresponding to the best rule definition found */
-			return ruleVersionByRuleDefinition.get(bestRuleDefinition);
-		} else {
-			return null;
-		}
+				definitionParameters));
 	}
 	
 	/**
