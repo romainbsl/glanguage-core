@@ -53,19 +53,4 @@ public class RuleSetVersionDao extends BaseDao<Integer, RuleSetVersion> {
 		return (RuleSetVersion) getEntityManager().createQuery(query).getSingleResult();
 	}
 	
-	public RuleSetVersion findByRuleSetIdAndExploitationDateAndEffectivityDate(Integer ruleSetId, LocalDateTime exploitationDate,
-			LocalDateTime effectivityDate) {
-		// @formatter:off
-		String query = "select rsv from RuleSetVersion rsv"
-				+ " where rsv.ruleSet.id = " + ruleSetId
-				+ " and rsv.exploitationStartDate = ("
-				+ " select max(rsv2.exploitationStartDate) from RuleSetVersion rsv2"
-				+ " where rsv2.ruleSet.id = rsv.ruleSet.id"
-				+ " and rsv2.exploitationStartDate < '" + exploitationDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
-				+ "'"
-				+ ")";
-		// @formatter:on
-		return (RuleSetVersion) getEntityManager().createQuery(query).getSingleResult();
-	}
-	
 }
