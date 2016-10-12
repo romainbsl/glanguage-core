@@ -22,7 +22,7 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	private RuleVersion groupRule;
 	private RuleIdentity itemRule;
 	private int sequenceNumber;
-	private RuleVersion effectiveRuleVersion;
+	private RuleVersion referencedRule;
 
 	public RuleGroupItem() {
 		super();
@@ -53,11 +53,6 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	public RuleIdentity getItemRule() {
 		return itemRule;
 	}
-
-	@Transient
-	public RuleVersion getEffectiveRule() {
-		return effectiveRuleVersion;
-	}
 	
 	/**
 	 * @return the sequenceNumber
@@ -68,35 +63,46 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	}
 
 	/**
-	 * @param id
-	 *            the id to set
+	 * @return the effectiveRuleVersion
+	 */
+	@Transient
+	public RuleVersion getReferencedRule() {
+		return referencedRule;
+	}
+
+	/**
+	 * @param id the id to set
 	 */
 	public void setId(RuleGroupItemId id) {
 		this.id = id;
 	}
 
 	/**
-	 * @param groupRule
-	 *            the ruleVersion to set
+	 * @param groupRule the ruleVersion to set
 	 */
 	public void setGroupRule(RuleVersion groupRule) {
 		this.groupRule = groupRule;
 	}
 
 	/**
-	 * @param itemRule
-	 *            the ruleIdentity to set
+	 * @param itemRule the ruleIdentity to set
 	 */
 	public void setItemRule(RuleIdentity itemRule) {
 		this.itemRule = itemRule;
 	}
 
 	/**
-	 * @param sequenceNumber
-	 *            the sequenceNumber to set
+	 * @param sequenceNumber the sequenceNumber to set
 	 */
 	public void setSequenceNumber(int sequenceNumber) {
 		this.sequenceNumber = sequenceNumber;
+	}
+
+	/**
+	 * @param effectiveRuleVersion the effectiveRuleVersion to set
+	 */
+	public void setReferencedRule(RuleVersion referencedRule) {
+		this.referencedRule = referencedRule;
 	}
 
 	@Override
