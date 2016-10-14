@@ -11,6 +11,9 @@ import java.time.format.DateTimeParseException;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
@@ -38,6 +41,9 @@ public class FormulaTerminalDuration extends AbstractTerminalFormula {
 		super(description, date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 	}
 	
+	@JsonIgnore
+	@Transient
+	@Override
 	public Duration getDurationValue() {
 		try {
 			String text = new String(getConstantValue());

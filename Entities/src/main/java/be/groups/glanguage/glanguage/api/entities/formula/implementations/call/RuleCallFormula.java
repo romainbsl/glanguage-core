@@ -3,6 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 import java.time.Duration;
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,6 +12,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDes
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
+@Entity
 public abstract class RuleCallFormula extends CallFormula {
 
 	private RuleVersion referencedRule;
@@ -26,6 +28,19 @@ public abstract class RuleCallFormula extends CallFormula {
 			throw new IllegalArgumentException("ruleId must be a non-null non-empty string");
 		}
 		setConstantValue(ruleId);
+	}
+		
+	@JsonIgnore
+	@Transient
+	@Override
+	public FormulaReturnType getReturnType() {
+		if (getReferencedRule() == null) {
+			throw new IllegalAccessError("Cannot invoke getReturnType() method on " + this.getClass().getName()
+					+ " object while referenced rule (version id : " + getConstantValue()
+					+ ") is not set - while branching is not done");
+		} else {
+			return getReferencedRule().getReturnType();
+		}
 	}
 
 	@JsonIgnore
