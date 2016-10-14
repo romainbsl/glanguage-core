@@ -335,6 +335,9 @@ public class RuleVersion implements Comparable<RuleVersion> {
 			}
 			setValue(result);
 		}
+		if (value instanceof Integer) {
+			return ((Integer) value).doubleValue();
+		}
 		return (Double) value;
 	}
 
