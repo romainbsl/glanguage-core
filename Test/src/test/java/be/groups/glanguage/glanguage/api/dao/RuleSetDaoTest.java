@@ -10,6 +10,9 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
 
 public class RuleSetDaoTest extends DaoTest {
 	
+	/**
+	 * Tests {@link RuleSetDao#findAll()}
+	 */
 	@Test
 	public void testFindAll() {
 		List<RuleSet> ruleSets = new RuleSetDao().findAll();
@@ -18,11 +21,34 @@ public class RuleSetDaoTest extends DaoTest {
 		System.out.println("Number of rule sets : " + ruleSets.size());
 	}
 	
+	/**
+	 * Tests {@link RuleSetDao#findById(Integer)} when is is 900000
+	 */
 	@Test
 	public void testFindById() {
-		RuleSet ruleSet = new RuleSetDao().findById(1);
+		RuleSet ruleSet = new RuleSetDao().findById(900000);
 		assertNotNull(ruleSet);
-		assertEquals(1, ruleSet.getId());
+		assertEquals(900000, ruleSet.getId());
+	}
+	
+	/**
+	 * Tests {@link RuleSetDao#findByAlias(String)} when alias is "rs1_fr"
+	 */
+	@Test
+	public void testFindByAliasFr() {
+		RuleSet ruleSet = new RuleSetDao().findByAlias("rs1_fr");
+		assertNotNull(ruleSet);
+		assertEquals("rs1_fr", ruleSet.getAliasFr());
+	}
+	
+	/**
+	 * Tests {@link RuleSetDao#findByAlias(String)} when alias is "rs1_x"
+	 */
+	@Test
+	public void testFindByAliasX() {
+		RuleSet ruleSet = new RuleSetDao().findByAlias("rs1_x");
+		assertNotNull(ruleSet);
+		assertEquals("rs1_x", ruleSet.getAliasX());
 	}
 		
 }

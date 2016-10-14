@@ -17,6 +17,7 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 public class Plan {
 	
 	private List<RuleVersion> ruleVersions = new ArrayList<>();
+	private boolean isBranched;
 	
 	public Plan() {
 		super();
@@ -36,12 +37,32 @@ public class Plan {
 		this.ruleVersions = ruleVersions;
 	}
 	
+	/**
+	 * @return the isBranched
+	 */
+	public boolean isBranched() {
+		return isBranched;
+	}
+
+	/**
+	 * @param isBranched the isBranched to set
+	 */
+	private void setBranched(boolean isBranched) {
+		this.isBranched = isBranched;
+	}
+
 	public Collection<RuleVersion> evaluate() {
+		if (!isBranched()) {
+			branch();
+		}
 		getRuleVersions().stream().forEach(rv -> rv.getValue());
 		return getRuleVersions().stream().filter(rv -> rv.isCached()).collect(Collectors.toList());
 	}
 	
 	public Collection<RuleVersion> evaluate(String ruleIdentifier, boolean recursive) {
+		if (!isBranched()) {
+			branch();
+		}
 		RuleVersion ruleVersion = getEffectiveRuleVersionByIdenitifier(ruleIdentifier);
 		if (ruleVersion != null) {
 			evaluate(ruleVersion, recursive);
@@ -58,11 +79,12 @@ public class Plan {
 			ruleVersion.getGroupItems().stream().map(i -> i.getReferencedRule()).forEach(rv -> evaluate(rv, recursive));
 		}
 	}
-	
+		
 	public void branch() {
 		getRuleVersions().stream().forEach(rv -> branch(rv));
+		setBranched(true);
 	}
-	
+
 	private void branch(RuleVersion rv) {
 		if (rv.getGroupItems() != null && !rv.getGroupItems().isEmpty()) {
 			rv.getGroupItems().stream().forEach(gi -> branch(gi));
@@ -82,7 +104,7 @@ public class Plan {
 	private void branch(AbstractFormula formula) {
 		if (formula instanceof FormulaRuleReference || formula instanceof FormulaApplicability || formula instanceof FormulaFormula) {
 			branch((RuleCallFormula) formula);
-		} else {
+		} else if (formula.getParameters() != null && !formula.getParameters().isEmpty()){
 			formula.getParameters().stream().forEach(p -> branch(p));
 		}
 	}
