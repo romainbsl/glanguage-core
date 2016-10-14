@@ -63,6 +63,7 @@ public class FormulaApplicabilityTest {
 		
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getApplicabilityCondition()).thenReturn(applicabilityCondition);
+		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		formula.setReferencedRule(ruleVersion);
 		
 		formula.getIntegerValue();
@@ -98,6 +99,7 @@ public class FormulaApplicabilityTest {
 		
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getApplicabilityCondition()).thenReturn(applicabilityCondition);
+		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		formula.setReferencedRule(ruleVersion);
 		
 		formula.getNumericValue();
@@ -133,6 +135,7 @@ public class FormulaApplicabilityTest {
 		
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getApplicabilityCondition()).thenReturn(applicabilityCondition);
+		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		formula.setReferencedRule(ruleVersion);
 		
 		formula.getStringValue();
@@ -168,6 +171,7 @@ public class FormulaApplicabilityTest {
 		
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getApplicabilityCondition()).thenReturn(applicabilityCondition);
+		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		formula.setReferencedRule(ruleVersion);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
@@ -191,6 +195,7 @@ public class FormulaApplicabilityTest {
 		
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getApplicabilityCondition()).thenReturn(applicabilityCondition);
+		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		formula.setReferencedRule(ruleVersion);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
@@ -226,6 +231,7 @@ public class FormulaApplicabilityTest {
 		
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getApplicabilityCondition()).thenReturn(applicabilityCondition);
+		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		formula.setReferencedRule(ruleVersion);
 		
 		formula.getDateValue();
@@ -261,6 +267,7 @@ public class FormulaApplicabilityTest {
 		
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getApplicabilityCondition()).thenReturn(applicabilityCondition);
+		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		formula.setReferencedRule(ruleVersion);
 		
 		formula.getDurationValue();

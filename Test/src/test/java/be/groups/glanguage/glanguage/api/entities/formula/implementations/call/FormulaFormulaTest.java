@@ -65,6 +65,7 @@ public class FormulaFormulaTest {
 		
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
+		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		formula.setReferencedRule(ruleVersion);
 		
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
@@ -100,6 +101,7 @@ public class FormulaFormulaTest {
 		
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
+		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
 		formula.setReferencedRule(ruleVersion);
 		
 		assertEquals(Double.valueOf(1.5), formula.getNumericValue());
@@ -135,6 +137,7 @@ public class FormulaFormulaTest {
 		
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
+		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		formula.setReferencedRule(ruleVersion);
 		
 		assertEquals("string", formula.getStringValue());
@@ -170,6 +173,7 @@ public class FormulaFormulaTest {
 		
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
+		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
 		formula.setReferencedRule(ruleVersion);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
@@ -205,6 +209,7 @@ public class FormulaFormulaTest {
 		
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
+		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		formula.setReferencedRule(ruleVersion);
 		
 		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue());
@@ -240,6 +245,7 @@ public class FormulaFormulaTest {
 		
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
+		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.DURATION);
 		formula.setReferencedRule(ruleVersion);
 		
 		assertEquals(Duration.ofDays(2L), formula.getDurationValue());
