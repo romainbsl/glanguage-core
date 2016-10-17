@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 
  * @author DUPIREFR
@@ -55,6 +57,7 @@ public class FormulaParametersCombination {
 		return returnType;
 	}
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "FORMULA_DESCRIPTION_ID", referencedColumnName = "ID")
 	public FormulaDescription getDescription() {

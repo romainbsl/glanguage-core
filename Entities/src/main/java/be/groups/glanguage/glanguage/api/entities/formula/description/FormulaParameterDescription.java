@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 
  * @author DUPIREFR
@@ -59,6 +61,7 @@ public class FormulaParameterDescription implements Comparable<FormulaParameterD
 		return sequenceNumber;
 	}
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "PARAMETER_COMBINATION_ID", referencedColumnName = "ID")
 	public FormulaParametersCombination getParametersCombination() {

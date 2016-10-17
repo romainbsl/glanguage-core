@@ -25,6 +25,12 @@ public class FormulaGet extends CallFormula {
 		super();
 	}
 	
+	@Transient
+	@Override
+	public FormulaReturnType getReturnType() {
+		return new FormulaReturnTypeConverter().convertToEntityAttribute(Integer.valueOf(getConstantValue()));
+	}
+	
 	public FormulaGet(FormulaDescription description, FormulaDescription subFormulasdescription, FormulaReturnType returnType,
 			List<String> identifiers, List<List<AbstractFormula>> parameters) {
 		super(description);
