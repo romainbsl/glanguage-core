@@ -19,7 +19,10 @@ import com.wordnik.swagger.annotations.ApiParam;
 import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
 import be.groups.glanguage.glanguage.api.business.action.standard.AsStandard;
 import be.groups.glanguage.glanguage.api.business.analysis.byaccj.SlangTab;
+import be.groups.glanguage.glanguage.api.business.universe.Universe;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.marmota.persistence.DatabaseIdentifier;
+import be.groups.marmota.persistence.JpaUtil;
 
 /**
  * Created by boissero on 3/24/2016.
@@ -37,9 +40,10 @@ public class MainSampleResource {
 	@GET
 	@Path("/parse/{formulaString}")
 	@ApiOperation(value = "parse formula string", response = Response.class)
-	public Response getAndTest(@Context ContainerRequestContext request,
+	public Response getFormulaFromString(@Context ContainerRequestContext request,
 								@ApiParam(value = "formulaString", required = true, defaultValue = "") 
 								@PathParam("formulaString") String formulaString) {
+		initializePersistence();
 		try {
 			return Response.status(Response.Status.OK)
                     .type(MediaType.APPLICATION_JSON)
@@ -51,7 +55,7 @@ public class MainSampleResource {
 			return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
 		}
 	}
-	
+
 	private AbstractFormula parse(String formulaString) {
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -59,6 +63,38 @@ public class MainSampleResource {
 		parser.setFormulaString(formulaString);
 		parser.analyze();
 		return semanticalAction.getFormulaList().get(0);
+	}
+	
+	@GET
+	@Path("/formulaString/{formulaId}")
+	@ApiOperation(value = "get the string representation of a formula identified by its id", response = Response.class)
+	public Response getStringFromFormula(@Context ContainerRequestContext request,
+								@ApiParam(value = "formulaId", required = true) 
+								@PathParam("formulaId") Integer formulaId) {
+		initializePersistence();
+		try {
+			return Response.status(Response.Status.OK)
+                    .type(MediaType.APPLICATION_JSON)
+                    .entity(
+                    		asText(formulaId)
+                    ).build();			
+		} catch (Exception e) {
+			LOG.error("Unable to get the string representation of the formula identified by " + formulaId, e);
+			return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
+		}
+	}
+	
+	private void initializePersistence() {
+		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
+	}
+
+	private String asText(Integer formulaId) {
+		AbstractFormula formula = Universe.getFormula(formulaId);
+		if (formula != null) {
+			return formula.asText();
+		} else {
+			return "";
+		}
 	}
 	
 }

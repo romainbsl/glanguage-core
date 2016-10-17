@@ -26,7 +26,7 @@ public class Rounder {
 			case TRUNC:
 				return trunc(value, precision.intValue());
 			case UNDEFINED:
-				// fall through
+				return value;
 			default:
 				throw new IllegalArgumentException("The RoundingType " + roundingType.name() + " is not a valid one !");
 		}

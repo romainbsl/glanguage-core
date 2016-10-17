@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: be.groups.glanguage.glanguage.api.entities.test.RuleIdentityMappingTest
--------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.2 sec - in be.groups.glanguage.glanguage.api.entities.test.RuleIdentityMappingTest

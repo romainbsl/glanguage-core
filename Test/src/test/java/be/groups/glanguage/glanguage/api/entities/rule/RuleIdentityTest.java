@@ -3,8 +3,6 @@ package be.groups.glanguage.glanguage.api.entities.rule;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,7 +89,7 @@ public class RuleIdentityTest {
 	}
 
 	/**
-	 * Tests {@link RuleIdentity#getDefinition(Collection)} when no specific
+	 * Tests {@link RuleIdentity#getRuleDefinition(Collection)} when no specific
 	 * definition is defined
 	 */
 	@Test
@@ -101,17 +99,16 @@ public class RuleIdentityTest {
 		List<RuleDefinitionParameter> ruleDefinitionParameters = new ArrayList<>();
 		ruleDefinitionParameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "100000"));
 
-		RuleDefinition ruleDefinition = mock(RuleDefinition.class);
-		when(ruleDefinition.getLevel()).thenReturn(DefinitionLevel.DEFAULT);
+		RuleDefinition ruleDefinition = new RuleDefinition();
 
 		ruleIdentity.getRuleDefinitions().add(ruleDefinition);
 
-		assertNotNull(ruleIdentity.getDefinition(ruleDefinitionParameters));
-		assertEquals(ruleDefinition, ruleIdentity.getDefinition(ruleDefinitionParameters));
+		assertNotNull(ruleIdentity.getRuleDefinition(ruleDefinitionParameters));
+		assertEquals(ruleDefinition, ruleIdentity.getRuleDefinition(ruleDefinitionParameters));
 	}
 
 	/**
-	 * Tests {@link RuleIdentity#getDefinition(Collection)} when specific
+	 * Tests {@link RuleIdentity#getRuleDefinition(Collection)} when specific
 	 * definitions are defined, but none is matching criteria
 	 */
 	@Test
@@ -121,22 +118,22 @@ public class RuleIdentityTest {
 		List<RuleDefinitionParameter> ruleDefinitionParameters = new ArrayList<>();
 		ruleDefinitionParameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "100000"));
 
-		RuleDefinition defaultRuleDefinition = mock(RuleDefinition.class);
-		when(defaultRuleDefinition.getLevel()).thenReturn(DefinitionLevel.DEFAULT);
+		RuleDefinition defaultRuleDefinition = new RuleDefinition();
+		defaultRuleDefinition.setId(0);
 
-		RuleDefinition employerRuleDefinition = mock(RuleDefinition.class);
-		when(employerRuleDefinition.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
-		when(employerRuleDefinition.match(ruleDefinitionParameters)).thenReturn(false);
+		RuleDefinition employerRuleDefinition = new RuleDefinition();
+		employerRuleDefinition.setId(1);
+		employerRuleDefinition.getDefinitionParameters().add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "200000"));
 
 		ruleIdentity.getRuleDefinitions().add(defaultRuleDefinition);
 		ruleIdentity.getRuleDefinitions().add(employerRuleDefinition);
 
-		assertNotNull(ruleIdentity.getDefinition(ruleDefinitionParameters));
-		assertEquals(defaultRuleDefinition, ruleIdentity.getDefinition(ruleDefinitionParameters));
+		assertNotNull(ruleIdentity.getRuleDefinition(ruleDefinitionParameters));
+		assertEquals(defaultRuleDefinition, ruleIdentity.getRuleDefinition(ruleDefinitionParameters));
 	}
 
 	/**
-	 * Tests {@link RuleIdentity#getDefinition(Collection)} when specific
+	 * Tests {@link RuleIdentity#getRuleDefinition(Collection)} when specific
 	 * definitions are defined and one is matching criteria
 	 */
 	@Test
@@ -146,18 +143,18 @@ public class RuleIdentityTest {
 		List<RuleDefinitionParameter> ruleDefinitionParameters = new ArrayList<>();
 		ruleDefinitionParameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "100000"));
 
-		RuleDefinition defaultRuleDefinition = mock(RuleDefinition.class);
-		when(defaultRuleDefinition.getLevel()).thenReturn(DefinitionLevel.DEFAULT);
+		RuleDefinition defaultRuleDefinition = new RuleDefinition();
+		defaultRuleDefinition.setId(0);
 
-		RuleDefinition employerRuleDefinition = mock(RuleDefinition.class);
-		when(employerRuleDefinition.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
-		when(employerRuleDefinition.match(ruleDefinitionParameters)).thenReturn(true);
+		RuleDefinition employerRuleDefinition = new RuleDefinition();
+		employerRuleDefinition.setId(1);
+		employerRuleDefinition.getDefinitionParameters().add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "100000"));
 
 		ruleIdentity.getRuleDefinitions().add(defaultRuleDefinition);
 		ruleIdentity.getRuleDefinitions().add(employerRuleDefinition);
 
-		assertNotNull(ruleIdentity.getDefinition(ruleDefinitionParameters));
-		assertEquals(employerRuleDefinition, ruleIdentity.getDefinition(ruleDefinitionParameters));
+		assertNotNull(ruleIdentity.getRuleDefinition(ruleDefinitionParameters));
+		assertEquals(employerRuleDefinition, ruleIdentity.getRuleDefinition(ruleDefinitionParameters));
 	}
 
 }

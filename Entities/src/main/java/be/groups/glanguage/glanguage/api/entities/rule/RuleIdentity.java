@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.management.RuntimeErrorException;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +18,10 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionException;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.DefinitionMatcherStrategy;
 
 /**
  * A RuleIdentity is the unique identity of a rule A RuleIdentity has a unique
@@ -26,63 +33,63 @@ import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinition
 @Entity
 @SuppressWarnings("unused")
 public class RuleIdentity implements Comparable<RuleIdentity> {
-
+	
 	/**
 	 * Technical unique id
 	 */
 	private int id;
-
+	
 	/**
 	 * Set of RuleDefinition
 	 */
 	private Set<RuleDefinition> ruleDefinitions;
-
+	
 	/**
 	 * Group items
 	 */
 	private Collection<RuleGroupItem> groupItems;
-
+	
 	/**
 	 * Default RuleDefintion
 	 */
 	private RuleDefinition defaultRuleDefinition;
-
+	
 	/**
 	 * Collection of {@link RuleDefinition}'s of
 	 * {@link DefinitioneLevel.SOCIAL_SECRETARY} level
 	 */
 	private Collection<RuleDefinition> socialSecretaryRuleDefintions;
-
+	
 	/**
 	 * Collection of {@link RuleDefinition}'s of
 	 * {@link DefinitioneLevel.EMPLOYER} level
 	 */
 	private Collection<RuleDefinition> employerRuleDefintions;
-
+	
 	/**
 	 * Collection of {@link RuleDefinition}'s of
 	 * {@link DefinitioneLevel.JOINT_COMMITTEE} level
 	 */
 	private Collection<RuleDefinition> jointCommitteeRuleDefintions;
-
+	
 	/**
 	 * Collection of {@link RuleDefinition}'s of
 	 * {@link DefinitioneLevel.COLLECTIVE_LABOR_AGREEMENT} level
 	 */
 	private Collection<RuleDefinition> collectiveLaborAgreementRuleDefintions;
-
+	
 	/**
 	 * Collection of {@link RuleDefinition}'s of {@link DefinitioneLevel.CUSTOM}
 	 * level
 	 */
 	private Collection<RuleDefinition> customRuleDefintions;
-
+	
 	public RuleIdentity() {
 		super();
-
+		
 		this.ruleDefinitions = new HashSet<>();
 	}
-
+	
 	/**
 	 * @return the id
 	 */
@@ -90,7 +97,7 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
 	public int getId() {
 		return id;
 	}
-
+	
 	/**
 	 * @return the ruleDefinitions
 	 */
@@ -98,7 +105,7 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
 	public Set<RuleDefinition> getRuleDefinitions() {
 		return ruleDefinitions;
 	}
-
+	
 	/**
 	 * @return the groupItems
 	 */
@@ -106,7 +113,7 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
 	public Collection<RuleGroupItem> getGroupItems() {
 		return groupItems;
 	}
-
+	
 	/**
 	 * @return the defaultRuleDefinition
 	 */
@@ -117,7 +124,7 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
 		}
 		return defaultRuleDefinition;
 	}
-
+	
 	/**
 	 * @return the socialSecretaryRuleDefintions
 	 */
@@ -128,7 +135,7 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
 		}
 		return socialSecretaryRuleDefintions;
 	}
-
+	
 	/**
 	 * @return the employerRuleDefintions
 	 */
@@ -139,7 +146,7 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
 		}
 		return employerRuleDefintions;
 	}
-
+	
 	/**
 	 * @return the jointCommitteRuleDefintions
 	 */
@@ -150,7 +157,7 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
 		}
 		return jointCommitteeRuleDefintions;
 	}
-
+	
 	/**
 	 * @return the collectiveLaborAgreementRuleDefintions
 	 */
@@ -161,7 +168,7 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
 		}
 		return collectiveLaborAgreementRuleDefintions;
 	}
-
+	
 	/**
 	 * @return the customRuleDefintions
 	 */
@@ -172,60 +179,37 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
 		}
 		return customRuleDefintions;
 	}
-
+	
 	/**
-	 * Get the RuleDefinition corresponding to a RuleDefinitionLevelDescription
-	 * A RuleDefinition corresponds to a RuleDefinitionLevelDescription if the
-	 * RuleDefinition's RuleDefinitionLevelDescription matches the
-	 * RuleDefinitionLevelDescription
+	 * Get all {@link RuleDefinition}'s that match at least the collection of {@link RuleDefinitionParameter} {@code parameters}
 	 * 
-	 * @param description
-	 *            the RuleDefinitionLevelDescription to which the RuleDefinition
-	 *            has to correspond
-	 * @return the RuleDefinition corresponding to the description if it exists,
-	 *         null otherwise
+	 * @param parameters
+	 * @return The list of all {@link RuleDefinition}'s that match at least the collection of {@link RuleDefinitionParameter}
+	 *         {@code parameters}
+	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
+	 * @see DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)
 	 */
 	@Transient
-	public RuleDefinition getDefinition(Collection<RuleDefinitionParameter> parameters) {
-		if (defaultRuleDefinition == null || socialSecretaryRuleDefintions == null || employerRuleDefintions == null
-				|| jointCommitteeRuleDefintions == null || collectiveLaborAgreementRuleDefintions == null
-				|| customRuleDefintions == null) {
-			allocateAllRuleDefinitions();
+	public List<RuleDefinition> getRuleDefinitions(Collection<RuleDefinitionParameter> parameters) {
+		try {
+			return getRuleDefinitions().stream().filter(rd -> rd.matches(parameters, DefinitionMatcherStrategy.AT_LEAST))
+					.collect(Collectors.toList());
+		} catch (DefinitionException de) {
+			throw new RuntimeException(
+					"Unable to find the best rule definition for rule " + getId() + " - parameters not precise enough", de);
 		}
-		// Search in this "custom" level definitions
-		for (RuleDefinition definition : customRuleDefintions) {
-			if (definition.match(parameters)) {
-				return definition;
-			}
-		}
-		// Search in this "collective labor agreement" level definitions
-		for (RuleDefinition definition : collectiveLaborAgreementRuleDefintions) {
-			if (definition.match(parameters)) {
-				return definition;
-			}
-		}
-		// Search in this "joint committee" level definitions
-		for (RuleDefinition definition : jointCommitteeRuleDefintions) {
-			if (definition.match(parameters)) {
-				return definition;
-			}
-		}
-		// Search in this "employer" level definitions
-		for (RuleDefinition definition : employerRuleDefintions) {
-			if (definition.match(parameters)) {
-				return definition;
-			}
-		}
-		// Search in this "social secretary" level definitions
-		for (RuleDefinition definition : socialSecretaryRuleDefintions) {
-			if (definition.match(parameters)) {
-				return definition;
-			}
-		}
-		// Return "default" definition
-		return getDefaultRuleDefinition();
 	}
-
+	
+	@Transient
+	public RuleDefinition getRuleDefinition(Collection<RuleDefinitionParameter> parameters) {
+		try {
+			return DefinitionMatcher.getBestMatch(getRuleDefinitions(), parameters);
+		} catch (DefinitionException de) {
+			throw new RuntimeException(
+					"Unable to find the best rule definition for rule " + getId() + " - parameters not precise enough", de);
+		}
+	}
+	
 	/**
 	 * Allocate all ruleDefintions to the right map or set depending on its
 	 * level
@@ -237,111 +221,133 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
 		this.jointCommitteeRuleDefintions = new ArrayList<RuleDefinition>();
 		this.collectiveLaborAgreementRuleDefintions = new ArrayList<RuleDefinition>();
 		this.customRuleDefintions = new ArrayList<RuleDefinition>();
-
+		
 		// Allocate all rule definitions
 		Iterator<RuleDefinition> itRuleDefinitions = ruleDefinitions.iterator();
 		while (itRuleDefinitions.hasNext()) {
 			RuleDefinition ruleDefinition = itRuleDefinitions.next();
 			switch (ruleDefinition.getLevel()) {
-			case DEFAULT:
-				defaultRuleDefinition = ruleDefinition;
-				break;
-			case SOCIAL_SECRETARY:
-				socialSecretaryRuleDefintions.add(ruleDefinition);
-				break;
-			case EMPLOYER:
-				employerRuleDefintions.add(ruleDefinition);
-				break;
-			case JOINT_COMMITTEE:
-				jointCommitteeRuleDefintions.add(ruleDefinition);
-				break;
-			case COLLECTIVE_LABOR_AGREEMENT:
-				collectiveLaborAgreementRuleDefintions.add(ruleDefinition);
-				break;
-			case CUSTOM:
-				customRuleDefintions.add(ruleDefinition);
-				break;
-			default:
-				assert false;
+				case DEFAULT:
+					defaultRuleDefinition = ruleDefinition;
+					break;
+				case SOCIAL_SECRETARY:
+					socialSecretaryRuleDefintions.add(ruleDefinition);
+					break;
+				case EMPLOYER:
+					employerRuleDefintions.add(ruleDefinition);
+					break;
+				case JOINT_COMMITTEE:
+					jointCommitteeRuleDefintions.add(ruleDefinition);
+					break;
+				case COLLECTIVE_LABOR_AGREEMENT:
+					collectiveLaborAgreementRuleDefintions.add(ruleDefinition);
+					break;
+				case CUSTOM:
+					customRuleDefintions.add(ruleDefinition);
+					break;
+				default:
+					assert false;
 			}
 		}
 	}
-
+	
 	/**
 	 * @param id
-	 *            the id to set
+	 *        the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	
 	/**
 	 * @param ruleDefinitions
-	 *            the ruleDefinitions to set
+	 *        the ruleDefinitions to set
 	 */
 	private void setRuleDefinitions(Set<RuleDefinition> ruleDefinitions) {
 		this.ruleDefinitions = ruleDefinitions;
 	}
-
+	
 	/**
 	 * @param groupItems
-	 *            the groupItems to set
+	 *        the groupItems to set
 	 */
 	public void setGroupItems(Collection<RuleGroupItem> groupItems) {
 		this.groupItems = groupItems;
 	}
-
+	
 	/**
 	 * @param defaultRuleDefinition
-	 *            the defaultRuleDefinition to set
+	 *        the defaultRuleDefinition to set
 	 */
 	private void setDefaultRuleDefinition(RuleDefinition defaultRuleDefinition) {
 		this.defaultRuleDefinition = defaultRuleDefinition;
 	}
-
+	
 	/**
 	 * @param socialSecretaryRuleDefintions
-	 *            the socialSecretaryRuleDefintions to set
+	 *        the socialSecretaryRuleDefintions to set
 	 */
 	private void setSocialSecretaryRuleDefintions(Collection<RuleDefinition> socialSecretaryRuleDefintions) {
 		this.socialSecretaryRuleDefintions = socialSecretaryRuleDefintions;
 	}
-
+	
 	/**
 	 * @param employerRuleDefintions
-	 *            the employerRuleDefintions to set
+	 *        the employerRuleDefintions to set
 	 */
 	private void setEmployerRuleDefintions(Collection<RuleDefinition> employerRuleDefintions) {
 		this.employerRuleDefintions = employerRuleDefintions;
 	}
-
+	
 	/**
 	 * @param jointCommitteRuleDefintions
-	 *            the jointCommitteRuleDefintions to set
+	 *        the jointCommitteRuleDefintions to set
 	 */
 	private void setJointCommitteeRuleDefintions(Collection<RuleDefinition> jointCommitteRuleDefintions) {
 		this.jointCommitteeRuleDefintions = jointCommitteRuleDefintions;
 	}
-
+	
 	/**
 	 * @param collectiveLaborAgreementRuleDefintions
-	 *            the collectiveLaborAgreementRuleDefintions to set
+	 *        the collectiveLaborAgreementRuleDefintions to set
 	 */
 	private void setCollectiveLaborAgreementRuleDefintions(
 			Collection<RuleDefinition> collectiveLaborAgreementRuleDefintions) {
 		this.collectiveLaborAgreementRuleDefintions = collectiveLaborAgreementRuleDefintions;
 	}
-
+	
 	/**
 	 * @param customRuleDefintions
-	 *            the customRuleDefintions to set
+	 *        the customRuleDefintions to set
 	 */
 	private void setCustomRuleDefintions(Collection<RuleDefinition> customRuleDefintions) {
 		this.customRuleDefintions = customRuleDefintions;
 	}
-
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RuleIdentity other = (RuleIdentity) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
 	public int compareTo(RuleIdentity o) {
 		return id - o.id;
 	}
-
+	
 }

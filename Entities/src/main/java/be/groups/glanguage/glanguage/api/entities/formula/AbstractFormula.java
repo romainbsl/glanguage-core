@@ -25,6 +25,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.DiscriminatorOptions;
+
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -53,6 +55,7 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 @Table(name = "FORMULA", uniqueConstraints = @UniqueConstraint(columnNames = {"parent_formula_id", "sequence_number"}) )
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "FORMULA_DESCRIPTION_ID", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorOptions(force = true)
 public abstract class AbstractFormula {
 	
 	/**

@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.round
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
@@ -22,11 +23,13 @@ public class FormulaRoundingBankers extends RoundingFormula {
 	}
 
 	@Override
+	@Transient
 	public RoundingType getRoundingType() {
 		return RoundingType.BANKERS;
 	}
 
 	@Override
+	@Transient
 	public AbstractFormula getDefaultPrecision(FormulaDescription description) {
 		return new FormulaTerminalInteger(description, "2");
 	}

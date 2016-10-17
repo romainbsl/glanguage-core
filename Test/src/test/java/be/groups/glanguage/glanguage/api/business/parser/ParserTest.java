@@ -8,17 +8,48 @@ import static org.junit.Assert.assertTrue;
 import java.time.Duration;
 import java.time.LocalDate;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import be.groups.common.persistence.util.TransactionHelper;
+import be.groups.common.test.utils.Environment;
 import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
 import be.groups.glanguage.glanguage.api.business.action.standard.AsStandard;
 import be.groups.glanguage.glanguage.api.business.analysis.byaccj.SlangTab;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaIfInstruction;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBoolean;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalInteger;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumeric;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalString;
+import be.groups.marmota.persistence.DatabaseIdentifier;
+import be.groups.marmota.persistence.JpaUtil;
+import be.groups.marmota.test.TNSNames;
 
 public class ParserTest {
+	
+	/*
+	 * Setups
+	 */
+	@BeforeClass
+	public static void setUpBeforeClass() {
+		Environment.setUp();
+		TNSNames.setUp();
+		
+		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
+		
+		if (!TransactionHelper.isActive()) {
+			TransactionHelper.begin();
+		}
+	}
+	
+	@AfterClass
+	public static void close() {
+		if (TransactionHelper.isActive()) {
+			TransactionHelper.rollback();
+		}
+	}
 	
 	@Test
 	public void testParseBooleanTrue() {
@@ -537,124 +568,124 @@ public class ParserTest {
 
 // TODO reactivate tests when getReturnType() method, needed by constructor of FormulaIfInstruction, is 	
 	
-//	@Test
-//	public void testComplexIf1() {
-//		String n = "1";
-//		String str = getComplexIf(n);
-//		
-//		SemanticalAction semanticalAction = new AsStandard();
-//		SlangTab parser = new SlangTab(true);
-//		parser.setSemanticalAction(semanticalAction);
-//		parser.setFormulaString(str.toString());
-//		parser.analyze();
-//		assertNotNull(semanticalAction.getFormulaList());
-//		assertFalse(semanticalAction.getFormulaList().isEmpty());
-//		assertEquals(1, semanticalAction.getFormulaList().size());
-////		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
-////				semanticalAction.getFormulaList().get(0) instanceof FormulaIfInstruction);
-////		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().get(0).getReturnType());
-////		assertTrue(semanticalAction.getFormulaList().get(0).getValue() instanceof String);
-//		assertEquals("if-if", semanticalAction.getFormulaList().get(0).getStringValue());
-//	}
-//	
-//	@Test
-//	public void testComplexIf2() {
-//		String n = "2";
-//		String str = getComplexIf(n);
-//		
-//		SemanticalAction semanticalAction = new AsStandard();
-//		SlangTab parser = new SlangTab(true);
-//		parser.setSemanticalAction(semanticalAction);
-//		parser.setFormulaString(str.toString());
-//		parser.analyze();
-//		assertNotNull(semanticalAction.getFormulaList());
-//		assertFalse(semanticalAction.getFormulaList().isEmpty());
-//		assertEquals(1, semanticalAction.getFormulaList().size());
-////		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
-////				semanticalAction.getFormulaList().get(0) instanceof FormulaIfInstruction);
-////		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().get(0).getReturnType());
-////		assertTrue(semanticalAction.getFormulaList().get(0).getValue() instanceof String);
-//		assertEquals("if-elseif", semanticalAction.getFormulaList().get(0).getStringValue());
-//	}
-//	
-//	@Test
-//	public void testComplexIf3() {
-//		String n = "3";
-//		String str = getComplexIf(n);
-//		
-//		SemanticalAction semanticalAction = new AsStandard();
-//		SlangTab parser = new SlangTab(true);
-//		parser.setSemanticalAction(semanticalAction);
-//		parser.setFormulaString(str.toString());
-//		parser.analyze();
-//		assertNotNull(semanticalAction.getFormulaList());
-//		assertFalse(semanticalAction.getFormulaList().isEmpty());
-//		assertEquals(1, semanticalAction.getFormulaList().size());
-////		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
-////				semanticalAction.getFormulaList().get(0) instanceof FormulaIfInstruction);
-////		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().get(0).getReturnType());
-////		assertTrue(semanticalAction.getFormulaList().get(0).getValue() instanceof String);
-//		assertEquals("if-elseif-if", semanticalAction.getFormulaList().get(0).getStringValue());
-//	}
-//	
-//	@Test
-//	public void testComplexIf4() {
-//		String n = "4";
-//		String str = getComplexIf(n);
-//		
-//		SemanticalAction semanticalAction = new AsStandard();
-//		SlangTab parser = new SlangTab(true);
-//		parser.setSemanticalAction(semanticalAction);
-//		parser.setFormulaString(str.toString());
-//		parser.analyze();
-//		assertNotNull(semanticalAction.getFormulaList());
-//		assertFalse(semanticalAction.getFormulaList().isEmpty());
-//		assertEquals(1, semanticalAction.getFormulaList().size());
-////		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
-////				semanticalAction.getFormulaList().get(0) instanceof FormulaIfInstruction);
-////		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().get(0).getReturnType());
-////		assertTrue(semanticalAction.getFormulaList().get(0).getValue() instanceof String);
-//		assertEquals("if-elseif-else", semanticalAction.getFormulaList().get(0).getStringValue());
-//	}
-//	
-//	@Test
-//	public void testComplexIf5() {
-//		String n = "5";
-//		String str = getComplexIf(n);
-//		
-//		SemanticalAction semanticalAction = new AsStandard();
-//		SlangTab parser = new SlangTab(true);
-//		parser.setSemanticalAction(semanticalAction);
-//		parser.setFormulaString(str.toString());
-//		parser.analyze();
-//		assertNotNull(semanticalAction.getFormulaList());
-//		assertFalse(semanticalAction.getFormulaList().isEmpty());
-//		assertEquals(1, semanticalAction.getFormulaList().size());
-////		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
-////				semanticalAction.getFormulaList().get(0) instanceof FormulaIfInstruction);
-////		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().get(0).getReturnType());
-////		assertTrue(semanticalAction.getFormulaList().get(0).getValue() instanceof String);
-//		assertEquals("if-else", semanticalAction.getFormulaList().get(0).getStringValue());
-//	}
-//	
-//	@Test
-//	public void testComplexIf6() {
-//		String n = "-1";
-//		String str = getComplexIf(n);
-//		
-//		SemanticalAction semanticalAction = new AsStandard();
-//		SlangTab parser = new SlangTab(true);
-//		parser.setSemanticalAction(semanticalAction);
-//		parser.setFormulaString(str.toString());
-//		parser.analyze();
-//		assertNotNull(semanticalAction.getFormulaList());
-//		assertFalse(semanticalAction.getFormulaList().isEmpty());
-//		assertEquals(1, semanticalAction.getFormulaList().size());
-////		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
-////				semanticalAction.getFormulaList().get(0) instanceof FormulaIfInstruction);
-////		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().get(0).getReturnType());
-////		assertTrue(semanticalAction.getFormulaList().get(0).getValue() instanceof String);
-//		assertEquals("else", semanticalAction.getFormulaList().get(0).getStringValue());
-//	}
+	@Test
+	public void testComplexIf1() {
+		String n = "1";
+		String str = getComplexIf(n);
+		
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str.toString());
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().get(0) instanceof FormulaIfInstruction);
+		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().get(0).getReturnType());
+		assertTrue(semanticalAction.getFormulaList().get(0).getValue() instanceof String);
+		assertEquals("if-if", semanticalAction.getFormulaList().get(0).getStringValue());
+	}
+	
+	@Test
+	public void testComplexIf2() {
+		String n = "2";
+		String str = getComplexIf(n);
+		
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str.toString());
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().get(0) instanceof FormulaIfInstruction);
+		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().get(0).getReturnType());
+		assertTrue(semanticalAction.getFormulaList().get(0).getValue() instanceof String);
+		assertEquals("if-elseif", semanticalAction.getFormulaList().get(0).getStringValue());
+	}
+	
+	@Test
+	public void testComplexIf3() {
+		String n = "3";
+		String str = getComplexIf(n);
+		
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str.toString());
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().get(0) instanceof FormulaIfInstruction);
+		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().get(0).getReturnType());
+		assertTrue(semanticalAction.getFormulaList().get(0).getValue() instanceof String);
+		assertEquals("if-elseif-if", semanticalAction.getFormulaList().get(0).getStringValue());
+	}
+	
+	@Test
+	public void testComplexIf4() {
+		String n = "4";
+		String str = getComplexIf(n);
+		
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str.toString());
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().get(0) instanceof FormulaIfInstruction);
+		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().get(0).getReturnType());
+		assertTrue(semanticalAction.getFormulaList().get(0).getValue() instanceof String);
+		assertEquals("if-elseif-else", semanticalAction.getFormulaList().get(0).getStringValue());
+	}
+	
+	@Test
+	public void testComplexIf5() {
+		String n = "5";
+		String str = getComplexIf(n);
+		
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str.toString());
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().get(0) instanceof FormulaIfInstruction);
+		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().get(0).getReturnType());
+		assertTrue(semanticalAction.getFormulaList().get(0).getValue() instanceof String);
+		assertEquals("if-else", semanticalAction.getFormulaList().get(0).getStringValue());
+	}
+	
+	@Test
+	public void testComplexIf6() {
+		String n = "-1";
+		String str = getComplexIf(n);
+		
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str.toString());
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().get(0) instanceof FormulaIfInstruction);
+		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().get(0).getReturnType());
+		assertTrue(semanticalAction.getFormulaList().get(0).getValue() instanceof String);
+		assertEquals("else", semanticalAction.getFormulaList().get(0).getStringValue());
+	}
 	
 }

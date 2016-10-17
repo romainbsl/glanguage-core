@@ -53,7 +53,7 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
 					+ " object while referenced rule (version id : " + getConstantValue()
 					+ ") is not set - while branching is not done");
 		}
-		return groupRule.getGroupItems().stream().map(i -> i.getEffectiveRule()).collect(Collectors.toList());
+		return groupRule.getGroupItems().stream().map(i -> i.getReferencedRule()).collect(Collectors.toList());
 	}
 	
 	@JsonIgnore
@@ -81,7 +81,7 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
 	@Override
 	public boolean isValid() {
 		if (groupRule != null) {
-			Set<FormulaReturnType> returnTypes = groupRule.getGroupItems().stream().map(i -> i.getEffectiveRule().getReturnType())
+			Set<FormulaReturnType> returnTypes = groupRule.getGroupItems().stream().map(i -> i.getReferencedRule().getReturnType())
 					.distinct().collect(Collectors.toSet());
 					
 			if (returnTypes.stream().allMatch(e -> Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC).contains(e))) {
@@ -98,7 +98,7 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
 	@Override
 	public FormulaReturnType getReturnType() {
 		if (groupRule != null) {
-			Set<FormulaReturnType> returnTypes = groupRule.getGroupItems().stream().map(i -> i.getEffectiveRule().getReturnType())
+			Set<FormulaReturnType> returnTypes = groupRule.getGroupItems().stream().map(i -> i.getReferencedRule().getReturnType())
 					.distinct().collect(Collectors.toSet());
 			if (returnTypes.size() == 1) {
 				return returnTypes.iterator().next();

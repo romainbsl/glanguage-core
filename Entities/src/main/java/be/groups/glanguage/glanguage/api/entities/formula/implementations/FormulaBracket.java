@@ -30,7 +30,8 @@ public class FormulaBracket extends AbstractFormula {
 		this.parameters = new ArrayList<>();
 		this.parameters.add(child);
 	}
-	
+
+	@Transient
 	@Override
 	public boolean isTerminal() {
 		return false;
