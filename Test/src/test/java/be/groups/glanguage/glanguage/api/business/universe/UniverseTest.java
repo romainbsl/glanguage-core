@@ -16,6 +16,8 @@ import org.junit.Test;
 import be.groups.common.persistence.util.TransactionHelper;
 import be.groups.common.test.utils.Environment;
 import be.groups.glanguage.glanguage.api.business.plan.Plan;
+import be.groups.glanguage.glanguage.api.dao.FormulaDao;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
 import be.groups.marmota.persistence.DatabaseIdentifier;
@@ -157,6 +159,16 @@ public class UniverseTest {
 		assertNotNull(plan.getRuleVersions());
 		assertFalse(plan.getRuleVersions().isEmpty());
 		assertFalse(plan.isBranched());
+	}
+	
+	/**
+	 * Test {@link Universe#getFormula(Integer)}
+	 */
+	@Test
+	public void testGetFormula() {
+		AbstractFormula formula = Universe.getFormula(900000);
+		assertNotNull(formula);
+		assertEquals(900000, formula.getId());
 	}
 	
 }

@@ -58,6 +58,7 @@ public class PlanTest {
 	public void testEvaluate() {
 		LocalDateTime effectivityDate = LocalDateTime.now();
 		Plan plan = Universe.getPlan(900003, effectivityDate, false);
+		plan.resetEvaluation();
 		assertNotNull(plan);
 		assertNotNull(plan.getRuleVersions());
 		assertFalse(plan.getRuleVersions().isEmpty());
@@ -80,7 +81,7 @@ public class PlanTest {
 					assertEquals(500, ruleVersion.getValue());
 					break;
 				default:
-					assertTrue(true);
+					fail("Unexepected evaluated rule version : " + ruleVersion.getId());
 			}
 		}
 	}
@@ -89,9 +90,10 @@ public class PlanTest {
 	 * Tests {@link Plan#evaluate(String, boolean)}
 	 */
 	@Test
-	public void testEvaluateRule() {
+	public void testEvaluateRule900002() {
 		LocalDateTime effectivityDate = LocalDateTime.now();
 		Plan plan = Universe.getPlan(900003, effectivityDate, false);
+		plan.resetEvaluation();
 		assertNotNull(plan);
 		assertNotNull(plan.getRuleVersions());
 		assertFalse(plan.getRuleVersions().isEmpty());
@@ -107,7 +109,41 @@ public class PlanTest {
 					assertEquals(1500, ruleVersion.getValue());
 					break;
 				default:
-					assertTrue(true);
+					fail("Unexepected evaluated rule version : " + ruleVersion.getId());
+			}
+		}
+	}
+	
+	/**
+	 * Tests {@link Plan#evaluate(String, boolean)}
+	 */
+	@Test
+	public void testEvaluateRule900003() {
+		LocalDateTime effectivityDate = LocalDateTime.now();
+		Plan plan = Universe.getPlan(900003, effectivityDate, false);
+		plan.resetEvaluation();
+		assertNotNull(plan);
+		assertNotNull(plan.getRuleVersions());
+		assertFalse(plan.getRuleVersions().isEmpty());
+		assertFalse(plan.isBranched());
+		Collection<RuleVersion> evaluatedRuleVersions = plan.evaluate("900003", false);
+		assertTrue(plan.isBranched());
+		assertNotNull(evaluatedRuleVersions);
+		assertFalse(evaluatedRuleVersions.isEmpty());
+		assertEquals(3, evaluatedRuleVersions.size());
+		for (RuleVersion ruleVersion: evaluatedRuleVersions) {
+			switch (ruleVersion.getId()) {
+				case 900006: 
+					assertEquals(1500, ruleVersion.getValue());
+					break;
+				case 900007:
+					assertEquals(1000, ruleVersion.getValue());
+					break;
+				case 900008:
+					assertEquals(500, ruleVersion.getValue());
+					break;
+				default:
+					fail("Unexepected evaluated rule version : " + ruleVersion.getId());
 			}
 		}
 	}

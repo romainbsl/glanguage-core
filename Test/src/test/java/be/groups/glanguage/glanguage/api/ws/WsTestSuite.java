@@ -10,7 +10,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author DUPIREFR
  */
 @RunWith(Suite.class)
-@SuiteClasses({ParsingTest.class})
+@SuiteClasses({FormulaAsStringTest.class, ParsingTest.class})
 public class WsTestSuite {
 
 }

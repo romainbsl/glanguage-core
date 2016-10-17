@@ -5,8 +5,10 @@ import java.util.Collection;
 import java.util.List;
 
 import be.groups.glanguage.glanguage.api.business.plan.Plan;
+import be.groups.glanguage.glanguage.api.dao.FormulaDao;
 import be.groups.glanguage.glanguage.api.dao.RuleSetDao;
 import be.groups.glanguage.glanguage.api.dao.RuleSetVersionDao;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
@@ -104,4 +106,7 @@ public class Universe {
 		return plan;
 	}
 	
+	public static AbstractFormula getFormula(Integer id) {
+		return new FormulaDao().findById(id);
+	}
 }

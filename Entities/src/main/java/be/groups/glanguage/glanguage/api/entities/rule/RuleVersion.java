@@ -380,6 +380,11 @@ public class RuleVersion implements Comparable<RuleVersion> {
 		return getFormula().isValuable();
 	}
 
+	@Transient
+	public boolean isEvaluated() {
+		return value != null;
+	}
+
 	/**
 	 * Is this effective at a specified date ? <br>
 	 * This is effective at a specified date if the specified date is between

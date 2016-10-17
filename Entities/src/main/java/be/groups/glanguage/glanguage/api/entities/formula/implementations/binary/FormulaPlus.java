@@ -41,7 +41,7 @@ public class FormulaPlus extends BinaryFormula {
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
-		return getNumericValue().intValue();
+		return getParameters().get(0).getIntegerValue() + getParameters().get(1).getIntegerValue();
 	}
 	
 	@JsonIgnore

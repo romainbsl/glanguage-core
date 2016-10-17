@@ -70,7 +70,11 @@ public class Plan {
 			throw new RuntimeException("Unable to evaluate the rule identified by " + ruleIdentifier
 					+ " because there is no rule corresponding to this identifier in this plan");
 		}
-		return getRuleVersions().stream().filter(rv -> rv.isCached()).collect(Collectors.toList());
+		return getRuleVersions().stream().filter(rv -> rv.isEvaluated()).collect(Collectors.toList());
+	}
+
+	public void resetEvaluation() {
+		getRuleVersions().stream().forEach(RuleVersion::resetValue);
 	}
 	
 	private void evaluate(RuleVersion ruleVersion, boolean recursive) {
