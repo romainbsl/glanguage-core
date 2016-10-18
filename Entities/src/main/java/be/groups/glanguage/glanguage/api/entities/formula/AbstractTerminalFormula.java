@@ -84,6 +84,7 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
 				"Cannot invoke getDurationValue() method on " + this.getClass().getName() + " object");
 	}
 	
+	@JsonIgnore
 	@Transient
 	@Override
 	public boolean isTerminal() {

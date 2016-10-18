@@ -133,6 +133,7 @@ public class FormulaGet extends CallFormula {
 		return sb.toString();
 	}
 	
+	@JsonIgnore
 	@Transient
 	private Object getTargetedObject() {
 		Object result = null; // TODO get main facade
@@ -142,6 +143,7 @@ public class FormulaGet extends CallFormula {
 		return result;
 	}
 	
+	@JsonIgnore
 	@Transient
 	private AbstractFormula[] getParametersAsArray() {
 		AbstractFormula[] parameters = null;

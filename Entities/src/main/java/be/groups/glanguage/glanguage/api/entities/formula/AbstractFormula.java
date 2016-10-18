@@ -27,6 +27,8 @@ import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.DiscriminatorOptions;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -119,6 +121,7 @@ public abstract class AbstractFormula {
 	/**
 	 * @return the ruleVersions
 	 */
+	@JsonIgnore
 	@OneToMany(mappedBy = "formula")
 	public Set<RuleVersion> getRuleVersions() {
 		return ruleVersions;
@@ -167,6 +170,7 @@ public abstract class AbstractFormula {
 		return constantValue;
 	}
 	
+	@JsonIgnore
 	@Transient
 	public Integer getDiscriminatorValue() {
 		return Integer.valueOf(this.getClass().getAnnotation(DiscriminatorValue.class).value());
@@ -175,6 +179,7 @@ public abstract class AbstractFormula {
 	@Transient
 	public abstract boolean isTerminal();
 	
+	@JsonIgnore
 	@Transient
 	public boolean isValid() {
 		if (parametersTypes == null) {
@@ -184,6 +189,7 @@ public abstract class AbstractFormula {
 		return description.isValid(parametersTypes);
 	}
 	
+	@JsonIgnore
 	@Transient
 	public FormulaReturnType getReturnType() {
 		if (parametersTypes == null) {
@@ -201,11 +207,13 @@ public abstract class AbstractFormula {
 	/**
 	 * @return Default true
 	 */
+	@JsonIgnore
 	@Transient
 	public boolean isValuable() {
 		return true;
 	}
 	
+	@JsonIgnore
 	@Transient
 	public Object getValue() {
 		switch (getReturnType()) {
@@ -226,21 +234,27 @@ public abstract class AbstractFormula {
 		}
 	}
 	
+	@JsonIgnore
 	@Transient
 	public abstract Integer getIntegerValue();
 	
+	@JsonIgnore
 	@Transient
 	public abstract Double getNumericValue();
 	
+	@JsonIgnore
 	@Transient
 	public abstract String getStringValue();
 	
+	@JsonIgnore
 	@Transient
 	public abstract Boolean getBooleanValue();
 	
+	@JsonIgnore
 	@Transient
 	public abstract LocalDate getDateValue();
 	
+	@JsonIgnore
 	@Transient
 	public abstract Duration getDurationValue();
 	
