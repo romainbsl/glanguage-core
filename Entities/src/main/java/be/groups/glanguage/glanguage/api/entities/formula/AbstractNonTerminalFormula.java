@@ -63,6 +63,7 @@ public abstract class AbstractNonTerminalFormula extends AbstractFormula {
 		throw new UnsupportedOperationException("Cannot invoke getDurationValue() method on " + this.getClass().getName() + " object");
 	}
 	
+	@JsonIgnore
 	@Transient
 	@Override
 	public boolean isTerminal() {
