@@ -48,8 +48,7 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 	public void testFormlaString0() {
 		Integer formulaId = 0;
 		Response response = target("/glanguage/formulaString/" + formulaId).request().get();
-		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-		assertEquals("10", response.readEntity(String.class));
+		assertEquals(Response.Status.SERVICE_UNAVAILABLE.getStatusCode(), response.getStatus());
 	}
 
 	@Category(WsTestCategory.class)
@@ -66,8 +65,7 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 	public void testFormlaString900000() {
 		Integer formulaId = 900000;
 		Response response = target("/glanguage/formulaString/" + formulaId).request().get();
-		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-		assertEquals("1000 + 500", response.readEntity(String.class));
+		assertEquals(Response.Status.SERVICE_UNAVAILABLE.getStatusCode(), response.getStatus());
 	}
 
 	@Category(WsTestCategory.class)
@@ -75,8 +73,7 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 	public void testFormlaString900001() {
 		Integer formulaId = 900001;
 		Response response = target("/glanguage/formulaString/" + formulaId).request().get();
-		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-		assertEquals("1000 + 500", response.readEntity(String.class));
+		assertEquals(Response.Status.SERVICE_UNAVAILABLE.getStatusCode(), response.getStatus());
 	}
 
 	@Category(WsTestCategory.class)
@@ -84,8 +81,7 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 	public void testFormlaString900002() {
 		Integer formulaId = 900002;
 		Response response = target("/glanguage/formulaString/" + formulaId).request().get();
-		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-		assertEquals("1000 + 500", response.readEntity(String.class));
+		assertEquals(Response.Status.SERVICE_UNAVAILABLE.getStatusCode(), response.getStatus());
 	}
 
 	@Category(WsTestCategory.class)
@@ -102,8 +98,7 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 	public void testFormlaString900004() {
 		Integer formulaId = 900004;
 		Response response = target("/glanguage/formulaString/" + formulaId).request().get();
-		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-		assertEquals("1000 + 500", response.readEntity(String.class));
+		assertEquals(Response.Status.SERVICE_UNAVAILABLE.getStatusCode(), response.getStatus());
 	}
 
 	@Category(WsTestCategory.class)
@@ -111,8 +106,7 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 	public void testFormlaString900005() {
 		Integer formulaId = 900005;
 		Response response = target("/glanguage/formulaString/" + formulaId).request().get();
-		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-		assertEquals("1000 + 500", response.readEntity(String.class));
+		assertEquals(Response.Status.SERVICE_UNAVAILABLE.getStatusCode(), response.getStatus());
 	}
 
 	@Category(WsTestCategory.class)
