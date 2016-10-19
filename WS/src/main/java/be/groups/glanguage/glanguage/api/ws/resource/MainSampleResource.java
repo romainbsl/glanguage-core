@@ -1,6 +1,7 @@
 package be.groups.glanguage.glanguage.api.ws.resource;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -37,12 +38,12 @@ public class MainSampleResource {
 		LOG = LoggerFactory.getLogger(MainSampleResource.class);
 	}
 	
-	@GET
-	@Path("/parse/{formulaString}")
+	@POST
+	@Path("/parse")
 	@ApiOperation(value = "parse formula string", response = Response.class)
 	public Response getFormulaFromString(@Context ContainerRequestContext request,
 								@ApiParam(value = "formulaString", required = true, defaultValue = "") 
-								@PathParam("formulaString") String formulaString) {
+								String formulaString) {
 		initializePersistence();
 		try {
 			return Response.status(Response.Status.OK)
@@ -62,7 +63,7 @@ public class MainSampleResource {
 		parser.setSemanticalAction(semanticalAction);
 		parser.setFormulaString(formulaString);
 		parser.analyze();
-		return semanticalAction.getFormulaList().get(0);
+		return semanticalAction.getFormulaList().getLast();
 	}
 	
 	@GET

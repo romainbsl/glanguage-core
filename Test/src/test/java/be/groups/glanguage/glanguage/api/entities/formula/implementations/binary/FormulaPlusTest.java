@@ -475,11 +475,11 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	public void testGetIntegerValueIntInt() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getNumericValue()).thenReturn(1.0);
+		when(operand1.getIntegerValue()).thenReturn(1);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getNumericValue()).thenReturn(2.0);
+		when(operand2.getIntegerValue()).thenReturn(2);
 		
 		FormulaPlus formula = new FormulaPlus(null, operand1, operand2);
 		
