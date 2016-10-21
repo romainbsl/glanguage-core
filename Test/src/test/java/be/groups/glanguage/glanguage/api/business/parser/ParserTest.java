@@ -23,6 +23,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaIntegerDivision;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaModulo;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMultiply;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaPlus;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaIfInstruction;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBoolean;
@@ -1268,5 +1269,189 @@ public class ParserTest {
 		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertEquals(new Integer(0), semanticalAction.getFormulaList().get(0).getIntegerValue());
 	}
+	
+	/*
+	 * Tests for binary PLUS formula
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1+1"
+	 */
+	@Test
+	public void testParseBinaryPlus1And1WithoutBlank() {
+		String str = "1+1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaPlus);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(2), semanticalAction.getFormulaList().get(0).getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1 + 1"
+	 */
+	@Test
+	public void testParseBinaryPlus1And1WithBlank() {
+		String str = "1 + 1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaPlus);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(2), semanticalAction.getFormulaList().get(0).getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1,1+1,1"
+	 */
+	@Test
+	public void testParseBinaryPlus1Comma1And1Comma1WithoutBlank() {
+		String str = "1,1+1,1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaPlus);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(2.2), semanticalAction.getFormulaList().get(0).getNumericValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1,1 + 1,1"
+	 */
+	@Test
+	public void testParseBinaryPlus1Comma1And1Comma1WithBlank() {
+		String str = "1,1 + 1,1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaPlus);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(2.2), semanticalAction.getFormulaList().get(0).getNumericValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string ""ab"+"c""
+	 */
+	@Test
+	public void testParseBinaryPlusABAndCWithoutBlank() {
+		String str = "\"ab\"+\"c\"";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaPlus);
+		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new String("abc"), semanticalAction.getFormulaList().get(0).getStringValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string ""ab" + "c""
+	 */
+	@Test
+	public void testParseBinaryPlusABAndCWithBlank() {
+		String str = "\"ab\" + \"c\"";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaPlus);
+		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new String("abc"), semanticalAction.getFormulaList().get(0).getStringValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "'01/01/2016' + 'P1D'"
+	 */
+	@Test
+	public void testParseBinaryPlusDateAndDuration() {
+		String str = "'01/01/2016' + 'P1D'";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaPlus);
+		assertEquals(FormulaReturnType.DATE, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(LocalDate.of(2016, 1, 2), semanticalAction.getFormulaList().get(0).getDateValue());
+	}	
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "'P1D' + '01/01/2016'"
+	 */
+	@Test
+	public void testParseBinaryPlusDurationAndDate() {
+		String str = "'P1D' + '01/01/2016'";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaPlus);
+		assertEquals(FormulaReturnType.DATE, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(LocalDate.of(2016, 1, 2), semanticalAction.getFormulaList().get(0).getDateValue());
+	}	
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "'P1D' + 'P1D'"
+	 */
+	@Test
+	public void testParseBinaryPlusBothDuration() {
+		String str = "'P1D' + 'P1D'";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaPlus);
+		assertEquals(FormulaReturnType.DURATION, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(Duration.ofDays(2), semanticalAction.getFormulaList().get(0).getDurationValue());
+	}	
 
 }
