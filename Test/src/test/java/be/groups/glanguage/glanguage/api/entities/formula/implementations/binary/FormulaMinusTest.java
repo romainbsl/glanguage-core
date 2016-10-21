@@ -7,6 +7,9 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.time.Duration;
+import java.time.LocalDate;
+
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -193,6 +196,74 @@ public class FormulaMinusTest extends BaseDatabaseTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaMinus#isValid()} when first operand is a date and second is a duration
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidFirstDateSecondDuration() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#isValid()} when both operands are durations
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidBothDurations() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertTrue(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#isValid()} when first operand is a duration and second is a date
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidFirstDurationSecondDate() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#isValid()} when both operands are dates
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidBothDate() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertFalse(formula.isValid());
+	}
+		
+	/**
 	 * Tests {@link FormulaMinus#getReturnType()} when both operands are integers
 	 */
 	@Test
@@ -333,17 +404,68 @@ public class FormulaMinusTest extends BaseDatabaseTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaMinus#getReturnType()} when both operands are durations
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeBothDurations() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertEquals(FormulaReturnType.DURATION, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#getReturnType()} when first operand is a date and second is a duration
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeFirstDateSecondDuration() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertEquals(FormulaReturnType.DATE, formula.getReturnType());
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#getReturnType()} when first operand is a duration and second is a date
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeFirstDurationSecondDate() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		
+		FormulaMinus formula = new FormulaMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_MINUS), operand1, operand2);
+		
+		assertNull(formula.getReturnType());
+	}
+	
+	/**
 	 * Tests {@link FormulaMinus#getIntegerValue()} when both parameters are integers
 	 */
 	@Test
 	public void testGetIntegerValueIntInt() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getNumericValue()).thenReturn(1.0);
+		when(operand1.getIntegerValue()).thenReturn(1);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getNumericValue()).thenReturn(2.0);
+		when(operand2.getIntegerValue()).thenReturn(2);
 		
 		FormulaMinus formula = new FormulaMinus(null, operand1, operand2);
 		
@@ -445,8 +567,8 @@ public class FormulaMinusTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaMinus#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	@Test(expected = NullPointerException.class)
+	public void testGetDateValueWrongTypes() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getNumericValue()).thenReturn(2.0);
@@ -461,10 +583,28 @@ public class FormulaMinusTest extends BaseDatabaseTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaMinus#getDateValue()} when first operand is a date and second operand is a duration
+	 */
+	@Test
+	public void testGetDateValueFirstDateSecondDuration() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(operand1.getDateValue()).thenReturn(LocalDate.of(2016, 1, 1));
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(operand2.getDurationValue()).thenReturn(Duration.ofDays(1));
+		
+		FormulaMinus formula = new FormulaMinus(null, operand1, operand2);
+		
+		assertEquals(LocalDate.of(2015, 12, 31), formula.getDateValue());
+	}
+	
+	/**
 	 * Tests {@link FormulaMinus#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	@Test(expected = NullPointerException.class)
+	public void testGetDurationValueWrongTypes() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getNumericValue()).thenReturn(2.0);
@@ -476,6 +616,24 @@ public class FormulaMinusTest extends BaseDatabaseTest {
 		FormulaMinus formula = new FormulaMinus(null, operand1, operand2);
 		
 		formula.getDurationValue();
+	}
+	
+	/**
+	 * Tests {@link FormulaMinus#getDateValue()} when both operands are durations
+	 */
+	@Test
+	public void testGetDurationValueBothDuration() {
+		AbstractFormula operand1 = mock(AbstractFormula.class);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(operand1.getDurationValue()).thenReturn(Duration.ofDays(2));
+		
+		AbstractFormula operand2 = mock(AbstractFormula.class);
+		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(operand2.getDurationValue()).thenReturn(Duration.ofDays(1));
+		
+		FormulaMinus formula = new FormulaMinus(null, operand1, operand2);
+		
+		assertEquals(Duration.ofDays(1), formula.getDurationValue());
 	}
 	
 	/**
