@@ -21,6 +21,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaRet
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaIn;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDivide;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaIntegerDivision;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMinus;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaModulo;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMultiply;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaPlus;
@@ -1452,6 +1453,210 @@ public class ParserTest {
 				semanticalAction.getFormulaList().getLast() instanceof FormulaPlus);
 		assertEquals(FormulaReturnType.DURATION, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertEquals(Duration.ofDays(2), semanticalAction.getFormulaList().get(0).getDurationValue());
+	}	
+	
+	/*
+	 * Tests for binary MINUS formula
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1-1"
+	 */
+	@Test
+	public void testParseBinaryMinus1And1WithoutBlank() {
+		String str = "1-1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaMinus);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(0), semanticalAction.getFormulaList().get(0).getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1 - 1"
+	 */
+	@Test
+	public void testParseBinaryMinus1And1WithBlank() {
+		String str = "1 - 1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaMinus);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(0), semanticalAction.getFormulaList().get(0).getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1,1-1,1"
+	 */
+	@Test
+	public void testParseBinaryMinus1Comma1And1Comma1WithoutBlank() {
+		String str = "1,1-1,1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaMinus);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(0.0), semanticalAction.getFormulaList().get(0).getNumericValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1,1 - 1,1"
+	 */
+	@Test
+	public void testParseBinaryMinus1Comma1And1Comma1WithBlank() {
+		String str = "1,1 - 1,1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaMinus);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(0.0), semanticalAction.getFormulaList().get(0).getNumericValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1 - 1,1"
+	 */
+	@Test
+	public void testParseBinaryMinus1And1Comma1WithBlank() {
+		String str = "1 - 1,1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaMinus);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(-0.1), semanticalAction.getFormulaList().get(0).getNumericValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1,1 - 1"
+	 */
+	@Test
+	public void testParseBinaryMinus1Comma1And1WithBlank() {
+		String str = "1,1 - 1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaMinus);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(0.1), semanticalAction.getFormulaList().get(0).getNumericValue(), DELTA);
+	}
+		
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1 - 2"
+	 */
+	@Test
+	public void testParseBinaryMinus1And2() {
+		String str = "1 - 2";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaMinus);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(-1), semanticalAction.getFormulaList().get(0).getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "'01/01/2016' - 'P1D'"
+	 */
+	@Test
+	public void testParseBinaryMinusDateAndDuration() {
+		String str = "'01/01/2016' - 'P1D'";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaMinus);
+		assertEquals(FormulaReturnType.DATE, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(LocalDate.of(2015, 12, 31), semanticalAction.getFormulaList().get(0).getDateValue());
+	}	
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "'P2D' - 'P1D'"
+	 */
+	@Test
+	public void testParseBinaryMinusBothDuration() {
+		String str = "'P2D' - 'P1D'";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaMinus);
+		assertEquals(FormulaReturnType.DURATION, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(Duration.ofDays(1), semanticalAction.getFormulaList().get(0).getDurationValue());
+	}	
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "'P1D' - 'P2D'"
+	 */
+	@Test
+	public void testParseBinaryMinusBothDurationSecondGreaterThanFirst() {
+		String str = "'P1D' - 'P2D'";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaMinus);
+		assertEquals(FormulaReturnType.DURATION, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(Duration.ofDays(-1), semanticalAction.getFormulaList().get(0).getDurationValue());
 	}	
 
 }
