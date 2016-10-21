@@ -1,5 +1,8 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
+import java.time.Duration;
+import java.time.LocalDate;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -40,7 +43,7 @@ public class FormulaMinus extends BinaryFormula {
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
-		return getNumericValue().intValue();
+		return getParameters().get(0).getIntegerValue() - getParameters().get(1).getIntegerValue();
 	}
 	
 	@JsonIgnore
@@ -48,6 +51,20 @@ public class FormulaMinus extends BinaryFormula {
 	@Override
 	public Double getNumericValue() {
 		return getParameters().get(0).getNumericValue() - getParameters().get(1).getNumericValue();
+	}
+	
+	@JsonIgnore
+	@Transient
+	@Override
+	public LocalDate getDateValue() {
+		return getParameters().get(0).getDateValue().minusDays(getParameters().get(1).getDurationValue().toDays());
+	}
+	
+	@JsonIgnore
+	@Transient
+	@Override
+	public Duration getDurationValue() {		
+		return getParameters().get(0).getDurationValue().minusDays(getParameters().get(1).getDurationValue().toDays());
 	}
 	
 	@Override
