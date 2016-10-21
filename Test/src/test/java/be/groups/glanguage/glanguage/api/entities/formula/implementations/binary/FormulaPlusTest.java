@@ -270,14 +270,14 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidBothDate() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DATE);
 		
 		FormulaPlus formula = new FormulaPlus(FormulaDescriptionFactory.getDescription(FormulaType.OP_PLUS), operand1, operand2);
 		
-		assertTrue(formula.isValid());
+		assertFalse(formula.isValid());
 	}
 	
 	/**
