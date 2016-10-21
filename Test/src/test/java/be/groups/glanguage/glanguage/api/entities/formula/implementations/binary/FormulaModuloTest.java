@@ -98,7 +98,7 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 		FormulaModulo formula =
 				new FormulaModulo(FormulaDescriptionFactory.getDescription(FormulaType.OP_MODULO), numerator, denominator);
 				
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
+		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
 	}
 	
 	/**

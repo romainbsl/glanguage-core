@@ -85,7 +85,7 @@ public class FormulaDivideTest extends BaseDatabaseTest {
 		FormulaDivide formula =
 				new FormulaDivide(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIVIDE), numerator, denominator);
 				
-		assertFalse(formula.isValid());
+		assertTrue(formula.isValid());
 	}
 	
 	/**
@@ -121,7 +121,7 @@ public class FormulaDivideTest extends BaseDatabaseTest {
 		FormulaDivide formula =
 				new FormulaDivide(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIVIDE), numerator, denominator);
 				
-		assertNull(formula.getReturnType());
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
 	}
 	
 	/**
