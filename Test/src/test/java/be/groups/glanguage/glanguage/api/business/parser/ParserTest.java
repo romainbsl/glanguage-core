@@ -20,6 +20,8 @@ import be.groups.glanguage.glanguage.api.business.analysis.byaccj.SlangTab;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaIn;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDivide;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaIntegerDivision;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaModulo;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMultiply;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaIfInstruction;
@@ -1043,7 +1045,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1/0"
 	 */
 	@Test
-	public void testParseBinaryDivide0by0WithoutBlank() {
+	public void testParseBinaryDivide1by0WithoutBlank() {
 		String str = "1/0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1139,6 +1141,132 @@ public class ParserTest {
 		assertEquals(new Double(1.0), semanticalAction.getFormulaList().get(0).getNumericValue(), DELTA);
 	}
 	
+	/*
+	 * Tests for binary INTEGER DIVISION formula
+	 */
 	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1//0"
+	 */
+	@Test(expected = ArithmeticException.class)
+	public void testParseBinaryIntegerDivision1by0WithoutBlank() {
+		String str = "1//0";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaIntegerDivision);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		semanticalAction.getFormulaList().get(0).getIntegerValue();
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "2 // 1"
+	 */
+	@Test
+	public void testParseBinaryIntegerDivision2by1WithBlank() {
+		String str = "2 // 1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaIntegerDivision);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(2), semanticalAction.getFormulaList().get(0).getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "0 // 1"
+	 */
+	@Test
+	public void testParseBinaryIntegerDivision0by1() {
+		String str = "0 // 1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaIntegerDivision);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(0), semanticalAction.getFormulaList().get(0).getIntegerValue());
+	}
+	
+	/*
+	 * Tests for binary MODULO formula
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1\\0"
+	 */
+	@Test(expected = ArithmeticException.class)
+	public void testParseBinaryModulo1by0WithoutBlank() {
+		String str = "1\\\\0";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaModulo);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		semanticalAction.getFormulaList().get(0).getIntegerValue();
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "3 \\ 2"
+	 */
+	@Test
+	public void testParseBinaryModulo3by2WithBlank() {
+		String str = "3 \\\\ 2";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaModulo);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(1), semanticalAction.getFormulaList().get(0).getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "0 \\ 1"
+	 */
+	@Test
+	public void testParseBinaryModulo0by1() {
+		String str = "0 \\\\ 1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaModulo);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(0), semanticalAction.getFormulaList().get(0).getIntegerValue());
+	}
 
 }
