@@ -89,7 +89,7 @@ public class Plan {
 		setBranched(true);
 	}
 
-	private void branch(RuleVersion rv) {
+	public void branch(RuleVersion rv) {
 		if (rv.getGroupItems() != null && !rv.getGroupItems().isEmpty()) {
 			rv.getGroupItems().stream().forEach(gi -> branch(gi));
 		}
@@ -101,11 +101,11 @@ public class Plan {
 		}
 	}
 	
-	private void branch(RuleGroupItem gi) {
+	public void branch(RuleGroupItem gi) {
 		gi.setReferencedRule(getEffectiveRuleVersionByRuleIdentityId(String.valueOf(gi.getItemRule().getId())));
 	}
 	
-	private void branch(AbstractFormula formula) {
+	public void branch(AbstractFormula formula) {
 		if (formula instanceof FormulaRuleReference || formula instanceof FormulaApplicability || formula instanceof FormulaFormula) {
 			branch((RuleCallFormula) formula);
 		} else if (formula.getParameters() != null && !formula.getParameters().isEmpty()){
@@ -113,11 +113,11 @@ public class Plan {
 		}
 	}
 	
-	private void branch(RuleCallFormula formula) {
+	public void branch(RuleCallFormula formula) {
 		formula.setReferencedRule(getEffectiveRuleVersionByRuleIdentityId(formula.getRuleId()));
 	}
 	
-	private RuleVersion getEffectiveRuleVersionByIdenitifier(String ruleIdentifier) {
+	public RuleVersion getEffectiveRuleVersionByIdenitifier(String ruleIdentifier) {
 		RuleVersion ruleVersion = getEffectiveRuleVersionByRuleIdentityId(ruleIdentifier);
 		if (ruleVersion == null) {
 			ruleVersion = getEffectiveRuleVersionByCode(ruleIdentifier);
@@ -128,16 +128,16 @@ public class Plan {
 		return ruleVersion;
 	}
 	
-	private RuleVersion getEffectiveRuleVersionByRuleIdentityId(String ruleId) {
+	public RuleVersion getEffectiveRuleVersionByRuleIdentityId(String ruleId) {
 		return getRuleVersions().stream().filter(rv -> String.valueOf(rv.getRuleDefinition().getRuleIdentity().getId()).equals(ruleId))
 				.findFirst().orElse(null);
 	}
 	
-	private RuleVersion getEffectiveRuleVersionByCode(String code) {
+	public RuleVersion getEffectiveRuleVersionByCode(String code) {
 		return getRuleVersions().stream().filter(rv -> rv.getCode().equals(code)).findFirst().orElse(null);
 	}
 	
-	private RuleVersion getEffectiveRuleVersionByAlias(String alias) {
+	public RuleVersion getEffectiveRuleVersionByAlias(String alias) {
 		Optional<RuleVersion> ruleVersion =
 				getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getAliasFr().equals(alias)).findFirst();
 		if (ruleVersion.isPresent()) {

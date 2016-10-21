@@ -182,7 +182,14 @@ public abstract class RuleCallFormula extends CallFormula {
 
 	@Override
 	public String asText() {
-		return getConstantValue() + operationAsText();
+		return ruleAsText() + operationAsText();
+	}
+
+	private String ruleAsText() {
+		if (getReferencedRule() != null) {
+			return String.valueOf(getReferencedRule().getCode());
+		}
+		return getConstantValue();
 	}
 
 	public abstract String operationAsText();
