@@ -2,6 +2,8 @@ package be.groups.glanguage.glanguage.api.ws;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDateTime;
+
 import javax.ws.rs.core.Response;
 
 import org.junit.AfterClass;
@@ -50,7 +52,7 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 		Response response = target("/glanguage/formulaString/" + formulaId).request().get();
 		assertEquals(Response.Status.SERVICE_UNAVAILABLE.getStatusCode(), response.getStatus());
 	}
-
+	
 	@Category(WsTestCategory.class)
 	@Test
 	public void testFormlaString1() {
@@ -59,7 +61,7 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 		assertEquals("10", response.readEntity(String.class));
 	}
-
+	
 	@Category(WsTestCategory.class)
 	@Test
 	public void testFormlaString900000() {
@@ -67,7 +69,7 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 		Response response = target("/glanguage/formulaString/" + formulaId).request().get();
 		assertEquals(Response.Status.SERVICE_UNAVAILABLE.getStatusCode(), response.getStatus());
 	}
-
+	
 	@Category(WsTestCategory.class)
 	@Test
 	public void testFormlaString900001() {
@@ -75,7 +77,7 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 		Response response = target("/glanguage/formulaString/" + formulaId).request().get();
 		assertEquals(Response.Status.SERVICE_UNAVAILABLE.getStatusCode(), response.getStatus());
 	}
-
+	
 	@Category(WsTestCategory.class)
 	@Test
 	public void testFormlaString900002() {
@@ -83,7 +85,7 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 		Response response = target("/glanguage/formulaString/" + formulaId).request().get();
 		assertEquals(Response.Status.SERVICE_UNAVAILABLE.getStatusCode(), response.getStatus());
 	}
-
+	
 	@Category(WsTestCategory.class)
 	@Test
 	public void testFormlaString900003() {
@@ -92,7 +94,7 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 		assertEquals("TRUE", response.readEntity(String.class));
 	}
-
+	
 	@Category(WsTestCategory.class)
 	@Test
 	public void testFormlaString900004() {
@@ -100,7 +102,7 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 		Response response = target("/glanguage/formulaString/" + formulaId).request().get();
 		assertEquals(Response.Status.SERVICE_UNAVAILABLE.getStatusCode(), response.getStatus());
 	}
-
+	
 	@Category(WsTestCategory.class)
 	@Test
 	public void testFormlaString900005() {
@@ -108,7 +110,7 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 		Response response = target("/glanguage/formulaString/" + formulaId).request().get();
 		assertEquals(Response.Status.SERVICE_UNAVAILABLE.getStatusCode(), response.getStatus());
 	}
-
+	
 	@Category(WsTestCategory.class)
 	@Test
 	public void testFormlaString900006() {
@@ -117,7 +119,7 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 		assertEquals("1000 + 500", response.readEntity(String.class));
 	}
-
+	
 	@Category(WsTestCategory.class)
 	@Test
 	public void testFormlaString900007() {
@@ -126,7 +128,7 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 		assertEquals("1000", response.readEntity(String.class));
 	}
-
+	
 	@Category(WsTestCategory.class)
 	@Test
 	public void testFormlaString900008() {
@@ -140,9 +142,13 @@ public class FormulaAsStringTest extends BaseJerseyResourceTest {
 	@Test
 	public void testFormlaString900009() {
 		Integer formulaId = 900009;
-		Response response = target("/glanguage/formulaString/" + formulaId).request().get();
+		Integer ruleSetVersionId = 900003;
+		LocalDateTime effectivityDate = LocalDateTime.now();
+		Response response = target("/glanguage/formulaString/" + formulaId + "/" + ruleSetVersionId)
+				.queryParam("effectivityDate", effectivityDate)
+				.request().get();
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-		assertEquals("900004 + 900005", response.readEntity(String.class));
+		assertEquals("r5 + r6", response.readEntity(String.class));
 	}
 	
 	@Category(WsTestCategory.class)
