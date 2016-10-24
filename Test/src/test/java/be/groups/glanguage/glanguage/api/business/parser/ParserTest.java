@@ -45,6 +45,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.roundi
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingCeil;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingFloor;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingTrunc;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaStringItem;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBoolean;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalInteger;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumeric;
@@ -3487,6 +3488,30 @@ public class ParserTest {
 				semanticalAction.getFormulaList().getLast() instanceof FormulaFormatString);
 		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertEquals(new String(" abc "), semanticalAction.getFormulaList().getLast().getStringValue());
+	}
+	
+	/*
+	 * Tests for standard STRING ITEM formulas
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "stringItem("a/ab/abc" ; "/" ; 2)"
+	 */
+	@Test
+	public void testParseStringItem() {
+		String str = "stringItem(\"a/ab/abc\" ; \"/\" ; 2)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(4, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaStringItem);
+		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new String("ab"), semanticalAction.getFormulaList().getLast().getStringValue());
 	}
 
 }
