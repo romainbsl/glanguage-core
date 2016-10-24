@@ -19,6 +19,7 @@ import be.groups.glanguage.glanguage.api.business.action.standard.AsStandard;
 import be.groups.glanguage.glanguage.api.business.analysis.byaccj.SlangTab;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracket;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaDate;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaIn;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaAnd;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDifference;
@@ -3785,6 +3786,50 @@ public class ParserTest {
 				semanticalAction.getFormulaList().getLast() instanceof FormulaExtremumSignedMin);
 		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertEquals(new Double("-1"), semanticalAction.getFormulaList().getLast().getNumericValue(), DELTA);
+	}
+	
+	/*
+	 * Tests for standard DATE formulas
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "date("1/1/2016")"
+	 */
+	@Test
+	public void testParseFormulaDateString() {
+		String str = "date(\"01/01/2016\")";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDate);
+		assertEquals(FormulaReturnType.DATE, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(LocalDate.of(2016, 1, 1), semanticalAction.getFormulaList().getLast().getDateValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "date(1 ; 1 ; 2016)"
+	 */
+	@Test
+	public void testParseFormulaDateParts() {
+		String str = "date(1 ; 1 ; 2016)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(4, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDate);
+		assertEquals(FormulaReturnType.DATE, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(LocalDate.of(2016, 1, 1), semanticalAction.getFormulaList().getLast().getDateValue());
 	}
 
 }
