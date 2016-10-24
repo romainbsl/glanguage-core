@@ -35,6 +35,10 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmaller;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerOrEqual;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMax;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMin;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumSignedMax;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumSignedMin;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatDate;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatInteger;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatNumeric;
@@ -3537,6 +3541,250 @@ public class ParserTest {
 				semanticalAction.getFormulaList().getLast() instanceof FormulaSubString);
 		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertEquals(new String("abc"), semanticalAction.getFormulaList().getLast().getStringValue());
+	}
+	
+	/*
+	 * Tests for standard extremum formulas
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "max(1 ; 2 ; 3 ; -4)"
+	 */
+	@Test
+	public void testParseMax() {
+		String str = "max(1 ; 2 ; 3 ; -4)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(5, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaExtremumMax);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(3), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "smax(1 ; 2 ; 3 ; -4)"
+	 */
+	@Test
+	public void testParseSignedMax() {
+		String str = "smax(1 ; 2 ; 3 ; -4)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(5, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaExtremumSignedMax);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(4), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "smax(1 ; 2 ; 3 ; -4)"
+	 */
+	@Test
+	public void testParseMinusSignedMax() {
+		String str = "smax(-1 ; 2 ; 3 ; -4)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(5, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaExtremumSignedMax);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(-4), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "max(1 ; 2,0 ; 3 ; -4)"
+	 */
+	@Test
+	public void testParseMaxDouble() {
+		String str = "max(1 ; 2,0 ; 3 ; -4)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(5, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaExtremumMax);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(3), semanticalAction.getFormulaList().getLast().getNumericValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "smax(1 ; 2,0 ; 3 ; -4)"
+	 */
+	@Test
+	public void testParseSignedMaxDouble() {
+		String str = "smax(1 ; 2,0 ; 3 ; -4)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(5, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaExtremumSignedMax);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(4), semanticalAction.getFormulaList().getLast().getIntegerValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "smax(1 ; 2,0 ; 3 ; -4)"
+	 */
+	@Test
+	public void testParseMinusSignedMaxDouble() {
+		String str = "smax(-1 ; 2,0 ; 3 ; -4)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(5, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaExtremumSignedMax);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(-4), semanticalAction.getFormulaList().getLast().getIntegerValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "min(1 ; 2 ; 3 ; -4)"
+	 */
+	@Test
+	public void testParseMin() {
+		String str = "min(1 ; 2 ; 3 ; -4)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(5, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaExtremumMin);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(-4), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "smin(1 ; 2 ; 3 ; -4)"
+	 */
+	@Test
+	public void testParseSignedMin() {
+		String str = "smin(1 ; 2 ; 3 ; -4)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(5, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaExtremumSignedMin);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer("1"), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "smin(1 ; 2 ; 3 ; -4)"
+	 */
+	@Test
+	public void testParseMinusSignedMin() {
+		String str = "smin(-1 ; 2 ; 3 ; -4)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(5, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaExtremumSignedMin);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer("-1"), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "min(1 ; 2,0 ; 3 ; -4)"
+	 */
+	@Test
+	public void testParseMinDouble() {
+		String str = "min(1 ; 2,0 ; 3 ; -4)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(5, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaExtremumMin);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(-4), semanticalAction.getFormulaList().getLast().getNumericValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "smin(1 ; 2,0 ; 3 ; -4)"
+	 */
+	@Test
+	public void testParseSignedMinDouble() {
+		String str = "smin(1 ; 2,0 ; 3 ; -4)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(5, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaExtremumSignedMin);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double("1"), semanticalAction.getFormulaList().getLast().getNumericValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "smin(1 ; 2,0 ; 3 ; -4)"
+	 */
+	@Test
+	public void testParseMinusSignedMinDouble() {
+		String str = "smin(-1 ; 2,0 ; 3 ; -4)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(5, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaExtremumSignedMin);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double("-1"), semanticalAction.getFormulaList().getLast().getNumericValue(), DELTA);
 	}
 
 }
