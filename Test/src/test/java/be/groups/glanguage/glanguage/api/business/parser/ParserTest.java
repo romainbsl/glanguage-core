@@ -36,6 +36,11 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerOrEqual;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaIfInstruction;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingArithmetic;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingBankers;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingCeil;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingFloor;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingTrunc;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBoolean;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalInteger;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumeric;
@@ -899,7 +904,7 @@ public class ParserTest {
 		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertEquals(new Integer(1), semanticalAction.getFormulaList().get(0).getIntegerValue());
 	}
-		
+	
 	/*
 	 * Tests for binary operation formulas
 	 */
@@ -1422,7 +1427,7 @@ public class ParserTest {
 				semanticalAction.getFormulaList().getLast() instanceof FormulaPlus);
 		assertEquals(FormulaReturnType.DATE, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertEquals(LocalDate.of(2016, 1, 2), semanticalAction.getFormulaList().get(0).getDateValue());
-	}	
+	}
 	
 	/**
 	 * Tests {@link SlangTab#analyze()} with string "'P1D' + '01/01/2016'"
@@ -1442,7 +1447,7 @@ public class ParserTest {
 				semanticalAction.getFormulaList().getLast() instanceof FormulaPlus);
 		assertEquals(FormulaReturnType.DATE, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertEquals(LocalDate.of(2016, 1, 2), semanticalAction.getFormulaList().get(0).getDateValue());
-	}	
+	}
 	
 	/**
 	 * Tests {@link SlangTab#analyze()} with string "'P1D' + 'P1D'"
@@ -1462,7 +1467,7 @@ public class ParserTest {
 				semanticalAction.getFormulaList().getLast() instanceof FormulaPlus);
 		assertEquals(FormulaReturnType.DURATION, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertEquals(Duration.ofDays(2), semanticalAction.getFormulaList().get(0).getDurationValue());
-	}	
+	}
 	
 	/*
 	 * Tests for binary MINUS formula
@@ -1587,7 +1592,7 @@ public class ParserTest {
 		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertEquals(new Double(0.1), semanticalAction.getFormulaList().get(0).getNumericValue(), DELTA);
 	}
-		
+	
 	/**
 	 * Tests {@link SlangTab#analyze()} with string "1 - 2"
 	 */
@@ -1626,7 +1631,7 @@ public class ParserTest {
 				semanticalAction.getFormulaList().getLast() instanceof FormulaMinus);
 		assertEquals(FormulaReturnType.DATE, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertEquals(LocalDate.of(2015, 12, 31), semanticalAction.getFormulaList().get(0).getDateValue());
-	}	
+	}
 	
 	/**
 	 * Tests {@link SlangTab#analyze()} with string "'P2D' - 'P1D'"
@@ -1646,7 +1651,7 @@ public class ParserTest {
 				semanticalAction.getFormulaList().getLast() instanceof FormulaMinus);
 		assertEquals(FormulaReturnType.DURATION, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertEquals(Duration.ofDays(1), semanticalAction.getFormulaList().get(0).getDurationValue());
-	}	
+	}
 	
 	/**
 	 * Tests {@link SlangTab#analyze()} with string "'P1D' - 'P2D'"
@@ -1666,7 +1671,7 @@ public class ParserTest {
 				semanticalAction.getFormulaList().getLast() instanceof FormulaMinus);
 		assertEquals(FormulaReturnType.DURATION, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertEquals(Duration.ofDays(-1), semanticalAction.getFormulaList().get(0).getDurationValue());
-	}	
+	}
 	
 	/*
 	 * Tests for binary EQUAL formula
@@ -3186,6 +3191,214 @@ public class ParserTest {
 				semanticalAction.getFormulaList().getLast() instanceof FormulaIn);
 		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertFalse(semanticalAction.getFormulaList().getLast().getBooleanValue());
+	}
+	
+	/*
+	 * Tests for standard operation formulas
+	 */
+	
+	/*
+	 * Tests for standard CEIL formulas
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "ceil(1,111 ; 0,01)"
+	 */
+	@Test
+	public void testParseCeil1Comma111Precision0Comma01() {
+		String str = "ceil(1,111 ; 0,01)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(3, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaRoundingCeil);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(1.12), semanticalAction.getFormulaList().getLast().getNumericValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "floor(1,111 ; 0,01)"
+	 */
+	@Test
+	public void testParseFloor1Comma111Precision0Comma01() {
+		String str = "floor(1,111 ; 0,01)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(3, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaRoundingFloor);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(1.11), semanticalAction.getFormulaList().getLast().getNumericValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "round(1,111 ; 0,01)"
+	 */
+	@Test
+	public void testParseRound1Comma111Precision0Comma01() {
+		String str = "rounded(1,111 ; 0,01)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(3, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaRoundingArithmetic);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(1.11), semanticalAction.getFormulaList().getLast().getNumericValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "trunc(1,111 ; 2)"
+	 */
+	@Test
+	public void testParseTrunc1Comma111Precision2() {
+		String str = "trunc(1,111 ; 2)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(3, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaRoundingTrunc);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(1.11), semanticalAction.getFormulaList().getLast().getNumericValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "bankers_rounded(1,111 ; 2)"
+	 */
+	@Test
+	public void testParseBankersRounded1Comma111Precision2() {
+		String str = "bankers_rounded(1,111 ; 2)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(3, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaRoundingBankers);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(1.11), semanticalAction.getFormulaList().getLast().getNumericValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "ceil(1,111)"
+	 */
+	@Test
+	public void testParseCeil1Comma111NoPrecision() {
+		String str = "ceil(1,111)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaRoundingCeil);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(2.0), semanticalAction.getFormulaList().getLast().getNumericValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "floor(1,111)"
+	 */
+	@Test
+	public void testParseFloor1Comma111NoPrecision() {
+		String str = "floor(1,111)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaRoundingFloor);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(1.0), semanticalAction.getFormulaList().getLast().getNumericValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "round(1,111)"
+	 */
+	@Test
+	public void testParseRound1Comma111NoPrecision() {
+		String str = "rounded(1,111)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaRoundingArithmetic);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(1.0), semanticalAction.getFormulaList().getLast().getNumericValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "trunc(1,111)"
+	 */
+	@Test
+	public void testParseTrunc1Comma111NoPrecision() {
+		String str = "trunc(1,111)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaRoundingTrunc);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(1.11), semanticalAction.getFormulaList().getLast().getNumericValue(), DELTA);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "bankers_rounded(1,111)"
+	 */
+	@Test
+	public void testParseBankersRounded1Comma111NoPrecision() {
+		String str = "bankers_rounded(1,111)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaRoundingBankers);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(1.11), semanticalAction.getFormulaList().getLast().getNumericValue(), DELTA);
 	}
 	
 }
