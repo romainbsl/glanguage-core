@@ -251,15 +251,15 @@ public class AsStandard implements SemanticalAction {
 		FormulaDescription precisionFormulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER);
 		switch (formulaDescriptionId) {
 			case F_CEIL:
-				return new FormulaRoundingCeil(formulaDescription, precisionFormulaDescription, parameters.get(0), parameters.get(1));
+				return new FormulaRoundingCeil(formulaDescription, precisionFormulaDescription, parameters.get(0), (parameters.size() > 1 ? parameters.get(1) : null));
 			case F_FLOOR:
-				return new FormulaRoundingFloor(formulaDescription, precisionFormulaDescription, parameters.get(0), parameters.get(1));
+				return new FormulaRoundingFloor(formulaDescription, precisionFormulaDescription, parameters.get(0), (parameters.size() > 1 ? parameters.get(1) : null));
 			case F_ROUNDED:
-				return new FormulaRoundingArithmetic(formulaDescription, precisionFormulaDescription, parameters.get(0), parameters.get(1));
+				return new FormulaRoundingArithmetic(formulaDescription, precisionFormulaDescription, parameters.get(0), (parameters.size() > 1 ? parameters.get(1) : null));
 			case F_TRUNC:
-				return new FormulaRoundingTrunc(formulaDescription, precisionFormulaDescription, parameters.get(0), parameters.get(1));
+				return new FormulaRoundingTrunc(formulaDescription, precisionFormulaDescription, parameters.get(0), (parameters.size() > 1 ? parameters.get(1) : null));
 			case F_BANKERS_ROUNDED:
-				return new FormulaRoundingBankers(formulaDescription, precisionFormulaDescription, parameters.get(0), parameters.get(1));
+				return new FormulaRoundingBankers(formulaDescription, precisionFormulaDescription, parameters.get(0), (parameters.size() > 1 ? parameters.get(1) : null));
 			case F_FORMAT_DATE:
 				return new FormulaFormatDate(formulaDescription, parameters);
 			case F_FORMAT_INTEGER:
