@@ -35,6 +35,10 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmaller;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerOrEqual;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatDate;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatInteger;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatNumeric;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatString;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaIfInstruction;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingArithmetic;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingBankers;
@@ -3198,7 +3202,7 @@ public class ParserTest {
 	 */
 	
 	/*
-	 * Tests for standard CEIL formulas
+	 * Tests for standard rounding formulas
 	 */
 	
 	/**
@@ -3401,4 +3405,88 @@ public class ParserTest {
 		assertEquals(new Double(1.11), semanticalAction.getFormulaList().getLast().getNumericValue(), DELTA);
 	}
 	
+	/*
+	 * Tests for standard format formulas
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "formatDate('01/01/2016' ; "yyyyMMdd")"
+	 */
+	@Test
+	public void testParseFormatDate() {
+		String str = "formatDate('01/01/2016' ; \"yyyyMMdd\")";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(3, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaFormatDate);
+		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new String("20160101"), semanticalAction.getFormulaList().getLast().getStringValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "formatInteger(1000 ; 10 ; "NONE" ; "NONE")"
+	 */
+	@Test
+	public void testParseFormatInteger() {
+		String str = "formatInteger(1000 ; 10 ; \"NONE\" ; \"NONE\")";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(5, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaFormatInteger);
+		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new String("1000"), semanticalAction.getFormulaList().getLast().getStringValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "formatNumeric(1000 ; 10 ; 2 ; "NONE" ; "NONE" ; ",")"
+	 */
+	@Test
+	public void testParseFormatNumeric() {
+		String str = "formatNumeric(1000,0 ; 10 ; 2 ; \"NONE\" ; \"NONE\" ; \",\")";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(7, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaFormatNumeric);
+		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new String("1000,00"), semanticalAction.getFormulaList().getLast().getStringValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "formatString("abc" ; 5 ; "CENTER" ; "")"
+	 */
+	@Test
+	public void testParseFormatString() {
+		String str = "formatString(\"abc\" ; 5 ; \"CENTER\" ; \"\")";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(5, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaFormatString);
+		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new String(" abc "), semanticalAction.getFormulaList().getLast().getStringValue());
+	}
+
 }
