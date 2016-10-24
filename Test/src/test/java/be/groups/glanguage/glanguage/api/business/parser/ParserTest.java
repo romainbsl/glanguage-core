@@ -18,6 +18,7 @@ import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
 import be.groups.glanguage.glanguage.api.business.action.standard.AsStandard;
 import be.groups.glanguage.glanguage.api.business.analysis.byaccj.SlangTab;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracket;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaIn;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaAnd;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDifference;
@@ -2898,5 +2899,109 @@ public class ParserTest {
 		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertFalse(semanticalAction.getFormulaList().get(0).getBooleanValue());
 	}
-		
+	
+	/*
+	 * Tests for BRACKET formula
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "(1)"
+	 */
+	@Test
+	public void testParseBracket1WithoutBlank() {
+		String str = "(1)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaBracket);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(1), semanticalAction.getFormulaList().get(0).getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "( 1 )"
+	 */
+	@Test
+	public void testParseBracket1WithBlank() {
+		String str = "( 1 )";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaBracket);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(1), semanticalAction.getFormulaList().get(0).getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "(1,1)"
+	 */
+	@Test
+	public void testParseBracket1Comma1() {
+		String str = "(1,1)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaBracket);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(1.1), semanticalAction.getFormulaList().get(0).getNumericValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "("abc")"
+	 */
+	@Test
+	public void testParseBracketABC() {
+		String str = "(\"abc\")";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaBracket);
+		assertEquals(FormulaReturnType.STRING, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new String("abc"), semanticalAction.getFormulaList().get(0).getStringValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "(true)"
+	 */
+	@Test
+	public void testParseBracketTrue() {
+		String str = "(true)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaBracket);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertTrue(semanticalAction.getFormulaList().get(0).getBooleanValue());
+	}
+	
 }
