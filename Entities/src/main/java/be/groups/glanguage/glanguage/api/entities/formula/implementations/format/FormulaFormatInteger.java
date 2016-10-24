@@ -42,19 +42,30 @@ public class FormulaFormatInteger extends FormatFormula {
 		FormatInteger format = null;
 		int i, width;
 		String alignment;
-		char fillCharacter;
+		Character fillCharacter = null;
 		String sign;
 		
 		i = getParameters().get(0).getIntegerValue();
 		width = getParameters().get(1).getIntegerValue();
 		alignment = getParameters().get(2).getStringValue().toUpperCase();
-		sign = getParameters().get(4).getStringValue().toUpperCase();
+		if (!alignment.equals(FormatAlignment.Values.NO_JUSTIFY)) {
+			if (getParameters().get(3).getStringValue().length() == 1) {
+				fillCharacter = getParameters().get(3).getStringValue().charAt(0);
+			} else {
+				throw new IllegalArgumentException("Fillin character not valid in " + this.getClass().getName() + " object : "
+						+ getParameters().get(3).getStringValue());
+			}
+			sign = getParameters().get(4).getStringValue().toUpperCase();
+		} else {
+			sign = getParameters().get(3).getStringValue().toUpperCase();
+		}
+		
 		if (width >= 1) {
 			format = new FormatInteger(width);
 			
 			switch (alignment) {
 				case FormatAlignment.Values.NO_JUSTIFY:
-					format.noJustified();
+					format.noJustify();
 					break;
 				case FormatAlignment.Values.LEFT_JUSTIFY:
 					format.leftJustify();
@@ -70,16 +81,10 @@ public class FormulaFormatInteger extends FormatFormula {
 							+ getParameters().get(2).getStringValue());
 			}
 			
-			if (!alignment.equals(FormatAlignment.Values.NO_JUSTIFY)) {
-				if (getParameters().get(3).getStringValue().length() == 1) {
-					fillCharacter = getParameters().get(3).getStringValue().charAt(0);
-					format.setFill(fillCharacter);
-				} else {
-					throw new IllegalArgumentException("Fillin character not valid in " + this.getClass().getName() + " object : "
-							+ getParameters().get(3).getStringValue());
-				}
+			if (fillCharacter != null) {
+				format.setFill(fillCharacter);
 			}
-			
+
 			switch (sign) {
 				case FormatSign.Values.NONE:
 					format.signIgnore();
