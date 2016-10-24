@@ -2,7 +2,6 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.forma
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -121,31 +120,7 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 				
 		assertEquals(FormulaReturnType.STRING, formula.getReturnType());
 	}
-	
-	/**
-	 * Tests {@link FormulaFormatString#getReturnType()} when parameters don't match
-	 */
-	@Test
-	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNotMatching() {
-		AbstractFormula string = mock(AbstractFormula.class);
-		when(string.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		
-		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		
-		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		
-		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaFormatString formula = new FormulaFormatString(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_STRING),
-				Arrays.asList(string, width, alignment, fill));
-				
-		assertNull(formula.getReturnType());
-	}
-	
+
 	/**
 	 * Tests {@link FormulaFormatString#getIntegerValue()}
 	 */
