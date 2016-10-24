@@ -3004,4 +3004,188 @@ public class ParserTest {
 		assertTrue(semanticalAction.getFormulaList().get(0).getBooleanValue());
 	}
 	
+	/*
+	 * Tests for IN formula
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1 in (1)"
+	 */
+	@Test
+	public void testParseIn1And1() {
+		String str = "1 in (1)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaIn);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertTrue(semanticalAction.getFormulaList().getLast().getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1 in (1;2;3)"
+	 */
+	@Test
+	public void testParseIn1And123() {
+		String str = "1 in (1;2;3)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(4, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaIn);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertTrue(semanticalAction.getFormulaList().getLast().getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1 in (2;3)"
+	 */
+	@Test
+	public void testParseIn1And23() {
+		String str = "1 in (2;3)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(3, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaIn);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertFalse(semanticalAction.getFormulaList().getLast().getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1,1 in (1,1)"
+	 */
+	@Test
+	public void testParseIn1Comma1And1Comma1() {
+		String str = "1,1 in (1,1)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaIn);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertTrue(semanticalAction.getFormulaList().getLast().getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1,1 in (1,1;2,2;3,3)"
+	 */
+	@Test
+	public void testParseIn1Comma1And1Comma1And2Comma2And3Comma3() {
+		String str = "1,1 in (1,1;2,2;3,3)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(4, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaIn);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertTrue(semanticalAction.getFormulaList().getLast().getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1,1 in (2,2;3,3)"
+	 */
+	@Test
+	public void testParseIn1Comma1And2Comma2And3Comma3() {
+		String str = "1,1 in (2,2;3,3)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(3, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaIn);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertFalse(semanticalAction.getFormulaList().getLast().getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string ""a" in ("a")"
+	 */
+	@Test
+	public void testParseInAAndA() {
+		String str = "\"a\" in (\"a\")";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaIn);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertTrue(semanticalAction.getFormulaList().getLast().getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string ""a" in ("a";"b";"c")"
+	 */
+	@Test
+	public void testParseInAAndABC() {
+		String str = "\"a\" in (\"a\";\"b\";\"c\")";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(4, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaIn);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertTrue(semanticalAction.getFormulaList().getLast().getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string ""a" in ("b";"c")"
+	 */
+	@Test
+	public void testParseInAAndBC() {
+		String str = "\"a\" in (\"b\";\"c\")";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(3, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaIn);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertFalse(semanticalAction.getFormulaList().getLast().getBooleanValue());
+	}
+	
 }
