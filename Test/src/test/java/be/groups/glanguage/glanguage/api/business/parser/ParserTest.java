@@ -29,6 +29,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMinus;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaModulo;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMultiply;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaOr;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaPlus;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmaller;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerOrEqual;
@@ -2834,4 +2835,68 @@ public class ParserTest {
 		assertFalse(semanticalAction.getFormulaList().get(0).getBooleanValue());
 	}
 	
+	/*
+	 * Tests for binary OR formula
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "true or true"
+	 */
+	@Test
+	public void testParseBinaryOrTrueAndTrue() {
+		String str = "true or true";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaOr);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertTrue(semanticalAction.getFormulaList().get(0).getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "true or false"
+	 */
+	@Test
+	public void testParseBinaryOrTrueAndFalse() {
+		String str = "true or false";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaOr);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertTrue(semanticalAction.getFormulaList().get(0).getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "false or false"
+	 */
+	@Test
+	public void testParseBinaryOrFalseAndFalse() {
+		String str = "false or false";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaOr);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertFalse(semanticalAction.getFormulaList().get(0).getBooleanValue());
+	}
+		
 }
