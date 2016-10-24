@@ -27,6 +27,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaModulo;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMultiply;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaPlus;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmaller;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaIfInstruction;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBoolean;
@@ -1945,6 +1946,210 @@ public class ParserTest {
 		assertEquals(1, semanticalAction.getFormulaList().size());
 		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
 				semanticalAction.getFormulaList().getLast() instanceof FormulaDifference);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertTrue(semanticalAction.getFormulaList().get(0).getBooleanValue());
+	}
+	
+	/*
+	 * Tests for binary SMALLER formula
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1<1"
+	 */
+	@Test
+	public void testParseBinarySmaller1And1WithoutBlank() {
+		String str = "1<1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaSmaller);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertFalse(semanticalAction.getFormulaList().get(0).getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1 < 1"
+	 */
+	@Test
+	public void testParseBinarySmaller1And1WithBlank() {
+		String str = "1 < 1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaSmaller);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertFalse(semanticalAction.getFormulaList().get(0).getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1 < 0"
+	 */
+	@Test
+	public void testParseBinarySmaller1And0() {
+		String str = "1 < 0";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaSmaller);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertFalse(semanticalAction.getFormulaList().get(0).getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "0 < 1"
+	 */
+	@Test
+	public void testParseBinarySmaller0And1() {
+		String str = "0 < 1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaSmaller);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertTrue(semanticalAction.getFormulaList().get(0).getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1,1 < 1,1"
+	 */
+	@Test
+	public void testParseBinarySmaller1Comma1And1Comma1() {
+		String str = "1,1 < 1,1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaSmaller);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertFalse(semanticalAction.getFormulaList().get(0).getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "1,1 < 0"
+	 */
+	@Test
+	public void testParseBinarySmaller1Comma1And0() {
+		String str = "1,1 < 0";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaSmaller);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertFalse(semanticalAction.getFormulaList().get(0).getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "0 < 1,1"
+	 */
+	@Test
+	public void testParseBinarySmaller0And1Comma1() {
+		String str = "0 < 1,1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaSmaller);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertTrue(semanticalAction.getFormulaList().get(0).getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string ""abc" < "abc""
+	 */
+	@Test
+	public void testParseBinarySmallerABCAndABC() {
+		String str = "\"abc\" < \"abc\"";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaSmaller);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertFalse(semanticalAction.getFormulaList().get(0).getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string ""abc" < "ab""
+	 */
+	@Test
+	public void testParseBinarySmallerABCAndAB() {
+		String str = "\"abc\" < \"ab\"";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaSmaller);
+		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertFalse(semanticalAction.getFormulaList().get(0).getBooleanValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string ""ab" < "abc""
+	 */
+	@Test
+	public void testParseBinarySmallerABAndABC() {
+		String str = "\"ab\" < \"abc\"";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaSmaller);
 		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertTrue(semanticalAction.getFormulaList().get(0).getBooleanValue());
 	}
