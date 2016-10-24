@@ -43,7 +43,7 @@ public class FormulaFormatNumeric extends FormatFormula {
 		double d;
 		int width, decimals;
 		String alignment;
-		char fillCharacter;
+		Character fillCharacter = null;
 		String sign;
 		String decimalMark;
 		
@@ -51,15 +51,27 @@ public class FormulaFormatNumeric extends FormatFormula {
 		width = getParameters().get(1).getIntegerValue();
 		decimals = getParameters().get(2).getIntegerValue();
 		alignment = getParameters().get(3).getStringValue().toUpperCase();
-		sign = getParameters().get(5).getStringValue().toUpperCase();
-		decimalMark = getParameters().get(6).getStringValue().toUpperCase();
+		if (!alignment.equals(FormatAlignment.Values.NO_JUSTIFY)) {
+			if (getParameters().get(4).getStringValue().length() == 1) {
+				fillCharacter = getParameters().get(4).getStringValue().charAt(0);
+			} else {
+				throw new IllegalArgumentException("Fillin character not valid in " + this.getClass().getName() + " object : "
+						+ getParameters().get(4).getStringValue());
+			}
+			sign = getParameters().get(5).getStringValue().toUpperCase();
+			decimalMark = getParameters().get(6).getStringValue().toUpperCase();
+		} else {
+			sign = getParameters().get(4).getStringValue().toUpperCase();
+			decimalMark = getParameters().get(5).getStringValue().toUpperCase();
+		}
+		
 		if (width >= 1) {
 			format = new FormatDouble(width, decimals);
 			format.noSeparateAfterDecimal();
 			
 			switch (alignment) {
 				case FormatAlignment.Values.NO_JUSTIFY:
-					format.noJustified();
+					format.noJustify();
 					break;
 				case FormatAlignment.Values.LEFT_JUSTIFY:
 					format.leftJustify();
@@ -75,14 +87,8 @@ public class FormulaFormatNumeric extends FormatFormula {
 							+ getParameters().get(3).getStringValue());
 			}
 			
-			if (!alignment.equals(FormatAlignment.Values.NO_JUSTIFY)) {
-				if (getParameters().get(4).getStringValue().length() == 1) {
-					fillCharacter = getParameters().get(4).getStringValue().charAt(0);
-					format.setFill(fillCharacter);
-				} else {
-					throw new IllegalArgumentException("Fillin character not valid in " + this.getClass().getName() + " object : "
-							+ getParameters().get(4).getStringValue());
-				}
+			if (fillCharacter != null) {
+				format.setFill(fillCharacter);
 			}
 			
 			switch (sign) {
