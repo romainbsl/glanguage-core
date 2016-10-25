@@ -16,7 +16,7 @@ public enum FormatAlignment {
 	public class Values {
 		public static final String NO_JUSTIFY = "NONE";
 		public static final String LEFT_JUSTIFY = "LEFT";
-		public static final String CENTER_JUSTIFY = "RIGHT";
-		public static final String RIGHT_JUSTIFY = "CENTER";
+		public static final String CENTER_JUSTIFY = "CENTER";
+		public static final String RIGHT_JUSTIFY = "RIGHT";
 	}
 }

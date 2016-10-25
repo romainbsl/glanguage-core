@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 @Entity
@@ -29,7 +30,11 @@ public class FormulaDurationMinutes extends DurationFormula {
 	@Transient
 	@Override
 	public Integer getIntegerValue() {
-		return Math.toIntExact(getParameters().get(0).getDurationValue().toMinutes());
+		if (getParameters().get(0).getReturnType().equals(FormulaReturnType.DURATION)) {
+			return Math.toIntExact(getParameters().get(0).getDurationValue().toMinutes());
+		} else {
+			return getParameters().get(0).getIntegerValue();
+		}
 	}
 	
 	@JsonIgnore

@@ -52,6 +52,21 @@ public class FormulaDurationDaysTest extends BaseDatabaseTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaDurationDays#isValid()} with integer parameter
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidInteger() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaDurationDays formula =
+				new FormulaDurationDays(FormulaDescriptionFactory.getDescription(FormulaType.F_DAYS), Arrays.asList(parameter));
+				
+		assertTrue(formula.isValid());
+	}
+	
+	/**
 	 * Tests {@link FormulaDurationDays#isValid()} with date parameter
 	 */
 	@Test
@@ -82,11 +97,11 @@ public class FormulaDurationDaysTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaDurationDays#isValid()} with parameter not date nor duration
+	 * Tests {@link FormulaDurationDays#isValid()} with parameter not integer nor date nor duration
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNotDateOrDuration() {
+	public void testIsValidNotIntegerOrDateOrDuration() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		
@@ -94,6 +109,21 @@ public class FormulaDurationDaysTest extends BaseDatabaseTest {
 				new FormulaDurationDays(FormulaDescriptionFactory.getDescription(FormulaType.F_DAYS), Arrays.asList(parameter));
 				
 		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaDurationMinutes#getReturnType()} with integer parameter
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeInteger() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaDurationMinutes formula =
+				new FormulaDurationMinutes(FormulaDescriptionFactory.getDescription(FormulaType.F_DAYS), Arrays.asList(parameter));
+				
+		assertEquals(FormulaReturnType.DURATION, formula.getReturnType());
 	}
 	
 	/**
@@ -108,7 +138,7 @@ public class FormulaDurationDaysTest extends BaseDatabaseTest {
 		FormulaDurationDays formula =
 				new FormulaDurationDays(FormulaDescriptionFactory.getDescription(FormulaType.F_DAYS), Arrays.asList(parameter));
 				
-		assertEquals(FormulaReturnType.DURATION, formula.getReturnType());
+		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
 	}
 	
 	/**
@@ -123,15 +153,15 @@ public class FormulaDurationDaysTest extends BaseDatabaseTest {
 		FormulaDurationDays formula =
 				new FormulaDurationDays(FormulaDescriptionFactory.getDescription(FormulaType.F_DAYS), Arrays.asList(parameter));
 				
-		assertEquals(FormulaReturnType.DURATION, formula.getReturnType());
+		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
 	}
 	
 	/**
-	 * Tests {@link FormulaDurationDays#getReturnType()} with parameter not date nor duration
+	 * Tests {@link FormulaDurationDays#getReturnType()} with parameter not integer nor date nor duration
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNotDateOrDuration() {
+	public void testGetReturnTypeNotIntegerOrDateOrDuration() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		
@@ -226,27 +256,13 @@ public class FormulaDurationDaysTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaDurationDays#getDurationValue()} with date parameter
+	 * Tests {@link FormulaDurationDays#getDurationValue()} with integer parameter
 	 */
 	@Test
-	public void testGetDurationValueDateParameter() {
+	public void testGetDurationValueIntegerParameter() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(parameter.getDateValue()).thenReturn(LocalDate.of(2015, 1, 10));
-		
-		FormulaDurationDays formula = new FormulaDurationDays(null, Arrays.asList(parameter));
-		
-		assertEquals(Duration.ofDays(10L), formula.getDurationValue());
-	}
-	
-	/**
-	 * Tests {@link FormulaDurationDays#getDurationValue()} with duration parameter
-	 */
-	@Test
-	public void testGetDurationValueDurationParameter() {
-		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.DURATION);
-		when(parameter.getDurationValue()).thenReturn(Duration.ofDays(10L));
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getIntegerValue()).thenReturn(10);
 		
 		FormulaDurationDays formula = new FormulaDurationDays(null, Arrays.asList(parameter));
 		

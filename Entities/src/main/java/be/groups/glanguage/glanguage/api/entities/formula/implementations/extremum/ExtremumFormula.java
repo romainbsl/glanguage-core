@@ -1,6 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,19 @@ public abstract class ExtremumFormula extends AbstractNonTerminalFormula {
 			}
 		});
 	}
-
+	
+	@JsonIgnore
+	@Transient
+	@Override
+	public FormulaReturnType getReturnType() {
+		FormulaReturnType returnType = getParameters().get(0).getReturnType();
+		Iterator<AbstractFormula> itParameters = getParameters().iterator();
+		while (!returnType.equals(FormulaReturnType.NUMERIC) && itParameters.hasNext()) {
+			returnType = itParameters.next().getReturnType();
+		}
+		return returnType;
+	}
+	
 	@JsonIgnore
 	@Transient
 	@Override

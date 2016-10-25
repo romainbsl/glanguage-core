@@ -193,8 +193,9 @@ expressionList:
 l_expr:
 	expr				
 				{
-					$$ =  aSem.getFormulaList();
+					$$ =  new LinkedList <AbstractFormula>(); 
 					$$.add ($1); if (yydebug) debug("l_expr -> expr");
+					aSem.setFormula($1);
 				}
 	| l_expr T_SEP expr	
 				{

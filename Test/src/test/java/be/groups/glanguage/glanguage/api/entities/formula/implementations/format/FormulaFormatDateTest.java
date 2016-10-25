@@ -2,7 +2,6 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.forma
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -103,25 +102,7 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 				
 		assertEquals(FormulaReturnType.STRING, formula.getReturnType());
 	}
-	
-	/**
-	 * Tests {@link FormulaFormatDate#getReturnType()} when parameters don't match
-	 */
-	@Test
-	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNotMatching() {
-		AbstractFormula date = mock(AbstractFormula.class);
-		when(date.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		
-		AbstractFormula format = mock(AbstractFormula.class);
-		when(format.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaFormatDate formula = new FormulaFormatDate(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_DATE),
-				Arrays.asList(date, format));
-				
-		assertNull(formula.getReturnType());
-	}
-	
+
 	/**
 	 * Tests {@link FormulaFormatDate#getIntegerValue()}
 	 */

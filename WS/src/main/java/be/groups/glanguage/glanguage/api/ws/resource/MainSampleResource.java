@@ -67,7 +67,7 @@ public class MainSampleResource {
 		parser.setSemanticalAction(semanticalAction);
 		parser.setFormulaString(formulaString);
 		parser.analyze();
-		return semanticalAction.getFormulaList().getLast();
+		return semanticalAction.getFormula();
 	}
 	
 	@GET

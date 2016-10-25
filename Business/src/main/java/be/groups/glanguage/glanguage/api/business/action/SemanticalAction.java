@@ -23,8 +23,15 @@ public interface SemanticalAction {
 	// /** Version du S-Langage concernee */
 	// public String versionSlangage ();
 	
-	/** Get the result of the analysis */
-	public LinkedList<AbstractFormula> getFormulaList();
+	/**
+	 * @return the formula resulting of the analysis
+	 */
+	public AbstractFormula getFormula();
+
+	/**
+	 * @param formula the formula to set
+	 */
+	public void setFormula(AbstractFormula formula);
 	
 	/** Initialize the set of semantical actions */
 	public void initialize();

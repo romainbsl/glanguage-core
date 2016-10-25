@@ -51,6 +51,21 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 	}
 	
 	/**
+	 * Tests {@link FormulaDurationHours#isValid()} with integer parameter
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidInteger() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaDurationHours formula =
+				new FormulaDurationHours(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS), Arrays.asList(parameter));
+				
+		assertTrue(formula.isValid());
+	}
+	
+	/**
 	 * Tests {@link FormulaDurationHours#isValid()} with date parameter
 	 */
 	@Test
@@ -62,7 +77,7 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 		FormulaDurationHours formula =
 				new FormulaDurationHours(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS), Arrays.asList(parameter));
 				
-		assertTrue(formula.isValid());
+		assertFalse(formula.isValid());
 	}
 	
 	/**
@@ -81,11 +96,11 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaDurationHours#isValid()} with parameter not date nor duration
+	 * Tests {@link FormulaDurationHours#isValid()} with parameter not integer nor date nor duration
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNotDateOrDuration() {
+	public void testIsValidNotIntegerOrDateOrDuration() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		
@@ -93,6 +108,21 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 				new FormulaDurationHours(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS), Arrays.asList(parameter));
 				
 		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaDurationMinutes#getReturnType()} with integer parameter
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeInteger() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaDurationMinutes formula =
+				new FormulaDurationMinutes(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS), Arrays.asList(parameter));
+				
+		assertEquals(FormulaReturnType.DURATION, formula.getReturnType());
 	}
 	
 	/**
@@ -107,7 +137,7 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 		FormulaDurationHours formula =
 				new FormulaDurationHours(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS), Arrays.asList(parameter));
 				
-		assertEquals(FormulaReturnType.DURATION, formula.getReturnType());
+		assertNull(formula.getReturnType());
 	}
 	
 	/**
@@ -122,15 +152,15 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 		FormulaDurationHours formula =
 				new FormulaDurationHours(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS), Arrays.asList(parameter));
 				
-		assertEquals(FormulaReturnType.DURATION, formula.getReturnType());
+		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
 	}
 	
 	/**
-	 * Tests {@link FormulaDurationHours#getReturnType()} with parameter not date nor duration
+	 * Tests {@link FormulaDurationHours#getReturnType()} with parameter not integer nor date nor duration
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNotDateOrDuration() {
+	public void testGetReturnTypeNotIntegerOrDateOrDuration() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		
@@ -216,8 +246,8 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 	@Test
 	public void testGetDurationValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.DURATION);
-		when(parameter.getDurationValue()).thenReturn(Duration.ofHours(2L));
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getIntegerValue()).thenReturn(2);
 		
 		FormulaDurationHours formula = new FormulaDurationHours(null, Arrays.asList(parameter));
 		

@@ -10,9 +10,9 @@ import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
 import be.groups.glanguage.glanguage.api.business.analysis.IdentifierParameterList;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaAnomaly;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracket;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaDate;
@@ -76,23 +76,31 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.
 public class AsStandard implements SemanticalAction {
 	
 	static Logger logger = LoggerFactory.getLogger(Class.class);
-	
+
 	/**
 	 * Result of the analysis
 	 */
-	private LinkedList<AbstractFormula> formulaList;
+	private AbstractFormula formula;
 	
 	/**
-	 * @return the formulaList
+	 * @return the formula resulting of the analysis
 	 */
 	@Override
-	public LinkedList<AbstractFormula> getFormulaList() {
-		return formulaList;
+	public AbstractFormula getFormula() {
+		return formula;
+	}
+
+	/**
+	 * @param formula the formula to set
+	 */
+	@Override
+	public void setFormula(AbstractFormula formula) {
+		this.formula = formula;
 	}
 	
 	@Override
 	public void initialize() {
-		this.formulaList = new LinkedList<>();
+		this.formula = null;
 	}
 	
 	@Override
@@ -251,15 +259,15 @@ public class AsStandard implements SemanticalAction {
 		FormulaDescription precisionFormulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER);
 		switch (formulaDescriptionId) {
 			case F_CEIL:
-				return new FormulaRoundingCeil(formulaDescription, precisionFormulaDescription, parameters.get(0), parameters.get(1));
+				return new FormulaRoundingCeil(formulaDescription, precisionFormulaDescription, parameters.get(0), (parameters.size() > 1 ? parameters.get(1) : null));
 			case F_FLOOR:
-				return new FormulaRoundingFloor(formulaDescription, precisionFormulaDescription, parameters.get(0), parameters.get(1));
+				return new FormulaRoundingFloor(formulaDescription, precisionFormulaDescription, parameters.get(0), (parameters.size() > 1 ? parameters.get(1) : null));
 			case F_ROUNDED:
-				return new FormulaRoundingArithmetic(formulaDescription, precisionFormulaDescription, parameters.get(0), parameters.get(1));
+				return new FormulaRoundingArithmetic(formulaDescription, precisionFormulaDescription, parameters.get(0), (parameters.size() > 1 ? parameters.get(1) : null));
 			case F_TRUNC:
-				return new FormulaRoundingTrunc(formulaDescription, precisionFormulaDescription, parameters.get(0), parameters.get(1));
+				return new FormulaRoundingTrunc(formulaDescription, precisionFormulaDescription, parameters.get(0), (parameters.size() > 1 ? parameters.get(1) : null));
 			case F_BANKERS_ROUNDED:
-				return new FormulaRoundingBankers(formulaDescription, precisionFormulaDescription, parameters.get(0), parameters.get(1));
+				return new FormulaRoundingBankers(formulaDescription, precisionFormulaDescription, parameters.get(0), (parameters.size() > 1 ? parameters.get(1) : null));
 			case F_FORMAT_DATE:
 				return new FormulaFormatDate(formulaDescription, parameters);
 			case F_FORMAT_INTEGER:
