@@ -18,6 +18,7 @@ import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
 import be.groups.glanguage.glanguage.api.business.action.standard.AsStandard;
 import be.groups.glanguage.glanguage.api.business.analysis.byaccj.SlangTab;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaAnomaly;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracket;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaDate;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaIn;
@@ -4037,5 +4038,96 @@ public class ParserTest {
 		assertTrue(semanticalAction.getFormula().getNumericValue() < 0.0);
 	}
 	
+	/*
+	 * Tests for ANOMALY formula
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "put_text (1000)"
+	 */
+	@Test
+	public void testParseAnomalyIntegerId() {
+		String str = "put_text (1000)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormula());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
+				semanticalAction.getFormula() instanceof FormulaAnomaly);
+		assertEquals(FormulaReturnType.PROCEDURE, semanticalAction.getFormula().getReturnType());
+		assertEquals(new Integer(0), semanticalAction.getFormula().getIntegerValue());
+		assertEquals(new Double(0.0), semanticalAction.getFormula().getNumericValue());
+		assertEquals(new String(""), semanticalAction.getFormula().getStringValue());
+		assertEquals(LocalDate.MIN, semanticalAction.getFormula().getDateValue());
+		assertEquals(Duration.ZERO, semanticalAction.getFormula().getDurationValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "put_text ("1000")"
+	 */
+	@Test
+	public void testParseAnomalyStringId() {
+		String str = "put_text (\"1000\")";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormula());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
+				semanticalAction.getFormula() instanceof FormulaAnomaly);
+		assertEquals(FormulaReturnType.PROCEDURE, semanticalAction.getFormula().getReturnType());
+		assertEquals(new Integer(0), semanticalAction.getFormula().getIntegerValue());
+		assertEquals(new Double(0.0), semanticalAction.getFormula().getNumericValue());
+		assertEquals(new String(""), semanticalAction.getFormula().getStringValue());
+		assertEquals(LocalDate.MIN, semanticalAction.getFormula().getDateValue());
+		assertEquals(Duration.ZERO, semanticalAction.getFormula().getDurationValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "put_text (1000 ; "abc")"
+	 */
+	@Test
+	public void testParseAnomalyIntegerIdAndMessage() {
+		String str = "put_text (1000 ; \"abc\")";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormula());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
+				semanticalAction.getFormula() instanceof FormulaAnomaly);
+		assertEquals(FormulaReturnType.PROCEDURE, semanticalAction.getFormula().getReturnType());
+		assertEquals(new Integer(0), semanticalAction.getFormula().getIntegerValue());
+		assertEquals(new Double(0.0), semanticalAction.getFormula().getNumericValue());
+		assertEquals(new String(""), semanticalAction.getFormula().getStringValue());
+		assertEquals(LocalDate.MIN, semanticalAction.getFormula().getDateValue());
+		assertEquals(Duration.ZERO, semanticalAction.getFormula().getDurationValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "put_text ("1000" ; "abc")"
+	 */
+	@Test
+	public void testParseAnomalyStringIdAndMessage() {
+		String str = "put_text (\"1000\" ; \"abc\")";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormula());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
+				semanticalAction.getFormula() instanceof FormulaAnomaly);
+		assertEquals(FormulaReturnType.PROCEDURE, semanticalAction.getFormula().getReturnType());
+		assertEquals(new Integer(0), semanticalAction.getFormula().getIntegerValue());
+		assertEquals(new Double(0.0), semanticalAction.getFormula().getNumericValue());
+		assertEquals(new String(""), semanticalAction.getFormula().getStringValue());
+		assertEquals(LocalDate.MIN, semanticalAction.getFormula().getDateValue());
+		assertEquals(Duration.ZERO, semanticalAction.getFormula().getDurationValue());
+	}
 	
 }
