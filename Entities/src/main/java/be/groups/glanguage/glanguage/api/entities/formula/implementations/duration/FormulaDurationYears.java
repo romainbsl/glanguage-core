@@ -31,6 +31,8 @@ public class FormulaDurationYears extends DurationFormula {
 	@Override
 	public Integer getIntegerValue() {
 		switch (getParameters().get(0).getReturnType()) {
+			case INTEGER:
+				return getParameters().get(0).getIntegerValue();
 			case DATE:
 				return getParameters().get(0).getDateValue().getYear();
 			case DURATION:
