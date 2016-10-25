@@ -36,6 +36,11 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmaller;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerOrEqual;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationDays;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationHours;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationMinutes;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationMonths;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationYears;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMax;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMin;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumSignedMax;
@@ -3895,5 +3900,389 @@ public class ParserTest {
 		assertEquals(FormulaReturnType.DATE, semanticalAction.getFormulaList().getLast().getReturnType());
 		assertEquals(LocalDate.of(2016, 1, 1), semanticalAction.getFormulaList().getLast().getDateValue());
 	}
-
+	
+	/*
+	 * Tests for standard duration formulas
+	 */
+	
+	/*
+	 * Tests for standard duration MINUTES formulas
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "minutes(10)"
+	 */
+	@Test
+	public void testParseMinutesInteger() {
+		String str = "minutes(10)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationMinutes);
+		assertEquals(FormulaReturnType.DURATION, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(Duration.ofMinutes(10), semanticalAction.getFormulaList().getLast().getDurationValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "minutes('PT10M')"
+	 */
+	@Test
+	public void testParseMinutesDuration() {
+		String str = "minutes('PT10M')";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationMinutes);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(10), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "minutes(hours(2))"
+	 */
+	@Test
+	public void testParseMinutesHours() {
+		String str = "minutes(hours(2))";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(3, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationMinutes);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(120), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/*
+	 * Tests for standard duration HOURS formulas
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "hours(10)"
+	 */
+	@Test
+	public void testParseHoursInteger() {
+		String str = "hours(10)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationHours);
+		assertEquals(FormulaReturnType.DURATION, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(Duration.ofHours(10), semanticalAction.getFormulaList().getLast().getDurationValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "hours('PT10H')"
+	 */
+	@Test
+	public void testParseHoursDuration() {
+		String str = "hours('PT10H')";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationHours);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(10), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "hours(minutes(120))"
+	 */
+	@Test
+	public void testParseHoursMinutes() {
+		String str = "hours(minutes(120))";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(3, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationHours);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(2), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/*
+	 * Tests for standard duration DAYS formulas
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "days(2)"
+	 */
+	@Test
+	public void testParseDaysInteger() {
+		String str = "days(2)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationDays);
+		assertEquals(FormulaReturnType.DURATION, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(Duration.ofDays(2), semanticalAction.getFormulaList().getLast().getDurationValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "days('P2D')"
+	 */
+	@Test
+	public void testParseDaysDuration() {
+		String str = "days('P2D')";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationDays);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(2), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "days(hours(24))"
+	 */
+	@Test
+	public void testParseDaysHours() {
+		String str = "days(hours(24))";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(3, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationDays);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(1), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "days('02/01/2016')"
+	 */
+	@Test
+	public void testParseDaysDate() {
+		String str = "days('02/01/2016')";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationDays);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(2), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/*
+	 * Tests for standard duration MONTHS formulas
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "months(2)"
+	 */
+	@Test
+	public void testParseMonthsInteger() {
+		String str = "months(2)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationMonths);
+		assertEquals(FormulaReturnType.DURATION, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(Duration.ofDays(2 * 31), semanticalAction.getFormulaList().getLast().getDurationValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "days('P2M')"
+	 */
+	@Test
+	public void testParseMonthsDuration() {
+		String str = "months('P2M')";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationMonths);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(2), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "months(days(31))"
+	 */
+	@Test
+	public void testParseMonthsDays() {
+		String str = "months(days(31))";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(3, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationMonths);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(1), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "months('01/02/2016')"
+	 */
+	@Test
+	public void testParseMonthsDate() {
+		String str = "months('01/02/2016')";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationMonths);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(2), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/*
+	 * Tests for standard duration YEARS formulas
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "years(2)"
+	 */
+	@Test
+	public void testParseYearsInteger() {
+		String str = "years(2)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationYears);
+		assertEquals(FormulaReturnType.DURATION, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(Duration.ofDays(2 * 365), semanticalAction.getFormulaList().getLast().getDurationValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "years('P2Y')"
+	 */
+	@Test
+	public void testParseYearsDuration() {
+		String str = "years('P2Y')";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationYears);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(2), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "years(months(12))"
+	 */
+	@Test
+	public void testParseYearMonths() {
+		String str = "years(months(12))";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(3, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationYears);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(1), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "years('01/01/2016')"
+	 */
+	@Test
+	public void testParseYearsDate() {
+		String str = "years('01/02/2016')";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(2, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().getLast().getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaDurationYears);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(2016), semanticalAction.getFormulaList().getLast().getIntegerValue());
+	}
+	
 }
