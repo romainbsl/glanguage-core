@@ -59,6 +59,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.roundi
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingFloor;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingTrunc;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaStringItem;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaStringLength;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaSubString;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBoolean;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDate;
@@ -4130,4 +4131,24 @@ public class ParserTest {
 		assertEquals(Duration.ZERO, semanticalAction.getFormula().getDurationValue());
 	}
 	
+	/*
+	 * Tests for STRING LENGTH formula
+	 */
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "stringLength("abc")"
+	 */
+	@Test
+	public void testParseStringLenght() {
+		String str = "stringLength(\"abc\")";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormula());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
+				semanticalAction.getFormula() instanceof FormulaStringLength);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormula().getReturnType());
+		assertEquals(new Integer(3), semanticalAction.getFormula().getIntegerValue());
+	}
 }
