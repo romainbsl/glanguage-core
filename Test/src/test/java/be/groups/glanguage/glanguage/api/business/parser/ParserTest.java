@@ -917,6 +917,70 @@ public class ParserTest {
 	}
 	
 	/*
+	 * Tests for unary PLUS formula
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "+1"
+	 */
+	@Test
+	public void testParseUnaryPlus1WithoutBlank() {
+		String str = "+1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaTerminalInteger);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(1), semanticalAction.getFormulaList().get(0).getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "+ 1"
+	 */
+	@Test
+	public void testParseUnaryPlus1WithBlank() {
+		String str = "+ 1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaTerminalInteger);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Integer(1), semanticalAction.getFormulaList().get(0).getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "+ 1,1"
+	 */
+	@Test
+	public void testParseUnaryPlus1Comma1() {
+		String str = "+ 1,1";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormulaList());
+		assertFalse(semanticalAction.getFormulaList().isEmpty());
+		assertEquals(1, semanticalAction.getFormulaList().size());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormulaList().get(0).getDescription().getName(),
+				semanticalAction.getFormulaList().getLast() instanceof FormulaTerminalNumeric);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormulaList().getLast().getReturnType());
+		assertEquals(new Double(1.1), semanticalAction.getFormulaList().get(0).getNumericValue(), DELTA);
+	}
+	
+	/*
 	 * Tests for binary operation formulas
 	 */
 	
