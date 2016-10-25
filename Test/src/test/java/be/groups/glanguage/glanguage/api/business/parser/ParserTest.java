@@ -50,6 +50,8 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.format
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatNumeric;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatString;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaIfInstruction;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathAbs;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathSign;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingArithmetic;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingBankers;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingCeil;
@@ -3828,5 +3830,212 @@ public class ParserTest {
 		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormula().getReturnType());
 		assertEquals(new Integer(2016), semanticalAction.getFormula().getIntegerValue());
 	}
+	
+	/*
+	 * Tests for standard math formulas
+	 */
+	
+	/*
+	 * Tests for standard math ABS formula
+	 */
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "abs(10)"
+	 */
+	@Test
+	public void testParseAbsPositiveInteger() {
+		String str = "abs(10)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormula());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
+				semanticalAction.getFormula() instanceof FormulaMathAbs);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormula().getReturnType());
+		assertEquals(new Integer(10), semanticalAction.getFormula().getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "abs (-10)"
+	 */
+	@Test
+	public void testParseAbsNegativeInteger() {
+		String str = "abs (-10)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormula());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
+				semanticalAction.getFormula() instanceof FormulaMathAbs);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormula().getReturnType());
+		assertEquals(new Integer(10), semanticalAction.getFormula().getIntegerValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "abs (10,0)"
+	 */
+	@Test
+	public void testParseAbsPositiveNumeric() {
+		String str = "abs(10,0)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormula());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
+				semanticalAction.getFormula() instanceof FormulaMathAbs);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormula().getReturnType());
+		assertEquals(new Double(10.0), semanticalAction.getFormula().getNumericValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "abs (-10,0)"
+	 */
+	@Test
+	public void testParseAbsNegativeNumeric() {
+		String str = "abs (-10,0)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormula());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
+				semanticalAction.getFormula() instanceof FormulaMathAbs);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormula().getReturnType());
+		assertEquals(new Double(10.0), semanticalAction.getFormula().getNumericValue());
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "sign(10)"
+	 */
+	@Test
+	public void testParseSignPositiveInteger() {
+		String str = "sign(10)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormula());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
+				semanticalAction.getFormula() instanceof FormulaMathSign);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormula().getReturnType());
+		assertTrue(semanticalAction.getFormula().getIntegerValue() > 0);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "sign (-10)"
+	 */
+	@Test
+	public void testParseSignNegativeInteger() {
+		String str = "sign (-10)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormula());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
+				semanticalAction.getFormula() instanceof FormulaMathSign);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormula().getReturnType());
+		assertTrue(semanticalAction.getFormula().getIntegerValue() < 0);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "sign(0)"
+	 */
+	@Test
+	public void testParseSignZeroInteger() {
+		String str = "sign(0)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormula());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
+				semanticalAction.getFormula() instanceof FormulaMathSign);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormula().getReturnType());
+		assertTrue(semanticalAction.getFormula().getIntegerValue() == 0);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "sign(+0)"
+	 */
+	@Test
+	public void testParseSignPositiveZeroInteger() {
+		String str = "sign(0)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormula());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
+				semanticalAction.getFormula() instanceof FormulaMathSign);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormula().getReturnType());
+		assertTrue(semanticalAction.getFormula().getIntegerValue() == 0);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "sign(-0)"
+	 */
+	@Test
+	public void testParseSignNegativeZeroInteger() {
+		String str = "sign(-0)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormula());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
+				semanticalAction.getFormula() instanceof FormulaMathSign);
+		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormula().getReturnType());
+		assertTrue(semanticalAction.getFormula().getIntegerValue() < 0);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "sign (10,0)"
+	 */
+	@Test
+	public void testParseSignPositiveNumeric() {
+		String str = "sign(10,0)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormula());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
+				semanticalAction.getFormula() instanceof FormulaMathSign);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormula().getReturnType());
+		assertTrue(semanticalAction.getFormula().getNumericValue() > 0.0);
+	}
+	
+	/**
+	 * Tests {@link SlangTab#analyze()} with string "sign (-10,0)"
+	 */
+	@Test
+	public void testParseSignNegativeNumeric() {
+		String str = "sign (-10,0)";
+		SemanticalAction semanticalAction = new AsStandard();
+		SlangTab parser = new SlangTab(true);
+		parser.setSemanticalAction(semanticalAction);
+		parser.setFormulaString(str);
+		parser.analyze();
+		assertNotNull(semanticalAction.getFormula());
+		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
+				semanticalAction.getFormula() instanceof FormulaMathSign);
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormula().getReturnType());
+		assertTrue(semanticalAction.getFormula().getNumericValue() < 0.0);
+	}
+	
 	
 }
