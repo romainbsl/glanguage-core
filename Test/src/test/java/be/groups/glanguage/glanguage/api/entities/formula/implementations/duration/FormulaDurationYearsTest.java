@@ -82,11 +82,11 @@ public class FormulaDurationYearsTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaDurationYears#isValid()} with parameter not date nor duration
+	 * Tests {@link FormulaDurationYears#isValid()} with parameter not integer nor date nor duration
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNotDateOrDuration() {
+	public void testIsValidNotIntegerOrDateOrDuration() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		
@@ -94,6 +94,21 @@ public class FormulaDurationYearsTest extends BaseDatabaseTest {
 				new FormulaDurationYears(FormulaDescriptionFactory.getDescription(FormulaType.F_YEARS), Arrays.asList(parameter));
 				
 		assertFalse(formula.isValid());
+	}
+	
+	/**
+	 * Tests {@link FormulaDurationMinutes#getReturnType()} with integer parameter
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testGetReturnTypeInteger() {
+		AbstractFormula parameter = mock(AbstractFormula.class);
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		
+		FormulaDurationMinutes formula =
+				new FormulaDurationMinutes(FormulaDescriptionFactory.getDescription(FormulaType.F_YEARS), Arrays.asList(parameter));
+				
+		assertEquals(FormulaReturnType.DURATION, formula.getReturnType());
 	}
 	
 	/**
@@ -108,7 +123,7 @@ public class FormulaDurationYearsTest extends BaseDatabaseTest {
 		FormulaDurationYears formula =
 				new FormulaDurationYears(FormulaDescriptionFactory.getDescription(FormulaType.F_YEARS), Arrays.asList(parameter));
 				
-		assertEquals(FormulaReturnType.DURATION, formula.getReturnType());
+		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
 	}
 	
 	/**
@@ -123,15 +138,15 @@ public class FormulaDurationYearsTest extends BaseDatabaseTest {
 		FormulaDurationYears formula =
 				new FormulaDurationYears(FormulaDescriptionFactory.getDescription(FormulaType.F_YEARS), Arrays.asList(parameter));
 				
-		assertEquals(FormulaReturnType.DURATION, formula.getReturnType());
+		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
 	}
 	
 	/**
-	 * Tests {@link FormulaDurationYears#getReturnType()} with parameter not date nor duration
+	 * Tests {@link FormulaDurationYears#getReturnType()} with parameter not integer nor date nor duration
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNotDateOrDuration() {
+	public void testGetReturnTypeNotIntegerOrDateOrDuration() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
 		
