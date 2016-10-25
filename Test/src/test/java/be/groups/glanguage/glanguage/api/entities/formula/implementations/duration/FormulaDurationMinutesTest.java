@@ -77,7 +77,7 @@ public class FormulaDurationMinutesTest extends BaseDatabaseTest {
 		FormulaDurationMinutes formula =
 				new FormulaDurationMinutes(FormulaDescriptionFactory.getDescription(FormulaType.F_MINUTES), Arrays.asList(parameter));
 				
-		assertTrue(formula.isValid());
+		assertFalse(formula.isValid());
 	}
 	
 	/**
@@ -137,7 +137,7 @@ public class FormulaDurationMinutesTest extends BaseDatabaseTest {
 		FormulaDurationMinutes formula =
 				new FormulaDurationMinutes(FormulaDescriptionFactory.getDescription(FormulaType.F_MINUTES), Arrays.asList(parameter));
 				
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
+		assertNull(formula.getReturnType());
 	}
 	
 	/**
@@ -171,7 +171,7 @@ public class FormulaDurationMinutesTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaDurationMinutes#getIntegerValue()}
+	 * Tests {@link FormulaDurationMinutes#getIntegerValue()} when parameter is a duration
 	 */
 	@Test
 	public void testGetIntegerValue() {
@@ -246,8 +246,8 @@ public class FormulaDurationMinutesTest extends BaseDatabaseTest {
 	@Test
 	public void testGetDurationValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.DURATION);
-		when(parameter.getDurationValue()).thenReturn(Duration.ofHours(2L));
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getIntegerValue()).thenReturn(120);
 		
 		FormulaDurationMinutes formula = new FormulaDurationMinutes(null, Arrays.asList(parameter));
 		

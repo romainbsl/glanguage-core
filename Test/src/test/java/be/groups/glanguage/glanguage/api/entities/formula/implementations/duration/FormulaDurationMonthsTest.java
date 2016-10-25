@@ -256,27 +256,13 @@ public class FormulaDurationMonthsTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaDurationMonths#getDurationValue()} with date parameter
+	 * Tests {@link FormulaDurationMonths#getDurationValue()} with integer parameter
 	 */
 	@Test
-	public void testGetDurationValueDateParameter() {
+	public void testGetDurationValueIntegerParameter() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(parameter.getDateValue()).thenReturn(LocalDate.of(2015, 2, 10));
-		
-		FormulaDurationMonths formula = new FormulaDurationMonths(null, Arrays.asList(parameter));
-		
-		assertEquals(Duration.ofDays(2 * 31), formula.getDurationValue());
-	}
-	
-	/**
-	 * Tests {@link FormulaDurationMonths#getDurationValue()} with duration parameter
-	 */
-	@Test
-	public void testGetDurationValueDurationParameter() {
-		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.DURATION);
-		when(parameter.getDurationValue()).thenReturn(Duration.ofDays(2 * 31));
+		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getIntegerValue()).thenReturn(2);
 		
 		FormulaDurationMonths formula = new FormulaDurationMonths(null, Arrays.asList(parameter));
 		
