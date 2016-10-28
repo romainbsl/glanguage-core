@@ -112,7 +112,7 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
 	
 	@Override
 	public String asText() {
-		return operationAsText() + "(" + getParameters().get(0).asText() + ")";
+		return operationAsText() + "(" + getConstantValue() + ")";
 	}
 	
 	public abstract String operationAsText();
