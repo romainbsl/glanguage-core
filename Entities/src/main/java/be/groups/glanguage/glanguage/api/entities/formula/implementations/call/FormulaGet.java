@@ -21,14 +21,10 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 @DiscriminatorValue(value = FormulaType.Values.C_GET)
 public class FormulaGet extends CallFormula {
 	
+	private Object context;
+	
 	public FormulaGet() {
 		super();
-	}
-	
-	@Transient
-	@Override
-	public FormulaReturnType getReturnType() {
-		return new FormulaReturnTypeConverter().convertToEntityAttribute(Integer.valueOf(getConstantValue()));
 	}
 	
 	public FormulaGet(FormulaDescription description, FormulaDescription subFormulasdescription, FormulaReturnType returnType,
@@ -42,13 +38,18 @@ public class FormulaGet extends CallFormula {
 		}
 	}
 	
+	@Transient
+	@Override
+	public FormulaReturnType getReturnType() {
+		return new FormulaReturnTypeConverter().convertToEntityAttribute(Integer.valueOf(getConstantValue()));
+	}
+	
 	@JsonIgnore
 	@Transient
 	@Override
 	public Boolean getBooleanValue() {
 		try {
-			return (Boolean) callFunctionAny(getTargetedObject(), getParameters().get(getParameters().size() - 1).getConstantValue(),
-					getParametersAsArray());
+			return (Boolean) getTargetedObject();
 		} catch (ClassCastException cce) {
 			// TODO report evaluation error
 			throw cce;
@@ -60,7 +61,7 @@ public class FormulaGet extends CallFormula {
 	@Override
 	public LocalDate getDateValue() {
 		try {
-			return (LocalDate) callFunctionAny(getTargetedObject(), getConstantValue(), getParametersAsArray());
+			return (LocalDate) getTargetedObject();
 		} catch (ClassCastException cce) {
 			// TODO report evaluation error
 			throw cce;
@@ -72,7 +73,7 @@ public class FormulaGet extends CallFormula {
 	@Override
 	public Duration getDurationValue() {
 		try {
-			return (Duration) callFunctionAny(getTargetedObject(), getConstantValue(), getParametersAsArray());
+			return (Duration) getTargetedObject();
 		} catch (ClassCastException cce) {
 			// TODO report evaluation error
 			throw cce;
@@ -84,7 +85,7 @@ public class FormulaGet extends CallFormula {
 	@Override
 	public Integer getIntegerValue() {
 		try {
-			return (Integer) callFunctionAny(getTargetedObject(), getConstantValue(), getParametersAsArray());
+			return (Integer) getTargetedObject();
 		} catch (ClassCastException cce) {
 			// TODO report evaluation error
 			throw cce;
@@ -96,7 +97,7 @@ public class FormulaGet extends CallFormula {
 	@Override
 	public Double getNumericValue() {
 		try {
-			return (Double) callFunctionAny(getTargetedObject(), getConstantValue(), getParametersAsArray());
+			return (Double) getTargetedObject();
 		} catch (ClassCastException cce) {
 			// TODO report evaluation error
 			throw cce;
@@ -108,7 +109,7 @@ public class FormulaGet extends CallFormula {
 	@Override
 	public String getStringValue() {
 		try {
-			return (String) callFunctionAny(getTargetedObject(), getConstantValue(), getParametersAsArray());
+			return (String) getTargetedObject();
 		} catch (ClassCastException cce) {
 			// TODO report evaluation error
 			throw cce;
@@ -133,26 +134,25 @@ public class FormulaGet extends CallFormula {
 		return sb.toString();
 	}
 	
-	@JsonIgnore
-	@Transient
-	private Object getTargetedObject() {
-		Object result = null; // TODO get main facade
-		for (AbstractFormula primitive : getParameters()) {
-			result = ((FormulaPrimitive) primitive).getTargetedObject(result);
-		}
-		return result;
+	/**
+	 * @param context the context to set
+	 */
+	public void setContext(Object context) {
+		this.context = context;
 	}
 	
 	@JsonIgnore
 	@Transient
-	private AbstractFormula[] getParametersAsArray() {
-		AbstractFormula[] parameters = null;
-		AbstractFormula lastParameter = getParameters().get(getParameters().size() - 1);
-		if (lastParameter.getParameters() != null) {
-			parameters = new AbstractFormula[lastParameter.getParameters().size()];
-			parameters = lastParameter.getParameters().toArray(parameters);
+	private Object getTargetedObject() {
+		if (context == null) {
+			throw new IllegalAccessError("Cannot invoke getTargetetObject() method on " + this.getClass().getName()
+					+ " object while context is not set - while branching is not done - (id : " + this.getId() + ")");
 		}
-		return parameters;
+		Object result = context;
+		for (AbstractFormula primitive : getParameters()) {
+			result = ((FormulaPrimitive) primitive).getTargetedObject(result);
+		}
+		return result;
 	}
 	
 }

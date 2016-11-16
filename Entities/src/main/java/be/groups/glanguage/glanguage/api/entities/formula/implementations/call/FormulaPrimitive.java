@@ -35,7 +35,6 @@ public class FormulaPrimitive extends CallFormula {
 	protected Object getTargetedObject(Object object) {
 		AbstractFormula[] parameters = null;
 		if (getParameters() != null) {
-			parameters = new AbstractFormula[getParameters().size()];
 			parameters = getParameters().toArray(parameters);
 		}
 		return callFunctionAny(object, getConstantValue(), parameters);
@@ -45,16 +44,16 @@ public class FormulaPrimitive extends CallFormula {
 	public String asText() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getConstantValue());
-		sb.append("(");
 		if (getParameters().size() > 0) {
+			sb.append("(");		
 			sb.append(getParameters().get(0).asText());
 			Iterator<AbstractFormula> itParameters = getParameters().listIterator(1);
 			while (itParameters.hasNext()) {
 				sb.append("; ");
 				sb.append(itParameters.next().asText());
 			}
+			sb.append(")");
 		}
-		sb.append(")");
 		return sb.toString();
 	}
 	

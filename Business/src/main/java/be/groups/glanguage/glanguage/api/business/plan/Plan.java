@@ -7,8 +7,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaApplicability;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaRuleReference;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.RuleCallFormula;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleGroupItem;
@@ -51,19 +53,19 @@ public class Plan {
 		this.isBranched = isBranched;
 	}
 
-	public Collection<RuleVersion> evaluate() {
+	public Collection<RuleVersion> evaluate(Object context) {
 		if (!isBranched()) {
-			branch();
+			branch(context);
 		}
 		getRuleVersions().stream().forEach(rv -> rv.getValue());
 		return getRuleVersions().stream().filter(rv -> rv.isCached()).collect(Collectors.toList());
 	}
 	
-	public Collection<RuleVersion> evaluate(String ruleIdentifier, boolean recursive) {
-		if (!isBranched()) {
-			branch();
-		}
+	public Collection<RuleVersion> evaluate(Object context, String ruleIdentifier, boolean recursive) {
 		RuleVersion ruleVersion = getEffectiveRuleVersionByIdenitifier(ruleIdentifier);
+		if (!isBranched()) {
+			branch(ruleVersion, context);
+		}
 		if (ruleVersion != null) {
 			evaluate(ruleVersion, recursive);
 		} else {
@@ -84,20 +86,20 @@ public class Plan {
 		}
 	}
 		
-	public void branch() {
-		getRuleVersions().stream().forEach(rv -> branch(rv));
+	public void branch(Object context) {
+		getRuleVersions().stream().forEach(rv -> branch(rv, context));
 		setBranched(true);
 	}
 
-	public void branch(RuleVersion rv) {
+	public void branch(RuleVersion rv, Object context) {
 		if (rv.getGroupItems() != null && !rv.getGroupItems().isEmpty()) {
 			rv.getGroupItems().stream().forEach(gi -> branch(gi));
 		}
 		if (rv.getApplicabilityCondition() != null) {
-			branch(rv.getApplicabilityCondition());
+			branch(rv.getApplicabilityCondition(), context);
 		}
 		if (rv.getFormula() != null) {
-			branch(rv.getFormula());
+			branch(rv.getFormula(), context);
 		}
 	}
 	
@@ -105,16 +107,27 @@ public class Plan {
 		gi.setReferencedRule(getEffectiveRuleVersionByRuleIdentityId(String.valueOf(gi.getItemRule().getId())));
 	}
 	
-	public void branch(AbstractFormula formula) {
-		if (formula instanceof FormulaRuleReference || formula instanceof FormulaApplicability || formula instanceof FormulaFormula) {
-			branch((RuleCallFormula) formula);
-		} else if (formula.getParameters() != null && !formula.getParameters().isEmpty()){
-			formula.getParameters().stream().forEach(p -> branch(p));
+	public void branch(AbstractFormula formula, Object context) {
+		switch (formula.getDescription().getType()) {
+			case C_RULE_REFERENCE :
+				branch((RuleCallFormula) formula);
+				break;
+			case C_GET :
+				branch ((FormulaGet) formula, context);
+				break;
+			default :				
+				if (formula.getParameters() != null && !formula.getParameters().isEmpty()){
+        			formula.getParameters().stream().forEach(p -> branch(p, context));
+        		}
 		}
 	}
 	
 	public void branch(RuleCallFormula formula) {
 		formula.setReferencedRule(getEffectiveRuleVersionByRuleIdentityId(formula.getRuleId()));
+	}
+	
+	public void branch(FormulaGet formula, Object context) {
+		formula.setContext(context);
 	}
 	
 	public RuleVersion getEffectiveRuleVersionByIdenitifier(String ruleIdentifier) {
