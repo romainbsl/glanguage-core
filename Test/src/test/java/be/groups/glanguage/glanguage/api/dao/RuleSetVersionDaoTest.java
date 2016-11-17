@@ -29,9 +29,9 @@ public class RuleSetVersionDaoTest extends DaoTest {
 	 */
 	@Test
 	public void testFindById() {
-		RuleSetVersion ruleSetVersion = new RuleSetVersionDao().findById(900000);
+		RuleSetVersion ruleSetVersion = new RuleSetVersionDao().findById(-900000);
 		assertNotNull(ruleSetVersion);
-		assertEquals(900000, ruleSetVersion.getId());
+		assertEquals(-900000, ruleSetVersion.getId());
 	}
 	
 	/**
@@ -39,9 +39,9 @@ public class RuleSetVersionDaoTest extends DaoTest {
 	 */
 	@Test
 	public void testFindByRuleSetIdAndVersion() {
-		RuleSetVersion ruleSetVersion = new RuleSetVersionDao().findByRuleSetIdAndVersion(900000, "1.0.0");
+		RuleSetVersion ruleSetVersion = new RuleSetVersionDao().findByRuleSetIdAndVersion(-900000, "1.0.0");
 		assertNotNull(ruleSetVersion);
-		assertEquals(900000, ruleSetVersion.getRuleSet().getId());
+		assertEquals(-900000, ruleSetVersion.getRuleSet().getId());
 		assertEquals("1.0.0", ruleSetVersion.getVersion());
 	}
 	
@@ -64,9 +64,9 @@ public class RuleSetVersionDaoTest extends DaoTest {
 	@Test
 	public void testFindByRuleSetIdAndExploitationDate() {
 		LocalDateTime exploitationDate = LocalDateTime.now();
-		RuleSetVersion ruleSetVersion = new RuleSetVersionDao().findByRuleSetIdAndExploitationDate(900000, exploitationDate);
+		RuleSetVersion ruleSetVersion = new RuleSetVersionDao().findByRuleSetIdAndExploitationDate(-900000, exploitationDate);
 		assertNotNull(ruleSetVersion);
-		assertEquals(900000, ruleSetVersion.getRuleSet().getId());
+		assertEquals(-900000, ruleSetVersion.getRuleSet().getId());
 		assertFalse("exploitation start date after exploitation date",
 				ruleSetVersion.getExploitationStartDate().isAfter(exploitationDate));
 	}

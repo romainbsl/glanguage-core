@@ -119,7 +119,7 @@ public class FormulaGetTest {
 				
 		FormulaGet formula = new FormulaGet(null, null, returnType, identifiers, parameters);
 		
-		assertEquals("get BOOLEAN call1().call2().call3(some_rule1; some_rule2)", formula.asText());
+		assertEquals("get BOOLEAN call1.call2.call3(some_rule1; some_rule2)", formula.asText());
 	}
 	
 }

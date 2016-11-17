@@ -75,12 +75,12 @@ public class RuleSetTest {
 	@Test
 	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
-		RuleSet ruleSet = em.find(RuleSet.class, 900000);
+		RuleSet ruleSet = em.find(RuleSet.class, -900000);
 		
 		/* Checking entity */
 		assertNotNull(ruleSet);
 		
-		assertEquals(900000, ruleSet.getId());
+		assertEquals(-900000, ruleSet.getId());
 		
 		assertEquals("rs1_fr", ruleSet.getAliasFr());
 		assertEquals("rs1_nl", ruleSet.getAliasNl());
@@ -97,7 +97,7 @@ public class RuleSetTest {
 		assertEquals(3, ruleSet.getVersions().size());
 		assertEquals(3, ruleSet.getVersions().stream().map(v -> v.getId()).distinct().count());
 		
-		List<Integer> ruleSetVersionIds = Arrays.asList(900000, 900001, 900002);
+		List<Integer> ruleSetVersionIds = Arrays.asList(-900000, -900001, -900002);
 		ruleSet.getVersions().forEach(v -> {
 			assertTrue(ruleSetVersionIds.contains(v.getId()));
 		});

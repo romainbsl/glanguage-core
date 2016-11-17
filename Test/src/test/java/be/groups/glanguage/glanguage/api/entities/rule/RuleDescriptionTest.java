@@ -66,12 +66,12 @@ public class RuleDescriptionTest {
 	@Test
 	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
-		RuleDescription ruleDescription = em.find(RuleDescription.class, 900000);
+		RuleDescription ruleDescription = em.find(RuleDescription.class, -900000);
 
 		/* Checking entity */
 		assertNotNull(ruleDescription);
 		
-		assertEquals(900000, ruleDescription.getId());
+		assertEquals(-900000, ruleDescription.getId());
 
 		assertEquals("r1", ruleDescription.getCode());
 
@@ -90,7 +90,7 @@ public class RuleDescriptionTest {
 		assertEquals(4, ruleDescription.getRuleVersions().size());
 		assertEquals(4, ruleDescription.getRuleVersions().stream().map(rv -> rv.getId()).distinct().count());
 
-		List<Integer> ruleVersionIds = Arrays.asList(900000, 900001, 900002, 900003);
+		List<Integer> ruleVersionIds = Arrays.asList(-900000, -900001, -900002, -900003);
 		ruleDescription.getRuleVersions().forEach(rv -> {
 			assertTrue(ruleVersionIds.contains(rv.getId()));
 		});

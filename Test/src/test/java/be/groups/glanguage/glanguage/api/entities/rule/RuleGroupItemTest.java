@@ -63,8 +63,8 @@ public class RuleGroupItemTest {
 	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
 		RuleGroupItemId ruleGroupItemId = new RuleGroupItemId();
-		ruleGroupItemId.setRuleVersionId(900003);
-		ruleGroupItemId.setRuleId(900001);
+		ruleGroupItemId.setRuleVersionId(-900003);
+		ruleGroupItemId.setRuleId(-900001);
 
 		RuleGroupItem ruleGroupItem = em.find(RuleGroupItem.class, ruleGroupItemId);
 
@@ -77,10 +77,10 @@ public class RuleGroupItemTest {
 		
 		/* Checking relationships */
 		assertNotNull(ruleGroupItem.getGroupRule());
-		assertEquals(900003, ruleGroupItem.getGroupRule().getId());
+		assertEquals(-900003, ruleGroupItem.getGroupRule().getId());
 		
 		assertNotNull(ruleGroupItem.getItemRule());
-		assertEquals(900001, ruleGroupItem.getItemRule().getId());
+		assertEquals(-900001, ruleGroupItem.getItemRule().getId());
 	}
 
 }

@@ -57,7 +57,7 @@ public class PlanTest {
 	@Test
 	public void testEvaluate() {
 		LocalDateTime effectivityDate = LocalDateTime.now();
-		Plan plan = Universe.getPlan(900003, effectivityDate);
+		Plan plan = Universe.getPlan(-900003, effectivityDate);
 		plan.resetEvaluation();
 		assertNotNull(plan);
 		assertNotNull(plan.getRuleVersions());
@@ -70,14 +70,14 @@ public class PlanTest {
 		assertEquals(4, evaluatedRuleVersions.size());
 		for (RuleVersion ruleVersion: evaluatedRuleVersions) {
 			switch (ruleVersion.getId()) {
-				case 900005:
-				case 900006: 
+				case -900005:
+				case -900006: 
 					assertEquals(1500, ruleVersion.getValue());
 					break;
-				case 900007:
+				case -900007:
 					assertEquals(1000, ruleVersion.getValue());
 					break;
-				case 900008:
+				case -900008:
 					assertEquals(500, ruleVersion.getValue());
 					break;
 				default:
@@ -92,20 +92,20 @@ public class PlanTest {
 	@Test
 	public void testEvaluateRule900002() {
 		LocalDateTime effectivityDate = LocalDateTime.now();
-		Plan plan = Universe.getPlan(900003, effectivityDate);
+		Plan plan = Universe.getPlan(-900003, effectivityDate);
 		plan.resetEvaluation();
 		assertNotNull(plan);
 		assertNotNull(plan.getRuleVersions());
 		assertFalse(plan.getRuleVersions().isEmpty());
 		assertFalse(plan.isBranched());
-		Collection<RuleVersion> evaluatedRuleVersions = plan.evaluate(null, "900002", false);
-		assertTrue(plan.isBranched());
+		Collection<RuleVersion> evaluatedRuleVersions = plan.evaluate(null, "-900002", false);
+		assertFalse(plan.isBranched());
 		assertNotNull(evaluatedRuleVersions);
 		assertFalse(evaluatedRuleVersions.isEmpty());
 		assertEquals(1, evaluatedRuleVersions.size());
 		for (RuleVersion ruleVersion: evaluatedRuleVersions) {
 			switch (ruleVersion.getId()) {
-				case 900005: 
+				case -900005: 
 					assertEquals(1500, ruleVersion.getValue());
 					break;
 				default:
@@ -120,26 +120,26 @@ public class PlanTest {
 	@Test
 	public void testEvaluateRule900003() {
 		LocalDateTime effectivityDate = LocalDateTime.now();
-		Plan plan = Universe.getPlan(900003, effectivityDate);
+		Plan plan = Universe.getPlan(-900003, effectivityDate);
 		plan.resetEvaluation();
 		assertNotNull(plan);
 		assertNotNull(plan.getRuleVersions());
 		assertFalse(plan.getRuleVersions().isEmpty());
 		assertFalse(plan.isBranched());
-		Collection<RuleVersion> evaluatedRuleVersions = plan.evaluate(null, "900003", false);
-		assertTrue(plan.isBranched());
+		Collection<RuleVersion> evaluatedRuleVersions = plan.evaluate(null, "-900003", false);
+		assertFalse(plan.isBranched());
 		assertNotNull(evaluatedRuleVersions);
 		assertFalse(evaluatedRuleVersions.isEmpty());
 		assertEquals(3, evaluatedRuleVersions.size());
 		for (RuleVersion ruleVersion: evaluatedRuleVersions) {
 			switch (ruleVersion.getId()) {
-				case 900006: 
+				case -900006: 
 					assertEquals(1500, ruleVersion.getValue());
 					break;
-				case 900007:
+				case -900007:
 					assertEquals(1000, ruleVersion.getValue());
 					break;
-				case 900008:
+				case -900008:
 					assertEquals(500, ruleVersion.getValue());
 					break;
 				default:

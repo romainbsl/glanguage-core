@@ -76,15 +76,15 @@ public class RuleDefinitionTest {
 	@Test
 	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
-		RuleDefinition ruleDefinition = em.find(RuleDefinition.class, 900001);
+		RuleDefinition ruleDefinition = em.find(RuleDefinition.class, -900001);
 
 		/* Checking entity */
 		assertNotNull(ruleDefinition);
 
-		assertEquals(900001, ruleDefinition.getId());
+		assertEquals(-900001, ruleDefinition.getId());
 
 		/* Checking relationships */
-		assertEquals(900000, ruleDefinition.getRuleIdentity().getId());
+		assertEquals(-900000, ruleDefinition.getRuleIdentity().getId());
 
 		assertNotNull(ruleDefinition.getDefinitionParameters());
 		assertEquals(2, ruleDefinition.getDefinitionParameters().size());
@@ -92,12 +92,12 @@ public class RuleDefinitionTest {
 
 		RuleDefinitionParameterId firstRuleDefinitionParameterId = new RuleDefinitionParameterId();
 		firstRuleDefinitionParameterId.setLevelId(2);
-		firstRuleDefinitionParameterId.setRuleDefinitionId(900001);
+		firstRuleDefinitionParameterId.setRuleDefinitionId(-900001);
 		firstRuleDefinitionParameterId.setValue("100000");
 
 		RuleDefinitionParameterId secondtRuleDefinitionParameterId = new RuleDefinitionParameterId();
 		secondtRuleDefinitionParameterId.setLevelId(3);
-		secondtRuleDefinitionParameterId.setRuleDefinitionId(900001);
+		secondtRuleDefinitionParameterId.setRuleDefinitionId(-900001);
 		secondtRuleDefinitionParameterId.setValue("355");
 
 		List<RuleDefinitionParameterId> ruleDefinitionParameterIds = Arrays.asList(firstRuleDefinitionParameterId,
@@ -108,7 +108,7 @@ public class RuleDefinitionTest {
 
 		assertNotNull(ruleDefinition.getVersions());
 		assertEquals(1, ruleDefinition.getVersions().size());
-		assertEquals(900003, ruleDefinition.getVersions().get(0).getId());
+		assertEquals(-900003, ruleDefinition.getVersions().get(0).getId());
 	}
 
 	/**

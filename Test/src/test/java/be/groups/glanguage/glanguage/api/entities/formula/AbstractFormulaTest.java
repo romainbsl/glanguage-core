@@ -62,12 +62,12 @@ public class AbstractFormulaTest {
 	@Test
 	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
-		AbstractFormula formula = em.find(AbstractFormula.class, 900003);
+		AbstractFormula formula = em.find(AbstractFormula.class, -900003);
 
 		/* Checking entity */
 		assertNotNull(formula);
 
-		assertEquals(900003, formula.getId());
+		assertEquals(-900003, formula.getId());
 
 		assertEquals("TRUE", formula.getConstantValue());
 		assertEquals(Integer.valueOf(4), formula.getSequenceNumber());

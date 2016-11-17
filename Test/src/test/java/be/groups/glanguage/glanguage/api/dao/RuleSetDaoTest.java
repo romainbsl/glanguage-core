@@ -26,9 +26,9 @@ public class RuleSetDaoTest extends DaoTest {
 	 */
 	@Test
 	public void testFindById() {
-		RuleSet ruleSet = new RuleSetDao().findById(900000);
+		RuleSet ruleSet = new RuleSetDao().findById(-900000);
 		assertNotNull(ruleSet);
-		assertEquals(900000, ruleSet.getId());
+		assertEquals(-900000, ruleSet.getId());
 	}
 	
 	/**

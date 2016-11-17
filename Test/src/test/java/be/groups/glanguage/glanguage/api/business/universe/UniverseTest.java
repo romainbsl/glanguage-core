@@ -70,9 +70,9 @@ public class UniverseTest {
 	 */
 	@Test
 	public void testGetRuleSetById() {
-		RuleSet ruleSet = Universe.getRuleSet(900000);
+		RuleSet ruleSet = Universe.getRuleSet(-900000);
 		assertNotNull(ruleSet);
-		assertEquals(900000, ruleSet.getId());
+		assertEquals(-900000, ruleSet.getId());
 		assertNotNull(ruleSet.getVersions());
 		assertFalse(ruleSet.getVersions().isEmpty());
 	}
@@ -94,9 +94,9 @@ public class UniverseTest {
 	 */
 	@Test
 	public void testGetRuleSetVersionById() {
-		RuleSetVersion ruleSetVersion = Universe.getRuleSetVersion(900000);
+		RuleSetVersion ruleSetVersion = Universe.getRuleSetVersion(-900000);
 		assertNotNull(ruleSetVersion);
-		assertEquals(900000, ruleSetVersion.getId());
+		assertEquals(-900000, ruleSetVersion.getId());
 	}
 	
 	/**
@@ -104,9 +104,9 @@ public class UniverseTest {
 	 */
 	@Test
 	public void testGetRuleSetVersionByRuleSetIdAndVersion() {
-		RuleSetVersion ruleSetVersion = Universe.getRuleSetVersion(900000, "1.0.0");
+		RuleSetVersion ruleSetVersion = Universe.getRuleSetVersion(-900000, "1.0.0");
 		assertNotNull(ruleSetVersion);
-		assertEquals(900000, ruleSetVersion.getRuleSet().getId());
+		assertEquals(-900000, ruleSetVersion.getRuleSet().getId());
 		assertEquals("1.0.0", ruleSetVersion.getVersion());
 	}
 	
@@ -127,9 +127,9 @@ public class UniverseTest {
 	@Test
 	public void testGetRuleSetVersionByRuleSetIdAndExploitationDate() {
 		LocalDateTime exploitationDate = LocalDateTime.now();
-		RuleSetVersion ruleSetVersion = Universe.getRuleSetVersion(900000, exploitationDate);
+		RuleSetVersion ruleSetVersion = Universe.getRuleSetVersion(-900000, exploitationDate);
 		assertNotNull(ruleSetVersion);
-		assertEquals(900000, ruleSetVersion.getRuleSet().getId());
+		assertEquals(-900000, ruleSetVersion.getRuleSet().getId());
 		assertFalse("exploitation start date after exploitation date",
 				ruleSetVersion.getExploitationStartDate().isAfter(exploitationDate));
 	}
@@ -153,7 +153,7 @@ public class UniverseTest {
 	@Test
 	public void testGetPlan() {
 		LocalDateTime effectivityDate = LocalDateTime.now();
-		Plan plan = Universe.getPlan(900000, effectivityDate);
+		Plan plan = Universe.getPlan(-900000, effectivityDate);
 		assertNotNull(plan);
 		assertNotNull(plan.getRuleVersions());
 		assertFalse(plan.getRuleVersions().isEmpty());
@@ -165,9 +165,9 @@ public class UniverseTest {
 	 */
 	@Test
 	public void testGetFormula() {
-		AbstractFormula formula = Universe.getFormula(900000);
+		AbstractFormula formula = Universe.getFormula(-900000);
 		assertNotNull(formula);
-		assertEquals(900000, formula.getId());
+		assertEquals(-900000, formula.getId());
 	}
 	
 }

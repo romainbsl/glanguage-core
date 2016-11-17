@@ -70,19 +70,19 @@ public class RuleIdentityTest {
 	@Test
 	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
-		RuleIdentity ruleIdentity = em.find(RuleIdentity.class, 900000);
+		RuleIdentity ruleIdentity = em.find(RuleIdentity.class, -900000);
 
 		/* Checking entity */
 		assertNotNull(ruleIdentity);
 
-		assertEquals(900000, ruleIdentity.getId());
+		assertEquals(-900000, ruleIdentity.getId());
 
 		/* Checking relationships */
 		assertNotNull(ruleIdentity.getRuleDefinitions());
 		assertEquals(2, ruleIdentity.getRuleDefinitions().size());
 		assertEquals(2, ruleIdentity.getRuleDefinitions().stream().map(d -> d.getId()).distinct().count());
 
-		List<Integer> ruleDefinitionIds = Arrays.asList(900000, 900001);
+		List<Integer> ruleDefinitionIds = Arrays.asList(-900000, -900001);
 		ruleIdentity.getRuleDefinitions().forEach(d -> {
 			assertTrue(ruleDefinitionIds.contains(d.getId()));
 		});

@@ -66,7 +66,7 @@ public class RuleDefinitionParameterTest {
 	public void testJpaMapping() {
 		RuleDefinitionParameterId ruleDefintionParameterId = new RuleDefinitionParameterId();
 		ruleDefintionParameterId.setLevelId(2);
-		ruleDefintionParameterId.setRuleDefinitionId(900001);
+		ruleDefintionParameterId.setRuleDefinitionId(-900001);
 		ruleDefintionParameterId.setValue("100000");
 
 		RuleDefinitionParameter ruleDefinitionParameter = em.find(RuleDefinitionParameter.class,
@@ -79,7 +79,7 @@ public class RuleDefinitionParameterTest {
 
 		/* Checking relationships */
 		assertNotNull(ruleDefinitionParameter.getRuleDefinition());
-		assertEquals(900001, ruleDefinitionParameter.getRuleDefinition().getId());
+		assertEquals(-900001, ruleDefinitionParameter.getRuleDefinition().getId());
 	}
 
 	/**
