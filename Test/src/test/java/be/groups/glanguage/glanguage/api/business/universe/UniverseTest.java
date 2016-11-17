@@ -16,7 +16,6 @@ import org.junit.Test;
 import be.groups.common.persistence.util.TransactionHelper;
 import be.groups.common.test.utils.Environment;
 import be.groups.glanguage.glanguage.api.business.plan.Plan;
-import be.groups.glanguage.glanguage.api.dao.FormulaDao;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
@@ -154,7 +153,7 @@ public class UniverseTest {
 	@Test
 	public void testGetPlan() {
 		LocalDateTime effectivityDate = LocalDateTime.now();
-		Plan plan = Universe.getPlan(900000, effectivityDate, false);
+		Plan plan = Universe.getPlan(900000, effectivityDate);
 		assertNotNull(plan);
 		assertNotNull(plan.getRuleVersions());
 		assertFalse(plan.getRuleVersions().isEmpty());

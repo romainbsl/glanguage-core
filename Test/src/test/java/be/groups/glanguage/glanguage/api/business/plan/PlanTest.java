@@ -57,13 +57,13 @@ public class PlanTest {
 	@Test
 	public void testEvaluate() {
 		LocalDateTime effectivityDate = LocalDateTime.now();
-		Plan plan = Universe.getPlan(900003, effectivityDate, false);
+		Plan plan = Universe.getPlan(900003, effectivityDate);
 		plan.resetEvaluation();
 		assertNotNull(plan);
 		assertNotNull(plan.getRuleVersions());
 		assertFalse(plan.getRuleVersions().isEmpty());
 		assertFalse(plan.isBranched());
-		Collection<RuleVersion> evaluatedRuleVersions = plan.evaluate();
+		Collection<RuleVersion> evaluatedRuleVersions = plan.evaluate(null);
 		assertTrue(plan.isBranched());
 		assertNotNull(evaluatedRuleVersions);
 		assertFalse(evaluatedRuleVersions.isEmpty());
@@ -92,13 +92,13 @@ public class PlanTest {
 	@Test
 	public void testEvaluateRule900002() {
 		LocalDateTime effectivityDate = LocalDateTime.now();
-		Plan plan = Universe.getPlan(900003, effectivityDate, false);
+		Plan plan = Universe.getPlan(900003, effectivityDate);
 		plan.resetEvaluation();
 		assertNotNull(plan);
 		assertNotNull(plan.getRuleVersions());
 		assertFalse(plan.getRuleVersions().isEmpty());
 		assertFalse(plan.isBranched());
-		Collection<RuleVersion> evaluatedRuleVersions = plan.evaluate("900002", false);
+		Collection<RuleVersion> evaluatedRuleVersions = plan.evaluate(null, "900002", false);
 		assertTrue(plan.isBranched());
 		assertNotNull(evaluatedRuleVersions);
 		assertFalse(evaluatedRuleVersions.isEmpty());
@@ -120,13 +120,13 @@ public class PlanTest {
 	@Test
 	public void testEvaluateRule900003() {
 		LocalDateTime effectivityDate = LocalDateTime.now();
-		Plan plan = Universe.getPlan(900003, effectivityDate, false);
+		Plan plan = Universe.getPlan(900003, effectivityDate);
 		plan.resetEvaluation();
 		assertNotNull(plan);
 		assertNotNull(plan.getRuleVersions());
 		assertFalse(plan.getRuleVersions().isEmpty());
 		assertFalse(plan.isBranched());
-		Collection<RuleVersion> evaluatedRuleVersions = plan.evaluate("900003", false);
+		Collection<RuleVersion> evaluatedRuleVersions = plan.evaluate(null, "900003", false);
 		assertTrue(plan.isBranched());
 		assertNotNull(evaluatedRuleVersions);
 		assertFalse(evaluatedRuleVersions.isEmpty());

@@ -99,8 +99,8 @@ public class MainSampleResource {
 	private String asText(Integer formulaId, Integer ruleSetVersionId, LocalDateTime effectivityDate) {
 		AbstractFormula formula = Universe.getFormula(formulaId);
 		if (formula != null) {
-			Plan plan = Universe.getPlan(ruleSetVersionId, effectivityDate, false);
-			plan.branch(formula);
+			Plan plan = Universe.getPlan(ruleSetVersionId, effectivityDate);
+			plan.branch(formula, null);
 			return formula.asText();
 		} else {
 			return "";

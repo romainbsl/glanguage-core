@@ -47,61 +47,58 @@ public class Universe {
 		return new RuleSetVersionDao().findByRuleSetAliasAndExploitationDate(ruleSetAlias, exploitationDate);
 	}
 	
-	public static Plan getPlan(Integer ruleSetVersionId, LocalDateTime effectivityDate, boolean branch) {
-		return createPlan(getRuleSetVersion(ruleSetVersionId), null, effectivityDate, branch);
+	public static Plan getPlan(Integer ruleSetVersionId, LocalDateTime effectivityDate) {
+		return createPlan(getRuleSetVersion(ruleSetVersionId), null, effectivityDate);
 	}
 	
 	public static Plan getPlan(Integer ruleSetVersionId, LocalDateTime effectivityDate,
-			Collection<RuleDefinitionParameter> definitionParameters, boolean branch) {
-		return createPlan(getRuleSetVersion(ruleSetVersionId), definitionParameters, effectivityDate, branch);
+			Collection<RuleDefinitionParameter> definitionParameters) {
+		return createPlan(getRuleSetVersion(ruleSetVersionId), definitionParameters, effectivityDate);
 	}
 	
-	public static Plan getPlan(Integer ruleSetId, String version, LocalDateTime effectivityDate, boolean branch) {
-		return createPlan(getRuleSetVersion(ruleSetId, version), null, effectivityDate, branch);
+	public static Plan getPlan(Integer ruleSetId, String version, LocalDateTime effectivityDate) {
+		return createPlan(getRuleSetVersion(ruleSetId, version), null, effectivityDate);
 	}
 	
 	public static Plan getPlan(Integer ruleSetId, String version, LocalDateTime effectivityDate,
-			Collection<RuleDefinitionParameter> definitionParameters, boolean branch) {
-		return createPlan(getRuleSetVersion(ruleSetId, version), definitionParameters, effectivityDate, branch);
+			Collection<RuleDefinitionParameter> definitionParameters) {
+		return createPlan(getRuleSetVersion(ruleSetId, version), definitionParameters, effectivityDate);
 	}
 	
-	public static Plan getPlan(String ruleSetAlias, String version, LocalDateTime effectivityDate, boolean branch) {
-		return createPlan(getRuleSetVersion(ruleSetAlias, version), null, effectivityDate, branch);
+	public static Plan getPlan(String ruleSetAlias, String version, LocalDateTime effectivityDate) {
+		return createPlan(getRuleSetVersion(ruleSetAlias, version), null, effectivityDate);
 	}
 	
 	public static Plan getPlan(String ruleSetAlias, String version, LocalDateTime effectivityDate,
-			Collection<RuleDefinitionParameter> definitionParameters, boolean branch) {
-		return createPlan(getRuleSetVersion(ruleSetAlias, version), definitionParameters, effectivityDate, branch);
+			Collection<RuleDefinitionParameter> definitionParameters) {
+		return createPlan(getRuleSetVersion(ruleSetAlias, version), definitionParameters, effectivityDate);
 	}
 	
-	public static Plan getPlan(Integer ruleSetId, LocalDateTime exploitationDate, LocalDateTime effectivityDate, boolean branch) {
-		return createPlan(getRuleSetVersion(ruleSetId, exploitationDate), null, effectivityDate, branch);
+	public static Plan getPlan(Integer ruleSetId, LocalDateTime exploitationDate, LocalDateTime effectivityDate) {
+		return createPlan(getRuleSetVersion(ruleSetId, exploitationDate), null, effectivityDate);
 	}
 	
 	public static Plan getPlan(Integer ruleSetId, LocalDateTime exploitationDate, LocalDateTime effectivityDate,
-			Collection<RuleDefinitionParameter> definitionParameters, boolean branch) {
-		return createPlan(getRuleSetVersion(ruleSetId, exploitationDate), definitionParameters, effectivityDate, branch);
+			Collection<RuleDefinitionParameter> definitionParameters) {
+		return createPlan(getRuleSetVersion(ruleSetId, exploitationDate), definitionParameters, effectivityDate);
 	}
 	
-	public static Plan getPlan(String ruleSetAlias, LocalDateTime exploitationDate, LocalDateTime effectivityDate, boolean branch) {
-		return createPlan(getRuleSetVersion(ruleSetAlias, exploitationDate), null, effectivityDate, branch);
+	public static Plan getPlan(String ruleSetAlias, LocalDateTime exploitationDate, LocalDateTime effectivityDate) {
+		return createPlan(getRuleSetVersion(ruleSetAlias, exploitationDate), null, effectivityDate);
 	}
 	
 	public static Plan getPlan(String ruleSetAlias, LocalDateTime exploitationDate, LocalDateTime effectivityDate,
-			Collection<RuleDefinitionParameter> definitionParameters, boolean branch) {
-		return createPlan(getRuleSetVersion(ruleSetAlias, exploitationDate), definitionParameters, effectivityDate, branch);
+			Collection<RuleDefinitionParameter> definitionParameters) {
+		return createPlan(getRuleSetVersion(ruleSetAlias, exploitationDate), definitionParameters, effectivityDate);
 	}
 	
 	private static Plan createPlan(RuleSetVersion ruleSetVersion, Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDateTime effectivityDate, boolean branch) {
+			LocalDateTime effectivityDate) {
 		Plan plan = new Plan();
 		if (definitionParameters == null || definitionParameters.isEmpty()) {
 			plan.setRuleVersions(ruleSetVersion.getDefaultRuleVersions(effectivityDate));
 		} else {
 			plan.setRuleVersions(ruleSetVersion.getBestDefinedRuleVersions(definitionParameters, effectivityDate));
-		}
-		if (branch) {
-			plan.branch();
 		}
 		return plan;
 	}
