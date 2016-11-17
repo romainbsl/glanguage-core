@@ -26,5 +26,12 @@ public class FormulaTerminalString extends AbstractTerminalFormula {
 	public FormulaTerminalString(FormulaDescription description, String constantValue) {
 		super(description, constantValue);
 	}
+	
+	public String asText() {
+		StringBuilder sb = new StringBuilder("\"");
+		sb.append(super.asText());
+		sb.append("\"");
+		return sb.toString();
+	}
 		
 }

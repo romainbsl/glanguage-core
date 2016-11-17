@@ -166,7 +166,7 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	@Test
 	public void testAsText() {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
-		assertEquals("string", formula.asText());
+		assertEquals("\"string\"", formula.asText());
 	}
 	
 }

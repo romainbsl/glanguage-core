@@ -35,6 +35,7 @@ public class FormulaPrimitive extends CallFormula {
 	protected Object getTargetedObject(Object object) {
 		AbstractFormula[] parameters = null;
 		if (getParameters() != null) {
+			parameters = new AbstractFormula[getParameters().size()];
 			parameters = getParameters().toArray(parameters);
 		}
 		return callFunctionAny(object, getConstantValue(), parameters);
