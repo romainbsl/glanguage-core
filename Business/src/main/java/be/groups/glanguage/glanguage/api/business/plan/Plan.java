@@ -100,7 +100,7 @@ public class Plan {
 	}
 	
 	public void branch(RuleGroupItem gi) {
-		gi.setReferencedRule(getEffectiveRuleVersionByRuleIdentityId(String.valueOf(gi.getItemRule().getId())));
+		gi.setReferencedRule(getEffectiveRuleVersionByIdenitifier(String.valueOf(gi.getItemRule().getId())));
 	}
 	
 	public void branch(AbstractFormula formula, Object context) {
@@ -119,7 +119,7 @@ public class Plan {
 	}
 	
 	public void branch(RuleCallFormula formula) {
-		formula.setReferencedRule(getEffectiveRuleVersionByRuleIdentityId(formula.getRuleId()));
+		formula.setReferencedRule(getEffectiveRuleVersionByIdenitifier(formula.getRuleId()));
 	}
 	
 	public void branch(FormulaGet formula, Object context) {
@@ -133,9 +133,6 @@ public class Plan {
 		}
 		if (ruleVersion == null) {
 			ruleVersion = getEffectiveRuleVersionByAlias(ruleIdentifier);
-		}
-		if (ruleVersion == null) {
-			ruleVersion = getEffectiveRuleVersionByRuleIdentityId(ruleIdentifier);
 		}
 		return ruleVersion;
 	}
