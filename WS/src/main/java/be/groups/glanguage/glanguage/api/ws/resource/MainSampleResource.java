@@ -100,7 +100,7 @@ public class MainSampleResource {
 		AbstractFormula formula = Universe.getFormula(formulaId);
 		if (formula != null) {
 			Plan plan = Universe.getPlan(ruleSetVersionId, effectivityDate);
-			plan.branch(formula, null);
+			plan.branch(null, formula, null);
 			return formula.asText();
 		} else {
 			return "";
