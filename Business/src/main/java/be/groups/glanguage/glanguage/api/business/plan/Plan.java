@@ -59,10 +59,10 @@ public class Plan {
 	
 	public Collection<RuleVersion> evaluate(Object context, String ruleIdentifier, boolean recursive) {
 		RuleVersion ruleVersion = getEffectiveRuleVersionByIdenitifier(ruleIdentifier);
-		if (!isBranched()) {
-			branch(ruleVersion, context);
-		}
 		if (ruleVersion != null) {
+			if (!isBranched()) {
+				branch(ruleVersion, context);
+			}
 			evaluate(ruleVersion, recursive);
 		} else {
 			throw new RuntimeException("Unable to evaluate the rule identified by " + ruleIdentifier
@@ -89,7 +89,7 @@ public class Plan {
 	
 	public void branch(RuleVersion rv, Object context) {
 		if (rv.getGroupItems() != null && !rv.getGroupItems().isEmpty()) {
-			rv.getGroupItems().stream().forEach(gi -> branch(rv, gi));
+			rv.getGroupItems().stream().forEach(gi -> branch(rv, gi, context));
 		}
 		if (rv.getApplicabilityCondition() != null) {
 			branch(rv, rv.getApplicabilityCondition(), context);
@@ -99,10 +99,11 @@ public class Plan {
 		}
 	}
 	
-	public void branch(RuleVersion fromRuleVersion, RuleGroupItem gi) {
+	public void branch(RuleVersion fromRuleVersion, RuleGroupItem gi, Object context) {
 		RuleVersion rv = getEffectiveRuleVersionByIdenitifier(String.valueOf(gi.getItemRule().getId()));
-		if (rv == null) {
+		if (rv != null) {
 			gi.setReferencedRule(rv);
+			branch(rv, context);
 		} else {
 			throw new RuntimeException("There is no rule version in the plan corresponding to the rule identity id \""
 					+ gi.getItemRule().getId() + "\" in the group of rule \"" + fromRuleVersion.getCode() + "\"");
@@ -112,7 +113,7 @@ public class Plan {
 	public void branch(RuleVersion fromRuleVersion, AbstractFormula formula, Object context) {
 		switch (formula.getDescription().getType()) {
 			case C_RULE_REFERENCE:
-				branch(fromRuleVersion, (RuleCallFormula) formula);
+				branch(fromRuleVersion, (RuleCallFormula) formula, context);
 				break;
 			case C_GET:
 				branch((FormulaGet) formula, context);
@@ -124,10 +125,11 @@ public class Plan {
 		}
 	}
 	
-	public void branch(RuleVersion fromRuleVersion, RuleCallFormula formula) {
+	public void branch(RuleVersion fromRuleVersion, RuleCallFormula formula, Object context) {
 		RuleVersion rv = getEffectiveRuleVersionByIdenitifier(formula.getConstantValue());
-		if (rv == null) {
+		if (rv != null) {
 			formula.setReferencedRule(rv);
+			branch(rv, context);
 		} else {
 			if (fromRuleVersion == null) {
 				throw new RuntimeException("There is no rule version in the plan corresponding to the rule reference \""
@@ -164,20 +166,23 @@ public class Plan {
 	}
 	
 	public RuleVersion getEffectiveRuleVersionByAlias(String alias) {
-		Optional<RuleVersion> ruleVersion =
-				getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getAliasFr().equals(alias)).findFirst();
+		Optional<RuleVersion> ruleVersion = getRuleVersions().stream().filter(rv -> rv.getRuleDescription() != null
+				&& rv.getRuleDescription().getAliasFr() != null && rv.getRuleDescription().getAliasFr().equals(alias)).findFirst();
 		if (ruleVersion.isPresent()) {
 			return ruleVersion.get();
 		}
-		ruleVersion = getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getAliasNl().equals(alias)).findFirst();
+		ruleVersion = getRuleVersions().stream().filter(rv -> rv.getRuleDescription() != null
+				&& rv.getRuleDescription().getAliasNl() != null && rv.getRuleDescription().getAliasNl().equals(alias)).findFirst();
 		if (ruleVersion.isPresent()) {
 			return ruleVersion.get();
 		}
-		ruleVersion = getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getAliasDe().equals(alias)).findFirst();
+		ruleVersion = getRuleVersions().stream().filter(rv -> rv.getRuleDescription() != null
+				&& rv.getRuleDescription().getAliasDe() != null && rv.getRuleDescription().getAliasDe().equals(alias)).findFirst();
 		if (ruleVersion.isPresent()) {
 			return ruleVersion.get();
 		}
-		ruleVersion = getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getAliasX().equals(alias)).findFirst();
+		ruleVersion = getRuleVersions().stream().filter(rv -> rv.getRuleDescription() != null
+				&& rv.getRuleDescription().getAliasX() != null && rv.getRuleDescription().getAliasX().equals(alias)).findFirst();
 		if (ruleVersion.isPresent()) {
 			return ruleVersion.get();
 		}

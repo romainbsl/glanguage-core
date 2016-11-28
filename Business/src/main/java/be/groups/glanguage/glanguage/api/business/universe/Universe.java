@@ -1,6 +1,7 @@
 package be.groups.glanguage.glanguage.api.business.universe;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import be.groups.glanguage.glanguage.api.dao.FormulaDao;
 import be.groups.glanguage.glanguage.api.dao.RuleSetDao;
 import be.groups.glanguage.glanguage.api.dao.RuleSetVersionDao;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
@@ -96,11 +98,29 @@ public class Universe {
 			LocalDateTime effectivityDate) {
 		Plan plan = new Plan();
 		if (definitionParameters == null || definitionParameters.isEmpty()) {
-			plan.setRuleVersions(ruleSetVersion.getDefaultRuleVersions(effectivityDate));
+			plan.setRuleVersions(getDefaultRuleVersions(ruleSetVersion, effectivityDate));
 		} else {
-			plan.setRuleVersions(ruleSetVersion.getBestDefinedRuleVersions(definitionParameters, effectivityDate));
+			plan.setRuleVersions(getBestDefinedRuleVersions(ruleSetVersion, definitionParameters, effectivityDate));
 		}
 		return plan;
+	}
+	
+	private static List<RuleVersion> getDefaultRuleVersions(RuleSetVersion ruleSetVersion, LocalDateTime effectivityDate) {
+		final List<RuleVersion> ruleVersions = ruleSetVersion.getDefaultRuleVersions(effectivityDate);
+		if (ruleSetVersion.getIncludes() != null && !ruleSetVersion.getIncludes().isEmpty()) {
+			ruleSetVersion.getIncludes().stream().forEach(i -> ruleVersions.addAll(getDefaultRuleVersions(i, effectivityDate)));
+		}
+		return ruleVersions;
+	}
+	
+	private static List<RuleVersion> getBestDefinedRuleVersions(RuleSetVersion ruleSetVersion,
+			Collection<RuleDefinitionParameter> definitionParameters, LocalDateTime effectivityDate) {
+		final List<RuleVersion> ruleVersions = ruleSetVersion.getBestDefinedRuleVersions(definitionParameters, effectivityDate);
+		if (ruleSetVersion.getIncludes() != null && !ruleSetVersion.getIncludes().isEmpty()) {
+			ruleSetVersion.getIncludes().stream()
+					.forEach(i -> ruleVersions.addAll(getBestDefinedRuleVersions(i, definitionParameters, effectivityDate)));
+		}
+		return ruleVersions;
 	}
 	
 	public static AbstractFormula getFormula(Integer id) {
