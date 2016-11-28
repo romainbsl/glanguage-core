@@ -89,37 +89,54 @@ public class Plan {
 	
 	public void branch(RuleVersion rv, Object context) {
 		if (rv.getGroupItems() != null && !rv.getGroupItems().isEmpty()) {
-			rv.getGroupItems().stream().forEach(gi -> branch(gi));
+			rv.getGroupItems().stream().forEach(gi -> branch(rv, gi));
 		}
 		if (rv.getApplicabilityCondition() != null) {
-			branch(rv.getApplicabilityCondition(), context);
+			branch(rv, rv.getApplicabilityCondition(), context);
 		}
 		if (rv.getFormula() != null) {
-			branch(rv.getFormula(), context);
+			branch(rv, rv.getFormula(), context);
 		}
 	}
 	
-	public void branch(RuleGroupItem gi) {
-		gi.setReferencedRule(getEffectiveRuleVersionByIdenitifier(String.valueOf(gi.getItemRule().getId())));
+	public void branch(RuleVersion fromRuleVersion, RuleGroupItem gi) {
+		RuleVersion rv = getEffectiveRuleVersionByIdenitifier(String.valueOf(gi.getItemRule().getId()));
+		if (rv == null) {
+			gi.setReferencedRule(rv);
+		} else {
+			throw new RuntimeException("There is no rule version in the plan corresponding to the rule identity id \""
+					+ gi.getItemRule().getId() + "\" in the group of rule \"" + fromRuleVersion.getCode() + "\"");
+		}
 	}
 	
-	public void branch(AbstractFormula formula, Object context) {
+	public void branch(RuleVersion fromRuleVersion, AbstractFormula formula, Object context) {
 		switch (formula.getDescription().getType()) {
 			case C_RULE_REFERENCE:
-				branch((RuleCallFormula) formula);
+				branch(fromRuleVersion, (RuleCallFormula) formula);
 				break;
 			case C_GET:
 				branch((FormulaGet) formula, context);
 				break;
 			default:
 				if (formula.getParameters() != null && !formula.getParameters().isEmpty()) {
-					formula.getParameters().stream().forEach(p -> branch(p, context));
+					formula.getParameters().stream().forEach(p -> branch(fromRuleVersion, p, context));
 				}
 		}
 	}
 	
-	public void branch(RuleCallFormula formula) {
-		formula.setReferencedRule(getEffectiveRuleVersionByIdenitifier(formula.getRuleId()));
+	public void branch(RuleVersion fromRuleVersion, RuleCallFormula formula) {
+		RuleVersion rv = getEffectiveRuleVersionByIdenitifier(formula.getConstantValue());
+		if (rv == null) {
+			formula.setReferencedRule(rv);
+		} else {
+			if (fromRuleVersion == null) {
+				throw new RuntimeException("There is no rule version in the plan corresponding to the rule reference \""
+						+ formula.getConstantValue() + "\"");
+			} else {
+				throw new RuntimeException("There is no rule version in the plan corresponding to the rule reference \""
+						+ formula.getConstantValue() + "\" in the formula of rule \"" + fromRuleVersion.getCode() + "\"");
+			}
+		}
 	}
 	
 	public void branch(FormulaGet formula, Object context) {

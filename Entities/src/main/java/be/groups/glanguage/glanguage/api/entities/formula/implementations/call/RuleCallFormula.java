@@ -152,14 +152,6 @@ public abstract class RuleCallFormula extends CallFormula {
 	public abstract Duration doGetDurationValue();
 	
 	/**
-	 * @return the ruleId
-	 */
-	@Transient
-	public String getRuleId() {
-		return getConstantValue();
-	}
-	
-	/**
 	 * @return the referencedRule
 	 */
 	@Transient
@@ -168,17 +160,11 @@ public abstract class RuleCallFormula extends CallFormula {
 	}
 	
 	/**
-	 * @param ruleId the ruleId to set
-	 */
-	public void setRuleId(String ruleId) {
-		setConstantValue(ruleId);
-	}
-	
-	/**
 	 * @param referencedRule the referencedRule to set
 	 */
 	public void setReferencedRule(RuleVersion referencedRule) {
 		this.referencedRule = referencedRule;
+		setConstantValue(String.valueOf(referencedRule.getRuleDefinition().getRuleIdentity().getId()));
 	}
 	
 	@Override
