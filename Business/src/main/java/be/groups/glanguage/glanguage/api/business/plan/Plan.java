@@ -113,11 +113,12 @@ public class Plan {
 	public void branch(RuleVersion fromRuleVersion, AbstractFormula formula, Object context) {
 		switch (formula.getDescription().getType()) {
 			case C_RULE_REFERENCE:
+			case C_APPLICABILITY:
+			case C_FORMULA:
 				branch(fromRuleVersion, (RuleCallFormula) formula, context);
 				break;
 			case C_GET:
 				branch((FormulaGet) formula, context);
-				break;
 			default:
 				if (formula.getParameters() != null && !formula.getParameters().isEmpty()) {
 					formula.getParameters().stream().forEach(p -> branch(fromRuleVersion, p, context));
@@ -129,7 +130,6 @@ public class Plan {
 		RuleVersion rv = getEffectiveRuleVersionByIdenitifier(formula.getConstantValue());
 		if (rv != null) {
 			formula.setReferencedRule(rv);
-			branch(rv, context);
 		} else {
 			if (fromRuleVersion == null) {
 				throw new RuntimeException("There is no rule version in the plan corresponding to the rule reference \""
