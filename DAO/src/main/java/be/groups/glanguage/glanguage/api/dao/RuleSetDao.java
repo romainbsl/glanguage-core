@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.dao;
 
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -7,11 +8,17 @@ import javax.persistence.criteria.Root;
 import be.groups.common.persistence.base.BaseDao;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet_;
+import be.groups.marmota.persistence.JpaUtil;
 
 public class RuleSetDao extends BaseDao<Integer, RuleSet> {
 	
 	public RuleSetDao() {
 		super(RuleSet.class);
+	}
+
+	@Override
+	public EntityManager getEntityManager() {
+		return JpaUtil.getCentralEntityManager();
 	}
 	
 	/**

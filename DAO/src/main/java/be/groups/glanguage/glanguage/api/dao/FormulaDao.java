@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.dao;
 
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -7,11 +8,17 @@ import javax.persistence.criteria.Root;
 import be.groups.common.persistence.base.BaseDao;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula_;
+import be.groups.marmota.persistence.JpaUtil;
 
 public class FormulaDao extends BaseDao<Integer, AbstractFormula> {
 
 	public FormulaDao() {
 		super(AbstractFormula.class);
+	}
+
+	@Override
+	public EntityManager getEntityManager() {
+		return JpaUtil.getCentralEntityManager();
 	}
 
 	public AbstractFormula findById(int id) {

@@ -3,6 +3,7 @@ package be.groups.glanguage.glanguage.api.dao;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -13,13 +14,19 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion_;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet_;
+import be.groups.marmota.persistence.JpaUtil;
 
 public class RuleSetVersionDao extends BaseDao<Integer, RuleSetVersion> {
 	
 	public RuleSetVersionDao() {
 		super(RuleSetVersion.class);
 	}
-	
+
+	@Override
+	public EntityManager getEntityManager() {
+		return JpaUtil.getCentralEntityManager();
+	}
+
 	/**
 	 * Find a {@link RuleSetVersion} by id
 	 * 
