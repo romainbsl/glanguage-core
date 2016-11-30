@@ -130,6 +130,7 @@ public class Plan {
 		RuleVersion rv = getEffectiveRuleVersionByIdenitifier(formula.getConstantValue());
 		if (rv != null) {
 			formula.setReferencedRule(rv);
+			branch(rv, context);
 		} else {
 			if (fromRuleVersion == null) {
 				throw new RuntimeException("There is no rule version in the plan corresponding to the rule reference \""
