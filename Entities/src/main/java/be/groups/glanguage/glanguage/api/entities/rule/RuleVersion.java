@@ -254,7 +254,8 @@ public class RuleVersion implements Comparable<RuleVersion> {
 					return null;
 			}
 		} catch (Exception e) {
-			return null;
+			throw new RuntimeException("Unable to evaluate rule version [id: " + getId() + ", code: " +
+					getRuleDescription().getCode() + "]", e);
 		}
 	}
 	
