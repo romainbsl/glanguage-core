@@ -84,7 +84,7 @@ public class MainSampleResource {
 			return Response.status(Response.Status.OK)
                     .type(MediaType.APPLICATION_JSON)
                     .entity(
-                    		asText(formulaId, ruleSetVersionId, effectivityDate)
+                    		asText(formulaId, ruleSetVersionId, effectivityDate == null ? LocalDateTime.now(): effectivityDate)
                     ).build();			
 		} catch (Exception e) {
 			LOG.error("Unable to get the string representation of the formula identified by " + formulaId, e);
