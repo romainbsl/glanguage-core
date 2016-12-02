@@ -93,7 +93,7 @@ public class MainSampleResource {
 	}
 	
 	private void initializePersistence() {
-		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
+		JpaUtil.setCentralEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
 	}
 
 	private String asText(Integer formulaId, Integer ruleSetVersionId, LocalDateTime effectivityDate) {
