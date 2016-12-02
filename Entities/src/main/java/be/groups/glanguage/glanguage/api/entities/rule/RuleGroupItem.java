@@ -71,6 +71,14 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	}
 
 	/**
+	 * @return true if {@code referencedRule} is not null, false otherwise
+	 */
+	@Transient
+	public boolean isBranched() {
+		return referencedRule != null;
+	}
+
+	/**
 	 * @param id the id to set
 	 */
 	public void setId(RuleGroupItemId id) {

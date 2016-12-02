@@ -115,7 +115,13 @@ public class FormulaGet extends CallFormula {
 			throw cce;
 		}
 	}
-	
+
+	@JsonIgnore
+	@Transient
+	public boolean isBranched() {
+		return context != null && super.isBranched();
+	}
+
 	@Override
 	public String asText() {
 		StringBuilder sb = new StringBuilder();

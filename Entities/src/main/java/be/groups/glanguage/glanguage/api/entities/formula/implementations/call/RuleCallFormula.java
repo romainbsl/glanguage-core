@@ -154,11 +154,18 @@ public abstract class RuleCallFormula extends CallFormula {
 	/**
 	 * @return the referencedRule
 	 */
+	@JsonIgnore
 	@Transient
 	public RuleVersion getReferencedRule() {
 		return referencedRule;
 	}
-	
+
+	@JsonIgnore
+	@Transient
+	public boolean isBranched() {
+		return referencedRule != null;
+	}
+
 	/**
 	 * @param referencedRule the referencedRule to set
 	 */
