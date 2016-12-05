@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.business.universe;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,53 +50,53 @@ public class Universe {
 		return new RuleSetVersionDao().findByRuleSetAliasAndExploitationDate(ruleSetAlias, exploitationDate);
 	}
 	
-	public static Plan getPlan(Integer ruleSetVersionId, LocalDateTime effectivityDate) {
+	public static Plan getPlan(Integer ruleSetVersionId, LocalDate effectivityDate) {
 		return createPlan(getRuleSetVersion(ruleSetVersionId), null, effectivityDate);
 	}
 	
-	public static Plan getPlan(Integer ruleSetVersionId, LocalDateTime effectivityDate,
+	public static Plan getPlan(Integer ruleSetVersionId, LocalDate effectivityDate,
 			Collection<RuleDefinitionParameter> definitionParameters) {
 		return createPlan(getRuleSetVersion(ruleSetVersionId), definitionParameters, effectivityDate);
 	}
 	
-	public static Plan getPlan(Integer ruleSetId, String version, LocalDateTime effectivityDate) {
+	public static Plan getPlan(Integer ruleSetId, String version, LocalDate effectivityDate) {
 		return createPlan(getRuleSetVersion(ruleSetId, version), null, effectivityDate);
 	}
 	
-	public static Plan getPlan(Integer ruleSetId, String version, LocalDateTime effectivityDate,
+	public static Plan getPlan(Integer ruleSetId, String version, LocalDate effectivityDate,
 			Collection<RuleDefinitionParameter> definitionParameters) {
 		return createPlan(getRuleSetVersion(ruleSetId, version), definitionParameters, effectivityDate);
 	}
 	
-	public static Plan getPlan(String ruleSetAlias, String version, LocalDateTime effectivityDate) {
+	public static Plan getPlan(String ruleSetAlias, String version, LocalDate effectivityDate) {
 		return createPlan(getRuleSetVersion(ruleSetAlias, version), null, effectivityDate);
 	}
 	
-	public static Plan getPlan(String ruleSetAlias, String version, LocalDateTime effectivityDate,
+	public static Plan getPlan(String ruleSetAlias, String version, LocalDate effectivityDate,
 			Collection<RuleDefinitionParameter> definitionParameters) {
 		return createPlan(getRuleSetVersion(ruleSetAlias, version), definitionParameters, effectivityDate);
 	}
 	
-	public static Plan getPlan(Integer ruleSetId, LocalDateTime exploitationDate, LocalDateTime effectivityDate) {
+	public static Plan getPlan(Integer ruleSetId, LocalDateTime exploitationDate, LocalDate effectivityDate) {
 		return createPlan(getRuleSetVersion(ruleSetId, exploitationDate), null, effectivityDate);
 	}
 	
-	public static Plan getPlan(Integer ruleSetId, LocalDateTime exploitationDate, LocalDateTime effectivityDate,
+	public static Plan getPlan(Integer ruleSetId, LocalDateTime exploitationDate, LocalDate effectivityDate,
 			Collection<RuleDefinitionParameter> definitionParameters) {
 		return createPlan(getRuleSetVersion(ruleSetId, exploitationDate), definitionParameters, effectivityDate);
 	}
 	
-	public static Plan getPlan(String ruleSetAlias, LocalDateTime exploitationDate, LocalDateTime effectivityDate) {
+	public static Plan getPlan(String ruleSetAlias, LocalDateTime exploitationDate, LocalDate effectivityDate) {
 		return createPlan(getRuleSetVersion(ruleSetAlias, exploitationDate), null, effectivityDate);
 	}
 	
-	public static Plan getPlan(String ruleSetAlias, LocalDateTime exploitationDate, LocalDateTime effectivityDate,
+	public static Plan getPlan(String ruleSetAlias, LocalDateTime exploitationDate, LocalDate effectivityDate,
 			Collection<RuleDefinitionParameter> definitionParameters) {
 		return createPlan(getRuleSetVersion(ruleSetAlias, exploitationDate), definitionParameters, effectivityDate);
 	}
 	
 	private static Plan createPlan(RuleSetVersion ruleSetVersion, Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDateTime effectivityDate) {
+			LocalDate effectivityDate) {
 		Plan plan = new Plan();
 		if (definitionParameters == null || definitionParameters.isEmpty()) {
 			plan.setRuleVersions(getDefaultRuleVersions(ruleSetVersion, effectivityDate));
@@ -105,7 +106,7 @@ public class Universe {
 		return plan;
 	}
 	
-	private static List<RuleVersion> getDefaultRuleVersions(RuleSetVersion ruleSetVersion, LocalDateTime effectivityDate) {
+	private static List<RuleVersion> getDefaultRuleVersions(RuleSetVersion ruleSetVersion, LocalDate effectivityDate) {
 		final List<RuleVersion> ruleVersions = ruleSetVersion.getDefaultRuleVersions(effectivityDate);
 		if (ruleSetVersion.getIncludes() != null && !ruleSetVersion.getIncludes().isEmpty()) {
 			ruleSetVersion.getIncludes().stream().forEach(i -> ruleVersions.addAll(getDefaultRuleVersions(i, effectivityDate)));
@@ -114,7 +115,7 @@ public class Universe {
 	}
 	
 	private static List<RuleVersion> getBestDefinedRuleVersions(RuleSetVersion ruleSetVersion,
-			Collection<RuleDefinitionParameter> definitionParameters, LocalDateTime effectivityDate) {
+			Collection<RuleDefinitionParameter> definitionParameters, LocalDate effectivityDate) {
 		final List<RuleVersion> ruleVersions = ruleSetVersion.getBestDefinedRuleVersions(definitionParameters, effectivityDate);
 		if (ruleSetVersion.getIncludes() != null && !ruleSetVersion.getIncludes().isEmpty()) {
 			ruleSetVersion.getIncludes().stream()

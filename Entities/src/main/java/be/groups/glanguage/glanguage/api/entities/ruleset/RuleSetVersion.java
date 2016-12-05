@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.ruleset;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,18 +11,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import be.groups.common.entities.util.LocalDateTimeConverter;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
@@ -240,7 +230,7 @@ public class RuleSetVersion {
 	/**
 	 * @return the ruleVersions
 	 */
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "RULE_SET_VERSION_RULE_VERSION",
 			joinColumns = @JoinColumn(name = "RULE_SET_VERSION_ID", referencedColumnName = "ID") ,
 			inverseJoinColumns = @JoinColumn(name = "RULE_VERSION_ID", referencedColumnName = "ID") )
@@ -286,10 +276,9 @@ public class RuleSetVersion {
 	 * Get all default {@link RuleDefinition}'s (those that have no definition parameters) that have a code equal to {@code code},
 	 * corresponding to the {@link RuleVersion}'s of this {@link RuleSetVersion}
 	 * 
-	 * @param definitionParameters
+	 * @param code
 	 * @return The list of all default {@link RuleDefinition}'s (those that have no definition parameters) that have a code equal to
 	 *         {@code code}, corresponding to the {@link RuleVersion}'s of this {@link RuleSetVersion}
-	 * @see RuleDefinition#matches(Collection)
 	 */
 	@Transient
 	public List<RuleDefinition> getDefaultRuleDefinitions(String code) {
@@ -387,9 +376,10 @@ public class RuleSetVersion {
 	 * 
 	 * @param effectivityDate
 	 * @return The list of all {@link RuleVersion}'s that are effective at {@code effectivityDate}
+	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
-	public List<RuleVersion> getRuleVersions(LocalDateTime effectivityDate) {
+	public List<RuleVersion> getRuleVersions(LocalDate effectivityDate) {
 		return getRuleVersions().stream().filter(rv -> rv.isEffective(effectivityDate)).collect(Collectors.toList());
 	}
 	
@@ -399,9 +389,10 @@ public class RuleSetVersion {
 	 * @param effectivityDate
 	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at
 	 *         {@code effectivityDate}
+	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
-	public List<RuleVersion> getRuleVersions(String code, LocalDateTime effectivityDate) {
+	public List<RuleVersion> getRuleVersions(String code, LocalDate effectivityDate) {
 		return getRuleVersions().stream()
 				.filter(rv -> rv.getRuleDescription().getCode().equals(code) && rv.isEffective(effectivityDate))
 				.collect(Collectors.toList());
@@ -437,10 +428,10 @@ public class RuleSetVersion {
 	 * 
 	 * @param effectivityDate
 	 * @return The list of all default defined {@link RuleVersion}'s effective at {@code effectivityDate}
-	 * @see RuleVersion#isEffective(LocalDateTime)
+	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
-	public List<RuleVersion> getDefaultRuleVersions(LocalDateTime effectivityDate) {
+	public List<RuleVersion> getDefaultRuleVersions(LocalDate effectivityDate) {
 		return getRuleVersions().stream()
 				.filter(rv -> rv.isEffective(effectivityDate) && rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT))
 				.collect(Collectors.toList());
@@ -454,10 +445,10 @@ public class RuleSetVersion {
 	 * @param effectivityDate
 	 * @return The list of all default defined {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at
 	 *         {@code effectivityDate}
-	 * @see RuleVersion#isEffective(LocalDateTime)
+	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
-	public RuleVersion getDefaultRuleVersion(String code, LocalDateTime effectivityDate) {
+	public RuleVersion getDefaultRuleVersion(String code, LocalDate effectivityDate) {
 		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code)
 				&& rv.isEffective(effectivityDate) && rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT)).findFirst()
 				.orElse(null);
@@ -516,11 +507,11 @@ public class RuleSetVersion {
 	 * @return The list of all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches at least
 	 *         {@code definitionParameters} parameters and that are effective at {@code effectivityDate}
 	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
-	 * @see RuleVersion#isEffective(LocalDateTime)
+	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
 	public List<RuleVersion> getDefinedRuleVersions(Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDateTime effectivityDate) {
+			LocalDate effectivityDate) {
 		return getRuleVersions().stream()
 				.filter(rv -> rv.isEffective(effectivityDate)
 						&& rv.getRuleDefinition().matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
@@ -536,11 +527,11 @@ public class RuleSetVersion {
 	 * @return The list of all {@link RuleVersion}'s that have the {@link RuleDefinition} that best matches
 	 *         {@code definitionParameters} and that are effective at {@code effectivityDate}
 	 * @see DefinitionMatcher#getBestMatch(Collection, Collection)
-	 * @see RuleVersion#isEffective(LocalDateTime)
+	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
 	public List<RuleVersion> getBestDefinedRuleVersions(Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDateTime effectivityDate) {
+			LocalDate effectivityDate) {
 		List<RuleVersion> result = new ArrayList<>();
 		/* Filter */
 		List<RuleVersion> effectiveVersions =
@@ -625,11 +616,11 @@ public class RuleSetVersion {
 	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have a {@link RuleDefinition} that
 	 *         matches at least {@code definitionParameters} and that are effective at {@code effectivityDate}
 	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
-	 * @see RuleVersion#isEffective(LocalDateTime)
+	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
 	public List<RuleVersion> getDefinedRuleVersions(String code, Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDateTime effectivityDate) {
+			LocalDate effectivityDate) {
 		return getRuleVersions().stream()
 				.filter(rv -> rv.getRuleDescription().getCode().equals(code) && rv.isEffective(effectivityDate)
 						&& rv.getRuleDefinition().matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
@@ -646,11 +637,11 @@ public class RuleSetVersion {
 	 * @return The {@link RuleVersion}'s that have a code equal to {@code code} and that have the {@link RuleDefinition} that best
 	 *         matches {@code definitionParameters} and that is effective at {@code effectivityDate}
 	 * @see DefinitionMatcher#getBestMatch(Collection, Collection)
-	 * @see RuleVersion#isEffective(LocalDateTime)
+	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
 	public RuleVersion getBestDefinedRuleVersion(String code, Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDateTime effectivityDate) {
+			LocalDate effectivityDate) {
 		/* Filter */
 		List<RuleVersion> effectiveVersionsForCode = getRuleVersions().stream()
 				.filter(rv -> rv.getRuleDescription().getCode().equals(code) && rv.isEffective(effectivityDate))

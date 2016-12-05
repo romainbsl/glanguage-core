@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.ws.resource;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.ws.rs.GET;
@@ -78,13 +79,13 @@ public class MainSampleResource {
 								@PathParam("formulaId") Integer formulaId,
 								@ApiParam(value = "ruleSetVersionId", required = true) 
 								@PathParam("ruleSetVersionId") Integer ruleSetVersionId,
-								@QueryParam("effectivityDate") LocalDateTime effectivityDate) {
+								@QueryParam("effectivityDate") LocalDate effectivityDate) {
 		initializePersistence();
 		try {
 			return Response.status(Response.Status.OK)
                     .type(MediaType.APPLICATION_JSON)
                     .entity(
-                    		asText(formulaId, ruleSetVersionId, effectivityDate == null ? LocalDateTime.now(): effectivityDate)
+                    		asText(formulaId, ruleSetVersionId, effectivityDate == null ? LocalDate.now(): effectivityDate)
                     ).build();			
 		} catch (Exception e) {
 			LOG.error("Unable to get the string representation of the formula identified by " + formulaId, e);
@@ -96,7 +97,7 @@ public class MainSampleResource {
 		JpaUtil.setCentralEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
 	}
 
-	private String asText(Integer formulaId, Integer ruleSetVersionId, LocalDateTime effectivityDate) {
+	private String asText(Integer formulaId, Integer ruleSetVersionId, LocalDate effectivityDate) {
 		AbstractFormula formula = Universe.getFormula(formulaId);
 		if (formula != null) {
 			Plan plan = Universe.getPlan(ruleSetVersionId, effectivityDate);

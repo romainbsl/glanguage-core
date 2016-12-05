@@ -1,13 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 /**
  * 
@@ -39,7 +32,7 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	/**
 	 * @return the ruleVersion
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "RULE_VERSION_ID", referencedColumnName = "ID", insertable = false, updatable = false)
 	public RuleVersion getGroupRule() {
 		return groupRule;
@@ -48,7 +41,7 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	/**
 	 * @return the ruleIdentity
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "RULE_IDENTITY_ID", referencedColumnName = "ID", insertable = false, updatable = false)
 	public RuleIdentity getItemRule() {
 		return itemRule;

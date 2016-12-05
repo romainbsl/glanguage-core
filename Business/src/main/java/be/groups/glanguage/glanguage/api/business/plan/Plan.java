@@ -107,8 +107,7 @@ public class Plan {
             branch(context);
         }
         getRuleVersions().forEach(rv -> rv.getValue());
-        
-        for ()
+
         return getRuleVersions().stream().filter(rv -> rv.isCached()).collect(Collectors.toList());
     }
 
@@ -139,7 +138,14 @@ public class Plan {
     }
 
     public void branch(Object context) {
-        getRuleVersions().stream().forEach(rv -> branch(rv, context));
+        //getRuleVersions().stream().forEach(rv -> branch(rv, context));
+//        Iterator<RuleVersion> it = getRuleVersions().iterator();
+//        for (;it.hasNext();) {
+//            branch(it.next(), context);
+//        }
+        for (int i = 0; i < getRuleVersions().size(); i++) {
+            branch(getRuleVersions().get(i), context);
+        }
         setBranched(true);
     }
 
@@ -147,7 +153,11 @@ public class Plan {
         if (!isBranched(ruleVersion)) {
             setBranched(ruleVersion, true);
             if (ruleVersion.getGroupItems() != null && !ruleVersion.getGroupItems().isEmpty()) {
-                ruleVersion.getGroupItems().stream().forEach(gi -> branch(ruleVersion, gi, context));
+                //ruleVersion.getGroupItems().stream().forEach(gi -> branch(ruleVersion, gi, context));
+                Iterator<RuleGroupItem> it = ruleVersion.getGroupItems().iterator();
+                while (it.hasNext()) {
+                    branch(ruleVersion, it.next(), context);
+                }
             }
             if (ruleVersion.getApplicabilityCondition() != null) {
                 branch(ruleVersion, ruleVersion.getApplicabilityCondition(), context);
@@ -183,7 +193,10 @@ public class Plan {
                     branch((FormulaGet) formula, context);
                 default:
                     if (formula.getParameters() != null && !formula.getParameters().isEmpty()) {
-                        formula.getParameters().stream().forEach(p -> branch(fromRuleVersion, p, context));
+                        for (int i = 0; i < formula.getParameters().size(); i++) {
+                            branch(fromRuleVersion, formula.getParameters().get(i), context);
+                        }
+                        //formula.getParameters().stream().forEach(p -> branch(fromRuleVersion, p, context));
                     }
             }
         }

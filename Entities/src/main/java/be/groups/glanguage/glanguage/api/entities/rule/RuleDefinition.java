@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -109,7 +110,7 @@ public class RuleDefinition {
 	 *         otherwise
 	 */
 	@Transient
-	public RuleVersion getVersion(LocalDateTime effective, LocalDateTime observe) {
+	public RuleVersion getVersion(LocalDate effective, LocalDateTime observe) {
 		Iterator<RuleVersion> itRuleVersions = getVersions().iterator();
 		while (itRuleVersions.hasNext()) {
 			RuleVersion ruleVersion = itRuleVersions.next();
@@ -176,7 +177,7 @@ public class RuleDefinition {
 	}
 	
 	/**
-	 * @param identity
+	 * @param ruleIdentity
 	 *        the identity to set
 	 */
 	public void setRuleIdentity(RuleIdentity ruleIdentity) {

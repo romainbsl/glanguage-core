@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.ruleset;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -331,7 +332,7 @@ public class RuleSet {
 	 * @return The list of all {@link RuleVersion}'s effective at {@code effectivityDate}
 	 */
 	@Transient
-	public List<RuleVersion> getRuleVersions(LocalDateTime effectivityDate) {
+	public List<RuleVersion> getRuleVersions(LocalDate effectivityDate) {
 		return getVersions().stream().flatMap(rsv -> rsv.getRuleVersions(effectivityDate).stream()).distinct()
 				.collect(Collectors.toList());
 	}
@@ -345,7 +346,7 @@ public class RuleSet {
 	 *         {@code effectivityDate}
 	 */
 	@Transient
-	public List<RuleVersion> getRuleVersions(String code, LocalDateTime effectivityDate) {
+	public List<RuleVersion> getRuleVersions(String code, LocalDate effectivityDate) {
 		return getVersions().stream().flatMap(rsv -> rsv.getRuleVersions(code, effectivityDate).stream()).distinct()
 				.collect(Collectors.toList());
 	}
@@ -376,13 +377,12 @@ public class RuleSet {
 	/**
 	 * Get all {@link RuleVersion}'s that have a default {@link RuleDefinition} (those that have no definition parameters) and that are
 	 * effective at {@code effectivityDate}
-	 * 
-	 * @param code
+	 *
 	 * @param effectivityDate
 	 * @return The list of all default defined {@link RuleVersion}'s that are effective at {@code effectivityDate}
 	 */
 	@Transient
-	public List<RuleVersion> getDefaultRuleVersions(LocalDateTime effectivityDate) {
+	public List<RuleVersion> getDefaultRuleVersions(LocalDate effectivityDate) {
 		return getVersions().stream().flatMap(rsv -> rsv.getDefaultRuleVersions(effectivityDate).stream()).distinct()
 				.collect(Collectors.toList());
 	}
@@ -397,7 +397,7 @@ public class RuleSet {
 	 *         {@code effectivityDate}
 	 */
 	@Transient
-	public List<RuleVersion> getDefaultRuleVersions(String code, LocalDateTime effectivityDate) {
+	public List<RuleVersion> getDefaultRuleVersions(String code, LocalDate effectivityDate) {
 		return getVersions().stream().map(rsv -> rsv.getDefaultRuleVersion(code, effectivityDate)).filter(Objects::nonNull).distinct()
 				.collect(Collectors.toList());
 	}
@@ -469,7 +469,7 @@ public class RuleSet {
 	 */
 	@Transient
 	public List<RuleVersion> getDefinedRuleVersions(Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDateTime effectivityDate) {
+			LocalDate effectivityDate) {
 		return getVersions().stream().flatMap(rsv -> rsv.getDefinedRuleVersions(definitionParameters, effectivityDate).stream())
 				.distinct().collect(Collectors.toList());
 	}
@@ -485,7 +485,7 @@ public class RuleSet {
 	 */
 	@Transient
 	public List<RuleVersion> getBestDefinedRuleVersions(Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDateTime effectivityDate) {
+			LocalDate effectivityDate) {
 		return getVersions().stream().flatMap(rsv -> rsv.getBestDefinedRuleVersions(definitionParameters, effectivityDate).stream())
 				.distinct().collect(Collectors.toList());
 	}
@@ -502,7 +502,7 @@ public class RuleSet {
 	 */
 	@Transient
 	public List<RuleVersion> getDefinedRuleVersions(String code, Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDateTime effectivityDate) {
+			LocalDate effectivityDate) {
 		return getVersions().stream().flatMap(rsv -> rsv.getDefinedRuleVersions(code, definitionParameters, effectivityDate).stream())
 				.distinct().collect(Collectors.toList());
 	}
@@ -520,7 +520,7 @@ public class RuleSet {
 	 */
 	@Transient
 	public List<RuleVersion> getBestDefinedRuleVersions(String code, Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDateTime effectivityDate) {
+			LocalDate effectivityDate) {
 		return getVersions().stream().map(rsv -> rsv.getBestDefinedRuleVersion(code, definitionParameters, effectivityDate)).distinct()
 				.collect(Collectors.toList());
 	}

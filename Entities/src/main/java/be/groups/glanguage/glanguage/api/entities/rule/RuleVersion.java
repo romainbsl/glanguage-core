@@ -6,21 +6,9 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.SortedSet;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
+import be.groups.common.entities.util.LocalDateConverter;
 import be.groups.common.entities.util.LocalDateTimeConverter;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
@@ -44,12 +32,12 @@ public class RuleVersion implements Comparable<RuleVersion> {
     /**
      * Date until which this is effective inclusively
      */
-    private LocalDateTime effectivityEndDate;
+    private LocalDate effectivityEndDate;
 
     /**
      * Date from which this is effective inclusively
      */
-    private LocalDateTime effectivityStartDate;
+    private LocalDate effectivityStartDate;
 
     /**
      * Applicability condition
@@ -130,21 +118,21 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     @Column(name = "EFFECTIVITY_START_DATE")
-    @Convert(converter = LocalDateTimeConverter.class)
-    public LocalDateTime getEffectivityStartDate() {
+    @Convert(converter = LocalDateConverter.class)
+    public LocalDate getEffectivityStartDate() {
         return effectivityStartDate;
     }
 
     @Column(name = "EFFECTIVITY_END_DATE")
-    @Convert(converter = LocalDateTimeConverter.class)
-    public LocalDateTime getEffectivityEndDate() {
+    @Convert(converter = LocalDateConverter.class)
+    public LocalDate getEffectivityEndDate() {
         return effectivityEndDate;
     }
 
     /**
      * @return the applicabilityCondition
      */
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "APPLICABILITY_CONDITION_ID")
     public AbstractFormula getApplicabilityCondition() {
         return applicabilityCondition;
@@ -212,7 +200,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
     /**
      * @return the groupItems
      */
-    @OneToMany(mappedBy = "groupRule")
+    @OneToMany(mappedBy = "groupRule", fetch = FetchType.EAGER)
     @OrderBy(value = "SEQUENCE_NUMBER ASC")
     public SortedSet<RuleGroupItem> getGroupItems() {
         return groupItems;
@@ -407,7 +395,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
      * @return true If this is effective at the specified date, false otherwise
      */
     @Transient
-    public boolean isEffective(LocalDateTime date) {
+    public boolean isEffective(LocalDate date) {
         return !date.isBefore(getEffectivityStartDate()) && (getEffectivityEndDate() == null || !date
                 .isAfter(getEffectivityEndDate()));
     }
@@ -429,14 +417,14 @@ public class RuleVersion implements Comparable<RuleVersion> {
     /**
      * @param effectivityEndDate the endDate to set
      */
-    public void setEffectivityEndDate(LocalDateTime effectivityEndDate) {
+    public void setEffectivityEndDate(LocalDate effectivityEndDate) {
         this.effectivityEndDate = effectivityEndDate;
     }
 
     /**
      * @param effectitvityStartDate the effectitvityStartDate to set
      */
-    public void setEffectivityStartDate(LocalDateTime effectitvityStartDate) {
+    public void setEffectivityStartDate(LocalDate effectitvityStartDate) {
         this.effectivityStartDate = effectitvityStartDate;
     }
 
