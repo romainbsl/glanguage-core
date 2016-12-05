@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.business.plan;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
@@ -56,7 +57,7 @@ public class PlanTest {
 	 */
 	@Test
 	public void testEvaluate() {
-		LocalDateTime effectivityDate = LocalDateTime.now();
+		LocalDate effectivityDate = LocalDate.now();
 		Plan plan = Universe.getPlan(-900003, effectivityDate);
 		plan.resetEvaluation();
 		assertNotNull(plan);
@@ -91,7 +92,7 @@ public class PlanTest {
 	 */
 	@Test
 	public void testEvaluateRule900002() {
-		LocalDateTime effectivityDate = LocalDateTime.now();
+		LocalDate effectivityDate = LocalDate.now();
 		Plan plan = Universe.getPlan(-900003, effectivityDate);
 		plan.resetEvaluation();
 		assertNotNull(plan);
@@ -119,7 +120,7 @@ public class PlanTest {
 	 */
 	@Test
 	public void testEvaluateRule900003() {
-		LocalDateTime effectivityDate = LocalDateTime.now();
+		LocalDate effectivityDate = LocalDate.now();
 		Plan plan = Universe.getPlan(-900003, effectivityDate);
 		plan.resetEvaluation();
 		assertNotNull(plan);

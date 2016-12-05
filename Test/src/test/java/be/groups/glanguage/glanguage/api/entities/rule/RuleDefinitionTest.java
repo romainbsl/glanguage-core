@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -117,7 +118,7 @@ public class RuleDefinitionTest {
 	 */
 	@Test
 	public void testGetVersionNoMatching() {
-		LocalDateTime effectivity = LocalDateTime.of(2015, 1, 1, 0, 0);
+		LocalDate effectivity = LocalDate.of(2015, 1, 1);
 		LocalDateTime observation = LocalDateTime.of(2016, 2, 20, 0, 0);
 
 		RuleDefinition ruleDefinition = new RuleDefinition();
@@ -146,7 +147,7 @@ public class RuleDefinitionTest {
 	 */
 	@Test
 	public void testGetVersionMatchingRuleVersionNoMatchingRuleSetVersion() {
-		LocalDateTime effectivity = LocalDateTime.of(2015, 1, 1, 0, 0);
+		LocalDate effectivity = LocalDate.of(2015, 1, 1);
 		LocalDateTime observation = LocalDateTime.of(2016, 2, 20, 0, 0);
 
 		RuleDefinition ruleDefinition = new RuleDefinition();
@@ -175,7 +176,7 @@ public class RuleDefinitionTest {
 	 */
 	@Test
 	public void testGetVersionMatchingRuleSetVersionNoMatchingRuleVersion() {
-		LocalDateTime effectivity = LocalDateTime.of(2015, 1, 1, 0, 0);
+		LocalDate effectivity = LocalDate.of(2015, 1, 1);
 		LocalDateTime observation = LocalDateTime.of(2016, 2, 20, 0, 0);
 
 		RuleDefinition ruleDefinition = new RuleDefinition();
@@ -204,7 +205,7 @@ public class RuleDefinitionTest {
 	 */
 	@Test
 	public void testGetVersionMatching() {
-		LocalDateTime effectivity = LocalDateTime.of(2015, 1, 1, 0, 0);
+		LocalDate effectivity = LocalDate.of(2015, 1, 1);
 		LocalDateTime observation = LocalDateTime.of(2016, 2, 20, 0, 0);
 
 		RuleDefinition ruleDefinition = new RuleDefinition();

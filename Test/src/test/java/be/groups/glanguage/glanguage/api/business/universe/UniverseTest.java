@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
@@ -152,7 +153,7 @@ public class UniverseTest {
 	 */
 	@Test
 	public void testGetPlan() {
-		LocalDateTime effectivityDate = LocalDateTime.now();
+		LocalDate effectivityDate = LocalDate.now();
 		Plan plan = Universe.getPlan(-900000, effectivityDate);
 		assertNotNull(plan);
 		assertNotNull(plan.getRuleVersions());

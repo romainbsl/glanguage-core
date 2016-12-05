@@ -5,7 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalDate;
 
 import javax.persistence.EntityManager;
 
@@ -77,8 +78,8 @@ public class RuleVersionTest {
 
 		assertEquals(RuleType.OR, ruleVersion.getRuleType());
 
-		assertEquals(LocalDateTime.of(2014, 1, 1, 0, 0), ruleVersion.getEffectivityStartDate());
-		assertEquals(LocalDateTime.of(2014, 12, 31, 0, 0), ruleVersion.getEffectivityEndDate());
+		assertEquals(LocalDate.of(2014, 1, 1), ruleVersion.getEffectivityStartDate());
+		assertEquals(LocalDate.of(2014, 12, 31), ruleVersion.getEffectivityEndDate());
 
 		assertEquals(Double.valueOf(0.01), ruleVersion.getRoundingPrecision());
 		assertEquals(RoundingType.ARITHMETIC, ruleVersion.getRoundingType());
@@ -106,66 +107,66 @@ public class RuleVersionTest {
 	}
 
 	/**
-	 * Tests {@link RuleVersion#isEffective(LocalDateTime)} when effectivity
+	 * Tests {@link RuleVersion#isEffective(LocalDate)} when effectivity
 	 * period is opened and effectivity date falls after start date
 	 */
 	@Test
 	public void testIsEffectiveOpenedPeriodEffective() {
 		RuleVersion ruleVersion = new RuleVersion();
-		ruleVersion.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
+		ruleVersion.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
 
-		assertTrue(ruleVersion.isEffective(LocalDateTime.of(2015, 1, 1, 0, 0)));
+		assertTrue(ruleVersion.isEffective(LocalDate.of(2015, 1, 1)));
 	}
 
 	/**
-	 * Tests {@link RuleVersion#isEffective(LocalDateTime)} when effectivity
+	 * Tests {@link RuleVersion#isEffective(LocalDate)} when effectivity
 	 * period is opened and effectivity date falls before start date
 	 */
 	@Test
 	public void testIsEffectiveOpenedPeriodNotEffective() {
 		RuleVersion ruleVersion = new RuleVersion();
-		ruleVersion.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
+		ruleVersion.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
 
-		assertFalse(ruleVersion.isEffective(LocalDateTime.of(2014, 12, 31, 0, 0)));
+		assertFalse(ruleVersion.isEffective(LocalDate.of(2014, 12, 31)));
 	}
 
 	/**
-	 * Tests {@link RuleVersion#isEffective(LocalDateTime)} when effectivity
+	 * Tests {@link RuleVersion#isEffective(LocalDate)} when effectivity
 	 * period is closed and effectivity date falls between start and end date
 	 */
 	@Test
 	public void testIsEffectiveClosedPeriodEffective() {
 		RuleVersion ruleVersion = new RuleVersion();
-		ruleVersion.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
-		ruleVersion.setEffectivityEndDate(LocalDateTime.of(2015, 12, 31, 0, 0));
+		ruleVersion.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
+		ruleVersion.setEffectivityEndDate(LocalDate.of(2015, 12, 31));
 
-		assertTrue(ruleVersion.isEffective(LocalDateTime.of(2015, 2, 1, 0, 0)));
+		assertTrue(ruleVersion.isEffective(LocalDate.of(2015, 2, 1)));
 	}
 
 	/**
-	 * Tests {@link RuleVersion#isEffective(LocalDateTime)} when effectivity
+	 * Tests {@link RuleVersion#isEffective(LocalDate)} when effectivity
 	 * period is closed and effectivity date falls before start date
 	 */
 	@Test
 	public void testIsEffectiveClosedPeriodNotEffectiveBefore() {
 		RuleVersion ruleVersion = new RuleVersion();
-		ruleVersion.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
-		ruleVersion.setEffectivityEndDate(LocalDateTime.of(2015, 12, 31, 0, 0));
+		ruleVersion.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
+		ruleVersion.setEffectivityEndDate(LocalDate.of(2015, 12, 31));
 
-		assertFalse(ruleVersion.isEffective(LocalDateTime.of(2014, 12, 31, 0, 0)));
+		assertFalse(ruleVersion.isEffective(LocalDate.of(2014, 12, 31)));
 	}
 
 	/**
-	 * Tests {@link RuleVersion#isEffective(LocalDateTime)} when effectivity
+	 * Tests {@link RuleVersion#isEffective(LocalDate)} when effectivity
 	 * period is closed and effectivity date falls after end date
 	 */
 	@Test
 	public void testIsEffectiveClosedPeriodNotEffectiveAfter() {
 		RuleVersion ruleVersion = new RuleVersion();
-		ruleVersion.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
-		ruleVersion.setEffectivityEndDate(LocalDateTime.of(2015, 12, 31, 0, 0));
+		ruleVersion.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
+		ruleVersion.setEffectivityEndDate(LocalDate.of(2015, 12, 31));
 
-		assertFalse(ruleVersion.isEffective(LocalDateTime.of(2016, 1, 1, 0, 0)));
+		assertFalse(ruleVersion.isEffective(LocalDate.of(2016, 1, 1)));
 	}
 
 }

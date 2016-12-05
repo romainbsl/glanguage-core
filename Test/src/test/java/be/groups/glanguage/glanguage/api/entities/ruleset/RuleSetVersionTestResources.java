@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.ruleset;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -97,32 +98,32 @@ public class RuleSetVersionTestResources {
 		r1Description.setCode("r1");
 		/* R1 D0 V1_0 */
 		r1d0v1_0.setId(101);
-		r1d0v1_0.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
-		r1d0v1_0.setEffectivityEndDate(LocalDateTime.of(2015, 12, 31, 0, 0));
+		r1d0v1_0.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
+		r1d0v1_0.setEffectivityEndDate(LocalDate.of(2015, 12, 31));
 		r1d0v1_0.setRuleDefinition(r1d0);
 		r1d0v1_0.setRuleDescription(r1Description);
 		/* R1 D0 V1_1 */
 		r1d0v1_1.setId(1011);
-		r1d0v1_1.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
-		r1d0v1_1.setEffectivityEndDate(LocalDateTime.of(2015, 12, 31, 0, 0));
+		r1d0v1_1.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
+		r1d0v1_1.setEffectivityEndDate(LocalDate.of(2015, 12, 31));
 		r1d0v1_1.setRuleDefinition(r1d0);
 		r1d0v1_1.setRuleDescription(r1Description);
 		/* R1 D0 V2_0 */
 		r1d0v2_0.setId(102);
-		r1d0v2_0.setEffectivityStartDate(LocalDateTime.of(2016, 1, 1, 0, 0));
-		r1d0v2_0.setEffectivityEndDate(LocalDateTime.MAX);
+		r1d0v2_0.setEffectivityStartDate(LocalDate.of(2016, 1, 1));
+		r1d0v2_0.setEffectivityEndDate(LocalDate.MAX);
 		r1d0v2_0.setRuleDefinition(r1d0);
 		r1d0v2_0.setRuleDescription(r1Description);
 		/* R1 D0 V2_1 */
 		r1d0v2_1.setId(1021);
-		r1d0v2_1.setEffectivityStartDate(LocalDateTime.of(2016, 1, 1, 0, 0));
-		r1d0v2_1.setEffectivityEndDate(LocalDateTime.of(2016, 6, 30, 0, 0));
+		r1d0v2_1.setEffectivityStartDate(LocalDate.of(2016, 1, 1));
+		r1d0v2_1.setEffectivityEndDate(LocalDate.of(2016, 6, 30));
 		r1d0v2_1.setRuleDefinition(r1d0);
 		r1d0v2_1.setRuleDescription(r1Description);
 		/* R1 D0 V3_0 */
 		r1d0v3_0.setId(103);
-		r1d0v3_0.setEffectivityStartDate(LocalDateTime.of(2016, 7, 1, 0, 0));
-		r1d0v3_0.setEffectivityEndDate(LocalDateTime.MAX);
+		r1d0v3_0.setEffectivityStartDate(LocalDate.of(2016, 7, 1));
+		r1d0v3_0.setEffectivityEndDate(LocalDate.MAX);
 		r1d0v3_0.setRuleDefinition(r1d0);
 		r1d0v3_0.setRuleDescription(r1Description);
 		/* R1 D0 versions */
@@ -145,8 +146,8 @@ public class RuleSetVersionTestResources {
 		r2d0.setRuleIdentity(r2);
 		/* R2 D0 V1_0 */
 		r2d0v1_0.setId(201);
-		r2d0v1_0.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
-		r2d0v1_0.setEffectivityEndDate(LocalDateTime.MAX);
+		r2d0v1_0.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
+		r2d0v1_0.setEffectivityEndDate(LocalDate.MAX);
 		r2d0v1_0.setRuleDefinition(r2d0);
 		r2d0v1_0.setRuleDescription(r2Description);
 		/* R2 D0 versions */
@@ -161,8 +162,8 @@ public class RuleSetVersionTestResources {
 		r2d1.getDefinitionParameters().add(parameterEmployer1);
 		/* R2 D1 V1_0 */
 		r2d1v1_0.setId(211);
-		r2d1v1_0.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
-		r2d1v1_0.setEffectivityEndDate(LocalDateTime.MAX);
+		r2d1v1_0.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
+		r2d1v1_0.setEffectivityEndDate(LocalDate.MAX);
 		r2d1v1_0.setRuleDefinition(r2d1);
 		r2d1v1_0.setRuleDescription(r2Description);
 		/* R2 D1 versions */
@@ -176,8 +177,8 @@ public class RuleSetVersionTestResources {
 		r2d2.getDefinitionParameters().add(parameterJointCommittee2);
 		/* R2 D2 V1_0 */
 		r2d2v1_0.setId(221);
-		r2d2v1_0.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
-		r2d2v1_0.setEffectivityEndDate(LocalDateTime.MAX);
+		r2d2v1_0.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
+		r2d2v1_0.setEffectivityEndDate(LocalDate.MAX);
 		r2d2v1_0.setRuleDefinition(r2d2);
 		r2d2v1_0.setRuleDescription(r2Description);
 		/* R2 D2 versions */
@@ -191,8 +192,8 @@ public class RuleSetVersionTestResources {
 		r2d3.getDefinitionParameters().add(parameterCollectiveLborAgreement2);		
 		/* R2 D3 V1_0 */
 		r2d3v1_0.setId(231);
-		r2d3v1_0.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
-		r2d3v1_0.setEffectivityEndDate(LocalDateTime.MAX);		
+		r2d3v1_0.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
+		r2d3v1_0.setEffectivityEndDate(LocalDate.MAX);		
 		r2d3v1_0.setRuleDefinition(r2d3);
 		r2d3v1_0.setRuleDescription(r2Description);
 		/* R2 D3 versions */
@@ -207,8 +208,8 @@ public class RuleSetVersionTestResources {
 		r2d4.getDefinitionParameters().add(parameterCollectiveLborAgreement1);
 		/* R2 D4 V1_0 */
 		r2d4v1_0.setId(241);
-		r2d4v1_0.setEffectivityStartDate(LocalDateTime.of(2015, 1, 1, 0, 0));
-		r2d4v1_0.setEffectivityEndDate(LocalDateTime.MAX);
+		r2d4v1_0.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
+		r2d4v1_0.setEffectivityEndDate(LocalDate.MAX);
 		r2d4v1_0.setRuleDefinition(r2d4);
 		r2d4v1_0.setRuleDescription(r2Description);
 		/* R2 D4 versions */
@@ -223,8 +224,8 @@ public class RuleSetVersionTestResources {
 		r2d5.getDefinitionParameters().add(parameterCollectiveLborAgreement2);
 		/* R2 D5 V1_0 */
 		r2d5v1_0.setId(251);
-		r2d5v1_0.setEffectivityStartDate(LocalDateTime.of(2016, 1, 1, 0, 0));
-		r2d5v1_0.setEffectivityEndDate(LocalDateTime.MAX);
+		r2d5v1_0.setEffectivityStartDate(LocalDate.of(2016, 1, 1));
+		r2d5v1_0.setEffectivityEndDate(LocalDate.MAX);
 		r2d5v1_0.setRuleDefinition(r2d5);
 		r2d5v1_0.setRuleDescription(r2Description);
 		/* R2 D5 versions */
@@ -249,8 +250,8 @@ public class RuleSetVersionTestResources {
 		r3d0.setRuleIdentity(r3);
 		/* R3 D0 V1_0 */
 		r3d0v1_0.setId(301);
-		r3d0v1_0.setEffectivityStartDate(LocalDateTime.of(2016, 1, 1, 0, 0));
-		r3d0v1_0.setEffectivityEndDate(LocalDateTime.MAX);
+		r3d0v1_0.setEffectivityStartDate(LocalDate.of(2016, 1, 1));
+		r3d0v1_0.setEffectivityEndDate(LocalDate.MAX);
 		r3d0v1_0.setRuleDefinition(r3d0);
 		r3d0v1_0.setRuleDescription(r3Description);	
 		/* R3 D0 versions */

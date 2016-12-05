@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -147,7 +148,7 @@ public class RuleSetTest {
 	@Test
 	public void testGetVersionAt20150101() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		RuleSetVersion rsv = rs.getVersion(LocalDateTime.of(2015, 1, 1, 0, 0));
+		RuleSetVersion rsv = rs.getVersion(LocalDateTime.of(2015,1, 1, 0, 0));
 		assertNotNull(rsv);
 		assertEquals(RuleSetVersionTestResources.rs1v1, rsv);
 	}
@@ -158,7 +159,7 @@ public class RuleSetTest {
 	@Test
 	public void testGetVersionAt20160101() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		RuleSetVersion rsv = rs.getVersion(LocalDateTime.of(2016, 1, 1, 0, 0));
+		RuleSetVersion rsv = rs.getVersion(LocalDateTime.of(2016,1, 1, 0, 0));
 		assertNotNull(rsv);
 		assertEquals(RuleSetVersionTestResources.rs1v2, rsv);
 	}
@@ -1005,13 +1006,13 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetTestResources#rs1} when date is
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when date is
 	 * 01/01/2015
 	 */
 	@Test
 	public void testGetEffectiveAt20150101RuleVersionsRS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		Collection<RuleVersion> ruleVersions = rs.getRuleVersions(LocalDateTime.of(2015, 1, 1, 0, 0));
+		Collection<RuleVersion> ruleVersions = rs.getRuleVersions(LocalDate.of(2015, 1, 1));
 		assertNotNull(ruleVersions);
 		assertEquals(7, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_0));
@@ -1024,13 +1025,13 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetTestResources#rs1} when date is
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when date is
 	 * 01/01/2016
 	 */
 	@Test
 	public void testGetEffectiveAt20160101RuleVersionsRS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		Collection<RuleVersion> ruleVersions = rs.getRuleVersions(LocalDateTime.of(2016, 1, 1, 0, 0));
+		Collection<RuleVersion> ruleVersions = rs.getRuleVersions(LocalDate.of(2016, 1, 1));
 		assertNotNull(ruleVersions);
 		assertEquals(9, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_0));
@@ -1045,13 +1046,13 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetTestResources#rs1} when date is
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when date is
 	 * 01/07/2016
 	 */
 	@Test
 	public void testGetEffectiveAt20160701RuleVersionsRS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		Collection<RuleVersion> ruleVersions = rs.getRuleVersions(LocalDateTime.of(2016, 7, 1, 0, 0));
+		Collection<RuleVersion> ruleVersions = rs.getRuleVersions(LocalDate.of(2016, 7, 1));
 		assertNotNull(ruleVersions);
 		assertEquals(9, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_0));
@@ -1066,13 +1067,13 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetTestResources#rs1} when code is "r1" and
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when code is "r1" and
 	 * date is 01/01/2015
 	 */
 	@Test
 	public void testGetEffectiveAt20150101RuleVersionsByCodeR1RS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		Collection<RuleVersion> ruleVersions = rs.getRuleVersions("r1", LocalDateTime.of(2015, 1, 1, 0, 0));
+		Collection<RuleVersion> ruleVersions = rs.getRuleVersions("r1", LocalDate.of(2015,1, 1));
 		assertNotNull(ruleVersions);
 		assertEquals(2, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v1_0));
@@ -1086,7 +1087,7 @@ public class RuleSetTest {
 	@Test
 	public void testGetEffectiveAt20150101RuleVersionsByCodeR2RS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		Collection<RuleVersion> ruleVersions = rs.getRuleVersions("r2", LocalDateTime.of(2015, 1, 1, 0, 0));
+		Collection<RuleVersion> ruleVersions = rs.getRuleVersions("r2", LocalDate.of(2015,1, 1));
 		assertNotNull(ruleVersions);
 		assertEquals(5, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r2d0v1_0));
@@ -1103,7 +1104,7 @@ public class RuleSetTest {
 	@Test
 	public void testGetEffectiveAt20150101RuleVersionsByCodeR3RS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		Collection<RuleVersion> ruleVersions = rs.getRuleVersions("r3", LocalDateTime.of(2015, 1, 1, 0, 0));
+		Collection<RuleVersion> ruleVersions = rs.getRuleVersions("r3", LocalDate.of(2015,1, 1));
 		assertNotNull(ruleVersions);
 		assertTrue(ruleVersions.isEmpty());
 	}
@@ -1115,20 +1116,20 @@ public class RuleSetTest {
 	@Test
 	public void testGetEffectiveAt20160101RuleVersionsByCodeR3RS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		Collection<RuleVersion> ruleVersions = rs.getRuleVersions("r3", LocalDateTime.of(2016, 1, 1, 0, 0));
+		Collection<RuleVersion> ruleVersions = rs.getRuleVersions("r3", LocalDate.of(2016,1, 1));
 		assertNotNull(ruleVersions);
 		assertEquals(1, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetTestResources#rs1} when code is "r1" and
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when code is "r1" and
 	 * date is 01/01/2016
 	 */
 	@Test
 	public void testGetEffectiveAt20160101RuleVersionsByCodeR1RS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		Collection<RuleVersion> ruleVersions = rs.getRuleVersions("r1", LocalDateTime.of(2016, 1, 1, 0, 0));
+		Collection<RuleVersion> ruleVersions = rs.getRuleVersions("r1", LocalDate.of(2016,1, 1));
 		assertNotNull(ruleVersions);
 		assertEquals(2, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_0));
@@ -1136,13 +1137,13 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetTestResources#rs1} when code is "r1" and
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when code is "r1" and
 	 * date is 01/07/2016
 	 */
 	@Test
 	public void testGetEffectiveAt20160701RuleVersionsByCodeR1RS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		Collection<RuleVersion> ruleVersions = rs.getRuleVersions("r1", LocalDateTime.of(2016, 7, 1, 0, 0));
+		Collection<RuleVersion> ruleVersions = rs.getRuleVersions("r1", LocalDate.of(2016,7, 1));
 		assertNotNull(ruleVersions);
 		assertEquals(2, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_0));
@@ -1177,7 +1178,7 @@ public class RuleSetTest {
 	@Test
 	public void testGetEffectiveAt20150101DefaultRuleVersionsRS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleVersions = rs.getDefaultRuleVersions(LocalDateTime.of(2015, 1, 1, 0, 0));
+		List<RuleVersion> ruleVersions = rs.getDefaultRuleVersions(LocalDate.of(2015,1, 1));
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertEquals(3, ruleVersions.size());
@@ -1196,7 +1197,7 @@ public class RuleSetTest {
 	@Test
 	public void testGetEffectiveAt20150101DefaultRuleVersionsByCodeR1RS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleVersions = rs.getDefaultRuleVersions("r1", LocalDateTime.of(2015, 1, 1, 0, 0));
+		List<RuleVersion> ruleVersions = rs.getDefaultRuleVersions("r1", LocalDate.of(2015,1, 1));
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertEquals(2, ruleVersions.size());
@@ -1214,7 +1215,7 @@ public class RuleSetTest {
 	@Test
 	public void testGetEffectiveAt20150101DefaultRuleVersionsByCodeR3RS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleVersions = rs.getDefaultRuleVersions("r3", LocalDateTime.of(2015, 1, 1, 0, 0));
+		List<RuleVersion> ruleVersions = rs.getDefaultRuleVersions("r3", LocalDate.of(2015,1, 1));
 		assertNotNull(ruleVersions);
 		assertTrue(ruleVersions.isEmpty());
 	}
@@ -1226,7 +1227,7 @@ public class RuleSetTest {
 	@Test
 	public void testGetEffectiveAt20160101DefaultRuleVersionsByCodeR1RS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleVersions = rs.getDefaultRuleVersions("r1", LocalDateTime.of(2016, 1, 1, 0, 0));
+		List<RuleVersion> ruleVersions = rs.getDefaultRuleVersions("r1", LocalDate.of(2016,1, 1));
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertEquals(2, ruleVersions.size());
@@ -1244,7 +1245,7 @@ public class RuleSetTest {
 	@Test
 	public void testGetEffectiveAt20160701DefaultRuleVersionsByCodeR1RS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleVersions = rs.getDefaultRuleVersions("r1", LocalDateTime.of(2016, 7, 1, 0, 0));
+		List<RuleVersion> ruleVersions = rs.getDefaultRuleVersions("r1", LocalDate.of(2016,7, 1));
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertEquals(2, ruleVersions.size());
@@ -1262,7 +1263,7 @@ public class RuleSetTest {
 	@Test
 	public void testGetEffectiveAt20160701DefaultRuleVersionsByCodeR3RS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleVersions = rs.getDefaultRuleVersions("r3", LocalDateTime.of(2016, 7, 1, 0, 0));
+		List<RuleVersion> ruleVersions = rs.getDefaultRuleVersions("r3", LocalDate.of(2016,7, 1));
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertEquals(1, ruleVersions.size());
@@ -1278,7 +1279,7 @@ public class RuleSetTest {
 	@Test
 	public void testGetEffectiveAt20160101DefaultRuleVersionsRS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleVersions = rs.getDefaultRuleVersions(LocalDateTime.of(2016, 1, 1, 0, 0));
+		List<RuleVersion> ruleVersions = rs.getDefaultRuleVersions(LocalDate.of(2016,1, 1));
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertEquals(4, ruleVersions.size());
@@ -1297,7 +1298,7 @@ public class RuleSetTest {
 	@Test
 	public void testGetEffectiveAt20160701DefaultRuleVersionsRS1() {
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleVersions = rs.getDefaultRuleVersions(LocalDateTime.of(2016, 7, 1, 0, 0));
+		List<RuleVersion> ruleVersions = rs.getDefaultRuleVersions(LocalDate.of(2016,7, 1));
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertEquals(4, ruleVersions.size());
@@ -1375,7 +1376,7 @@ public class RuleSetTest {
 		parameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1"));
 		
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleVersions = rs.getDefinedRuleVersions(parameters, LocalDateTime.of(2015, 1, 1, 0, 0));
+		List<RuleVersion> ruleVersions = rs.getDefinedRuleVersions(parameters, LocalDate.of(2015,1, 1));
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertEquals(4, ruleVersions.size());
@@ -1405,7 +1406,7 @@ public class RuleSetTest {
 		parameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1"));
 		
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleVersions = rs.getDefinedRuleVersions(parameters, LocalDateTime.of(2016, 1, 1, 0, 0));
+		List<RuleVersion> ruleVersions = rs.getDefinedRuleVersions(parameters, LocalDate.of(2016,1, 1));
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertEquals(5, ruleVersions.size());
@@ -1492,7 +1493,7 @@ public class RuleSetTest {
 		parameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1"));
 		
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleDefinitions = rs.getDefinedRuleVersions("r2", parameters, LocalDateTime.of(2014, 1, 1, 0, 0));
+		List<RuleVersion> ruleDefinitions = rs.getDefinedRuleVersions("r2", parameters, LocalDate.of(2014,1, 1));
 		assertNotNull(ruleDefinitions);
 		assertTrue(ruleDefinitions.isEmpty());
 	}
@@ -1517,7 +1518,7 @@ public class RuleSetTest {
 		parameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1"));
 		
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleDefinitions = rs.getDefinedRuleVersions("r2", parameters, LocalDateTime.of(2015, 1, 1, 0, 0));
+		List<RuleVersion> ruleDefinitions = rs.getDefinedRuleVersions("r2", parameters, LocalDate.of(2015,1, 1));
 		assertNotNull(ruleDefinitions);
 		assertFalse(ruleDefinitions.isEmpty());
 		assertEquals(4, ruleDefinitions.size());
@@ -1547,7 +1548,7 @@ public class RuleSetTest {
 		parameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1"));
 		
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleDefinitions = rs.getDefinedRuleVersions("r2", parameters, LocalDateTime.of(2016, 1, 1, 0, 0));
+		List<RuleVersion> ruleDefinitions = rs.getDefinedRuleVersions("r2", parameters, LocalDate.of(2016,1, 1));
 		assertNotNull(ruleDefinitions);
 		assertFalse(ruleDefinitions.isEmpty());
 		assertEquals(5, ruleDefinitions.size());
@@ -1637,7 +1638,7 @@ public class RuleSetTest {
 		parameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1"));
 		
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleVersions = rs.getBestDefinedRuleVersions(parameters, LocalDateTime.of(2015, 1, 1, 0, 0));
+		List<RuleVersion> ruleVersions = rs.getBestDefinedRuleVersions(parameters, LocalDate.of(2015,1, 1));
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertFalse(ruleVersions.isEmpty());
@@ -1667,7 +1668,7 @@ public class RuleSetTest {
 		parameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1"));
 		
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleVersions = rs.getBestDefinedRuleVersions(parameters, LocalDateTime.of(2016, 1, 1, 0, 0));
+		List<RuleVersion> ruleVersions = rs.getBestDefinedRuleVersions(parameters, LocalDate.of(2016,1, 1));
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertFalse(ruleVersions.isEmpty());
@@ -1698,7 +1699,7 @@ public class RuleSetTest {
 		parameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1"));
 		
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleVersions = rs.getBestDefinedRuleVersions(parameters, LocalDateTime.of(2016, 7, 1, 0, 0));
+		List<RuleVersion> ruleVersions = rs.getBestDefinedRuleVersions(parameters, LocalDate.of(2016,7, 1));
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertFalse(ruleVersions.isEmpty());
@@ -2198,7 +2199,7 @@ public class RuleSetTest {
 		parameters.add(new RuleDefinitionParameter(DefinitionLevel.JOINT_COMMITTEE, "1"));
 		
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleVersions = rs.getBestDefinedRuleVersions("r1", parameters, LocalDateTime.of(2015, 1, 1, 0, 0));
+		List<RuleVersion> ruleVersions = rs.getBestDefinedRuleVersions("r1", parameters, LocalDate.of(2015,1, 1));
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertEquals(2, ruleVersions.size());
@@ -2226,7 +2227,7 @@ public class RuleSetTest {
 		parameters.add(new RuleDefinitionParameter(DefinitionLevel.JOINT_COMMITTEE, "1"));
 		
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleVersions = rs.getBestDefinedRuleVersions("r1", parameters, LocalDateTime.of(2016, 1, 1, 0, 0));
+		List<RuleVersion> ruleVersions = rs.getBestDefinedRuleVersions("r1", parameters, LocalDate.of(2016,1, 1));
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertEquals(2, ruleVersions.size());
@@ -2318,7 +2319,7 @@ public class RuleSetTest {
 		parameters.add(new RuleDefinitionParameter(DefinitionLevel.JOINT_COMMITTEE, "1"));
 		
 		RuleSet rs = RuleSetTestResources.rs1;
-		List<RuleVersion> ruleVersions = rs.getBestDefinedRuleVersions("r1", parameters, LocalDateTime.of(2016, 7, 1, 0, 0));
+		List<RuleVersion> ruleVersions = rs.getBestDefinedRuleVersions("r1", parameters, LocalDate.of(2016,7, 1));
 		assertNotNull(ruleVersions);
 		assertEquals(2, ruleVersions.size());
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r1d0v2_0));
