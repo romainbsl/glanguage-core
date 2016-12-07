@@ -128,7 +128,7 @@ public class RuleSetVersionTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefaultRuleVersion(String, LocalDateTime)}
+	 * Tests {@link RuleSetVersion#getDefaultRuleVersion(String, LocalDate)}}
 	 * when a rule version is found
 	 */
 	@Test
@@ -173,7 +173,7 @@ public class RuleSetVersionTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefaultRuleVersion(String, LocalDateTime)}
+	 * Tests {@link RuleSetVersion#getDefaultRuleVersion(String, LocalDate)}
 	 * when a rule version exists for that code and the default definition but
 	 * is not effective
 	 */
@@ -212,7 +212,7 @@ public class RuleSetVersionTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefaultRuleVersion(String, LocalDateTime)}
+	 * Tests {@link RuleSetVersion#getDefaultRuleVersion(String, LocalDate)}
 	 * when a rule version exists for that code but not for the default
 	 * definition
 	 */
@@ -242,7 +242,7 @@ public class RuleSetVersionTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefaultRuleVersion(String, LocalDateTime)}
+	 * Tests {@link RuleSetVersion#getDefaultRuleVersion(String, LocalDate)}
 	 * when no rule version exists for that code
 	 */
 	@Test
@@ -272,7 +272,7 @@ public class RuleSetVersionTest {
 	
 	/**
 	 * Tests
-	 * {@link RuleSetVersion#getDefinedRuleVersion(LocalDateTime, Collection)}
+	 * {@link RuleSetVersion#getDefinedRuleVersion(Collection, LocalDate)}
 	 * when a rule is found
 	 */
 	@SuppressWarnings("unchecked")
@@ -315,7 +315,7 @@ public class RuleSetVersionTest {
 	
 	/**
 	 * Tests
-	 * {@link RuleSetVersion#getDefinedRuleVersion(LocalDateTime, Collection)}
+	 * {@link RuleSetVersion#getDefinedRuleVersion(Collection, LocalDate)}
 	 * when no effective rule version is found
 	 */
 	@SuppressWarnings("unchecked")
@@ -351,7 +351,7 @@ public class RuleSetVersionTest {
 	
 	/**
 	 * Tests
-	 * {@link RuleSetVersion#getDefinedRuleVersion(LocalDateTime, Collection)}
+	 * {@link RuleSetVersion#getDefinedRuleVersions(Collection, LocalDate)}
 	 * when no definition is found
 	 */
 	@SuppressWarnings("unchecked")
@@ -412,7 +412,7 @@ public class RuleSetVersionTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleIdentitites()} using {@link RuleSetVersionTestResources#rs1v1}
+	 * Test {@link RuleSetVersion#getRuleIdentities()} using {@link RuleSetVersionTestResources#rs1v1}
 	 */
 	@Test
 	public void testGetRuleIdentitiesRS1V1() {
@@ -425,7 +425,7 @@ public class RuleSetVersionTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleIdentitites()} using {@link RuleSetVersionTestResources#rs1v2}
+	 * Test {@link RuleSetVersion#getRuleIdentities()}} using {@link RuleSetVersionTestResources#rs1v2}
 	 */
 	@Test
 	public void testGetRuleIdentitiesRS1V2() {
@@ -1992,7 +1992,7 @@ public class RuleSetVersionTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(LocalDateTime)} using {@link RuleSetVersionTestResources#rs1v1} when date is
+	 * Test {@link RuleSetVersion#getRuleVersions(LocalDate)} using {@link RuleSetVersionTestResources#rs1v1} when date is
 	 * 01/01/2015
 	 */
 	@Test

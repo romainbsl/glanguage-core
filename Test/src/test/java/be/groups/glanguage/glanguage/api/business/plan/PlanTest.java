@@ -1,17 +1,5 @@
 package be.groups.glanguage.glanguage.api.business.plan;
 
-import static org.junit.Assert.*;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Collection;
-
-import javax.persistence.EntityManager;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import be.groups.common.persistence.util.TransactionHelper;
 import be.groups.common.test.utils.Environment;
 import be.groups.glanguage.glanguage.api.business.universe.Universe;
@@ -19,6 +7,15 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.marmota.persistence.DatabaseIdentifier;
 import be.groups.marmota.persistence.JpaUtil;
 import be.groups.marmota.test.TNSNames;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.util.Collection;
+
+import static org.junit.Assert.*;
 
 public class PlanTest {
 	
@@ -53,7 +50,7 @@ public class PlanTest {
 	}
 	
 	/**
-	 * Tests {@link Plan#evaluate()}
+	 * Tests {@link Plan#evaluate(Object)}}
 	 */
 	@Test
 	public void testEvaluate() {
@@ -88,7 +85,7 @@ public class PlanTest {
 	}
 	
 	/**
-	 * Tests {@link Plan#evaluate(String, boolean)}
+	 * Tests {@link Plan#evaluate(Object, String, boolean)}
 	 */
 	@Test
 	public void testEvaluateRule900002() {
@@ -116,7 +113,7 @@ public class PlanTest {
 	}
 	
 	/**
-	 * Tests {@link Plan#evaluate(String, boolean)}
+	 * Tests {@link Plan#evaluate(Object, String, boolean)}
 	 */
 	@Test
 	public void testEvaluateRule900003() {
