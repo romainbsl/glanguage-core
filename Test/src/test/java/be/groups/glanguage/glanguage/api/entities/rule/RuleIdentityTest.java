@@ -1,65 +1,25 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
-import be.groups.common.persistence.util.TransactionHelper;
-import be.groups.common.test.utils.Environment;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
-import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
-import be.groups.marmota.persistence.DatabaseIdentifier;
-import be.groups.marmota.persistence.JpaUtil;
-import be.groups.marmota.test.TNSNames;
+import static org.junit.Assert.*;
 
 /**
  * Test class for {@link RuleIdentity}
  * 
  * @author DUPIREFR
  */
-public class RuleIdentityTest {
-
-	/*
-	 * Static fields
-	 */
-	private static EntityManager em;
-
-	/*
-	 * Setups
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() {
-		Environment.setUp();
-		TNSNames.setUp();
-
-		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
-
-		if (!TransactionHelper.isActive()) {
-			TransactionHelper.begin();
-		}
-
-		em = JpaUtil.getEntityManager();
-	}
-
-	@AfterClass
-	public static void close() {
-		if (TransactionHelper.isActive()) {
-			TransactionHelper.rollback();
-		}
-	}
+public class RuleIdentityTest extends BaseDatabaseTest {
 
 	/*
 	 * Tests
@@ -70,7 +30,7 @@ public class RuleIdentityTest {
 	@Test
 	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
-		RuleIdentity ruleIdentity = em.find(RuleIdentity.class, -900000);
+		RuleIdentity ruleIdentity = getEntityManager().find(RuleIdentity.class, -900000);
 
 		/* Checking entity */
 		assertNotNull(ruleIdentity);

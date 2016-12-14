@@ -1,19 +1,5 @@
 package be.groups.glanguage.glanguage.api.business.parser;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.time.Duration;
-import java.time.LocalDate;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import be.groups.common.persistence.util.TransactionHelper;
-import be.groups.common.test.utils.Environment;
 import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
 import be.groups.glanguage.glanguage.api.business.action.standard.AsStandard;
 import be.groups.glanguage.glanguage.api.business.analysis.byaccj.SlangTab;
@@ -22,26 +8,9 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.Formul
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracket;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaDate;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaIn;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaAnd;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDifference;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDivide;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaEqual;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaGreater;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaGreaterOrEqual;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaIntegerDivision;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMinus;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaModulo;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMultiply;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaOr;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaPlus;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmaller;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerOrEqual;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.*;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationDays;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationHours;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationMinutes;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationMonths;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationYears;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.*;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMax;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMin;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumSignedMax;
@@ -53,25 +22,19 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.format
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaIfInstruction;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathAbs;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathSign;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingArithmetic;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingBankers;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingCeil;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingFloor;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingTrunc;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.*;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaStringItem;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaStringLength;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaSubString;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBoolean;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDate;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDuration;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalInteger;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumeric;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalString;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.*;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaNot;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaUnaryMinus;
-import be.groups.marmota.persistence.DatabaseIdentifier;
-import be.groups.marmota.persistence.JpaUtil;
-import be.groups.marmota.test.TNSNames;
+import org.junit.Test;
+
+import java.time.Duration;
+import java.time.LocalDate;
+
+import static org.junit.Assert.*;
 
 public class ParserTest {
 	
@@ -79,29 +42,7 @@ public class ParserTest {
 	 * Constants
 	 */
 	private static final double DELTA = 1e-15;
-	
-	/*
-	 * Setups
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() {
-		Environment.setUp();
-		TNSNames.setUp();
-		
-		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
-		
-		if (!TransactionHelper.isActive()) {
-			TransactionHelper.begin();
-		}
-	}
-	
-	@AfterClass
-	public static void close() {
-		if (TransactionHelper.isActive()) {
-			TransactionHelper.rollback();
-		}
-	}
-	
+
 	@Test
 	public void testParseBooleanTrue() {
 		String str = "true";

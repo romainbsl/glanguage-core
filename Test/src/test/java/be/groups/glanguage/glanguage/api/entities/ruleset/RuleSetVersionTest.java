@@ -1,31 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.ruleset;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.ArgumentMatchers.*;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
-import be.groups.common.persistence.util.TransactionHelper;
-import be.groups.common.test.utils.Environment;
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDescription;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
@@ -33,46 +8,26 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
 import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
-import be.groups.marmota.persistence.DatabaseIdentifier;
-import be.groups.marmota.persistence.JpaUtil;
-import be.groups.marmota.test.TNSNames;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
+
+import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link RuleSetVersion}
  * 
  * @author DUPIREFR
  */
-public class RuleSetVersionTest {
-	
-	/*
-	 * Static fields
-	 */
-	private static EntityManager em;
-	
-	/*
-	 * Setups
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() {
-		Environment.setUp();
-		TNSNames.setUp();
-		
-		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
-		
-		if (!TransactionHelper.isActive()) {
-			TransactionHelper.begin();
-		}
-		
-		em = JpaUtil.getEntityManager();
-	}
-	
-	@AfterClass
-	public static void close() {
-		if (TransactionHelper.isActive()) {
-			TransactionHelper.rollback();
-		}
-	}
-	
+public class RuleSetVersionTest extends BaseDatabaseTest {
+
 	/*
 	 * Tests
 	 */
@@ -82,7 +37,7 @@ public class RuleSetVersionTest {
 	@Test
 	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
-		RuleSetVersion ruleSetVersion = em.find(RuleSetVersion.class, -900001);
+		RuleSetVersion ruleSetVersion = getEntityManager().find(RuleSetVersion.class, -900001);
 		
 		/* Checking entity */
 		assertNotNull(ruleSetVersion);
@@ -119,12 +74,10 @@ public class RuleSetVersionTest {
 		
 		assertNotNull(ruleSetVersion.getRuleVersions());
 		assertEquals(4, ruleSetVersion.getRuleVersions().size());
-		assertEquals(4, ruleSetVersion.getRuleVersions().stream().map(v -> v.getId()).distinct().count());
+		assertEquals(4, ruleSetVersion.getRuleVersions().stream().map(RuleVersion::getId).distinct().count());
 		
 		List<Integer> ruleVersionIds = Arrays.asList(-900000, -900002, -900003, -900004);
-		ruleSetVersion.getRuleVersions().forEach(v -> {
-			assertTrue(ruleVersionIds.contains(v.getId()));
-		});
+		ruleSetVersion.getRuleVersions().forEach(v -> assertTrue(ruleVersionIds.contains(v.getId())));
 	}
 	
 	/**
@@ -272,7 +225,7 @@ public class RuleSetVersionTest {
 	
 	/**
 	 * Tests
-	 * {@link RuleSetVersion#getDefinedRuleVersion(Collection, LocalDate)}
+	 * {@link RuleSetVersion#getDefinedRuleVersions(Collection, LocalDate)}
 	 * when a rule is found
 	 */
 	@SuppressWarnings("unchecked")
@@ -315,7 +268,7 @@ public class RuleSetVersionTest {
 	
 	/**
 	 * Tests
-	 * {@link RuleSetVersion#getDefinedRuleVersion(Collection, LocalDate)}
+	 * {@link RuleSetVersion#getDefinedRuleVersions(Collection, LocalDate)}
 	 * when no effective rule version is found
 	 */
 	@SuppressWarnings("unchecked")
@@ -534,7 +487,7 @@ public class RuleSetVersionTest {
 		assertNotNull(ruleDefinitions);
 		assertFalse(ruleDefinitions.isEmpty());
 		assertEquals(1, ruleDefinitions.size());
-		ruleDefinitions.get(0).getLevel().equals(DefinitionLevel.DEFAULT);
+		assertEquals(ruleDefinitions.get(0).getLevel(), DefinitionLevel.DEFAULT);
 		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r3d0));
 	}
 	
@@ -2415,7 +2368,7 @@ public class RuleSetVersionTest {
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertEquals(1, ruleVersions.size());
-		ruleVersions.get(0).getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT);
+		assertEquals(ruleVersions.get(0).getRuleDefinition().getLevel(), DefinitionLevel.DEFAULT);
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
 	}
 	

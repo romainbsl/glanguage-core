@@ -1,59 +1,19 @@
 package be.groups.glanguage.glanguage.api.entities.formula.description;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import javax.persistence.EntityManager;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import be.groups.common.persistence.util.TransactionHelper;
-import be.groups.common.test.utils.Environment;
-import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
-import be.groups.marmota.persistence.DatabaseIdentifier;
-import be.groups.marmota.persistence.JpaUtil;
-import be.groups.marmota.test.TNSNames;
+import static org.junit.Assert.*;
 
 /**
  * Test class for {@link FormulaParameterDescription}
  * 
  * @author DUPIREFR
  */
-public class FormulaParameterDescriptionTest {
-	
-	/*
-	 * Static fields
-	 */
-	private static EntityManager em;
-	
-	/*
-	 * Setups
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() {
-		Environment.setUp();
-		TNSNames.setUp();
-		
-		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
-		
-		if (!TransactionHelper.isActive()) {
-			TransactionHelper.begin();
-		}
-		
-		em = JpaUtil.getEntityManager();
-	}
-	
-	@AfterClass
-	public static void close() {
-		if (TransactionHelper.isActive()) {
-			TransactionHelper.rollback();
-		}
-	}
-	
+public class FormulaParameterDescriptionTest extends BaseDatabaseTest {
+
 	/*
 	 * Tests
 	 */
@@ -63,7 +23,7 @@ public class FormulaParameterDescriptionTest {
 	@Test
 	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
-		FormulaParameterDescription parameterDescription = em.find(FormulaParameterDescription.class, 1);
+		FormulaParameterDescription parameterDescription = getEntityManager().find(FormulaParameterDescription.class, 1);
 		
 		/* Checking entity */
 		assertNotNull(parameterDescription);

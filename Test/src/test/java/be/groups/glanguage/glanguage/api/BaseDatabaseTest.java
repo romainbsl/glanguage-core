@@ -1,15 +1,14 @@
 package be.groups.glanguage.glanguage.api;
 
-import javax.persistence.EntityManager;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-
 import be.groups.common.persistence.util.TransactionHelper;
 import be.groups.common.test.utils.Environment;
 import be.groups.marmota.persistence.DatabaseIdentifier;
 import be.groups.marmota.persistence.JpaUtil;
 import be.groups.marmota.test.TNSNames;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+
+import javax.persistence.EntityManager;
 
 public class BaseDatabaseTest {
 	
@@ -25,18 +24,18 @@ public class BaseDatabaseTest {
 	public static void setUpBeforeClass() {
 		Environment.setUp();
 		TNSNames.setUp();
+
+		JpaUtil.setCentralEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
+		em = JpaUtil.getCentralEntityManager();
 		
-		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
-		em = JpaUtil.getEntityManager();
-		
-		if (!TransactionHelper.isActive()) {
+		if (!TransactionHelper.isCentralActive()) {
 			TransactionHelper.begin();
 		}
 	}
 	
 	@AfterClass
 	public static void close() {
-		if (TransactionHelper.isActive()) {
+		if (TransactionHelper.isCentralActive()) {
 			TransactionHelper.rollback();
 		}
 	}

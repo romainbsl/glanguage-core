@@ -1,62 +1,20 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.time.LocalDate;
-import java.time.LocalDate;
-
-import javax.persistence.EntityManager;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import be.groups.common.persistence.util.TransactionHelper;
-import be.groups.common.test.utils.Environment;
-import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
-import be.groups.marmota.persistence.DatabaseIdentifier;
-import be.groups.marmota.persistence.JpaUtil;
-import be.groups.marmota.test.TNSNames;
+import java.time.LocalDate;
+
+import static org.junit.Assert.*;
 
 /**
  * Test class for {@link RuleVersion}
  * 
  * @author DUPIREFR
  */
-public class RuleVersionTest {
-
-	/*
-	 * Static fields
-	 */
-	private static EntityManager em;
-
-	/*
-	 * Setups
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() {
-		Environment.setUp();
-		TNSNames.setUp();
-
-		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
-
-		if (!TransactionHelper.isActive()) {
-			TransactionHelper.begin();
-		}
-
-		em = JpaUtil.getEntityManager();
-	}
-
-	@AfterClass
-	public static void close() {
-		if (TransactionHelper.isActive()) {
-			TransactionHelper.rollback();
-		}
-	}
+public class RuleVersionTest extends BaseDatabaseTest {
 
 	/*
 	 * Tests
@@ -67,7 +25,7 @@ public class RuleVersionTest {
 	@Test
 	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
-		RuleVersion ruleVersion = em.find(RuleVersion.class, -900003);
+		RuleVersion ruleVersion = getEntityManager().find(RuleVersion.class, -900003);
 
 		/* Checking entity */
 		assertNotNull(ruleVersion);

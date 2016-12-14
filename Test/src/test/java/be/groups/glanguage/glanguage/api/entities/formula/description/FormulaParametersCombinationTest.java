@@ -1,62 +1,22 @@
 package be.groups.glanguage.glanguage.api.entities.formula.description;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
-import be.groups.common.persistence.util.TransactionHelper;
-import be.groups.common.test.utils.Environment;
-import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
-import be.groups.marmota.persistence.DatabaseIdentifier;
-import be.groups.marmota.persistence.JpaUtil;
-import be.groups.marmota.test.TNSNames;
+import static org.junit.Assert.*;
 
 /**
  * Test class for {@link FormulaParametersCombination}
  * 
  * @author DUPIREFR
  */
-public class FormulaParametersCombinationTest {
-	
-	/*
-	 * Static fields
-	 */
-	private static EntityManager em;
-	
-	/*
-	 * Setups
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() {
-		Environment.setUp();
-		TNSNames.setUp();
-		
-		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
-		
-		if (!TransactionHelper.isActive()) {
-			TransactionHelper.begin();
-		}
-		
-		em = JpaUtil.getEntityManager();
-	}
-	
-	@AfterClass
-	public static void close() {
-		if (TransactionHelper.isActive()) {
-			TransactionHelper.rollback();
-		}
-	}
-	
+public class FormulaParametersCombinationTest extends BaseDatabaseTest {
+
 	/*
 	 * Tests
 	 */
@@ -66,7 +26,7 @@ public class FormulaParametersCombinationTest {
 	@Test
 	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
-		FormulaParametersCombination parametersCombination = em.find(FormulaParametersCombination.class, 2);
+		FormulaParametersCombination parametersCombination = getEntityManager().find(FormulaParametersCombination.class, 2);
 		
 		/* Checking entity */
 		assertNotNull(parametersCombination);

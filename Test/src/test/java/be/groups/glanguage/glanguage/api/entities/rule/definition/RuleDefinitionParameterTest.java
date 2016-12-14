@@ -1,59 +1,18 @@
 package be.groups.glanguage.glanguage.api.entities.rule.definition;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import javax.persistence.EntityManager;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import be.groups.common.persistence.util.TransactionHelper;
-import be.groups.common.test.utils.Environment;
-import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
-import be.groups.marmota.persistence.DatabaseIdentifier;
-import be.groups.marmota.persistence.JpaUtil;
-import be.groups.marmota.test.TNSNames;
+import static org.junit.Assert.*;
 
 /**
  * Test class for {@link RuleDefinitionParameter}
  * 
  * @author DUPIREFR
  */
-public class RuleDefinitionParameterTest {
-
-	/*
-	 * Static fields
-	 */
-	private static EntityManager em;
-
-	/*
-	 * Setups
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() {
-		Environment.setUp();
-		TNSNames.setUp();
-
-		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
-
-		if (!TransactionHelper.isActive()) {
-			TransactionHelper.begin();
-		}
-
-		em = JpaUtil.getEntityManager();
-	}
-
-	@AfterClass
-	public static void close() {
-		if (TransactionHelper.isActive()) {
-			TransactionHelper.rollback();
-		}
-	}
+public class RuleDefinitionParameterTest extends BaseDatabaseTest {
 
 	/*
 	 * Tests
@@ -69,7 +28,7 @@ public class RuleDefinitionParameterTest {
 		ruleDefintionParameterId.setRuleDefinitionId(-900001);
 		ruleDefintionParameterId.setValue("100000");
 
-		RuleDefinitionParameter ruleDefinitionParameter = em.find(RuleDefinitionParameter.class,
+		RuleDefinitionParameter ruleDefinitionParameter = getEntityManager().find(RuleDefinitionParameter.class,
 				ruleDefintionParameterId);
 
 		/* Checking entity */

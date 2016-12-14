@@ -1,70 +1,23 @@
 package be.groups.glanguage.glanguage.api.entities.formula.description;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-import javax.persistence.EntityManager;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import be.groups.common.persistence.util.TransactionHelper;
-import be.groups.common.test.utils.Environment;
-import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
-import be.groups.marmota.persistence.DatabaseIdentifier;
-import be.groups.marmota.persistence.JpaUtil;
-import be.groups.marmota.test.TNSNames;
+import java.util.*;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaDescription}
  * 
  * @author DUPIREFR
  */
-public class FormulaDescriptionTest {
-	
-	/*
-	 * Static fields
-	 */
-	private static EntityManager em;
-	
-	/*
-	 * Setups
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() {
-		Environment.setUp();
-		TNSNames.setUp();
-		
-		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
-		
-		if (!TransactionHelper.isActive()) {
-			TransactionHelper.begin();
-		}
-		
-		em = JpaUtil.getEntityManager();
-	}
-	
-	@AfterClass
-	public static void close() {
-		if (TransactionHelper.isActive()) {
-			TransactionHelper.rollback();
-		}
-	}
-	
+public class FormulaDescriptionTest  extends BaseDatabaseTest {
+
 	/*
 	 * Tests
 	 */
@@ -74,7 +27,7 @@ public class FormulaDescriptionTest {
 	@Test
 	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
-		FormulaDescription formulaDescription = em.find(FormulaDescription.class, 214);
+		FormulaDescription formulaDescription = getEntityManager().find(FormulaDescription.class, 214);
 		
 		/* Checking entity */
 		assertNotNull(formulaDescription);

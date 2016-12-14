@@ -10,6 +10,7 @@ import java.util.Collection;
 
 import javax.persistence.EntityManager;
 
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -24,38 +25,8 @@ import be.groups.marmota.persistence.DatabaseIdentifier;
 import be.groups.marmota.persistence.JpaUtil;
 import be.groups.marmota.test.TNSNames;
 
-public class UniverseTest {
-	
-	/*
-	 * Static fields
-	 */
-	@SuppressWarnings("unused")
-	private static EntityManager em;
-	
-	/*
-	 * Setups
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() {
-		Environment.setUp();
-		TNSNames.setUp();
-		
-		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
-		
-		if (!TransactionHelper.isActive()) {
-			TransactionHelper.begin();
-		}
-		
-		em = JpaUtil.getEntityManager();
-	}
-	
-	@AfterClass
-	public static void close() {
-		if (TransactionHelper.isActive()) {
-			TransactionHelper.rollback();
-		}
-	}
-	
+public class UniverseTest extends BaseDatabaseTest {
+
 	/**
 	 * Test {@link Universe#getAllRuleSets()}
 	 */

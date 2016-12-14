@@ -1,21 +1,22 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import org.junit.Test;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-import org.junit.Test;
-
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaFormula}
@@ -62,10 +63,16 @@ public class FormulaFormulaTest {
 		
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getIntegerValue()).thenReturn(1);
-		
+
+		RuleIdentity ruleIdentity = new RuleIdentity();
+		ruleIdentity.setId(0);
+		RuleDefinition ruleDefinition = new RuleDefinition();
+		ruleDefinition.setRuleIdentity(ruleIdentity);
+
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
 		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
@@ -98,10 +105,16 @@ public class FormulaFormulaTest {
 		
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getNumericValue()).thenReturn(1.5);
-		
+
+		RuleIdentity ruleIdentity = new RuleIdentity();
+		ruleIdentity.setId(0);
+		RuleDefinition ruleDefinition = new RuleDefinition();
+		ruleDefinition.setRuleIdentity(ruleIdentity);
+
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
 		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
 		assertEquals(Double.valueOf(1.5), formula.getNumericValue());
@@ -134,10 +147,16 @@ public class FormulaFormulaTest {
 		
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getStringValue()).thenReturn("string");
-		
+
+		RuleIdentity ruleIdentity = new RuleIdentity();
+		ruleIdentity.setId(0);
+		RuleDefinition ruleDefinition = new RuleDefinition();
+		ruleDefinition.setRuleIdentity(ruleIdentity);
+
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
 		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
 		assertEquals("string", formula.getStringValue());
@@ -170,10 +189,16 @@ public class FormulaFormulaTest {
 		
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getBooleanValue()).thenReturn(true);
-		
+
+		RuleIdentity ruleIdentity = new RuleIdentity();
+		ruleIdentity.setId(0);
+		RuleDefinition ruleDefinition = new RuleDefinition();
+		ruleDefinition.setRuleIdentity(ruleIdentity);
+
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
 		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
@@ -206,10 +231,16 @@ public class FormulaFormulaTest {
 		
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getDateValue()).thenReturn(LocalDate.of(2015, 1, 1));
-		
+
+		RuleIdentity ruleIdentity = new RuleIdentity();
+		ruleIdentity.setId(0);
+		RuleDefinition ruleDefinition = new RuleDefinition();
+		ruleDefinition.setRuleIdentity(ruleIdentity);
+
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
 		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
 		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue());
@@ -242,10 +273,16 @@ public class FormulaFormulaTest {
 		
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getDurationValue()).thenReturn(Duration.ofDays(2L));
-		
+
+		RuleIdentity ruleIdentity = new RuleIdentity();
+		ruleIdentity.setId(0);
+		RuleDefinition ruleDefinition = new RuleDefinition();
+		ruleDefinition.setRuleIdentity(ruleIdentity);
+
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
 		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
 		assertEquals(Duration.ofDays(2L), formula.getDurationValue());

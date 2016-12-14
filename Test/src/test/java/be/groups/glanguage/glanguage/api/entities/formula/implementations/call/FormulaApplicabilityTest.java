@@ -1,19 +1,20 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-
-import org.junit.Test;
-
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import org.junit.Test;
+
+import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaApplicability}
@@ -60,10 +61,16 @@ public class FormulaApplicabilityTest {
 		
 		AbstractFormula applicabilityCondition = mock(AbstractFormula.class);
 		when(applicabilityCondition.getBooleanValue()).thenReturn(true);
-		
+
+		RuleIdentity ruleIdentity = new RuleIdentity();
+		ruleIdentity.setId(0);
+		RuleDefinition ruleDefinition = new RuleDefinition();
+		ruleDefinition.setRuleIdentity(ruleIdentity);
+
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getApplicabilityCondition()).thenReturn(applicabilityCondition);
 		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
 		formula.getIntegerValue();
@@ -96,10 +103,16 @@ public class FormulaApplicabilityTest {
 		
 		AbstractFormula applicabilityCondition = mock(AbstractFormula.class);
 		when(applicabilityCondition.getBooleanValue()).thenReturn(true);
-		
+
+		RuleIdentity ruleIdentity = new RuleIdentity();
+		ruleIdentity.setId(0);
+		RuleDefinition ruleDefinition = new RuleDefinition();
+		ruleDefinition.setRuleIdentity(ruleIdentity);
+
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getApplicabilityCondition()).thenReturn(applicabilityCondition);
 		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
 		formula.getNumericValue();
@@ -132,10 +145,16 @@ public class FormulaApplicabilityTest {
 		
 		AbstractFormula applicabilityCondition = mock(AbstractFormula.class);
 		when(applicabilityCondition.getBooleanValue()).thenReturn(true);
-		
+
+		RuleIdentity ruleIdentity = new RuleIdentity();
+		ruleIdentity.setId(0);
+		RuleDefinition ruleDefinition = new RuleDefinition();
+		ruleDefinition.setRuleIdentity(ruleIdentity);
+
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getApplicabilityCondition()).thenReturn(applicabilityCondition);
 		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
 		formula.getStringValue();
@@ -168,10 +187,16 @@ public class FormulaApplicabilityTest {
 		
 		AbstractFormula applicabilityCondition = mock(AbstractFormula.class);
 		when(applicabilityCondition.getBooleanValue()).thenReturn(true);
-		
+
+		RuleIdentity ruleIdentity = new RuleIdentity();
+		ruleIdentity.setId(0);
+		RuleDefinition ruleDefinition = new RuleDefinition();
+		ruleDefinition.setRuleIdentity(ruleIdentity);
+
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getApplicabilityCondition()).thenReturn(applicabilityCondition);
 		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
@@ -192,10 +217,16 @@ public class FormulaApplicabilityTest {
 		
 		AbstractFormula applicabilityCondition = mock(AbstractFormula.class);
 		when(applicabilityCondition.getBooleanValue()).thenReturn(false);
-		
+
+		RuleIdentity ruleIdentity = new RuleIdentity();
+		ruleIdentity.setId(0);
+		RuleDefinition ruleDefinition = new RuleDefinition();
+		ruleDefinition.setRuleIdentity(ruleIdentity);
+
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getApplicabilityCondition()).thenReturn(applicabilityCondition);
 		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
@@ -228,10 +259,16 @@ public class FormulaApplicabilityTest {
 		
 		AbstractFormula applicabilityCondition = mock(AbstractFormula.class);
 		when(applicabilityCondition.getBooleanValue()).thenReturn(true);
-		
+
+		RuleIdentity ruleIdentity = new RuleIdentity();
+		ruleIdentity.setId(0);
+		RuleDefinition ruleDefinition = new RuleDefinition();
+		ruleDefinition.setRuleIdentity(ruleIdentity);
+
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getApplicabilityCondition()).thenReturn(applicabilityCondition);
 		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
 		formula.getDateValue();
@@ -264,10 +301,16 @@ public class FormulaApplicabilityTest {
 		
 		AbstractFormula applicabilityCondition = mock(AbstractFormula.class);
 		when(applicabilityCondition.getBooleanValue()).thenReturn(true);
-		
+
+		RuleIdentity ruleIdentity = new RuleIdentity();
+		ruleIdentity.setId(0);
+		RuleDefinition ruleDefinition = new RuleDefinition();
+		ruleDefinition.setRuleIdentity(ruleIdentity);
+
 		RuleVersion ruleVersion = mock(RuleVersion.class);
 		when(ruleVersion.getApplicabilityCondition()).thenReturn(applicabilityCondition);
 		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
 		formula.getDurationValue();

@@ -1,19 +1,18 @@
 package be.groups.glanguage.glanguage.api.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import org.junit.Test;
 
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class FormulaDaoTest extends DaoTest {
 
 	@Test
 	public void testFindById() {
-		AbstractFormula formula = new FormulaDao().findById(900000);
+		AbstractFormula formula = new FormulaDao().findById(-900000);
 		assertNotNull(formula);
-		assertEquals(900000, formula.getId());
+		assertEquals(-900000, formula.getId());
 	}
 	
 }

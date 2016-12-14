@@ -1,9 +1,14 @@
 package be.groups.glanguage.glanguage.api.entities.ruleset;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,61 +17,15 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
-import be.groups.common.persistence.util.TransactionHelper;
-import be.groups.common.test.utils.Environment;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
-import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
-import be.groups.marmota.persistence.DatabaseIdentifier;
-import be.groups.marmota.persistence.JpaUtil;
-import be.groups.marmota.test.TNSNames;
+import static org.junit.Assert.*;
 
 /**
  * Test class for {@link RuleSet}
  * 
  * @author DUPIREFR
  */
-public class RuleSetTest {
-	
-	/*
-	 * Static fields
-	 */
-	private static EntityManager em;
-	
-	/*
-	 * Setups
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() {
-		Environment.setUp();
-		TNSNames.setUp();
-		
-		JpaUtil.setEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
-		
-		if (!TransactionHelper.isActive()) {
-			TransactionHelper.begin();
-		}
-		
-		em = JpaUtil.getEntityManager();
-	}
-	
-	@AfterClass
-	public static void close() {
-		if (TransactionHelper.isActive()) {
-			TransactionHelper.rollback();
-		}
-	}
-	
+public class RuleSetTest extends BaseDatabaseTest {
+
 	/*
 	 * Tests
 	 */
@@ -76,7 +35,7 @@ public class RuleSetTest {
 	@Test
 	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
-		RuleSet ruleSet = em.find(RuleSet.class, -900000);
+		RuleSet ruleSet = getEntityManager().find(RuleSet.class, -900000);
 		
 		/* Checking entity */
 		assertNotNull(ruleSet);
@@ -96,16 +55,14 @@ public class RuleSetTest {
 		/* Checking relationships */
 		assertNotNull(ruleSet.getVersions());
 		assertEquals(3, ruleSet.getVersions().size());
-		assertEquals(3, ruleSet.getVersions().stream().map(v -> v.getId()).distinct().count());
+		assertEquals(3, ruleSet.getVersions().stream().map(RuleSetVersion::getId).distinct().count());
 		
 		List<Integer> ruleSetVersionIds = Arrays.asList(-900000, -900001, -900002);
-		ruleSet.getVersions().forEach(v -> {
-			assertTrue(ruleSetVersionIds.contains(v.getId()));
-		});
+		ruleSet.getVersions().forEach(v -> assertTrue(ruleSetVersionIds.contains(v.getId())));
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleIdentitites()} using {@link RuleSetTestResources#rs1}
+	 * Test {@link RuleSet#getRuleIdentities()} using {@link RuleSetTestResources#rs1}
 	 */
 	@Test
 	public void testGetRuleIdentitiesRS1() {
@@ -119,7 +76,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleIdentitites(String)} using {@link RuleSetTestResources#rs1} when code is "r1"
+	 * Test {@link RuleSet#getRuleIdentities(String)} using {@link RuleSetTestResources#rs1} when code is "r1"
 	 */
 	@Test
 	public void testGetRuleIdentitiesByCodeR1RS1() {
@@ -131,7 +88,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleIdentitites(String)} using {@link RuleSetTestResources#rs1} when code is "r2"
+	 * Test {@link RuleSet#getRuleIdentities(String)} using {@link RuleSetTestResources#rs1} when code is "r2"
 	 */
 	@Test
 	public void testGetRuleIdentitiesByCodeR2RS1() {
@@ -191,7 +148,7 @@ public class RuleSetTest {
 	 */
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleDefinitions()} using {@link RuleSetTestResources#rs1}
+	 * Test {@link RuleSet#getRuleDefinitions()} using {@link RuleSetTestResources#rs1}
 	 */
 	@Test
 	public void testGetRuleDefinitionsRS1() {
@@ -210,7 +167,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleDefinitions(String)} using {@link RuleSetTestResources#rs1} when code is "r1"
+	 * Test {@link RuleSet#getRuleDefinitions(String)} using {@link RuleSetTestResources#rs1} when code is "r1"
 	 */
 	@Test
 	public void testGetRuleDefinitionsByCodeR1RS1() {
@@ -222,7 +179,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleDefinitions(String)} using {@link RuleSetTestResources#rs1} when code is "r2"
+	 * Test {@link RuleSet#getRuleDefinitions(String)} using {@link RuleSetTestResources#rs1} when code is "r2"
 	 */
 	@Test
 	public void testGetRuleDefinitionsByCodeR2RS1() {
@@ -239,7 +196,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefaultRuleDefinitions()}
+	 * Tests {@link RuleSet#getDefaultRuleDefinitions()}
 	 */
 	@Test
 	public void testGetDefaultRuleDefinitionsRS1() {
@@ -257,7 +214,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefaultRuleDefinitions(String)} using {@link RuleSetTestResources#rs1} when code is "r3"
+	 * Tests {@link RuleSet#getDefaultRuleDefinitions(String)} using {@link RuleSetTestResources#rs1} when code is "r3"
 	 */
 	@Test
 	public void testGetDefaultRuleDefinitionsByCodeR3RS1() {
@@ -266,12 +223,12 @@ public class RuleSetTest {
 		assertNotNull(ruleDefinitions);
 		assertFalse(ruleDefinitions.isEmpty());
 		assertEquals(1, ruleDefinitions.size());
-		ruleDefinitions.get(0).getLevel().equals(DefinitionLevel.DEFAULT);
+		assertEquals(ruleDefinitions.get(0).getLevel(), DefinitionLevel.DEFAULT);
 		assertTrue(ruleDefinitions.contains(RuleSetVersionTestResources.r3d0));
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -302,7 +259,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleDefinitions(String, Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getDefinedRuleDefinitions(String, Collection)} using {@link RuleSetTestResources#rs1} when
 	 * code is "r1" and collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -327,7 +284,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleDefinitions(String, Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getDefinedRuleDefinitions(String, Collection)} using {@link RuleSetTestResources#rs1} when
 	 * code is "r2" and collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -358,7 +315,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleDefinitions(String, Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getDefinedRuleDefinitions(String, Collection)} using {@link RuleSetTestResources#rs1} when
 	 * code is "r3" and collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -383,7 +340,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -412,7 +369,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when code
+	 * Tests {@link RuleSet#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when code
 	 * is "r2" and collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -438,7 +395,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -472,7 +429,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -506,7 +463,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -543,7 +500,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -581,7 +538,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -614,7 +571,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -649,7 +606,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -682,7 +639,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -718,7 +675,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -749,7 +706,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -784,7 +741,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -809,7 +766,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -838,7 +795,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -863,7 +820,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -892,7 +849,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -921,7 +878,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleDefinitions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -954,7 +911,7 @@ public class RuleSetTest {
 	 */
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions()} using {@link RuleSetTestResources#rs1}
+	 * Test {@link RuleSet#getRuleVersions()} using {@link RuleSetTestResources#rs1}
 	 */
 	@Test
 	public void testGetRuleVersionsRS1V1() {
@@ -977,7 +934,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(String)} using {@link RuleSetTestResources#rs1} when code is "r2"
+	 * Test {@link RuleSet#getRuleVersions(String)} using {@link RuleSetTestResources#rs1} when code is "r2"
 	 */
 	@Test
 	public void testGetRuleVersionsByCodeR2RS1() {
@@ -994,7 +951,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(String)} using {@link RuleSetTestResources#rs1} when code is "r3"
+	 * Test {@link RuleSet#getRuleVersions(String)} using {@link RuleSetTestResources#rs1} when code is "r3"
 	 */
 	@Test
 	public void testGetRuleVersionsByCodeR3RS1() {
@@ -1006,7 +963,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when date is
+	 * Test {@link RuleSet#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when date is
 	 * 01/01/2015
 	 */
 	@Test
@@ -1025,7 +982,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when date is
+	 * Test {@link RuleSet#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when date is
 	 * 01/01/2016
 	 */
 	@Test
@@ -1046,7 +1003,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when date is
+	 * Test {@link RuleSet#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when date is
 	 * 01/07/2016
 	 */
 	@Test
@@ -1067,7 +1024,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when code is "r1" and
+	 * Test {@link RuleSet#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when code is "r1" and
 	 * date is 01/01/2015
 	 */
 	@Test
@@ -1081,7 +1038,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(String, LocalDateTime)} using {@link RuleSetTestResources#rs1} when code is
+	 * Test {@link RuleSet#getRuleVersions(String, LocalDate)} using {@link RuleSetTestResources#rs1} when code is
 	 * "r2" and date is 01/01/2015
 	 */
 	@Test
@@ -1098,7 +1055,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(String, LocalDateTime)} using {@link RuleSetTestResources#rs1} when code is
+	 * Test {@link RuleSet#getRuleVersions(String, LocalDate)} using {@link RuleSetTestResources#rs1} when code is
 	 * "r3" and date is 01/01/2015
 	 */
 	@Test
@@ -1110,7 +1067,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(String, LocalDateTime)} using {@link RuleSetTestResources#rs1} when code is
+	 * Test {@link RuleSet#getRuleVersions(String, LocalDate)} using {@link RuleSetTestResources#rs1} when code is
 	 * "r3" and date is 01/01/2016
 	 */
 	@Test
@@ -1123,7 +1080,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when code is "r1" and
+	 * Test {@link RuleSet#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when code is "r1" and
 	 * date is 01/01/2016
 	 */
 	@Test
@@ -1137,7 +1094,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Test {@link RuleSetVersion#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when code is "r1" and
+	 * Test {@link RuleSet#getRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1} when code is "r1" and
 	 * date is 01/07/2016
 	 */
 	@Test
@@ -1151,7 +1108,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefaultRuleVersions()} using {@link RuleSetTestResources#rs1}
+	 * Tests {@link RuleSet#getDefaultRuleVersions()} using {@link RuleSetTestResources#rs1}
 	 */
 	@Test
 	public void testGetDefaultRuleVersionsRS1() {
@@ -1173,7 +1130,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefaultRuleVersions(LocalDateTime)} using {@link RuleSetTestResources#rs1}
+	 * Tests {@link RuleSet#getDefaultRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1}
 	 */
 	@Test
 	public void testGetEffectiveAt20150101DefaultRuleVersionsRS1() {
@@ -1191,7 +1148,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefaultRuleVersions(String, LocalDateTime)} using {@link RuleSetTestResources#rs1} when code is
+	 * Tests {@link RuleSet#getDefaultRuleVersions(String, LocalDate)} using {@link RuleSetTestResources#rs1} when code is
 	 * "r1" and date is 2015/01/01
 	 */
 	@Test
@@ -1209,7 +1166,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefaultRuleVersions(String, LocalDateTime)} using {@link RuleSetTestResources#rs1} when code is
+	 * Tests {@link RuleSet#getDefaultRuleVersions(String, LocalDate)} using {@link RuleSetTestResources#rs1} when code is
 	 * "r3" and date is 2015/01/01
 	 */
 	@Test
@@ -1221,7 +1178,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefaultRuleVersions(String, LocalDateTime)} using {@link RuleSetTestResources#rs1} when code is
+	 * Tests {@link RuleSet#getDefaultRuleVersions(String, LocalDate)} using {@link RuleSetTestResources#rs1} when code is
 	 * "r1" and date is 2016/01/01
 	 */
 	@Test
@@ -1239,7 +1196,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefaultRuleVersions(String, LocalDateTime)} using {@link RuleSetTestResources#rs1} when code is
+	 * Tests {@link RuleSet#getDefaultRuleVersions(String, LocalDate)} using {@link RuleSetTestResources#rs1} when code is
 	 * "r1" and date is 2016/07/01
 	 */
 	@Test
@@ -1257,7 +1214,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefaultRuleVersions(String, LocalDateTime)} using {@link RuleSetTestResources#rs1} when code is
+	 * Tests {@link RuleSet#getDefaultRuleVersions(String, LocalDate)} using {@link RuleSetTestResources#rs1} when code is
 	 * "r3" and date is 2016/07/01
 	 */
 	@Test
@@ -1274,7 +1231,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefaultRuleVersions(LocalDateTime)} using {@link RuleSetTestResources#rs1}
+	 * Tests {@link RuleSet#getDefaultRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1}
 	 */
 	@Test
 	public void testGetEffectiveAt20160101DefaultRuleVersionsRS1() {
@@ -1293,7 +1250,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefaultRuleVersions(LocalDateTime)} using {@link RuleSetTestResources#rs1}
+	 * Tests {@link RuleSet#getDefaultRuleVersions(LocalDate)} using {@link RuleSetTestResources#rs1}
 	 */
 	@Test
 	public void testGetEffectiveAt20160701DefaultRuleVersionsRS1() {
@@ -1312,7 +1269,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefaultRuleDefinitions(String)} using {@link RuleSetTestResources#rs1} when code is "r3"
+	 * Tests {@link RuleSet#getDefaultRuleDefinitions(String)} using {@link RuleSetTestResources#rs1} when code is "r3"
 	 */
 	@Test
 	public void testGetDefaultRuleVersionsByCodeR3RS1() {
@@ -1321,12 +1278,12 @@ public class RuleSetTest {
 		assertNotNull(ruleVersions);
 		assertFalse(ruleVersions.isEmpty());
 		assertEquals(1, ruleVersions.size());
-		ruleVersions.get(0).getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT);
+		assertEquals(ruleVersions.get(0).getRuleDefinition().getLevel(), DefinitionLevel.DEFAULT);
 		assertTrue(ruleVersions.contains(RuleSetVersionTestResources.r3d0v1_0));
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
+	 * Tests {@link RuleSet#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
 	 * has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1357,7 +1314,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection, LocalDateTime)} using {@link RuleSetTestResources#rs1}
+	 * Tests {@link RuleSet#getDefinedRuleVersions(Collection, LocalDate)} using {@link RuleSetTestResources#rs1}
 	 * when date is 01/01/2015 and collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1387,7 +1344,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection, LocalDateTime)} using {@link RuleSetTestResources#rs1}
+	 * Tests {@link RuleSet#getDefinedRuleVersions(Collection, LocalDate)} using {@link RuleSetTestResources#rs1}
 	 * when date is 01/01/2016 and collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1418,7 +1375,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when code is
+	 * Tests {@link RuleSet#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when code is
 	 * "r1" and collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1443,7 +1400,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when code is
+	 * Tests {@link RuleSet#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when code is
 	 * "r2" and collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1474,7 +1431,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(String, Collection, LocalDateTime)} using
+	 * Tests {@link RuleSet#getDefinedRuleVersions(String, Collection, LocalDate)} using
 	 * {@link RuleSetTestResources#rs1} when code is "r2" and date is 01/01/2014 and collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1499,7 +1456,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(String, Collection, LocalDateTime)} using
+	 * Tests {@link RuleSet#getDefinedRuleVersions(String, Collection, LocalDate)} using
 	 * {@link RuleSetTestResources#rs1} when code is "r2" and date is 01/01/2015 and collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1529,7 +1486,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(String, Collection, LocalDateTime)} using
+	 * Tests {@link RuleSet#getDefinedRuleVersions(String, Collection, LocalDate)} using
 	 * {@link RuleSetTestResources#rs1} when code is "r2" and date is 01/01/2016 and collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1560,7 +1517,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when code is
+	 * Tests {@link RuleSet#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when code is
 	 * "r3" and collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1585,7 +1542,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1619,7 +1576,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection, LocalDateTime)} using
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(Collection, LocalDate)} using
 	 * {@link RuleSetTestResources#rs1} when date is 01/01/2015 collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1649,7 +1606,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection, LocalDateTime)} using
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(Collection, LocalDate)} using
 	 * {@link RuleSetTestResources#rs1} when date is 01/01/2016 collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1680,7 +1637,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection, LocalDateTime)} using
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(Collection, LocalDate)} using
 	 * {@link RuleSetTestResources#rs1} when date is 01/07/2016 collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1711,7 +1668,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(String, Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(String, Collection)} using {@link RuleSetTestResources#rs1} when
 	 * code is
 	 * "r2" and collection has the following parameters :
 	 * <table>
@@ -1739,7 +1696,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
+	 * Tests {@link RuleSet#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
 	 * has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1773,7 +1730,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1811,7 +1768,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
+	 * Tests {@link RuleSet#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
 	 * has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1844,7 +1801,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1882,7 +1839,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
+	 * Tests {@link RuleSet#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
 	 * has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1915,7 +1872,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1954,7 +1911,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
+	 * Tests {@link RuleSet#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
 	 * has the following parameters :
 	 * <table>
 	 * <tr>
@@ -1987,7 +1944,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -2027,7 +1984,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
+	 * Tests {@link RuleSet#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
 	 * has the following parameters :
 	 * <table>
 	 * <tr>
@@ -2058,7 +2015,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -2097,7 +2054,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
+	 * Tests {@link RuleSet#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
 	 * has the following parameters :
 	 * <table>
 	 * <tr>
@@ -2122,7 +2079,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -2155,7 +2112,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
+	 * Tests {@link RuleSet#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
 	 * has the following parameters :
 	 * <table>
 	 * <tr>
@@ -2180,7 +2137,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when code is
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when code is
 	 * "r1" and date is 01/01/2015 and collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -2208,7 +2165,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when code is
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when code is
 	 * "r1" and date is 01/01/2016 and collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -2236,7 +2193,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -2269,7 +2226,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when code is
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when code is
 	 * "r1" and collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -2300,7 +2257,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when code is
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when code is
 	 * "r1" and date is 01/07/2016 and collection has the following parameters :
 	 * <table>
 	 * <tr>
@@ -2327,7 +2284,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
+	 * Tests {@link RuleSet#getDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when collection
 	 * has the following parameters :
 	 * <table>
 	 * <tr>
@@ -2356,7 +2313,7 @@ public class RuleSetTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
+	 * Tests {@link RuleSet#getBestDefinedRuleVersions(Collection)} using {@link RuleSetTestResources#rs1} when
 	 * collection has the following parameters :
 	 * <table>
 	 * <tr>
