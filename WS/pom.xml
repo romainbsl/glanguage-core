@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>be.groups</groupId>
 		<artifactId>prestanew-ws-pom</artifactId>
-		<version>0.1.0-SNAPSHOT</version>
+		<version>0.1.0</version>
 	</parent>
 	<groupId>be.groups.glanguage</groupId>
 	<artifactId>glanguage-api-ws</artifactId>
