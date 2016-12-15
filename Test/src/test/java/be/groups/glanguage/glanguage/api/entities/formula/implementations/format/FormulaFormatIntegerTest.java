@@ -1,24 +1,22 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.format;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.utils.FormatAlignment;
 import be.groups.glanguage.glanguage.api.entities.utils.FormatSign;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import java.util.Arrays;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaFormatInteger}
@@ -57,19 +55,19 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidMatching() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_INTEGER),
 				Arrays.asList(number, width, alignment, fill, sign));
@@ -84,19 +82,19 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNotMatching() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_INTEGER),
 				Arrays.asList(number, width, alignment, fill, sign));
@@ -105,30 +103,30 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaFormatInteger#getReturnType()} when parameters match
+	 * Tests {@link FormulaFormatInteger#getReturnType(Evaluator)} when parameters match
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeMatching() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_INTEGER),
 				Arrays.asList(number, width, alignment, fill, sign));
 				
-		assertEquals(FormulaReturnType.STRING, formula.getReturnType());
+		assertEquals(FormulaReturnType.STRING, formula.getReturnType(null));
 	}
 	
 	/**
@@ -137,28 +135,28 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(number.getIntegerValue()).thenReturn(10);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getIntegerValue(null)).thenReturn(10);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(null, Arrays.asList(number, width, alignment, fill, sign));
 		
-		formula.getIntegerValue();
+		formula.getIntegerValue(null);
 	}
 	
 	/**
@@ -167,28 +165,28 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(number.getIntegerValue()).thenReturn(10);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getIntegerValue(null)).thenReturn(10);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(null, Arrays.asList(number, width, alignment, fill, sign));
 		
-		formula.getNumericValue();
+		formula.getNumericValue(null);
 	}
 	
 	/**
@@ -197,29 +195,29 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValue() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(number.getIntegerValue()).thenReturn(10);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getIntegerValue(null)).thenReturn(10);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(null, Arrays.asList(number, width, alignment, fill, sign));
 		
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("10***", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("10***", formula.getStringValue(null));
 	}
 	
 	/**
@@ -228,29 +226,29 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueExact() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(number.getIntegerValue()).thenReturn(10001);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getIntegerValue(null)).thenReturn(10001);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(null, Arrays.asList(number, width, alignment, fill, sign));
 		
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("10001", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("10001", formula.getStringValue(null));
 	}
 	
 	/**
@@ -259,29 +257,29 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueTooLong() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(number.getIntegerValue()).thenReturn(100011);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getIntegerValue(null)).thenReturn(100011);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(null, Arrays.asList(number, width, alignment, fill, sign));
 		
-		assertEquals(6, formula.getStringValue().length());
-		assertEquals("100011", formula.getStringValue());
+		assertEquals(6, formula.getStringValue(null).length());
+		assertEquals("100011", formula.getStringValue(null));
 	}
 	
 	/**
@@ -290,29 +288,29 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueCenterAlign() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(number.getIntegerValue()).thenReturn(10);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getIntegerValue(null)).thenReturn(10);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.CENTER_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.CENTER_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(null, Arrays.asList(number, width, alignment, fill, sign));
 		
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("**10*", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("**10*", formula.getStringValue(null));
 	}
 	
 	/**
@@ -321,29 +319,29 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueRightAlign() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(number.getIntegerValue()).thenReturn(10);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getIntegerValue(null)).thenReturn(10);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.RIGHT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.RIGHT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(null, Arrays.asList(number, width, alignment, fill, sign));
 		
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("***10", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("***10", formula.getStringValue(null));
 	}
 	
 	/**
@@ -353,29 +351,29 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueNoneSignNegativeInteger() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(number.getIntegerValue()).thenReturn(-10);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getIntegerValue(null)).thenReturn(-10);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(null, Arrays.asList(number, width, alignment, fill, sign));
 		
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("10***", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("10***", formula.getStringValue(null));
 	}
 	
 	/**
@@ -385,29 +383,29 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValuePositiveSignNegativeInteger() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(number.getIntegerValue()).thenReturn(-10);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getIntegerValue(null)).thenReturn(-10);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.POSITIVE_ONLY);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.POSITIVE_ONLY);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(null, Arrays.asList(number, width, alignment, fill, sign));
 		
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("10***", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("10***", formula.getStringValue(null));
 	}
 	
 	/**
@@ -417,29 +415,29 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueNegativeSignNegativeInteger() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(number.getIntegerValue()).thenReturn(-10);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getIntegerValue(null)).thenReturn(-10);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NEGATIVE_ONLY);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NEGATIVE_ONLY);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(null, Arrays.asList(number, width, alignment, fill, sign));
 		
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("-10**", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("-10**", formula.getStringValue(null));
 	}
 	
 	/**
@@ -449,29 +447,29 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueNegativeSignPositiveInteger() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(number.getIntegerValue()).thenReturn(10);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getIntegerValue(null)).thenReturn(10);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NEGATIVE_ONLY);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NEGATIVE_ONLY);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(null, Arrays.asList(number, width, alignment, fill, sign));
 		
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("10***", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("10***", formula.getStringValue(null));
 	}
 	
 	/**
@@ -481,29 +479,29 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueBothSignsPositiveInteger() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(number.getIntegerValue()).thenReturn(-10);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getIntegerValue(null)).thenReturn(-10);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.BOTH);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.BOTH);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(null, Arrays.asList(number, width, alignment, fill, sign));
 		
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("-10**", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("-10**", formula.getStringValue(null));
 	}
 	
 	/**
@@ -512,28 +510,28 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(number.getIntegerValue()).thenReturn(10);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getIntegerValue(null)).thenReturn(10);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.RIGHT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.RIGHT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(null, Arrays.asList(number, width, alignment, fill, sign));
 		
-		formula.getBooleanValue();
+		formula.getBooleanValue(null);
 	}
 	
 	/**
@@ -542,28 +540,28 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(number.getIntegerValue()).thenReturn(10);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getIntegerValue(null)).thenReturn(10);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.RIGHT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.RIGHT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(null, Arrays.asList(number, width, alignment, fill, sign));
 		
-		formula.getDateValue();
+		formula.getDateValue(null);
 	}
 	
 	/**
@@ -572,28 +570,28 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(number.getIntegerValue()).thenReturn(10);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getIntegerValue(null)).thenReturn(10);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.RIGHT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.RIGHT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(null, Arrays.asList(number, width, alignment, fill, sign));
 		
-		formula.getDurationValue();
+		formula.getDurationValue(null);
 	}
 	
 	/**
@@ -612,23 +610,23 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	@Test
 	public void testAsText() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.asText()).thenReturn("10");
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(width.asText()).thenReturn("5");
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(alignment.asText()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(fill.asText()).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(sign.asText()).thenReturn(FormatSign.Values.NONE);
 		
 		FormulaFormatInteger formula = new FormulaFormatInteger(null, Arrays.asList(number, width, alignment, fill, sign));

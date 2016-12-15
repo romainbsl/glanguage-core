@@ -66,12 +66,12 @@ public class FormulaRuleReferenceTest {
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
 		RuleVersion ruleVersion = mock(RuleVersion.class);
-		when(ruleVersion.getIntegerValue()).thenReturn(1);
-		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(ruleVersion.getIntegerValue(null)).thenReturn(1);
+		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
-		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
+		assertEquals(Integer.valueOf(1), formula.getIntegerValue(null));
 	}
 	
 	/**
@@ -83,7 +83,7 @@ public class FormulaRuleReferenceTest {
 		
 		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
 		
-		formula.getIntegerValue();
+		formula.getIntegerValue(null);
 	}
 	
 	/**
@@ -105,12 +105,12 @@ public class FormulaRuleReferenceTest {
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
 		RuleVersion ruleVersion = mock(RuleVersion.class);
-		when(ruleVersion.getNumericValue()).thenReturn(1.5);
-		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(ruleVersion.getNumericValue(null)).thenReturn(1.5);
+		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
-		assertEquals(Double.valueOf(1.5), formula.getNumericValue());
+		assertEquals(Double.valueOf(1.5), formula.getNumericValue(null));
 	}
 	
 	/**
@@ -122,7 +122,7 @@ public class FormulaRuleReferenceTest {
 		
 		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
 		
-		formula.getNumericValue();
+		formula.getNumericValue(null);
 	}
 	
 	/**
@@ -144,12 +144,12 @@ public class FormulaRuleReferenceTest {
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
 		RuleVersion ruleVersion = mock(RuleVersion.class);
-		when(ruleVersion.getStringValue()).thenReturn("string");
-		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(ruleVersion.getStringValue(null)).thenReturn("string");
+		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
-		assertEquals("string", formula.getStringValue());
+		assertEquals("string", formula.getStringValue(null));
 	}
 	
 	/**
@@ -161,7 +161,7 @@ public class FormulaRuleReferenceTest {
 		
 		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
 		
-		formula.getStringValue();
+		formula.getStringValue(null);
 	}
 	
 	/**
@@ -183,12 +183,12 @@ public class FormulaRuleReferenceTest {
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
 		RuleVersion ruleVersion = mock(RuleVersion.class);
-		when(ruleVersion.getBooleanValue()).thenReturn(true);
-		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(ruleVersion.getBooleanValue(null)).thenReturn(true);
+		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
-		assertEquals(Boolean.TRUE, formula.getBooleanValue());
+		assertEquals(Boolean.TRUE, formula.getBooleanValue(null));
 	}
 	
 	/**
@@ -200,7 +200,7 @@ public class FormulaRuleReferenceTest {
 		
 		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
 		
-		formula.getBooleanValue();
+		formula.getBooleanValue(null);
 	}
 	
 	/**
@@ -222,12 +222,12 @@ public class FormulaRuleReferenceTest {
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
 		RuleVersion ruleVersion = mock(RuleVersion.class);
-		when(ruleVersion.getDateValue()).thenReturn(LocalDate.of(2015, 1, 1));
-		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(ruleVersion.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
+		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
-		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue());
+		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue(null));
 	}
 	
 	/**
@@ -239,7 +239,7 @@ public class FormulaRuleReferenceTest {
 		
 		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
 		
-		formula.getDateValue();
+		formula.getDateValue(null);
 	}
 	
 	/**
@@ -261,12 +261,12 @@ public class FormulaRuleReferenceTest {
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
 		RuleVersion ruleVersion = mock(RuleVersion.class);
-		when(ruleVersion.getDurationValue()).thenReturn(Duration.ofDays(2L));
-		when(ruleVersion.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(ruleVersion.getDurationValue(null)).thenReturn(Duration.ofDays(2L));
+		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
 		formula.setReferencedRule(ruleVersion);
 		
-		assertEquals(Duration.ofDays(2L), formula.getDurationValue());
+		assertEquals(Duration.ofDays(2L), formula.getDurationValue(null));
 	}
 	
 	/**
@@ -278,7 +278,7 @@ public class FormulaRuleReferenceTest {
 		
 		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
 		
-		formula.getDurationValue();
+		formula.getDurationValue(null);
 	}
 	
 	/**

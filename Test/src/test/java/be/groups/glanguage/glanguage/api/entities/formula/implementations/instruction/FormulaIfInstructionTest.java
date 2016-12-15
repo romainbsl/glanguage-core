@@ -1,18 +1,17 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import org.junit.Test;
 
 import java.time.Duration;
 import java.time.LocalDate;
 
-import org.junit.Test;
-
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaIfInstruction}
@@ -50,20 +49,20 @@ public class FormulaIfInstructionTest {
 	@Test
 	public void testGetIntegerValueCondTrue() {
 		AbstractFormula condition = mock(AbstractFormula.class);
-		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(condition.getBooleanValue()).thenReturn(true);
+		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(condition.getBooleanValue(null)).thenReturn(true);
 		
 		AbstractFormula ifStatement = mock(AbstractFormula.class);
-		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(ifStatement.getIntegerValue()).thenReturn(2);
+		when(ifStatement.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(ifStatement.getIntegerValue(null)).thenReturn(2);
 		
 		AbstractFormula elseStatement = mock(AbstractFormula.class);
-		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(elseStatement.getIntegerValue()).thenReturn(1);
+		when(elseStatement.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(elseStatement.getIntegerValue(null)).thenReturn(1);
 		
 		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
-		assertEquals(Integer.valueOf(2), formula.getIntegerValue());
+		assertEquals(Integer.valueOf(2), formula.getIntegerValue(null));
 	}
 	
 	/**
@@ -72,20 +71,20 @@ public class FormulaIfInstructionTest {
 	@Test
 	public void testGetIntegerValueCondFalse() {
 		AbstractFormula condition = mock(AbstractFormula.class);
-		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(condition.getBooleanValue()).thenReturn(false);
+		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(condition.getBooleanValue(null)).thenReturn(false);
 		
 		AbstractFormula ifStatement = mock(AbstractFormula.class);
-		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(ifStatement.getIntegerValue()).thenReturn(2);
+		when(ifStatement.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(ifStatement.getIntegerValue(null)).thenReturn(2);
 		
 		AbstractFormula elseStatement = mock(AbstractFormula.class);
-		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(elseStatement.getIntegerValue()).thenReturn(1);
+		when(elseStatement.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(elseStatement.getIntegerValue(null)).thenReturn(1);
 		
 		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
-		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
+		assertEquals(Integer.valueOf(1), formula.getIntegerValue(null));
 	}
 	
 	/**
@@ -95,30 +94,30 @@ public class FormulaIfInstructionTest {
 	@Test
 	public void testGetIntegerValueCondFalseCondTrue() {
 		AbstractFormula subCondition = mock(AbstractFormula.class);
-		when(subCondition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(subCondition.getBooleanValue()).thenReturn(true);
+		when(subCondition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(subCondition.getBooleanValue(null)).thenReturn(true);
 		
 		AbstractFormula subIfStatement = mock(AbstractFormula.class);
-		when(subIfStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(subIfStatement.getIntegerValue()).thenReturn(2);
+		when(subIfStatement.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(subIfStatement.getIntegerValue(null)).thenReturn(2);
 		
 		AbstractFormula subElseStatement = mock(AbstractFormula.class);
-		when(subElseStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(subElseStatement.getIntegerValue()).thenReturn(1);
+		when(subElseStatement.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(subElseStatement.getIntegerValue(null)).thenReturn(1);
 		
 		FormulaIfInstruction subFormula = new FormulaIfInstruction(null, subCondition, subIfStatement, subElseStatement);
 		
 		AbstractFormula condition = mock(AbstractFormula.class);
-		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(condition.getBooleanValue()).thenReturn(false);
+		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(condition.getBooleanValue(null)).thenReturn(false);
 		
 		AbstractFormula ifStatement = mock(AbstractFormula.class);
-		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(ifStatement.getIntegerValue()).thenReturn(3);
+		when(ifStatement.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(ifStatement.getIntegerValue(null)).thenReturn(3);
 		
 		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, subFormula);
 		
-		assertEquals(Integer.valueOf(2), formula.getIntegerValue());
+		assertEquals(Integer.valueOf(2), formula.getIntegerValue(null));
 	}
 	
 	/**
@@ -127,20 +126,20 @@ public class FormulaIfInstructionTest {
 	@Test
 	public void testGetNumericValueCondTrue() {
 		AbstractFormula condition = mock(AbstractFormula.class);
-		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(condition.getBooleanValue()).thenReturn(true);
+		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(condition.getBooleanValue(null)).thenReturn(true);
 		
 		AbstractFormula ifStatement = mock(AbstractFormula.class);
-		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(ifStatement.getNumericValue()).thenReturn(2.5);
+		when(ifStatement.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(ifStatement.getNumericValue(null)).thenReturn(2.5);
 		
 		AbstractFormula elseStatement = mock(AbstractFormula.class);
-		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(elseStatement.getNumericValue()).thenReturn(1.5);
+		when(elseStatement.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(elseStatement.getNumericValue(null)).thenReturn(1.5);
 		
 		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
-		assertEquals(Double.valueOf(2.5), formula.getNumericValue());
+		assertEquals(Double.valueOf(2.5), formula.getNumericValue(null));
 	}
 	
 	/**
@@ -149,20 +148,20 @@ public class FormulaIfInstructionTest {
 	@Test
 	public void testGetNumericValueCondFalse() {
 		AbstractFormula condition = mock(AbstractFormula.class);
-		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(condition.getBooleanValue()).thenReturn(false);
+		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(condition.getBooleanValue(null)).thenReturn(false);
 		
 		AbstractFormula ifStatement = mock(AbstractFormula.class);
-		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(ifStatement.getNumericValue()).thenReturn(2.5);
+		when(ifStatement.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(ifStatement.getNumericValue(null)).thenReturn(2.5);
 		
 		AbstractFormula elseStatement = mock(AbstractFormula.class);
-		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(elseStatement.getNumericValue()).thenReturn(1.5);
+		when(elseStatement.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(elseStatement.getNumericValue(null)).thenReturn(1.5);
 		
 		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
-		assertEquals(Double.valueOf(1.5), formula.getNumericValue());
+		assertEquals(Double.valueOf(1.5), formula.getNumericValue(null));
 	}
 	
 	/**
@@ -171,20 +170,20 @@ public class FormulaIfInstructionTest {
 	@Test
 	public void testGetStringValueCondTrue() {
 		AbstractFormula condition = mock(AbstractFormula.class);
-		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(condition.getBooleanValue()).thenReturn(true);
+		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(condition.getBooleanValue(null)).thenReturn(true);
 		
 		AbstractFormula ifStatement = mock(AbstractFormula.class);
-		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(ifStatement.getStringValue()).thenReturn("condIsTrue");
+		when(ifStatement.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(ifStatement.getStringValue(null)).thenReturn("condIsTrue");
 		
 		AbstractFormula elseStatement = mock(AbstractFormula.class);
-		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(elseStatement.getStringValue()).thenReturn("condIsFalse");
+		when(elseStatement.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(elseStatement.getStringValue(null)).thenReturn("condIsFalse");
 		
 		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
-		assertEquals("condIsTrue", formula.getStringValue());
+		assertEquals("condIsTrue", formula.getStringValue(null));
 	}
 	
 	/**
@@ -193,20 +192,20 @@ public class FormulaIfInstructionTest {
 	@Test
 	public void testGetStringValueCondFalse() {
 		AbstractFormula condition = mock(AbstractFormula.class);
-		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(condition.getBooleanValue()).thenReturn(false);
+		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(condition.getBooleanValue(null)).thenReturn(false);
 		
 		AbstractFormula ifStatement = mock(AbstractFormula.class);
-		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(ifStatement.getStringValue()).thenReturn("condIsTrue");
+		when(ifStatement.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(ifStatement.getStringValue(null)).thenReturn("condIsTrue");
 		
 		AbstractFormula elseStatement = mock(AbstractFormula.class);
-		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(elseStatement.getStringValue()).thenReturn("condIsFalse");
+		when(elseStatement.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(elseStatement.getStringValue(null)).thenReturn("condIsFalse");
 		
 		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
-		assertEquals("condIsFalse", formula.getStringValue());
+		assertEquals("condIsFalse", formula.getStringValue(null));
 	}
 	
 	/**
@@ -215,20 +214,20 @@ public class FormulaIfInstructionTest {
 	@Test
 	public void testGetBooleanValueCondTrue() {
 		AbstractFormula condition = mock(AbstractFormula.class);
-		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(condition.getBooleanValue()).thenReturn(true);
+		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(condition.getBooleanValue(null)).thenReturn(true);
 		
 		AbstractFormula ifStatement = mock(AbstractFormula.class);
-		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(ifStatement.getBooleanValue()).thenReturn(true);
+		when(ifStatement.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(ifStatement.getBooleanValue(null)).thenReturn(true);
 		
 		AbstractFormula elseStatement = mock(AbstractFormula.class);
-		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(elseStatement.getBooleanValue()).thenReturn(false);
+		when(elseStatement.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(elseStatement.getBooleanValue(null)).thenReturn(false);
 		
 		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
-		assertEquals(Boolean.TRUE, formula.getBooleanValue());
+		assertEquals(Boolean.TRUE, formula.getBooleanValue(null));
 	}
 	
 	/**
@@ -237,20 +236,20 @@ public class FormulaIfInstructionTest {
 	@Test
 	public void testGetBooleanValueCondFalse() {
 		AbstractFormula condition = mock(AbstractFormula.class);
-		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(condition.getBooleanValue()).thenReturn(false);
+		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(condition.getBooleanValue(null)).thenReturn(false);
 		
 		AbstractFormula ifStatement = mock(AbstractFormula.class);
-		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(ifStatement.getBooleanValue()).thenReturn(true);
+		when(ifStatement.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(ifStatement.getBooleanValue(null)).thenReturn(true);
 		
 		AbstractFormula elseStatement = mock(AbstractFormula.class);
-		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(elseStatement.getBooleanValue()).thenReturn(false);
+		when(elseStatement.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(elseStatement.getBooleanValue(null)).thenReturn(false);
 		
 		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
-		assertEquals(Boolean.FALSE, formula.getBooleanValue());
+		assertEquals(Boolean.FALSE, formula.getBooleanValue(null));
 	}
 	
 	/**
@@ -259,20 +258,20 @@ public class FormulaIfInstructionTest {
 	@Test
 	public void testGetDateValueCondTrue() {
 		AbstractFormula condition = mock(AbstractFormula.class);
-		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(condition.getBooleanValue()).thenReturn(true);
+		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(condition.getBooleanValue(null)).thenReturn(true);
 		
 		AbstractFormula ifStatement = mock(AbstractFormula.class);
-		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(ifStatement.getDateValue()).thenReturn(LocalDate.of(2015, 1, 1));
+		when(ifStatement.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(ifStatement.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
 		
 		AbstractFormula elseStatement = mock(AbstractFormula.class);
-		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(elseStatement.getDateValue()).thenReturn(LocalDate.of(2014, 1, 1));
+		when(elseStatement.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(elseStatement.getDateValue(null)).thenReturn(LocalDate.of(2014, 1, 1));
 		
 		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
-		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue());
+		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue(null));
 	}
 	
 	/**
@@ -281,20 +280,20 @@ public class FormulaIfInstructionTest {
 	@Test
 	public void testGetDateValueCondFalse() {
 		AbstractFormula condition = mock(AbstractFormula.class);
-		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(condition.getBooleanValue()).thenReturn(false);
+		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(condition.getBooleanValue(null)).thenReturn(false);
 		
 		AbstractFormula ifStatement = mock(AbstractFormula.class);
-		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(ifStatement.getDateValue()).thenReturn(LocalDate.of(2015, 1, 1));
+		when(ifStatement.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(ifStatement.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
 		
 		AbstractFormula elseStatement = mock(AbstractFormula.class);
-		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(elseStatement.getDateValue()).thenReturn(LocalDate.of(2014, 1, 1));
+		when(elseStatement.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(elseStatement.getDateValue(null)).thenReturn(LocalDate.of(2014, 1, 1));
 		
 		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
-		assertEquals(LocalDate.of(2014, 1, 1), formula.getDateValue());
+		assertEquals(LocalDate.of(2014, 1, 1), formula.getDateValue(null));
 	}
 	
 	/**
@@ -303,20 +302,20 @@ public class FormulaIfInstructionTest {
 	@Test
 	public void testGetDurationValueCondTrue() {
 		AbstractFormula condition = mock(AbstractFormula.class);
-		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(condition.getBooleanValue()).thenReturn(true);
+		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(condition.getBooleanValue(null)).thenReturn(true);
 		
 		AbstractFormula ifStatement = mock(AbstractFormula.class);
-		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.DURATION);
-		when(ifStatement.getDurationValue()).thenReturn(Duration.ofDays(2L));
+		when(ifStatement.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
+		when(ifStatement.getDurationValue(null)).thenReturn(Duration.ofDays(2L));
 		
 		AbstractFormula elseStatement = mock(AbstractFormula.class);
-		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.DURATION);
-		when(elseStatement.getDurationValue()).thenReturn(Duration.ofDays(3L));
+		when(elseStatement.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
+		when(elseStatement.getDurationValue(null)).thenReturn(Duration.ofDays(3L));
 		
 		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
-		assertEquals(Duration.ofDays(2L), formula.getDurationValue());
+		assertEquals(Duration.ofDays(2L), formula.getDurationValue(null));
 	}
 	
 	/**
@@ -325,20 +324,20 @@ public class FormulaIfInstructionTest {
 	@Test
 	public void testGetDurationValueCondFalse() {
 		AbstractFormula condition = mock(AbstractFormula.class);
-		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		when(condition.getBooleanValue()).thenReturn(false);
+		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+		when(condition.getBooleanValue(null)).thenReturn(false);
 		
 		AbstractFormula ifStatement = mock(AbstractFormula.class);
-		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.DURATION);
-		when(ifStatement.getDurationValue()).thenReturn(Duration.ofDays(2L));
+		when(ifStatement.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
+		when(ifStatement.getDurationValue(null)).thenReturn(Duration.ofDays(2L));
 		
 		AbstractFormula elseStatement = mock(AbstractFormula.class);
-		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.DURATION);
-		when(elseStatement.getDurationValue()).thenReturn(Duration.ofDays(3L));
+		when(elseStatement.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
+		when(elseStatement.getDurationValue(null)).thenReturn(Duration.ofDays(3L));
 		
 		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
 		
-		assertEquals(Duration.ofDays(3L), formula.getDurationValue());
+		assertEquals(Duration.ofDays(3L), formula.getDurationValue(null));
 	}
 	
 	/**
@@ -347,15 +346,15 @@ public class FormulaIfInstructionTest {
 	@Test
 	public void testAsTextOneIf() {
 		AbstractFormula condition = mock(AbstractFormula.class);
-		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(condition.asText()).thenReturn("some_cond");
 		
 		AbstractFormula ifStatement = mock(AbstractFormula.class);
-		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(ifStatement.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(ifStatement.asText()).thenReturn("some_rule1");
 		
 		AbstractFormula elseStatement = mock(AbstractFormula.class);
-		when(elseStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(elseStatement.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(elseStatement.asText()).thenReturn("some_rule2");
 		
 		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, elseStatement);
@@ -369,25 +368,25 @@ public class FormulaIfInstructionTest {
 	@Test
 	public void testAsTextTwoIfs() {
 		AbstractFormula subCondition = mock(AbstractFormula.class);
-		when(subCondition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(subCondition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(subCondition.asText()).thenReturn("some_cond2");
 		
 		AbstractFormula subIfStatement = mock(AbstractFormula.class);
-		when(subIfStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(subIfStatement.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(subIfStatement.asText()).thenReturn("some_rule2");
 		
 		AbstractFormula subElseStatement = mock(AbstractFormula.class);
-		when(subElseStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(subElseStatement.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(subElseStatement.asText()).thenReturn("some_rule3");
 		
 		FormulaIfInstruction subFormula = new FormulaIfInstruction(null, subCondition, subIfStatement, subElseStatement);
 		
 		AbstractFormula condition = mock(AbstractFormula.class);
-		when(condition.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(condition.asText()).thenReturn("some_cond1");
 		
 		AbstractFormula ifStatement = mock(AbstractFormula.class);
-		when(ifStatement.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(ifStatement.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(ifStatement.asText()).thenReturn("some_rule1");
 		
 		FormulaIfInstruction formula = new FormulaIfInstruction(null, condition, ifStatement, subFormula);

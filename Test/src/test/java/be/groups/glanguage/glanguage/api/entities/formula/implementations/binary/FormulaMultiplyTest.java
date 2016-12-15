@@ -1,20 +1,17 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaMultiply}
@@ -58,10 +55,10 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidBothIntegers() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaMultiply formula =
 				new FormulaMultiply(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY), operand1, operand2);
@@ -76,10 +73,10 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidFirstIntSecondNum() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaMultiply formula =
 				new FormulaMultiply(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY), operand1, operand2);
@@ -95,10 +92,10 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidFirstIntSecondNotIntOrNum() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaMultiply formula =
 				new FormulaMultiply(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY), operand1, operand2);
@@ -114,10 +111,10 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidSecondIntFirstNotIntOrNum() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaMultiply formula =
 				new FormulaMultiply(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY), operand1, operand2);
@@ -132,10 +129,10 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidFirstNumSecondInt() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaMultiply formula =
 				new FormulaMultiply(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY), operand1, operand2);
@@ -151,10 +148,10 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidFirstNumSecondNotIntOrNum() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaMultiply formula =
 				new FormulaMultiply(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY), operand1, operand2);
@@ -170,10 +167,10 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidSecondNumFirstNotIntOrNum() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaMultiply formula =
 				new FormulaMultiply(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY), operand1, operand2);
@@ -188,10 +185,10 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidBothNumerics() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaMultiply formula =
 				new FormulaMultiply(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY), operand1, operand2);
@@ -205,12 +202,12 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Test
 	public void testGetIntegerValueIntInt() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getNumericValue()).thenReturn(2.0);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getNumericValue(null)).thenReturn(2.0);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getNumericValue()).thenReturn(3.0);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getNumericValue(null)).thenReturn(3.0);
 		
 		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
 		
@@ -223,12 +220,12 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Test
 	public void testGetNumericValueNumNum() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand1.getNumericValue()).thenReturn(1.5);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getNumericValue(null)).thenReturn(1.5);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand2.getNumericValue()).thenReturn(2.3);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getNumericValue(null)).thenReturn(2.3);
 		
 		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
 		
@@ -242,12 +239,12 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Test
 	public void testGetNumericValueIntNum() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getNumericValue()).thenReturn(2.0);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getNumericValue(null)).thenReturn(2.0);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand2.getNumericValue()).thenReturn(2.3);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getNumericValue(null)).thenReturn(2.3);
 		
 		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
 		
@@ -261,12 +258,12 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Test
 	public void testGetNumericValueNumInt() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand1.getNumericValue()).thenReturn(2.3);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getNumericValue(null)).thenReturn(2.3);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getNumericValue()).thenReturn(2.0);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getNumericValue(null)).thenReturn(2.0);
 		
 		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
 		
@@ -279,12 +276,12 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getNumericValue()).thenReturn(2.0);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getNumericValue(null)).thenReturn(2.0);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getNumericValue()).thenReturn(3.0);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getNumericValue(null)).thenReturn(3.0);
 		
 		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
 		
@@ -297,12 +294,12 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getNumericValue()).thenReturn(2.0);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getNumericValue(null)).thenReturn(2.0);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getNumericValue()).thenReturn(3.0);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getNumericValue(null)).thenReturn(3.0);
 		
 		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
 		
@@ -315,12 +312,12 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getNumericValue()).thenReturn(2.0);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getNumericValue(null)).thenReturn(2.0);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getNumericValue()).thenReturn(3.0);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getNumericValue(null)).thenReturn(3.0);
 		
 		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
 		
@@ -333,12 +330,12 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getNumericValue()).thenReturn(2.0);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getNumericValue(null)).thenReturn(2.0);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getNumericValue()).thenReturn(3.0);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getNumericValue(null)).thenReturn(3.0);
 		
 		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
 		
@@ -361,11 +358,11 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	@Test
 	public void testAsText() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.asText()).thenReturn("some_rule1");
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.asText()).thenReturn("some_rule2");
 		
 		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);

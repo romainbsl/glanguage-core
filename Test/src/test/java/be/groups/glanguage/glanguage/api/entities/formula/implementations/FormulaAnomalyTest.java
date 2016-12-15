@@ -1,20 +1,19 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import org.junit.Test;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
-
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaAnomaly}
@@ -52,18 +51,18 @@ public class FormulaAnomalyTest {
 	@Test
 	public void testGetIntegerValue() {
 		AbstractFormula errorCode = mock(AbstractFormula.class);
-		when(errorCode.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(errorCode.getIntegerValue()).thenReturn(1);
+		when(errorCode.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(errorCode.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula errorMessage = mock(AbstractFormula.class);
-		when(errorMessage.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(errorMessage.getStringValue()).thenReturn("System error");
+		when(errorMessage.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(errorMessage.getStringValue(null)).thenReturn("System error");
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
 		
 		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
 		
-		assertEquals(Integer.valueOf(0), formula.getIntegerValue());
+		assertEquals(Integer.valueOf(0), formula.getIntegerValue(null));
 	}
 	
 	/**
@@ -72,18 +71,18 @@ public class FormulaAnomalyTest {
 	@Test
 	public void testGetNumericValue() {
 		AbstractFormula errorCode = mock(AbstractFormula.class);
-		when(errorCode.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(errorCode.getIntegerValue()).thenReturn(1);
+		when(errorCode.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(errorCode.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula errorMessage = mock(AbstractFormula.class);
-		when(errorMessage.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(errorMessage.getStringValue()).thenReturn("System error");
+		when(errorMessage.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(errorMessage.getStringValue(null)).thenReturn("System error");
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
 		
 		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
 		
-		assertEquals(Double.valueOf(0), formula.getNumericValue());
+		assertEquals(Double.valueOf(0), formula.getNumericValue(null));
 	}
 	
 	/**
@@ -92,18 +91,18 @@ public class FormulaAnomalyTest {
 	@Test
 	public void testGetStringValue() {
 		AbstractFormula errorCode = mock(AbstractFormula.class);
-		when(errorCode.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(errorCode.getIntegerValue()).thenReturn(1);
+		when(errorCode.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(errorCode.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula errorMessage = mock(AbstractFormula.class);
-		when(errorMessage.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(errorMessage.getStringValue()).thenReturn("System error");
+		when(errorMessage.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(errorMessage.getStringValue(null)).thenReturn("System error");
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
 		
 		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
 		
-		assertEquals("", formula.getStringValue());
+		assertEquals("", formula.getStringValue(null));
 	}
 	
 	/**
@@ -112,18 +111,18 @@ public class FormulaAnomalyTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
 		AbstractFormula errorCode = mock(AbstractFormula.class);
-		when(errorCode.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(errorCode.getIntegerValue()).thenReturn(1);
+		when(errorCode.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(errorCode.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula errorMessage = mock(AbstractFormula.class);
-		when(errorMessage.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(errorMessage.getStringValue()).thenReturn("System error");
+		when(errorMessage.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(errorMessage.getStringValue(null)).thenReturn("System error");
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
 		
 		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
 		
-		formula.getBooleanValue();
+		formula.getBooleanValue(null);
 	}
 	
 	/**
@@ -132,18 +131,18 @@ public class FormulaAnomalyTest {
 	@Test
 	public void testGetDateValue() {
 		AbstractFormula errorCode = mock(AbstractFormula.class);
-		when(errorCode.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(errorCode.getIntegerValue()).thenReturn(1);
+		when(errorCode.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(errorCode.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula errorMessage = mock(AbstractFormula.class);
-		when(errorMessage.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(errorMessage.getStringValue()).thenReturn("System error");
+		when(errorMessage.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(errorMessage.getStringValue(null)).thenReturn("System error");
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
 		
 		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
 		
-		assertEquals(LocalDate.MIN, formula.getDateValue());
+		assertEquals(LocalDate.MIN, formula.getDateValue(null));
 	}
 	
 	/**
@@ -152,18 +151,18 @@ public class FormulaAnomalyTest {
 	@Test
 	public void testGetDurationValue() {
 		AbstractFormula errorCode = mock(AbstractFormula.class);
-		when(errorCode.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(errorCode.getIntegerValue()).thenReturn(1);
+		when(errorCode.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(errorCode.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula errorMessage = mock(AbstractFormula.class);
-		when(errorMessage.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(errorMessage.getStringValue()).thenReturn("System error");
+		when(errorMessage.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(errorMessage.getStringValue(null)).thenReturn("System error");
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
 		
 		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
 		
-		assertEquals(Duration.ZERO, formula.getDurationValue());
+		assertEquals(Duration.ZERO, formula.getDurationValue(null));
 	}
 	
 	/**
@@ -172,11 +171,11 @@ public class FormulaAnomalyTest {
 	@Test
 	public void testAsText() {
 		AbstractFormula errorCode = mock(AbstractFormula.class);
-		when(errorCode.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(errorCode.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(errorCode.asText()).thenReturn("1");
 		
 		AbstractFormula errorMessage = mock(AbstractFormula.class);
-		when(errorMessage.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(errorMessage.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(errorMessage.asText()).thenReturn("System error");
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);

@@ -6,14 +6,14 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
 public class PlanTest extends BaseDatabaseTest {
 
     /**
-     * Tests {@link Plan#evaluate(Object, boolean)}}
+     * Tests {@link Plan#evaluate()}}
      */
     @Test
     public void testEvaluate() {
@@ -24,7 +24,8 @@ public class PlanTest extends BaseDatabaseTest {
         assertNotNull(plan.getRuleVersions());
         assertFalse(plan.getRuleVersions().isEmpty());
         assertFalse(plan.isBranched());
-        HashMap<RuleVersion, Object> evaluatedRuleVersions = plan.evaluate(null, false);
+        Object object = null;
+        Map<RuleVersion, Object> evaluatedRuleVersions = plan.evaluate(object);
         assertTrue(plan.isBranched());
         assertNotNull(evaluatedRuleVersions);
         assertFalse(evaluatedRuleVersions.isEmpty());
@@ -50,7 +51,7 @@ public class PlanTest extends BaseDatabaseTest {
     }
 
     /**
-     * Tests {@link Plan#evaluate(Object, String, boolean, boolean)}
+     * Tests {@link Plan#evaluate(Object, String, boolean)}
      */
     @Test
     public void testEvaluateRule900002() {
@@ -61,7 +62,7 @@ public class PlanTest extends BaseDatabaseTest {
         assertNotNull(plan.getRuleVersions());
         assertFalse(plan.getRuleVersions().isEmpty());
         assertFalse(plan.isBranched());
-        HashMap<RuleVersion, Object> evaluatedRuleVersions = plan.evaluate(null, "-900002", false, false);
+        Map<RuleVersion, Object> evaluatedRuleVersions = plan.evaluate(null, "-900002", false);
         assertFalse(plan.isBranched());
         assertNotNull(evaluatedRuleVersions);
         assertFalse(evaluatedRuleVersions.isEmpty());
@@ -78,7 +79,7 @@ public class PlanTest extends BaseDatabaseTest {
     }
 
     /**
-     * Tests {@link Plan#evaluate(Object, String, boolean, boolean)}
+     * Tests {@link Plan#evaluate(Object, String, boolean)}
      */
     @Test
     public void testEvaluateRule900003() {
@@ -89,7 +90,7 @@ public class PlanTest extends BaseDatabaseTest {
         assertNotNull(plan.getRuleVersions());
         assertFalse(plan.getRuleVersions().isEmpty());
         assertFalse(plan.isBranched());
-        HashMap<RuleVersion, Object> evaluatedRuleVersions = plan.evaluate(null, "-900003", false, false);
+        Map<RuleVersion, Object> evaluatedRuleVersions = plan.evaluate(null, "-900003", false);
         assertFalse(plan.isBranched());
         assertNotNull(evaluatedRuleVersions);
         assertFalse(evaluatedRuleVersions.isEmpty());

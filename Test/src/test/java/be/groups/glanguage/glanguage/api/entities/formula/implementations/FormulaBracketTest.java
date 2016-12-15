@@ -1,23 +1,20 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.time.Duration;
-import java.time.LocalDate;
-
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import java.time.Duration;
+import java.time.LocalDate;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaBracket}
@@ -56,7 +53,7 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidInteger() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
 		
@@ -70,7 +67,7 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNumeric() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
 		
@@ -84,7 +81,7 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidString() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
 		
@@ -98,7 +95,7 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidBoolean() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		
 		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
 		
@@ -112,7 +109,7 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidDate() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
 		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
 		
@@ -126,7 +123,7 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidDuration() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		
 		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
 		
@@ -140,11 +137,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeInteger() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
 		
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
+		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
 	}
 	
 	/**
@@ -154,11 +151,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeNumeric() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
 		
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
 	
 	/**
@@ -168,11 +165,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeString() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
 		
-		assertEquals(FormulaReturnType.STRING, formula.getReturnType());
+		assertEquals(FormulaReturnType.STRING, formula.getReturnType(null));
 	}
 	
 	/**
@@ -182,11 +179,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeBoolean() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		
 		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
 		
-		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
+		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType(null));
 	}
 	
 	/**
@@ -196,11 +193,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeDate() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
 		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
 		
-		assertEquals(FormulaReturnType.DATE, formula.getReturnType());
+		assertEquals(FormulaReturnType.DATE, formula.getReturnType(null));
 	}
 	
 	/**
@@ -210,11 +207,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeDuration() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		
 		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
 		
-		assertEquals(FormulaReturnType.DURATION, formula.getReturnType());
+		assertEquals(FormulaReturnType.DURATION, formula.getReturnType(null));
 	}
 	
 	/**
@@ -223,11 +220,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Test
 	public void testGetIntegerValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getIntegerValue()).thenReturn(1);
+		when(parameter.getIntegerValue(null)).thenReturn(1);
 		
 		FormulaBracket formula = new FormulaBracket(null, parameter);
 		
-		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
+		assertEquals(Integer.valueOf(1), formula.getIntegerValue(null));
 	}
 	
 	/**
@@ -236,11 +233,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Test
 	public void testGetNumericValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getNumericValue()).thenReturn(2.5);
+		when(parameter.getNumericValue(null)).thenReturn(2.5);
 		
 		FormulaBracket formula = new FormulaBracket(null, parameter);
 		
-		assertEquals(Double.valueOf(2.5), formula.getNumericValue());
+		assertEquals(Double.valueOf(2.5), formula.getNumericValue(null));
 	}
 	
 	/**
@@ -249,11 +246,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getStringValue()).thenReturn("some_value");
+		when(parameter.getStringValue(null)).thenReturn("some_value");
 		
 		FormulaBracket formula = new FormulaBracket(null, parameter);
 		
-		assertEquals("some_value", formula.getStringValue());
+		assertEquals("some_value", formula.getStringValue(null));
 	}
 	
 	/**
@@ -262,11 +259,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getBooleanValue()).thenReturn(true);
+		when(parameter.getBooleanValue(null)).thenReturn(true);
 		
 		FormulaBracket formula = new FormulaBracket(null, parameter);
 		
-		assertEquals(Boolean.TRUE, formula.getBooleanValue());
+		assertEquals(Boolean.TRUE, formula.getBooleanValue(null));
 	}
 	
 	/**
@@ -275,11 +272,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Test
 	public void testGetDateValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getDateValue()).thenReturn(LocalDate.of(2015, 1, 1));
+		when(parameter.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
 		
 		FormulaBracket formula = new FormulaBracket(null, parameter);
 		
-		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue());
+		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue(null));
 	}
 	
 	/**
@@ -288,11 +285,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Test
 	public void testGetDurationValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getDurationValue()).thenReturn(Duration.ofDays(2L));
+		when(parameter.getDurationValue(null)).thenReturn(Duration.ofDays(2L));
 		
 		FormulaBracket formula = new FormulaBracket(null, parameter);
 		
-		assertEquals(Duration.ofDays(2L), formula.getDurationValue());
+		assertEquals(Duration.ofDays(2L), formula.getDurationValue(null));
 	}
 	
 	/**
@@ -301,7 +298,7 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	@Test
 	public void testAsText() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(parameter.asText()).thenReturn("some_rule");
 		
 		FormulaBracket formula = new FormulaBracket(null, parameter);
