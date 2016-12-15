@@ -3,22 +3,21 @@
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal;
 
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.DurationFormula;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.DurationFormula;
 
 /**
  * Formula representing a constant integer value
@@ -44,7 +43,7 @@ public class FormulaTerminalDuration extends AbstractTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Duration getDurationValue() {
+	public Duration getDurationValue(Evaluator evaluator) {
 		try {
 			String text = new String(getConstantValue());
 			text = text.substring(1, text.length() - 1);

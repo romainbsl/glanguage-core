@@ -1,18 +1,17 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.string;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_STRING_ITEM)
@@ -36,14 +35,14 @@ public class FormulaStringItem extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public String getStringValue() {
+	public String getStringValue(Evaluator evaluator) {
 		String str, separatorString, separatorRegex;
 		int index;
 		String[] items;
 		
-		str = getParameters().get(0).getStringValue();
-		separatorString = getParameters().get(1).getStringValue();
-		index = getParameters().get(2).getIntegerValue();
+		str = getParameters().get(0).getStringValue(evaluator);
+		separatorString = getParameters().get(1).getStringValue(evaluator);
+		index = getParameters().get(2).getIntegerValue(evaluator);
 		if (separatorString.isEmpty() || index <= 0) {
 			return "";
 		} else {

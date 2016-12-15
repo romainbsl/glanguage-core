@@ -1,19 +1,18 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public abstract class ExtremumFormula extends AbstractNonTerminalFormula {
@@ -29,7 +28,8 @@ public abstract class ExtremumFormula extends AbstractNonTerminalFormula {
 		}
 		this.parameters = new ArrayList<>();
 		parameters.stream().forEachOrdered(e -> {
-			if (e.getReturnType().equals(FormulaReturnType.INTEGER) || e.getReturnType().equals(FormulaReturnType.NUMERIC)) {
+			if (e.getReturnType(null).equals(FormulaReturnType.INTEGER) || e.getReturnType(null).equals
+					(FormulaReturnType.NUMERIC)) {
 				this.parameters.add(e);
 			} else {
 				throw new IllegalArgumentException(
@@ -37,15 +37,15 @@ public abstract class ExtremumFormula extends AbstractNonTerminalFormula {
 			}
 		});
 	}
-	
+
 	@JsonIgnore
 	@Transient
 	@Override
-	public FormulaReturnType getReturnType() {
-		FormulaReturnType returnType = getParameters().get(0).getReturnType();
+	public FormulaReturnType getReturnType(Evaluator evaluator) {
+		FormulaReturnType returnType = getParameters().get(0).getReturnType(evaluator);
 		Iterator<AbstractFormula> itParameters = getParameters().iterator();
 		while (!returnType.equals(FormulaReturnType.NUMERIC) && itParameters.hasNext()) {
-			returnType = itParameters.next().getReturnType();
+			returnType = itParameters.next().getReturnType(evaluator);
 		}
 		return returnType;
 	}
@@ -53,8 +53,8 @@ public abstract class ExtremumFormula extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue() {
-		return getNumericValue().intValue();
+	public Integer getIntegerValue(Evaluator evaluator) {
+		return getNumericValue(evaluator).intValue();
 	}
 	
 	@Override

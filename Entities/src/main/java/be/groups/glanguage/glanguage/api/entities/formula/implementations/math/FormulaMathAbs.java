@@ -1,16 +1,15 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.math;
 
-import java.util.List;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_ABS)
@@ -27,8 +26,8 @@ public class FormulaMathAbs extends MathFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Double getNumericValue() {
-		return Math.abs(getParameters().get(0).getNumericValue());
+	public Double getNumericValue(Evaluator evaluator) {
+		return Math.abs(getParameters().get(0).getNumericValue(evaluator));
 	}
 	
 	@Override

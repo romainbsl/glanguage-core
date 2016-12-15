@@ -1,16 +1,15 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 
-import java.time.Duration;
-import java.time.LocalDate;
-
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+import java.time.Duration;
+import java.time.LocalDate;
 
 @Entity
 public abstract class RuleCallFormula extends CallFormula {
@@ -33,130 +32,136 @@ public abstract class RuleCallFormula extends CallFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public FormulaReturnType getReturnType() {
-		if (getReferencedRule() == null) {
+	public FormulaReturnType getReturnType(Evaluator evaluator) {
+		if (getReferencedRule(evaluator) == null) {
 			throw new IllegalAccessError("Cannot invoke getReturnType() method on " + this.getClass().getName()
 					+ " object while referenced rule (rule id : " + getConstantValue()
 					+ ") is not set - while branching is not done - (id : " + this.getId() + ")");
 		} else {
-			return getReferencedRule().getReturnType();
+			return getReferencedRule(evaluator).getReturnType(evaluator);
 		}
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue() {
-		if (getReferencedRule() == null) {
+	public Integer getIntegerValue(Evaluator evaluator) {
+		if (getReferencedRule(evaluator) == null) {
 			throw new IllegalAccessError("Cannot invoke getIntegerValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (rule id : " + getConstantValue()
 					+ ") is not set - while branching is not done - (id : " + this.getId() + ")");
-		} else if (!(getReturnType().equals(FormulaReturnType.INTEGER) || getReturnType().equals(FormulaReturnType.NUMERIC))) {
+		} else if (!(getReturnType(evaluator).equals(FormulaReturnType.INTEGER) || getReturnType(evaluator).equals
+				(FormulaReturnType.NUMERIC))) {
 			throw new IllegalAccessError("Cannot invoke getIntegerValue() method on " + this.getClass().getName()
 					+ " object if referenced rule (rule id : " + getConstantValue() + ") is not of type INTEGER or NUMERIC - (id : "
 					+ this.getId() + ")");
 		}
-		return doGetIntegerValue();
+		return doGetIntegerValue(evaluator);
 	}
 	
-	public abstract Integer doGetIntegerValue();
+	public abstract Integer doGetIntegerValue(Evaluator evaluator);
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Double getNumericValue() {
-		if (getReferencedRule() == null) {
+	public Double getNumericValue(Evaluator evaluator) {
+		if (getReferencedRule(evaluator) == null) {
 			throw new IllegalAccessError("Cannot invoke getNumericValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (rule id : " + getConstantValue()
 					+ ") is not set - while branching is not done - (id : " + this.getId() + ")");
-		} else if (!(getReturnType().equals(FormulaReturnType.INTEGER) || getReturnType().equals(FormulaReturnType.NUMERIC))) {
+		} else if (!(getReturnType(evaluator).equals(FormulaReturnType.INTEGER) || getReturnType(evaluator).equals
+				(FormulaReturnType.NUMERIC))) {
 			throw new IllegalAccessError("Cannot invoke getNumericValue() method on " + this.getClass().getName()
 					+ " object if referenced rule (rule id : " + getConstantValue() + ") is not of type INTEGER or NUMERIC - (id : "
 					+ this.getId() + ")");
 		}
-		return doGetNumericValue();
+		return doGetNumericValue(evaluator);
 	}
 	
-	public abstract Double doGetNumericValue();
+	public abstract Double doGetNumericValue(Evaluator evaluator);
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public String getStringValue() {
-		if (getReferencedRule() == null) {
+	public String getStringValue(Evaluator evaluator) {
+		if (getReferencedRule(evaluator) == null) {
 			throw new IllegalAccessError("Cannot invoke getStringValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (rule id : " + getConstantValue()
 					+ ") is not set - while branching is not done - (id : " + this.getId() + ")");
-		} else if (!getReturnType().equals(FormulaReturnType.STRING)) {
+		} else if (!getReturnType(evaluator).equals(FormulaReturnType.STRING)) {
 			throw new IllegalAccessError("Cannot invoke getStringValue() method on " + this.getClass().getName()
 					+ " object if referenced rule (rule id : " + getConstantValue() + ") is not of type STRING - (id : "
 					+ this.getId() + ")");
 		}
-		return doGetStringValue();
+		return doGetStringValue(evaluator);
 	}
 	
-	public abstract String doGetStringValue();
+	public abstract String doGetStringValue(Evaluator evaluator);
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue() {
-		if (getReferencedRule() == null) {
+	public Boolean getBooleanValue(Evaluator evaluator) {
+		if (getReferencedRule(evaluator) == null) {
 			throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (rule id : " + getConstantValue()
 					+ ") is not set - while branching is not done - (id : " + this.getId() + ")");
-		} else if (!getReturnType().equals(FormulaReturnType.BOOLEAN)) {
+		} else if (!getReturnType(evaluator).equals(FormulaReturnType.BOOLEAN)) {
 			throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName()
 					+ " object if referenced rule (rule id : " + getConstantValue() + ") is not of type BOOLEAN - (id : "
 					+ this.getId() + ")");
 		}
-		return doGetBooleanValue();
+		return doGetBooleanValue(evaluator);
 	}
 	
-	public abstract Boolean doGetBooleanValue();
+	public abstract Boolean doGetBooleanValue(Evaluator evaluator);
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public LocalDate getDateValue() {
-		if (getReferencedRule() == null) {
+	public LocalDate getDateValue(Evaluator evaluator) {
+		if (getReferencedRule(evaluator) == null) {
 			throw new IllegalAccessError("Cannot invoke getDateValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (rule id : " + getConstantValue()
 					+ ") is not set - while branching is not done - (id : " + this.getId() + ")");
-		} else if (!getReturnType().equals(FormulaReturnType.DATE)) {
+		} else if (!getReturnType(evaluator).equals(FormulaReturnType.DATE)) {
 			throw new IllegalAccessError(
 					"Cannot invoke getDateValue() method on " + this.getClass().getName() + " object if referenced rule (rule id : "
 							+ getConstantValue() + ") is not of type DATE - (id : " + this.getId() + ")");
 		}
-		return doGetDateValue();
+		return doGetDateValue(evaluator);
 	}
 	
-	public abstract LocalDate doGetDateValue();
+	public abstract LocalDate doGetDateValue(Evaluator evaluator);
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Duration getDurationValue() {
-		if (getReferencedRule() == null) {
+	public Duration getDurationValue(Evaluator evaluator) {
+		if (getReferencedRule(evaluator) == null) {
 			throw new IllegalAccessError("Cannot invoke getDurationValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (rule id : " + getConstantValue()
 					+ ") is not set - while branching is not done - (id : " + this.getId() + ")");
-		} else if (!getReturnType().equals(FormulaReturnType.DURATION)) {
+		} else if (!getReturnType(evaluator).equals(FormulaReturnType.DURATION)) {
 			throw new IllegalAccessError("Cannot invoke getDurationValue() method on " + this.getClass().getName()
 					+ " object if referenced rule (rule id : " + getConstantValue() + ") is not of type DURATION - (id : "
 					+ this.getId() + ")");
 		}
-		return doGetDurationValue();
+		return doGetDurationValue(evaluator);
 	}
 	
-	public abstract Duration doGetDurationValue();
+	public abstract Duration doGetDurationValue(Evaluator evaluator);
 	
 	/**
+	 * @param evaluator evaluator
 	 * @return the referencedRule
 	 */
 	@JsonIgnore
 	@Transient
-	public RuleVersion getReferencedRule() {
+	protected RuleVersion getReferencedRule(Evaluator evaluator) {
+		if (referencedRule == null && evaluator != null) {
+			referencedRule = evaluator.getRuleVersion(getConstantValue());
+		}
 		return referencedRule;
 	}
 
@@ -180,8 +185,8 @@ public abstract class RuleCallFormula extends CallFormula {
 	}
 	
 	private String ruleAsText() {
-		if (getReferencedRule() != null) {
-			return String.valueOf(getReferencedRule().getCode());
+		if (getReferencedRule(null) != null) {
+			return String.valueOf(getReferencedRule(null).getCode());
 		}
 		return getConstantValue();
 	}

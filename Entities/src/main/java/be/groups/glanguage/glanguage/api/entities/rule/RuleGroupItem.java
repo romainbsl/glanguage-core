@@ -1,5 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
+
 import javax.persistence.*;
 
 /**
@@ -56,10 +58,15 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	}
 
 	/**
-	 * @return the effectiveRuleVersion
+	 * @param evaluator nullable, if present it is used to retrieve the {@link RuleVersion} corresponding to the
+	 * {@link RuleIdentity} {@code itemRule}
+	 * @return the referencedRule
 	 */
 	@Transient
-	public RuleVersion getReferencedRule() {
+	public RuleVersion getReferencedRule(Evaluator evaluator) {
+		if (referencedRule == null && evaluator != null) {
+			referencedRule = evaluator.getRuleVersion(String.valueOf(getItemRule().getId()));
+		}
 		return referencedRule;
 	}
 
@@ -100,7 +107,7 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	}
 
 	/**
-	 * @param effectiveRuleVersion the effectiveRuleVersion to set
+	 * @param referencedRule the referencedRule to set
 	 */
 	public void setReferencedRule(RuleVersion referencedRule) {
 		this.referencedRule = referencedRule;

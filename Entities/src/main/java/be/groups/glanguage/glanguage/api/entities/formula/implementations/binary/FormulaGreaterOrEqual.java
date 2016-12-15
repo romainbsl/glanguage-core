@@ -3,16 +3,16 @@
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 /**
  * Formula representing a logical greater or equal operation<br>
@@ -35,20 +35,20 @@ public class FormulaGreaterOrEqual extends BinaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue() {
-		switch (parameters.get(0).getReturnType()) {
+	public Boolean getBooleanValue(Evaluator evaluator) {
+		switch (parameters.get(0).getReturnType(evaluator)) {
 		case DATE:
-			return !getParameters().get(0).getDateValue().isBefore(getParameters().get(1).getDateValue());
+			return !getParameters().get(0).getDateValue(evaluator).isBefore(getParameters().get(1).getDateValue(evaluator));
 		case INTEGER:
-			if (parameters.get(1).getReturnType().equals(FormulaReturnType.INTEGER)) {
-				return getParameters().get(0).getIntegerValue() >= getParameters().get(1).getIntegerValue();
+			if (parameters.get(1).getReturnType(evaluator).equals(FormulaReturnType.INTEGER)) {
+				return getParameters().get(0).getIntegerValue(evaluator) >= getParameters().get(1).getIntegerValue(evaluator);
 			} else { // TODO use numeric each time?
-				return getParameters().get(0).getNumericValue() >= getParameters().get(1).getNumericValue();
+				return getParameters().get(0).getNumericValue(evaluator) >= getParameters().get(1).getNumericValue(evaluator);
 			}
 		case NUMERIC:
-			return getParameters().get(0).getNumericValue() >= getParameters().get(1).getNumericValue();
+			return getParameters().get(0).getNumericValue(evaluator) >= getParameters().get(1).getNumericValue(evaluator);
 		case STRING:
-			return getParameters().get(0).getStringValue().compareTo(getParameters().get(1).getStringValue()) >= 0;
+			return getParameters().get(0).getStringValue(evaluator).compareTo(getParameters().get(1).getStringValue(evaluator)) >= 0;
 		default:
 			throw new IllegalArgumentException(
 					"Cannot compare unknown values in " + this.getClass().getName() + " object");

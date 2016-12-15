@@ -1,14 +1,14 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 @Entity
 @DiscriminatorValue(FormulaType.Values.OP_MODULO)
@@ -25,8 +25,8 @@ public class FormulaModulo extends BinaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue() {
-		return getParameters().get(0).getIntegerValue() % getParameters().get(1).getIntegerValue();
+	public Integer getIntegerValue(Evaluator evaluator) {
+		return getParameters().get(0).getIntegerValue(evaluator) % getParameters().get(1).getIntegerValue(evaluator);
 	}
 
 	@Override

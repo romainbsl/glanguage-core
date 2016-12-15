@@ -1,16 +1,15 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.format;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public abstract class FormatFormula extends AbstractNonTerminalFormula {
@@ -26,7 +25,7 @@ public abstract class FormatFormula extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public FormulaReturnType getReturnType() {
+	public FormulaReturnType getReturnType(Evaluator evaluator) {
 		return FormulaReturnType.STRING;
 	}
 	

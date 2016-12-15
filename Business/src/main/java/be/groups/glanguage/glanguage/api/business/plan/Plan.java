@@ -1,8 +1,6 @@
 package be.groups.glanguage.glanguage.api.business.plan;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.RuleCallFormula;
@@ -10,6 +8,9 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleGroupItem;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Plan {
 
@@ -20,8 +21,13 @@ public class Plan {
     private HashSet<RuleVersion> branchedRuleVersions;
     private HashSet<AbstractFormula> branchedFormulas;
 
+    private Integer currentCache;
+    private HashMap<Integer, HashMap<RuleVersion, Object>> caches;
+
     public Plan() {
         super();
+        caches = new HashMap<>();
+        addCurrentCache(1);
     }
 
     /**
@@ -36,6 +42,46 @@ public class Plan {
      */
     public void setRuleVersions(List<RuleVersion> ruleVersions) {
         this.ruleVersions = ruleVersions;
+    }
+
+    /**
+     * Get the "cache" corresponding to {@code cacheId}
+     *
+     * @param cacheId The id of the "cache" to get
+     * @return The "cache" corresponding to {@code cacheId} if it exists, null otherwise
+     */
+    private HashMap<RuleVersion, Object> getCache(Integer cacheId) {
+        return caches.get(cacheId);
+    }
+
+    private void setCache(Integer cacheId, HashMap<RuleVersion, Object> cache) {
+        caches.put(cacheId, cache);
+    }
+
+    private void addCache(Integer cacheId) {
+        setCache(cacheId, new HashMap<>());
+    }
+
+    /**
+     * Get the current "cache" corresponding to {@code currentCache}
+     *
+     * @return The current "cache" corresponding to {@code currentCache} if it exists, null otherwise
+     */
+    private HashMap<RuleVersion, Object> getCurrentCache() {
+        return getCache(currentCache);
+    }
+
+    private void setCurrentCache(Integer cacheId, HashMap<RuleVersion, Object> cache) {
+        currentCache = cacheId;
+        setCache(currentCache, cache);
+    }
+
+    private void addCurrentCache(Integer cacheId) {
+        setCurrentCache(cacheId, new HashMap<>());
+    }
+
+    private boolean isCached(Integer ruleVersionId) {
+        return getCurrentCache().containsKey(ruleVersionId);
     }
 
     /**
@@ -102,39 +148,69 @@ public class Plan {
         }
     }
 
-    public Collection<RuleVersion> evaluate(Object context) {
+    public Map<RuleVersion, Object> evaluate() {
+        return evaluate(null);
+    }
+
+    public Map<RuleVersion, Object> evaluate(Evaluator evaluator) {
+        getRuleVersions().forEach(rv -> evaluate(rv, false, evaluator));
+
+        return getCurrentCache();
+    }
+
+    public void evaluate(String ruleIdentifier, boolean recursive, Evaluator evaluator) {
+        RuleVersion ruleVersion = getEffectiveRuleVersionByIdenitifier(ruleIdentifier);
+        if (ruleVersion != null) {
+            evaluate(ruleVersion, recursive, evaluator);
+        } else {
+            throw new RuntimeException("Unable to evaluate the rule identified by " + ruleIdentifier + " because " +
+                    "there is no rule corresponding to this identifier in this plan");
+        }
+    }
+
+    public Map<RuleVersion, Object> evaluate(Object context) {
         if (!isBranched()) {
             branch(context);
         }
-        getRuleVersions().forEach(rv -> rv.getValue());
+        getRuleVersions().forEach(rv -> evaluate(rv, false, null));
 
-        return getRuleVersions().stream().filter(rv -> rv.isCached()).collect(Collectors.toList());
+        return getCurrentCache();
     }
 
-    public Collection<RuleVersion> evaluate(Object context, String ruleIdentifier, boolean recursive) {
+    public Map<RuleVersion, Object> evaluate(Object context, String ruleIdentifier, boolean recursive) {
         RuleVersion ruleVersion = getEffectiveRuleVersionByIdenitifier(ruleIdentifier);
         if (ruleVersion != null) {
             if (!isBranched(ruleVersion)) {
                 branch(ruleVersion, context);
             }
-            evaluate(ruleVersion, recursive);
+            evaluate(ruleVersion, recursive, null);
         } else {
             throw new RuntimeException("Unable to evaluate the rule identified by " + ruleIdentifier + " because " +
                     "there is no rule corresponding to this identifier in this plan");
         }
-        return getRuleVersions().stream().filter(rv -> rv.isEvaluated()).collect(Collectors.toList());
+        return getRuleVersions().stream().filter(RuleVersion::isEvaluated).collect(Collectors.toMap(r -> r, r -> r
+                .getValue()));
     }
 
     public void resetEvaluation() {
         getRuleVersions().stream().forEach(RuleVersion::resetValue);
     }
 
-    private void evaluate(RuleVersion ruleVersion, boolean recursive) {
-        ruleVersion.getValue();
-        if (recursive && ruleVersion.getGroupItems() != null && !ruleVersion.getGroupItems().isEmpty()) {
-            ruleVersion.getGroupItems().stream().map(i -> i.getReferencedRule()).forEach(rv -> evaluate(rv,
-                    recursive));
-        }
+    private void evaluate(RuleVersion ruleVersion, boolean recursive, Evaluator evaluator) {
+       if (evaluator != null) {
+           evaluator.evaluateRuleVersion(ruleVersion);
+       } else {
+           if (!isCached(ruleVersion.getId())) {
+               Object value = ruleVersion.getValue(evaluator);
+               if (evaluator == null) {
+                   getCurrentCache().put(ruleVersion, value);
+               }
+           }
+       }
+       if (recursive && ruleVersion.getGroupItems() != null && !ruleVersion.getGroupItems().isEmpty()) {
+            ruleVersion.getGroupItems().stream().map(i -> i.getReferencedRule(evaluator)).forEach(rv -> evaluate(rv,
+                    recursive, evaluator));
+       }
     }
 
     public void branch(Object context) {

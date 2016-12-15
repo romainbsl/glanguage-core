@@ -3,15 +3,15 @@
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.unary;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 /**
  * Formula representing a logical not operation<br>
@@ -35,8 +35,8 @@ public class FormulaNot extends UnaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue() {
-		return !getParameters().get(0).getBooleanValue();
+	public Boolean getBooleanValue(Evaluator evaluator) {
+		return !getParameters().get(0).getBooleanValue(evaluator);
 	}
 
 	@Override
