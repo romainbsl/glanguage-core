@@ -1,11 +1,5 @@
 package be.groups.glanguage.glanguage.api.business.universe;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import be.groups.glanguage.glanguage.api.business.plan.Plan;
 import be.groups.glanguage.glanguage.api.dao.FormulaDao;
 import be.groups.glanguage.glanguage.api.dao.RuleSetDao;
@@ -15,6 +9,11 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 public class Universe {
 	
@@ -106,7 +105,7 @@ public class Universe {
 		return plan;
 	}
 	
-	private static List<RuleVersion> getDefaultRuleVersions(RuleSetVersion ruleSetVersion, LocalDate effectivityDate) {
+	public static List<RuleVersion> getDefaultRuleVersions(RuleSetVersion ruleSetVersion, LocalDate effectivityDate) {
 		final List<RuleVersion> ruleVersions = ruleSetVersion.getDefaultRuleVersions(effectivityDate);
 		if (ruleSetVersion.getIncludes() != null && !ruleSetVersion.getIncludes().isEmpty()) {
 			ruleSetVersion.getIncludes().stream().forEach(i -> ruleVersions.addAll(getDefaultRuleVersions(i, effectivityDate)));
@@ -114,7 +113,7 @@ public class Universe {
 		return ruleVersions;
 	}
 	
-	private static List<RuleVersion> getBestDefinedRuleVersions(RuleSetVersion ruleSetVersion,
+	public static List<RuleVersion> getBestDefinedRuleVersions(RuleSetVersion ruleSetVersion,
 			Collection<RuleDefinitionParameter> definitionParameters, LocalDate effectivityDate) {
 		final List<RuleVersion> ruleVersions = ruleSetVersion.getBestDefinedRuleVersions(definitionParameters, effectivityDate);
 		if (ruleSetVersion.getIncludes() != null && !ruleSetVersion.getIncludes().isEmpty()) {

@@ -19,8 +19,8 @@ public class RuleVersionFactory {
     public static List<RuleVersion> getRuleVersions(Integer ruleSetVersionId, LocalDate effectivityDate) {
         PlanIdentification key = new PlanIdentification(ruleSetVersionId, effectivityDate);
         if (!ruleVersionsLists.containsKey(key)) {
-            ruleVersionsLists.put(key, Universe.getRuleSetVersion(ruleSetVersionId)
-                            .getDefaultRuleVersions(effectivityDate));
+            ruleVersionsLists.put(key, Universe.getDefaultRuleVersions(Universe.getRuleSetVersion(ruleSetVersionId),
+                    effectivityDate));
         }
         return ruleVersionsLists.get(key);
     }
