@@ -163,7 +163,7 @@ public class FormulaGet extends CallFormula {
         }
 
         for (AbstractFormula primitive : getParameters()) {
-            result = ((FormulaPrimitive) primitive).getTargetedObject(result);
+            result = ((FormulaPrimitive) primitive).getTargetedObject(result, evaluator);
         }
         return result;
     }
