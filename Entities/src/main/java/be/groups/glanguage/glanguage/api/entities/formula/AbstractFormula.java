@@ -183,7 +183,7 @@ public abstract class AbstractFormula {
     @Transient
     public FormulaReturnType getReturnType(Evaluator evaluator) {
         if (parametersTypes == null) {
-            initParametersTypes();
+            initParametersTypes(evaluator);
         }
 
         return description.getReturnType(parametersTypes);
