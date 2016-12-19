@@ -12,47 +12,64 @@ public interface Evaluator {
 
     /**
      * Get the context of evaluation
+     *
      * @return The context of evaluation
      */
-    public Object getContext();
+    Object getContext();
 
     /**
      * Get the {@link RuleVersion} corresponding to a {@link RuleIdentity} id
+     *
      * @param ruleIdentityId The id of the {@link RuleIdentity}
      * @return The {@link RuleVersion} corresponding to the {@link RuleIdentity} id {@code ruleIdentityId}
      */
-    public RuleVersion getRuleVersion(String ruleIdentityId);
+    RuleVersion getRuleVersion(String ruleIdentityId);
 
     /**
-     * Get the map of {@link RuleVersion} that have been evaluated by this evaluator along with their value
-     * @return The map of {@link RuleVersion} that have been evaluated by this evaluator along with their value
+     * Get the map of {@link RuleVersion}'s that have been evaluated by this evaluator along with their value
+     *
+     * @return The map of {@link RuleVersion}'s that have been evaluated by this evaluator along with their value
      */
-    public Map<RuleVersion, Object> getEvaluatedRuleVersions();
+    Map<RuleVersion, Object> getEvaluatedRuleVersions();
 
     /**
      * Is a {@link RuleVersion} evaluated ?
+     *
      * @param ruleVersion The {@link RuleVersion}
      * @return true if the {@link RuleVersion} {@code ruleVersion} is evaluated, false otherwise
      */
-    public default boolean isRuleVersionEvaluated(RuleVersion ruleVersion) {
+    default boolean isRuleVersionEvaluated(RuleVersion ruleVersion) {
         return getEvaluatedRuleVersions().containsKey(ruleVersion);
     }
 
     /**
      * Evaluate a {@link RuleVersion} without setting its value
+     *
      * @param ruleVersion The {@link RuleVersion} to evaluate
      */
-    public default void evaluateRuleVersion(RuleVersion ruleVersion) {
+    default void evaluateRuleVersion(RuleVersion ruleVersion) {
         if (!isRuleVersionEvaluated(ruleVersion)) {
             ruleVersion.getValue(this);
         }
     }
 
-    public default void addEvaluatedRuleVersion(RuleVersion ruleVersion, Object value) {
+    /**
+     * Add a {@link RuleVersion} as evaluated with its value
+     *
+     * @param ruleVersion The {@link RuleVersion} to add as evaluated
+     * @param value The value to associate with {@code ruleVersion}
+     */
+    default void addEvaluatedRuleVersion(RuleVersion ruleVersion, Object value) {
         getEvaluatedRuleVersions().put(ruleVersion, value);
     }
 
-    public default Object getRuleVersionValue(RuleVersion ruleVersion) {
+    /**
+     * Get the value associated with a {@link RuleVersion}
+     *
+     * @param ruleVersion The {@link RuleVersion} to get the associated value
+     * @return The value associated to {@code ruleVersion} if it has been evaluated by this evaluator, null otherwise
+     */
+    default Object getRuleVersionValue(RuleVersion ruleVersion) {
         return getEvaluatedRuleVersions().get(ruleVersion);
     }
 }
