@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>be.groups.glanguage</groupId>
 	<artifactId>glanguage-api-ws</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<name>Glanguage-Api-WS</name>
 	<packaging>war</packaging>
 	<properties>
@@ -26,7 +26,7 @@
 		<dependency>
 			<groupId>be.groups.glanguage</groupId>
 			<artifactId>glanguage-api-business</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2</version>
 		</dependency>
 	</dependencies>
 	<build>
