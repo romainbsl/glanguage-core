@@ -11,7 +11,7 @@
 
 	<groupId>be.groups.glanguage</groupId>
 	<artifactId>glanguage-api-test</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>Glanguage-Api-Test</name>
 
 	<properties>
