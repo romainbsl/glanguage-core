@@ -3,18 +3,17 @@
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 
-import java.time.Duration;
-import java.time.LocalDate;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import java.time.Duration;
+import java.time.LocalDate;
 
 /**
  * Formula representing a constant integer value
@@ -36,35 +35,35 @@ public class FormulaUndefined extends AbstractTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue() {
+	public Integer getIntegerValue(Evaluator evaluator) {
 		return null;
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Double getNumericValue() {
+	public Double getNumericValue(Evaluator evaluator) {
 		return null;
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue() {
+	public Boolean getBooleanValue(Evaluator evaluator) {
 		return null;
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public LocalDate getDateValue() {
+	public LocalDate getDateValue(Evaluator evaluator) {
 		return null;
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Duration getDurationValue() {
+	public Duration getDurationValue(Evaluator evaluator) {
 		return null;
 	}
 	

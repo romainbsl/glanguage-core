@@ -1,17 +1,16 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import java.time.Duration;
-import java.time.LocalDate;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import java.time.Duration;
+import java.time.LocalDate;
 
 /**
  * Formula representing a mathematical subtraction<br>
@@ -42,29 +41,29 @@ public class FormulaMinus extends BinaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue() {
-		return getParameters().get(0).getIntegerValue() - getParameters().get(1).getIntegerValue();
+	public Integer getIntegerValue(Evaluator evaluator) {
+		return getParameters().get(0).getIntegerValue(evaluator) - getParameters().get(1).getIntegerValue(evaluator);
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Double getNumericValue() {
-		return getParameters().get(0).getNumericValue() - getParameters().get(1).getNumericValue();
+	public Double getNumericValue(Evaluator evaluator) {
+		return getParameters().get(0).getNumericValue(evaluator) - getParameters().get(1).getNumericValue(evaluator);
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public LocalDate getDateValue() {
-		return getParameters().get(0).getDateValue().minusDays(getParameters().get(1).getDurationValue().toDays());
+	public LocalDate getDateValue(Evaluator evaluator) {
+		return getParameters().get(0).getDateValue(evaluator).minusDays(getParameters().get(1).getDurationValue(evaluator).toDays());
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Duration getDurationValue() {		
-		return getParameters().get(0).getDurationValue().minusDays(getParameters().get(1).getDurationValue().toDays());
+	public Duration getDurationValue(Evaluator evaluator) {
+		return getParameters().get(0).getDurationValue(evaluator).minusDays(getParameters().get(1).getDurationValue(evaluator).toDays());
 	}
 	
 	@Override

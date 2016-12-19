@@ -1,21 +1,17 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaRoundingFloor}
@@ -54,7 +50,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidInteger() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
@@ -70,7 +66,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNumeric() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
@@ -86,7 +82,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNotIntegerOrNumeric() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
@@ -103,10 +99,10 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidIntegerInteger() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula precision = mock(AbstractFormula.class);
-		when(precision.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
@@ -123,10 +119,10 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNumericInteger() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		AbstractFormula precision = mock(AbstractFormula.class);
-		when(precision.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
@@ -143,10 +139,10 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNumericNumeric() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		AbstractFormula precision = mock(AbstractFormula.class);
-		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
@@ -162,13 +158,13 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeInteger() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
 						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
 						
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
+		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
 	}
 	
 	/**
@@ -178,13 +174,13 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeNumeric() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
 						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
 						
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
 	
 	/**
@@ -194,13 +190,13 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeNotIntegerOrNumeric() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
 						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
 						
-		assertNull(formula.getReturnType());
+		assertNull(formula.getReturnType(null));
 	}
 	
 	/**
@@ -211,16 +207,16 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeIntegerInteger() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula precision = mock(AbstractFormula.class);
-		when(precision.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
 						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
 						
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
+		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
 	}
 	
 	/**
@@ -231,16 +227,16 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeNumericInteger() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		AbstractFormula precision = mock(AbstractFormula.class);
-		when(precision.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
 						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
 						
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
 	
 	/**
@@ -251,16 +247,16 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeNumericNumeric() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		AbstractFormula precision = mock(AbstractFormula.class);
-		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
 						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
 						
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
 	
 	/**
@@ -269,16 +265,16 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Test
 	public void testGetIntegerValueInt() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(parameter.getIntegerValue()).thenReturn(117);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getIntegerValue(null)).thenReturn(117);
 		
 		AbstractFormula precision = mock(AbstractFormula.class);
-		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(precision.getNumericValue()).thenReturn(10.0);
+		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getNumericValue(null)).thenReturn(10.0);
 		
 		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
 		
-		assertEquals(Integer.valueOf(110), formula.getIntegerValue());
+		assertEquals(Integer.valueOf(110), formula.getIntegerValue(null));
 	}
 	
 	/**
@@ -287,16 +283,16 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Test
 	public void testGetIntegerValueNum() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(parameter.getNumericValue()).thenReturn(1.567);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getNumericValue(null)).thenReturn(1.567);
 		
 		AbstractFormula precision = mock(AbstractFormula.class);
-		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(precision.getNumericValue()).thenReturn(0.01);
+		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
 		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
 		
-		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
+		assertEquals(Integer.valueOf(1), formula.getIntegerValue(null));
 	}
 	
 	/**
@@ -305,16 +301,16 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Test
 	public void testGetNumericValueInt() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(parameter.getIntegerValue()).thenReturn(117);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getIntegerValue(null)).thenReturn(117);
 		
 		AbstractFormula precision = mock(AbstractFormula.class);
-		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(precision.getNumericValue()).thenReturn(10.0);
+		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getNumericValue(null)).thenReturn(10.0);
 		
 		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
 		
-		assertEquals(Double.valueOf(110), formula.getNumericValue());
+		assertEquals(Double.valueOf(110), formula.getNumericValue(null));
 	}
 	
 	/**
@@ -323,16 +319,16 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Test
 	public void testGetNumericValueNum() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(parameter.getNumericValue()).thenReturn(1.567);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getNumericValue(null)).thenReturn(1.567);
 		
 		AbstractFormula precision = mock(AbstractFormula.class);
-		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(precision.getNumericValue()).thenReturn(0.01);
+		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
 		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
 		
-		assertEquals(Double.valueOf(1.56), formula.getNumericValue());
+		assertEquals(Double.valueOf(1.56), formula.getNumericValue(null));
 	}
 	
 	/**
@@ -341,16 +337,16 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(parameter.getNumericValue()).thenReturn(1.567);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getNumericValue(null)).thenReturn(1.567);
 		
 		AbstractFormula precision = mock(AbstractFormula.class);
-		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(precision.getNumericValue()).thenReturn(0.01);
+		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
 		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
 		
-		formula.getStringValue();
+		formula.getStringValue(null);
 	}
 	
 	/**
@@ -359,16 +355,16 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(parameter.getNumericValue()).thenReturn(1.567);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getNumericValue(null)).thenReturn(1.567);
 		
 		AbstractFormula precision = mock(AbstractFormula.class);
-		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(precision.getNumericValue()).thenReturn(0.01);
+		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
 		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
 		
-		formula.getBooleanValue();
+		formula.getBooleanValue(null);
 	}
 	
 	/**
@@ -377,16 +373,16 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(parameter.getNumericValue()).thenReturn(1.567);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getNumericValue(null)).thenReturn(1.567);
 		
 		AbstractFormula precision = mock(AbstractFormula.class);
-		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(precision.getNumericValue()).thenReturn(0.01);
+		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
 		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
 		
-		formula.getDateValue();
+		formula.getDateValue(null);
 	}
 	
 	/**
@@ -395,16 +391,16 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(parameter.getNumericValue()).thenReturn(1.567);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getNumericValue(null)).thenReturn(1.567);
 		
 		AbstractFormula precision = mock(AbstractFormula.class);
-		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(precision.getNumericValue()).thenReturn(0.01);
+		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
 		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
 		
-		formula.getDurationValue();
+		formula.getDurationValue(null);
 	}
 	
 	/**
@@ -423,11 +419,11 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	@Test
 	public void testAsText() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.asText()).thenReturn("some_rule");
 		
 		AbstractFormula precision = mock(AbstractFormula.class);
-		when(precision.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.asText()).thenReturn("0.01");
 		
 		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);

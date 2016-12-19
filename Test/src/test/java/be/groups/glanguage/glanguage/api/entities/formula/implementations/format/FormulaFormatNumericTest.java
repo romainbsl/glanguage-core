@@ -1,16 +1,5 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.format;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
@@ -19,6 +8,14 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 import be.groups.glanguage.glanguage.api.entities.utils.FormatAlignment;
 import be.groups.glanguage.glanguage.api.entities.utils.FormatSign;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import java.util.Arrays;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaFormatNumeric}
@@ -57,25 +54,25 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidMatching() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaFormatNumeric formula = new FormulaFormatNumeric(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_NUMERIC),
 				Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
@@ -90,25 +87,25 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNotMatching() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaFormatNumeric formula = new FormulaFormatNumeric(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_NUMERIC),
 				Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
@@ -123,30 +120,30 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeMatching() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaFormatNumeric formula = new FormulaFormatNumeric(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_NUMERIC),
 				Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		assertEquals(FormulaReturnType.STRING, formula.getReturnType());
+		assertEquals(FormulaReturnType.STRING, formula.getReturnType(null));
 	}
 
 	/**
@@ -155,37 +152,37 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(number.getNumericValue()).thenReturn(11.57);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getNumericValue(null)).thenReturn(11.57);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(decimals.getIntegerValue()).thenReturn(1);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(mark.getStringValue()).thenReturn(",");
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(mark.getStringValue(null)).thenReturn(",");
 		
 		FormulaFormatNumeric formula =
 				new FormulaFormatNumeric(null, Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		formula.getIntegerValue();
+		formula.getIntegerValue(null);
 	}
 	
 	/**
@@ -194,37 +191,37 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(number.getNumericValue()).thenReturn(11.57);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getNumericValue(null)).thenReturn(11.57);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(decimals.getIntegerValue()).thenReturn(1);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(mark.getStringValue()).thenReturn(",");
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(mark.getStringValue(null)).thenReturn(",");
 		
 		FormulaFormatNumeric formula =
 				new FormulaFormatNumeric(null, Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		formula.getNumericValue();
+		formula.getNumericValue(null);
 	}
 	
 	/**
@@ -233,38 +230,38 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValue() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(number.getNumericValue()).thenReturn(11.57);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getNumericValue(null)).thenReturn(11.57);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(decimals.getIntegerValue()).thenReturn(1);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(mark.getStringValue()).thenReturn(",");
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(mark.getStringValue(null)).thenReturn(",");
 		
 		FormulaFormatNumeric formula =
 				new FormulaFormatNumeric(null, Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("11,6*", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("11,6*", formula.getStringValue(null));
 	}
 	
 	/**
@@ -273,38 +270,38 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueExact() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(number.getNumericValue()).thenReturn(113.57);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getNumericValue(null)).thenReturn(113.57);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(decimals.getIntegerValue()).thenReturn(1);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(mark.getStringValue()).thenReturn(",");
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(mark.getStringValue(null)).thenReturn(",");
 		
 		FormulaFormatNumeric formula =
 				new FormulaFormatNumeric(null, Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("113,6", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("113,6", formula.getStringValue(null));
 	}
 	
 	/**
@@ -313,38 +310,38 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueTooLong() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(number.getNumericValue()).thenReturn(1131.57);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getNumericValue(null)).thenReturn(1131.57);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(decimals.getIntegerValue()).thenReturn(1);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(mark.getStringValue()).thenReturn(",");
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(mark.getStringValue(null)).thenReturn(",");
 		
 		FormulaFormatNumeric formula =
 				new FormulaFormatNumeric(null, Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		assertEquals(6, formula.getStringValue().length());
-		assertEquals("1131,6", formula.getStringValue());
+		assertEquals(6, formula.getStringValue(null).length());
+		assertEquals("1131,6", formula.getStringValue(null));
 	}
 	
 	/**
@@ -353,38 +350,38 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueCenterAlign() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(number.getNumericValue()).thenReturn(1.57);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getNumericValue(null)).thenReturn(1.57);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(decimals.getIntegerValue()).thenReturn(1);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.CENTER_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.CENTER_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(mark.getStringValue()).thenReturn(",");
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(mark.getStringValue(null)).thenReturn(",");
 		
 		FormulaFormatNumeric formula =
 				new FormulaFormatNumeric(null, Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("*1,6*", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("*1,6*", formula.getStringValue(null));
 	}
 	
 	/**
@@ -393,38 +390,38 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueRightAlign() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(number.getNumericValue()).thenReturn(11.57);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getNumericValue(null)).thenReturn(11.57);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(decimals.getIntegerValue()).thenReturn(1);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.RIGHT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.RIGHT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(mark.getStringValue()).thenReturn(",");
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(mark.getStringValue(null)).thenReturn(",");
 		
 		FormulaFormatNumeric formula =
 				new FormulaFormatNumeric(null, Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("*11,6", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("*11,6", formula.getStringValue(null));
 	}
 	
 	/**
@@ -434,38 +431,38 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueNoneSignNegativeInteger() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(number.getNumericValue()).thenReturn(-11.57);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getNumericValue(null)).thenReturn(-11.57);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(decimals.getIntegerValue()).thenReturn(1);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(mark.getStringValue()).thenReturn(",");
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(mark.getStringValue(null)).thenReturn(",");
 		
 		FormulaFormatNumeric formula =
 				new FormulaFormatNumeric(null, Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("11,6*", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("11,6*", formula.getStringValue(null));
 	}
 	
 	/**
@@ -475,38 +472,38 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValuePositiveSignNegativeInteger() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(number.getNumericValue()).thenReturn(-11.57);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getNumericValue(null)).thenReturn(-11.57);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(decimals.getIntegerValue()).thenReturn(1);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.POSITIVE_ONLY);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.POSITIVE_ONLY);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(mark.getStringValue()).thenReturn(",");
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(mark.getStringValue(null)).thenReturn(",");
 		
 		FormulaFormatNumeric formula =
 				new FormulaFormatNumeric(null, Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("11,6*", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("11,6*", formula.getStringValue(null));
 	}
 	
 	/**
@@ -516,38 +513,38 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueNegativeSignNegativeInteger() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(number.getNumericValue()).thenReturn(-11.57);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getNumericValue(null)).thenReturn(-11.57);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(decimals.getIntegerValue()).thenReturn(1);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NEGATIVE_ONLY);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NEGATIVE_ONLY);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(mark.getStringValue()).thenReturn(",");
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(mark.getStringValue(null)).thenReturn(",");
 		
 		FormulaFormatNumeric formula =
 				new FormulaFormatNumeric(null, Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("-11,6", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("-11,6", formula.getStringValue(null));
 	}
 	
 	/**
@@ -557,38 +554,38 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueNegativeSignPositiveInteger() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(number.getNumericValue()).thenReturn(11.57);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getNumericValue(null)).thenReturn(11.57);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(decimals.getIntegerValue()).thenReturn(1);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NEGATIVE_ONLY);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NEGATIVE_ONLY);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(mark.getStringValue()).thenReturn(",");
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(mark.getStringValue(null)).thenReturn(",");
 		
 		FormulaFormatNumeric formula =
 				new FormulaFormatNumeric(null, Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("11,6*", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("11,6*", formula.getStringValue(null));
 	}
 	
 	/**
@@ -598,38 +595,38 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueBothSignsPositiveInteger() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(number.getNumericValue()).thenReturn(-11.57);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getNumericValue(null)).thenReturn(-11.57);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(decimals.getIntegerValue()).thenReturn(1);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.BOTH);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.BOTH);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(mark.getStringValue()).thenReturn(",");
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(mark.getStringValue(null)).thenReturn(",");
 		
 		FormulaFormatNumeric formula =
 				new FormulaFormatNumeric(null, Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("-11,6", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("-11,6", formula.getStringValue(null));
 	}
 	
 	/**
@@ -638,38 +635,38 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValuePuntDecimalMark() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(number.getNumericValue()).thenReturn(11.57);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getNumericValue(null)).thenReturn(11.57);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(decimals.getIntegerValue()).thenReturn(1);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.NONE);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.NONE);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(mark.getStringValue()).thenReturn(".");
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(mark.getStringValue(null)).thenReturn(".");
 		
 		FormulaFormatNumeric formula =
 				new FormulaFormatNumeric(null, Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		assertEquals(5, formula.getStringValue().length());
-		assertEquals("11.6*", formula.getStringValue());
+		assertEquals(5, formula.getStringValue(null).length());
+		assertEquals("11.6*", formula.getStringValue(null));
 	}
 	
 	/**
@@ -678,37 +675,37 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(number.getNumericValue()).thenReturn(-11.57);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getNumericValue(null)).thenReturn(-11.57);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(decimals.getIntegerValue()).thenReturn(1);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.BOTH);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.BOTH);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(mark.getStringValue()).thenReturn(",");
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(mark.getStringValue(null)).thenReturn(",");
 		
 		FormulaFormatNumeric formula =
 				new FormulaFormatNumeric(null, Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		formula.getBooleanValue();
+		formula.getBooleanValue(null);
 	}
 	
 	/**
@@ -717,37 +714,37 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(number.getNumericValue()).thenReturn(-11.57);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getNumericValue(null)).thenReturn(-11.57);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(decimals.getIntegerValue()).thenReturn(1);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.BOTH);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.BOTH);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(mark.getStringValue()).thenReturn(",");
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(mark.getStringValue(null)).thenReturn(",");
 		
 		FormulaFormatNumeric formula =
 				new FormulaFormatNumeric(null, Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		formula.getDateValue();
+		formula.getDateValue(null);
 	}
 	
 	/**
@@ -756,37 +753,37 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(number.getNumericValue()).thenReturn(-11.57);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getNumericValue(null)).thenReturn(-11.57);
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(width.getIntegerValue()).thenReturn(5);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(decimals.getIntegerValue()).thenReturn(1);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(alignment.getStringValue()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(fill.getStringValue()).thenReturn("*");
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(fill.getStringValue(null)).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(sign.getStringValue()).thenReturn(FormatSign.Values.BOTH);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(sign.getStringValue(null)).thenReturn(FormatSign.Values.BOTH);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(mark.getStringValue()).thenReturn(",");
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(mark.getStringValue(null)).thenReturn(",");
 		
 		FormulaFormatNumeric formula =
 				new FormulaFormatNumeric(null, Arrays.asList(number, width, decimals, alignment, fill, sign, mark));
 				
-		formula.getDurationValue();
+		formula.getDurationValue(null);
 	}
 	
 	/**
@@ -805,31 +802,31 @@ public class FormulaFormatNumericTest extends BaseDatabaseTest {
 	@Test
 	public void testAsText() {
 		AbstractFormula number = mock(AbstractFormula.class);
-		when(number.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(number.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(number.asText()).thenReturn("11.57");
 		
 		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(width.asText()).thenReturn("5");
 		
 		AbstractFormula decimals = mock(AbstractFormula.class);
-		when(decimals.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(decimals.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(decimals.asText()).thenReturn("1");
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(alignment.asText()).thenReturn(FormatAlignment.Values.LEFT_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(fill.asText()).thenReturn("*");
 		
 		AbstractFormula sign = mock(AbstractFormula.class);
-		when(sign.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(sign.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(sign.asText()).thenReturn(FormatSign.Values.NONE);
 		
 		AbstractFormula mark = mock(AbstractFormula.class);
-		when(mark.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(mark.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(mark.asText()).thenReturn(",");
 		
 		FormulaFormatNumeric formula =

@@ -1,18 +1,16 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.SortedSet;
-
-import javax.persistence.*;
-
 import be.groups.common.entities.util.LocalDateConverter;
-import be.groups.common.entities.util.LocalDateTimeConverter;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+
+import javax.persistence.*;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.util.Set;
+import java.util.SortedSet;
 
 /**
  * A RuleVersion is a version of a RuleDefintion that is effective between two
@@ -224,20 +222,25 @@ public class RuleVersion implements Comparable<RuleVersion> {
 
     @Transient
     public Object getValue() {
+        return getValue(null);
+    }
+
+    @Transient
+    public Object getValue(Evaluator evaluator) {
         try {
-            switch (getReturnType()) {
+            switch (getReturnType(evaluator)) {
                 case BOOLEAN:
-                    return getBooleanValue();
+                    return getBooleanValue(evaluator);
                 case DATE:
-                    return getDateValue();
+                    return getDateValue(evaluator);
                 case DURATION:
-                    return getDurationValue();
+                    return getDurationValue(evaluator);
                 case INTEGER:
-                    return getIntegerValue();
+                    return getIntegerValue(evaluator);
                 case NUMERIC:
-                    return getNumericValue();
+                    return getNumericValue(evaluator);
                 case STRING:
-                    return getStringValue();
+                    return getStringValue(evaluator);
                 default:
                     return null;
             }
@@ -250,98 +253,188 @@ public class RuleVersion implements Comparable<RuleVersion> {
 
     @Transient
     public Boolean getBooleanValue() {
-        if (value == null) {
-            setValue(formula.getBooleanValue());
+        return getBooleanValue(null);
+    }
+
+    @Transient
+    public Boolean getBooleanValue(Evaluator evaluator) {
+        Boolean val;
+        if (evaluator != null && evaluator.isRuleVersionEvaluated(this)) {
+            val = (Boolean) evaluator.getRuleVersionValue(this);
+        } else if (evaluator == null && value != null) {
+            val = (Boolean) value;
+        } else {
+            val = formula.getBooleanValue(evaluator);
         }
-        return (Boolean) value;
+
+        if (evaluator != null || value == null) {
+            setValue(val, evaluator);
+        }
+        return val;
     }
 
     @Transient
     public LocalDate getDateValue() {
-        if (value == null) {
-            setValue(formula.getDateValue());
+        return getDateValue(null);
+    }
+
+    @Transient
+    public LocalDate getDateValue(Evaluator  evaluator) {
+        LocalDate val;
+        if (evaluator != null && evaluator.isRuleVersionEvaluated(this)) {
+            val = (LocalDate) evaluator.getRuleVersionValue(this);
+        } else if (evaluator == null && value != null) {
+            val = (LocalDate) value;
+        } else {
+            val = formula.getDateValue(evaluator);
         }
-        return (LocalDate) value;
+
+        if (evaluator != null || value == null) {
+            setValue(val, evaluator);
+        }
+        return val;
     }
 
     @Transient
     public Duration getDurationValue() {
-        if (value == null) {
-            setValue(formula.getDurationValue());
-        }
-        return (Duration) value;
+        return getDurationValue(null);
     }
 
     @Transient
-    public Integer getIntegerValue() {
-        if (value == null) {
-            Double formulaValue = null;
-            switch (formula.getReturnType()) {
-                case INTEGER:
-                    formulaValue = formula.getIntegerValue().doubleValue();
-                    break;
-                case NUMERIC:
-                    formulaValue = formula.getNumericValue();
-                    break;
-                default:
-                    assert false;
-            }
-
-            Integer result = null;
-            if (formulaValue != null) {
-                if (isRoundable()) {
-                    result = Rounder.round(formulaValue, roundingType, roundingPrecision).intValue();
-                } else {
-                    result = new Integer(formulaValue.intValue());
-                }
-            }
-            setValue(result);
+    public Duration getDurationValue(Evaluator evaluator) {
+        Duration val;
+        if (evaluator != null && evaluator.isRuleVersionEvaluated(this)) {
+            val = (Duration) evaluator.getRuleVersionValue(this);
+        } else if (evaluator == null && value != null) {
+            val = (Duration) value;
+        } else {
+            val = formula.getDurationValue(evaluator);
         }
-        return (Integer) value;
-    }
 
-    @Transient
-    public Double getNumericValue() {
-        if (value == null) {
-            Double formulaValue = null;
-            switch (formula.getReturnType()) {
-                case INTEGER:
-                    formulaValue = formula.getIntegerValue().doubleValue();
-                    break;
-                case NUMERIC:
-                    formulaValue = formula.getNumericValue();
-                    break;
-                default:
-                    assert false;
-            }
-
-            Double result = null;
-            if (formulaValue != null) {
-                if (isRoundable()) {
-                    result = Rounder.round(formulaValue, roundingType, roundingPrecision);
-                } else {
-                    result = formulaValue;
-                }
-            }
-            setValue(result);
+        if (evaluator != null || value == null) {
+            setValue(val, evaluator);
         }
-        if (value instanceof Integer) {
-            return ((Integer) value).doubleValue();
-        }
-        return (Double) value;
+        return val;
     }
 
     @Transient
     public String getStringValue() {
-        if (value == null) {
-            setValue(formula.getStringValue());
+        return getStringValue(null);
+    }
+
+    @Transient
+    public String getStringValue(Evaluator evaluator) {
+        String val;
+        if (evaluator != null && evaluator.isRuleVersionEvaluated(this)) {
+            val = (String) evaluator.getRuleVersionValue(this);
+        } else if (evaluator == null && value != null) {
+            val = (String) value;
+        } else {
+            val = formula.getStringValue(evaluator);
         }
-        return (String) value;
+
+        if (evaluator != null || value == null) {
+            setValue(val, evaluator);
+        }
+        return val;
+    }
+
+    @Transient
+    public Integer getIntegerValue() {
+        return getIntegerValue(null);
+    }
+
+    @Transient
+    public Integer getIntegerValue(Evaluator evaluator) {
+        Integer val;
+        if (evaluator != null && evaluator.isRuleVersionEvaluated(this)) {
+            val = (Integer) evaluator.getRuleVersionValue(this);
+        } else if (evaluator == null && value != null) {
+            val = (Integer) value;
+        } else {
+            val = doGetIntegerValue(evaluator);
+        }
+
+        if (evaluator != null || value == null) {
+            setValue(val, evaluator);
+        }
+        return val;
+    }
+
+    @Transient
+    public Double getNumericValue() {
+        return getNumericValue(null);
+    }
+
+    @Transient
+    public Double getNumericValue(Evaluator evaluator) {
+        Double val;
+        if (evaluator != null && evaluator.isRuleVersionEvaluated(this)) {
+            val = (Double) evaluator.getRuleVersionValue(this);
+        } else if (evaluator == null && value != null) {
+            val = (Double) value;
+        } else {
+            val = doGetNumericValue(evaluator);
+        }
+
+        if (evaluator != null || value == null) {
+            setValue(val, evaluator);
+        }
+        return val;
+    }
+
+    @Transient
+    private Integer doGetIntegerValue(Evaluator evaluator) {
+        Double formulaValue = getDoubleValue(evaluator);
+
+        Integer result = null;
+        if (formulaValue != null) {
+            if (isRoundable()) {
+                result = Rounder.round(formulaValue, roundingType, roundingPrecision).intValue();
+            } else {
+                result = formulaValue.intValue();
+            }
+        }
+
+        return result;
+    }
+
+    @Transient
+    private Double doGetNumericValue(Evaluator evaluator) {
+        Double formulaValue = getDoubleValue(evaluator);
+
+        Double result = null;
+        if (formulaValue != null) {
+            if (isRoundable()) {
+                result = Rounder.round(formulaValue, roundingType, roundingPrecision);
+            } else {
+                result = formulaValue;
+            }
+        }
+
+        return result;
+    }
+
+    @Transient
+    private Double getDoubleValue(Evaluator evaluator) {
+        switch (formula.getReturnType(evaluator)) {
+            case INTEGER:
+                return formula.getIntegerValue(evaluator).doubleValue();
+            case NUMERIC:
+                return formula.getNumericValue(evaluator);
+            default:
+                return null;
+        }
     }
 
     @Transient
     public FormulaReturnType getReturnType() {
-        return getFormula().getReturnType();
+        return getReturnType(null);
+    }
+
+    @Transient
+    public FormulaReturnType getReturnType(Evaluator evaluator) {
+        return getFormula().getReturnType(evaluator);
     }
 
     @Transient
@@ -369,11 +462,22 @@ public class RuleVersion implements Comparable<RuleVersion> {
      * Is this applicable ?<br>
      * This is applicable if it hasn't an applicability condition or if its applicability condition is true
      *
-     * @return
+     * @return true if this is applicable, false otherwise
      */
     @Transient
     public boolean isApplicable() {
-        return applicabilityCondition != null ? applicabilityCondition.getBooleanValue() : true;
+        return isApplicable(null);
+    }
+
+    /**
+     * Is this applicable ?<br>
+     * This is applicable if it hasn't an applicability condition or if its applicability condition is true
+     *
+     * @return true if this is applicable, false otherwise
+     */
+    @Transient
+    public boolean isApplicable(Evaluator evaluator) {
+        return applicabilityCondition != null ? applicabilityCondition.getBooleanValue(evaluator) : true;
     }
 
     @Transient
@@ -436,7 +540,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     /**
-     * @param code the code to set
+     * @param formula the formula to set
      */
     public void setFormula(AbstractFormula formula) {
         this.formula = formula;
@@ -450,14 +554,14 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     /**
-     * @param code the code to set
+     * @param precision the precision to set
      */
     public void setRoundingPrecision(Double precision) {
         this.roundingPrecision = precision;
     }
 
     /**
-     * @param code the code to set
+     * @param roundingType the roundingType to set
      */
     public void setRoundingType(RoundingType roundingType) {
         this.roundingType = roundingType;
@@ -478,7 +582,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     /**
-     * @param subRulesIdentity the subRulesIdentity to set
+     * @param groupItems the groupItems to set
      */
     public void setGroupItems(SortedSet<RuleGroupItem> groupItems) {
         this.groupItems = groupItems;
@@ -509,10 +613,14 @@ public class RuleVersion implements Comparable<RuleVersion> {
     /**
      * Set the value in the cache
      *
-     * @param code the code to set
+     * @param value the value to set
      */
-    private void setValue(Object value) {
-        this.value = value;
+    private void setValue(Object value, Evaluator evaluator) {
+        if (evaluator != null) {
+            evaluator.addEvaluatedRuleVersion(this, value);
+        } else {
+            this.value = value;
+        }
     }
 
     /**
@@ -520,8 +628,8 @@ public class RuleVersion implements Comparable<RuleVersion> {
      *
      * @param value the value to set
      */
-    public void setBooleanValue(Boolean value) {
-        setValue(value);
+    public void setBooleanValue(Boolean value, Evaluator evaluator) {
+        setValue(value, evaluator);
     }
 
     /**
@@ -529,8 +637,8 @@ public class RuleVersion implements Comparable<RuleVersion> {
      *
      * @param value the value to set
      */
-    public void setDateValue(LocalDate value) {
-        setValue(value);
+    public void setDateValue(LocalDate value, Evaluator evaluator) {
+        setValue(value, evaluator);
     }
 
     /**
@@ -538,8 +646,17 @@ public class RuleVersion implements Comparable<RuleVersion> {
      *
      * @param value the value to set
      */
-    public void setDurationValue(Duration value) {
-        setValue(value);
+    public void setDurationValue(Duration value, Evaluator evaluator) {
+        setValue(value, evaluator);
+    }
+
+    /**
+     * Set the value with a String value
+     *
+     * @param value the value to set
+     */
+    public void setStringValue(String value, Evaluator evaluator) {
+        setValue(value, evaluator);
     }
 
     /**
@@ -547,16 +664,16 @@ public class RuleVersion implements Comparable<RuleVersion> {
      *
      * @param value the value to set
      */
-    public void setIntegerValue(Integer value) {
+    public void setIntegerValue(Integer value, Evaluator evaluator) {
         Integer result = null;
         if (value != null) {
             if (isRoundable()) {
-                result = new Integer(Rounder.round(value, roundingType, roundingPrecision).intValue());
+                result = Rounder.round(value, roundingType, roundingPrecision).intValue();
             } else {
-                result = new Integer(value.intValue());
+                result = value;
             }
         }
-        setValue(result);
+        setValue(result, evaluator);
     }
 
     /**
@@ -564,7 +681,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
      *
      * @param value the value to set
      */
-    public void setNumericValue(Double value) {
+    public void setNumericValue(Double value, Evaluator evaluator) {
         Double result = null;
         if (value != null) {
             if (isRoundable()) {
@@ -573,16 +690,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
                 result = value;
             }
         }
-        setValue(result);
-    }
-
-    /**
-     * Set the value with a String value
-     *
-     * @param value the value to set
-     */
-    public void setStringValue(String value) {
-        setValue(value);
+        setValue(result, evaluator);
     }
 
     @Override
@@ -591,16 +699,12 @@ public class RuleVersion implements Comparable<RuleVersion> {
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         RuleVersion other = (RuleVersion) obj;
-        if (id != other.id) return false;
-        return true;
+        return id == other.id;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        return result;
+        return id;
     }
 
     @Override

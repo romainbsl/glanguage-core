@@ -1,18 +1,5 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.group;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.Comparator;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
@@ -23,6 +10,16 @@ import be.groups.glanguage.glanguage.api.entities.rule.RoundingType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleGroupItem;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import java.util.Comparator;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaGroupSumV}
@@ -72,7 +69,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidGroupRuleWithWrongTypes() {
 		RuleVersion rv1 = mock(RuleVersion.class);
-		when(rv1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(rv1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 
 		RuleVersion groupRule = new RuleVersion();
 		RuleGroupItem ruleGroupItem = new RuleGroupItem(); 
@@ -99,9 +96,9 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidGroupRuleWithRightTypes() {
 		RuleVersion rv1 = mock(RuleVersion.class);
-		when(rv1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rv1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		RuleVersion rv2 = mock(RuleVersion.class);
-		when(rv2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(rv2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 
 		RuleVersion groupRule = new RuleVersion();
 		RuleGroupItem ruleGroupItem1 = new RuleGroupItem(); 
@@ -133,7 +130,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	public void testGetReturnNoGroupRule() {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 				
-		assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType());
+		assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType(null));
 	}
 
 	/**
@@ -143,9 +140,9 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidGroupRuleIntegerAndNumeric() {
 		RuleVersion rv1 = mock(RuleVersion.class);
-		when(rv1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rv1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		RuleVersion rv2 = mock(RuleVersion.class);
-		when(rv2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(rv2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 
 		RuleVersion groupRule = new RuleVersion();
 		RuleGroupItem ruleGroupItem1 = new RuleGroupItem(); 
@@ -168,7 +165,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 		formula.setGroupRule(groupRule);
 		
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
 
 	/**
@@ -178,9 +175,9 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidGroupRuleAllInteger() {
 		RuleVersion rv1 = mock(RuleVersion.class);
-		when(rv1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rv1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		RuleVersion rv2 = mock(RuleVersion.class);
-		when(rv2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(rv2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
 		RuleVersion groupRule = new RuleVersion();
 		RuleGroupItem ruleGroupItem1 = new RuleGroupItem(); 
@@ -201,7 +198,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 		formula.setGroupRule(groupRule);
 		
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
+		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
 	}
 
 	/**
@@ -211,9 +208,9 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidGroupRuleAllNumeric() {
 		RuleVersion rv1 = mock(RuleVersion.class);
-		when(rv1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(rv1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		RuleVersion rv2 = mock(RuleVersion.class);
-		when(rv2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(rv2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 
 		RuleVersion groupRule = new RuleVersion();
 		RuleGroupItem ruleGroupItem1 = new RuleGroupItem(); 
@@ -234,7 +231,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 		formula.setGroupRule(groupRule);
 		
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
 
 	/**

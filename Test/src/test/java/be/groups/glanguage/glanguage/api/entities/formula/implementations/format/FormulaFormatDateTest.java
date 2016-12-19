@@ -1,23 +1,20 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.format;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import java.time.LocalDate;
+import java.util.Arrays;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaFormatDate}
@@ -56,10 +53,10 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidMatching() {
 		AbstractFormula date = mock(AbstractFormula.class);
-		when(date.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(date.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
 		AbstractFormula format = mock(AbstractFormula.class);
-		when(format.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(format.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaFormatDate formula = new FormulaFormatDate(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_DATE),
 				Arrays.asList(date, format));
@@ -74,10 +71,10 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNotMatching() {
 		AbstractFormula date = mock(AbstractFormula.class);
-		when(date.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(date.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula format = mock(AbstractFormula.class);
-		when(format.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(format.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaFormatDate formula = new FormulaFormatDate(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_DATE),
 				Arrays.asList(date, format));
@@ -92,15 +89,15 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeMatching() {
 		AbstractFormula date = mock(AbstractFormula.class);
-		when(date.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(date.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
 		AbstractFormula format = mock(AbstractFormula.class);
-		when(format.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(format.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaFormatDate formula = new FormulaFormatDate(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_DATE),
 				Arrays.asList(date, format));
 				
-		assertEquals(FormulaReturnType.STRING, formula.getReturnType());
+		assertEquals(FormulaReturnType.STRING, formula.getReturnType(null));
 	}
 
 	/**
@@ -109,16 +106,16 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
 		AbstractFormula date = mock(AbstractFormula.class);
-		when(date.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(date.getDateValue()).thenReturn(LocalDate.of(2015, 1, 10));
+		when(date.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(date.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 10));
 		
 		AbstractFormula format = mock(AbstractFormula.class);
-		when(format.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(format.getStringValue()).thenReturn("yyyy-MM-dd");
+		when(format.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(format.getStringValue(null)).thenReturn("yyyy-MM-dd");
 		
 		FormulaFormatDate formula = new FormulaFormatDate(null, Arrays.asList(date, format));
 		
-		formula.getIntegerValue();
+		formula.getIntegerValue(null);
 	}
 	
 	/**
@@ -127,16 +124,16 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
 		AbstractFormula date = mock(AbstractFormula.class);
-		when(date.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(date.getDateValue()).thenReturn(LocalDate.of(2015, 1, 10));
+		when(date.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(date.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 10));
 		
 		AbstractFormula format = mock(AbstractFormula.class);
-		when(format.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(format.getStringValue()).thenReturn("yyyy-MM-dd");
+		when(format.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(format.getStringValue(null)).thenReturn("yyyy-MM-dd");
 		
 		FormulaFormatDate formula = new FormulaFormatDate(null, Arrays.asList(date, format));
 		
-		formula.getNumericValue();
+		formula.getNumericValue(null);
 	}
 	
 	/**
@@ -145,16 +142,16 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValue() {
 		AbstractFormula date = mock(AbstractFormula.class);
-		when(date.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(date.getDateValue()).thenReturn(LocalDate.of(2015, 1, 10));
+		when(date.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(date.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 10));
 		
 		AbstractFormula format = mock(AbstractFormula.class);
-		when(format.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(format.getStringValue()).thenReturn("yyyy-MM-dd");
+		when(format.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(format.getStringValue(null)).thenReturn("yyyy-MM-dd");
 		
 		FormulaFormatDate formula = new FormulaFormatDate(null, Arrays.asList(date, format));
 		
-		assertEquals("2015-01-10", formula.getStringValue());
+		assertEquals("2015-01-10", formula.getStringValue(null));
 	}
 	
 	/**
@@ -163,16 +160,16 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 	@Test
 	public void testGetStringValueAnotherFormat() {
 		AbstractFormula date = mock(AbstractFormula.class);
-		when(date.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(date.getDateValue()).thenReturn(LocalDate.of(2015, 1, 10));
+		when(date.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(date.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 10));
 		
 		AbstractFormula format = mock(AbstractFormula.class);
-		when(format.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(format.getStringValue()).thenReturn("dd/MM/yyyy");
+		when(format.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(format.getStringValue(null)).thenReturn("dd/MM/yyyy");
 		
 		FormulaFormatDate formula = new FormulaFormatDate(null, Arrays.asList(date, format));
 		
-		assertEquals("10/01/2015", formula.getStringValue());
+		assertEquals("10/01/2015", formula.getStringValue(null));
 	}
 	
 	/**
@@ -181,16 +178,16 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
 		AbstractFormula date = mock(AbstractFormula.class);
-		when(date.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(date.getDateValue()).thenReturn(LocalDate.of(2015, 1, 10));
+		when(date.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(date.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 10));
 		
 		AbstractFormula format = mock(AbstractFormula.class);
-		when(format.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(format.getStringValue()).thenReturn("yyyy-MM-dd");
+		when(format.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(format.getStringValue(null)).thenReturn("yyyy-MM-dd");
 		
 		FormulaFormatDate formula = new FormulaFormatDate(null, Arrays.asList(date, format));
 		
-		formula.getBooleanValue();
+		formula.getBooleanValue(null);
 	}
 	
 	/**
@@ -199,16 +196,16 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		AbstractFormula date = mock(AbstractFormula.class);
-		when(date.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(date.getDateValue()).thenReturn(LocalDate.of(2015, 1, 10));
+		when(date.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(date.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 10));
 		
 		AbstractFormula format = mock(AbstractFormula.class);
-		when(format.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(format.getStringValue()).thenReturn("yyyy-MM-dd");
+		when(format.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(format.getStringValue(null)).thenReturn("yyyy-MM-dd");
 		
 		FormulaFormatDate formula = new FormulaFormatDate(null, Arrays.asList(date, format));
 		
-		formula.getDateValue();
+		formula.getDateValue(null);
 	}
 	
 	/**
@@ -217,16 +214,16 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
 		AbstractFormula date = mock(AbstractFormula.class);
-		when(date.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(date.getDateValue()).thenReturn(LocalDate.of(2015, 1, 10));
+		when(date.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(date.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 10));
 		
 		AbstractFormula format = mock(AbstractFormula.class);
-		when(format.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(format.getStringValue()).thenReturn("yyyy-MM-dd");
+		when(format.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(format.getStringValue(null)).thenReturn("yyyy-MM-dd");
 		
 		FormulaFormatDate formula = new FormulaFormatDate(null, Arrays.asList(date, format));
 		
-		formula.getDurationValue();
+		formula.getDurationValue(null);
 	}
 	
 	/**
@@ -245,11 +242,11 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 	@Test
 	public void testAsText() {
 		AbstractFormula date = mock(AbstractFormula.class);
-		when(date.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(date.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(date.asText()).thenReturn("10/01/2015");
 		
 		AbstractFormula format = mock(AbstractFormula.class);
-		when(format.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(format.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(format.asText()).thenReturn("yyyy-MM-dd");
 		
 		FormulaFormatDate formula = new FormulaFormatDate(null, Arrays.asList(date, format));

@@ -1,16 +1,15 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.math;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public abstract class MathFormula extends AbstractNonTerminalFormula {
@@ -33,8 +32,8 @@ public abstract class MathFormula extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue() {
-		return getNumericValue().intValue();
+	public Integer getIntegerValue(Evaluator evaluator) {
+		return getNumericValue(evaluator).intValue();
 	}
 	
 	@Override

@@ -3,15 +3,15 @@
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 /**
  * Formula representing a logical not equal operation<br>
@@ -34,8 +34,8 @@ public class FormulaDifference extends BinaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue() {
-		return !getParameters().get(0).getValue().equals(getParameters().get(1).getValue());
+	public Boolean getBooleanValue(Evaluator evaluator) {
+		return !getParameters().get(0).getValue(evaluator).equals(getParameters().get(1).getValue(evaluator));
 	}
 
 	@Override

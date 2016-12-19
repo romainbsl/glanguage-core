@@ -1,18 +1,5 @@
 package be.groups.glanguage.glanguage.api.entities.ruleset;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import javax.persistence.*;
-
 import be.groups.common.entities.util.LocalDateTimeConverter;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
@@ -21,6 +8,14 @@ import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLeve
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.DefinitionMatcherStrategy;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "RULE_SET_VERSION")

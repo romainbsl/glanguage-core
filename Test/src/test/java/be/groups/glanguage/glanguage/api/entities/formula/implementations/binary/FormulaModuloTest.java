@@ -1,21 +1,17 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaModulo}
@@ -54,10 +50,10 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidMatching() {
 		AbstractFormula numerator = mock(AbstractFormula.class);
-		when(numerator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula denominator = mock(AbstractFormula.class);
-		when(denominator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaModulo formula =
 				new FormulaModulo(FormulaDescriptionFactory.getDescription(FormulaType.OP_MODULO), numerator, denominator);
@@ -72,10 +68,10 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNotMatching() {
 		AbstractFormula numerator = mock(AbstractFormula.class);
-		when(numerator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula denominator = mock(AbstractFormula.class);
-		when(denominator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaModulo formula =
 				new FormulaModulo(FormulaDescriptionFactory.getDescription(FormulaType.OP_MODULO), numerator, denominator);
@@ -90,10 +86,10 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeMatching() {
 		AbstractFormula numerator = mock(AbstractFormula.class);
-		when(numerator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula denominator = mock(AbstractFormula.class);
-		when(denominator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaModulo formula =
 				new FormulaModulo(FormulaDescriptionFactory.getDescription(FormulaType.OP_MODULO), numerator, denominator);
@@ -108,10 +104,10 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeNotMatching() {
 		AbstractFormula numerator = mock(AbstractFormula.class);
-		when(numerator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula denominator = mock(AbstractFormula.class);
-		when(denominator.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaModulo formula =
 				new FormulaModulo(FormulaDescriptionFactory.getDescription(FormulaType.OP_MODULO), numerator, denominator);
@@ -125,12 +121,12 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 	@Test
 	public void testGetIntegerValue() {
 		AbstractFormula numerator = mock(AbstractFormula.class);
-		when(numerator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(numerator.getIntegerValue()).thenReturn(5);
+		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(numerator.getIntegerValue(null)).thenReturn(5);
 		
 		AbstractFormula denominator = mock(AbstractFormula.class);
-		when(denominator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(denominator.getIntegerValue()).thenReturn(3);
+		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(denominator.getIntegerValue(null)).thenReturn(3);
 		
 		FormulaModulo formula = new FormulaModulo(null, numerator, denominator);
 		
@@ -143,12 +139,12 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
 		AbstractFormula numerator = mock(AbstractFormula.class);
-		when(numerator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(numerator.getIntegerValue()).thenReturn(3);
+		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(numerator.getIntegerValue(null)).thenReturn(3);
 		
 		AbstractFormula denominator = mock(AbstractFormula.class);
-		when(denominator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(denominator.getIntegerValue()).thenReturn(2);
+		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(denominator.getIntegerValue(null)).thenReturn(2);
 		
 		FormulaModulo formula = new FormulaModulo(null, numerator, denominator);
 		
@@ -161,12 +157,12 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
 		AbstractFormula numerator = mock(AbstractFormula.class);
-		when(numerator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(numerator.getIntegerValue()).thenReturn(3);
+		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(numerator.getIntegerValue(null)).thenReturn(3);
 		
 		AbstractFormula denominator = mock(AbstractFormula.class);
-		when(denominator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(denominator.getIntegerValue()).thenReturn(2);
+		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(denominator.getIntegerValue(null)).thenReturn(2);
 		
 		FormulaModulo formula = new FormulaModulo(null, numerator, denominator);
 		
@@ -179,12 +175,12 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
 		AbstractFormula numerator = mock(AbstractFormula.class);
-		when(numerator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(numerator.getIntegerValue()).thenReturn(3);
+		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(numerator.getIntegerValue(null)).thenReturn(3);
 		
 		AbstractFormula denominator = mock(AbstractFormula.class);
-		when(denominator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(denominator.getIntegerValue()).thenReturn(2);
+		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(denominator.getIntegerValue(null)).thenReturn(2);
 		
 		FormulaModulo formula = new FormulaModulo(null, numerator, denominator);
 		
@@ -197,12 +193,12 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		AbstractFormula numerator = mock(AbstractFormula.class);
-		when(numerator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(numerator.getIntegerValue()).thenReturn(3);
+		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(numerator.getIntegerValue(null)).thenReturn(3);
 		
 		AbstractFormula denominator = mock(AbstractFormula.class);
-		when(denominator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(denominator.getIntegerValue()).thenReturn(2);
+		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(denominator.getIntegerValue(null)).thenReturn(2);
 		
 		FormulaModulo formula = new FormulaModulo(null, numerator, denominator);
 		
@@ -215,12 +211,12 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
 		AbstractFormula numerator = mock(AbstractFormula.class);
-		when(numerator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(numerator.getIntegerValue()).thenReturn(3);
+		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(numerator.getIntegerValue(null)).thenReturn(3);
 		
 		AbstractFormula denominator = mock(AbstractFormula.class);
-		when(denominator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(denominator.getIntegerValue()).thenReturn(2);
+		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(denominator.getIntegerValue(null)).thenReturn(2);
 		
 		FormulaModulo formula = new FormulaModulo(null, numerator, denominator);
 		
@@ -243,11 +239,11 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 	@Test
 	public void testAsText() {
 		AbstractFormula numerator = mock(AbstractFormula.class);
-		when(numerator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(numerator.asText()).thenReturn("some_rule1");
 		
 		AbstractFormula denominator = mock(AbstractFormula.class);
-		when(denominator.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(denominator.asText()).thenReturn("some_rule2");
 		
 		FormulaModulo formula = new FormulaModulo(null, numerator, denominator);

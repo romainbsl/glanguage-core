@@ -1,24 +1,19 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_IN)
@@ -45,42 +40,42 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue() {
+	public Boolean getBooleanValue(Evaluator evaluator) {
 		AbstractFormula element = getParameters().get(0);
 		Iterator<AbstractFormula> itInList = getParameters().listIterator(1);
 		boolean result = false;
-		switch (getElementsType()) {
+		switch (getElementsType(evaluator)) {
 			case INTEGER:
-				int i = element.getIntegerValue();
+				int i = element.getIntegerValue(evaluator);
 				while (!result && itInList.hasNext()) {
-					result = i == itInList.next().getIntegerValue();
+					result = i == itInList.next().getIntegerValue(evaluator);
 				}
 				return result;
 			case NUMERIC:
-				double d = element.getNumericValue();
+				double d = element.getNumericValue(evaluator);
 				while (!result && itInList.hasNext()) {
-					result = d == itInList.next().getNumericValue();
+					result = d == itInList.next().getNumericValue(evaluator);
 				}
 				return result;
 			case DATE:
-				LocalDate date = element.getDateValue();
+				LocalDate date = element.getDateValue(evaluator);
 				if (date != null) {
 					while (!result && itInList.hasNext()) {
-						result = date.equals(itInList.next().getDateValue());
+						result = date.equals(itInList.next().getDateValue(evaluator));
 					}
 				}
 				return result;
 			case BOOLEAN:
-				boolean b = element.getBooleanValue();
+				boolean b = element.getBooleanValue(evaluator);
 				while (!result && itInList.hasNext()) {
-					result = (b == itInList.next().getBooleanValue());
+					result = (b == itInList.next().getBooleanValue(evaluator));
 				}
 				return result;
 			case STRING:
-				String s = element.getStringValue();
+				String s = element.getStringValue(evaluator);
 				if (s != null) {
 					while (!result && itInList.hasNext()) {
-						result = s.equals(itInList.next().getStringValue());
+						result = s.equals(itInList.next().getStringValue(evaluator));
 					}
 				}
 				return result;
@@ -94,22 +89,22 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 	@Transient
 	@Override
 	public boolean isValid() {
-		FormulaReturnType elementReturnType = parameters.get(0).getReturnType();
+		FormulaReturnType elementReturnType = parameters.get(0).getReturnType(null);
 		List<FormulaReturnType> listReturnTypes =
-				parameters.subList(1, parameters.size()).stream().map(p -> p.getReturnType()).distinct().collect(Collectors.toList());
+				parameters.subList(1, parameters.size()).stream().map(p -> p.getReturnType(null)).distinct().collect(Collectors.toList());
 				
 		if (listReturnTypes.size() == 1) {
 			return elementReturnType.equals(listReturnTypes.get(0));
 		} else {
 			List<FormulaReturnType> authorizedParametersTypes = Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC);
-			return listReturnTypes.stream().allMatch(t -> authorizedParametersTypes.contains(t))
+			return listReturnTypes.stream().allMatch(authorizedParametersTypes::contains)
 					&& authorizedParametersTypes.contains(elementReturnType);
 		}
 	}
 	
 	@Transient
 	@Override
-	public FormulaReturnType getReturnType() {
+	public FormulaReturnType getReturnType(Evaluator evaluator) {
 		return FormulaReturnType.BOOLEAN;
 	}
 	
@@ -118,11 +113,13 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 	 * All element's types are supposed to be in accordance<br>
 	 * The only remaining case is mixed integer and numeric types (in accordance to each other),
 	 * numeric type prevails
-	 * 
-	 * @return
+	 *
+	 * @param evaluator the evalautor
+	 * @return The type of the elements
 	 */
-	private FormulaReturnType getElementsType() {
-		Set<FormulaReturnType> returnTypes = parameters.stream().map(p -> p.getReturnType()).distinct().collect(Collectors.toSet());
+	private FormulaReturnType getElementsType(Evaluator evaluator) {
+		Set<FormulaReturnType> returnTypes = parameters.stream().map(p -> p.getReturnType(evaluator)).distinct().collect
+				(Collectors.toSet());
 		if (returnTypes.size() == 1) {
 			return returnTypes.iterator().next();
 		} else {
@@ -134,7 +131,7 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 	public String asText() {
 		AbstractFormula element = getParameters().get(0);
 		Iterator<AbstractFormula> itInList = getParameters().listIterator(1);
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append(element.asText());
 		sb.append(" in (");
 		while (itInList.hasNext()) {

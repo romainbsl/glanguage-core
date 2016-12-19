@@ -1,23 +1,19 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.math;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import java.util.Arrays;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaMathAbs}
@@ -56,7 +52,7 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidInteger() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaMathAbs formula =
 				new FormulaMathAbs(FormulaDescriptionFactory.getDescription(FormulaType.F_ABS), Arrays.asList(operand));
@@ -71,7 +67,7 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNumeric() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaMathAbs formula =
 				new FormulaMathAbs(FormulaDescriptionFactory.getDescription(FormulaType.F_ABS), Arrays.asList(operand));
@@ -86,7 +82,7 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNotIntegerOrNumeric() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaMathAbs formula =
 				new FormulaMathAbs(FormulaDescriptionFactory.getDescription(FormulaType.F_ABS), Arrays.asList(operand));
@@ -101,12 +97,12 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeInteger() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaMathAbs formula =
 				new FormulaMathAbs(FormulaDescriptionFactory.getDescription(FormulaType.F_ABS), Arrays.asList(operand));
 		
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
+		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
 	}
 	
 	/**
@@ -116,12 +112,12 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeNumeric() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaMathAbs formula =
 				new FormulaMathAbs(FormulaDescriptionFactory.getDescription(FormulaType.F_ABS), Arrays.asList(operand));
 		
-		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
 	
 	/**
@@ -131,12 +127,12 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeNotIntegerOrNumeric() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaMathAbs formula =
 				new FormulaMathAbs(FormulaDescriptionFactory.getDescription(FormulaType.F_ABS), Arrays.asList(operand));
 		
-		assertNull(formula.getReturnType());
+		assertNull(formula.getReturnType(null));
 	}
 	
 	/**
@@ -145,12 +141,12 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Test
 	public void testGetIntegerValueParameterExistsPositive() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand.getNumericValue()).thenReturn(1.0);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand.getNumericValue(null)).thenReturn(1.0);
 		
 		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(operand));
 		
-		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
+		assertEquals(Integer.valueOf(1), formula.getIntegerValue(null));
 	}
 	
 	/**
@@ -159,12 +155,12 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Test
 	public void testGetIntegerValueParameterExistsNegative() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand.getNumericValue()).thenReturn(-1.0);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand.getNumericValue(null)).thenReturn(-1.0);
 		
 		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(operand));
 		
-		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
+		assertEquals(Integer.valueOf(1), formula.getIntegerValue(null));
 	}
 	
 	/**
@@ -173,12 +169,12 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Test(expected = NullPointerException.class)
 	public void testGetIntegerValueParameterNotExists() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand.getNumericValue()).thenReturn(null);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand.getNumericValue(null)).thenReturn(null);
 		
 		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(operand));
 		
-		formula.getIntegerValue();
+		formula.getIntegerValue(null);
 	}
 	
 	/**
@@ -187,12 +183,12 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Test
 	public void testGetNumericValueParameterExistsPositive() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand.getNumericValue()).thenReturn(1.5);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand.getNumericValue(null)).thenReturn(1.5);
 		
 		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(operand));
 		
-		assertEquals(Double.valueOf(1.5), formula.getNumericValue());
+		assertEquals(Double.valueOf(1.5), formula.getNumericValue(null));
 	}
 	
 	/**
@@ -201,12 +197,12 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Test
 	public void testGetNumericValueParameterExistsNegative() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand.getNumericValue()).thenReturn(-1.5);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand.getNumericValue(null)).thenReturn(-1.5);
 		
 		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(operand));
 		
-		assertEquals(Double.valueOf(1.5), formula.getNumericValue());
+		assertEquals(Double.valueOf(1.5), formula.getNumericValue(null));
 	}
 	
 	/**
@@ -215,12 +211,12 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Test(expected = NullPointerException.class)
 	public void testGetNumericValueParameterNotExists() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand.getNumericValue()).thenReturn(null);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand.getNumericValue(null)).thenReturn(null);
 		
 		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(operand));
 		
-		formula.getNumericValue();
+		formula.getNumericValue(null);
 	}
 	
 	/**
@@ -229,12 +225,12 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand.getIntegerValue()).thenReturn(1);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand.getIntegerValue(null)).thenReturn(1);
 		
 		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(operand));
 		
-		formula.getStringValue();
+		formula.getStringValue(null);
 	}
 	
 	/**
@@ -243,12 +239,12 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetBooleanValue() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand.getIntegerValue()).thenReturn(1);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand.getIntegerValue(null)).thenReturn(1);
 		
 		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(operand));
 		
-		formula.getBooleanValue();
+		formula.getBooleanValue(null);
 	}
 	
 	/**
@@ -257,12 +253,12 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand.getIntegerValue()).thenReturn(1);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand.getIntegerValue(null)).thenReturn(1);
 		
 		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(operand));
 		
-		formula.getDateValue();
+		formula.getDateValue(null);
 	}
 	
 	/**
@@ -271,12 +267,12 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand.getIntegerValue()).thenReturn(1);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand.getIntegerValue(null)).thenReturn(1);
 		
 		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(operand));
 		
-		formula.getDurationValue();
+		formula.getDurationValue(null);
 	}
 	
 	/**
@@ -295,7 +291,7 @@ public class FormulaMathAbsTest extends BaseDatabaseTest {
 	@Test
 	public void testAsText() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.asText()).thenReturn("some_rule");
 		
 		FormulaMathAbs formula = new FormulaMathAbs(null, Arrays.asList(operand));

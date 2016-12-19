@@ -1,23 +1,19 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalDate;
-
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import java.time.LocalDate;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaGreaterOrEqual}
@@ -56,10 +52,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidBothIntegers() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -74,10 +70,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidFirstIntSecondNum() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -93,10 +89,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidFirstIntSecondNotIntOrNum() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -112,10 +108,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidSecondIntFirstNotIntOrNum() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -130,10 +126,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidFirstNumSecondInt() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -149,10 +145,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidFirstNumSecondNotIntOrNum() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -168,10 +164,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidSecondNumFirstNotIntOrNum() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -186,10 +182,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidBothNumerics() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -204,10 +200,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidBothStrings() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -222,10 +218,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidBothBooleans() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -240,10 +236,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidBothDates() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -258,10 +254,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidFirstDateSecondDuration() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -276,10 +272,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidFirstDurationSecondDate() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -294,10 +290,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidBothDurations() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -312,10 +308,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeBothIntegers() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -330,10 +326,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeFirstIntSecondNum() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -348,10 +344,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeFirstNumSecondInt() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -366,10 +362,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeBothNumerics() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -384,10 +380,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeBothStrings() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -402,10 +398,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeBothBooleans() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -420,10 +416,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeBothDates() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -438,10 +434,10 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeBothDurations() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		
 		FormulaGreaterOrEqual formula =
 				new FormulaGreaterOrEqual(FormulaDescriptionFactory.getDescription(FormulaType.OP_GREATER_OR_EQUAL), operand1, operand2);
@@ -455,12 +451,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getIntegerValue()).thenReturn(1);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getIntegerValue()).thenReturn(0);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getIntegerValue(null)).thenReturn(0);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -473,12 +469,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getIntegerValue()).thenReturn(1);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getIntegerValue()).thenReturn(0);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getIntegerValue(null)).thenReturn(0);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -491,12 +487,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getIntegerValue()).thenReturn(1);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getIntegerValue()).thenReturn(0);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getIntegerValue(null)).thenReturn(0);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -510,12 +506,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothIntegersLeftSupRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getIntegerValue()).thenReturn(1);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getIntegerValue()).thenReturn(0);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getIntegerValue(null)).thenReturn(0);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -529,12 +525,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothIntegersLeftEqRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getIntegerValue()).thenReturn(1);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getIntegerValue()).thenReturn(1);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getIntegerValue(null)).thenReturn(1);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -548,12 +544,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothIntegersLeftInfRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getIntegerValue()).thenReturn(1);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getIntegerValue()).thenReturn(2);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getIntegerValue(null)).thenReturn(2);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -567,12 +563,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothNumericsLeftSupRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand1.getNumericValue()).thenReturn(1.5);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getNumericValue(null)).thenReturn(1.5);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand2.getNumericValue()).thenReturn(0.5);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getNumericValue(null)).thenReturn(0.5);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -586,12 +582,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothNumericsLeftEqRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand1.getNumericValue()).thenReturn(1.5);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getNumericValue(null)).thenReturn(1.5);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand2.getNumericValue()).thenReturn(1.5);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getNumericValue(null)).thenReturn(1.5);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -605,12 +601,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothNumericsLeftInfRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand1.getNumericValue()).thenReturn(1.5);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getNumericValue(null)).thenReturn(1.5);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand2.getNumericValue()).thenReturn(2.5);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getNumericValue(null)).thenReturn(2.5);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -624,12 +620,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothMixIntNumLeftSupRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getNumericValue()).thenReturn(1.0);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getNumericValue(null)).thenReturn(1.0);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand2.getNumericValue()).thenReturn(0.5);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getNumericValue(null)).thenReturn(0.5);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -643,12 +639,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothMixIntNumLeftEqRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getNumericValue()).thenReturn(1.0);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getNumericValue(null)).thenReturn(1.0);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand2.getNumericValue()).thenReturn(1.0);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getNumericValue(null)).thenReturn(1.0);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -662,12 +658,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothMixIntNumLeftInfRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getNumericValue()).thenReturn(1.0);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getNumericValue(null)).thenReturn(1.0);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand2.getNumericValue()).thenReturn(2.5);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand2.getNumericValue(null)).thenReturn(2.5);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -681,12 +677,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothMixNumIntLeftSupRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand1.getNumericValue()).thenReturn(1.5);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getNumericValue(null)).thenReturn(1.5);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getNumericValue()).thenReturn(0.0);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getNumericValue(null)).thenReturn(0.0);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -700,12 +696,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothMixNumIntLeftEqRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand1.getNumericValue()).thenReturn(1.0);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getNumericValue(null)).thenReturn(1.0);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getNumericValue()).thenReturn(1.0);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getNumericValue(null)).thenReturn(1.0);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -719,12 +715,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothMixNumIntLeftInfRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
-		when(operand1.getNumericValue()).thenReturn(1.5);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand1.getNumericValue(null)).thenReturn(1.5);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getNumericValue()).thenReturn(2.0);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getNumericValue(null)).thenReturn(2.0);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -738,12 +734,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothStringsLeftSupRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(operand1.getStringValue()).thenReturn("aab");
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(operand1.getStringValue(null)).thenReturn("aab");
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(operand2.getStringValue()).thenReturn("aaa");
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(operand2.getStringValue(null)).thenReturn("aaa");
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -757,12 +753,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothStringsLeftEqRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(operand1.getStringValue()).thenReturn("aaa");
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(operand1.getStringValue(null)).thenReturn("aaa");
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(operand2.getStringValue()).thenReturn("aaa");
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(operand2.getStringValue(null)).thenReturn("aaa");
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -776,12 +772,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothStringsLeftInfRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(operand1.getStringValue()).thenReturn("aaa");
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(operand1.getStringValue(null)).thenReturn("aaa");
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(operand2.getStringValue()).thenReturn("aab");
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(operand2.getStringValue(null)).thenReturn("aab");
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -795,12 +791,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothDatesLeftSupRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(operand1.getDateValue()).thenReturn(LocalDate.of(2015, 1, 1));
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(operand1.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(operand2.getDateValue()).thenReturn(LocalDate.of(2014, 1, 1));
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(operand2.getDateValue(null)).thenReturn(LocalDate.of(2014, 1, 1));
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -814,12 +810,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothDatesLeftEqRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(operand1.getDateValue()).thenReturn(LocalDate.of(2015, 1, 1));
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(operand1.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(operand2.getDateValue()).thenReturn(LocalDate.of(2015, 1, 1));
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(operand2.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -833,12 +829,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParametersExistBothDatesLeftInfRight() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(operand1.getDateValue()).thenReturn(LocalDate.of(2015, 1, 1));
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(operand1.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.DATE);
-		when(operand2.getDateValue()).thenReturn(LocalDate.of(2016, 1, 1));
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
+		when(operand2.getDateValue(null)).thenReturn(LocalDate.of(2016, 1, 1));
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -851,12 +847,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getIntegerValue()).thenReturn(1);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getIntegerValue()).thenReturn(0);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getIntegerValue(null)).thenReturn(0);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -869,12 +865,12 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand1.getValue()).thenReturn(1);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getValue(null)).thenReturn(1);
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(operand2.getValue()).thenReturn(0);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getValue(null)).thenReturn(0);
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);
 		
@@ -897,11 +893,11 @@ public class FormulaGreaterOrEqualTest extends BaseDatabaseTest {
 	@Test
 	public void testAsText() {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
-		when(operand1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.asText()).thenReturn("some_rule1");
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
-		when(operand2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.asText()).thenReturn("some_rule2");
 		
 		FormulaGreaterOrEqual formula = new FormulaGreaterOrEqual(null, operand1, operand2);

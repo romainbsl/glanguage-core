@@ -3,15 +3,15 @@
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 /**
  * Formula representing a constant integer value
@@ -33,14 +33,14 @@ public class FormulaTerminalNumeric extends AbstractTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue() {
-		return getNumericValue().intValue();
+	public Integer getIntegerValue(Evaluator evaluator) {
+		return getNumericValue(evaluator).intValue();
 	}
 
 	@JsonIgnore
 	@Transient
 	@Override
-	public Double getNumericValue() {
+	public Double getNumericValue(Evaluator evaluator) {
 		try {
 			return Double.valueOf(getConstantValue());
 		} catch (NumberFormatException nfe) {

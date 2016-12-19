@@ -1,23 +1,21 @@
 package be.groups.glanguage.glanguage.api.entities.formula;
 
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.hibernate.annotations.DiscriminatorOptions;
+
+import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import javax.persistence.*;
-
-import org.hibernate.annotations.DiscriminatorOptions;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 
 /**
  * Common implementation of a formula <br>
@@ -178,16 +176,26 @@ public abstract class AbstractFormula {
     @JsonIgnore
     @Transient
     public FormulaReturnType getReturnType() {
+        return getReturnType(null);
+    }
+
+    @JsonIgnore
+    @Transient
+    public FormulaReturnType getReturnType(Evaluator evaluator) {
         if (parametersTypes == null) {
-            initParametersTypes();
+            initParametersTypes(evaluator);
         }
 
         return description.getReturnType(parametersTypes);
     }
 
     private void initParametersTypes() {
+        initParametersTypes(null);
+    }
+
+    private void initParametersTypes(Evaluator evaluator) {
         parametersTypes = parameters == null ? Arrays.asList() : parameters.stream()
-                .map(p -> p.getReturnType())
+                .map(p -> p.getReturnType(evaluator))
                 .collect(Collectors.toList());
     }
 
@@ -203,19 +211,25 @@ public abstract class AbstractFormula {
     @JsonIgnore
     @Transient
     public Object getValue() {
-        switch (getReturnType()) {
+        return getValue(null);
+    }
+
+    @JsonIgnore
+    @Transient
+    public Object getValue(Evaluator evaluator) {
+        switch (getReturnType(evaluator)) {
             case INTEGER:
-                return getIntegerValue();
+                return getIntegerValue(evaluator);
             case NUMERIC:
-                return getNumericValue();
+                return getNumericValue(evaluator);
             case STRING:
-                return getStringValue();
+                return getStringValue(evaluator);
             case BOOLEAN:
-                return getBooleanValue();
+                return getBooleanValue(evaluator);
             case DATE:
-                return getDateValue();
+                return getDateValue(evaluator);
             case DURATION:
-                return getDurationValue();
+                return getDurationValue(evaluator);
             default:
                 return null;
         }
@@ -223,27 +237,63 @@ public abstract class AbstractFormula {
 
     @JsonIgnore
     @Transient
-    public abstract Integer getIntegerValue();
+    public Integer getIntegerValue() {
+        return getIntegerValue(null);
+    }
 
     @JsonIgnore
     @Transient
-    public abstract Double getNumericValue();
+    public abstract Integer getIntegerValue(Evaluator evaluator);
 
     @JsonIgnore
     @Transient
-    public abstract String getStringValue();
+    public Double getNumericValue() {
+        return getNumericValue(null);
+    }
 
     @JsonIgnore
     @Transient
-    public abstract Boolean getBooleanValue();
+    public abstract Double getNumericValue(Evaluator evaluator);
 
     @JsonIgnore
     @Transient
-    public abstract LocalDate getDateValue();
+    public String getStringValue() {
+        return getStringValue(null);
+    }
 
     @JsonIgnore
     @Transient
-    public abstract Duration getDurationValue();
+    public abstract String getStringValue(Evaluator evaluator);
+
+    @JsonIgnore
+    @Transient
+    public Boolean getBooleanValue() {
+        return getBooleanValue(null);
+    }
+
+    @JsonIgnore
+    @Transient
+    public abstract Boolean getBooleanValue(Evaluator evaluator);
+
+    @JsonIgnore
+    @Transient
+    public LocalDate getDateValue() {
+        return getDateValue(null);
+    }
+
+    @JsonIgnore
+    @Transient
+    public abstract LocalDate getDateValue(Evaluator evaluator);
+
+    @JsonIgnore
+    @Transient
+    public Duration getDurationValue() {
+        return getDurationValue(null);
+    }
+
+    @JsonIgnore
+    @Transient
+    public abstract Duration getDurationValue(Evaluator evaluator);
 
     @JsonIgnore
     @Transient
@@ -303,10 +353,7 @@ public abstract class AbstractFormula {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        return result;
+        return id;
     }
 
     @Override

@@ -1,18 +1,17 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import java.time.Duration;
-import java.time.LocalDate;
-
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+import java.time.Duration;
+import java.time.LocalDate;
 
 /**
  * Formula representing a mathematical addition<br>
@@ -44,64 +43,65 @@ public class FormulaPlus extends BinaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue() {
-		return getParameters().get(0).getIntegerValue() + getParameters().get(1).getIntegerValue();
+	public Integer getIntegerValue(Evaluator evaluator) {
+		return getParameters().get(0).getIntegerValue(evaluator) + getParameters().get(1).getIntegerValue(evaluator);
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Double getNumericValue() {
-		return getParameters().get(0).getNumericValue() + getParameters().get(1).getNumericValue();
+	public Double getNumericValue(Evaluator evaluator) {
+		return getParameters().get(0).getNumericValue(evaluator) + getParameters().get(1).getNumericValue(evaluator);
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public String getStringValue() {
+	public String getStringValue(Evaluator evaluator) {
 		AbstractFormula leftParameter = getParameters().get(0);
 		AbstractFormula rightParameter = getParameters().get(1);
 		
-		return leftParameter.getStringValue() + rightParameter.getStringValue();
+		return leftParameter.getStringValue(evaluator) + rightParameter.getStringValue(evaluator);
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public LocalDate getDateValue() {
+	public LocalDate getDateValue(Evaluator evaluator) {
 		AbstractFormula leftParameter = getParameters().get(0);
 		AbstractFormula rightParameter = getParameters().get(1);
 		AbstractFormula dateParameter = null;
 		AbstractFormula durationParameter = null;
 		
-		if (leftParameter.getReturnType().equals(FormulaReturnType.DATE)) {
+		if (leftParameter.getReturnType(evaluator).equals(FormulaReturnType.DATE)) {
 			dateParameter = leftParameter;
-		} else if (rightParameter.getReturnType().equals(FormulaReturnType.DATE)) {
+		} else if (rightParameter.getReturnType(evaluator).equals(FormulaReturnType.DATE)) {
 			dateParameter = rightParameter;
 		}
-		if (leftParameter.getReturnType().equals(FormulaReturnType.DURATION)) {
+		if (leftParameter.getReturnType(evaluator).equals(FormulaReturnType.DURATION)) {
 			durationParameter = leftParameter;
-		} else if (rightParameter.getReturnType().equals(FormulaReturnType.DURATION)) {
+		} else if (rightParameter.getReturnType(evaluator).equals(FormulaReturnType.DURATION)) {
 			durationParameter = rightParameter;
 		}
 		
 		if (dateParameter == null || durationParameter == null) {
 			throw new IllegalStateException(
 					"Cannot call getDateValue() method on FormulaPlus with these parameter types : left parameter type : "
-							+ leftParameter.getReturnType() + ", right parameter type : " + rightParameter.getReturnType());
+							+ leftParameter.getReturnType(evaluator) + ", right parameter type : " + rightParameter
+							.getReturnType(evaluator));
 		}
 		
-		return dateParameter.getDateValue().plusDays(durationParameter.getDurationValue().toDays());
+		return dateParameter.getDateValue(evaluator).plusDays(durationParameter.getDurationValue(evaluator).toDays());
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Duration getDurationValue() {
+	public Duration getDurationValue(Evaluator evaluator) {
 		AbstractFormula leftParameter = getParameters().get(0);
 		AbstractFormula rightParameter = getParameters().get(1);
 		
-		return leftParameter.getDurationValue().plusDays(rightParameter.getDurationValue().toDays());
+		return leftParameter.getDurationValue(evaluator).plusDays(rightParameter.getDurationValue(evaluator).toDays());
 	}
 	
 	@Override

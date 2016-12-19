@@ -1,15 +1,15 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue(value = FormulaType.Values.C_PRIMITIVE)
@@ -31,16 +31,16 @@ public class FormulaPrimitive extends CallFormula {
 			this.parameters.addAll(parameters);
 		}
 	}
-	
-	protected Object getTargetedObject(Object object) {
+
+	protected Object getTargetedObject(Object object, Evaluator evaluator) {
 		AbstractFormula[] parameters = null;
 		if (getParameters() != null) {
 			parameters = new AbstractFormula[getParameters().size()];
 			parameters = getParameters().toArray(parameters);
 		}
-		return callFunctionAny(object, getConstantValue(), parameters);
+		return callFunctionAny(object, getConstantValue(), parameters, evaluator);
 	}
-	
+
 	@Override
 	public String asText() {
 		StringBuilder sb = new StringBuilder();

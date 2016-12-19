@@ -1,17 +1,16 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import org.junit.Test;
+
+import java.util.Arrays;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-
-import org.junit.Test;
-
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 /**
  * Test class for {@link FormulaIn}
@@ -49,24 +48,24 @@ public class FormulaInTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(parameter.getIntegerValue()).thenReturn(1);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula element1 = mock(AbstractFormula.class);
-		when(element1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element1.getIntegerValue()).thenReturn(1);
+		when(element1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element1.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula element2 = mock(AbstractFormula.class);
-		when(element2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element2.getIntegerValue()).thenReturn(2);
+		when(element2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element2.getIntegerValue(null)).thenReturn(2);
 		
 		AbstractFormula element3 = mock(AbstractFormula.class);
-		when(element3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element3.getIntegerValue()).thenReturn(3);
+		when(element3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element3.getIntegerValue(null)).thenReturn(3);
 		
 		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
 		
-		formula.getIntegerValue();
+		formula.getIntegerValue(null);
 	}
 	
 	/**
@@ -75,24 +74,24 @@ public class FormulaInTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(parameter.getIntegerValue()).thenReturn(1);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula element1 = mock(AbstractFormula.class);
-		when(element1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element1.getIntegerValue()).thenReturn(1);
+		when(element1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element1.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula element2 = mock(AbstractFormula.class);
-		when(element2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element2.getIntegerValue()).thenReturn(2);
+		when(element2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element2.getIntegerValue(null)).thenReturn(2);
 		
 		AbstractFormula element3 = mock(AbstractFormula.class);
-		when(element3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element3.getIntegerValue()).thenReturn(3);
+		when(element3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element3.getIntegerValue(null)).thenReturn(3);
 		
 		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
 		
-		formula.getNumericValue();
+		formula.getNumericValue(null);
 	}
 	
 	/**
@@ -101,24 +100,24 @@ public class FormulaInTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(parameter.getIntegerValue()).thenReturn(1);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula element1 = mock(AbstractFormula.class);
-		when(element1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element1.getIntegerValue()).thenReturn(1);
+		when(element1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element1.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula element2 = mock(AbstractFormula.class);
-		when(element2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element2.getIntegerValue()).thenReturn(2);
+		when(element2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element2.getIntegerValue(null)).thenReturn(2);
 		
 		AbstractFormula element3 = mock(AbstractFormula.class);
-		when(element3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element3.getIntegerValue()).thenReturn(3);
+		when(element3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element3.getIntegerValue(null)).thenReturn(3);
 		
 		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
 		
-		formula.getStringValue();
+		formula.getStringValue(null);
 	}
 	
 	/**
@@ -127,24 +126,24 @@ public class FormulaInTest {
 	@Test
 	public void testGetBooleanValueMatching() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(parameter.getIntegerValue()).thenReturn(1);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula element1 = mock(AbstractFormula.class);
-		when(element1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element1.getIntegerValue()).thenReturn(1);
+		when(element1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element1.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula element2 = mock(AbstractFormula.class);
-		when(element2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element2.getIntegerValue()).thenReturn(2);
+		when(element2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element2.getIntegerValue(null)).thenReturn(2);
 		
 		AbstractFormula element3 = mock(AbstractFormula.class);
-		when(element3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element3.getIntegerValue()).thenReturn(3);
+		when(element3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element3.getIntegerValue(null)).thenReturn(3);
 		
 		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
 		
-		assertEquals(Boolean.TRUE, formula.getBooleanValue());
+		assertEquals(Boolean.TRUE, formula.getBooleanValue(null));
 	}
 	
 	/**
@@ -153,24 +152,24 @@ public class FormulaInTest {
 	@Test
 	public void testGetBooleanValueNotMatching() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(parameter.getIntegerValue()).thenReturn(4);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getIntegerValue(null)).thenReturn(4);
 		
 		AbstractFormula element1 = mock(AbstractFormula.class);
-		when(element1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element1.getIntegerValue()).thenReturn(1);
+		when(element1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element1.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula element2 = mock(AbstractFormula.class);
-		when(element2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element2.getIntegerValue()).thenReturn(2);
+		when(element2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element2.getIntegerValue(null)).thenReturn(2);
 		
 		AbstractFormula element3 = mock(AbstractFormula.class);
-		when(element3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element3.getIntegerValue()).thenReturn(3);
+		when(element3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element3.getIntegerValue(null)).thenReturn(3);
 		
 		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
 		
-		assertEquals(Boolean.FALSE, formula.getBooleanValue());
+		assertEquals(Boolean.FALSE, formula.getBooleanValue(null));
 	}
 	
 	/**
@@ -179,12 +178,12 @@ public class FormulaInTest {
 	@Test
 	public void testGetBooleanValueListEmpty() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(parameter.getIntegerValue()).thenReturn(1);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getIntegerValue(null)).thenReturn(1);
 		
 		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList());
 		
-		assertEquals(Boolean.FALSE, formula.getBooleanValue());
+		assertEquals(Boolean.FALSE, formula.getBooleanValue(null));
 	}
 	
 	/**
@@ -193,24 +192,24 @@ public class FormulaInTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(parameter.getIntegerValue()).thenReturn(1);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula element1 = mock(AbstractFormula.class);
-		when(element1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element1.getIntegerValue()).thenReturn(1);
+		when(element1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element1.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula element2 = mock(AbstractFormula.class);
-		when(element2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element2.getIntegerValue()).thenReturn(2);
+		when(element2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element2.getIntegerValue(null)).thenReturn(2);
 		
 		AbstractFormula element3 = mock(AbstractFormula.class);
-		when(element3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element3.getIntegerValue()).thenReturn(3);
+		when(element3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element3.getIntegerValue(null)).thenReturn(3);
 		
 		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
 		
-		formula.getDateValue();
+		formula.getDateValue(null);
 	}
 	
 	/**
@@ -219,24 +218,24 @@ public class FormulaInTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
 		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(parameter.getIntegerValue()).thenReturn(1);
+		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(parameter.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula element1 = mock(AbstractFormula.class);
-		when(element1.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element1.getIntegerValue()).thenReturn(1);
+		when(element1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element1.getIntegerValue(null)).thenReturn(1);
 		
 		AbstractFormula element2 = mock(AbstractFormula.class);
-		when(element2.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element2.getIntegerValue()).thenReturn(2);
+		when(element2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element2.getIntegerValue(null)).thenReturn(2);
 		
 		AbstractFormula element3 = mock(AbstractFormula.class);
-		when(element3.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
-		when(element3.getIntegerValue()).thenReturn(3);
+		when(element3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+		when(element3.getIntegerValue(null)).thenReturn(3);
 		
 		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
 		
-		formula.getDurationValue();
+		formula.getDurationValue(null);
 	}
 	
 	/**

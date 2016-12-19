@@ -1,20 +1,19 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.util.ArrayList;
-
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 @Entity
 @DiscriminatorValue(FormulaType.Values.I_IF)
@@ -31,7 +30,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 		if (condition == null) {
 			throw new IllegalArgumentException("condition must be non-null");
 		}
-		if (!condition.getReturnType().equals(FormulaReturnType.BOOLEAN)) {
+		if (!condition.getReturnType(null).equals(FormulaReturnType.BOOLEAN)) {
 			throw new IllegalArgumentException("condition must be of type BOOLEAN");
 		}
 		if (ifStatement == null) {
@@ -46,12 +45,12 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue() {
-		if (getParameters().get(0).getBooleanValue()) {
-			return getParameters().get(1).getIntegerValue();
+	public Integer getIntegerValue(Evaluator evaluator) {
+		if (getParameters().get(0).getBooleanValue(evaluator)) {
+			return getParameters().get(1).getIntegerValue(evaluator);
 		} else {
 			if (getParameters().size() > 2) {
-				return getParameters().get(2).getIntegerValue();
+				return getParameters().get(2).getIntegerValue(evaluator);
 			} else {
 				return 0;
 			}
@@ -61,12 +60,12 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Double getNumericValue() {
-		if (getParameters().get(0).getBooleanValue()) {
-			return getParameters().get(1).getNumericValue();
+	public Double getNumericValue(Evaluator evaluator) {
+		if (getParameters().get(0).getBooleanValue(evaluator)) {
+			return getParameters().get(1).getNumericValue(evaluator);
 		} else {
 			if (getParameters().size() > 2) {
-				return getParameters().get(2).getNumericValue();
+				return getParameters().get(2).getNumericValue(evaluator);
 			} else {
 				return 0.0;
 			}
@@ -76,12 +75,12 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public String getStringValue() {
-		if (getParameters().get(0).getBooleanValue()) {
-			return getParameters().get(1).getStringValue();
+	public String getStringValue(Evaluator evaluator) {
+		if (getParameters().get(0).getBooleanValue(evaluator)) {
+			return getParameters().get(1).getStringValue(evaluator);
 		} else {
 			if (getParameters().size() > 2) {
-				return getParameters().get(2).getStringValue();
+				return getParameters().get(2).getStringValue(evaluator);
 			} else {
 				return "";
 			}
@@ -91,12 +90,12 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue() {
-		if (getParameters().get(0).getBooleanValue()) {
-			return getParameters().get(1).getBooleanValue();
+	public Boolean getBooleanValue(Evaluator evaluator) {
+		if (getParameters().get(0).getBooleanValue(evaluator)) {
+			return getParameters().get(1).getBooleanValue(evaluator);
 		} else {
 			if (getParameters().size() > 2) {
-				return getParameters().get(2).getBooleanValue();
+				return getParameters().get(2).getBooleanValue(evaluator);
 			} else {
 				return false;
 			}
@@ -106,12 +105,12 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public LocalDate getDateValue() {
-		if (getParameters().get(0).getBooleanValue()) {
-			return getParameters().get(1).getDateValue();
+	public LocalDate getDateValue(Evaluator evaluator) {
+		if (getParameters().get(0).getBooleanValue(evaluator)) {
+			return getParameters().get(1).getDateValue(evaluator);
 		} else {
 			if (getParameters().size() > 2) {
-				return getParameters().get(2).getDateValue();
+				return getParameters().get(2).getDateValue(evaluator);
 			} else {
 				throw new RuntimeException("Else statement needed, no default value of type DATE");
 			}
@@ -121,12 +120,12 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Duration getDurationValue() {
-		if (getParameters().get(0).getBooleanValue()) {
-			return getParameters().get(1).getDurationValue();
+	public Duration getDurationValue(Evaluator evaluator) {
+		if (getParameters().get(0).getBooleanValue(evaluator)) {
+			return getParameters().get(1).getDurationValue(evaluator);
 		} else {
 			if (getParameters().size() > 2) {
-				return getParameters().get(2).getDurationValue();
+				return getParameters().get(2).getDurationValue(evaluator);
 			} else {
 				return Duration.ZERO;
 			}

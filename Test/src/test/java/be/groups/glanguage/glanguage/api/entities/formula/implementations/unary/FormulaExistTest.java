@@ -1,20 +1,17 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.unary;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaExist}
@@ -53,7 +50,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidInteger() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaExist formula = new FormulaExist(FormulaDescriptionFactory.getDescription(FormulaType.OP_EXIST), operand);
 		
@@ -67,7 +64,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNumeric() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaExist formula = new FormulaExist(FormulaDescriptionFactory.getDescription(FormulaType.OP_EXIST), operand);
 		
@@ -81,7 +78,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidString() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaExist formula = new FormulaExist(FormulaDescriptionFactory.getDescription(FormulaType.OP_EXIST), operand);
 		
@@ -95,7 +92,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidBoolean() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		
 		FormulaExist formula = new FormulaExist(FormulaDescriptionFactory.getDescription(FormulaType.OP_EXIST), operand);
 		
@@ -109,7 +106,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidDate() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
 		FormulaExist formula = new FormulaExist(FormulaDescriptionFactory.getDescription(FormulaType.OP_EXIST), operand);
 		
@@ -123,7 +120,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidDuration() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		
 		FormulaExist formula = new FormulaExist(FormulaDescriptionFactory.getDescription(FormulaType.OP_EXIST), operand);
 		
@@ -137,7 +134,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeInteger() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.INTEGER);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaExist formula = new FormulaExist(FormulaDescriptionFactory.getDescription(FormulaType.OP_EXIST), operand);
 		
@@ -151,7 +148,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeNumeric() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.NUMERIC);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaExist formula = new FormulaExist(FormulaDescriptionFactory.getDescription(FormulaType.OP_EXIST), operand);
 		
@@ -165,7 +162,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeString() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaExist formula = new FormulaExist(FormulaDescriptionFactory.getDescription(FormulaType.OP_EXIST), operand);
 		
@@ -179,7 +176,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeBoolean() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		
 		FormulaExist formula = new FormulaExist(FormulaDescriptionFactory.getDescription(FormulaType.OP_EXIST), operand);
 		
@@ -193,7 +190,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeDate() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.DATE);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
 		FormulaExist formula = new FormulaExist(FormulaDescriptionFactory.getDescription(FormulaType.OP_EXIST), operand);
 		
@@ -207,7 +204,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeDuration() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.DURATION);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		
 		FormulaExist formula = new FormulaExist(FormulaDescriptionFactory.getDescription(FormulaType.OP_EXIST), operand);
 		
@@ -220,8 +217,8 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetIntegerValue() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(operand.getValue()).thenReturn("some_value");
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(operand.getValue(null)).thenReturn("some_value");
 		
 		FormulaExist formula = new FormulaExist(null, operand);
 		
@@ -234,8 +231,8 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetNumericValue() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(operand.getValue()).thenReturn("some_value");
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(operand.getValue(null)).thenReturn("some_value");
 		
 		FormulaExist formula = new FormulaExist(null, operand);
 		
@@ -248,8 +245,8 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetStringValue() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(operand.getValue()).thenReturn("some_value");
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(operand.getValue(null)).thenReturn("some_value");
 		
 		FormulaExist formula = new FormulaExist(null, operand);
 		
@@ -262,8 +259,8 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParameterExists() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(operand.getValue()).thenReturn("some_value");
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(operand.getValue(null)).thenReturn("some_value");
 		
 		FormulaExist formula = new FormulaExist(null, operand);
 		
@@ -276,8 +273,8 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Test
 	public void testGetBooleanValueParameterNotExist() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(operand.getValue()).thenReturn(null);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(operand.getValue(null)).thenReturn(null);
 		
 		FormulaExist formula = new FormulaExist(null, operand);
 		
@@ -290,8 +287,8 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDateValue() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(operand.getValue()).thenReturn("some_value");
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(operand.getValue(null)).thenReturn("some_value");
 		
 		FormulaExist formula = new FormulaExist(null, operand);
 		
@@ -304,8 +301,8 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetDurationValue() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.STRING);
-		when(operand.getValue()).thenReturn("some_value");
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(operand.getValue(null)).thenReturn("some_value");
 		
 		FormulaExist formula = new FormulaExist(null, operand);
 		
@@ -328,7 +325,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	@Test
 	public void testAsText() {
 		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType()).thenReturn(FormulaReturnType.STRING);
+		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand.asText()).thenReturn("some_rule");
 		
 		FormulaExist formula = new FormulaExist(null, operand);

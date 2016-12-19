@@ -1,12 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
+import javax.persistence.*;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "RULE_DESCRIPTION")
@@ -250,10 +245,7 @@ public class RuleDescription {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
+		return id;
 	}
 
 	@Override

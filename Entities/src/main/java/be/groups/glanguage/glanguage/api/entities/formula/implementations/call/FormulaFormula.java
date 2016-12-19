@@ -1,13 +1,13 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 
-import java.time.Duration;
-import java.time.LocalDate;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import java.time.Duration;
+import java.time.LocalDate;
 
 @Entity
 @DiscriminatorValue(FormulaType.Values.C_FORMULA)
@@ -22,33 +22,33 @@ public class FormulaFormula extends RuleCallFormula {
 	}
 	
 	@Override
-	public Integer doGetIntegerValue() {
-		return getReferencedRule().getFormula().getIntegerValue();
+	public Integer doGetIntegerValue(Evaluator evaluator) {
+		return getReferencedRule(evaluator).getFormula().getIntegerValue(evaluator);
 	}
 	
 	@Override
-	public Double doGetNumericValue() {
-		return getReferencedRule().getFormula().getNumericValue();
+	public Double doGetNumericValue(Evaluator evaluator) {
+		return getReferencedRule(evaluator).getFormula().getNumericValue(evaluator);
 	}
 	
 	@Override
-	public String doGetStringValue() {
-		return getReferencedRule().getFormula().getStringValue();
+	public String doGetStringValue(Evaluator evaluator) {
+		return getReferencedRule(evaluator).getFormula().getStringValue(evaluator);
 	}
 	
 	@Override
-	public Boolean doGetBooleanValue() {
-		return getReferencedRule().getFormula().getBooleanValue();
+	public Boolean doGetBooleanValue(Evaluator evaluator) {
+		return getReferencedRule(evaluator).getFormula().getBooleanValue(evaluator);
 	}
 	
 	@Override
-	public LocalDate doGetDateValue() {
-		return getReferencedRule().getFormula().getDateValue();
+	public LocalDate doGetDateValue(Evaluator evaluator) {
+		return getReferencedRule(evaluator).getFormula().getDateValue(evaluator);
 	}
 	
 	@Override
-	public Duration doGetDurationValue() {
-		return getReferencedRule().getFormula().getDurationValue();
+	public Duration doGetDurationValue(Evaluator evaluator) {
+		return getReferencedRule(evaluator).getFormula().getDurationValue(evaluator);
 	}
 	
 	@Override
