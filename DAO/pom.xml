@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>be.groups.glanguage</groupId>
 	<artifactId>glanguage-api-dao</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>glanguage-api-DAO</name>
+	<version>0.0.1</version>
+	<name>Glanguage-Api-DAO</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>

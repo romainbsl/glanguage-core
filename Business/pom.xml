@@ -6,9 +6,10 @@
 		<artifactId>prestanew-business-pom</artifactId>
 		<version>0.0.9-SNAPSHOT</version>
 	</parent>
-	<artifactId>glanguage-api-business</artifactId>
 	<groupId>be.groups.glanguage</groupId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>glanguage-api-business</artifactId>
+	<version>0.0.1</version>
+	<name>Glanguage-Api-Business</name>
 	<dependencies>
 		<dependency>
 			<groupId>be.groups.glanguage</groupId>

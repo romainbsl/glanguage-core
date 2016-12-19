@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>be.groups.glanguage</groupId>
 	<artifactId>glanguage-api-ws</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>glanguage-api-WS</name>
+	<version>0.0.1</version>
+	<name>Glanguage-Api-WS</name>
 	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
