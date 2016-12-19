@@ -19,13 +19,13 @@ public class PlanTest extends BaseDatabaseTest {
     public void testEvaluate() {
         LocalDate effectivityDate = LocalDate.now();
         Plan plan = Universe.getPlan(-900003, effectivityDate);
-        plan.resetEvaluation();
+        plan.initEvaluation();
         assertNotNull(plan);
         assertNotNull(plan.getRuleVersions());
         assertFalse(plan.getRuleVersions().isEmpty());
         assertFalse(plan.isBranched());
         Object object = null;
-        Map<RuleVersion, Object> evaluatedRuleVersions = plan.evaluate(object);
+        Map<RuleVersion, Object> evaluatedRuleVersions = plan.evaluateWithContext(object);
         assertTrue(plan.isBranched());
         assertNotNull(evaluatedRuleVersions);
         assertFalse(evaluatedRuleVersions.isEmpty());
@@ -51,18 +51,18 @@ public class PlanTest extends BaseDatabaseTest {
     }
 
     /**
-     * Tests {@link Plan#evaluate(Object, String, boolean)}
+     * Tests {@link Plan#evaluateWithContext(Object, String, boolean)}
      */
     @Test
     public void testEvaluateRule900002() {
         LocalDate effectivityDate = LocalDate.now();
         Plan plan = Universe.getPlan(-900003, effectivityDate);
-        plan.resetEvaluation();
+        plan.initEvaluation();
         assertNotNull(plan);
         assertNotNull(plan.getRuleVersions());
         assertFalse(plan.getRuleVersions().isEmpty());
         assertFalse(plan.isBranched());
-        Map<RuleVersion, Object> evaluatedRuleVersions = plan.evaluate(null, "-900002", false);
+        Map<RuleVersion, Object> evaluatedRuleVersions = plan.evaluateWithContext(null, "-900002", false);
         assertFalse(plan.isBranched());
         assertNotNull(evaluatedRuleVersions);
         assertFalse(evaluatedRuleVersions.isEmpty());
@@ -79,18 +79,18 @@ public class PlanTest extends BaseDatabaseTest {
     }
 
     /**
-     * Tests {@link Plan#evaluate(Object, String, boolean)}
+     * Tests {@link Plan#evaluateWithContext(Object, String, boolean)}
      */
     @Test
     public void testEvaluateRule900003() {
         LocalDate effectivityDate = LocalDate.now();
         Plan plan = Universe.getPlan(-900003, effectivityDate);
-        plan.resetEvaluation();
+        plan.initEvaluation();
         assertNotNull(plan);
         assertNotNull(plan.getRuleVersions());
         assertFalse(plan.getRuleVersions().isEmpty());
         assertFalse(plan.isBranched());
-        Map<RuleVersion, Object> evaluatedRuleVersions = plan.evaluate(null, "-900003", false);
+        Map<RuleVersion, Object> evaluatedRuleVersions = plan.evaluateWithContext(null, "-900003", false);
         assertFalse(plan.isBranched());
         assertNotNull(evaluatedRuleVersions);
         assertFalse(evaluatedRuleVersions.isEmpty());

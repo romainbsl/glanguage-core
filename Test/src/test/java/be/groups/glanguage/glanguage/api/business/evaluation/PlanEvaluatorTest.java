@@ -54,7 +54,7 @@ public class PlanEvaluatorTest extends BaseDatabaseTest {
     public void evaluateEvaluatedPlanTest() {
         Plan plan = Universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
-        plan.evaluate(context);
+        plan.evaluateWithContext(context);
         assertTrue(plan.isBranched());
         PlanEvaluator evaluator = new PlanEvaluator(plan, context);
         evaluator.evaluatePlan();
@@ -118,7 +118,7 @@ public class PlanEvaluatorTest extends BaseDatabaseTest {
     public void evaluateEvaluatedRuleVersionTest() {
         Plan plan = Universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
-        plan.evaluate(context, "-900003", false);
+        plan.evaluateWithContext(context, "-900003", false);
         PlanEvaluator evaluator = new PlanEvaluator(plan, context);
         evaluator.evaluateRuleVersion(plan.getEffectiveRuleVersionByRuleIdentityId("-900003"));
         assertNotNull(evaluator.getEvaluatedRuleVersions());
@@ -178,7 +178,7 @@ public class PlanEvaluatorTest extends BaseDatabaseTest {
     public void evaluateEvaluatedRuleVersionByRuleIdentifierTest() {
         Plan plan = Universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
-        plan.evaluate(context, "-900003", false);
+        plan.evaluateWithContext(context, "-900003", false);
         PlanEvaluator evaluator = new PlanEvaluator(plan, context);
         evaluator.evaluateRuleVersion("-900003", false);
         assertFalse(plan.isBranched());
