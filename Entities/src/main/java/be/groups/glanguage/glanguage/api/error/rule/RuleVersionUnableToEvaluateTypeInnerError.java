@@ -11,7 +11,7 @@ import be.groups.glanguage.glanguage.api.error.MessageInnerError;
 public class RuleVersionUnableToEvaluateTypeInnerError extends MessageInnerError {
 
     public RuleVersionUnableToEvaluateTypeInnerError(RuleVersion ruleVersion, Evaluator evaluator, String methodName) {
-        this(GlanguageErrorRegistry.FORMULA_UNABLE_TO_EVALUATE_TYPE.getCode(), ruleVersion, evaluator, methodName);
+        this(GlanguageErrorRegistry.RULE_VERSION_UNABLE_TO_EVALUATE_TYPE.getCode(), ruleVersion, evaluator, methodName);
     }
 
     public RuleVersionUnableToEvaluateTypeInnerError(String code, RuleVersion ruleVersion, Evaluator evaluator,

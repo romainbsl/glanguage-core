@@ -11,7 +11,7 @@ import be.groups.glanguage.glanguage.api.error.MessageInnerError;
 public class RuleVersionUnableToCheckApplicabilityInnerError extends MessageInnerError {
 
     public RuleVersionUnableToCheckApplicabilityInnerError(RuleVersion ruleVersion, Evaluator evaluator) {
-        this(GlanguageErrorRegistry.FORMULA_UNABLE_TO_EVALUATE_TYPE.getCode(), ruleVersion, evaluator);
+        this(GlanguageErrorRegistry.RULE_VERSION_UNABLE_TO_CHECK_APPLICABILITY.getCode(), ruleVersion, evaluator);
     }
 
     public RuleVersionUnableToCheckApplicabilityInnerError(String code, RuleVersion ruleVersion, Evaluator evaluator) {

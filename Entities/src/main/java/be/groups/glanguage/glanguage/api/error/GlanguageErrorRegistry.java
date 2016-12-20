@@ -5,6 +5,11 @@ package be.groups.glanguage.glanguage.api.error;
  */
 public enum GlanguageErrorRegistry {
 
+    RULE_VERSION_UNABLE_TO_EVALUATE("RULE_VERSION_UNABLE_TO_EVALUATE", "Unable to evaluate a rule version"),
+    RULE_VERSION_UNABLE_TO_EVALUATE_TYPE("RULE_VERSION_UNABLE_TO_EVALUATE_TYPE", "Unable to evaluate a rule version"),
+    RULE_VERSION_UNABLE_TO_CHECK_APPLICABILITY("RULE_VERSION_UNABLE_TO_CHECK_APPLICABILITY", "Unable to check " +
+            "applicability of a rule version"),
+
     FORMULA_UNABLE_TO_EVALUATE("FORMULA_UNABLE_TO_EVALUATE", "Unable to evaluate a formula"),
     FORMULA_UNABLE_TO_EVALUATE_TYPE("FORMULA_UNABLE_TO_EVALUATE_TYPE", "Unable to evaluate a formula"),
     FORMULA_RULE_REFERENCE_REFERENCED_RULE_UNAVAILABLE("FORMULA_RULE_REFERENCE_REFERENCED_RULE_UNAVAILABLE", "The " +
