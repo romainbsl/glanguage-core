@@ -1,17 +1,17 @@
 package be.groups.glanguage.glanguage.api.error.formula.implementations;
 
+import be.groups.errorframework.core.error.InnerError;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.error.GlanguageErrorRegistry;
-import be.groups.glanguage.glanguage.api.error.MessageInnerError;
 
 /**
  * Created by michotte on 20/12/2016.
  */
-public class AbstractFormulaUnableToEvaluateInnerError extends MessageInnerError {
+public class AbstractFormulaUnableToEvaluateInnerError extends InnerError {
 
     public AbstractFormulaUnableToEvaluateInnerError(AbstractFormula formula, Evaluator evaluator) {
-        super(GlanguageErrorRegistry.FORMULA_UNABLE_TO_EVALUATE.getCode(), createMessage(formula, evaluator));
+        super(GlanguageErrorRegistry.FORMULA_UNABLE_TO_EVALUATE.getCode(), createMessage(formula, evaluator), null);
     }
 
     private static String createMessage(AbstractFormula formula, Evaluator evaluator) {

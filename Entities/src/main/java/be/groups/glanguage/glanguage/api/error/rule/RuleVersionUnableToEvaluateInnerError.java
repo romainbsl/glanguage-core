@@ -1,21 +1,21 @@
 package be.groups.glanguage.glanguage.api.error.rule;
 
+import be.groups.errorframework.core.error.InnerError;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.error.GlanguageErrorRegistry;
-import be.groups.glanguage.glanguage.api.error.MessageInnerError;
 
 /**
  * Created by michotte on 20/12/2016.
  */
-public class RuleVersionUnableToEvaluateInnerError extends MessageInnerError {
+public class RuleVersionUnableToEvaluateInnerError extends InnerError {
 
     public RuleVersionUnableToEvaluateInnerError(RuleVersion ruleVersion, Evaluator evaluator) {
         this(GlanguageErrorRegistry.RULE_VERSION_UNABLE_TO_EVALUATE.getCode(), ruleVersion, evaluator);
     }
 
     public RuleVersionUnableToEvaluateInnerError(String code, RuleVersion ruleVersion, Evaluator evaluator) {
-        super(code, createMessage(ruleVersion, evaluator));
+        super(code, createMessage(ruleVersion, evaluator), null);
     }
 
     private static String createMessage(RuleVersion ruleVersion, Evaluator evaluator) {

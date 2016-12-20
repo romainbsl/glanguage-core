@@ -1,22 +1,23 @@
 package be.groups.glanguage.glanguage.api.error.formula.implementations.call;
 
+import be.groups.errorframework.core.error.InnerError;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.error.GlanguageErrorRegistry;
-import be.groups.glanguage.glanguage.api.error.MessageInnerError;
 
 /**
  * Created by michotte on 20/12/2016.
  */
-public class RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError extends MessageInnerError {
+public class RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError extends InnerError {
 
     public RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError(AbstractFormula formula, Evaluator evaluator, RuleVersion
             referencedRule, FormulaReturnType actualReturnType, FormulaReturnType expectedReturnType, String
             methodName) {
         super(GlanguageErrorRegistry.FORMULA_UNABLE_TO_EVALUATE_TYPE.getCode(),
-                createMessage(formula, evaluator, referencedRule, actualReturnType, expectedReturnType, methodName));
+                createMessage(formula, evaluator, referencedRule, actualReturnType, expectedReturnType, methodName),
+                null);
     }
 
     private static String createMessage(AbstractFormula formula, Evaluator evaluator, RuleVersion referencedRule,
