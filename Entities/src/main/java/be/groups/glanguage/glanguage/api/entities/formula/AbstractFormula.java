@@ -5,6 +5,9 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDes
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.formula.implementations.AbstractFormulaUnableToEvaluateInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.implementations.AbstractFormulaUnableToEvaluateTypeInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.hibernate.annotations.DiscriminatorOptions;
@@ -195,8 +198,7 @@ public abstract class AbstractFormula {
 
     private void initParametersTypes(Evaluator evaluator) {
         parametersTypes = parameters == null ? Arrays.asList() : parameters.stream()
-                .map(p -> p.getReturnType(evaluator))
-                .collect(Collectors.toList());
+                .map(p -> p.getReturnType(evaluator)).collect(Collectors.toList());
     }
 
     /**
@@ -210,28 +212,35 @@ public abstract class AbstractFormula {
 
     @JsonIgnore
     @Transient
-    public Object getValue() {
+    public Object getValue() throws GLanguageEvaluationException {
         return getValue(null);
     }
 
     @JsonIgnore
     @Transient
-    public Object getValue(Evaluator evaluator) {
-        switch (getReturnType(evaluator)) {
-            case INTEGER:
-                return getIntegerValue(evaluator);
-            case NUMERIC:
-                return getNumericValue(evaluator);
-            case STRING:
-                return getStringValue(evaluator);
-            case BOOLEAN:
-                return getBooleanValue(evaluator);
-            case DATE:
-                return getDateValue(evaluator);
-            case DURATION:
-                return getDurationValue(evaluator);
-            default:
-                return null;
+    public Object getValue(Evaluator evaluator) throws GLanguageEvaluationException {
+        try {
+            switch (getReturnType(evaluator)) {
+                case INTEGER:
+                    return getIntegerValue(evaluator);
+                case NUMERIC:
+                    return getNumericValue(evaluator);
+                case STRING:
+                    return getStringValue(evaluator);
+                case BOOLEAN:
+                    return getBooleanValue(evaluator);
+                case DATE:
+                    return getDateValue(evaluator);
+                case DURATION:
+                    return getDurationValue(evaluator);
+                default:
+                    return null;
+            }
+        } catch (GLanguageEvaluationException e) {
+            AbstractFormulaUnableToEvaluateInnerError error = new AbstractFormulaUnableToEvaluateInnerError(this, evaluator);
+            error.setInnererror(e.getError().getInnererror());
+            e.getError().setInnererror(error);
+            throw new GLanguageEvaluationException(e.getError());
         }
     }
 
@@ -267,13 +276,23 @@ public abstract class AbstractFormula {
 
     @JsonIgnore
     @Transient
-    public Boolean getBooleanValue() {
-        return getBooleanValue(null);
+    public Boolean getBooleanValue() throws GLanguageEvaluationException {
+        try {
+            return getBooleanValue(null);
+        } catch (GLanguageEvaluationException e) {
+            AbstractFormulaUnableToEvaluateTypeInnerError error = new AbstractFormulaUnableToEvaluateTypeInnerError
+                    (this,
+                    null,
+                    "getBooleanValue");
+            error.setInnererror(e.getError().getInnererror());
+            e.getError().setInnererror(error);
+            throw new GLanguageEvaluationException(e.getError());
+        }
     }
 
     @JsonIgnore
     @Transient
-    public abstract Boolean getBooleanValue(Evaluator evaluator);
+    public abstract Boolean getBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException;
 
     @JsonIgnore
     @Transient
@@ -298,8 +317,8 @@ public abstract class AbstractFormula {
     @JsonIgnore
     @Transient
     public boolean isBranched() {
-        return (parameters != null && !parameters.isEmpty() && parameters.stream().allMatch
-                (AbstractFormula::isBranched));
+        return (parameters != null && !parameters.isEmpty() && parameters.stream()
+                .allMatch(AbstractFormula::isBranched));
     }
 
     /**

@@ -20,6 +20,14 @@
 		<jpametamodel.source>${project.build.directory}/generated-sources/java/jpametamodel</jpametamodel.source>
 	</properties>
 
+	<dependencies>
+		<dependency>
+			<groupId>be.groups</groupId>
+			<artifactId>error-framework</artifactId>
+			<version>LATEST</version>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>

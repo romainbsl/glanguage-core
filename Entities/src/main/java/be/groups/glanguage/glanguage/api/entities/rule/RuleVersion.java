@@ -5,6 +5,10 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.rule.RuleVersionUnableToCheckApplicabilityInnerError;
+import be.groups.glanguage.glanguage.api.error.rule.RuleVersionUnableToEvaluateInnerError;
+import be.groups.glanguage.glanguage.api.error.rule.RuleVersionUnableToEvaluateTypeInnerError;
 
 import javax.persistence.*;
 import java.time.Duration;
@@ -221,12 +225,12 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     @Transient
-    public Object getValue() {
+    public Object getValue() throws GLanguageEvaluationException {
         return getValue(null);
     }
 
     @Transient
-    public Object getValue(Evaluator evaluator) {
+    public Object getValue(Evaluator evaluator) throws GLanguageEvaluationException {
         try {
             switch (getReturnType(evaluator)) {
                 case BOOLEAN:
@@ -244,27 +248,37 @@ public class RuleVersion implements Comparable<RuleVersion> {
                 default:
                     return null;
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Unable to evaluate rule version [id: " + getId() + ", code: " +
-                    getRuleDescription()
-                    .getCode() + "]", e);
+        } catch (GLanguageEvaluationException e) {
+            RuleVersionUnableToEvaluateInnerError error = new RuleVersionUnableToEvaluateInnerError(this, evaluator);
+            error.setInnererror(e.getError().getInnererror());
+            e.getError().setInnererror(error);
+            throw new GLanguageEvaluationException(e.getError());
         }
     }
 
     @Transient
-    public Boolean getBooleanValue() {
+    public Boolean getBooleanValue() throws GLanguageEvaluationException {
         return getBooleanValue(null);
     }
 
     @Transient
-    public Boolean getBooleanValue(Evaluator evaluator) {
+    public Boolean getBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException {
         Boolean val;
         if (evaluator != null && evaluator.isRuleVersionEvaluated(this)) {
             val = (Boolean) evaluator.getRuleVersionValue(this);
         } else if (evaluator == null && value != null) {
             val = (Boolean) value;
         } else {
-            val = formula.getBooleanValue(evaluator);
+            try {
+                val = formula.getBooleanValue(evaluator);
+            } catch (GLanguageEvaluationException e) {
+                RuleVersionUnableToEvaluateTypeInnerError error = new RuleVersionUnableToEvaluateTypeInnerError(this,
+                        evaluator,
+                        "getBooleanValue");
+                error.setInnererror(e.getError().getInnererror());
+                e.getError().setInnererror(error);
+                throw new GLanguageEvaluationException(e.getError());
+            }
         }
 
         if (evaluator != null || value == null) {
@@ -279,7 +293,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     @Transient
-    public LocalDate getDateValue(Evaluator  evaluator) {
+    public LocalDate getDateValue(Evaluator evaluator) {
         LocalDate val;
         if (evaluator != null && evaluator.isRuleVersionEvaluated(this)) {
             val = (LocalDate) evaluator.getRuleVersionValue(this);
@@ -465,7 +479,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
      * @return true if this is applicable, false otherwise
      */
     @Transient
-    public boolean isApplicable() {
+    public boolean isApplicable() throws GLanguageEvaluationException {
         return isApplicable(null);
     }
 
@@ -476,8 +490,17 @@ public class RuleVersion implements Comparable<RuleVersion> {
      * @return true if this is applicable, false otherwise
      */
     @Transient
-    public boolean isApplicable(Evaluator evaluator) {
-        return applicabilityCondition != null ? applicabilityCondition.getBooleanValue(evaluator) : true;
+    public boolean isApplicable(Evaluator evaluator) throws GLanguageEvaluationException {
+        try {
+            return applicabilityCondition != null ? applicabilityCondition.getBooleanValue(evaluator) : true;
+        } catch (GLanguageEvaluationException e) {
+            RuleVersionUnableToCheckApplicabilityInnerError error = new RuleVersionUnableToCheckApplicabilityInnerError(
+                    this,
+                    evaluator);
+            error.setInnererror(e.getError().getInnererror());
+            e.getError().setInnererror(error);
+            throw new GLanguageEvaluationException(e.getError());
+        }
     }
 
     @Transient

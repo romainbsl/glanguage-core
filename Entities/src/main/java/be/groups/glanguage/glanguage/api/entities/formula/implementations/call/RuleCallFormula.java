@@ -1,9 +1,14 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 
+import be.groups.errorframework.core.error.ErrorEnum;
+import be.groups.errorframework.core.error.RootError;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.formula.implementations.call.RuleCallFormulaReferencedRuleUnavailableInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.implementations.call.RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
@@ -59,7 +64,7 @@ public abstract class RuleCallFormula extends CallFormula {
 		return doGetIntegerValue(evaluator);
 	}
 	
-	public abstract Integer doGetIntegerValue(Evaluator evaluator);
+	abstract Integer doGetIntegerValue(Evaluator evaluator);
 	
 	@JsonIgnore
 	@Transient
@@ -78,7 +83,7 @@ public abstract class RuleCallFormula extends CallFormula {
 		return doGetNumericValue(evaluator);
 	}
 	
-	public abstract Double doGetNumericValue(Evaluator evaluator);
+	abstract Double doGetNumericValue(Evaluator evaluator);
 	
 	@JsonIgnore
 	@Transient
@@ -96,25 +101,33 @@ public abstract class RuleCallFormula extends CallFormula {
 		return doGetStringValue(evaluator);
 	}
 	
-	public abstract String doGetStringValue(Evaluator evaluator);
+	abstract String doGetStringValue(Evaluator evaluator);
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue(Evaluator evaluator) {
+	public Boolean getBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		if (getReferencedRule(evaluator) == null) {
-			throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName()
-					+ " object while referenced rule (rule id : " + getConstantValue()
-					+ ") is not set - while branching is not done - (id : " + this.getId() + ")");
+			RootError error = new RootError(ErrorEnum.BUSINESS_ERROR);
+			error.setInnererror(new RuleCallFormulaReferencedRuleUnavailableInnerError(this, evaluator));
+			throw new GLanguageEvaluationException(error);
+//			throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName()
+//					+ " object while referenced rule (rule id : " + getConstantValue()
+//					+ ") is not set - while branching is not done - (id : " + this.getId() + ")");
 		} else if (!getReturnType(evaluator).equals(FormulaReturnType.BOOLEAN)) {
-			throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName()
-					+ " object if referenced rule (rule id : " + getConstantValue() + ") is not of type BOOLEAN - (id : "
-					+ this.getId() + ")");
+			RootError error = new RootError(ErrorEnum.BUSINESS_ERROR);
+			error.setInnererror(new RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError(this, evaluator,
+					referencedRule, referencedRule.getReturnType(evaluator), FormulaReturnType.BOOLEAN,
+					"getBooleanValue"));
+			throw new GLanguageEvaluationException(error);
+//			throw new IllegalAccessError("Cannot invoke getBooleanValue() method on " + this.getClass().getName()
+//					+ " object if referenced rule (rule id : " + getConstantValue() + ") is not of type BOOLEAN - (id : "
+//					+ this.getId() + ")");
 		}
 		return doGetBooleanValue(evaluator);
 	}
 	
-	public abstract Boolean doGetBooleanValue(Evaluator evaluator);
+	abstract Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException;
 	
 	@JsonIgnore
 	@Transient
@@ -132,7 +145,7 @@ public abstract class RuleCallFormula extends CallFormula {
 		return doGetDateValue(evaluator);
 	}
 	
-	public abstract LocalDate doGetDateValue(Evaluator evaluator);
+	abstract LocalDate doGetDateValue(Evaluator evaluator);
 	
 	@JsonIgnore
 	@Transient
@@ -150,7 +163,7 @@ public abstract class RuleCallFormula extends CallFormula {
 		return doGetDurationValue(evaluator);
 	}
 	
-	public abstract Duration doGetDurationValue(Evaluator evaluator);
+	abstract Duration doGetDurationValue(Evaluator evaluator);
 	
 	/**
 	 * @param evaluator evaluator

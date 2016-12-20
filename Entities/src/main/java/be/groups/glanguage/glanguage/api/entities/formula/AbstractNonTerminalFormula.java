@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula;
 
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
@@ -44,7 +45,7 @@ public abstract class AbstractNonTerminalFormula extends AbstractFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue(Evaluator evaluator) {
+	public Boolean getBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		throw new UnsupportedOperationException("Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
 	}
 	
