@@ -252,7 +252,7 @@ public abstract class AbstractFormula {
     @Transient
     public Integer getIntegerValue(Evaluator evaluator) throws GLanguageEvaluationException {
         try {
-            return doGetIntegerValue(null);
+            return doGetIntegerValue(evaluator);
         } catch (GLanguageEvaluationException e) {
             e.getError()
                     .setOuterError(new AbstractFormulaUnableToEvaluateTypeInnerError(this, null, "getIntegerValue"));
@@ -274,7 +274,7 @@ public abstract class AbstractFormula {
     @Transient
     public Double getNumericValue(Evaluator evaluator) throws GLanguageEvaluationException {
         try {
-            return doGetNumericValue(null);
+            return doGetNumericValue(evaluator);
         } catch (GLanguageEvaluationException e) {
             e.getError()
                     .setOuterError(new AbstractFormulaUnableToEvaluateTypeInnerError(this, null, "getNumericValue"));
@@ -296,7 +296,7 @@ public abstract class AbstractFormula {
     @Transient
     public String getStringValue(Evaluator evaluator) throws GLanguageEvaluationException {
         try {
-            return doGetStringValue(null);
+            return doGetStringValue(evaluator);
         } catch (GLanguageEvaluationException e) {
             e.getError()
                     .setOuterError(new AbstractFormulaUnableToEvaluateTypeInnerError(this, null, "getStringValue"));
@@ -318,7 +318,7 @@ public abstract class AbstractFormula {
     @Transient
     public Boolean getBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException {
         try {
-            return doGetBooleanValue(null);
+            return doGetBooleanValue(evaluator);
         } catch (GLanguageEvaluationException e) {
             e.getError()
                     .setOuterError(new AbstractFormulaUnableToEvaluateTypeInnerError(this, null, "getBooleanValue"));
@@ -340,7 +340,7 @@ public abstract class AbstractFormula {
     @Transient
     public LocalDate getDateValue(Evaluator evaluator) throws GLanguageEvaluationException {
         try {
-            return doGetDateValue(null);
+            return doGetDateValue(evaluator);
         } catch (GLanguageEvaluationException e) {
             e.getError()
                     .setOuterError(new AbstractFormulaUnableToEvaluateTypeInnerError(this, null, "getDateValue"));
@@ -362,7 +362,7 @@ public abstract class AbstractFormula {
     @Transient
     public Duration getDurationValue(Evaluator evaluator) throws GLanguageEvaluationException {
         try {
-            return doGetDurationValue(null);
+            return doGetDurationValue(evaluator);
         } catch (GLanguageEvaluationException e) {
             e.getError()
                     .setOuterError(new AbstractFormulaUnableToEvaluateTypeInnerError(this, null, "getDurationValue"));
