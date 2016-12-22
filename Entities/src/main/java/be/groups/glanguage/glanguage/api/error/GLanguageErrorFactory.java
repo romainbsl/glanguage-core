@@ -6,11 +6,11 @@ import javafx.util.Pair;
 /**
  * Created by michotte on 20/12/2016.
  */
-public class GlanguageErrorFactory extends AbstractValidationErrorFactory {
+public class GLanguageErrorFactory extends AbstractValidationErrorFactory {
 
     @Override
     protected Pair<String, String> findPairCodeMessage(String code) {
-        GlanguageErrorRegistry vEnum = GlanguageErrorRegistry.find(code);
+        GLanguageErrorRegistry vEnum = GLanguageErrorRegistry.find(code);
         return new Pair<>(vEnum.getCode(), vEnum.getMessage());
     }
 }

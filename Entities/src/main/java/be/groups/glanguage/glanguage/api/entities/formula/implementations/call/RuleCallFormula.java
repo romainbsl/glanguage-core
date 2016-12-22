@@ -50,7 +50,7 @@ public abstract class RuleCallFormula extends CallFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue(Evaluator evaluator) {
+	protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		if (getReferencedRule(evaluator) == null) {
 			throw new IllegalAccessError("Cannot invoke getIntegerValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (rule id : " + getConstantValue()
@@ -61,15 +61,15 @@ public abstract class RuleCallFormula extends CallFormula {
 					+ " object if referenced rule (rule id : " + getConstantValue() + ") is not of type INTEGER or NUMERIC - (id : "
 					+ this.getId() + ")");
 		}
-		return doGetIntegerValue(evaluator);
+		return doGetIntegerValue(referencedRule, evaluator);
 	}
 	
-	abstract Integer doGetIntegerValue(Evaluator evaluator);
+	abstract Integer doGetIntegerValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageEvaluationException;
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Double getNumericValue(Evaluator evaluator) {
+	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		if (getReferencedRule(evaluator) == null) {
 			throw new IllegalAccessError("Cannot invoke getNumericValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (rule id : " + getConstantValue()
@@ -80,15 +80,15 @@ public abstract class RuleCallFormula extends CallFormula {
 					+ " object if referenced rule (rule id : " + getConstantValue() + ") is not of type INTEGER or NUMERIC - (id : "
 					+ this.getId() + ")");
 		}
-		return doGetNumericValue(evaluator);
+		return doGetNumericValue(referencedRule, evaluator);
 	}
 	
-	abstract Double doGetNumericValue(Evaluator evaluator);
+	abstract Double doGetNumericValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageEvaluationException;
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public String getStringValue(Evaluator evaluator) {
+	protected String doGetStringValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		if (getReferencedRule(evaluator) == null) {
 			throw new IllegalAccessError("Cannot invoke getStringValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (rule id : " + getConstantValue()
@@ -98,15 +98,15 @@ public abstract class RuleCallFormula extends CallFormula {
 					+ " object if referenced rule (rule id : " + getConstantValue() + ") is not of type STRING - (id : "
 					+ this.getId() + ")");
 		}
-		return doGetStringValue(evaluator);
+		return doGetStringValue(referencedRule, evaluator);
 	}
 	
-	abstract String doGetStringValue(Evaluator evaluator);
+	abstract String doGetStringValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageEvaluationException;
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException {
+	protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		if (getReferencedRule(evaluator) == null) {
 			RootError error = new RootError(ErrorEnum.BUSINESS_ERROR);
 			error.setInnererror(new RuleCallFormulaReferencedRuleUnavailableInnerError(this, evaluator));
@@ -124,15 +124,16 @@ public abstract class RuleCallFormula extends CallFormula {
 //					+ " object if referenced rule (rule id : " + getConstantValue() + ") is not of type BOOLEAN - (id : "
 //					+ this.getId() + ")");
 		}
-		return doGetBooleanValue(evaluator);
+		return doGetBooleanValue(referencedRule, evaluator);
 	}
 	
-	abstract Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException;
+	abstract Boolean doGetBooleanValue(RuleVersion ruleVersion, Evaluator evaluator) throws
+																					 GLanguageEvaluationException;
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public LocalDate getDateValue(Evaluator evaluator) {
+	public LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		if (getReferencedRule(evaluator) == null) {
 			throw new IllegalAccessError("Cannot invoke getDateValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (rule id : " + getConstantValue()
@@ -142,15 +143,15 @@ public abstract class RuleCallFormula extends CallFormula {
 					"Cannot invoke getDateValue() method on " + this.getClass().getName() + " object if referenced rule (rule id : "
 							+ getConstantValue() + ") is not of type DATE - (id : " + this.getId() + ")");
 		}
-		return doGetDateValue(evaluator);
+		return doGetDateValue(referencedRule, evaluator);
 	}
 	
-	abstract LocalDate doGetDateValue(Evaluator evaluator);
+	abstract LocalDate doGetDateValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageEvaluationException;
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Duration getDurationValue(Evaluator evaluator) {
+	public Duration doGetDurationValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		if (getReferencedRule(evaluator) == null) {
 			throw new IllegalAccessError("Cannot invoke getDurationValue() method on " + this.getClass().getName()
 					+ " object while referenced rule (rule id : " + getConstantValue()
@@ -160,10 +161,10 @@ public abstract class RuleCallFormula extends CallFormula {
 					+ " object if referenced rule (rule id : " + getConstantValue() + ") is not of type DURATION - (id : "
 					+ this.getId() + ")");
 		}
-		return doGetDurationValue(evaluator);
+		return doGetDurationValue(referencedRule, evaluator);
 	}
 	
-	abstract Duration doGetDurationValue(Evaluator evaluator);
+	abstract Duration doGetDurationValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageEvaluationException;
 	
 	/**
 	 * @param evaluator evaluator

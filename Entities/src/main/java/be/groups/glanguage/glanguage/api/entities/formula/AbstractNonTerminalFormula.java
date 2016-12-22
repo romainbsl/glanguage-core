@@ -24,42 +24,42 @@ public abstract class AbstractNonTerminalFormula extends AbstractFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue(Evaluator evaluator) {
+	protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		throw new UnsupportedOperationException("Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Double getNumericValue(Evaluator evaluator) {
+	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		throw new UnsupportedOperationException("Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public String getStringValue(Evaluator evaluator) {
+	protected String doGetStringValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		throw new UnsupportedOperationException("Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException {
+	protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		throw new UnsupportedOperationException("Cannot invoke getBooleanValue() method on " + this.getClass().getName() + " object");
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public LocalDate getDateValue(Evaluator evaluator) {
+	protected LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		throw new UnsupportedOperationException("Cannot invoke getDateValue() method on " + this.getClass().getName() + " object");
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Duration getDurationValue(Evaluator evaluator) {
+	protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		throw new UnsupportedOperationException("Cannot invoke getDurationValue() method on " + this.getClass().getName() + " object");
 	}
 	

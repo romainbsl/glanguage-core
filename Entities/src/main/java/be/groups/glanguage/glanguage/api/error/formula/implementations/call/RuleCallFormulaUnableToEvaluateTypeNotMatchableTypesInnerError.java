@@ -5,7 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
-import be.groups.glanguage.glanguage.api.error.GlanguageErrorRegistry;
+import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 
 /**
  * Created by michotte on 20/12/2016.
@@ -15,7 +15,7 @@ public class RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError exte
     public RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError(AbstractFormula formula, Evaluator evaluator, RuleVersion
             referencedRule, FormulaReturnType actualReturnType, FormulaReturnType expectedReturnType, String
             methodName) {
-        super(GlanguageErrorRegistry.FORMULA_UNABLE_TO_EVALUATE_TYPE.getCode(),
+        super(GLanguageErrorRegistry.FORMULA_UNABLE_TO_EVALUATE_TYPE.getCode(),
                 createMessage(formula, evaluator, referencedRule, actualReturnType, expectedReturnType, methodName),
                 null);
     }

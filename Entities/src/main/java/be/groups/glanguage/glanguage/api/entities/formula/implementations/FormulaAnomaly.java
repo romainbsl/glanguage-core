@@ -46,7 +46,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue(Evaluator evaluator) {
+	protected Integer doGetIntegerValue(Evaluator evaluator) {
 		reportAnomaly();
 		return 0;
 	}
@@ -54,7 +54,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Double getNumericValue(Evaluator evaluator) {
+	protected Double doGetNumericValue(Evaluator evaluator) {
 		reportAnomaly();
 		return 0.0;
 	}
@@ -62,7 +62,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public String getStringValue(Evaluator evaluator) {
+	protected String doGetStringValue(Evaluator evaluator) {
 		reportAnomaly();
 		return "";
 	}
@@ -70,7 +70,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public LocalDate getDateValue(Evaluator evaluator) {
+	protected LocalDate doGetDateValue(Evaluator evaluator) {
 		reportAnomaly();
 		return LocalDate.MIN;
 	}
@@ -78,7 +78,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Duration getDurationValue(Evaluator evaluator) {
+	protected Duration doGetDurationValue(Evaluator evaluator) {
 		reportAnomaly();
 		return Duration.ZERO;
 	}

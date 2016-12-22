@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -35,7 +36,7 @@ public class FormulaDate extends AbstractNonTerminalFormula {
     }
 
     @Override
-    public LocalDate getDateValue(Evaluator evaluator) {
+    protected LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageEvaluationException {
         LocalDate date = null;
         if (getParameters().size() == 1) {
             try {

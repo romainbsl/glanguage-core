@@ -3,7 +3,7 @@ package be.groups.glanguage.glanguage.api.error.formula.implementations.call;
 import be.groups.errorframework.core.error.InnerError;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.RuleCallFormula;
-import be.groups.glanguage.glanguage.api.error.GlanguageErrorRegistry;
+import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 
 /**
  * Created by michotte on 20/12/2016.
@@ -11,7 +11,7 @@ import be.groups.glanguage.glanguage.api.error.GlanguageErrorRegistry;
 public class RuleCallFormulaReferencedRuleUnavailableInnerError extends InnerError {
 
     public RuleCallFormulaReferencedRuleUnavailableInnerError(RuleCallFormula formula, Evaluator evaluator) {
-        super(GlanguageErrorRegistry.FORMULA_RULE_REFERENCE_REFERENCED_RULE_UNAVAILABLE.getCode(), createMessage
+        super(GLanguageErrorRegistry.FORMULA_RULE_REFERENCE_REFERENCED_RULE_UNAVAILABLE.getCode(), createMessage
                 (formula, evaluator), null);
     }
 

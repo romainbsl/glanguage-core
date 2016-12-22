@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFor
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
@@ -57,7 +58,7 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
     @JsonIgnore
     @Transient
     @Override
-    public Integer getIntegerValue(Evaluator evaluator) {
+    protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageEvaluationException {
         return getNumericValue(null).intValue();
     }
 

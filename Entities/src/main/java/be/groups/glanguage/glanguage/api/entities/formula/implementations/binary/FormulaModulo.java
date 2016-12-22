@@ -4,6 +4,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -25,7 +26,7 @@ public class FormulaModulo extends BinaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue(Evaluator evaluator) {
+	protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		return getParameters().get(0).getIntegerValue(evaluator) % getParameters().get(1).getIntegerValue(evaluator);
 	}
 

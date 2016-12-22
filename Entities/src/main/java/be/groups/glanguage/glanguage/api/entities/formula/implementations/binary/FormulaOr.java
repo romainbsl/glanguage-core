@@ -7,6 +7,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -35,7 +36,7 @@ public class FormulaOr extends BinaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue(Evaluator evaluator) {
+	protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		return getParameters().get(0).getBooleanValue(evaluator) || getParameters().get(1).getBooleanValue(evaluator);
 	}
 

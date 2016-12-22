@@ -4,6 +4,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -14,31 +15,31 @@ import javax.persistence.Transient;
 @DiscriminatorValue(FormulaType.Values.OP_UNARY_MINUS)
 public class FormulaUnaryMinus extends UnaryFormula {
 
-	protected FormulaUnaryMinus() {
-		super();
-	}
+    protected FormulaUnaryMinus() {
+        super();
+    }
 
-	public FormulaUnaryMinus(FormulaDescription description, AbstractFormula child) {
-		super(description, child);
-	}
+    public FormulaUnaryMinus(FormulaDescription description, AbstractFormula child) {
+        super(description, child);
+    }
 
-	@JsonIgnore
-	@Transient
-	@Override
-	public Integer getIntegerValue(Evaluator evaluator) {
-		return -getParameters().get(0).getIntegerValue(evaluator);
-	}
+    @JsonIgnore
+    @Transient
+    @Override
+    public Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageEvaluationException {
+        return -getParameters().get(0).getIntegerValue(evaluator);
+    }
 
-	@JsonIgnore
-	@Transient
-	@Override
-	public Double getNumericValue(Evaluator evaluator) {
-		return -getParameters().get(0).getNumericValue(evaluator);
-	}
+    @JsonIgnore
+    @Transient
+    @Override
+    public Double doGetNumericValue(Evaluator evaluator) throws GLanguageEvaluationException {
+        return -getParameters().get(0).getNumericValue(evaluator);
+    }
 
-	@Override
-	public String operationAsText() {
-		return "-";
-	}
+    @Override
+    public String operationAsText() {
+        return "-";
+    }
 
 }

@@ -7,6 +7,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 import be.groups.glanguage.glanguage.api.entities.utils.FormatAlignment;
 import be.groups.glanguage.glanguage.api.entities.utils.FormatDouble;
 import be.groups.glanguage.glanguage.api.entities.utils.FormatSign;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -37,7 +38,7 @@ public class FormulaFormatNumeric extends FormatFormula {
     @JsonIgnore
     @Transient
     @Override
-    public String getStringValue(Evaluator evaluator) {
+    protected String doGetStringValue(Evaluator evaluator) throws GLanguageEvaluationException {
         FormatDouble format = null;
         double d;
         int width, decimals;

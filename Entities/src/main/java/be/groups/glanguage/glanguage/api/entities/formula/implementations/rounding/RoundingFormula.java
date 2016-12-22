@@ -6,6 +6,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFor
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.rule.Rounder;
 import be.groups.glanguage.glanguage.api.entities.rule.RoundingType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Transient;
@@ -32,23 +33,14 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue(Evaluator evaluator) {
-		switch (getParameters().get(0).getReturnType(evaluator)) {
-			case INTEGER:
-				return Rounder.round(getParameters().get(0).getIntegerValue(evaluator), getRoundingType(),
-						getParameters().get(1).getNumericValue(evaluator)).intValue();
-			case NUMERIC:
-				return Rounder.round(getParameters().get(0).getNumericValue(evaluator), getRoundingType(),
-						getParameters().get(1).getNumericValue(evaluator)).intValue();
-			default:
-				throw new IllegalArgumentException("Parameter to be rounded must be of type INTEGER or NUMERIC");
-		}
+	protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageEvaluationException {
+		return getNumericValue().intValue();
 	}
 
 	@JsonIgnore
 	@Transient
 	@Override
-	public Double getNumericValue(Evaluator evaluator) {
+	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		switch (getParameters().get(0).getReturnType(evaluator)) {
 			case INTEGER:
 				return Rounder.round(getParameters().get(0).getIntegerValue(evaluator), getRoundingType(),

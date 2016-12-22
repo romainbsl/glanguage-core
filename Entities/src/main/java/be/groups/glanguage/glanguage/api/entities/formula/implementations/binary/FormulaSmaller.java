@@ -8,6 +8,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -35,10 +36,11 @@ public class FormulaSmaller extends BinaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue(Evaluator evaluator) {
+	protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		switch (parameters.get(0).getReturnType(evaluator)) {
 		case DATE:
-			return getParameters().get(0).getDateValue(evaluator).isBefore(getParameters().get(1).getDateValue(evaluator));
+			return getParameters().get(0).getDateValue(evaluator).isBefore(getParameters().get(1).getDateValue
+					(evaluator));
 		case INTEGER:
 			if (parameters.get(1).getReturnType(evaluator).equals(FormulaReturnType.INTEGER)) {
 				return getParameters().get(0).getIntegerValue(evaluator) < getParameters().get(1).getIntegerValue(evaluator);

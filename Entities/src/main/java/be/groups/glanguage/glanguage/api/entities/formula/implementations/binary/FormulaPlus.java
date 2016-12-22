@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -43,21 +44,21 @@ public class FormulaPlus extends BinaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue(Evaluator evaluator) {
+	protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		return getParameters().get(0).getIntegerValue(evaluator) + getParameters().get(1).getIntegerValue(evaluator);
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Double getNumericValue(Evaluator evaluator) {
+	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		return getParameters().get(0).getNumericValue(evaluator) + getParameters().get(1).getNumericValue(evaluator);
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public String getStringValue(Evaluator evaluator) {
+	protected String doGetStringValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		AbstractFormula leftParameter = getParameters().get(0);
 		AbstractFormula rightParameter = getParameters().get(1);
 		
@@ -67,7 +68,7 @@ public class FormulaPlus extends BinaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public LocalDate getDateValue(Evaluator evaluator) {
+	protected LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		AbstractFormula leftParameter = getParameters().get(0);
 		AbstractFormula rightParameter = getParameters().get(1);
 		AbstractFormula dateParameter = null;
@@ -97,7 +98,7 @@ public class FormulaPlus extends BinaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Duration getDurationValue(Evaluator evaluator) {
+	protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		AbstractFormula leftParameter = getParameters().get(0);
 		AbstractFormula rightParameter = getParameters().get(1);
 		

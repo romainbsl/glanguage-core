@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -35,14 +36,14 @@ public class FormulaStringLength extends AbstractNonTerminalFormula {
     @JsonIgnore
     @Transient
     @Override
-    public String getStringValue(Evaluator evaluator) {
+    protected String doGetStringValue(Evaluator evaluator) throws GLanguageEvaluationException {
         return String.valueOf(getIntegerValue(evaluator));
     }
 
     @JsonIgnore
     @Transient
     @Override
-    public Integer getIntegerValue(Evaluator evaluator) {
+    protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageEvaluationException {
         return getParameters().get(0).getStringValue(evaluator) != null ? getParameters().get(0)
                 .getStringValue(evaluator).length() : 0;
     }

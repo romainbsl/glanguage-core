@@ -3,6 +3,8 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -27,36 +29,36 @@ public class FormulaApplicability extends RuleCallFormula {
 	}
 
 	@Override
-	public Integer doGetIntegerValue(Evaluator evaluator) {
+	protected Integer doGetIntegerValue(RuleVersion ruleVersion, Evaluator evaluator) {
 		throw new UnsupportedOperationException(
 				"Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Override
-	public Double doGetNumericValue(Evaluator evaluator) {
+	protected Double doGetNumericValue(RuleVersion ruleVersion, Evaluator evaluator) {
 		throw new UnsupportedOperationException(
 				"Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Override
-	public String doGetStringValue(Evaluator evaluator) {
+	protected String doGetStringValue(RuleVersion ruleVersion, Evaluator evaluator) {
 		throw new UnsupportedOperationException(
 				"Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Override
-	public Boolean doGetBooleanValue(Evaluator evaluator) {
-		return getReferencedRule(evaluator).getApplicabilityCondition().getBooleanValue(evaluator);
+	protected Boolean doGetBooleanValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageEvaluationException {
+		return ruleVersion.getApplicabilityCondition().getBooleanValue(evaluator);
 	}
 
 	@Override
-	public LocalDate doGetDateValue(Evaluator evaluator) {
+	protected LocalDate doGetDateValue(RuleVersion ruleVersion, Evaluator evaluator) {
 		throw new UnsupportedOperationException(
 				"Cannot invoke getDateValue() method on " + this.getClass().getName() + " object");
 	}
 
 	@Override
-	public Duration doGetDurationValue(Evaluator evaluator) {
+	protected Duration doGetDurationValue(RuleVersion ruleVersion, Evaluator evaluator) {
 		throw new UnsupportedOperationException(
 				"Cannot invoke getDurationValue() method on " + this.getClass().getName() + " object");
 	}

@@ -3,6 +3,7 @@ package be.groups.glanguage.glanguage.api.business.evaluation;
 import be.groups.glanguage.glanguage.api.business.plan.Plan;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,7 +49,7 @@ public class PlanEvaluator implements Evaluator {
     /**
      * Evaluate the whole {@code plan}
      */
-    public void evaluatePlan() {
+    public void evaluatePlan() throws GLanguageEvaluationException {
         plan.evaluate(this);
     }
 
@@ -57,7 +58,7 @@ public class PlanEvaluator implements Evaluator {
      * @param ruleIdentifier The identifier of the {@link RuleVersion} to evaluate
      * @param recursive Flag saying if evaluation has to be recursive or not
      */
-    public void evaluateRuleVersion(String ruleIdentifier, boolean recursive) {
+    public void evaluateRuleVersion(String ruleIdentifier, boolean recursive) throws GLanguageEvaluationException {
         plan.evaluate(ruleIdentifier, recursive, this);
     }
 

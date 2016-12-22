@@ -3,7 +3,7 @@ package be.groups.glanguage.glanguage.api.error.formula.implementations;
 import be.groups.errorframework.core.error.InnerError;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.error.GlanguageErrorRegistry;
+import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 
 /**
  * Created by michotte on 20/12/2016.
@@ -11,7 +11,7 @@ import be.groups.glanguage.glanguage.api.error.GlanguageErrorRegistry;
 public class AbstractFormulaUnableToEvaluateTypeInnerError extends InnerError {
 
     public AbstractFormulaUnableToEvaluateTypeInnerError(AbstractFormula formula, Evaluator evaluator, String methodName) {
-        this(GlanguageErrorRegistry.FORMULA_UNABLE_TO_EVALUATE_TYPE.getCode(), formula, evaluator, methodName);
+        this(GLanguageErrorRegistry.FORMULA_UNABLE_TO_EVALUATE_TYPE.getCode(), formula, evaluator, methodName);
     }
 
     public AbstractFormulaUnableToEvaluateTypeInnerError(String code, AbstractFormula formula, Evaluator evaluator, String

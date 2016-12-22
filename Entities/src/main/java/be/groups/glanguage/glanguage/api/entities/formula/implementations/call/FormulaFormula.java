@@ -3,6 +3,8 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -22,33 +24,33 @@ public class FormulaFormula extends RuleCallFormula {
 	}
 	
 	@Override
-	public Integer doGetIntegerValue(Evaluator evaluator) {
-		return getReferencedRule(evaluator).getFormula().getIntegerValue(evaluator);
+	protected Integer doGetIntegerValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageEvaluationException {
+		return ruleVersion.getFormula().getIntegerValue(evaluator);
 	}
 	
 	@Override
-	public Double doGetNumericValue(Evaluator evaluator) {
-		return getReferencedRule(evaluator).getFormula().getNumericValue(evaluator);
+	protected Double doGetNumericValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageEvaluationException {
+		return ruleVersion.getFormula().getNumericValue(evaluator);
 	}
 	
 	@Override
-	public String doGetStringValue(Evaluator evaluator) {
-		return getReferencedRule(evaluator).getFormula().getStringValue(evaluator);
+	protected String doGetStringValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageEvaluationException {
+		return ruleVersion.getFormula().getStringValue(evaluator);
 	}
 	
 	@Override
-	public Boolean doGetBooleanValue(Evaluator evaluator) {
-		return getReferencedRule(evaluator).getFormula().getBooleanValue(evaluator);
+	protected Boolean doGetBooleanValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageEvaluationException {
+		return ruleVersion.getFormula().getBooleanValue(evaluator);
 	}
 	
 	@Override
-	public LocalDate doGetDateValue(Evaluator evaluator) {
-		return getReferencedRule(evaluator).getFormula().getDateValue(evaluator);
+	protected LocalDate doGetDateValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageEvaluationException {
+		return ruleVersion.getFormula().getDateValue(evaluator);
 	}
 	
 	@Override
-	public Duration doGetDurationValue(Evaluator evaluator) {
-		return getReferencedRule(evaluator).getFormula().getDurationValue(evaluator);
+	protected Duration doGetDurationValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageEvaluationException {
+		return ruleVersion.getFormula().getDurationValue(evaluator);
 	}
 	
 	@Override

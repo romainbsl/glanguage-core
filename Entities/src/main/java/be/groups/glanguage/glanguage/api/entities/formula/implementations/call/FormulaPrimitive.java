@@ -4,6 +4,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -32,7 +33,7 @@ public class FormulaPrimitive extends CallFormula {
 		}
 	}
 
-	protected Object getTargetedObject(Object object, Evaluator evaluator) {
+	protected Object getTargetedObject(Object object, Evaluator evaluator) throws GLanguageEvaluationException {
 		AbstractFormula[] parameters = null;
 		if (getParameters() != null) {
 			parameters = new AbstractFormula[getParameters().size()];

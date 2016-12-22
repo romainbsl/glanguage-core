@@ -35,35 +35,35 @@ public class FormulaUndefined extends AbstractTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue(Evaluator evaluator) {
+	protected Integer doGetIntegerValue(Evaluator evaluator) {
 		return null;
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Double getNumericValue(Evaluator evaluator) {
+	protected Double doGetNumericValue(Evaluator evaluator) {
+		return null;
+	}
+
+	@JsonIgnore
+	@Transient
+	@Override
+	protected Boolean doGetBooleanValue(Evaluator evaluator) {
 		return null;
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue(Evaluator evaluator) {
+	protected LocalDate doGetDateValue(Evaluator evaluator) {
 		return null;
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public LocalDate getDateValue(Evaluator evaluator) {
-		return null;
-	}
-	
-	@JsonIgnore
-	@Transient
-	@Override
-	public Duration getDurationValue(Evaluator evaluator) {
+	protected Duration doGetDurationValue(Evaluator evaluator) {
 		return null;
 	}
 	

@@ -4,6 +4,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -28,7 +29,7 @@ public class FormulaDurationMonths extends DurationFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Integer getIntegerValue(Evaluator evaluator) {
+	protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		switch (getParameters().get(0).getReturnType(evaluator)) {
 			case INTEGER:
 				return getParameters().get(0).getIntegerValue(evaluator);
@@ -45,7 +46,7 @@ public class FormulaDurationMonths extends DurationFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	public Duration getDurationValue(Evaluator evaluator) {
+	protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageEvaluationException {
 		return Duration.ofDays(Period.ofMonths(getIntegerValue(evaluator)).getMonths() * MONTH_AVG_DAYS_COUNT);
 	}
 	
