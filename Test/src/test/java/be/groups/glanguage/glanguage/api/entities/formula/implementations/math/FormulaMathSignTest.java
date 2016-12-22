@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -139,7 +140,7 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMathSign#getIntegerValue()} when operand exists and is positive
 	 */
 	@Test
-	public void testGetIntegerValueParameterExistsPositive() {
+	public void testGetIntegerValueParameterExistsPositive() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getNumericValue(null)).thenReturn(1.0);
@@ -153,7 +154,7 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMathSign#getIntegerValue()} when operand exists and is negative
 	 */
 	@Test
-	public void testGetIntegerValueParameterExistsNegative() {
+	public void testGetIntegerValueParameterExistsNegative() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getNumericValue(null)).thenReturn(-1.0);
@@ -167,7 +168,7 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMathSign#getIntegerValue()} when operand doesn't exist
 	 */
 	@Test(expected = NullPointerException.class)
-	public void testGetIntegerValueParameterNotExists() {
+	public void testGetIntegerValueParameterNotExists() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getNumericValue(null)).thenReturn(null);
@@ -181,7 +182,7 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMathSign#getNumericValue()} when operand exists and is positive
 	 */
 	@Test
-	public void testGetNumericValueParameterExistsPositive() {
+	public void testGetNumericValueParameterExistsPositive() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand.getNumericValue(null)).thenReturn(1.5);
@@ -195,7 +196,7 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMathSign#getNumericValue()} when operand exists and is negative
 	 */
 	@Test
-	public void testGetNumericValueParameterExistsNegative() {
+	public void testGetNumericValueParameterExistsNegative() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand.getNumericValue(null)).thenReturn(-1.5);
@@ -209,7 +210,7 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMathSign#getNumericValue()} when operand doesn't exist
 	 */
 	@Test(expected = NullPointerException.class)
-	public void testGetNumericValueParameterNotExists() {
+	public void testGetNumericValueParameterNotExists() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand.getNumericValue(null)).thenReturn(null);
@@ -223,7 +224,7 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMathSign#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
@@ -237,7 +238,7 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMathSign#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	public void testGetBooleanValue() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
@@ -251,7 +252,7 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMathSign#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	public void testGetDateValue() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
@@ -265,7 +266,7 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMathSign#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	public void testGetDurationValue() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);

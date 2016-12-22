@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -119,7 +120,7 @@ public class FormulaIntegerDivisionTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaIntegerDivision#getNumericValue()}
 	 */
 	@Test
-	public void testGetIntegerValue() {
+	public void testGetIntegerValue() throws GLanguageEvaluationException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(numerator.getIntegerValue(null)).thenReturn(3);
@@ -137,7 +138,7 @@ public class FormulaIntegerDivisionTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaIntegerDivision#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() {
+	public void testGetNumericValue() throws GLanguageEvaluationException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(numerator.getIntegerValue(null)).thenReturn(3);
@@ -155,7 +156,7 @@ public class FormulaIntegerDivisionTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaIntegerDivision#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageEvaluationException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(numerator.getIntegerValue(null)).thenReturn(3);
@@ -173,7 +174,7 @@ public class FormulaIntegerDivisionTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaIntegerDivision#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	public void testGetBooleanValue() throws GLanguageEvaluationException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(numerator.getIntegerValue(null)).thenReturn(3);
@@ -191,7 +192,7 @@ public class FormulaIntegerDivisionTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaIntegerDivision#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	public void testGetDateValue() throws GLanguageEvaluationException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(numerator.getIntegerValue(null)).thenReturn(3);
@@ -209,7 +210,7 @@ public class FormulaIntegerDivisionTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaIntegerDivision#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	public void testGetDurationValue() throws GLanguageEvaluationException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(numerator.getIntegerValue(null)).thenReturn(3);

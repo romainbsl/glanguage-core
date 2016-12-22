@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -137,7 +138,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaUnaryMinus#getIntegerValue()} when parameter exists
 	 */
 	@Test
-	public void testGetIntegerValueParameterExists() {
+	public void testGetIntegerValueParameterExists() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
@@ -151,7 +152,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaUnaryMinus#getIntegerValue()} when parameter doesn't exist
 	 */
 	@Test(expected = NullPointerException.class)
-	public void testGetIntegerValueParameterNotExists() {
+	public void testGetIntegerValueParameterNotExists() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(null);
@@ -165,7 +166,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaUnaryMinus#getNumericValue()} when parameter exists
 	 */
 	@Test
-	public void testGetNumericValueParameterExists() {
+	public void testGetNumericValueParameterExists() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand.getNumericValue(null)).thenReturn(1.5);
@@ -179,7 +180,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaUnaryMinus#getNumericValue()} when parameter doesn't exist
 	 */
 	@Test(expected = NullPointerException.class)
-	public void testGetNumericValueParameterNotExists() {
+	public void testGetNumericValueParameterNotExists() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand.getNumericValue(null)).thenReturn(null);
@@ -193,7 +194,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaUnaryMinus#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
@@ -207,7 +208,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaUnaryMinus#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	public void testGetBooleanValue() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
@@ -221,7 +222,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaUnaryMinus#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	public void testGetDateValue() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
@@ -235,7 +236,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaUnaryMinus#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	public void testGetDurationValue() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);

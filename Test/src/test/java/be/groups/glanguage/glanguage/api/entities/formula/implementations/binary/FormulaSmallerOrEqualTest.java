@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -456,7 +457,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaSmallerOrEqual#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetIntegerValue() {
+	public void testGetIntegerValue() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getIntegerValue(null)).thenReturn(1);
@@ -474,7 +475,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaSmallerOrEqual#getNumericValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() {
+	public void testGetNumericValue() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getIntegerValue(null)).thenReturn(1);
@@ -492,7 +493,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaSmallerOrEqual#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getIntegerValue(null)).thenReturn(1);
@@ -511,7 +512,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * left > right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothIntegersLeftSupRight() {
+	public void testGetBooleanValueParametersExistBothIntegersLeftSupRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getIntegerValue(null)).thenReturn(1);
@@ -530,7 +531,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * left = right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothIntegersLeftEqRight() {
+	public void testGetBooleanValueParametersExistBothIntegersLeftEqRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getIntegerValue(null)).thenReturn(1);
@@ -549,7 +550,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * left < right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothIntegersLeftInfRight() {
+	public void testGetBooleanValueParametersExistBothIntegersLeftInfRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getIntegerValue(null)).thenReturn(1);
@@ -568,7 +569,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * left > right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothNumericsLeftSupRight() {
+	public void testGetBooleanValueParametersExistBothNumericsLeftSupRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand1.getNumericValue(null)).thenReturn(1.5);
@@ -587,7 +588,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * left = right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothNumericsLeftEqRight() {
+	public void testGetBooleanValueParametersExistBothNumericsLeftEqRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand1.getNumericValue(null)).thenReturn(1.5);
@@ -606,7 +607,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * left < right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothNumericsLeftInfRight() {
+	public void testGetBooleanValueParametersExistBothNumericsLeftInfRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand1.getNumericValue(null)).thenReturn(1.5);
@@ -625,7 +626,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * numeric and left > right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothMixIntNumLeftSupRight() {
+	public void testGetBooleanValueParametersExistBothMixIntNumLeftSupRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getNumericValue(null)).thenReturn(1.0);
@@ -644,7 +645,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * numeric and left = right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothMixIntNumLeftEqRight() {
+	public void testGetBooleanValueParametersExistBothMixIntNumLeftEqRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getNumericValue(null)).thenReturn(1.0);
@@ -663,7 +664,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * numeric and left < right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothMixIntNumLeftInfRight() {
+	public void testGetBooleanValueParametersExistBothMixIntNumLeftInfRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getNumericValue(null)).thenReturn(1.0);
@@ -682,7 +683,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * integer and left > right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothMixNumIntLeftSupRight() {
+	public void testGetBooleanValueParametersExistBothMixNumIntLeftSupRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand1.getNumericValue(null)).thenReturn(1.5);
@@ -701,7 +702,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * integer and left = right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothMixNumIntLeftEqRight() {
+	public void testGetBooleanValueParametersExistBothMixNumIntLeftEqRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand1.getNumericValue(null)).thenReturn(1.0);
@@ -720,7 +721,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * integer and left < right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothMixNumIntLeftInfRight() {
+	public void testGetBooleanValueParametersExistBothMixNumIntLeftInfRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand1.getNumericValue(null)).thenReturn(1.5);
@@ -739,7 +740,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * left > right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothStringsLeftSupRight() {
+	public void testGetBooleanValueParametersExistBothStringsLeftSupRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand1.getStringValue(null)).thenReturn("aab");
@@ -758,7 +759,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * left = right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothStringsLeftEqRight() {
+	public void testGetBooleanValueParametersExistBothStringsLeftEqRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand1.getStringValue(null)).thenReturn("aaa");
@@ -777,7 +778,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * left < right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothStringsLeftInfRight() {
+	public void testGetBooleanValueParametersExistBothStringsLeftInfRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand1.getStringValue(null)).thenReturn("aaa");
@@ -796,7 +797,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * left > right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothDatesLeftSupRight() {
+	public void testGetBooleanValueParametersExistBothDatesLeftSupRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(operand1.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
@@ -815,7 +816,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * left = right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothDatesLeftEqRight() {
+	public void testGetBooleanValueParametersExistBothDatesLeftEqRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(operand1.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
@@ -834,7 +835,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * left < right
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothDatesLeftInfRight() {
+	public void testGetBooleanValueParametersExistBothDatesLeftInfRight() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(operand1.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
@@ -852,7 +853,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaSmallerOrEqual#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	public void testGetDateValue() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getIntegerValue(null)).thenReturn(1);
@@ -870,7 +871,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaSmallerOrEqual#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	public void testGetDurationValue() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getValue(null)).thenReturn(1);
@@ -888,7 +889,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaSmallerOrEqual#operationAsText()}
 	 */
 	@Test
-	public void testOperationAsText() {
+	public void testOperationAsText() throws GLanguageEvaluationException {
 		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual();
 		
 		assertEquals("<=", formula.operationAsText());

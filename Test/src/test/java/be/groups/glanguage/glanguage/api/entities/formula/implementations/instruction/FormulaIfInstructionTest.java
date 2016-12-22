@@ -3,6 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.instr
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import org.junit.Test;
 
 import java.time.Duration;
@@ -47,7 +48,7 @@ public class FormulaIfInstructionTest {
 	 * Tests {@link FormulaIfInstruction#getIntegerValue()} when condition is true
 	 */
 	@Test
-	public void testGetIntegerValueCondTrue() {
+	public void testGetIntegerValueCondTrue() throws GLanguageEvaluationException {
 		AbstractFormula condition = mock(AbstractFormula.class);
 		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(condition.getBooleanValue(null)).thenReturn(true);
@@ -69,7 +70,7 @@ public class FormulaIfInstructionTest {
 	 * Tests {@link FormulaIfInstruction#getIntegerValue()} when condition is false
 	 */
 	@Test
-	public void testGetIntegerValueCondFalse() {
+	public void testGetIntegerValueCondFalse() throws GLanguageEvaluationException {
 		AbstractFormula condition = mock(AbstractFormula.class);
 		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(condition.getBooleanValue(null)).thenReturn(false);
@@ -92,7 +93,7 @@ public class FormulaIfInstructionTest {
 	 * but true for second
 	 */
 	@Test
-	public void testGetIntegerValueCondFalseCondTrue() {
+	public void testGetIntegerValueCondFalseCondTrue() throws GLanguageEvaluationException {
 		AbstractFormula subCondition = mock(AbstractFormula.class);
 		when(subCondition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(subCondition.getBooleanValue(null)).thenReturn(true);
@@ -124,7 +125,7 @@ public class FormulaIfInstructionTest {
 	 * Tests {@link FormulaIfInstruction#getNumericValue()} when condition is true
 	 */
 	@Test
-	public void testGetNumericValueCondTrue() {
+	public void testGetNumericValueCondTrue() throws GLanguageEvaluationException {
 		AbstractFormula condition = mock(AbstractFormula.class);
 		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(condition.getBooleanValue(null)).thenReturn(true);
@@ -146,7 +147,7 @@ public class FormulaIfInstructionTest {
 	 * Tests {@link FormulaIfInstruction#getNumericValue()} when condition is false
 	 */
 	@Test
-	public void testGetNumericValueCondFalse() {
+	public void testGetNumericValueCondFalse() throws GLanguageEvaluationException {
 		AbstractFormula condition = mock(AbstractFormula.class);
 		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(condition.getBooleanValue(null)).thenReturn(false);
@@ -168,7 +169,7 @@ public class FormulaIfInstructionTest {
 	 * Tests {@link FormulaIfInstruction#getStringValue()} when condition is true
 	 */
 	@Test
-	public void testGetStringValueCondTrue() {
+	public void testGetStringValueCondTrue() throws GLanguageEvaluationException {
 		AbstractFormula condition = mock(AbstractFormula.class);
 		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(condition.getBooleanValue(null)).thenReturn(true);
@@ -190,7 +191,7 @@ public class FormulaIfInstructionTest {
 	 * Tests {@link FormulaIfInstruction#getStringValue()} when condition is false
 	 */
 	@Test
-	public void testGetStringValueCondFalse() {
+	public void testGetStringValueCondFalse() throws GLanguageEvaluationException {
 		AbstractFormula condition = mock(AbstractFormula.class);
 		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(condition.getBooleanValue(null)).thenReturn(false);
@@ -212,7 +213,7 @@ public class FormulaIfInstructionTest {
 	 * Tests {@link FormulaIfInstruction#getBooleanValue()} when condition is true
 	 */
 	@Test
-	public void testGetBooleanValueCondTrue() {
+	public void testGetBooleanValueCondTrue() throws GLanguageEvaluationException {
 		AbstractFormula condition = mock(AbstractFormula.class);
 		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(condition.getBooleanValue(null)).thenReturn(true);
@@ -234,7 +235,7 @@ public class FormulaIfInstructionTest {
 	 * Tests {@link FormulaIfInstruction#getBooleanValue()} when condition is false
 	 */
 	@Test
-	public void testGetBooleanValueCondFalse() {
+	public void testGetBooleanValueCondFalse() throws GLanguageEvaluationException {
 		AbstractFormula condition = mock(AbstractFormula.class);
 		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(condition.getBooleanValue(null)).thenReturn(false);
@@ -256,7 +257,7 @@ public class FormulaIfInstructionTest {
 	 * Tests {@link FormulaIfInstruction#getDateValue()} when condition is true
 	 */
 	@Test
-	public void testGetDateValueCondTrue() {
+	public void testGetDateValueCondTrue() throws GLanguageEvaluationException {
 		AbstractFormula condition = mock(AbstractFormula.class);
 		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(condition.getBooleanValue(null)).thenReturn(true);
@@ -278,7 +279,7 @@ public class FormulaIfInstructionTest {
 	 * Tests {@link FormulaIfInstruction#getDateValue()} when condition is false
 	 */
 	@Test
-	public void testGetDateValueCondFalse() {
+	public void testGetDateValueCondFalse() throws GLanguageEvaluationException {
 		AbstractFormula condition = mock(AbstractFormula.class);
 		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(condition.getBooleanValue(null)).thenReturn(false);
@@ -300,7 +301,7 @@ public class FormulaIfInstructionTest {
 	 * Tests {@link FormulaIfInstruction#getDurationValue()} when condition is true
 	 */
 	@Test
-	public void testGetDurationValueCondTrue() {
+	public void testGetDurationValueCondTrue() throws GLanguageEvaluationException {
 		AbstractFormula condition = mock(AbstractFormula.class);
 		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(condition.getBooleanValue(null)).thenReturn(true);
@@ -322,7 +323,7 @@ public class FormulaIfInstructionTest {
 	 * Tests {@link FormulaIfInstruction#getDurationValue()} when condition is false
 	 */
 	@Test
-	public void testGetDurationValueCondFalse() {
+	public void testGetDurationValueCondFalse() throws GLanguageEvaluationException {
 		AbstractFormula condition = mock(AbstractFormula.class);
 		when(condition.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(condition.getBooleanValue(null)).thenReturn(false);

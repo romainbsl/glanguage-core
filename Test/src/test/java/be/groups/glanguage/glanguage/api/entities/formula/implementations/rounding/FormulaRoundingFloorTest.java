@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -263,7 +264,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingFloor#getIntegerValue()} with integer parameter
 	 */
 	@Test
-	public void testGetIntegerValueInt() {
+	public void testGetIntegerValueInt() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(117);
@@ -281,7 +282,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingFloor#getIntegerValue()} with numeric parameter
 	 */
 	@Test
-	public void testGetIntegerValueNum() {
+	public void testGetIntegerValueNum() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.567);
@@ -299,7 +300,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingFloor#getNumericValue()} with integer parameter
 	 */
 	@Test
-	public void testGetNumericValueInt() {
+	public void testGetNumericValueInt() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(117);
@@ -317,7 +318,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingFloor#getNumericValue()} with numeric parameter
 	 */
 	@Test
-	public void testGetNumericValueNum() {
+	public void testGetNumericValueNum() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.567);
@@ -335,7 +336,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingFloor#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.567);
@@ -353,7 +354,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingFloor#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	public void testGetBooleanValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.567);
@@ -371,7 +372,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingFloor#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	public void testGetDateValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.567);
@@ -389,7 +390,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingFloor#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	public void testGetDurationValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.567);

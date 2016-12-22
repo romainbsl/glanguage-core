@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -156,7 +157,7 @@ public class FormulaDurationYearsTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDurationYears#getIntegerValue()} with date parameter
 	 */
 	@Test
-	public void testGetIntegerValueDateParameter() {
+	public void testGetIntegerValueDateParameter() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(parameter.getDateValue(null)).thenReturn(LocalDate.of(2015, 2, 10));
@@ -170,7 +171,7 @@ public class FormulaDurationYearsTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDurationYears#getIntegerValue()} with duration parameter
 	 */
 	@Test
-	public void testGetIntegerValueDurationParameter() {
+	public void testGetIntegerValueDurationParameter() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		when(parameter.getDurationValue(null)).thenReturn(Duration.ofDays(2 * 365));
@@ -184,7 +185,7 @@ public class FormulaDurationYearsTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDurationYears#getNumericValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() {
+	public void testGetNumericValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(parameter.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 10));
@@ -198,7 +199,7 @@ public class FormulaDurationYearsTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDurationYears#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(parameter.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 10));
@@ -212,7 +213,7 @@ public class FormulaDurationYearsTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDurationYears#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	public void testGetBooleanValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(parameter.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 10));
@@ -226,7 +227,7 @@ public class FormulaDurationYearsTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDurationYears#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	public void testGetDateValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(parameter.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 10));
@@ -240,7 +241,7 @@ public class FormulaDurationYearsTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDurationYears#getDurationValue()} with integer parameter
 	 */
 	@Test
-	public void testGetDurationValueIntegerParameter() {
+	public void testGetDurationValueIntegerParameter() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(2015);

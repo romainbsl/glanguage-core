@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -182,7 +183,7 @@ public class FormulaDateTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDate#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetIntegerValue() {
+	public void testGetIntegerValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(parameter.getStringValue(null)).thenReturn("11/09/1992");
@@ -196,7 +197,7 @@ public class FormulaDateTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDate#getNumericValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() {
+	public void testGetNumericValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(parameter.getStringValue(null)).thenReturn("11/09/1992");
@@ -210,7 +211,7 @@ public class FormulaDateTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDate#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(parameter.getStringValue(null)).thenReturn("11/09/1992");
@@ -224,7 +225,7 @@ public class FormulaDateTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDate#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	public void testGetBooleanValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(parameter.getStringValue(null)).thenReturn("11/09/1992");
@@ -238,7 +239,7 @@ public class FormulaDateTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDate#getDateValue()} with string parameter
 	 */
 	@Test
-	public void testGetDateValueWithStringParam() {
+	public void testGetDateValueWithStringParam() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(parameter.getStringValue(null)).thenReturn("11/09/1992");
@@ -252,7 +253,7 @@ public class FormulaDateTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDate#getDateValue()} with integers parameters
 	 */
 	@Test
-	public void testGetDateValueWithIntParams() {
+	public void testGetDateValueWithIntParams() throws GLanguageEvaluationException {
 		AbstractFormula dayParam = mock(AbstractFormula.class);
 		when(dayParam.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(dayParam.getIntegerValue(null)).thenReturn(11);
@@ -274,7 +275,7 @@ public class FormulaDateTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDate#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	public void testGetDurationValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(parameter.getStringValue(null)).thenReturn("11/09/1992");

@@ -7,6 +7,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -50,7 +51,7 @@ public class FormulaApplicabilityTest {
 	 * Tests {@link FormulaApplicability#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetIntegerValue() {
+	public void testGetIntegerValue() throws GLanguageEvaluationException {
 		String ruleId = "some_rule";
 		
 		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
@@ -80,7 +81,7 @@ public class FormulaApplicabilityTest {
 	 * Tests {@link FormulaApplicability#getIntegerValue()} without reference rule
 	 */
 	@Test(expected = IllegalAccessError.class)
-	public void testGetIntegerValueWithoutReference() {
+	public void testGetIntegerValueWithoutReference() throws GLanguageEvaluationException {
 		String ruleId = "some_rule";
 		
 		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
@@ -92,7 +93,7 @@ public class FormulaApplicabilityTest {
 	 * Tests {@link FormulaApplicability#getNumericValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() {
+	public void testGetNumericValue() throws GLanguageEvaluationException {
 		String ruleId = "some_rule";
 		
 		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
@@ -122,7 +123,7 @@ public class FormulaApplicabilityTest {
 	 * Tests {@link FormulaApplicability#getNumericValue()} without reference rule
 	 */
 	@Test(expected = IllegalAccessError.class)
-	public void testGetNumericValueWithoutReference() {
+	public void testGetNumericValueWithoutReference() throws GLanguageEvaluationException {
 		String ruleId = "some_rule";
 		
 		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
@@ -134,7 +135,7 @@ public class FormulaApplicabilityTest {
 	 * Tests {@link FormulaApplicability#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageEvaluationException {
 		String ruleId = "some_rule";
 		
 		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
@@ -164,7 +165,7 @@ public class FormulaApplicabilityTest {
 	 * Tests {@link FormulaApplicability#getStringValue()} without reference rule
 	 */
 	@Test(expected = IllegalAccessError.class)
-	public void testGetStringValueWithoutReference() {
+	public void testGetStringValueWithoutReference() throws GLanguageEvaluationException {
 		String ruleId = "some_rule";
 		
 		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
@@ -176,7 +177,7 @@ public class FormulaApplicabilityTest {
 	 * Tests {@link FormulaApplicability#getBooleanValue()} when applicability condition is true
 	 */
 	@Test
-	public void testGetBooleanValueCondTrue() {
+	public void testGetBooleanValueCondTrue() throws GLanguageEvaluationException {
 		String ruleId = "some_rule";
 		
 		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
@@ -206,7 +207,7 @@ public class FormulaApplicabilityTest {
 	 * Tests {@link FormulaApplicability#getBooleanValue()} when applicability condition is false
 	 */
 	@Test
-	public void testGetBooleanValueCondFalse() {
+	public void testGetBooleanValueCondFalse() throws GLanguageEvaluationException {
 		String ruleId = "some_rule";
 		
 		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
@@ -235,8 +236,8 @@ public class FormulaApplicabilityTest {
 	/**
 	 * Tests {@link FormulaApplicability#getBooleanValue()} without reference rule
 	 */
-	@Test(expected = IllegalAccessError.class)
-	public void testGetBooleanValueWithoutReference() {
+	@Test(expected = GLanguageEvaluationException.class)
+	public void testGetBooleanValueWithoutReference() throws GLanguageEvaluationException {
 		String ruleId = "some_rule";
 		
 		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
@@ -248,7 +249,7 @@ public class FormulaApplicabilityTest {
 	 * Tests {@link FormulaApplicability#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	public void testGetDateValue() throws GLanguageEvaluationException {
 		String ruleId = "some_rule";
 		
 		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
@@ -278,7 +279,7 @@ public class FormulaApplicabilityTest {
 	 * Tests {@link FormulaApplicability#getDateValue()} without reference rule
 	 */
 	@Test(expected = IllegalAccessError.class)
-	public void testGetDateValueWithoutReference() {
+	public void testGetDateValueWithoutReference() throws GLanguageEvaluationException {
 		String ruleId = "some_rule";
 		
 		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
@@ -290,7 +291,7 @@ public class FormulaApplicabilityTest {
 	 * Tests {@link FormulaApplicability#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	public void testGetDurationValue() throws GLanguageEvaluationException {
 		String ruleId = "some_rule";
 		
 		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
@@ -320,7 +321,7 @@ public class FormulaApplicabilityTest {
 	 * Tests {@link FormulaApplicability#getDurationValue()} without reference rule
 	 */
 	@Test(expected = IllegalAccessError.class)
-	public void testGetDurationValueWithoutReference() {
+	public void testGetDurationValueWithoutReference() throws GLanguageEvaluationException {
 		String ruleId = "some_rule";
 		
 		FormulaApplicability formula = new FormulaApplicability(null, ruleId);

@@ -3,6 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.extre
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class FormulaExtremumSignedMinTest {
 	 * Tests {@link FormulaExtremumSignedMin#getIntegerValue()} when all parameters are integers
 	 */
 	@Test
-	public void testGetIntegerValueIntegers() {
+	public void testGetIntegerValueIntegers() throws GLanguageEvaluationException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);
@@ -79,7 +80,7 @@ public class FormulaExtremumSignedMinTest {
 	 * Tests {@link FormulaExtremumSignedMin#getNumericValue()} when all parameters are numeric
 	 */
 	@Test
-	public void testGetNumericValueNumerics() {
+	public void testGetNumericValueNumerics() throws GLanguageEvaluationException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);
@@ -107,7 +108,7 @@ public class FormulaExtremumSignedMinTest {
 	 * mix is numeric
 	 */
 	@Test
-	public void testGetNumericValueIntNum() {
+	public void testGetNumericValueIntNum() throws GLanguageEvaluationException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);
@@ -134,7 +135,7 @@ public class FormulaExtremumSignedMinTest {
 	 * Tests {@link FormulaExtremumSignedMin#getNumericValue()} when all parameters are integers
 	 */
 	@Test
-	public void testGetNumericValueIntegers() {
+	public void testGetNumericValueIntegers() throws GLanguageEvaluationException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);
@@ -162,7 +163,7 @@ public class FormulaExtremumSignedMinTest {
 	 * Tests {@link FormulaExtremumSignedMin#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageEvaluationException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);
@@ -189,7 +190,7 @@ public class FormulaExtremumSignedMinTest {
 	 * Tests {@link FormulaExtremumSignedMin#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	public void testGetBooleanValue() throws GLanguageEvaluationException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);
@@ -216,7 +217,7 @@ public class FormulaExtremumSignedMinTest {
 	 * Tests {@link FormulaExtremumSignedMin#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	public void testGetDateValue() throws GLanguageEvaluationException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);
@@ -243,7 +244,7 @@ public class FormulaExtremumSignedMinTest {
 	 * Tests {@link FormulaExtremumSignedMin#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	public void testGetDurationValue() throws GLanguageEvaluationException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);

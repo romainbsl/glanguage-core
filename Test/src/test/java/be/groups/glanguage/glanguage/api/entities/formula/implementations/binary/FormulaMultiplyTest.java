@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -200,7 +201,7 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMultiply#getIntegerValue()} when both parameters are integers
 	 */
 	@Test
-	public void testGetIntegerValueIntInt() {
+	public void testGetIntegerValueIntInt() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getNumericValue(null)).thenReturn(2.0);
@@ -218,7 +219,7 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMultiply#getNumericValue()} when both parameters are numerics
 	 */
 	@Test
-	public void testGetNumericValueNumNum() {
+	public void testGetNumericValueNumNum() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand1.getNumericValue(null)).thenReturn(1.5);
@@ -237,7 +238,7 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	 * numeric
 	 */
 	@Test
-	public void testGetNumericValueIntNum() {
+	public void testGetNumericValueIntNum() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getNumericValue(null)).thenReturn(2.0);
@@ -256,7 +257,7 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	 * integer
 	 */
 	@Test
-	public void testGetNumericValueNumInt() {
+	public void testGetNumericValueNumInt() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand1.getNumericValue(null)).thenReturn(2.3);
@@ -274,7 +275,7 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMultiply#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getNumericValue(null)).thenReturn(2.0);
@@ -292,7 +293,7 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMultiply#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	public void testGetBooleanValue() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getNumericValue(null)).thenReturn(2.0);
@@ -310,7 +311,7 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMultiply#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	public void testGetDateValue() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getNumericValue(null)).thenReturn(2.0);
@@ -328,7 +329,7 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMultiply#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	public void testGetDurationValue() throws GLanguageEvaluationException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getNumericValue(null)).thenReturn(2.0);

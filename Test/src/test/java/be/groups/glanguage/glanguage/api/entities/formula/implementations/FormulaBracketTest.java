@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -218,7 +219,7 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaBracket#getIntegerValue()}
 	 */
 	@Test
-	public void testGetIntegerValue() {
+	public void testGetIntegerValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getIntegerValue(null)).thenReturn(1);
 		
@@ -231,7 +232,7 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaBracket#getNumericValue()}
 	 */
 	@Test
-	public void testGetNumericValue() {
+	public void testGetNumericValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getNumericValue(null)).thenReturn(2.5);
 		
@@ -244,7 +245,7 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaBracket#getStringValue()}
 	 */
 	@Test
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getStringValue(null)).thenReturn("some_value");
 		
@@ -257,7 +258,7 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaBracket#getBooleanValue()}
 	 */
 	@Test
-	public void testGetBooleanValue() {
+	public void testGetBooleanValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getBooleanValue(null)).thenReturn(true);
 		
@@ -270,7 +271,7 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaBracket#getDateValue()}
 	 */
 	@Test
-	public void testGetDateValue() {
+	public void testGetDateValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
 		
@@ -283,7 +284,7 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaBracket#getDurationValue()}
 	 */
 	@Test
-	public void testGetDurationValue() {
+	public void testGetDurationValue() throws GLanguageEvaluationException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getDurationValue(null)).thenReturn(Duration.ofDays(2L));
 		

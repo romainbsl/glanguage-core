@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -215,7 +216,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaExist#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetIntegerValue() {
+	public void testGetIntegerValue() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand.getValue(null)).thenReturn("some_value");
@@ -229,7 +230,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaExist#getNumericValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() {
+	public void testGetNumericValue() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand.getValue(null)).thenReturn("some_value");
@@ -243,7 +244,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaExist#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand.getValue(null)).thenReturn("some_value");
@@ -257,7 +258,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaExist#getBooleanValue()} when parameter exists
 	 */
 	@Test
-	public void testGetBooleanValueParameterExists() {
+	public void testGetBooleanValueParameterExists() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand.getValue(null)).thenReturn("some_value");
@@ -271,7 +272,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaExist#getBooleanValue()} when parameter doesn't exist
 	 */
 	@Test
-	public void testGetBooleanValueParameterNotExist() {
+	public void testGetBooleanValueParameterNotExist() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand.getValue(null)).thenReturn(null);
@@ -285,7 +286,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaExist#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	public void testGetDateValue() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand.getValue(null)).thenReturn("some_value");
@@ -299,7 +300,7 @@ public class FormulaExistTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaExist#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	public void testGetDurationValue() throws GLanguageEvaluationException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand.getValue(null)).thenReturn("some_value");

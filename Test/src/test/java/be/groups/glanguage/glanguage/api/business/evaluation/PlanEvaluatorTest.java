@@ -4,6 +4,7 @@ import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.plan.Plan;
 import be.groups.glanguage.glanguage.api.business.universe.Universe;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -18,7 +19,7 @@ public class PlanEvaluatorTest extends BaseDatabaseTest {
      * Tests {@link PlanEvaluator#evaluatePlan()}
      */
     @Test
-    public void evaluatePlanTest() {
+    public void evaluatePlanTest() throws GLanguageEvaluationException {
         Plan plan = Universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
         PlanEvaluator evaluator = new PlanEvaluator(plan, context);
@@ -51,7 +52,7 @@ public class PlanEvaluatorTest extends BaseDatabaseTest {
      * Tests {@link PlanEvaluator#evaluatePlan()}
      */
     @Test
-    public void evaluateEvaluatedPlanTest() {
+    public void evaluateEvaluatedPlanTest() throws GLanguageEvaluationException {
         Plan plan = Universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
         plan.evaluateWithContext(context);
@@ -85,7 +86,7 @@ public class PlanEvaluatorTest extends BaseDatabaseTest {
      * Tests {@link PlanEvaluator#evaluateRuleVersion(RuleVersion)}
      */
     @Test
-    public void evaluateRuleVersionTest() {
+    public void evaluateRuleVersionTest() throws GLanguageEvaluationException {
         Plan plan = Universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
         PlanEvaluator evaluator = new PlanEvaluator(plan, context);
@@ -115,7 +116,7 @@ public class PlanEvaluatorTest extends BaseDatabaseTest {
      * Tests {@link PlanEvaluator#evaluateRuleVersion(RuleVersion)}
      */
     @Test
-    public void evaluateEvaluatedRuleVersionTest() {
+    public void evaluateEvaluatedRuleVersionTest() throws GLanguageEvaluationException {
         Plan plan = Universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
         plan.evaluateWithContext(context, "-900003", false);
@@ -145,7 +146,7 @@ public class PlanEvaluatorTest extends BaseDatabaseTest {
      * Tests {@link PlanEvaluator#evaluateRuleVersion(String, boolean)}
      */
     @Test
-    public void evaluateRuleVersionByRuleIdentifierTest() {
+    public void evaluateRuleVersionByRuleIdentifierTest() throws GLanguageEvaluationException {
         Plan plan = Universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
         PlanEvaluator evaluator = new PlanEvaluator(plan, context);
@@ -175,7 +176,7 @@ public class PlanEvaluatorTest extends BaseDatabaseTest {
      * Tests {@link PlanEvaluator#evaluateRuleVersion(String, boolean)}
      */
     @Test
-    public void evaluateEvaluatedRuleVersionByRuleIdentifierTest() {
+    public void evaluateEvaluatedRuleVersionByRuleIdentifierTest() throws GLanguageEvaluationException {
         Plan plan = Universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
         plan.evaluateWithContext(context, "-900003", false);

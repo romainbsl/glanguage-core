@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -124,7 +125,7 @@ public class FormulaDivideTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDivide#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetIntegerValue() {
+	public void testGetIntegerValue() throws GLanguageEvaluationException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(numerator.getValue(null)).thenReturn(1);
@@ -142,7 +143,7 @@ public class FormulaDivideTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDivide#getNumericValue()}
 	 */
 	@Test
-	public void testGetNumericValue() {
+	public void testGetNumericValue() throws GLanguageEvaluationException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(numerator.getNumericValue(null)).thenReturn(3.2);
@@ -160,7 +161,7 @@ public class FormulaDivideTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDivide#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageEvaluationException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(numerator.getValue(null)).thenReturn(1);
@@ -178,7 +179,7 @@ public class FormulaDivideTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDivide#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	public void testGetBooleanValue() throws GLanguageEvaluationException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(numerator.getValue(null)).thenReturn(1);
@@ -196,7 +197,7 @@ public class FormulaDivideTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDivide#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	public void testGetDateValue() throws GLanguageEvaluationException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(numerator.getValue(null)).thenReturn(1);
@@ -214,7 +215,7 @@ public class FormulaDivideTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDivide#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	public void testGetDurationValue() throws GLanguageEvaluationException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(numerator.getValue(null)).thenReturn(1);

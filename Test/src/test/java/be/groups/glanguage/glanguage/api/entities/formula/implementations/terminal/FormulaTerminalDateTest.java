@@ -1,24 +1,21 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import java.time.LocalDate;
+import java.util.Arrays;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaTerminalDate}
@@ -111,7 +108,7 @@ public class FormulaTerminalDateTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalDate#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetIntegerValue() {
+	public void testGetIntegerValue() throws GLanguageEvaluationException {
 		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		formula.getIntegerValue();
 	}
@@ -120,7 +117,7 @@ public class FormulaTerminalDateTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalDate#getNumericValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() {
+	public void testGetNumericValue() throws GLanguageEvaluationException {
 		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		formula.getNumericValue();
 	}
@@ -129,7 +126,7 @@ public class FormulaTerminalDateTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalDate#getStringValue()}
 	 */
 	@Test
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageEvaluationException {
 		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		assertEquals("01/01/2015", formula.getStringValue());
 	}
@@ -138,7 +135,7 @@ public class FormulaTerminalDateTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalDate#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	public void testGetBooleanValue() throws GLanguageEvaluationException {
 		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		formula.getBooleanValue();
 	}
@@ -147,7 +144,7 @@ public class FormulaTerminalDateTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalDate#getDateValue()}
 	 */
 	@Test
-	public void testGetDateValue() {
+	public void testGetDateValue() throws GLanguageEvaluationException {
 		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue());
 	}
@@ -156,7 +153,7 @@ public class FormulaTerminalDateTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalDate#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	public void testGetDurationValue() throws GLanguageEvaluationException {
 		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		formula.getDurationValue();
 	}
