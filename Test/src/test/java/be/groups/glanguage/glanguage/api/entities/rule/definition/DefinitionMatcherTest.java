@@ -1,20 +1,19 @@
 package be.groups.glanguage.glanguage.api.entities.rule.definition;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.*;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.DefinitionMatcherStrategy;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.Test;
-
-import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.DefinitionMatcherStrategy;
+import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link DefinitionMatcher}
@@ -32,8 +31,9 @@ public class DefinitionMatcherTest {
 	 */
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL)} when both
-	 * collections are null
+	 * Tests
+	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)}
+	 * when both collections are null, and strategy is AT_LEAST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtLeastOneByLevelBothNull() {
@@ -45,8 +45,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL)} when first
-	 * collection is null, but not the second
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when first
+	 * collection is null, but not the second, and strategy is AT_LEAST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtLeastOneByLevelFirstNullSecondNot() {
@@ -62,8 +62,8 @@ public class DefinitionMatcherTest {
 	
 	/**
 	 * Tests
-	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL)} when second
-	 * collection is null, but not the first
+	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when second
+	 * collection is null, but not the first, and strategy is AT_LEAST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtLeastOneByLevelSecondNullFirstNot() {
@@ -78,8 +78,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL)} when both
-	 * collections are empty
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections are empty, and strategy is AT_LEAST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtLeastOneByLevelBothEmpty() {
@@ -91,8 +91,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL)} when first
-	 * collection is empty, but not the second
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when first
+	 * collection is empty, but not the second, and strategy is AT_LEAST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtLeastOneByLevelFirstEmptySecondNot() {
@@ -108,8 +108,8 @@ public class DefinitionMatcherTest {
 	
 	/**
 	 * Tests
-	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL)} when second
-	 * collection is empty, but not the first
+	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when second
+	 * collection is empty, but not the first, and strategy is AT_LEAST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtLeastOneByLevelSecondEmptyFirstNot() {
@@ -124,8 +124,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL)} when both
-	 * collections contains elements, but levels don't match
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements, but levels don't match, and strategy is AT_LEAST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtLeastOneByLevelBothNotEmptyLevelsNotMatching() {
@@ -155,8 +155,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL)} when both
-	 * collections contains elements and levels match but not values
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels match but not values, and strategy is AT_LEAST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtLeastOneByLevelBothNotEmptyLevelsMatchingValuesNotMatching() {
@@ -186,8 +186,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL)} when both
-	 * collections contains elements and levels and values match
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, and strategy is AT_LEAST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtLeastOneByLevelBothNotEmptyMatching() {
@@ -217,8 +217,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL)} when both
-	 * collections contains elements and levels and values match, but first has an additional parameter
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, but first has an additional parameter, and strategy is AT_LEAST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtLeastOneByLevelBothNotEmptyFirstWithMoreParametersMatching() {
@@ -253,8 +253,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL)} when both
-	 * collections contains elements and levels and values match, but second has an additional parameter
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, but second has an additional parameter, and strategy is AT_LEAST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtLeastOneByLevelBothNotEmptySecondWithMoreParametersNotMatching() {
@@ -288,8 +288,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL)} when both
-	 * collections contains elements and levels and values match, but first has two parameters of same level
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, but first has two parameters of same level, and strategy is AT_LEAST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtLeastOneByLevelBothNotEmptyFirstWithTwoParametersOfSameLevelMatching() {
@@ -324,8 +324,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST_ONE_BY_LEVEL)} when both
-	 * collections contains elements and levels and values match, but second has two parameters of same level
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, but second has two parameters of same level, and strategy is AT_LEAST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtLeastOneByLevelBothNotEmptySecondWithTwoParametersOfSameLevelMatching() {
@@ -364,8 +364,8 @@ public class DefinitionMatcherTest {
 	 */
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST)} when both
-	 * collections are null
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections are null, and strategy is AT_LEAST
 	 */
 	@Test
 	public void testMatchAtLeastBothNull() {
@@ -377,8 +377,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST)} when first
-	 * collection is null, but not the second
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when first
+	 * collection is null, but not the second, and strategy is AT_LEAST
 	 */
 	@Test
 	public void testMatchAtLeastFirstNullSecondNot() {
@@ -394,8 +394,8 @@ public class DefinitionMatcherTest {
 	
 	/**
 	 * Tests
-	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST)} when second
-	 * collection is null, but not the first
+	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when second
+	 * collection is null, but not the first, and strategy is AT_LEAST
 	 */
 	@Test
 	public void testMatchAtLeastSecondNullFirstNot() {
@@ -410,8 +410,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST)} when both collections are
-	 * empty
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections are
+	 * empty, and strategy is AT_LEAST
 	 */
 	@Test
 	public void testMatchAtLeastBothEmpty() {
@@ -423,8 +423,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST)} when first collection is
-	 * empty, but not the second
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when first collection is
+	 * empty, but not the second, and strategy is AT_LEAST
 	 */
 	@Test
 	public void testMatchAtLeastFirstEmptySecondNot() {
@@ -439,8 +439,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST))} when second collection is
-	 * empty, but not the first
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when second collection is
+	 * empty, but not the first, and strategy is AT_LEAST
 	 */
 	@Test
 	public void testMatchAtLeastSecondEmptyFirstNot() {
@@ -455,8 +455,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST)} when both collections
-	 * contains elements, but levels don't match
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements, but levels don't match, and strategy is AT_LEAST
 	 */
 	@Test
 	public void testMatchAtLeastBothNotEmptyLevelsNotMatching() {
@@ -486,8 +486,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST)} when both collections
-	 * contains elements and levels match but not values
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements and levels match but not values, and strategy is AT_LEAST
 	 */
 	@Test
 	public void testMatchAtLeastBothNotEmptyLevelsMatchingValuesNotMatching() {
@@ -517,8 +517,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST)} when both collections
-	 * contains elements and levels and values match
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements and levels and values match, and strategy is AT_LEAST
 	 */
 	@Test
 	public void testMatchAtLeastBothNotEmptyMatching() {
@@ -548,8 +548,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST)} when both collections
-	 * contains elements and levels and values match, but first has an additional parameter
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements and levels and values match, but first has an additional parameter, and strategy is AT_LEAST
 	 */
 	@Test
 	public void testMatchAtLeastBothNotEmptyFirstWithMoreParametersMatching() {
@@ -584,8 +584,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST)} when both collections
-	 * contains elements and levels and values match, but second has an additional parameter
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements and levels and values match, but second has an additional parameter, and strategy is AT_LEAST
 	 */
 	@Test
 	public void testMatchAtLeastBothNotEmptySecondWithMoreParametersNotMatching() {
@@ -619,8 +619,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST)} when both
-	 * collections contains elements and levels and values match, but first has two parameters of same level
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, but first has two parameters of same level, and strategy is AT_LEAST
 	 */
 	@Test
 	public void testMatchAtLeastBothNotEmptyFirstWithTwoParametersOfSameLevelMatching() {
@@ -655,8 +655,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_LEAST)} when both
-	 * collections contains elements and levels and values match, but second has two parameters of same level
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, but second has two parameters of same level, and strategy is AT_LEAST
 	 */
 	@Test
 	public void testMatchAtLeastBothNotEmptySecondWithTwoParametersOfSameLevelMatching() {
@@ -695,8 +695,8 @@ public class DefinitionMatcherTest {
 	 */
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
-	 * collections are null
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections are null, and strategy is AT_MOST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtMostOneByLevelBothNull() {
@@ -708,8 +708,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when first
-	 * collection is null, but not the second
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when first
+	 * collection is null, but not the second, and strategy is AT_MOST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtMostOneByLevelFirstNullSecondNot() {
@@ -725,8 +725,8 @@ public class DefinitionMatcherTest {
 	
 	/**
 	 * Tests
-	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when second
-	 * collection is null, but not the first
+	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when second
+	 * collection is null, but not the first, and strategy is AT_MOST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtMostOneByLevelSecondNullFirstNot() {
@@ -741,8 +741,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
-	 * collections are empty
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections are empty, and strategy is AT_MOST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtMostOneByLevelBothEmpty() {
@@ -754,8 +754,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when first
-	 * collection is empty, but not the second
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when first
+	 * collection is empty, but not the second, and strategy is AT_MOST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtMostOneByLevelFirstEmptySecondNot() {
@@ -771,8 +771,8 @@ public class DefinitionMatcherTest {
 	
 	/**
 	 * Tests
-	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when second
-	 * collection is empty, but not the first
+	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when second
+	 * collection is empty, but not the first, and strategy is AT_MOST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtMostOneByLevelSecondEmptyFirstNot() {
@@ -787,8 +787,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
-	 * collections contains elements, but levels don't match
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements, and strategy is AT_MOST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtMostOneByLevelBothNotEmptyLevelsNotMatching() {
@@ -818,8 +818,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
-	 * collections contains elements and levels match but not values
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels match but not values, and strategy is AT_MOST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtMostOneByLevelBothNotEmptyLevelsMatchingValuesNotMatching() {
@@ -849,8 +849,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
-	 * collections contains elements and levels and values match
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, and strategy is AT_MOST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtMostOneByLevelBothNotEmptyMatching() {
@@ -880,8 +880,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
-	 * collections contains elements and levels and values match, but first has an additional parameter
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, but first has an additional parameter, and strategy is AT_MOST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtMostOneByLevelBothNotEmptyFirstWithMoreParametersNotMatching() {
@@ -916,8 +916,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
-	 * collections contains elements and levels and values match, but second has an additional parameter
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, but second has an additional parameter, and strategy is AT_MOST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtMostOneByLevelBothNotEmptySecondWithMoreParametersNotMatching() {
@@ -951,8 +951,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
-	 * collections contains elements and levels and values match, but first has two parameters of same level
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, but first has two parameters of same level, and strategy is AT_MOST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtMostOneByLevelBothNotEmptyFirstWithTwoParametersOfSameLevelMatching() {
@@ -987,8 +987,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST_ONE_BY_LEVEL)} when both
-	 * collections contains elements and levels and values match, but second has two parameters of same level
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, but second has two parameters of same level, and strategy is AT_MOST_ONE_BY_LEVEL
 	 */
 	@Test
 	public void testMatchAtMostOneByLevelBothNotEmptySecondWithTwoParametersOfSameLevelMatching() {
@@ -1027,8 +1027,8 @@ public class DefinitionMatcherTest {
 	 */
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST)} when both
-	 * collections are null
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections are null, and strategy is AT_MOST
 	 */
 	@Test
 	public void testMatchAtMostBothNull() {
@@ -1040,8 +1040,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST)} when first
-	 * collection is null, but not the second
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when first
+	 * collection is null, but not the second, and strategy is AT_MOST
 	 */
 	@Test
 	public void testMatchAtMostFirstNullSecondNot() {
@@ -1057,8 +1057,8 @@ public class DefinitionMatcherTest {
 	
 	/**
 	 * Tests
-	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST)} when second
-	 * collection is null, but not the first
+	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when second
+	 * collection is null, but not the first, and strategy is AT_MOST
 	 */
 	@Test
 	public void testMatchAtMostSecondNullFirstNot() {
@@ -1073,8 +1073,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST)} when both collections are
-	 * empty
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections are
+	 * empty, and strategy is AT_MOST
 	 */
 	@Test
 	public void testMatchAtMostBothEmpty() {
@@ -1086,8 +1086,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST)} when first collection is
-	 * empty, but not the second
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when first collection is
+	 * empty, but not the second, and strategy is AT_MOST
 	 */
 	@Test
 	public void testMatchAtMostFirstEmptySecondNot() {
@@ -1102,8 +1102,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST))} when second collection is
-	 * empty, but not the first
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when second collection is
+	 * empty, but not the first, and strategy is AT_MOST
 	 */
 	@Test
 	public void testMatchAtMostSecondEmptyFirstNot() {
@@ -1118,8 +1118,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST)} when both collections
-	 * contains elements, but levels don't match
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements, but levels don't match, and strategy is AT_MOST
 	 */
 	@Test
 	public void testMatchAtMostBothNotEmptyLevelsNotMatching() {
@@ -1149,8 +1149,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST)} when both collections
-	 * contains elements and levels match but not values
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements and levels match but not values, and strategy is AT_MOST
 	 */
 	@Test
 	public void testMatchAtMostBothNotEmptyLevelsMatchingValuesNotMatching() {
@@ -1180,8 +1180,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST)} when both collections
-	 * contains elements and levels and values match
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements and levels and values match, and strategy is AT_MOST
 	 */
 	@Test
 	public void testMatchAtMostBothNotEmptyMatching() {
@@ -1211,8 +1211,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST)} when both collections
-	 * contains elements and levels and values match, but first has an additional parameter
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements and levels and values match, but first has an additional parameter, and strategy is AT_MOST
 	 */
 	@Test
 	public void testMatchAtMostBothNotEmptyFirstWithMoreParametersNotMatching() {
@@ -1247,8 +1247,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST)} when both collections
-	 * contains elements and levels and values match, but second has an additional parameter
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements and levels and values match, but second has an additional parameter, and strategy is AT_MOST
 	 */
 	@Test
 	public void testMatchAtMostBothNotEmptySecondWithMoreParametersMatching() {
@@ -1282,8 +1282,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST)} when both
-	 * collections contains elements and levels and values match, but first has two parameters of same level
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, but first has two parameters of same level, and strategy is AT_MOST
 	 */
 	@Test
 	public void testMatchAtMostBothNotEmptyFirstWithTwoParametersOfSameLevelMatching() {
@@ -1318,8 +1318,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.AT_MOST)} when both
-	 * collections contains elements and levels and values match, but second has two parameters of same level
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, but second has two parameters of same level, and strategy is AT_MOST
 	 */
 	@Test
 	public void testMatchAtMostBothNotEmptySecondWithTwoParametersOfSameLevelMatching() {
@@ -1358,8 +1358,8 @@ public class DefinitionMatcherTest {
 	 */
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.STRICTLY)} when both
-	 * collections are null
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections are null, and strategy is STRICTLY
 	 */
 	@Test
 	public void testMatchStrictlyBothNull() {
@@ -1371,8 +1371,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.STRICTLY)} when first
-	 * collection is null, but not the second
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when first
+	 * collection is null, but not the second, and strategy is STRICTLY
 	 */
 	@Test
 	public void testMatchStrictlyFirstNullSecondNot() {
@@ -1388,8 +1388,8 @@ public class DefinitionMatcherTest {
 	
 	/**
 	 * Tests
-	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.STRICTLY)} when second
-	 * collection is null, but not the first
+	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when second
+	 * collection is null, but not the first, and strategy is STRICTLY
 	 */
 	@Test
 	public void testMatchStrictlySecondNullFirstNot() {
@@ -1404,8 +1404,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.STRICTLY)} when both collections are
-	 * empty
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections are
+	 * empty, and strategy is STRICTLY
 	 */
 	@Test
 	public void testMatchStrictlyBothEmpty() {
@@ -1417,8 +1417,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.STRICTLY)} when first collection is
-	 * empty, but not the second
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when first collection is
+	 * empty, but not the second, and strategy is STRICTLY
 	 */
 	@Test
 	public void testMatchStrictlyFirstEmptySecondNot() {
@@ -1433,8 +1433,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.STRICTLY))} when second collection is
-	 * empty, but not the first
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when second collection is
+	 * empty, but not the first, and strategy is STRICTLY
 	 */
 	@Test
 	public void testMatchStrictlySecondEmptyFirstNot() {
@@ -1449,8 +1449,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.STRICTLY)} when both collections
-	 * contains elements, but levels don't match
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements, but levels don't match, and strategy is STRICTLY
 	 */
 	@Test
 	public void testMatchStrictlyBothNotEmptyLevelsNotMatching() {
@@ -1479,8 +1479,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.STRICTLY)} when both collections
-	 * contains elements and levels match but not values
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements and levels match but not values, and strategy is STRICTLY
 	 */
 	@Test
 	public void testMatchStrictlyBothNotEmptyLevelsMatchingValuesNotMatching() {
@@ -1510,8 +1510,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.STRICTLY)} when both collections
-	 * contains elements and levels and values match
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements and levels and values match, and strategy is STRICTLY
 	 */
 	@Test
 	public void testMatchStrictlyBothNotEmptyMatching() {
@@ -1541,8 +1541,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.STRICTLY)} when both collections
-	 * contains elements and levels and values match, but first has an additional parameter
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements and levels and values match, but first has an additional parameter, and strategy is STRICTLY
 	 */
 	@Test
 	public void testMatchStrictlyBothNotEmptyFirstWithMoreParametersNotMatching() {
@@ -1577,8 +1577,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.STRICTLY)} when both collections
-	 * contains elements and levels and values match, but second has an additional parameter
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements and levels and values match, but second has an additional parameter, and strategy is STRICTLY
 	 */
 	@Test
 	public void testMatchStrictlyBothNotEmptySecondWithMoreParametersNotMatching() {
@@ -1612,8 +1612,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.STRICTLY)} when both
-	 * collections contains elements and levels and values match, but first has two parameters of same level
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, but first has two parameters of same level, and strategy is STRICTLY
 	 */
 	@Test
 	public void testMatchStrictlyBothNotEmptyFirstWithTwoParametersOfSameLevelMatching() {
@@ -1648,8 +1648,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.STRICTLY)} when both
-	 * collections contains elements and levels and values match, but second has two parameters of same level
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, but second has two parameters of same level, and strategy is STRICTLY
 	 */
 	@Test
 	public void testMatchStrictlyBothNotEmptySecondWithTwoParametersOfSameLevelMatching() {
@@ -1688,8 +1688,8 @@ public class DefinitionMatcherTest {
 	 */
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.LOOSELY)} when both
-	 * collections are null
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections are null, and strategy is LOOSELY
 	 */
 	@Test
 	public void testMatchLooselyBothNull() {
@@ -1701,8 +1701,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.LOOSELY)} when first
-	 * collection is null, but not the second
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when first
+	 * collection is null, but not the second, and strategy is LOOSELY
 	 */
 	@Test
 	public void testMatchLooselyFirstNullSecondNot() {
@@ -1718,8 +1718,8 @@ public class DefinitionMatcherTest {
 	
 	/**
 	 * Tests
-	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.LOOSELY)} when second
-	 * collection is null, but not the first
+	 * {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when second
+	 * collection is null, but not the first, and strategy is LOOSELY
 	 */
 	@Test
 	public void testMatchLooselySecondNullFirstNot() {
@@ -1734,8 +1734,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.LOOSELY)} when both collections are
-	 * empty
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections are
+	 * empty, and strategy is LOOSELY
 	 */
 	@Test
 	public void testMatchLooselyBothEmpty() {
@@ -1747,8 +1747,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.LOOSELY)} when first collection is
-	 * empty, but not the second
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when first collection is
+	 * empty, but not the second, and strategy is LOOSELY
 	 */
 	@Test
 	public void testMatchLooselyFirstEmptySecondNot() {
@@ -1763,8 +1763,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.LOOSELY))} when second collection is
-	 * empty, but not the first
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when second collection is
+	 * empty, but not the first, and strategy is LOOSELY
 	 */
 	@Test
 	public void testMatchLooselySecondEmptyFirstNot() {
@@ -1779,8 +1779,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.LOOSELY)} when both collections
-	 * contains elements, but levels don't match
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements, but levels don't match, and strategy is LOOSELY
 	 */
 	@Test
 	public void testMatchLooselyBothNotEmptyLevelsNotMatching() {
@@ -1809,8 +1809,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.LOOSELY)} when both collections
-	 * contains elements and levels match but not values
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements and levels match but not values, and strategy is LOOSELY
 	 */
 	@Test
 	public void testMatchLooselyBothNotEmptyLevelsMatchingValuesNotMatching() {
@@ -1840,8 +1840,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.LOOSELY)} when both collections
-	 * contains elements and levels and values match
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements and levels and values match, and strategy is LOOSELY
 	 */
 	@Test
 	public void testMatchLooselyBothNotEmptyMatching() {
@@ -1871,8 +1871,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.LOOSELY)} when both collections
-	 * contains elements and levels and values match, but first has an additional parameter
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements and levels and values match, but first has an additional parameter, and strategy is LOOSELY
 	 */
 	@Test
 	public void testMatchLooselyBothNotEmptyFirstWithMoreParametersMatching() {
@@ -1907,8 +1907,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.LOOSELY)} when both collections
-	 * contains elements and levels and values match, but second has an additional parameter
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains elements and levels and values match, but second has an additional parameter, and strategy is LOOSELY
 	 */
 	@Test
 	public void testMatchLooselyBothNotEmptySecondWithMoreParametersMatching() {
@@ -1942,8 +1942,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.LOOSELY)} when both
-	 * collections contains elements and levels and values match, but first has two parameters of same level
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, but first has two parameters of same level, and strategy is LOOSELY
 	 */
 	@Test
 	public void testMatchLooselyBothNotEmptyFirstWithTwoParametersOfSameLevelMatching() {
@@ -1978,8 +1978,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.LOOSELY)} when both
-	 * collections contains elements and levels and values match, but second has two parameters of same level
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both
+	 * collections contains elements and levels and values match, but second has two parameters of same level, and strategy is LOOSELY
 	 */
 	@Test
 	public void testMatchLooselyBothNotEmptySecondWithTwoParametersOfSameLevelMatching() {
@@ -2014,8 +2014,8 @@ public class DefinitionMatcherTest {
 	}
 	
 	/**
-	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy.LOOSELY)} when both collections
-	 * contains one element that don't match each other
+	 * Tests {@link DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)} when both collections
+	 * contains one element that don't match each other, and strategy is LOOSELY
 	 */
 	@Test
 	public void testMatchLooselyBothOneParameterNotMatching() {
@@ -2040,7 +2040,7 @@ public class DefinitionMatcherTest {
 	 */
 	
 	private RuleDefinitionParameter parameterEmployer1 = new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "1");
-	private RuleDefinitionParameter parameterJointCommitee2 = new RuleDefinitionParameter(DefinitionLevel.JOINT_COMMITTEE, "2");
+	private RuleDefinitionParameter parameterJointCommittee2 = new RuleDefinitionParameter(DefinitionLevel.JOINT_COMMITTEE, "2");
 	private RuleDefinitionParameter parameterCollectiveLaborAgreement1 =
 			new RuleDefinitionParameter(DefinitionLevel.COLLECTIVE_LABOR_AGREEMENT, "1");
 	private RuleDefinitionParameter parameterCollectiveLaborAgreement2 =
@@ -2091,7 +2091,7 @@ public class DefinitionMatcherTest {
 		RuleDefinition ruleDefinition2 = new RuleDefinition();
 		ruleDefinition2.setId(2);
 		ruleDefinition2.getDefinitionParameters().add(parameterEmployer1);
-		ruleDefinition2.getDefinitionParameters().add(parameterJointCommitee2);
+		ruleDefinition2.getDefinitionParameters().add(parameterJointCommittee2);
 		
 		RuleDefinition ruleDefinition3 = new RuleDefinition();
 		ruleDefinition3.setId(3);
@@ -2101,7 +2101,7 @@ public class DefinitionMatcherTest {
 		RuleDefinition ruleDefinition4 = new RuleDefinition();
 		ruleDefinition4.setId(4);
 		ruleDefinition4.getDefinitionParameters().add(parameterEmployer1);
-		ruleDefinition4.getDefinitionParameters().add(parameterJointCommitee2);
+		ruleDefinition4.getDefinitionParameters().add(parameterJointCommittee2);
 		ruleDefinition4.getDefinitionParameters().add(parameterCollectiveLaborAgreement1);
 		
 		return Arrays.asList(ruleDefinition0, ruleDefinition1, ruleDefinition2, ruleDefinition3, ruleDefinition4);
@@ -2135,7 +2135,7 @@ public class DefinitionMatcherTest {
 	public void testGetBestMatch2() {
 		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
 		criteria.add(parameterEmployer1);
-		criteria.add(parameterJointCommitee2);
+		criteria.add(parameterJointCommittee2);
 		RuleDefinition definition = DefinitionMatcher.getBestMatch(getRuleDefinitions(), criteria);
 		assertNotNull(definition);
 		assertEquals(2, definition.getId());
@@ -2172,7 +2172,7 @@ public class DefinitionMatcherTest {
 	public void testGetBestMatch4() {
 		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
 		criteria.add(parameterEmployer1);
-		criteria.add(parameterJointCommitee2);
+		criteria.add(parameterJointCommittee2);
 		criteria.add(parameterCollectiveLaborAgreement1);
 		RuleDefinition definition = DefinitionMatcher.getBestMatch(getRuleDefinitions(), criteria);
 		assertNotNull(definition);
@@ -2192,7 +2192,7 @@ public class DefinitionMatcherTest {
 	public void testGetBestMatch5() {
 		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
 		criteria.add(parameterEmployer1);
-		criteria.add(parameterJointCommitee2);
+		criteria.add(parameterJointCommittee2);
 		criteria.add(parameterCollectiveLaborAgreement2);
 		RuleDefinition definition = DefinitionMatcher.getBestMatch(getRuleDefinitions(), criteria);
 		assertNotNull(definition);
@@ -2261,7 +2261,7 @@ public class DefinitionMatcherTest {
 	@Test
 	public void testGetBestMatch9() {
 		Collection<RuleDefinitionParameter> criteria = new ArrayList<>();
-		criteria.add(parameterJointCommitee2);
+		criteria.add(parameterJointCommittee2);
 		RuleDefinition definition = DefinitionMatcher.getBestMatch(getRuleDefinitions(), criteria);
 		assertNotNull(definition);
 		assertEquals(0, definition.getId());

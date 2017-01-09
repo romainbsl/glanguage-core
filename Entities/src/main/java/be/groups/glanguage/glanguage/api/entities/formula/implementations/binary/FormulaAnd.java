@@ -7,7 +7,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -36,7 +36,7 @@ public class FormulaAnd extends BinaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException {
+	protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
 		return parameters.get(0).getBooleanValue(evaluator) && parameters.get(1).getBooleanValue(evaluator);
 	}
 

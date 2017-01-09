@@ -5,7 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.utils.Agents;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 
 import javax.persistence.Entity;
 
@@ -21,7 +21,7 @@ public abstract class CallFormula extends AbstractNonTerminalFormula {
 	}
 
 	protected Object callFunctionAny(Object anObject, String aMethodName, AbstractFormula[] someMethodParameters,
-									 Evaluator evaluator) throws GLanguageEvaluationException {
+									 Evaluator evaluator) throws GLanguageException {
 		Agents agent;
 		Object result;
 		if(someMethodParameters == null) {

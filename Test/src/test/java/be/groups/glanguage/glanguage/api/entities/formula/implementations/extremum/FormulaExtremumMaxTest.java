@@ -3,7 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.extre
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class FormulaExtremumMaxTest {
 	 * Tests {@link FormulaExtremumMax#getIntegerValue()} when all parameters are integers
 	 */
 	@Test
-	public void testGetIntegerValueIntegers() throws GLanguageEvaluationException {
+	public void testGetIntegerValueIntegers() throws GLanguageException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);
@@ -80,7 +80,7 @@ public class FormulaExtremumMaxTest {
 	 * Tests {@link FormulaExtremumMax#getNumericValue()} when all parameters are numeric
 	 */
 	@Test
-	public void testGetNumericValueNumerics() throws GLanguageEvaluationException {
+	public void testGetNumericValueNumerics() throws GLanguageException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);
@@ -108,7 +108,7 @@ public class FormulaExtremumMaxTest {
 	 * numeric
 	 */
 	@Test
-	public void testGetNumericValueIntNum() throws GLanguageEvaluationException {
+	public void testGetNumericValueIntNum() throws GLanguageException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);
@@ -135,7 +135,7 @@ public class FormulaExtremumMaxTest {
 	 * Tests {@link FormulaExtremumMax#getNumericValue()} when all parameters are integers
 	 */
 	@Test
-	public void testGetNumericValueIntegers() throws GLanguageEvaluationException {
+	public void testGetNumericValueIntegers() throws GLanguageException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);
@@ -163,7 +163,7 @@ public class FormulaExtremumMaxTest {
 	 * Tests {@link FormulaExtremumMax#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() throws GLanguageEvaluationException {
+	public void testGetStringValue() throws GLanguageException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);
@@ -190,7 +190,7 @@ public class FormulaExtremumMaxTest {
 	 * Tests {@link FormulaExtremumMax#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() throws GLanguageEvaluationException {
+	public void testGetBooleanValue() throws GLanguageException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);
@@ -217,7 +217,7 @@ public class FormulaExtremumMaxTest {
 	 * Tests {@link FormulaExtremumMax#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() throws GLanguageEvaluationException {
+	public void testGetDateValue() throws GLanguageException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);
@@ -244,7 +244,7 @@ public class FormulaExtremumMaxTest {
 	 * Tests {@link FormulaExtremumMax#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() throws GLanguageEvaluationException {
+	public void testGetDurationValue() throws GLanguageException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);
@@ -281,7 +281,7 @@ public class FormulaExtremumMaxTest {
 	 * Tests {@link FormulaExtremumMax#operationAsText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
 		AbstractFormula param1 = mock(AbstractFormula.class);

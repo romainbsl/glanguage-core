@@ -1,12 +1,11 @@
 package be.groups.glanguage.glanguage.api.entities.formula;
 
-import be.groups.errorframework.core.error.ErrorEnum;
-import be.groups.errorframework.core.error.RootError;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
-import be.groups.glanguage.glanguage.api.error.formula.implementations.terminal.TerminalFormulaUnableToInitializeNullValueInnerError;
-
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.*;
+import be.groups.glanguage.glanguage.api.error.formula.implementations.terminal
+        .TerminalFormulaUnableToInitializeNullValueInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
@@ -44,54 +43,49 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
     @JsonIgnore
     @Transient
     @Override
-    protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageEvaluationException {
-        throw new UnsupportedOperationException("Cannot invoke getIntegerValue() method on " + this.getClass()
-                .getName() + " object");
+    protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
+        throw new GLanguageException(new FormulaCannotInvokeEvaluationIntegerMethodInnerError(this, evaluator));
     }
 
     @JsonIgnore
     @Transient
     @Override
-    protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageEvaluationException {
-        throw new UnsupportedOperationException("Cannot invoke getNumericValue() method on " + this.getClass()
-                .getName() + " object");
+    protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
+        throw new GLanguageException(new FormulaCannotInvokeEvaluationNumericMethodInnerError(this, evaluator));
     }
 
     @JsonIgnore
     @Transient
     @Override
-    protected String doGetStringValue(Evaluator evaluator) throws GLanguageEvaluationException {
+    protected String doGetStringValue(Evaluator evaluator) throws GLanguageException {
         if (getConstantValue() != null) {
             return getConstantValue();
         } else {
-            RootError error = new RootError(ErrorEnum.BUSINESS_ERROR);
-            error.setInnererror(new TerminalFormulaUnableToInitializeNullValueInnerError());
-            throw new GLanguageEvaluationException(error);
+            throw new GLanguageException(new TerminalFormulaUnableToInitializeNullValueInnerError(this,
+                                                                                                  evaluator,
+                                                                                                  "doGetStringValue"));
         }
     }
 
     @JsonIgnore
     @Transient
     @Override
-    protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException {
-        throw new UnsupportedOperationException("Cannot invoke getBooleanValue() method on " + this.getClass()
-                .getName() + " object");
+    protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
+        throw new GLanguageException(new FormulaCannotInvokeEvaluationBooleanMethodInnerError(this, evaluator));
     }
 
     @JsonIgnore
     @Transient
     @Override
-    protected LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageEvaluationException {
-        throw new UnsupportedOperationException("Cannot invoke getDateValue() method on " + this.getClass()
-                .getName() + " object");
+    protected LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageException {
+        throw new GLanguageException(new FormulaCannotInvokeEvaluationDateMethodInnerError(this, evaluator));
     }
 
     @JsonIgnore
     @Transient
     @Override
-    protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageEvaluationException {
-        throw new UnsupportedOperationException("Cannot invoke getDurationValue() method on " + this.getClass()
-                .getName() + " object");
+    protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageException {
+        throw new GLanguageException(new FormulaCannotInvokeEvaluationDurationMethodInnerError(this, evaluator));
     }
 
     @JsonIgnore

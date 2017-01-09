@@ -1,30 +1,27 @@
 package be.groups.glanguage.glanguage.api.error.formula.implementations.call;
 
-import be.groups.errorframework.core.error.InnerError;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.RuleCallFormula;
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
+import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
 
 /**
  * Created by michotte on 20/12/2016.
  */
-public class RuleCallFormulaReferencedRuleUnavailableInnerError extends InnerError {
+public class RuleCallFormulaReferencedRuleUnavailableInnerError extends FormulaInnerError {
 
-    public RuleCallFormulaReferencedRuleUnavailableInnerError(RuleCallFormula formula, Evaluator evaluator) {
-        super(GLanguageErrorRegistry.FORMULA_RULE_REFERENCE_REFERENCED_RULE_UNAVAILABLE.getCode(), createMessage
-                (formula, evaluator), null);
+    public RuleCallFormulaReferencedRuleUnavailableInnerError(RuleCallFormula formula,
+                                                              Evaluator evaluator,
+                                                              String methodName) {
+        super(GLanguageErrorRegistry.FORMULA_RULE_REFERENCE_REFERENCED_RULE_UNAVAILABLE, formula,
+              evaluator, methodName, getCause(formula, evaluator));
     }
 
-    private static String createMessage(RuleCallFormula formula, Evaluator evaluator) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(formula.getClass().getName());
-        sb.append("[id: " + formula.getId() + "]");
-        sb.append("(evaluator: ");
+    private static String getCause(RuleCallFormula formula, Evaluator evaluator) {
         if (evaluator == null) {
-            sb.append("null) -> referenced rule not known => branch !");
+            return "Referenced rule[id: " + formula.getConstantValue() + "] not known -> branch or use an evaluator !";
         } else {
-            sb.append("not null) -> referenced rule[id: " + formula.getConstantValue() + "] not available");
+            return "Referenced rule[id: " + formula.getConstantValue() + "] not found";
         }
-        return sb.toString();
     }
 }

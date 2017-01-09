@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 
+import be.groups.glanguage.glanguage.api.GLanguageEvaluationExceptionTest;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
@@ -7,7 +8,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import org.junit.Test;
 
 import java.time.Duration;
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.when;
  * 
  * @author DUPIREFR
  */
-public class FormulaFormulaTest {
+public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	
 	/*
 	 * Tests
@@ -53,7 +54,7 @@ public class FormulaFormulaTest {
 	 * Tests {@link FormulaFormula#getIntegerValue()}
 	 */
 	@Test
-	public void testGetIntegerValue() throws GLanguageEvaluationException {
+	public void testGetIntegerValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
@@ -83,7 +84,7 @@ public class FormulaFormulaTest {
 	 * Tests {@link FormulaFormula#getIntegerValue()} without rule reference
 	 */
 	@Test(expected = IllegalAccessError.class)
-	public void testGetIntegerValueWithoutRuleRef() throws GLanguageEvaluationException {
+	public void testGetIntegerValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
@@ -95,7 +96,7 @@ public class FormulaFormulaTest {
 	 * Tests {@link FormulaFormula#getNumericValue()}
 	 */
 	@Test
-	public void testGetNumericValue() throws GLanguageEvaluationException {
+	public void testGetNumericValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
@@ -125,7 +126,7 @@ public class FormulaFormulaTest {
 	 * Tests {@link FormulaFormula#getNumericValue()} without rule reference
 	 */
 	@Test(expected = IllegalAccessError.class)
-	public void testGetNumericValueWithoutRuleRef() throws GLanguageEvaluationException {
+	public void testGetNumericValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
@@ -137,7 +138,7 @@ public class FormulaFormulaTest {
 	 * Tests {@link FormulaFormula#getStringValue()}
 	 */
 	@Test
-	public void testGetStringValue() throws GLanguageEvaluationException {
+	public void testGetStringValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
@@ -167,7 +168,7 @@ public class FormulaFormulaTest {
 	 * Tests {@link FormulaFormula#getStringValue()} without rule reference
 	 */
 	@Test(expected = IllegalAccessError.class)
-	public void testGetStringValueWithoutRuleRef() throws GLanguageEvaluationException {
+	public void testGetStringValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
@@ -179,7 +180,7 @@ public class FormulaFormulaTest {
 	 * Tests {@link FormulaFormula#getBooleanValue()}
 	 */
 	@Test
-	public void testGetBooleanValue() throws GLanguageEvaluationException {
+	public void testGetBooleanValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
@@ -208,20 +209,24 @@ public class FormulaFormulaTest {
 	/**
 	 * Tests {@link FormulaFormula#getBooleanValue()} without rule reference
 	 */
-	@Test(expected = GLanguageEvaluationException.class)
-	public void testGetBooleanValueWithoutRuleRef() throws GLanguageEvaluationException {
+	@Test(expected = GLanguageException.class)
+	public void testGetBooleanValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
-		
-		formula.getBooleanValue(null);
+
+		try {
+			formula.getBooleanValue(null);
+		} catch (GLanguageException e) {
+			handleException(e);
+		}
 	}
 	
 	/**
 	 * Tests {@link FormulaFormula#getDateValue()}
 	 */
 	@Test
-	public void testGetDateValue() throws GLanguageEvaluationException {
+	public void testGetDateValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
@@ -251,7 +256,7 @@ public class FormulaFormulaTest {
 	 * Tests {@link FormulaFormula#getDateValue()} without rule reference
 	 */
 	@Test(expected = IllegalAccessError.class)
-	public void testGetDateValueWithoutRuleRef() throws GLanguageEvaluationException {
+	public void testGetDateValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
@@ -263,7 +268,7 @@ public class FormulaFormulaTest {
 	 * Tests {@link FormulaFormula#getDurationValue()}
 	 */
 	@Test
-	public void testGetDurationValue() throws GLanguageEvaluationException {
+	public void testGetDurationValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
@@ -293,7 +298,7 @@ public class FormulaFormulaTest {
 	 * Tests {@link FormulaFormula#getDurationValue()} without rule reference
 	 */
 	@Test(expected = IllegalAccessError.class)
-	public void testGetDurationValueWithoutRuleRef() throws GLanguageEvaluationException {
+	public void testGetDurationValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);

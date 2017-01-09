@@ -7,7 +7,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.F
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalInteger;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumeric;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalString;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.WsTestCategory;
 import be.groups.marmota.test.TNSNames;
 import org.junit.BeforeClass;
@@ -32,7 +32,7 @@ public class ParsingTest extends BaseJerseyResourceTest {
 	
 	@Category(WsTestCategory.class)
 	@Test
-	public void testParseInteger() throws GLanguageEvaluationException {
+	public void testParseInteger() throws GLanguageException {
 		String formulaString = "0";
 		Response response = target("/glanguage/parse").request().post(Entity.json(formulaString));
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
@@ -44,7 +44,7 @@ public class ParsingTest extends BaseJerseyResourceTest {
 	
 	@Category(WsTestCategory.class)
 	@Test
-	public void testParseDouble() throws GLanguageEvaluationException {
+	public void testParseDouble() throws GLanguageException {
 		String formulaString = "0.0";
 		Response response = target("/glanguage/parse").request().post(Entity.json(formulaString));
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
@@ -56,7 +56,7 @@ public class ParsingTest extends BaseJerseyResourceTest {
 	
 	@Category(WsTestCategory.class)
 	@Test
-	public void testParseString() throws GLanguageEvaluationException {
+	public void testParseString() throws GLanguageException {
 		String formulaString = "\"\"";
 		Response response = target("/glanguage/parse").request().post(Entity.json(formulaString));
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());

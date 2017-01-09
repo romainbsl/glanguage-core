@@ -29,7 +29,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.string
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.*;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaNot;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaUnaryMinus;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import org.junit.Test;
 
 import java.time.Duration;
@@ -45,7 +45,7 @@ public class ParserTest {
 	private static final double DELTA = 1e-15;
 
 	@Test
-	public void testParseBooleanTrue() throws GLanguageEvaluationException {
+	public void testParseBooleanTrue() throws GLanguageException {
 		String str = "true";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -60,7 +60,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseBooleanFalse() throws GLanguageEvaluationException {
+	public void testParseBooleanFalse() throws GLanguageException {
 		String str = "false";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -75,7 +75,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseInteger() throws GLanguageEvaluationException {
+	public void testParseInteger() throws GLanguageException {
 		String str = "0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -90,7 +90,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDouble() throws GLanguageEvaluationException {
+	public void testParseDouble() throws GLanguageException {
 		String str = "0,0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -105,7 +105,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseString() throws GLanguageEvaluationException {
+	public void testParseString() throws GLanguageException {
 		String str = "\"abc\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -120,7 +120,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseIntegerAsString() throws GLanguageEvaluationException {
+	public void testParseIntegerAsString() throws GLanguageException {
 		String str = "\"0\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -135,7 +135,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDoubleDotAsString() throws GLanguageEvaluationException {
+	public void testParseDoubleDotAsString() throws GLanguageException {
 		String str = "\"0.0\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -150,7 +150,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDoublCommaAsString() throws GLanguageEvaluationException {
+	public void testParseDoublCommaAsString() throws GLanguageException {
 		String str = "\"0,0\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -166,7 +166,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDate() throws GLanguageEvaluationException {
+	public void testParseDate() throws GLanguageException {
 		String str = "'31/12/2015'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -181,7 +181,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDurationAll() throws GLanguageEvaluationException {
+	public void testParseDurationAll() throws GLanguageException {
 		String str = "'P1Y1M1DT1H1M1.1S'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -200,7 +200,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDurationPeriodAll() throws GLanguageEvaluationException {
+	public void testParseDurationPeriodAll() throws GLanguageException {
 		String str = "'P1Y1M1D'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -215,7 +215,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDurationPeriodOnlyYears() throws GLanguageEvaluationException {
+	public void testParseDurationPeriodOnlyYears() throws GLanguageException {
 		String str = "'P1Y'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -230,7 +230,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDurationPeriodOnlyMonths() throws GLanguageEvaluationException {
+	public void testParseDurationPeriodOnlyMonths() throws GLanguageException {
 		String str = "'P1M'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -245,7 +245,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDurationPeriodOnlyDays() throws GLanguageEvaluationException {
+	public void testParseDurationPeriodOnlyDays() throws GLanguageException {
 		String str = "'P1D'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -260,7 +260,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDurationPeriodOnlyYearsAndMonths() throws GLanguageEvaluationException {
+	public void testParseDurationPeriodOnlyYearsAndMonths() throws GLanguageException {
 		String str = "'P1Y1M'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -275,7 +275,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDurationPeriodOnlyYearsAndDays() throws GLanguageEvaluationException {
+	public void testParseDurationPeriodOnlyYearsAndDays() throws GLanguageException {
 		String str = "'P1Y1D'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -290,7 +290,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDurationDurationAll() throws GLanguageEvaluationException {
+	public void testParseDurationDurationAll() throws GLanguageException {
 		String str = "'P1DT1H1M1.1S'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -310,7 +310,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDurationDurationOnlyDays() throws GLanguageEvaluationException {
+	public void testParseDurationDurationOnlyDays() throws GLanguageException {
 		String str = "'P1D'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -328,7 +328,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDurationDurationOnlyHours() throws GLanguageEvaluationException {
+	public void testParseDurationDurationOnlyHours() throws GLanguageException {
 		String str = "'PT1H'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -346,7 +346,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDurationDurationOnlyMinutes() throws GLanguageEvaluationException {
+	public void testParseDurationDurationOnlyMinutes() throws GLanguageException {
 		String str = "'PT1M'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -364,7 +364,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDurationDurationOnlySeconds() throws GLanguageEvaluationException {
+	public void testParseDurationDurationOnlySeconds() throws GLanguageException {
 		String str = "'PT1S'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -383,7 +383,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseDurationDurationOnlyMillis() throws GLanguageEvaluationException {
+	public void testParseDurationDurationOnlyMillis() throws GLanguageException {
 		String str = "'PT0.1S'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -458,7 +458,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testComplexIf1() throws GLanguageEvaluationException {
+	public void testComplexIf1() throws GLanguageException {
 		String n = "1";
 		String str = getComplexIf(n);
 		
@@ -476,7 +476,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testComplexIf2() throws GLanguageEvaluationException {
+	public void testComplexIf2() throws GLanguageException {
 		String n = "2";
 		String str = getComplexIf(n);
 		
@@ -494,7 +494,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testComplexIf3() throws GLanguageEvaluationException {
+	public void testComplexIf3() throws GLanguageException {
 		String n = "3";
 		String str = getComplexIf(n);
 		
@@ -512,7 +512,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testComplexIf4() throws GLanguageEvaluationException {
+	public void testComplexIf4() throws GLanguageException {
 		String n = "4";
 		String str = getComplexIf(n);
 		
@@ -530,7 +530,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testComplexIf5() throws GLanguageEvaluationException {
+	public void testComplexIf5() throws GLanguageException {
 		String n = "5";
 		String str = getComplexIf(n);
 		
@@ -548,7 +548,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testComplexIf6() throws GLanguageEvaluationException {
+	public void testComplexIf6() throws GLanguageException {
 		String n = "-1";
 		String str = getComplexIf(n);
 		
@@ -566,7 +566,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testGet() {
+	public void testGet() throws GLanguageException {
 		String str = "get string contrat.nature()";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -580,7 +580,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void testParseIn() {
+	public void testParseIn() throws GLanguageException {
 		String str = "r1 in (2;3)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -605,7 +605,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "not true"
 	 */
 	@Test
-	public void testParseUnaryNotTrue() throws GLanguageEvaluationException {
+	public void testParseUnaryNotTrue() throws GLanguageException {
 		String str = "not true";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -623,7 +623,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "not false"
 	 */
 	@Test
-	public void testParseUnaryNotFalse() throws GLanguageEvaluationException {
+	public void testParseUnaryNotFalse() throws GLanguageException {
 		String str = "not false";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -641,7 +641,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "not (0 = 0)"
 	 */
 	@Test
-	public void testParseUnaryNot1equal1() throws GLanguageEvaluationException {
+	public void testParseUnaryNot1equal1() throws GLanguageException {
 		String str = "not (0 = 0)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -659,7 +659,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "not 1,1 = 1,1"
 	 */
 	@Test
-	public void testParseUnaryNot1Comma1equal1Comma1() throws GLanguageEvaluationException {
+	public void testParseUnaryNot1Comma1equal1Comma1() throws GLanguageException {
 		String str = "not (1,1 = 1,1)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -681,7 +681,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "-1"
 	 */
 	@Test
-	public void testParseUnaryMinus1WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseUnaryMinus1WithoutBlank() throws GLanguageException {
 		String str = "-1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -699,7 +699,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "- 1"
 	 */
 	@Test
-	public void testParseUnaryMinus1WithBlank() throws GLanguageEvaluationException {
+	public void testParseUnaryMinus1WithBlank() throws GLanguageException {
 		String str = "- 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -717,7 +717,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "- - 1"
 	 */
 	@Test
-	public void testParseUnaryMinusMinus1() throws GLanguageEvaluationException {
+	public void testParseUnaryMinusMinus1() throws GLanguageException {
 		String str = "- - 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -743,7 +743,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "+1"
 	 */
 	@Test
-	public void testParseUnaryPlus1WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseUnaryPlus1WithoutBlank() throws GLanguageException {
 		String str = "+1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -761,7 +761,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "+ 1"
 	 */
 	@Test
-	public void testParseUnaryPlus1WithBlank() throws GLanguageEvaluationException {
+	public void testParseUnaryPlus1WithBlank() throws GLanguageException {
 		String str = "+ 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -779,7 +779,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "+ 1,1"
 	 */
 	@Test
-	public void testParseUnaryPlus1Comma1() throws GLanguageEvaluationException {
+	public void testParseUnaryPlus1Comma1() throws GLanguageException {
 		String str = "+ 1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -805,7 +805,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "0*0"
 	 */
 	@Test
-	public void testParseBinaryMultiply0by0WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryMultiply0by0WithoutBlank() throws GLanguageException {
 		String str = "0*0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -823,7 +823,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 * 1"
 	 */
 	@Test
-	public void testParseBinaryMultiply1by1WithBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryMultiply1by1WithBlank() throws GLanguageException {
 		String str = "1 * 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -841,7 +841,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "0 * 1"
 	 */
 	@Test
-	public void testParseBinaryMultiply0by1() throws GLanguageEvaluationException {
+	public void testParseBinaryMultiply0by1() throws GLanguageException {
 		String str = "0 * 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -859,7 +859,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 * 0"
 	 */
 	@Test
-	public void testParseBinaryMultiply1by0() throws GLanguageEvaluationException {
+	public void testParseBinaryMultiply1by0() throws GLanguageException {
 		String str = "1 * 0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -877,7 +877,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 * 1,1"
 	 */
 	@Test
-	public void testParseBinaryMultiply1by1Comma1() throws GLanguageEvaluationException {
+	public void testParseBinaryMultiply1by1Comma1() throws GLanguageException {
 		String str = "1 * 1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -895,7 +895,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "0,5 * 1,1"
 	 */
 	@Test
-	public void testParseBinaryMultiply0Comma5by1Comma1() throws GLanguageEvaluationException {
+	public void testParseBinaryMultiply0Comma5by1Comma1() throws GLanguageException {
 		String str = "0,5 * 1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -913,7 +913,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "10000,01 * -10"
 	 */
 	@Test
-	public void testParseBinaryMultiply10000Comma01ByMinus10() throws GLanguageEvaluationException {
+	public void testParseBinaryMultiply10000Comma01ByMinus10() throws GLanguageException {
 		String str = "10000,01 * -10";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -935,7 +935,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1/0"
 	 */
 	@Test
-	public void testParseBinaryDivide1by0WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryDivide1by0WithoutBlank() throws GLanguageException {
 		String str = "1/0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -953,7 +953,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 / 1"
 	 */
 	@Test
-	public void testParseBinaryDivide1by1WithBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryDivide1by1WithBlank() throws GLanguageException {
 		String str = "1 / 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -971,7 +971,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 / 0,5"
 	 */
 	@Test
-	public void testParseBinaryDivide1by0Comma5() throws GLanguageEvaluationException {
+	public void testParseBinaryDivide1by0Comma5() throws GLanguageException {
 		String str = "1 / 0,5";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -989,7 +989,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "0,5 / 2"
 	 */
 	@Test
-	public void testParseBinaryDivide0Comma5By2() throws GLanguageEvaluationException {
+	public void testParseBinaryDivide0Comma5By2() throws GLanguageException {
 		String str = "0,5 / 2";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1007,7 +1007,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "0,5 / 0,5"
 	 */
 	@Test
-	public void testParseBinaryDivide0Comma5By0Comma5() throws GLanguageEvaluationException {
+	public void testParseBinaryDivide0Comma5By0Comma5() throws GLanguageException {
 		String str = "0,5 / 0,5";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1029,7 +1029,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1//0"
 	 */
 	@Test(expected = ArithmeticException.class)
-	public void testParseBinaryIntegerDivision1by0WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryIntegerDivision1by0WithoutBlank() throws GLanguageException {
 		String str = "1//0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1047,7 +1047,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "2 // 1"
 	 */
 	@Test
-	public void testParseBinaryIntegerDivision2by1WithBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryIntegerDivision2by1WithBlank() throws GLanguageException {
 		String str = "2 // 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1065,7 +1065,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "0 // 1"
 	 */
 	@Test
-	public void testParseBinaryIntegerDivision0by1() throws GLanguageEvaluationException {
+	public void testParseBinaryIntegerDivision0by1() throws GLanguageException {
 		String str = "0 // 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1087,7 +1087,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1\\0"
 	 */
 	@Test(expected = ArithmeticException.class)
-	public void testParseBinaryModulo1by0WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryModulo1by0WithoutBlank() throws GLanguageException {
 		String str = "1\\\\0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1105,7 +1105,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "3 \\ 2"
 	 */
 	@Test
-	public void testParseBinaryModulo3by2WithBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryModulo3by2WithBlank() throws GLanguageException {
 		String str = "3 \\\\ 2";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1123,7 +1123,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "0 \\ 1"
 	 */
 	@Test
-	public void testParseBinaryModulo0by1() throws GLanguageEvaluationException {
+	public void testParseBinaryModulo0by1() throws GLanguageException {
 		String str = "0 \\\\ 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1145,7 +1145,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1+1"
 	 */
 	@Test
-	public void testParseBinaryPlus1And1WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryPlus1And1WithoutBlank() throws GLanguageException {
 		String str = "1+1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1163,7 +1163,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 + 1"
 	 */
 	@Test
-	public void testParseBinaryPlus1And1WithBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryPlus1And1WithBlank() throws GLanguageException {
 		String str = "1 + 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1181,7 +1181,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1+1,1"
 	 */
 	@Test
-	public void testParseBinaryPlus1Comma1And1Comma1WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryPlus1Comma1And1Comma1WithoutBlank() throws GLanguageException {
 		String str = "1,1+1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1199,7 +1199,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 + 1,1"
 	 */
 	@Test
-	public void testParseBinaryPlus1Comma1And1Comma1WithBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryPlus1Comma1And1Comma1WithBlank() throws GLanguageException {
 		String str = "1,1 + 1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1217,7 +1217,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""ab"+"c""
 	 */
 	@Test
-	public void testParseBinaryPlusABAndCWithoutBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryPlusABAndCWithoutBlank() throws GLanguageException {
 		String str = "\"ab\"+\"c\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1235,7 +1235,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""ab" + "c""
 	 */
 	@Test
-	public void testParseBinaryPlusABAndCWithBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryPlusABAndCWithBlank() throws GLanguageException {
 		String str = "\"ab\" + \"c\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1253,7 +1253,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "'01/01/2016' + 'P1D'"
 	 */
 	@Test
-	public void testParseBinaryPlusDateAndDuration() throws GLanguageEvaluationException {
+	public void testParseBinaryPlusDateAndDuration() throws GLanguageException {
 		String str = "'01/01/2016' + 'P1D'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1271,7 +1271,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "'P1D' + '01/01/2016'"
 	 */
 	@Test
-	public void testParseBinaryPlusDurationAndDate() throws GLanguageEvaluationException {
+	public void testParseBinaryPlusDurationAndDate() throws GLanguageException {
 		String str = "'P1D' + '01/01/2016'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1289,7 +1289,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "'P1D' + 'P1D'"
 	 */
 	@Test
-	public void testParseBinaryPlusBothDuration() throws GLanguageEvaluationException {
+	public void testParseBinaryPlusBothDuration() throws GLanguageException {
 		String str = "'P1D' + 'P1D'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1311,7 +1311,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1-1"
 	 */
 	@Test
-	public void testParseBinaryMinus1And1WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryMinus1And1WithoutBlank() throws GLanguageException {
 		String str = "1-1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1329,7 +1329,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 - 1"
 	 */
 	@Test
-	public void testParseBinaryMinus1And1WithBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryMinus1And1WithBlank() throws GLanguageException {
 		String str = "1 - 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1347,7 +1347,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1-1,1"
 	 */
 	@Test
-	public void testParseBinaryMinus1Comma1And1Comma1WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryMinus1Comma1And1Comma1WithoutBlank() throws GLanguageException {
 		String str = "1,1-1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1365,7 +1365,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 - 1,1"
 	 */
 	@Test
-	public void testParseBinaryMinus1Comma1And1Comma1WithBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryMinus1Comma1And1Comma1WithBlank() throws GLanguageException {
 		String str = "1,1 - 1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1383,7 +1383,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 - 1,1"
 	 */
 	@Test
-	public void testParseBinaryMinus1And1Comma1WithBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryMinus1And1Comma1WithBlank() throws GLanguageException {
 		String str = "1 - 1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1401,7 +1401,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 - 1"
 	 */
 	@Test
-	public void testParseBinaryMinus1Comma1And1WithBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryMinus1Comma1And1WithBlank() throws GLanguageException {
 		String str = "1,1 - 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1419,7 +1419,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 - 2"
 	 */
 	@Test
-	public void testParseBinaryMinus1And2() throws GLanguageEvaluationException {
+	public void testParseBinaryMinus1And2() throws GLanguageException {
 		String str = "1 - 2";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1437,7 +1437,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "'01/01/2016' - 'P1D'"
 	 */
 	@Test
-	public void testParseBinaryMinusDateAndDuration() throws GLanguageEvaluationException {
+	public void testParseBinaryMinusDateAndDuration() throws GLanguageException {
 		String str = "'01/01/2016' - 'P1D'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1455,7 +1455,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "'P2D' - 'P1D'"
 	 */
 	@Test
-	public void testParseBinaryMinusBothDuration() throws GLanguageEvaluationException {
+	public void testParseBinaryMinusBothDuration() throws GLanguageException {
 		String str = "'P2D' - 'P1D'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1473,7 +1473,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "'P1D' - 'P2D'"
 	 */
 	@Test
-	public void testParseBinaryMinusBothDurationSecondGreaterThanFirst() throws GLanguageEvaluationException {
+	public void testParseBinaryMinusBothDurationSecondGreaterThanFirst() throws GLanguageException {
 		String str = "'P1D' - 'P2D'";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1495,7 +1495,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1=1"
 	 */
 	@Test
-	public void testParseBinaryEqual1And1WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryEqual1And1WithoutBlank() throws GLanguageException {
 		String str = "1=1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1513,7 +1513,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 = 1"
 	 */
 	@Test
-	public void testParseBinaryEqual1And1WithBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryEqual1And1WithBlank() throws GLanguageException {
 		String str = "1 = 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1531,7 +1531,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 = 0"
 	 */
 	@Test
-	public void testParseBinaryEqual1And0() throws GLanguageEvaluationException {
+	public void testParseBinaryEqual1And0() throws GLanguageException {
 		String str = "1 = 0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1549,7 +1549,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 = 1,1"
 	 */
 	@Test
-	public void testParseBinaryEqual1Comma1And1Comma1() throws GLanguageEvaluationException {
+	public void testParseBinaryEqual1Comma1And1Comma1() throws GLanguageException {
 		String str = "1,1 = 1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1567,7 +1567,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 = 0"
 	 */
 	@Test
-	public void testParseBinaryEqual1Comma1And0() throws GLanguageEvaluationException {
+	public void testParseBinaryEqual1Comma1And0() throws GLanguageException {
 		String str = "1 = 0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1585,7 +1585,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""abc" = "abc""
 	 */
 	@Test
-	public void testParseBinaryEqualABCAndABC() throws GLanguageEvaluationException {
+	public void testParseBinaryEqualABCAndABC() throws GLanguageException {
 		String str = "\"abc\" = \"abc\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1603,7 +1603,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""abc" = "ab""
 	 */
 	@Test
-	public void testParseBinaryEqualABCAndAB() throws GLanguageEvaluationException {
+	public void testParseBinaryEqualABCAndAB() throws GLanguageException {
 		String str = "\"abc\" = \"ab\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1625,7 +1625,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1<>1"
 	 */
 	@Test
-	public void testParseBinaryDifference1And1WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryDifference1And1WithoutBlank() throws GLanguageException {
 		String str = "1<>1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1643,7 +1643,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 <> 1"
 	 */
 	@Test
-	public void testParseBinaryDifference1And1WithBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryDifference1And1WithBlank() throws GLanguageException {
 		String str = "1 <> 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1661,7 +1661,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 <> 0"
 	 */
 	@Test
-	public void testParseBinaryDifference1And0() throws GLanguageEvaluationException {
+	public void testParseBinaryDifference1And0() throws GLanguageException {
 		String str = "1 <> 0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1679,7 +1679,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 <> 1,1"
 	 */
 	@Test
-	public void testParseBinaryDifference1Comma1And1Comma1() throws GLanguageEvaluationException {
+	public void testParseBinaryDifference1Comma1And1Comma1() throws GLanguageException {
 		String str = "1,1 <> 1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1697,7 +1697,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 <> 0"
 	 */
 	@Test
-	public void testParseBinaryDifference1Comma1And0() throws GLanguageEvaluationException {
+	public void testParseBinaryDifference1Comma1And0() throws GLanguageException {
 		String str = "1 <> 0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1715,7 +1715,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""abc" <> "abc""
 	 */
 	@Test
-	public void testParseBinaryDifferenceABCAndABC() throws GLanguageEvaluationException {
+	public void testParseBinaryDifferenceABCAndABC() throws GLanguageException {
 		String str = "\"abc\" <> \"abc\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1733,7 +1733,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""abc" <> "ab""
 	 */
 	@Test
-	public void testParseBinaryDifferenceABCAndAB() throws GLanguageEvaluationException {
+	public void testParseBinaryDifferenceABCAndAB() throws GLanguageException {
 		String str = "\"abc\" <> \"ab\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1755,7 +1755,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1<1"
 	 */
 	@Test
-	public void testParseBinarySmaller1And1WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseBinarySmaller1And1WithoutBlank() throws GLanguageException {
 		String str = "1<1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1773,7 +1773,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 < 1"
 	 */
 	@Test
-	public void testParseBinarySmaller1And1WithBlank() throws GLanguageEvaluationException {
+	public void testParseBinarySmaller1And1WithBlank() throws GLanguageException {
 		String str = "1 < 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1791,7 +1791,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 < 0"
 	 */
 	@Test
-	public void testParseBinarySmaller1And0() throws GLanguageEvaluationException {
+	public void testParseBinarySmaller1And0() throws GLanguageException {
 		String str = "1 < 0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1809,7 +1809,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "0 < 1"
 	 */
 	@Test
-	public void testParseBinarySmaller0And1() throws GLanguageEvaluationException {
+	public void testParseBinarySmaller0And1() throws GLanguageException {
 		String str = "0 < 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1827,7 +1827,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 < 1,1"
 	 */
 	@Test
-	public void testParseBinarySmaller1Comma1And1Comma1() throws GLanguageEvaluationException {
+	public void testParseBinarySmaller1Comma1And1Comma1() throws GLanguageException {
 		String str = "1,1 < 1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1845,7 +1845,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 < 0"
 	 */
 	@Test
-	public void testParseBinarySmaller1Comma1And0() throws GLanguageEvaluationException {
+	public void testParseBinarySmaller1Comma1And0() throws GLanguageException {
 		String str = "1,1 < 0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1863,7 +1863,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "0 < 1,1"
 	 */
 	@Test
-	public void testParseBinarySmaller0And1Comma1() throws GLanguageEvaluationException {
+	public void testParseBinarySmaller0And1Comma1() throws GLanguageException {
 		String str = "0 < 1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1881,7 +1881,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""abc" < "abc""
 	 */
 	@Test
-	public void testParseBinarySmallerABCAndABC() throws GLanguageEvaluationException {
+	public void testParseBinarySmallerABCAndABC() throws GLanguageException {
 		String str = "\"abc\" < \"abc\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1899,7 +1899,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""abc" < "ab""
 	 */
 	@Test
-	public void testParseBinarySmallerABCAndAB() throws GLanguageEvaluationException {
+	public void testParseBinarySmallerABCAndAB() throws GLanguageException {
 		String str = "\"abc\" < \"ab\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1917,7 +1917,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""ab" < "abc""
 	 */
 	@Test
-	public void testParseBinarySmallerABAndABC() throws GLanguageEvaluationException {
+	public void testParseBinarySmallerABAndABC() throws GLanguageException {
 		String str = "\"ab\" < \"abc\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1939,7 +1939,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1<=1"
 	 */
 	@Test
-	public void testParseBinarySmallerOrEqual1And1WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseBinarySmallerOrEqual1And1WithoutBlank() throws GLanguageException {
 		String str = "1<=1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1957,7 +1957,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 <= 1"
 	 */
 	@Test
-	public void testParseBinarySmallerOrEqual1And1WithBlank() throws GLanguageEvaluationException {
+	public void testParseBinarySmallerOrEqual1And1WithBlank() throws GLanguageException {
 		String str = "1 <= 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1975,7 +1975,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 <= 0"
 	 */
 	@Test
-	public void testParseBinarySmallerOrEqual1And0() throws GLanguageEvaluationException {
+	public void testParseBinarySmallerOrEqual1And0() throws GLanguageException {
 		String str = "1 <= 0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -1993,7 +1993,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "0 <= 1"
 	 */
 	@Test
-	public void testParseBinarySmallerOrEqual0And1() throws GLanguageEvaluationException {
+	public void testParseBinarySmallerOrEqual0And1() throws GLanguageException {
 		String str = "0 <= 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2011,7 +2011,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 <= 1,1"
 	 */
 	@Test
-	public void testParseBinarySmallerOrEqual1Comma1And1Comma1() throws GLanguageEvaluationException {
+	public void testParseBinarySmallerOrEqual1Comma1And1Comma1() throws GLanguageException {
 		String str = "1,1 <= 1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2029,7 +2029,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 <= 0"
 	 */
 	@Test
-	public void testParseBinarySmallerOrEqual1Comma1And0() throws GLanguageEvaluationException {
+	public void testParseBinarySmallerOrEqual1Comma1And0() throws GLanguageException {
 		String str = "1,1 <= 0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2047,7 +2047,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "0 <= 1,1"
 	 */
 	@Test
-	public void testParseBinarySmallerOrEqual0And1Comma1() throws GLanguageEvaluationException {
+	public void testParseBinarySmallerOrEqual0And1Comma1() throws GLanguageException {
 		String str = "0 <= 1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2065,7 +2065,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""abc" <= "abc""
 	 */
 	@Test
-	public void testParseBinarySmallerOrEqualABCAndABC() throws GLanguageEvaluationException {
+	public void testParseBinarySmallerOrEqualABCAndABC() throws GLanguageException {
 		String str = "\"abc\" <= \"abc\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2083,7 +2083,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""abc" <= "ab""
 	 */
 	@Test
-	public void testParseBinarySmallerOrEqualABCAndAB() throws GLanguageEvaluationException {
+	public void testParseBinarySmallerOrEqualABCAndAB() throws GLanguageException {
 		String str = "\"abc\" <= \"ab\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2101,7 +2101,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""ab" <= "abc""
 	 */
 	@Test
-	public void testParseBinarySmallerOrEqualABAndABC() throws GLanguageEvaluationException {
+	public void testParseBinarySmallerOrEqualABAndABC() throws GLanguageException {
 		String str = "\"ab\" <= \"abc\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2123,7 +2123,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1>1"
 	 */
 	@Test
-	public void testParseBinaryGreater1And1WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryGreater1And1WithoutBlank() throws GLanguageException {
 		String str = "1>1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2141,7 +2141,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 > 1"
 	 */
 	@Test
-	public void testParseBinaryGreater1And1WithBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryGreater1And1WithBlank() throws GLanguageException {
 		String str = "1 > 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2159,7 +2159,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 > 0"
 	 */
 	@Test
-	public void testParseBinaryGreater1And0() throws GLanguageEvaluationException {
+	public void testParseBinaryGreater1And0() throws GLanguageException {
 		String str = "1 > 0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2177,7 +2177,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "0 > 1"
 	 */
 	@Test
-	public void testParseBinaryGreater0And1() throws GLanguageEvaluationException {
+	public void testParseBinaryGreater0And1() throws GLanguageException {
 		String str = "0 > 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2195,7 +2195,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 > 1,1"
 	 */
 	@Test
-	public void testParseBinaryGreater1Comma1And1Comma1() throws GLanguageEvaluationException {
+	public void testParseBinaryGreater1Comma1And1Comma1() throws GLanguageException {
 		String str = "1,1 > 1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2213,7 +2213,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 > 0"
 	 */
 	@Test
-	public void testParseBinaryGreater1Comma1And0() throws GLanguageEvaluationException {
+	public void testParseBinaryGreater1Comma1And0() throws GLanguageException {
 		String str = "1,1 > 0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2231,7 +2231,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "0 > 1,1"
 	 */
 	@Test
-	public void testParseBinaryGreater0And1Comma1() throws GLanguageEvaluationException {
+	public void testParseBinaryGreater0And1Comma1() throws GLanguageException {
 		String str = "0 > 1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2249,7 +2249,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""abc" > "abc""
 	 */
 	@Test
-	public void testParseBinaryGreaterABCAndABC() throws GLanguageEvaluationException {
+	public void testParseBinaryGreaterABCAndABC() throws GLanguageException {
 		String str = "\"abc\" > \"abc\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2267,7 +2267,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""abc" > "ab""
 	 */
 	@Test
-	public void testParseBinaryGreaterABCAndAB() throws GLanguageEvaluationException {
+	public void testParseBinaryGreaterABCAndAB() throws GLanguageException {
 		String str = "\"abc\" > \"ab\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2285,7 +2285,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""ab" > "abc""
 	 */
 	@Test
-	public void testParseBinaryGreaterABAndABC() throws GLanguageEvaluationException {
+	public void testParseBinaryGreaterABAndABC() throws GLanguageException {
 		String str = "\"ab\" > \"abc\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2307,7 +2307,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1>=1"
 	 */
 	@Test
-	public void testParseBinaryGreaterOrEqual1And1WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryGreaterOrEqual1And1WithoutBlank() throws GLanguageException {
 		String str = "1>=1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2325,7 +2325,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 >= 1"
 	 */
 	@Test
-	public void testParseBinaryGreaterOrEqual1And1WithBlank() throws GLanguageEvaluationException {
+	public void testParseBinaryGreaterOrEqual1And1WithBlank() throws GLanguageException {
 		String str = "1 >= 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2343,7 +2343,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 >= 0"
 	 */
 	@Test
-	public void testParseBinaryGreaterOrEqual1And0() throws GLanguageEvaluationException {
+	public void testParseBinaryGreaterOrEqual1And0() throws GLanguageException {
 		String str = "1 >= 0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2361,7 +2361,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "0 >= 1"
 	 */
 	@Test
-	public void testParseBinaryGreaterOrEqual0And1() throws GLanguageEvaluationException {
+	public void testParseBinaryGreaterOrEqual0And1() throws GLanguageException {
 		String str = "0 >= 1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2379,7 +2379,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 >= 1,1"
 	 */
 	@Test
-	public void testParseBinaryGreaterOrEqual1Comma1And1Comma1() throws GLanguageEvaluationException {
+	public void testParseBinaryGreaterOrEqual1Comma1And1Comma1() throws GLanguageException {
 		String str = "1,1 >= 1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2397,7 +2397,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 >= 0"
 	 */
 	@Test
-	public void testParseBinaryGreaterOrEqual1Comma1And0() throws GLanguageEvaluationException {
+	public void testParseBinaryGreaterOrEqual1Comma1And0() throws GLanguageException {
 		String str = "1,1 >= 0";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2415,7 +2415,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "0 >= 1,1"
 	 */
 	@Test
-	public void testParseBinaryGreaterOrEqual0And1Comma1() throws GLanguageEvaluationException {
+	public void testParseBinaryGreaterOrEqual0And1Comma1() throws GLanguageException {
 		String str = "0 >= 1,1";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2433,7 +2433,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""abc" >= "abc""
 	 */
 	@Test
-	public void testParseBinaryGreaterOrEqualABCAndABC() throws GLanguageEvaluationException {
+	public void testParseBinaryGreaterOrEqualABCAndABC() throws GLanguageException {
 		String str = "\"abc\" >= \"abc\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2451,7 +2451,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""abc" >= "ab""
 	 */
 	@Test
-	public void testParseBinaryGreaterOrEqualABCAndAB() throws GLanguageEvaluationException {
+	public void testParseBinaryGreaterOrEqualABCAndAB() throws GLanguageException {
 		String str = "\"abc\" >= \"ab\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2469,7 +2469,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""ab" >= "abc""
 	 */
 	@Test
-	public void testParseBinaryGreaterOrEqualABAndABC() throws GLanguageEvaluationException {
+	public void testParseBinaryGreaterOrEqualABAndABC() throws GLanguageException {
 		String str = "\"ab\" >= \"abc\"";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2491,7 +2491,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "true and true"
 	 */
 	@Test
-	public void testParseBinaryAndTrueAndTrue() throws GLanguageEvaluationException {
+	public void testParseBinaryAndTrueAndTrue() throws GLanguageException {
 		String str = "true and true";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2509,7 +2509,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "true and false"
 	 */
 	@Test
-	public void testParseBinaryAndTrueAndFalse() throws GLanguageEvaluationException {
+	public void testParseBinaryAndTrueAndFalse() throws GLanguageException {
 		String str = "true and false";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2527,7 +2527,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "false and false"
 	 */
 	@Test
-	public void testParseBinaryAndFalseAndFalse() throws GLanguageEvaluationException {
+	public void testParseBinaryAndFalseAndFalse() throws GLanguageException {
 		String str = "false and false";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2549,7 +2549,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "true or true"
 	 */
 	@Test
-	public void testParseBinaryOrTrueAndTrue() throws GLanguageEvaluationException {
+	public void testParseBinaryOrTrueAndTrue() throws GLanguageException {
 		String str = "true or true";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2567,7 +2567,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "true or false"
 	 */
 	@Test
-	public void testParseBinaryOrTrueAndFalse() throws GLanguageEvaluationException {
+	public void testParseBinaryOrTrueAndFalse() throws GLanguageException {
 		String str = "true or false";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2585,7 +2585,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "false or false"
 	 */
 	@Test
-	public void testParseBinaryOrFalseAndFalse() throws GLanguageEvaluationException {
+	public void testParseBinaryOrFalseAndFalse() throws GLanguageException {
 		String str = "false or false";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2607,7 +2607,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "(1)"
 	 */
 	@Test
-	public void testParseBracket1WithoutBlank() throws GLanguageEvaluationException {
+	public void testParseBracket1WithoutBlank() throws GLanguageException {
 		String str = "(1)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2625,7 +2625,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "( 1 )"
 	 */
 	@Test
-	public void testParseBracket1WithBlank() throws GLanguageEvaluationException {
+	public void testParseBracket1WithBlank() throws GLanguageException {
 		String str = "( 1 )";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2643,7 +2643,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "(1,1)"
 	 */
 	@Test
-	public void testParseBracket1Comma1() throws GLanguageEvaluationException {
+	public void testParseBracket1Comma1() throws GLanguageException {
 		String str = "(1,1)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2661,7 +2661,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "("abc")"
 	 */
 	@Test
-	public void testParseBracketABC() throws GLanguageEvaluationException {
+	public void testParseBracketABC() throws GLanguageException {
 		String str = "(\"abc\")";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2679,7 +2679,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "(true)"
 	 */
 	@Test
-	public void testParseBracketTrue() throws GLanguageEvaluationException {
+	public void testParseBracketTrue() throws GLanguageException {
 		String str = "(true)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2701,7 +2701,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 in (1)"
 	 */
 	@Test
-	public void testParseIn1And1() throws GLanguageEvaluationException {
+	public void testParseIn1And1() throws GLanguageException {
 		String str = "1 in (1)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2719,7 +2719,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 in (1;2;3)"
 	 */
 	@Test
-	public void testParseIn1And123() throws GLanguageEvaluationException {
+	public void testParseIn1And123() throws GLanguageException {
 		String str = "1 in (1;2;3)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2737,7 +2737,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1 in (2;3)"
 	 */
 	@Test
-	public void testParseIn1And23() throws GLanguageEvaluationException {
+	public void testParseIn1And23() throws GLanguageException {
 		String str = "1 in (2;3)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2755,7 +2755,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 in (1,1)"
 	 */
 	@Test
-	public void testParseIn1Comma1And1Comma1() throws GLanguageEvaluationException {
+	public void testParseIn1Comma1And1Comma1() throws GLanguageException {
 		String str = "1,1 in (1,1)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2773,7 +2773,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 in (1,1;2,2;3,3)"
 	 */
 	@Test
-	public void testParseIn1Comma1And1Comma1And2Comma2And3Comma3() throws GLanguageEvaluationException {
+	public void testParseIn1Comma1And1Comma1And2Comma2And3Comma3() throws GLanguageException {
 		String str = "1,1 in (1,1;2,2;3,3)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2791,7 +2791,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "1,1 in (2,2;3,3)"
 	 */
 	@Test
-	public void testParseIn1Comma1And2Comma2And3Comma3() throws GLanguageEvaluationException {
+	public void testParseIn1Comma1And2Comma2And3Comma3() throws GLanguageException {
 		String str = "1,1 in (2,2;3,3)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2809,7 +2809,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""a" in ("a")"
 	 */
 	@Test
-	public void testParseInAAndA() throws GLanguageEvaluationException {
+	public void testParseInAAndA() throws GLanguageException {
 		String str = "\"a\" in (\"a\")";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2827,7 +2827,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""a" in ("a";"b";"c")"
 	 */
 	@Test
-	public void testParseInAAndABC() throws GLanguageEvaluationException {
+	public void testParseInAAndABC() throws GLanguageException {
 		String str = "\"a\" in (\"a\";\"b\";\"c\")";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2845,7 +2845,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string ""a" in ("b";"c")"
 	 */
 	@Test
-	public void testParseInAAndBC() throws GLanguageEvaluationException {
+	public void testParseInAAndBC() throws GLanguageException {
 		String str = "\"a\" in (\"b\";\"c\")";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2871,7 +2871,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "ceil(1,111 ; 0,01)"
 	 */
 	@Test
-	public void testParseCeil1Comma111Precision0Comma01() throws GLanguageEvaluationException {
+	public void testParseCeil1Comma111Precision0Comma01() throws GLanguageException {
 		String str = "ceil(1,111 ; 0,01)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2889,7 +2889,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "floor(1,111 ; 0,01)"
 	 */
 	@Test
-	public void testParseFloor1Comma111Precision0Comma01() throws GLanguageEvaluationException {
+	public void testParseFloor1Comma111Precision0Comma01() throws GLanguageException {
 		String str = "floor(1,111 ; 0,01)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2907,7 +2907,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "round(1,111 ; 0,01)"
 	 */
 	@Test
-	public void testParseRound1Comma111Precision0Comma01() throws GLanguageEvaluationException {
+	public void testParseRound1Comma111Precision0Comma01() throws GLanguageException {
 		String str = "rounded(1,111 ; 0,01)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2925,7 +2925,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "trunc(1,111 ; 2)"
 	 */
 	@Test
-	public void testParseTrunc1Comma111Precision2() throws GLanguageEvaluationException {
+	public void testParseTrunc1Comma111Precision2() throws GLanguageException {
 		String str = "trunc(1,111 ; 2)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2943,7 +2943,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "bankers_rounded(1,111 ; 2)"
 	 */
 	@Test
-	public void testParseBankersRounded1Comma111Precision2() throws GLanguageEvaluationException {
+	public void testParseBankersRounded1Comma111Precision2() throws GLanguageException {
 		String str = "bankers_rounded(1,111 ; 2)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2961,7 +2961,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "ceil(1,111)"
 	 */
 	@Test
-	public void testParseCeil1Comma111NoPrecision() throws GLanguageEvaluationException {
+	public void testParseCeil1Comma111NoPrecision() throws GLanguageException {
 		String str = "ceil(1,111)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2979,7 +2979,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "floor(1,111)"
 	 */
 	@Test
-	public void testParseFloor1Comma111NoPrecision() throws GLanguageEvaluationException {
+	public void testParseFloor1Comma111NoPrecision() throws GLanguageException {
 		String str = "floor(1,111)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -2997,7 +2997,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "round(1,111)"
 	 */
 	@Test
-	public void testParseRound1Comma111NoPrecision() throws GLanguageEvaluationException {
+	public void testParseRound1Comma111NoPrecision() throws GLanguageException {
 		String str = "rounded(1,111)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3015,7 +3015,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "trunc(1,111)"
 	 */
 	@Test
-	public void testParseTrunc1Comma111NoPrecision() throws GLanguageEvaluationException {
+	public void testParseTrunc1Comma111NoPrecision() throws GLanguageException {
 		String str = "trunc(1,111)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3033,7 +3033,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "bankers_rounded(1,111)"
 	 */
 	@Test
-	public void testParseBankersRounded1Comma111NoPrecision() throws GLanguageEvaluationException {
+	public void testParseBankersRounded1Comma111NoPrecision() throws GLanguageException {
 		String str = "bankers_rounded(1,111)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3055,7 +3055,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "formatDate('01/01/2016' ; "yyyyMMdd")"
 	 */
 	@Test
-	public void testParseFormatDate() throws GLanguageEvaluationException {
+	public void testParseFormatDate() throws GLanguageException {
 		String str = "formatDate('01/01/2016' ; \"yyyyMMdd\")";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3073,7 +3073,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "formatInteger(1000 ; 10 ; "NONE" ; "NONE")"
 	 */
 	@Test
-	public void testParseFormatInteger() throws GLanguageEvaluationException {
+	public void testParseFormatInteger() throws GLanguageException {
 		String str = "formatInteger(1000 ; 10 ; \"NONE\" ; \"NONE\")";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3091,7 +3091,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "formatNumeric(1000 ; 10 ; 2 ; "NONE" ; "NONE" ; ",")"
 	 */
 	@Test
-	public void testParseFormatNumeric() throws GLanguageEvaluationException {
+	public void testParseFormatNumeric() throws GLanguageException {
 		String str = "formatNumeric(1000,0 ; 10 ; 2 ; \"NONE\" ; \"NONE\" ; \",\")";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3109,7 +3109,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "formatString("abc" ; 5 ; "CENTER" ; "")"
 	 */
 	@Test
-	public void testParseFormatString() throws GLanguageEvaluationException {
+	public void testParseFormatString() throws GLanguageException {
 		String str = "formatString(\"abc\" ; 5 ; \"CENTER\" ; \"\")";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3131,7 +3131,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "stringItem("a/ab/abc" ; "/" ; 2)"
 	 */
 	@Test
-	public void testParseStringItem() throws GLanguageEvaluationException {
+	public void testParseStringItem() throws GLanguageException {
 		String str = "stringItem(\"a/ab/abc\" ; \"/\" ; 2)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3153,7 +3153,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "substring("abcdef" ; 1 ; 3)"
 	 */
 	@Test
-	public void testParseSubString() throws GLanguageEvaluationException {
+	public void testParseSubString() throws GLanguageException {
 		String str = "substring(\"abcdef\" ; 1 ; 3)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3175,7 +3175,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "max(1 ; 2 ; 3 ; -4)"
 	 */
 	@Test
-	public void testParseMax() throws GLanguageEvaluationException {
+	public void testParseMax() throws GLanguageException {
 		String str = "max(1 ; 2 ; 3 ; -4)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3193,7 +3193,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "smax(1 ; 2 ; 3 ; -4)"
 	 */
 	@Test
-	public void testParseSignedMax() throws GLanguageEvaluationException {
+	public void testParseSignedMax() throws GLanguageException {
 		String str = "smax(1 ; 2 ; 3 ; -4)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3211,7 +3211,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "smax(1 ; 2 ; 3 ; -4)"
 	 */
 	@Test
-	public void testParseMinusSignedMax() throws GLanguageEvaluationException {
+	public void testParseMinusSignedMax() throws GLanguageException {
 		String str = "smax(-1 ; 2 ; 3 ; -4)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3229,7 +3229,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "max(1 ; 2,0 ; 3 ; -4)"
 	 */
 	@Test
-	public void testParseMaxDouble() throws GLanguageEvaluationException {
+	public void testParseMaxDouble() throws GLanguageException {
 		String str = "max(1 ; 2,0 ; 3 ; -4)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3247,7 +3247,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "smax(1 ; 2,0 ; 3 ; -4)"
 	 */
 	@Test
-	public void testParseSignedMaxDouble() throws GLanguageEvaluationException {
+	public void testParseSignedMaxDouble() throws GLanguageException {
 		String str = "smax(1 ; 2,0 ; 3 ; -4)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3265,7 +3265,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "smax(1 ; 2,0 ; 3 ; -4)"
 	 */
 	@Test
-	public void testParseMinusSignedMaxDouble() throws GLanguageEvaluationException {
+	public void testParseMinusSignedMaxDouble() throws GLanguageException {
 		String str = "smax(-1 ; 2,0 ; 3 ; -4)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3283,7 +3283,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "min(1 ; 2 ; 3 ; -4)"
 	 */
 	@Test
-	public void testParseMin() throws GLanguageEvaluationException {
+	public void testParseMin() throws GLanguageException {
 		String str = "min(1 ; 2 ; 3 ; -4)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3301,7 +3301,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "smin(1 ; 2 ; 3 ; -4)"
 	 */
 	@Test
-	public void testParseSignedMin() throws GLanguageEvaluationException {
+	public void testParseSignedMin() throws GLanguageException {
 		String str = "smin(1 ; 2 ; 3 ; -4)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3319,7 +3319,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "smin(1 ; 2 ; 3 ; -4)"
 	 */
 	@Test
-	public void testParseMinusSignedMin() throws GLanguageEvaluationException {
+	public void testParseMinusSignedMin() throws GLanguageException {
 		String str = "smin(-1 ; 2 ; 3 ; -4)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3337,7 +3337,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "min(1 ; 2,0 ; 3 ; -4)"
 	 */
 	@Test
-	public void testParseMinDouble() throws GLanguageEvaluationException {
+	public void testParseMinDouble() throws GLanguageException {
 		String str = "min(1 ; 2,0 ; 3 ; -4)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3355,7 +3355,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "smin(1 ; 2,0 ; 3 ; -4)"
 	 */
 	@Test
-	public void testParseSignedMinDouble() throws GLanguageEvaluationException {
+	public void testParseSignedMinDouble() throws GLanguageException {
 		String str = "smin(1 ; 2,0 ; 3 ; -4)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3373,7 +3373,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "smin(1 ; 2,0 ; 3 ; -4)"
 	 */
 	@Test
-	public void testParseMinusSignedMinDouble() throws GLanguageEvaluationException {
+	public void testParseMinusSignedMinDouble() throws GLanguageException {
 		String str = "smin(-1 ; 2,0 ; 3 ; -4)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3395,7 +3395,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "date("1/1/2016")"
 	 */
 	@Test
-	public void testParseFormulaDateString() throws GLanguageEvaluationException {
+	public void testParseFormulaDateString() throws GLanguageException {
 		String str = "date(\"01/01/2016\")";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3413,7 +3413,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "date(1 ; 1 ; 2016)"
 	 */
 	@Test
-	public void testParseFormulaDateParts() throws GLanguageEvaluationException {
+	public void testParseFormulaDateParts() throws GLanguageException {
 		String str = "date(1 ; 1 ; 2016)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3439,7 +3439,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "minutes(10)"
 	 */
 	@Test
-	public void testParseMinutesInteger() throws GLanguageEvaluationException {
+	public void testParseMinutesInteger() throws GLanguageException {
 		String str = "minutes(10)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3457,7 +3457,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "minutes('PT10M')"
 	 */
 	@Test
-	public void testParseMinutesDuration() throws GLanguageEvaluationException {
+	public void testParseMinutesDuration() throws GLanguageException {
 		String str = "minutes('PT10M')";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3475,7 +3475,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "minutes(hours(2))"
 	 */
 	@Test
-	public void testParseMinutesHours() throws GLanguageEvaluationException {
+	public void testParseMinutesHours() throws GLanguageException {
 		String str = "minutes(hours(2))";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3497,7 +3497,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "hours(10)"
 	 */
 	@Test
-	public void testParseHoursInteger() throws GLanguageEvaluationException {
+	public void testParseHoursInteger() throws GLanguageException {
 		String str = "hours(10)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3515,7 +3515,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "hours('PT10H')"
 	 */
 	@Test
-	public void testParseHoursDuration() throws GLanguageEvaluationException {
+	public void testParseHoursDuration() throws GLanguageException {
 		String str = "hours('PT10H')";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3533,7 +3533,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "hours(minutes(120))"
 	 */
 	@Test
-	public void testParseHoursMinutes() throws GLanguageEvaluationException {
+	public void testParseHoursMinutes() throws GLanguageException {
 		String str = "hours(minutes(120))";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3555,7 +3555,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "days(2)"
 	 */
 	@Test
-	public void testParseDaysInteger() throws GLanguageEvaluationException {
+	public void testParseDaysInteger() throws GLanguageException {
 		String str = "days(2)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3573,7 +3573,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "days('P2D')"
 	 */
 	@Test
-	public void testParseDaysDuration() throws GLanguageEvaluationException {
+	public void testParseDaysDuration() throws GLanguageException {
 		String str = "days('P2D')";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3591,7 +3591,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "days(hours(24))"
 	 */
 	@Test
-	public void testParseDaysHours() throws GLanguageEvaluationException {
+	public void testParseDaysHours() throws GLanguageException {
 		String str = "days(hours(24))";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3609,7 +3609,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "days('02/01/2016')"
 	 */
 	@Test
-	public void testParseDaysDate() throws GLanguageEvaluationException {
+	public void testParseDaysDate() throws GLanguageException {
 		String str = "days('02/01/2016')";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3631,7 +3631,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "months(2)"
 	 */
 	@Test
-	public void testParseMonthsInteger() throws GLanguageEvaluationException {
+	public void testParseMonthsInteger() throws GLanguageException {
 		String str = "months(2)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3649,7 +3649,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "days('P2M')"
 	 */
 	@Test
-	public void testParseMonthsDuration() throws GLanguageEvaluationException {
+	public void testParseMonthsDuration() throws GLanguageException {
 		String str = "months('P2M')";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3667,7 +3667,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "months(days(31))"
 	 */
 	@Test
-	public void testParseMonthsDays() throws GLanguageEvaluationException {
+	public void testParseMonthsDays() throws GLanguageException {
 		String str = "months(days(31))";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3685,7 +3685,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "months('01/02/2016')"
 	 */
 	@Test
-	public void testParseMonthsDate() throws GLanguageEvaluationException {
+	public void testParseMonthsDate() throws GLanguageException {
 		String str = "months('01/02/2016')";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3707,7 +3707,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "years(2)"
 	 */
 	@Test
-	public void testParseYearsInteger() throws GLanguageEvaluationException {
+	public void testParseYearsInteger() throws GLanguageException {
 		String str = "years(2)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3725,7 +3725,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "years('P2Y')"
 	 */
 	@Test
-	public void testParseYearsDuration() throws GLanguageEvaluationException {
+	public void testParseYearsDuration() throws GLanguageException {
 		String str = "years('P2Y')";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3743,7 +3743,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "years(months(12))"
 	 */
 	@Test
-	public void testParseYearMonths() throws GLanguageEvaluationException {
+	public void testParseYearMonths() throws GLanguageException {
 		String str = "years(months(12))";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3761,7 +3761,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "years('01/01/2016')"
 	 */
 	@Test
-	public void testParseYearsDate() throws GLanguageEvaluationException {
+	public void testParseYearsDate() throws GLanguageException {
 		String str = "years('01/02/2016')";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3787,7 +3787,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "abs(10)"
 	 */
 	@Test
-	public void testParseAbsPositiveInteger() throws GLanguageEvaluationException {
+	public void testParseAbsPositiveInteger() throws GLanguageException {
 		String str = "abs(10)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3805,7 +3805,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "abs (-10)"
 	 */
 	@Test
-	public void testParseAbsNegativeInteger() throws GLanguageEvaluationException {
+	public void testParseAbsNegativeInteger() throws GLanguageException {
 		String str = "abs (-10)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3823,7 +3823,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "abs (10,0)"
 	 */
 	@Test
-	public void testParseAbsPositiveNumeric() throws GLanguageEvaluationException {
+	public void testParseAbsPositiveNumeric() throws GLanguageException {
 		String str = "abs(10,0)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3841,7 +3841,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "abs (-10,0)"
 	 */
 	@Test
-	public void testParseAbsNegativeNumeric() throws GLanguageEvaluationException {
+	public void testParseAbsNegativeNumeric() throws GLanguageException {
 		String str = "abs (-10,0)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3859,7 +3859,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "sign(10)"
 	 */
 	@Test
-	public void testParseSignPositiveInteger() throws GLanguageEvaluationException {
+	public void testParseSignPositiveInteger() throws GLanguageException {
 		String str = "sign(10)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3877,7 +3877,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "sign (-10)"
 	 */
 	@Test
-	public void testParseSignNegativeInteger() throws GLanguageEvaluationException {
+	public void testParseSignNegativeInteger() throws GLanguageException {
 		String str = "sign (-10)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3895,7 +3895,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "sign(0)"
 	 */
 	@Test
-	public void testParseSignZeroInteger() throws GLanguageEvaluationException {
+	public void testParseSignZeroInteger() throws GLanguageException {
 		String str = "sign(0)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3913,7 +3913,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "sign(+0)"
 	 */
 	@Test
-	public void testParseSignPositiveZeroInteger() throws GLanguageEvaluationException {
+	public void testParseSignPositiveZeroInteger() throws GLanguageException {
 		String str = "sign(0)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3931,7 +3931,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "sign(-0)"
 	 */
 	@Test
-	public void testParseSignNegativeZeroInteger() throws GLanguageEvaluationException {
+	public void testParseSignNegativeZeroInteger() throws GLanguageException {
 		String str = "sign(-0)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3949,7 +3949,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "sign (10,0)"
 	 */
 	@Test
-	public void testParseSignPositiveNumeric() throws GLanguageEvaluationException {
+	public void testParseSignPositiveNumeric() throws GLanguageException {
 		String str = "sign(10,0)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3967,7 +3967,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "sign (-10,0)"
 	 */
 	@Test
-	public void testParseSignNegativeNumeric() throws GLanguageEvaluationException {
+	public void testParseSignNegativeNumeric() throws GLanguageException {
 		String str = "sign (-10,0)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -3989,7 +3989,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "put_text (1000)"
 	 */
 	@Test
-	public void testParseAnomalyIntegerId() throws GLanguageEvaluationException {
+	public void testParseAnomalyIntegerId() throws GLanguageException {
 		String str = "put_text (1000)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -4011,7 +4011,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "put_text ("1000")"
 	 */
 	@Test
-	public void testParseAnomalyStringId() throws GLanguageEvaluationException {
+	public void testParseAnomalyStringId() throws GLanguageException {
 		String str = "put_text (\"1000\")";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -4033,7 +4033,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "put_text (1000 ; "abc")"
 	 */
 	@Test
-	public void testParseAnomalyIntegerIdAndMessage() throws GLanguageEvaluationException {
+	public void testParseAnomalyIntegerIdAndMessage() throws GLanguageException {
 		String str = "put_text (1000 ; \"abc\")";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -4055,7 +4055,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "put_text ("1000" ; "abc")"
 	 */
 	@Test
-	public void testParseAnomalyStringIdAndMessage() throws GLanguageEvaluationException {
+	public void testParseAnomalyStringIdAndMessage() throws GLanguageException {
 		String str = "put_text (\"1000\" ; \"abc\")";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
@@ -4080,7 +4080,7 @@ public class ParserTest {
 	 * Tests {@link SlangTab#analyze()} with string "stringLength("abc")"
 	 */
 	@Test
-	public void testParseStringLenght() throws GLanguageEvaluationException {
+	public void testParseStringLenght() throws GLanguageException {
 		String str = "stringLength(\"abc\")";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);

@@ -5,7 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -49,7 +49,7 @@ public class FormulaNotTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidBoolean() {
+	public void testIsValidBoolean() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		
@@ -63,7 +63,7 @@ public class FormulaNotTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNotBoolean() {
+	public void testIsValidNotBoolean() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
@@ -77,7 +77,7 @@ public class FormulaNotTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeBoolean() {
+	public void testGetReturnTypeBoolean() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		
@@ -91,7 +91,7 @@ public class FormulaNotTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNotBoolean() {
+	public void testGetReturnTypeNotBoolean() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
@@ -104,7 +104,7 @@ public class FormulaNotTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaNot#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetIntegerValue() throws GLanguageEvaluationException {
+	public void testGetIntegerValue() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand.getBooleanValue(null)).thenReturn(true);
@@ -118,7 +118,7 @@ public class FormulaNotTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaNot#getNumericValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() throws GLanguageEvaluationException {
+	public void testGetNumericValue() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand.getBooleanValue(null)).thenReturn(true);
@@ -132,7 +132,7 @@ public class FormulaNotTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaNot#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() throws GLanguageEvaluationException {
+	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand.getBooleanValue(null)).thenReturn(true);
@@ -146,7 +146,7 @@ public class FormulaNotTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaNot#getBooleanValue()} when parameter exists
 	 */
 	@Test
-	public void testGetBooleanValueParameterExists() throws GLanguageEvaluationException {
+	public void testGetBooleanValueParameterExists() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand.getBooleanValue(null)).thenReturn(true);
@@ -160,7 +160,7 @@ public class FormulaNotTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaNot#getBooleanValue()} when parameter doesn't exist
 	 */
 	@Test(expected = NullPointerException.class)
-	public void testGetBooleanValueParameterNotExist() throws GLanguageEvaluationException {
+	public void testGetBooleanValueParameterNotExist() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand.getBooleanValue(null)).thenReturn(null);
@@ -174,7 +174,7 @@ public class FormulaNotTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaNot#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() throws GLanguageEvaluationException {
+	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand.getBooleanValue(null)).thenReturn(true);
@@ -188,7 +188,7 @@ public class FormulaNotTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaNot#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() throws GLanguageEvaluationException {
+	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand.getBooleanValue(null)).thenReturn(true);
@@ -212,7 +212,7 @@ public class FormulaNotTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaNot#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand.asText()).thenReturn("some_rule");

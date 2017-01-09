@@ -6,7 +6,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.F
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.RuleCallFormula;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleGroupItem;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -347,7 +347,7 @@ public class Plan {
      *
      * @return The map of evaluated {@link RuleVersion}'s associated with their value as result of evaluation
      */
-    public Map<RuleVersion, Object> evaluate() throws GLanguageEvaluationException {
+    public Map<RuleVersion, Object> evaluate() throws GLanguageException {
         return evaluateWithContext(null);
     }
 
@@ -357,7 +357,7 @@ public class Plan {
      * @param evaluator The evaluator to use to evaluate
      * @return The map of evaluated {@link RuleVersion}'s associated with their value as result of evaluation
      */
-    public Map<RuleVersion, Object> evaluate(Evaluator evaluator) throws GLanguageEvaluationException {
+    public Map<RuleVersion, Object> evaluate(Evaluator evaluator) throws GLanguageException {
 //        getRuleVersions().forEach(rv -> evaluate(rv, false, evaluator));
         for (RuleVersion rv : getRuleVersions()) {
             evaluate(rv, false, evaluator);
@@ -372,7 +372,7 @@ public class Plan {
      * @param recursive      Flag indicating whether to evaluate recursively or not
      * @param evaluator      The evaluator to use to evaluate
      */
-    public void evaluate(String ruleIdentifier, boolean recursive, Evaluator evaluator) throws GLanguageEvaluationException {
+    public void evaluate(String ruleIdentifier, boolean recursive, Evaluator evaluator) throws GLanguageException {
         RuleVersion ruleVersion = getEffectiveRuleVersionByIdenitifier(ruleIdentifier);
         if (ruleVersion != null) {
             evaluate(ruleVersion, recursive, evaluator);
@@ -388,7 +388,7 @@ public class Plan {
      * @param context The contxt to evaluate
      * @return The map of evaluated {@link RuleVersion}'s associated with their value as result of evaluation
      */
-    public Map<RuleVersion, Object> evaluateWithContext(Object context) throws GLanguageEvaluationException {
+    public Map<RuleVersion, Object> evaluateWithContext(Object context) throws GLanguageException {
         if (!isBranched()) {
             branch(context);
         }
@@ -407,7 +407,7 @@ public class Plan {
      * @param recursive      Flag indicating whether to evaluate recursively or not
      */
     public Map<RuleVersion, Object> evaluateWithContext(Object context, String ruleIdentifier, boolean recursive)
-            throws GLanguageEvaluationException {
+            throws GLanguageException {
         RuleVersion ruleVersion = getEffectiveRuleVersionByIdenitifier(ruleIdentifier);
         if (ruleVersion != null) {
             if (!isBranched(ruleVersion)) {
@@ -439,8 +439,7 @@ public class Plan {
      * @param recursive   Flag indicating whether to evaluate recursively or not
      * @param evaluator   The evaluator to use to evaluate. May be null
      */
-    private void evaluate(RuleVersion ruleVersion, boolean recursive, Evaluator evaluator) throws
-                                                                                           GLanguageEvaluationException {
+    private void evaluate(RuleVersion ruleVersion, boolean recursive, Evaluator evaluator) throws GLanguageException {
         if (evaluator != null) {
             evaluator.evaluateRuleVersion(ruleVersion);
         } else {

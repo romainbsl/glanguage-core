@@ -48,12 +48,10 @@ public class RuleDescriptionTest extends BaseDatabaseTest {
 		/* Checking relationships */
 		assertNotNull(ruleDescription.getRuleVersions());
 		assertEquals(4, ruleDescription.getRuleVersions().size());
-		assertEquals(4, ruleDescription.getRuleVersions().stream().map(rv -> rv.getId()).distinct().count());
+		assertEquals(4, ruleDescription.getRuleVersions().stream().map(RuleVersion::getId).distinct().count());
 
 		List<Integer> ruleVersionIds = Arrays.asList(-900000, -900001, -900002, -900003);
-		ruleDescription.getRuleVersions().forEach(rv -> {
-			assertTrue(ruleVersionIds.contains(rv.getId()));
-		});
+		ruleDescription.getRuleVersions().forEach(rv -> assertTrue(ruleVersionIds.contains(rv.getId())));
 	}
 
 }

@@ -14,6 +14,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.termin
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalInteger;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumeric;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalString;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 
 /**
  * Set of semantical actions applicable during analysis
@@ -289,7 +290,7 @@ public interface SemanticalAction {
 	// "DefinitionsSLangage.fonctionCorrecte(cf)",
 	// "param != null"
 	// })
-	public AbstractFormula standardFunction(FormulaType formulaDescriptionId, LinkedList<AbstractFormula> parameters);
+	public AbstractFormula standardFunction(FormulaType formulaDescriptionId, LinkedList<AbstractFormula> parameters) throws GLanguageException;
 	
 	/**
 	 * "Standard group function" node

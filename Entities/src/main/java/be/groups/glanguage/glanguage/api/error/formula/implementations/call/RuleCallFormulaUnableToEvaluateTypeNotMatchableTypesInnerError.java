@@ -1,37 +1,41 @@
 package be.groups.glanguage.glanguage.api.error.formula.implementations.call;
 
-import be.groups.errorframework.core.error.InnerError;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
+import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
 
 /**
  * Created by michotte on 20/12/2016.
  */
-public class RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError extends InnerError {
+public class RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError extends FormulaInnerError {
 
-    public RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError(AbstractFormula formula, Evaluator evaluator, RuleVersion
-            referencedRule, FormulaReturnType actualReturnType, FormulaReturnType expectedReturnType, String
-            methodName) {
-        super(GLanguageErrorRegistry.FORMULA_UNABLE_TO_EVALUATE_TYPE.getCode(),
-                createMessage(formula, evaluator, referencedRule, actualReturnType, expectedReturnType, methodName),
-                null);
+    public RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError(AbstractFormula formula,
+                                                                          Evaluator evaluator,
+                                                                          String methodName,
+                                                                          RuleVersion referencedRule,
+                                                                          FormulaReturnType actualReturnType,
+                                                                          FormulaReturnType...
+                                                                                            expectedReturnTypes) {
+        super(GLanguageErrorRegistry.FORMULA_UNABLE_TO_EVALUATE_TYPE,
+              formula,
+              evaluator,
+              methodName,
+              getCause(referencedRule, actualReturnType, expectedReturnTypes));
     }
 
-    private static String createMessage(AbstractFormula formula, Evaluator evaluator, RuleVersion referencedRule,
-                                        FormulaReturnType actualReturnType, FormulaReturnType expectedReturnType,
-                                        String methodName) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Cannot invoke " + methodName + " method on " + formula.getClass().getName() + "[id: " + formula
-                .getId() + "] if rule version[id: " + referencedRule.getId() + ", code: " + referencedRule
-                .getCode() + "] is of type " + actualReturnType + " instead of " + expectedReturnType);
-        sb.append(" (evaluator: ");
-        if (evaluator == null) {
-            sb.append("null)");
-        } else {
-            sb.append("not null)");
+    private static String getCause(RuleVersion referencedRule,
+                                   FormulaReturnType actualReturnType,
+                                   FormulaReturnType... expectedReturnTypes) {
+        StringBuilder sb = new StringBuilder("Referenced rule version[id: " + referencedRule.getId() + ", code: (" +
+                referencedRule.getCode() + "] is of type " + actualReturnType);
+        if (expectedReturnTypes != null && expectedReturnTypes.length > 0) {
+            sb.append(" instead of " + expectedReturnTypes[0]);
+            for (int i = 1 ; i < expectedReturnTypes.length ; i++) {
+                sb.append(" or " + expectedReturnTypes[i]);
+            }
         }
         return sb.toString();
     }

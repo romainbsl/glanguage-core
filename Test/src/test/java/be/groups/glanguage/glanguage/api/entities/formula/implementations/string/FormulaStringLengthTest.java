@@ -5,7 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -51,7 +51,7 @@ public class FormulaStringLengthTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidMatching() {
+	public void testIsValidMatching() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
@@ -66,7 +66,7 @@ public class FormulaStringLengthTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNotMatching() {
+	public void testIsValidNotMatching() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -81,7 +81,7 @@ public class FormulaStringLengthTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeMatching() {
+	public void testGetReturnTypeMatching() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
@@ -96,7 +96,7 @@ public class FormulaStringLengthTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNotMatching() {
+	public void testGetReturnTypeNotMatching() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -110,7 +110,7 @@ public class FormulaStringLengthTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaStringLength#getIntegerValue()}
 	 */
 	@Test
-	public void testGetIntegerValue() throws GLanguageEvaluationException {
+	public void testGetIntegerValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue(null)).thenReturn("a string");
@@ -124,7 +124,7 @@ public class FormulaStringLengthTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaStringLength#getNumericValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() throws GLanguageEvaluationException {
+	public void testGetNumericValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue(null)).thenReturn("a string");
@@ -138,7 +138,7 @@ public class FormulaStringLengthTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaStringLength#getStringValue()}
 	 */
 	@Test
-	public void testGetStringValue() throws GLanguageEvaluationException {
+	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue(null)).thenReturn("a string");
@@ -152,7 +152,7 @@ public class FormulaStringLengthTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaStringLength#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() throws GLanguageEvaluationException {
+	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue(null)).thenReturn("a string");
@@ -166,7 +166,7 @@ public class FormulaStringLengthTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaStringLength#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() throws GLanguageEvaluationException {
+	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue(null)).thenReturn("a string");
@@ -180,7 +180,7 @@ public class FormulaStringLengthTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaStringLength#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() throws GLanguageEvaluationException {
+	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(string.getStringValue(null)).thenReturn("a string");
@@ -194,7 +194,7 @@ public class FormulaStringLengthTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaStringLength#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(string.asText()).thenReturn("some_rule");

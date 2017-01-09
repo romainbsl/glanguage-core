@@ -5,7 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.utils.FormatAlignment;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -36,7 +36,7 @@ public class FormulaFormatString extends FormatFormula {
     @JsonIgnore
     @Transient
     @Override
-    protected String doGetStringValue(Evaluator evaluator) throws GLanguageEvaluationException {
+    protected String doGetStringValue(Evaluator evaluator) throws GLanguageException {
         String result;
         StringBuilder sb = new StringBuilder();
         String str = getParameters().get(0).getStringValue(evaluator);

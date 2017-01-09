@@ -3,7 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import org.junit.Test;
 
 import java.time.Duration;
@@ -50,7 +50,7 @@ public class FormulaAnomalyTest {
 	 * Tests {@link FormulaAnomaly#getIntegerValue()}
 	 */
 	@Test
-	public void testGetIntegerValue() throws GLanguageEvaluationException {
+	public void testGetIntegerValue() throws GLanguageException {
 		AbstractFormula errorCode = mock(AbstractFormula.class);
 		when(errorCode.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(errorCode.getIntegerValue(null)).thenReturn(1);
@@ -70,7 +70,7 @@ public class FormulaAnomalyTest {
 	 * Tests {@link FormulaAnomaly#getNumericValue()}
 	 */
 	@Test
-	public void testGetNumericValue() throws GLanguageEvaluationException {
+	public void testGetNumericValue() throws GLanguageException {
 		AbstractFormula errorCode = mock(AbstractFormula.class);
 		when(errorCode.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(errorCode.getIntegerValue(null)).thenReturn(1);
@@ -90,7 +90,7 @@ public class FormulaAnomalyTest {
 	 * Tests {@link FormulaAnomaly#getStringValue()}
 	 */
 	@Test
-	public void testGetStringValue() throws GLanguageEvaluationException {
+	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula errorCode = mock(AbstractFormula.class);
 		when(errorCode.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(errorCode.getIntegerValue(null)).thenReturn(1);
@@ -110,7 +110,7 @@ public class FormulaAnomalyTest {
 	 * Tests {@link FormulaAnomaly#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() throws GLanguageEvaluationException {
+	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula errorCode = mock(AbstractFormula.class);
 		when(errorCode.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(errorCode.getIntegerValue(null)).thenReturn(1);
@@ -130,7 +130,7 @@ public class FormulaAnomalyTest {
 	 * Tests {@link FormulaAnomaly#getDateValue()}
 	 */
 	@Test
-	public void testGetDateValue() throws GLanguageEvaluationException {
+	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula errorCode = mock(AbstractFormula.class);
 		when(errorCode.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(errorCode.getIntegerValue(null)).thenReturn(1);
@@ -150,7 +150,7 @@ public class FormulaAnomalyTest {
 	 * Tests {@link FormulaAnomaly#getDurationValue()}
 	 */
 	@Test
-	public void testGetDurationValue() throws GLanguageEvaluationException {
+	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula errorCode = mock(AbstractFormula.class);
 		when(errorCode.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(errorCode.getIntegerValue(null)).thenReturn(1);
@@ -170,7 +170,7 @@ public class FormulaAnomalyTest {
 	 * Tests {@link FormulaAnomaly#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		AbstractFormula errorCode = mock(AbstractFormula.class);
 		when(errorCode.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(errorCode.asText()).thenReturn("1");

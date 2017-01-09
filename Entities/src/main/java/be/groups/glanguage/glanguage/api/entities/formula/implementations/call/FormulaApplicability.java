@@ -4,7 +4,8 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.*;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -29,38 +30,33 @@ public class FormulaApplicability extends RuleCallFormula {
 	}
 
 	@Override
-	protected Integer doGetIntegerValue(RuleVersion ruleVersion, Evaluator evaluator) {
-		throw new UnsupportedOperationException(
-				"Cannot invoke getIntegerValue() method on " + this.getClass().getName() + " object");
+	protected Integer doGetIntegerValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+		throw new GLanguageException(new FormulaCannotInvokeEvaluationIntegerMethodInnerError(this, evaluator));
 	}
 
 	@Override
-	protected Double doGetNumericValue(RuleVersion ruleVersion, Evaluator evaluator) {
-		throw new UnsupportedOperationException(
-				"Cannot invoke getNumericValue() method on " + this.getClass().getName() + " object");
+	protected Double doGetNumericValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+		throw new GLanguageException(new FormulaCannotInvokeEvaluationNumericMethodInnerError(this, evaluator));
 	}
 
 	@Override
-	protected String doGetStringValue(RuleVersion ruleVersion, Evaluator evaluator) {
-		throw new UnsupportedOperationException(
-				"Cannot invoke getStringValue() method on " + this.getClass().getName() + " object");
+	protected String doGetStringValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+		throw new GLanguageException(new FormulaCannotInvokeEvaluationStringMethodInnerError(this, evaluator));
 	}
 
 	@Override
-	protected Boolean doGetBooleanValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageEvaluationException {
+	protected Boolean doGetBooleanValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
 		return ruleVersion.getApplicabilityCondition().getBooleanValue(evaluator);
 	}
 
 	@Override
-	protected LocalDate doGetDateValue(RuleVersion ruleVersion, Evaluator evaluator) {
-		throw new UnsupportedOperationException(
-				"Cannot invoke getDateValue() method on " + this.getClass().getName() + " object");
+	protected LocalDate doGetDateValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+		throw new GLanguageException(new FormulaCannotInvokeEvaluationDateMethodInnerError(this, evaluator));
 	}
 
 	@Override
-	protected Duration doGetDurationValue(RuleVersion ruleVersion, Evaluator evaluator) {
-		throw new UnsupportedOperationException(
-				"Cannot invoke getDurationValue() method on " + this.getClass().getName() + " object");
+	protected Duration doGetDurationValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+		throw new GLanguageException(new FormulaCannotInvokeEvaluationDurationMethodInnerError(this, evaluator));
 	}
 	
 }

@@ -5,7 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -50,7 +50,7 @@ public class FormulaTerminalIntegerTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNoParameters() {
+	public void testIsValidNoParameters() throws GLanguageException {
 		FormulaTerminalInteger formula =
 				new FormulaTerminalInteger(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), "1");
 				
@@ -62,7 +62,7 @@ public class FormulaTerminalIntegerTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidParameters() {
+	public void testIsValidParameters() throws GLanguageException {
 		FormulaTerminalInteger formula =
 				new FormulaTerminalInteger(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), "1");
 				
@@ -79,7 +79,7 @@ public class FormulaTerminalIntegerTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNoParameters() {
+	public void testGetReturnTypeNoParameters() throws GLanguageException {
 		FormulaTerminalInteger formula =
 				new FormulaTerminalInteger(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), "1");
 				
@@ -91,7 +91,7 @@ public class FormulaTerminalIntegerTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeParameters() {
+	public void testGetReturnTypeParameters() throws GLanguageException {
 		FormulaTerminalInteger formula =
 				new FormulaTerminalInteger(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), "1");
 				
@@ -107,7 +107,7 @@ public class FormulaTerminalIntegerTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalInteger#getIntegerValue()}
 	 */
 	@Test
-	public void testGetIntegerValue() throws GLanguageEvaluationException {
+	public void testGetIntegerValue() throws GLanguageException {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue());
 	}
@@ -116,7 +116,7 @@ public class FormulaTerminalIntegerTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalInteger#getNumericValue()}
 	 */
 	@Test
-	public void testGetNumericValue() throws GLanguageEvaluationException {
+	public void testGetNumericValue() throws GLanguageException {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		assertEquals(Double.valueOf(1), formula.getNumericValue());
 	}
@@ -125,7 +125,7 @@ public class FormulaTerminalIntegerTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalInteger#getStringValue()}
 	 */
 	@Test
-	public void testGetStringValue() throws GLanguageEvaluationException {
+	public void testGetStringValue() throws GLanguageException {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		assertEquals("1", formula.getStringValue());
 	}
@@ -134,7 +134,7 @@ public class FormulaTerminalIntegerTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalInteger#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() throws GLanguageEvaluationException {
+	public void testGetBooleanValue() throws GLanguageException {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		formula.getBooleanValue();
 	}
@@ -143,7 +143,7 @@ public class FormulaTerminalIntegerTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalInteger#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() throws GLanguageEvaluationException {
+	public void testGetDateValue() throws GLanguageException {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		formula.getDateValue();
 	}
@@ -152,7 +152,7 @@ public class FormulaTerminalIntegerTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalInteger#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() throws GLanguageEvaluationException {
+	public void testGetDurationValue() throws GLanguageException {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		formula.getDurationValue();
 	}

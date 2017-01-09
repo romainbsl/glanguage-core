@@ -5,7 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -49,7 +49,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidInteger() {
+	public void testIsValidInteger() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -64,7 +64,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNumeric() {
+	public void testIsValidNumeric() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -79,7 +79,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNotIntegerOrNumeric() {
+	public void testIsValidNotIntegerOrNumeric() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
@@ -95,7 +95,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidIntegerInteger() {
+	public void testIsValidIntegerInteger() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -114,7 +114,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNumericInteger() {
+	public void testIsValidNumericInteger() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -133,7 +133,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNumericNumeric() {
+	public void testIsValidNumericNumeric() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -151,7 +151,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeInteger() {
+	public void testGetReturnTypeInteger() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -166,7 +166,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNumeric() {
+	public void testGetReturnTypeNumeric() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -181,7 +181,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNotIntegerOrNumeric() {
+	public void testGetReturnTypeNotIntegerOrNumeric() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
@@ -197,7 +197,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeIntegerInteger() {
+	public void testGetReturnTypeIntegerInteger() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -216,7 +216,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNumericInteger() {
+	public void testGetReturnTypeNumericInteger() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -235,7 +235,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNumericNumeric() {
+	public void testGetReturnTypeNumericNumeric() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -252,7 +252,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingCeil#getIntegerValue()} with integer parameter
 	 */
 	@Test
-	public void testGetIntegerValueInt() throws GLanguageEvaluationException {
+	public void testGetIntegerValueInt() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(111);
@@ -270,7 +270,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingCeil#getIntegerValue()} with numeric parameter
 	 */
 	@Test
-	public void testGetIntegerValueNum() throws GLanguageEvaluationException {
+	public void testGetIntegerValueNum() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.544);
@@ -288,7 +288,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingCeil#getNumericValue()} with integer parameter
 	 */
 	@Test
-	public void testGetNumericValueInt() throws GLanguageEvaluationException {
+	public void testGetNumericValueInt() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(111);
@@ -306,7 +306,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingCeil#getNumericValue()} with numeric parameter
 	 */
 	@Test
-	public void testGetNumericValueNum() throws GLanguageEvaluationException {
+	public void testGetNumericValueNum() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.544);
@@ -324,7 +324,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingCeil#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() throws GLanguageEvaluationException {
+	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.544);
@@ -342,7 +342,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingCeil#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() throws GLanguageEvaluationException {
+	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.544);
@@ -360,7 +360,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingCeil#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() throws GLanguageEvaluationException {
+	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.544);
@@ -378,7 +378,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingCeil#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() throws GLanguageEvaluationException {
+	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.544);
@@ -406,7 +406,7 @@ public class FormulaRoundingCeilTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingCeil#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.asText()).thenReturn("some_rule");

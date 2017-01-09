@@ -6,7 +6,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFor
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.rule.Rounder;
 import be.groups.glanguage.glanguage.api.entities.rule.RoundingType;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Transient;
@@ -33,14 +33,14 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageEvaluationException {
+	protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
 		return getNumericValue().intValue();
 	}
 
 	@JsonIgnore
 	@Transient
 	@Override
-	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageEvaluationException {
+	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
 		switch (getParameters().get(0).getReturnType(evaluator)) {
 			case INTEGER:
 				return Rounder.round(getParameters().get(0).getIntegerValue(evaluator), getRoundingType(),

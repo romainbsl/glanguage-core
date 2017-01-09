@@ -40,12 +40,10 @@ public class RuleIdentityTest extends BaseDatabaseTest {
 		/* Checking relationships */
 		assertNotNull(ruleIdentity.getRuleDefinitions());
 		assertEquals(2, ruleIdentity.getRuleDefinitions().size());
-		assertEquals(2, ruleIdentity.getRuleDefinitions().stream().map(d -> d.getId()).distinct().count());
+		assertEquals(2, ruleIdentity.getRuleDefinitions().stream().map(RuleDefinition::getId).distinct().count());
 
 		List<Integer> ruleDefinitionIds = Arrays.asList(-900000, -900001);
-		ruleIdentity.getRuleDefinitions().forEach(d -> {
-			assertTrue(ruleDefinitionIds.contains(d.getId()));
-		});
+		ruleIdentity.getRuleDefinitions().forEach(d -> assertTrue(ruleDefinitionIds.contains(d.getId())));
 	}
 
 	/**

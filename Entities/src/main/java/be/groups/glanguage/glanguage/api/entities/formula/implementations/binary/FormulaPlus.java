@@ -5,7 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -44,21 +44,21 @@ public class FormulaPlus extends BinaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageEvaluationException {
+	protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
 		return getParameters().get(0).getIntegerValue(evaluator) + getParameters().get(1).getIntegerValue(evaluator);
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageEvaluationException {
+	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
 		return getParameters().get(0).getNumericValue(evaluator) + getParameters().get(1).getNumericValue(evaluator);
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	protected String doGetStringValue(Evaluator evaluator) throws GLanguageEvaluationException {
+	protected String doGetStringValue(Evaluator evaluator) throws GLanguageException {
 		AbstractFormula leftParameter = getParameters().get(0);
 		AbstractFormula rightParameter = getParameters().get(1);
 		
@@ -68,7 +68,7 @@ public class FormulaPlus extends BinaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	protected LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageEvaluationException {
+	protected LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageException {
 		AbstractFormula leftParameter = getParameters().get(0);
 		AbstractFormula rightParameter = getParameters().get(1);
 		AbstractFormula dateParameter = null;
@@ -98,7 +98,7 @@ public class FormulaPlus extends BinaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageEvaluationException {
+	protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageException {
 		AbstractFormula leftParameter = getParameters().get(0);
 		AbstractFormula rightParameter = getParameters().get(1);
 		

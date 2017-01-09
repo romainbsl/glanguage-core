@@ -8,7 +8,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -36,7 +36,7 @@ public class FormulaGreater extends BinaryFormula {
 	@JsonIgnore
 	@Transient
 	@Override
-	protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException {
+	protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
 		switch (parameters.get(0).getReturnType(evaluator)) {
 		case DATE:
 			return getParameters().get(0).getDateValue(evaluator).isAfter(getParameters().get(1).getDateValue(evaluator));

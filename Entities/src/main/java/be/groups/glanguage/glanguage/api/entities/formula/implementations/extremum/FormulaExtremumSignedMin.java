@@ -4,7 +4,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -21,14 +21,14 @@ public class FormulaExtremumSignedMin extends ExtremumFormula {
 		super();
 	}
 	
-	public FormulaExtremumSignedMin(FormulaDescription description, List<AbstractFormula> parameters) {
+	public FormulaExtremumSignedMin(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
 		super(description, parameters);
 	}
 
 	@JsonIgnore
 	@Transient
 	@Override
-	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageEvaluationException {
+	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
 		Iterator<AbstractFormula> itParameters = getParameters().iterator();
 		double temp;
 		double sign = 0.0;

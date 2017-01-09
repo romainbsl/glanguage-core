@@ -2,7 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -47,7 +47,7 @@ public class FormulaPrimitiveTest {
 	 * Tests {@link FormulaPrimitive#getIntegerValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetIntegerValue() throws GLanguageEvaluationException {
+	public void testGetIntegerValue() throws GLanguageException {
 		String primitive = "call";
 		
 		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
@@ -59,7 +59,7 @@ public class FormulaPrimitiveTest {
 	 * Tests {@link FormulaPrimitive#getNumericValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() throws GLanguageEvaluationException {
+	public void testGetNumericValue() throws GLanguageException {
 		String primitive = "call";
 		
 		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
@@ -71,7 +71,7 @@ public class FormulaPrimitiveTest {
 	 * Tests {@link FormulaPrimitive#getStringValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() throws GLanguageEvaluationException {
+	public void testGetStringValue() throws GLanguageException {
 		String primitive = "call";
 		
 		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
@@ -83,7 +83,7 @@ public class FormulaPrimitiveTest {
 	 * Tests {@link FormulaPrimitive#getBooleanValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() throws GLanguageEvaluationException {
+	public void testGetBooleanValue() throws GLanguageException {
 		String primitive = "call";
 		
 		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
@@ -95,7 +95,7 @@ public class FormulaPrimitiveTest {
 	 * Tests {@link FormulaPrimitive#getDateValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() throws GLanguageEvaluationException {
+	public void testGetDateValue() throws GLanguageException {
 		String primitive = "call";
 		
 		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
@@ -107,7 +107,7 @@ public class FormulaPrimitiveTest {
 	 * Tests {@link FormulaPrimitive#getDurationValue()}
 	 */
 	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() throws GLanguageEvaluationException {
+	public void testGetDurationValue() throws GLanguageException {
 		String primitive = "call";
 		
 		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());

@@ -6,7 +6,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDes
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnTypeConverter;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -47,13 +47,13 @@ public class FormulaGet extends CallFormula {
     @JsonIgnore
     @Transient
     @Override
-    protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageEvaluationException {
+    protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
         try {
             return (Boolean) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
             // TODO report evaluation error
             throw cce;
-        } catch (GLanguageEvaluationException e) {
+        } catch (GLanguageException e) {
             // TODO report evaluation error
             throw e;
         }
@@ -62,13 +62,13 @@ public class FormulaGet extends CallFormula {
     @JsonIgnore
     @Transient
     @Override
-    protected LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageEvaluationException {
+    protected LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageException {
         try {
             return (LocalDate) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
             // TODO report evaluation error
             throw cce;
-        } catch (GLanguageEvaluationException e) {
+        } catch (GLanguageException e) {
             // TODO report evaluation error
             throw e;
         }
@@ -77,13 +77,13 @@ public class FormulaGet extends CallFormula {
     @JsonIgnore
     @Transient
     @Override
-    protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageEvaluationException {
+    protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageException {
         try {
             return (Duration) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
             // TODO report evaluation error
             throw cce;
-        } catch (GLanguageEvaluationException e) {
+        } catch (GLanguageException e) {
             // TODO report evaluation error
             throw e;
         }
@@ -92,13 +92,13 @@ public class FormulaGet extends CallFormula {
     @JsonIgnore
     @Transient
     @Override
-    protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageEvaluationException {
+    protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
         try {
             return (Integer) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
             // TODO report evaluation error
             throw cce;
-        } catch (GLanguageEvaluationException e) {
+        } catch (GLanguageException e) {
             // TODO report evaluation error
             throw e;
         }
@@ -107,13 +107,13 @@ public class FormulaGet extends CallFormula {
     @JsonIgnore
     @Transient
     @Override
-    protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageEvaluationException {
+    protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
         try {
             return (Double) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
             // TODO report evaluation error
             throw cce;
-        } catch (GLanguageEvaluationException e) {
+        } catch (GLanguageException e) {
             // TODO report evaluation error
             throw e;
         }
@@ -122,13 +122,13 @@ public class FormulaGet extends CallFormula {
     @JsonIgnore
     @Transient
     @Override
-    protected String doGetStringValue(Evaluator evaluator) throws GLanguageEvaluationException {
+    protected String doGetStringValue(Evaluator evaluator) throws GLanguageException {
         try {
             return (String) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
             // TODO report evaluation error
             throw cce;
-        } catch (GLanguageEvaluationException e) {
+        } catch (GLanguageException e) {
             // TODO report evaluation error
             throw e;
         }
@@ -167,7 +167,7 @@ public class FormulaGet extends CallFormula {
 
     @JsonIgnore
     @Transient
-    private Object getTargetedObject(Evaluator evaluator) throws GLanguageEvaluationException {
+    private Object getTargetedObject(Evaluator evaluator) throws GLanguageException {
         Object result;
         if (evaluator != null) {
             result = evaluator.getContext();

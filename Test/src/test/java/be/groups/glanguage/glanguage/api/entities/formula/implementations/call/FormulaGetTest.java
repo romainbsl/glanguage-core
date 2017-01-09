@@ -7,7 +7,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaRet
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalInteger;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalString;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageEvaluationException;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import org.junit.Test;
 
 import java.time.Duration;
@@ -94,7 +94,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getIntegerValue()}
 	 */
 	@Test
-	public void testGetIntegerValueRootContext() throws GLanguageEvaluationException {
+	public void testGetIntegerValueRootContext() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("integerValue");
 		
@@ -113,7 +113,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getIntegerValue()}
 	 */
 	@Test
-	public void testGetIntegerValueContractContext() throws GLanguageEvaluationException {
+	public void testGetIntegerValueContractContext() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("contract");
 		identifiers.add("id");
@@ -134,7 +134,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getIntegerValue()}
 	 */
 	@Test
-	public void testGetIntegerValuePersonContextField() throws GLanguageEvaluationException {
+	public void testGetIntegerValuePersonContextField() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("person");
 		identifiers.add("age");
@@ -160,7 +160,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getIntegerValue()}
 	 */
 	@Test
-	public void testGetIntegerValuePersonContextMethod() throws GLanguageEvaluationException {
+	public void testGetIntegerValuePersonContextMethod() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("person");
 		identifiers.add("agePlus");
@@ -191,7 +191,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getNumericValue()}
 	 */
 	@Test
-	public void testGetNumericValueRootContext() throws GLanguageEvaluationException {
+	public void testGetNumericValueRootContext() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("numericValue");
 		
@@ -210,7 +210,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getNumericValue()}
 	 */
 	@Test
-	public void testGetNumericValueContractContextField() throws GLanguageEvaluationException {
+	public void testGetNumericValueContractContextField() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("contract");
 		identifiers.add("salary");
@@ -231,7 +231,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getNumericValue()}
 	 */
 	@Test
-	public void testGetNumericValueContractContextMethod() throws GLanguageEvaluationException {
+	public void testGetNumericValueContractContextMethod() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("contract");
 		identifiers.add("doubleSalary");
@@ -252,7 +252,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getNumericValue()}
 	 */
 	@Test
-	public void testGetNumericValueContractContextMethodWithParameter() throws GLanguageEvaluationException {
+	public void testGetNumericValueContractContextMethodWithParameter() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("contract");
 		identifiers.add("doubleSalary");
@@ -278,7 +278,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getStringValue()}
 	 */
 	@Test
-	public void testGetStringValueRootContext() throws GLanguageEvaluationException {
+	public void testGetStringValueRootContext() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("stringValue");
 		
@@ -297,7 +297,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getStringValue()}
 	 */
 	@Test
-	public void testGetStringValueContractContextField() throws GLanguageEvaluationException {
+	public void testGetStringValueContractContextField() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("contract");
 		identifiers.add("label");
@@ -318,7 +318,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getStringValue()}
 	 */
 	@Test
-	public void testGetStringValueContractContextMethod() throws GLanguageEvaluationException {
+	public void testGetStringValueContractContextMethod() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("contract");
 		identifiers.add("labelToUpper");
@@ -339,7 +339,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getStringValue()}
 	 */
 	@Test
-	public void testGetStringValuePersonContextMethodWithParameters() throws GLanguageEvaluationException {
+	public void testGetStringValuePersonContextMethodWithParameters() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("person");
 		identifiers.add("nameReplace");
@@ -373,7 +373,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getBooleanValue()}
 	 */
 	@Test
-	public void testGetBooleanValueRootContext() throws GLanguageEvaluationException {
+	public void testGetBooleanValueRootContext() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("booleanValue");
 		
@@ -392,7 +392,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getBooleanValue()}
 	 */
 	@Test
-	public void testGetBooleanValuePersonContext1() throws GLanguageEvaluationException {
+	public void testGetBooleanValuePersonContext1() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("person");
 		identifiers.add("isStillThere");
@@ -418,7 +418,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getBooleanValue()}
 	 */
 	@Test
-	public void testGetBooleanValuePersonContext2() throws GLanguageEvaluationException {
+	public void testGetBooleanValuePersonContext2() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("person");
 		identifiers.add("isStillThere");
@@ -444,7 +444,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getDateValue()}
 	 */
 	@Test
-	public void testGetDateValueRootContext() throws GLanguageEvaluationException {
+	public void testGetDateValueRootContext() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("dateValue");
 		
@@ -463,7 +463,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getDateValue()}
 	 */
 	@Test
-	public void testGetDateValuePersonContextField() throws GLanguageEvaluationException {
+	public void testGetDateValuePersonContextField() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("person");
 		identifiers.add("birthDate");
@@ -489,7 +489,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getDateValue()}
 	 */
 	@Test
-	public void testGetDateValuePersonContextMethod() throws GLanguageEvaluationException {
+	public void testGetDateValuePersonContextMethod() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("person");
 		identifiers.add("birthDatePlusDays");
@@ -519,7 +519,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getDurationValue()}
 	 */
 	@Test
-	public void testGetDurationValueRootContext() throws GLanguageEvaluationException {
+	public void testGetDurationValueRootContext() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("durationValue");
 		
@@ -538,7 +538,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getDurationValue()}
 	 */
 	@Test
-	public void testGetDurationValueContractContextField() throws GLanguageEvaluationException {
+	public void testGetDurationValueContractContextField() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("contract");
 		identifiers.add("hours");
@@ -559,7 +559,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#getDurationValue()}
 	 */
 	@Test
-	public void testGetDurationValueContractContextMethod() throws GLanguageEvaluationException {
+	public void testGetDurationValueContractContextMethod() throws GLanguageException {
 		List<String> identifiers = new ArrayList<>();
 		identifiers.add("contract");
 		identifiers.add("halfHours");
