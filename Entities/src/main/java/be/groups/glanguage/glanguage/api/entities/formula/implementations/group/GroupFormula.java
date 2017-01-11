@@ -82,6 +82,15 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
     @Transient
     @Override
     public boolean isValid() throws GLanguageException {
+        /*
+         * WORKAROUND
+         * It is not allowed to have checked exceptions thrown within a lambda expression without catching it within
+         * the lambda expression -> Blame Oracle for that !
+         * Therefore, the workaround consists in catching the checked exception inside of the lambda expression,
+         * wrapping it into an unchecked exception (e.g. RuntimeException), throwing it, surrounding the whole lambda
+         * into another try-catch block, catching the unchecked exception outside of the lambda expression and
+         * finally handling it
+         */
         try{
             if (groupRule != null) {
                 Set<FormulaReturnType> returnTypes = groupRule.getGroupItems().stream()
@@ -119,6 +128,15 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
     @Transient
     @Override
     public FormulaReturnType getReturnType(Evaluator evaluator) throws GLanguageException {
+        /*
+         * WORKAROUND
+         * It is not allowed to have checked exceptions thrown within a lambda expression without catching it within
+         * the lambda expression -> Blame Oracle for that !
+         * Therefore, the workaround consists in catching the checked exception inside of the lambda expression,
+         * wrapping it into an unchecked exception (e.g. RuntimeException), throwing it, surrounding the whole lambda
+         * into another try-catch block, catching the unchecked exception outside of the lambda expression and
+         * finally handling it
+         */
         try {
             if (groupRule != null) {
                 Set<FormulaReturnType> returnTypes = groupRule.getGroupItems().stream()

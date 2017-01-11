@@ -38,7 +38,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaNot;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaUnaryMinus;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.glanguage.glanguage.api.error.parser.ParserUnableToParseFormula;
+import be.groups.glanguage.glanguage.api.error.parser.ParserUnableToParseFormulaInnerError;
 import be.groups.glanguage.glanguage.api.error.parser.ParserUnknownFormulaTypeInnerError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -233,7 +233,7 @@ public class AsStandard implements SemanticalAction {
 
     @Override
     public AbstractFormula standardFunction(FormulaType formulaDescriptionId,
-                                            LinkedList<AbstractFormula> parameters) throws GLanguageException {
+                                            LinkedList<AbstractFormula> parameters) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
         FormulaDescription precisionFormulaDescription = FormulaDescriptionFactory
                 .getDescription(FormulaType.TERMINAL_INTEGER);
@@ -310,10 +310,20 @@ public class AsStandard implements SemanticalAction {
                                                                                         null));
             }
         } catch (GLanguageException e) {
-            e.getError().setInnerError(new ParserUnableToParseFormula(formulaDescription,
-                                                                      parameters,
-                                                                      "standardFunction"));
-            throw e;
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                parameters,
+                                                                                "standardFunction"));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
         }
     }
 

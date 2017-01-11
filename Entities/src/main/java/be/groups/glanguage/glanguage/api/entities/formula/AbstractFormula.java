@@ -201,6 +201,15 @@ public abstract class AbstractFormula {
     }
 
     private void initParametersTypes(Evaluator evaluator) throws GLanguageException {
+        /*
+         * WORKAROUND
+         * It is not allowed to have checked exceptions thrown within a lambda expression without catching it within
+         * the lambda expression -> Blame Oracle for that !
+         * Therefore, the workaround consists in catching the checked exception inside of the lambda expression,
+         * wrapping it into an unchecked exception (e.g. RuntimeException), throwing it, surrounding the whole lambda
+         * into another try-catch block, catching the unchecked exception outside of the lambda expression and
+         * finally handling it
+         */
         try {
             parametersTypes = parameters == null ? Arrays.asList() : parameters.stream().map(p -> {
                 try {
@@ -210,7 +219,7 @@ public abstract class AbstractFormula {
                 }
             }).collect(Collectors.toList());
         } catch (Exception e) {
-            if (e.getCause() instanceof GLanguageException) {
+            if (e.getCause() != null && e.getCause() instanceof GLanguageException) {
                 GLanguageException gLanguageException = (GLanguageException) e.getCause();
                 gLanguageException.getError().setOuterError(new FormulaUnableToInitializeParametersTypesInnerError(this, evaluator));
                 throw gLanguageException;

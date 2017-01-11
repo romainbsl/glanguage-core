@@ -6,9 +6,8 @@ package be.groups.glanguage.glanguage.api.error;
 public enum GLanguageErrorRegistry {
 
     PARSER_INNER_ERROR("PARSER_INNER_ERROR", "Unable to parse"),
-    PARSER_FORMULA_INNER_ERROR("PARSER_FORMULA_INNER_ERROR", "Unable to parse a formula"),
-    PARSER_FORMULA_UNKNOWN_TYPE_INNER_ERROR("PARSER_FORMULA_DESCRIPTION_UNKNOWN_INNER_ERROR", "Formula type is " +
-            "unknown"),
+    PARSER_UNABLE_TO_PARSE_FORMULA("PARSER_UNABLE_TO_PARSE_FORMULA", "Unable to parse a formula"),
+    PARSER_UNKNOWN_FORMULA_TYPE("PARSER_UNKNOWN_FORMULA_TYPE", "Formula type is unknown"),
 
     RULE_VERSION_UNABLE_TO_EVALUATE("RULE_VERSION_UNABLE_TO_EVALUATE", "Unable to evaluate a rule version"),
     RULE_VERSION_UNABLE_TO_EVALUATE_TYPE("RULE_VERSION_UNABLE_TO_EVALUATE_TYPE", "Unable to evaluate a rule version"),

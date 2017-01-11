@@ -94,6 +94,15 @@ public class FormulaIn extends AbstractNonTerminalFormula {
     @Transient
     @Override
     public boolean isValid() throws GLanguageException {
+        /*
+         * WORKAROUND
+         * It is not allowed to have checked exceptions thrown within a lambda expression without catching it within
+         * the lambda expression -> Blame Oracle for that !
+         * Therefore, the workaround consists in catching the checked exception inside of the lambda expression,
+         * wrapping it into an unchecked exception (e.g. RuntimeException), throwing it, surrounding the whole lambda
+         * into another try-catch block, catching the unchecked exception outside of the lambda expression and
+         * finally handling it
+         */
         try {
             FormulaReturnType elementReturnType = parameters.get(0).getReturnType(null);
             List<FormulaReturnType> listReturnTypes = parameters.subList(1, parameters.size()).stream().map(p -> {
@@ -144,6 +153,15 @@ public class FormulaIn extends AbstractNonTerminalFormula {
      * @return The type of the elements
      */
     private FormulaReturnType getElementsType(Evaluator evaluator) throws GLanguageException {
+        /*
+         * WORKAROUND
+         * It is not allowed to have checked exceptions thrown within a lambda expression without catching it within
+         * the lambda expression -> Blame Oracle for that !
+         * Therefore, the workaround consists in catching the checked exception inside of the lambda expression,
+         * wrapping it into an unchecked exception (e.g. RuntimeException), throwing it, surrounding the whole lambda
+         * into another try-catch block, catching the unchecked exception outside of the lambda expression and
+         * finally handling it
+         */
         try {
             Set<FormulaReturnType> returnTypes = parameters.stream().map(p -> {
                 try {

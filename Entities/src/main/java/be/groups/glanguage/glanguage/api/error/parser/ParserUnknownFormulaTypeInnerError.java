@@ -9,7 +9,7 @@ import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 public class ParserUnknownFormulaTypeInnerError extends ParserInnerError {
 
     public ParserUnknownFormulaTypeInnerError(FormulaType formulaType, String methodName, String text) {
-        super(GLanguageErrorRegistry.PARSER_FORMULA_UNKNOWN_TYPE_INNER_ERROR, null,  getCause(formulaType), text);
+        super(GLanguageErrorRegistry.PARSER_UNKNOWN_FORMULA_TYPE, null, getCause(formulaType), text);
     }
 
     private static String getCause(FormulaType formulaType) {

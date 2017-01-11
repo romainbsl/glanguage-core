@@ -8,6 +8,8 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracket;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.error.parser.ParserInnerError;
 
 import java.util.LinkedList;
 
@@ -676,16 +678,36 @@ else:
 	 *
 	 * @param formulaString
 	 */
-	private void inject(String formulaString){
+	private void inject(String formulaString) throws GLanguageException {
 		int i;
-		this.aSem.initialize();
-		this.scanner.setFormulaString(formulaString);
-		this.scanner.initializeLex();
-		i = yyparse();
-		if(i != 0)
-			// L'erreur est-elle deja signalee ?
-			if(!isError())
-				yyerror("unknown");
+        this.aSem.initialize();
+        this.scanner.setFormulaString(formulaString);
+        this.scanner.initializeLex();
+        try {
+            i = yyparse();
+            if (i != 0) {
+                if (!isError()) yyerror("unknown");
+                throw new GLanguageException(new ParserInnerError());
+            }
+        } catch(GLanguageException e) {
+            /* Handle GLanguageException thrown by this method. Just throw it as is. */
+            throw e;
+        } catch(Exception e) {
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method to handle
+             * GLanguageException or any checked exception. Therefore, the methods called by "yyparse()" are forced
+             * to throw unchecked exceptions.
+             * This method is developed by ourselves and can therefore handle the exception.
+             * To handle the exception, first check the type of the cause of the exception if it exists. If it is of
+             * type GLanguageException, throw the cause. If not, just throw the exception as is.
+             */
+            if (e.getCause() != null && e.getCause() instanceof GLanguageException) {
+                throw (GLanguageException) e.getCause();
+            } else {
+                throw e;
+            }
+        }
 	}
 	
 	/** 

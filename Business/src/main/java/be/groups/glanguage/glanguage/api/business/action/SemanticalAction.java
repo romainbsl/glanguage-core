@@ -1,20 +1,14 @@
 package be.groups.glanguage.glanguage.api.business.action;
 
-import java.time.LocalDate;
-import java.util.LinkedList;
-
 import be.groups.glanguage.glanguage.api.business.analysis.IdentifierParameterList;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBoolean;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDate;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDuration;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalInteger;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumeric;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalString;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.*;
+
+import java.time.LocalDate;
+import java.util.LinkedList;
 
 /**
  * Set of semantical actions applicable during analysis
@@ -173,7 +167,7 @@ public interface SemanticalAction {
 	/**
 	 * "Unary operation" node of type {@code opType} applied to {@link AbstractFormula} {@code formula}
 	 * 
-	 * @param formulaType The type of unary operation to apply to {@code formula}
+	 * @param formulaDescriptionId The type of unary operation to apply to {@code formula}
 	 * @param formula The {@link AbstractFormula} on which the unary operation has to be applied
 	 * @return A unary operation {@link AbstractFormula} of type {@code formulaType} with {@code formula1} as parameter
 	 */
@@ -183,7 +177,7 @@ public interface SemanticalAction {
 	/**
 	 * "Binary operation" node of type {@code opType} applied to {@link AbstractFormula}'s {@code formula1} and {@code formula2}
 	 * 
-	 * @param formulaType The type of unary operation to apply to {@code formula1} and {@code formula2}
+	 * @param formulaDescriptionId The type of unary operation to apply to {@code formula1} and {@code formula2}
 	 * @param formula1 The first {@link AbstractFormula} on which the binary operation has to be applied
 	 * @param formula2 The second {@link AbstractFormula} on which the binary operation has to be applied
 	 * @return A binary operation {@link AbstractFormula} of type {@code formulaType} with {@code formula1} as first parameter and
@@ -204,8 +198,7 @@ public interface SemanticalAction {
 	
 	/**
 	 * "Bracket formula" node 
-	 *  
-	 * @param formulaDescriptionId
+	 *
 	 * @param formula
 	 * @return
 	 */
@@ -282,7 +275,7 @@ public interface SemanticalAction {
 	/**
 	 * "Standard function" node
 	 * 
-	 * @param formulaType The type of formula to create
+	 * @param formulaDescriptionId The type of formula to create
 	 * @param parameters The parameters of the formula to create
 	 * @return A standard function {@link AbstractFormula} of type {@code formulaType} with {@code parameters}
 	 */
@@ -290,12 +283,12 @@ public interface SemanticalAction {
 	// "DefinitionsSLangage.fonctionCorrecte(cf)",
 	// "param != null"
 	// })
-	public AbstractFormula standardFunction(FormulaType formulaDescriptionId, LinkedList<AbstractFormula> parameters) throws GLanguageException;
+	public AbstractFormula standardFunction(FormulaType formulaDescriptionId, LinkedList<AbstractFormula> parameters);
 	
 	/**
 	 * "Standard group function" node
 	 * 
-	 * @param formulaType The type of formula to create
+	 * @param formulaDescriptionId The type of formula to create
 	 * @param groupName The name identifying the group
 	 * @return A standard group function {@link AbstractFormula} of type {@code formulaType} on a group identified by {@code groupName}
 	 */
