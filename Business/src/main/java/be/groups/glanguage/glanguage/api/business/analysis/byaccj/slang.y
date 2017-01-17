@@ -10,6 +10,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaRet
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracket;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.parser.ParserInnerError;
+import be.groups.glanguage.glanguage.api.error.parser.ParserUnableToParseTextInnerError;
 
 import java.util.LinkedList;
 
@@ -654,16 +655,21 @@ else:
 	/**
 	 * Do grammatical analysis of the formulaString by calling inject(String) method 
 	 */
-	public void analyze(){
+	public void analyze() throws GLanguageException {
 		if(scanner == null)	scanner = new SlangLex (System.in);
-		try{
-			error = false;
-			this.aSem.beginAnalysis();
-			inject(formulaString);
-		}catch (Exception exp){
-			logger.error("analyze()", exp);
-		}finally{
-		}
+        try{
+            error = false;
+            this.aSem.beginAnalysis();
+            inject(formulaString);
+        } catch(GLanguageException e) {
+            /* Handle GLanguageException thrown by this method. Just throw it as is. */
+            error = true;
+            throw e;
+        } catch (Exception exp){
+            error = true;
+            logger.error("analyze()", exp);
+            throw new GLanguageException(new ParserUnableToParseTextInnerError(formulaString, "analyse", exp));
+        }
 	}
 	
 	/**

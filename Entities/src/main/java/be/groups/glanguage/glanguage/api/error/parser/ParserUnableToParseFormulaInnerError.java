@@ -11,11 +11,15 @@ import java.util.LinkedList;
  */
 public class ParserUnableToParseFormulaInnerError extends ParserInnerError {
 
+    private Exception exception;
+
     public ParserUnableToParseFormulaInnerError(FormulaDescription formulaDescription,
                                                 LinkedList<AbstractFormula> parameters,
-                                                String methodName) {
+                                                String methodName,
+                                                Exception exception) {
         super(GLanguageErrorRegistry.PARSER_UNABLE_TO_PARSE_FORMULA, methodName, getCause(formulaDescription, parameters)
                 , null);
+        this.exception = exception;
     }
 
     private static String getCause(FormulaDescription formulaDescription, LinkedList<AbstractFormula> parameters) {
