@@ -30,6 +30,9 @@ public enum GLanguageErrorRegistry {
     FORMULA_CANNOT_INVOKE_EVALUATION_TYPED_METHOD("FORMULA_CANNOT_INVOKE_EVALUATION_TYPED_METHOD", "Cannot invoke " +
             "evaluation typed method of a formula"),
 
+    FORMULA_CANNOT_INVOKE_TARGET_OBJECT_METHOD("FORMULA_CANNOT_INVOKE_TARGET_OBJECT_METHOD", "Cannot invoke target " +
+            "object method of a formula"),
+
     FORMULA_RULE_REFERENCE_REFERENCED_RULE_UNAVAILABLE("FORMULA_RULE_REFERENCE_REFERENCED_RULE_UNAVAILABLE", "A " +
             "referenced rule is not available"),
 

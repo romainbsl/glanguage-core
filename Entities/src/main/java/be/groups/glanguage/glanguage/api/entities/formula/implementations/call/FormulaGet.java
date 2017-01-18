@@ -7,6 +7,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaRet
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnTypeConverter;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.target.FormulaCannotInvokeTargetObjectInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -176,13 +177,18 @@ public class FormulaGet extends CallFormula {
         }
 
         if(result == null) {
-            throw new IllegalAccessError("Cannot invoke getTargetetObject() method on " + this.getClass()
-                    .getName() + " object while context is not set - while branching is not done - (id : " + this
-                    .getId() + ")");
+            throw new GLanguageException(new FormulaCannotInvokeTargetObjectInnerError(this, evaluator, "Context " +
+                    "is unknown"));
         }
 
         for (AbstractFormula primitive : getParameters()) {
-            result = ((FormulaPrimitive) primitive).getTargetedObject(result, evaluator);
+            try {
+                result = ((FormulaPrimitive) primitive).getTargetedObject(result, evaluator);
+            } catch (GLanguageException e) {
+                e.getError().setOuterError(new FormulaCannotInvokeTargetObjectInnerError(this, evaluator, "Unable " +
+                        "to compute target chain"));
+                throw e;
+            }
         }
         return result;
     }

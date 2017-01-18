@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.target.FormulaCannotInvokeTargetObjectInnerError;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -39,7 +40,13 @@ public class FormulaPrimitive extends CallFormula {
 			parameters = new AbstractFormula[getParameters().size()];
 			parameters = getParameters().toArray(parameters);
 		}
-		return callFunctionAny(object, getConstantValue(), parameters, evaluator);
+		try {
+			return callFunctionAny(object, getConstantValue(), parameters, evaluator);
+		} catch (GLanguageException e) {
+			e.getError().setOuterError(new FormulaCannotInvokeTargetObjectInnerError(this, evaluator, "Method is " +
+					"undefined"));
+			throw e;
+		}
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDes
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.FormulaUnableToEvaluateIntegerInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.*;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -38,27 +38,62 @@ public class FormulaFormula extends RuleCallFormula {
 	
 	@Override
 	protected Double doGetNumericValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		return ruleVersion.getFormula().getNumericValue(evaluator);
+		try {
+			return ruleVersion.getFormula().getNumericValue(evaluator);
+		} catch (GLanguageException e) {
+			e.getError()
+					.setOuterError(new FormulaUnableToEvaluateNumericInnerError(this, null) {
+					});
+			throw e;
+		}
 	}
 	
 	@Override
 	protected String doGetStringValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		return ruleVersion.getFormula().getStringValue(evaluator);
+		try {
+			return ruleVersion.getFormula().getStringValue(evaluator);
+		} catch (GLanguageException e) {
+			e.getError()
+					.setOuterError(new FormulaUnableToEvaluateStringInnerError(this, null) {
+					});
+			throw e;
+		}
 	}
 	
 	@Override
 	protected Boolean doGetBooleanValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		return ruleVersion.getFormula().getBooleanValue(evaluator);
+		try {
+			return ruleVersion.getFormula().getBooleanValue(evaluator);
+		} catch (GLanguageException e) {
+			e.getError()
+					.setOuterError(new FormulaUnableToEvaluateBooleanInnerError(this, null) {
+					});
+			throw e;
+		}
 	}
 	
 	@Override
 	protected LocalDate doGetDateValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		return ruleVersion.getFormula().getDateValue(evaluator);
+		try {
+			return ruleVersion.getFormula().getDateValue(evaluator);
+		} catch (GLanguageException e) {
+			e.getError()
+					.setOuterError(new FormulaUnableToEvaluateDateInnerError(this, null) {
+					});
+			throw e;
+		}
 	}
 	
 	@Override
 	protected Duration doGetDurationValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		return ruleVersion.getFormula().getDurationValue(evaluator);
+		try {
+			return ruleVersion.getFormula().getDurationValue(evaluator);
+		} catch (GLanguageException e) {
+			e.getError()
+					.setOuterError(new FormulaUnableToEvaluateDurationInnerError(this, null) {
+					});
+			throw e;
+		}
 	}
 	
 	@Override
