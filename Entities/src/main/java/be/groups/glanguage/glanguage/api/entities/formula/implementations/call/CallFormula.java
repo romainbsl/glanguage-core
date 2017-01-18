@@ -6,7 +6,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFor
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.utils.Agents;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.target.FormulaCannotInvokeTargetMethodInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.targets.FormulaCannotInvokeTargetMethodInnerError;
 
 import javax.persistence.Entity;
 
