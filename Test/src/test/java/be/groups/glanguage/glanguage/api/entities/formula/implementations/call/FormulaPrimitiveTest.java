@@ -46,7 +46,7 @@ public class FormulaPrimitiveTest {
 	/**
 	 * Tests {@link FormulaPrimitive#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
 		String primitive = "call";
 		
@@ -58,7 +58,7 @@ public class FormulaPrimitiveTest {
 	/**
 	 * Tests {@link FormulaPrimitive#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
 		String primitive = "call";
 		
@@ -70,7 +70,7 @@ public class FormulaPrimitiveTest {
 	/**
 	 * Tests {@link FormulaPrimitive#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetStringValue() throws GLanguageException {
 		String primitive = "call";
 		
@@ -82,7 +82,7 @@ public class FormulaPrimitiveTest {
 	/**
 	 * Tests {@link FormulaPrimitive#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		String primitive = "call";
 		
@@ -94,7 +94,7 @@ public class FormulaPrimitiveTest {
 	/**
 	 * Tests {@link FormulaPrimitive#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		String primitive = "call";
 		
@@ -106,7 +106,7 @@ public class FormulaPrimitiveTest {
 	/**
 	 * Tests {@link FormulaPrimitive#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		String primitive = "call";
 		
@@ -119,7 +119,7 @@ public class FormulaPrimitiveTest {
 	 * Tests {@link FormulaPrimitive#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		String primitive = "call";
 		
 		AbstractFormula calls3Param1 = mock(AbstractFormula.class);

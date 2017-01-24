@@ -123,7 +123,7 @@ public class FormulaStringLengthTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaStringLength#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -151,7 +151,7 @@ public class FormulaStringLengthTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaStringLength#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -165,7 +165,7 @@ public class FormulaStringLengthTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaStringLength#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -179,7 +179,7 @@ public class FormulaStringLengthTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaStringLength#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);

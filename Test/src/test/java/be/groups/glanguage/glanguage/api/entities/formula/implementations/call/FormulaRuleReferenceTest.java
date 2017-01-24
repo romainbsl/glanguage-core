@@ -79,7 +79,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaRuleReference#getIntegerValue()} without rule reference
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -118,7 +118,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaRuleReference#getNumericValue()} without rule reference
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -157,7 +157,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaRuleReference#getStringValue()} without rule reference
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetStringValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -239,7 +239,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaRuleReference#getDateValue()} without rule reference
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -278,7 +278,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaRuleReference#getDurationValue()} without rule reference
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -291,7 +291,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	 * Tests {@link FormulaRuleReference#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		String ruleId = "some_rule";
 		
 		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);

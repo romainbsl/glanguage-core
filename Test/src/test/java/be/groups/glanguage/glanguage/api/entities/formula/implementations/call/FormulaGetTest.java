@@ -580,7 +580,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaGet#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		FormulaReturnType returnType = FormulaReturnType.BOOLEAN;
 		
 		List<String> identifiers = Arrays.asList("call1", "call2", "call3");

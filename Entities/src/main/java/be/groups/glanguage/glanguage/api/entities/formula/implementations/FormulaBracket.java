@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -22,10 +23,10 @@ public class FormulaBracket extends AbstractFormula {
         super();
     }
 
-    public FormulaBracket(FormulaDescription description, AbstractFormula child) {
+    public FormulaBracket(FormulaDescription description, AbstractFormula child) throws GLanguageException {
         super(description);
         if (child == null) {
-            throw new IllegalArgumentException("Child must be non-null");
+            throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
         }
         this.parameters = new ArrayList<>();
         this.parameters.add(child);

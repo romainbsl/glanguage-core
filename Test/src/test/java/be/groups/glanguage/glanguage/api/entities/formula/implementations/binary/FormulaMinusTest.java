@@ -528,7 +528,7 @@ public class FormulaMinusTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaMinus#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
@@ -546,7 +546,7 @@ public class FormulaMinusTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaMinus#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);

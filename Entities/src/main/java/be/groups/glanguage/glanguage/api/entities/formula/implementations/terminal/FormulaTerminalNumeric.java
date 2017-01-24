@@ -30,7 +30,7 @@ public class FormulaTerminalNumeric extends AbstractTerminalFormula {
         super();
     }
 
-    public FormulaTerminalNumeric(FormulaDescription description, String constantValue) {
+    public FormulaTerminalNumeric(FormulaDescription description, String constantValue) throws GLanguageException {
         super(description, constantValue);
     }
 

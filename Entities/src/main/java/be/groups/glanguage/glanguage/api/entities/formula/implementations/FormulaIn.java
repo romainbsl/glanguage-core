@@ -9,6 +9,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -26,14 +27,14 @@ public class FormulaIn extends AbstractNonTerminalFormula {
         super();
     }
 
-    public FormulaIn(FormulaDescription description, AbstractFormula element, List<AbstractFormula> inList) {
+    public FormulaIn(FormulaDescription description, AbstractFormula element, List<AbstractFormula> inList) throws GLanguageException {
         super(description);
 
         if (element == null) {
-            throw new IllegalArgumentException("element must be non-null");
+            throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 0));
         }
         if (inList == null) {
-            throw new IllegalArgumentException("inList must be non-null");
+            throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
         }
         this.parameters = new ArrayList<>();
         this.parameters.add(element);

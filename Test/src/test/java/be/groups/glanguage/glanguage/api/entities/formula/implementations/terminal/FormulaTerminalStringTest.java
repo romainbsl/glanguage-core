@@ -106,7 +106,7 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalString#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getIntegerValue();
@@ -115,7 +115,7 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalString#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getNumericValue();
@@ -133,7 +133,7 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalString#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getBooleanValue();
@@ -142,7 +142,7 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalString#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getDateValue();
@@ -151,7 +151,7 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalString#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getDurationValue();
@@ -161,7 +161,7 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalString#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		assertEquals("\"string\"", formula.asText());
 	}

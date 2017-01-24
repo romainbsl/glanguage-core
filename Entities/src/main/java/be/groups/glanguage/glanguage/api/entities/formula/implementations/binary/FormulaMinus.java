@@ -35,7 +35,7 @@ public class FormulaMinus extends BinaryFormula {
 		super();
 	}
 	
-	public FormulaMinus(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) {
+	public FormulaMinus(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
 		super(description, child1, child2);
 	}
 	

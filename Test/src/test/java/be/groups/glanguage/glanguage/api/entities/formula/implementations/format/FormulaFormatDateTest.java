@@ -104,7 +104,7 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatDate#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
 		AbstractFormula date = mock(AbstractFormula.class);
 		when(date.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
@@ -122,7 +122,7 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatDate#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
 		AbstractFormula date = mock(AbstractFormula.class);
 		when(date.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
@@ -176,7 +176,7 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatDate#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula date = mock(AbstractFormula.class);
 		when(date.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
@@ -194,7 +194,7 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatDate#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula date = mock(AbstractFormula.class);
 		when(date.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
@@ -212,7 +212,7 @@ public class FormulaFormatDateTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatDate#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula date = mock(AbstractFormula.class);
 		when(date.getReturnType(null)).thenReturn(FormulaReturnType.DATE);

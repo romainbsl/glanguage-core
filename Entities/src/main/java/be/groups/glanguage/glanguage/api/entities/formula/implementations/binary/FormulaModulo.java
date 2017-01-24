@@ -19,7 +19,7 @@ public class FormulaModulo extends BinaryFormula {
 		super();
 	}
 
-	public FormulaModulo(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) {
+	public FormulaModulo(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
 		super(description, child1, child2);
 	}
 

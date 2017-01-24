@@ -6,7 +6,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaRet
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatDate;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumeric;
-import be.groups.glanguage.glanguage.api.entities.rule.RoundingType;
+import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleGroupItem;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
@@ -374,7 +374,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatDate#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetStringValue() throws GLanguageException {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 		
@@ -384,7 +384,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatDate#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 		
@@ -394,7 +394,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatDate#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 		
@@ -404,7 +404,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatDate#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 		
@@ -415,7 +415,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaFormatDate#operationAsText()}
 	 */
 	@Test
-	public void testOperationAsText() {
+	public void testOperationAsText() throws GLanguageException {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 		
 		assertEquals("sumv", formula.operationAsText());
@@ -425,7 +425,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaFormatDate#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 		
 		assertEquals("sumv(1)", formula.asText());

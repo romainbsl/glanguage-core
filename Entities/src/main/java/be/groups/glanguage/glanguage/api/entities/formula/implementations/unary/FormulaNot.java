@@ -29,7 +29,7 @@ public class FormulaNot extends UnaryFormula {
 		super();
 	}
 
-	public FormulaNot(FormulaDescription description, AbstractFormula child) {
+	public FormulaNot(FormulaDescription description, AbstractFormula child) throws GLanguageException {
 		super(description, child);
 	}
 

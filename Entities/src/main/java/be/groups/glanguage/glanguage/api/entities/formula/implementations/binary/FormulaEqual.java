@@ -28,7 +28,7 @@ public class FormulaEqual extends BinaryFormula {
 		super();
 	}
 
-	public FormulaEqual(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) {
+	public FormulaEqual(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
 		super(description, child1, child2);
 	}
 

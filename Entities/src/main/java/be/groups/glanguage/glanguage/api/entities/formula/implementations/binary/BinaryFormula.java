@@ -1,12 +1,13 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import java.util.ArrayList;
-
-import javax.persistence.Entity;
-
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
+
+import javax.persistence.Entity;
+import java.util.ArrayList;
 
 @Entity
 public abstract class BinaryFormula extends AbstractNonTerminalFormula {
@@ -15,14 +16,14 @@ public abstract class BinaryFormula extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public BinaryFormula(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) {
+	public BinaryFormula(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
 		super(description);
 		
 		if (child1 == null) {
-			throw new IllegalArgumentException("child1 must be non-null");
+			throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
 		}
 		if (child2 == null) {
-			throw new IllegalArgumentException("child2 must be non-null");
+			throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
 		}
 		this.parameters = new ArrayList<>();
 		parameters.add(child1);

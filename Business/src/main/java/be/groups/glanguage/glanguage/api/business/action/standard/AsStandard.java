@@ -26,6 +26,8 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.format
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatNumeric;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatString;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.group.FormulaGroupMultiply;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.group.FormulaGroupSum;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.group.FormulaGroupSumV;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaIfInstruction;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathAbs;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathSign;
@@ -39,6 +41,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaUnaryMinus;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.parser.ParserUnableToParseFormulaInnerError;
+import be.groups.glanguage.glanguage.api.error.parser.ParserUnableToParseTextInnerError;
 import be.groups.glanguage.glanguage.api.error.parser.ParserUnknownFormulaTypeInnerError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,133 +100,357 @@ public class AsStandard implements SemanticalAction {
     public AbstractFormula unaryOperation(FormulaType formulaDescriptionId, AbstractFormula formula) {
         AbstractFormula result = null;
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
-        switch (formulaDescriptionId) {
-            case OP_NOT:
-                result = new FormulaNot(formulaDescription, formula);
-                break;
-            case OP_UNARY_PLUS:
-                result = formula;
-                break;
-            case OP_UNARY_MINUS:
-                result = new FormulaUnaryMinus(formulaDescription, formula);
-                break;
-            case OP_EXIST:
-                result = new FormulaExist(formulaDescription, formula);
-                break;
-            default:
-                throw new InternalError("Internal error : unknown unary formula type : " + formulaDescriptionId);
+        try {
+            switch (formulaDescription.getType()) {
+                case OP_NOT:
+                    return new FormulaNot(formulaDescription, formula);
+                case OP_UNARY_PLUS:
+                    return formula;
+                case OP_UNARY_MINUS:
+                    return new FormulaUnaryMinus(formulaDescription, formula);
+                case OP_EXIST:
+                    return new FormulaExist(formulaDescription, formula);
+                default:
+                    throw new GLanguageException(new ParserUnknownFormulaTypeInnerError(formulaDescriptionId,
+                                                                                        "unaryOperation",
+                                                                                        null));
+            }
+        } catch (GLanguageException e) {
+            LinkedList<AbstractFormula> parameters = new LinkedList<>();
+            parameters.add(formula);
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(
+                        formulaDescription,
+                        parameters,
+                        "unaryOperation",
+                        null));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within
+             * SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a
+             * checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked
+             * exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
         }
-        return result;
     }
-
 
     @Override
     public AbstractFormula binaryOperation(FormulaType formulaDescriptionId,
                                            AbstractFormula formula1,
                                            AbstractFormula formula2) {
-        AbstractFormula result = null;
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
-        switch (formulaDescriptionId) {
-            case OP_MULTIPLY:
-                result = new FormulaMultiply(formulaDescription, formula1, formula2);
-                break;
-            case OP_DIVIDE:
-                result = new FormulaDivide(formulaDescription, formula1, formula2);
-                break;
-            case OP_INTEGER_DIVISION:
-                result = new FormulaIntegerDivision(formulaDescription, formula1, formula2);
-                break;
-            case OP_MODULO:
-                result = new FormulaModulo(formulaDescription, formula1, formula2);
-                break;
-            case OP_PLUS:
-                result = new FormulaPlus(formulaDescription, formula1, formula2);
-                break;
-            case OP_MINUS:
-                result = new FormulaMinus(formulaDescription, formula1, formula2);
-                break;
-            case OP_EQUAL:
-                result = new FormulaEqual(formulaDescription, formula1, formula2);
-                break;
-            case OP_DIFFERENCE:
-                result = new FormulaDifference(formulaDescription, formula1, formula2);
-                break;
-            case OP_SMALLER:
-                result = new FormulaSmaller(formulaDescription, formula1, formula2);
-                break;
-            case OP_SMALLER_OR_EQUAL:
-                result = new FormulaSmallerOrEqual(formulaDescription, formula1, formula2);
-                break;
-            case OP_GREATER:
-                result = new FormulaGreater(formulaDescription, formula1, formula2);
-                break;
-            case OP_GREATER_OR_EQUAL:
-                result = new FormulaGreaterOrEqual(formulaDescription, formula1, formula2);
-                break;
-            case OP_AND:
-                result = new FormulaAnd(formulaDescription, formula1, formula2);
-                break;
-            case OP_OR:
-                result = new FormulaOr(formulaDescription, formula1, formula2);
-                break;
-            default:
-                throw new InternalError("Internal error : unknown binary formula type : " + formulaDescriptionId);
+        try {
+            switch (formulaDescriptionId) {
+                case OP_MULTIPLY:
+                    return new FormulaMultiply(formulaDescription, formula1, formula2);
+                case OP_DIVIDE:
+                    return new FormulaDivide(formulaDescription, formula1, formula2);
+                case OP_INTEGER_DIVISION:
+                    return new FormulaIntegerDivision(formulaDescription, formula1, formula2);
+                case OP_MODULO:
+                    return new FormulaModulo(formulaDescription, formula1, formula2);
+                case OP_PLUS:
+                    return new FormulaPlus(formulaDescription, formula1, formula2);
+                case OP_MINUS:
+                    return new FormulaMinus(formulaDescription, formula1, formula2);
+                case OP_EQUAL:
+                    return new FormulaEqual(formulaDescription, formula1, formula2);
+                case OP_DIFFERENCE:
+                    return new FormulaDifference(formulaDescription, formula1, formula2);
+                case OP_SMALLER:
+                    return new FormulaSmaller(formulaDescription, formula1, formula2);
+                case OP_SMALLER_OR_EQUAL:
+                    return new FormulaSmallerOrEqual(formulaDescription, formula1, formula2);
+                case OP_GREATER:
+                    return new FormulaGreater(formulaDescription, formula1, formula2);
+                case OP_GREATER_OR_EQUAL:
+                    return new FormulaGreaterOrEqual(formulaDescription, formula1, formula2);
+                case OP_AND:
+                    return new FormulaAnd(formulaDescription, formula1, formula2);
+                case OP_OR:
+                    return new FormulaOr(formulaDescription, formula1, formula2);
+                default:
+                    throw new GLanguageException(new ParserUnknownFormulaTypeInnerError(formulaDescriptionId,
+                                                                                        "binaryOperation",
+                                                                                        null));
+            }
+        } catch (GLanguageException e) {
+            LinkedList<AbstractFormula> parameters = new LinkedList<>();
+            parameters.add(formula1);
+            parameters.add(formula2);
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                parameters,
+                                                                                "binaryOperation",
+                                                                                null));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within
+             * SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a
+             * checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked
+             * exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
         }
-        return result;
     }
 
     @Override
     public AbstractFormula bracketFormula(AbstractFormula formula) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS);
-        return new FormulaBracket(formulaDescription, formula);
+        try {
+            return new FormulaBracket(formulaDescription, formula);
+        } catch (GLanguageException e) {
+            LinkedList<AbstractFormula> parameters = new LinkedList<>();
+            parameters.add(formula);
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                parameters,
+                                                                                "bracketFormula",
+                                                                                null));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within
+             * SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a
+             * checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked
+             * exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public AbstractFormula inOperation(AbstractFormula element, LinkedList<AbstractFormula> inList) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.F_IN);
-        return new FormulaIn(formulaDescription, element, inList);
+        try {
+            return new FormulaIn(formulaDescription, element, inList);
+        } catch (GLanguageException e) {
+            LinkedList<AbstractFormula> parameters = new LinkedList<>();
+            parameters.add(element);
+            parameters.addAll(inList);
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                parameters,
+                                                                                "inOperation",
+                                                                                null));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within
+             * SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a
+             * checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked
+             * exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public AbstractFormula referenceFormula(String ruleId) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_RULE_REFERENCE);
-        return new FormulaRuleReference(formulaDescription, ruleId);
+        try {
+            return new FormulaRuleReference(formulaDescription, ruleId);
+        } catch (GLanguageException e) {
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                null,
+                                                                                "referenceFormula",
+                                                                                null));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within
+             * SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a
+             * checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked
+             * exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public AbstractFormula terminalIntegerFormula(String s) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER);
-        return new FormulaTerminalInteger(formulaDescription, s);
+        try {
+            return new FormulaTerminalInteger(formulaDescription, s);
+        } catch (GLanguageException e) {
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                null,
+                                                                                "terminalIntegerFormula",
+                                                                                null));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within
+             * SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a
+             * checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked
+             * exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public AbstractFormula terminalNumericFormula(String s) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_NUMERIC);
-        return new FormulaTerminalNumeric(formulaDescription, s);
+        try {
+            return new FormulaTerminalNumeric(formulaDescription, s);
+        } catch (GLanguageException e) {
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                null,
+                                                                                "terminalNumericFormula",
+                                                                                null));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within
+             * SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a
+             * checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked
+             * exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public AbstractFormula terminalDateFormula(LocalDate d) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DATE);
-        return new FormulaTerminalDate(formulaDescription, d);
+        try {
+            return new FormulaTerminalDate(formulaDescription, d);
+        } catch (GLanguageException e) {
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                null,
+                                                                                "terminalDateFormula",
+                                                                                null));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within
+             * SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a
+             * checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked
+             * exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public AbstractFormula terminalDurationFormula(String duration) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DURATION);
-        return new FormulaTerminalDuration(formulaDescription, duration);
+        try {
+            return new FormulaTerminalDuration(formulaDescription, duration);
+        } catch (GLanguageException e) {
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                null,
+                                                                                "terminalDurationFormula",
+                                                                                null));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within
+             * SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a
+             * checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked
+             * exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public AbstractFormula terminalBooleanFormula(boolean b) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_BOOLEAN);
-        return new FormulaTerminalBoolean(formulaDescription, b);
+        try {
+            return new FormulaTerminalBoolean(formulaDescription, b);
+        } catch (GLanguageException e) {
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                null,
+                                                                                "terminalBooleanFormula",
+                                                                                null));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within
+             * SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a
+             * checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked
+             * exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public AbstractFormula terminalStringFormula(String s) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_STRING);
-        return new FormulaTerminalString(formulaDescription, s);
+        try {
+            return new FormulaTerminalString(formulaDescription, s);
+        } catch (GLanguageException e) {
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                null,
+                                                                                "terminalStringFormula",
+                                                                                null));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within
+             * SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a
+             * checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked
+             * exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -232,8 +459,7 @@ public class AsStandard implements SemanticalAction {
     }
 
     @Override
-    public AbstractFormula standardFunction(FormulaType formulaDescriptionId,
-                                            LinkedList<AbstractFormula> parameters) {
+    public AbstractFormula standardFunction(FormulaType formulaDescriptionId, LinkedList<AbstractFormula> parameters) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
         FormulaDescription precisionFormulaDescription = FormulaDescriptionFactory
                 .getDescription(FormulaType.TERMINAL_INTEGER);
@@ -312,7 +538,8 @@ public class AsStandard implements SemanticalAction {
         } catch (GLanguageException e) {
             e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
                                                                                 parameters,
-                                                                                "standardFunction"));
+                                                                                "standardFunction",
+                                                                                null));
             /*
              * WORKAROUND
              * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within SlangTab that
@@ -330,16 +557,34 @@ public class AsStandard implements SemanticalAction {
     @Override
     public AbstractFormula groupFunction(FormulaType formulaDescriptionId, String groupName) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
-        switch (formulaDescriptionId) {
-            case G_MULT:
-                return new FormulaGroupMultiply(formulaDescription, groupName);
-            case G_SUM:
-                return new FormulaGroupMultiply(formulaDescription, groupName);
-            case G_SUMV:
-                return null; // TODO
-            default:
-                throw new InternalError("Internal error : unknown group function formula type : " +
-                                                formulaDescriptionId);
+        try {
+            switch (formulaDescriptionId) {
+                case G_MULT:
+                    return new FormulaGroupMultiply(formulaDescription, groupName);
+                case G_SUM:
+                    return new FormulaGroupSum(formulaDescription, groupName);
+                case G_SUMV:
+                    return new FormulaGroupSumV(formulaDescription, groupName);
+                default:
+                    throw new InternalError("Internal error : unknown group function formula type : " +
+                                                    formulaDescriptionId);
+            }
+        } catch (GLanguageException e) {
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                null,
+                                                                                "groupFunction",
+                                                                                null));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
         }
     }
 
@@ -347,23 +592,77 @@ public class AsStandard implements SemanticalAction {
     public AbstractFormula getFunction(FormulaReturnType returnType, IdentifierParameterList identifierParameterlist) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_GET);
         FormulaDescription subFormulasDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE);
-        return new FormulaGet(formulaDescription,
-                              subFormulasDescription,
-                              returnType,
-                              identifierParameterlist.getIdentifiers(),
-                              identifierParameterlist.getParameters());
+        try {
+            return new FormulaGet(formulaDescription,
+                                  subFormulasDescription,
+                                  returnType,
+                                  identifierParameterlist.getIdentifiers(),
+                                  identifierParameterlist.getParameters());
+        } catch (GLanguageException e) {
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                null,
+                                                                                "getFunction",
+                                                                                null));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public AbstractFormula applicabiltyCall(String code) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_APPLICABILITY);
-        return new FormulaApplicability(formulaDescription, code);
+        try {
+            return new FormulaApplicability(formulaDescription, code);
+        } catch (GLanguageException e) {
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                null,
+                                                                                "applicabiltyCall",
+                                                                                null));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public AbstractFormula formulaCall(String code) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_FORMULA);
-        return new FormulaFormula(formulaDescription, code);
+        try {
+            return new FormulaFormula(formulaDescription, code);
+        } catch (GLanguageException e) {
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                null,
+                                                                                "formulaCall",
+                                                                                null));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -371,23 +670,68 @@ public class AsStandard implements SemanticalAction {
                                          AbstractFormula ifStatement,
                                          AbstractFormula elseStatement) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.I_IF);
-        return new FormulaIfInstruction(formulaDescription, condition, ifStatement, elseStatement);
+        try {
+            return new FormulaIfInstruction(formulaDescription, condition, ifStatement, elseStatement);
+        } catch (GLanguageException e) {
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                null,
+                                                                                "ifInstruction",
+                                                                                null));
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public int checkInteger(String n, int min, int max) {
-        if (n == null) {
-            throw new IllegalArgumentException("integer parameter must be non-null");
-        }
         try {
-            int result = new Integer(n);
-            if (result < min || (max > 0 && result > max)) {
-                throw new IllegalArgumentException("integer '" + n + "' is out of the bounds [" + min + "," + (max >
-                        0 ? max : Integer.MAX_VALUE) + "]");
+            if (n == null) {
+                throw new GLanguageException(new ParserUnableToParseTextInnerError(n,
+                                                                                   "checkInteger",
+                                                                                   "null string",
+                                                                                   null));
             }
-            return result;
-        } catch (NumberFormatException nfe) {
-            throw new IllegalArgumentException("parameter must represent an integer : " + n);
+            try {
+                int result = new Integer(n);
+                if (result < min || (max > 0 && result > max)) {
+                    throw new GLanguageException(new ParserUnableToParseTextInnerError(n,
+                                                                                       "checkInteger",
+                                                                                       "integer '" + n + "' is out "
+                                                                                               + "of the bounds [" +
+                                                                                               min + "," + (max > 0 ?
+                                                                                               max : Integer
+                                                                                               .MAX_VALUE) + "]",
+                                                                                       null));
+                }
+                return result;
+            } catch (NumberFormatException nfe) {
+                throw new GLanguageException(new ParserUnableToParseTextInnerError(n,
+                                                                                   "checkInteger",
+                                                                                   "parameter must represent an " +
+                                                                                           "integer : " + n,
+                                                                                   nfe));
+            }
+        } catch (GLanguageException e) {
+            /*
+             * WORKAROUND
+             * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within SlangTab that
+             * calls this method to handle GLanguageException or any checked exception. Therefore, throwing a checked
+             * exception from this method lead to a compilation error in "yyparse()" method.
+             * To avoid this we have no other choice than wrapping the GLanguageException into an unchecked exception
+             * (e.g. RuntimeException)
+             * This exception will rise through SlangTab methods until it reaches "inject(String)" method. That
+             * method is developed by ourselves and can therefore handle the exception
+             */
+            throw new RuntimeException(e);
         }
     }
 

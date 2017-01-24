@@ -2,22 +2,18 @@
 package be.groups.glanguage.glanguage.api.business.analysis.byaccj;
 
 import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
-import be.groups.glanguage.glanguage.api.business.analysis.byaccj.SlangLex;
 import be.groups.glanguage.glanguage.api.business.analysis.IdentifierParameterList;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracket;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.parser.ParserInnerError;
 import be.groups.glanguage.glanguage.api.error.parser.ParserUnableToParseTextInnerError;
-
-import java.util.LinkedList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.LinkedList;
 %}
 
 	/* Declaration of the terms manipulated in this grammar */
@@ -668,7 +664,7 @@ else:
         } catch (Exception exp){
             error = true;
             logger.error("analyze()", exp);
-            throw new GLanguageException(new ParserUnableToParseTextInnerError(formulaString, "analyse", exp));
+            throw new GLanguageException(new ParserUnableToParseTextInnerError(formulaString, "analyse", null, exp));
         }
 	}
 	

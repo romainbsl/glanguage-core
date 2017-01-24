@@ -6,7 +6,7 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 /**
  * Created by michotte on 20/12/2016.
  */
-public abstract class RuleUnableToEvaluateBooleanInnerError extends RuleUnableToEvaluateTypeInnerError {
+public class RuleUnableToEvaluateBooleanInnerError extends RuleUnableToEvaluateTypeInnerError {
 
     public RuleUnableToEvaluateBooleanInnerError(RuleVersion ruleVersion,
                                                  Evaluator evaluator) {

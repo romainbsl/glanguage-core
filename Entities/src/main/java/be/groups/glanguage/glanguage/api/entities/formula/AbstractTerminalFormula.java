@@ -4,6 +4,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.evaluation.method.*;
+import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.implementations.terminal
         .TerminalFormulaUnableToInitializeNullValueInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,11 +26,11 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
         super(description);
     }
 
-    public AbstractTerminalFormula(FormulaDescription description, String constantValue) {
+    public AbstractTerminalFormula(FormulaDescription description, String constantValue) throws GLanguageException {
         this(description);
 
         if (constantValue == null) {
-            throw new IllegalArgumentException("Constant value must be non-null");
+            throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
         }
         this.setConstantValue(constantValue);
     }

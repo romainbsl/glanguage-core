@@ -19,7 +19,7 @@ public class FormulaDivide extends BinaryFormula {
 		super();
 	}
 
-	public FormulaDivide(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) {
+	public FormulaDivide(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
 		super(description, child1, child2);
 	}
 

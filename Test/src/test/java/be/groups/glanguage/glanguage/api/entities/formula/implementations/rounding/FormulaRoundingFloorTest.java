@@ -335,7 +335,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaRoundingFloor#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
@@ -353,7 +353,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaRoundingFloor#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
@@ -371,7 +371,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaRoundingFloor#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
@@ -389,7 +389,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaRoundingFloor#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);

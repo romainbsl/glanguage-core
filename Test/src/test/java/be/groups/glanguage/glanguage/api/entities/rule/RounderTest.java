@@ -1,8 +1,11 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
-import static org.junit.Assert.assertEquals;
-
+import be.groups.glanguage.glanguage.api.entities.utils.rounding.Rounder;
+import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test class for {@link Rounder}
@@ -19,7 +22,7 @@ public class RounderTest {
 	 * precision 10
 	 */
 	@Test
-	public void testRoundIntegerLowerArithmeticTensPrecision() {
+	public void testRoundIntegerLowerArithmeticTensPrecision() throws GLanguageException {
 		Integer value = 111;
 		RoundingType roundingType = RoundingType.ARITHMETIC;
 		Double precision = 10.0;
@@ -32,7 +35,7 @@ public class RounderTest {
 	 * precision 10
 	 */
 	@Test
-	public void testRoundIntegerUpperArithmeticTensPrecision() {
+	public void testRoundIntegerUpperArithmeticTensPrecision() throws GLanguageException {
 		Integer value = 118;
 		RoundingType roundingType = RoundingType.ARITHMETIC;
 		Double precision = 10.0;
@@ -45,7 +48,7 @@ public class RounderTest {
 	 * precision 100
 	 */
 	@Test
-	public void testRoundIntegerLowerArithmeticHundredsPrecision() {
+	public void testRoundIntegerLowerArithmeticHundredsPrecision() throws GLanguageException {
 		Integer value = 111;
 		RoundingType roundingType = RoundingType.ARITHMETIC;
 		Double precision = 100.0;
@@ -58,7 +61,7 @@ public class RounderTest {
 	 * precision 100
 	 */
 	@Test
-	public void testRoundIntegerUpperArithmeticHundredsPrecision() {
+	public void testRoundIntegerUpperArithmeticHundredsPrecision() throws GLanguageException {
 		Integer value = 151;
 		RoundingType roundingType = RoundingType.ARITHMETIC;
 		Double precision = 100.0;
@@ -70,7 +73,7 @@ public class RounderTest {
 	 * Tests {@link Rounder#round(Integer, RoundingType, Double)} with ceil rounding, precision 10
 	 */
 	@Test
-	public void testRoundIntegerCeilTensPrecision() {
+	public void testRoundIntegerCeilTensPrecision() throws GLanguageException {
 		Integer value = 111;
 		RoundingType roundingType = RoundingType.CEIL;
 		Double precision = 10.0;
@@ -82,7 +85,7 @@ public class RounderTest {
 	 * Tests {@link Rounder#round(Integer, RoundingType, Double)} with ceil rounding, precision 100
 	 */
 	@Test
-	public void testRoundIntegerCeilHundredsPrecision() {
+	public void testRoundIntegerCeilHundredsPrecision() throws GLanguageException {
 		Integer value = 111;
 		RoundingType roundingType = RoundingType.CEIL;
 		Double precision = 100.0;
@@ -94,7 +97,7 @@ public class RounderTest {
 	 * Tests {@link Rounder#round(Integer, RoundingType, Double)} with floor rounding, precision 10
 	 */
 	@Test
-	public void testRoundIntegerFloorTensPrecision() {
+	public void testRoundIntegerFloorTensPrecision() throws GLanguageException {
 		Integer value = 118;
 		RoundingType roundingType = RoundingType.FLOOR;
 		Double precision = 10.0;
@@ -106,7 +109,7 @@ public class RounderTest {
 	 * Tests {@link Rounder#round(Integer, RoundingType, Double)} with floor rounding, precision 100
 	 */
 	@Test
-	public void testRoundIntegerFloorHundredsPrecision() {
+	public void testRoundIntegerFloorHundredsPrecision() throws GLanguageException {
 		Integer value = 151;
 		RoundingType roundingType = RoundingType.FLOOR;
 		Double precision = 100.0;
@@ -118,7 +121,7 @@ public class RounderTest {
 	 * Tests {@link Rounder#round(Integer, RoundingType, Double)} with trunc rounding, precision 10
 	 */
 	@Test
-	public void testRoundIntegerTrunc() {
+	public void testRoundIntegerTrunc() throws GLanguageException {
 		Integer value = 118;
 		RoundingType roundingType = RoundingType.TRUNC;
 		Double precision = 10.0;
@@ -131,7 +134,7 @@ public class RounderTest {
 	 * (too much decimals)
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void testRoundIntegerTruncTooMuchDecimals() {
+	public void testRoundIntegerTruncTooMuchDecimals() throws GLanguageException {
 		Integer value = 118;
 		RoundingType roundingType = RoundingType.TRUNC;
 		Double precision = 11.0;
@@ -144,7 +147,7 @@ public class RounderTest {
 	 * 10
 	 */
 	@Test
-	public void testRoundIntegerBankers() {
+	public void testRoundIntegerBankers() throws GLanguageException {
 		Integer value = 118;
 		RoundingType roundingType = RoundingType.BANKERS;
 		Double precision = 10.0;
@@ -157,7 +160,7 @@ public class RounderTest {
 	 * 11 (too much decimals)
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void testRoundIntegerBankersTooMuchDecimals() {
+	public void testRoundIntegerBankersTooMuchDecimals() throws GLanguageException {
 		Integer value = 118;
 		RoundingType roundingType = RoundingType.BANKERS;
 		Double precision = 11.0;
@@ -170,7 +173,7 @@ public class RounderTest {
 	 * precision 0.01
 	 */
 	@Test
-	public void testRoundNumericLowerArithmetic100thPrecision() {
+	public void testRoundNumericLowerArithmetic100thPrecision() throws GLanguageException {
 		Double value = 1.564;
 		RoundingType roundingType = RoundingType.ARITHMETIC;
 		Double precision = 0.01;
@@ -183,7 +186,7 @@ public class RounderTest {
 	 * precision 10
 	 */
 	@Test
-	public void testRoundNumericUpperArithmeticTensPrecision() {
+	public void testRoundNumericUpperArithmeticTensPrecision() throws GLanguageException {
 		Double value = 1.566;
 		RoundingType roundingType = RoundingType.ARITHMETIC;
 		Double precision = 0.01;
@@ -196,7 +199,7 @@ public class RounderTest {
 	 * precision 0.1
 	 */
 	@Test
-	public void testRoundNumericLowerArithmetic10thPrecision() {
+	public void testRoundNumericLowerArithmetic10thPrecision() throws GLanguageException {
 		Double value = 1.544;
 		RoundingType roundingType = RoundingType.ARITHMETIC;
 		Double precision = 0.1;
@@ -209,7 +212,7 @@ public class RounderTest {
 	 * precision 100
 	 */
 	@Test
-	public void testRoundNumericUpperArithmeticHundredsPrecision() {
+	public void testRoundNumericUpperArithmeticHundredsPrecision() throws GLanguageException {
 		Double value = 1.554;
 		RoundingType roundingType = RoundingType.ARITHMETIC;
 		Double precision = 0.1;
@@ -221,7 +224,7 @@ public class RounderTest {
 	 * Tests {@link Rounder#round(Double, RoundingType, Double)} with ceil rounding, precision 0.01
 	 */
 	@Test
-	public void testRoundNumericCeil100thPrecision() {
+	public void testRoundNumericCeil100thPrecision() throws GLanguageException {
 		Double value = 1.564;
 		RoundingType roundingType = RoundingType.CEIL;
 		Double precision = 0.01;
@@ -233,7 +236,7 @@ public class RounderTest {
 	 * Tests {@link Rounder#round(Double, RoundingType, Double)} with ceil rounding, precision 0.1
 	 */
 	@Test
-	public void testRoundNumericCeil10thPrecision() {
+	public void testRoundNumericCeil10thPrecision() throws GLanguageException {
 		Double value = 1.544;
 		RoundingType roundingType = RoundingType.CEIL;
 		Double precision = 0.1;
@@ -245,7 +248,7 @@ public class RounderTest {
 	 * Tests {@link Rounder#round(Double, RoundingType, Double)} with floor rounding, precision 0.01
 	 */
 	@Test
-	public void testRoundNumericFloor100thPrecision() {
+	public void testRoundNumericFloor100thPrecision() throws GLanguageException {
 		Double value = 1.566;
 		RoundingType roundingType = RoundingType.FLOOR;
 		Double precision = 0.01;
@@ -257,7 +260,7 @@ public class RounderTest {
 	 * Tests {@link Rounder#round(Double, RoundingType, Double)} with floor rounding, precision 0.1
 	 */
 	@Test
-	public void testRoundNumericFloor10thPrecision() {
+	public void testRoundNumericFloor10thPrecision() throws GLanguageException {
 		Double value = 1.566;
 		RoundingType roundingType = RoundingType.FLOOR;
 		Double precision = 0.1;
@@ -270,7 +273,7 @@ public class RounderTest {
 	 * precision 2
 	 */
 	@Test
-	public void testRoundNumericLowerTruncTwoPrecision() {
+	public void testRoundNumericLowerTruncTwoPrecision() throws GLanguageException {
 		Double value = 1.564;
 		RoundingType roundingType = RoundingType.TRUNC;
 		Double precision = 2.0;
@@ -283,7 +286,7 @@ public class RounderTest {
 	 * precision 2
 	 */
 	@Test
-	public void testRoundNumericUpperTruncTwoPrecision() {
+	public void testRoundNumericUpperTruncTwoPrecision() throws GLanguageException {
 		Double value = 1.566;
 		RoundingType roundingType = RoundingType.TRUNC;
 		Double precision = 2.0;
@@ -296,7 +299,7 @@ public class RounderTest {
 	 * precision 1
 	 */
 	@Test
-	public void testRoundNumericLowerTruncOnePrecision() {
+	public void testRoundNumericLowerTruncOnePrecision() throws GLanguageException {
 		Double value = 1.544;
 		RoundingType roundingType = RoundingType.TRUNC;
 		Double precision = 1.0;
@@ -309,7 +312,7 @@ public class RounderTest {
 	 * precision 1
 	 */
 	@Test
-	public void testRoundNumericUpperTruncOnePrecision() {
+	public void testRoundNumericUpperTruncOnePrecision() throws GLanguageException {
 		Double value = 1.566;
 		RoundingType roundingType = RoundingType.TRUNC;
 		Double precision = 1.0;
@@ -322,7 +325,7 @@ public class RounderTest {
 	 * (too much decimals)
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void testRoundNumericTruncTooMuchDecimals() {
+	public void testRoundNumericTruncTooMuchDecimals() throws GLanguageException {
 		Double value = 1.55;
 		RoundingType roundingType = RoundingType.TRUNC;
 		Double precision = 11.0;
@@ -335,7 +338,7 @@ public class RounderTest {
 	 * after last decimal being inferior to 5
 	 */
 	@Test
-	public void testRoundNumericBankersLowAfterLastTwoPrecision() {
+	public void testRoundNumericBankersLowAfterLastTwoPrecision() throws GLanguageException {
 		Double value = 1.564;
 		RoundingType roundingType = RoundingType.BANKERS;
 		Double precision = 2.0;
@@ -348,7 +351,7 @@ public class RounderTest {
 	 * after last decimal being inferior to 5
 	 */
 	@Test
-	public void testRoundNumericBankersLowAfterLastOnePrecision() {
+	public void testRoundNumericBankersLowAfterLastOnePrecision() throws GLanguageException {
 		Double value = 1.54;
 		RoundingType roundingType = RoundingType.BANKERS;
 		Double precision = 1.0;
@@ -361,7 +364,7 @@ public class RounderTest {
 	 * after last decimal being 5, no trail, last decimal is even
 	 */
 	@Test
-	public void testRoundNumericBankers5AfterLastLastEvenTwoPrecision() {
+	public void testRoundNumericBankers5AfterLastLastEvenTwoPrecision() throws GLanguageException {
 		Double value = 1.565;
 		RoundingType roundingType = RoundingType.BANKERS;
 		Double precision = 2.0;
@@ -374,7 +377,7 @@ public class RounderTest {
 	 * after last decimal being 5, no trail, last decimal is odd
 	 */
 	@Test
-	public void testRoundNumericBankers5AfterLastLastOddTwoPrecision() {
+	public void testRoundNumericBankers5AfterLastLastOddTwoPrecision() throws GLanguageException {
 		Double value = 1.575;
 		RoundingType roundingType = RoundingType.BANKERS;
 		Double precision = 2.0;
@@ -387,7 +390,7 @@ public class RounderTest {
 	 * after last decimal being 5, no trail, last decimal is odd, negative number
 	 */
 	@Test
-	public void testRoundNumericBankers5AfterLastLastOddNegativeTwoPrecision() {
+	public void testRoundNumericBankers5AfterLastLastOddNegativeTwoPrecision() throws GLanguageException {
 		Double value = -1.575;
 		RoundingType roundingType = RoundingType.BANKERS;
 		Double precision = 2.0;
@@ -400,7 +403,7 @@ public class RounderTest {
 	 * after last decimal being superior to 5
 	 */
 	@Test
-	public void testRoundNumericBankersHighAfterLastTwoPrecision() {
+	public void testRoundNumericBankersHighAfterLastTwoPrecision() throws GLanguageException {
 		Double value = 1.5651;
 		RoundingType roundingType = RoundingType.BANKERS;
 		Double precision = 2.0;
@@ -413,7 +416,7 @@ public class RounderTest {
 	 * after last decimal being superior to 5, negative number
 	 */
 	@Test
-	public void testRoundNumericBankersHighAfterLastNegativeTwoPrecision() {
+	public void testRoundNumericBankersHighAfterLastNegativeTwoPrecision() throws GLanguageException {
 		Double value = -1.5651;
 		RoundingType roundingType = RoundingType.BANKERS;
 		Double precision = 2.0;
@@ -426,7 +429,7 @@ public class RounderTest {
 	 * (too much decimals)
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void testRoundNumericBankersTooMuchDecimals() {
+	public void testRoundNumericBankersTooMuchDecimals() throws GLanguageException {
 		Double value = 1.564;
 		RoundingType roundingType = RoundingType.BANKERS;
 		Double precision = 11.0;

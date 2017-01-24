@@ -19,7 +19,7 @@ public class FormulaMultiply extends BinaryFormula {
 		super();
 	}
 	
-	public FormulaMultiply(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) {
+	public FormulaMultiply(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
 		super(description, child1, child2);
 	}
 

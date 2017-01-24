@@ -133,7 +133,7 @@ public class FormulaTerminalIntegerTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalInteger#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		formula.getBooleanValue();
@@ -142,7 +142,7 @@ public class FormulaTerminalIntegerTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalInteger#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		formula.getDateValue();
@@ -151,7 +151,7 @@ public class FormulaTerminalIntegerTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalInteger#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		formula.getDurationValue();
@@ -161,7 +161,7 @@ public class FormulaTerminalIntegerTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalInteger#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		FormulaTerminalInteger formula = new FormulaTerminalInteger(null, "1");
 		assertEquals("1", formula.asText());
 	}

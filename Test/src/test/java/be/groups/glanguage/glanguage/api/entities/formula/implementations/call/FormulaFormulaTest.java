@@ -83,7 +83,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaFormula#getIntegerValue()} without rule reference
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -125,7 +125,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaFormula#getNumericValue()} without rule reference
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -167,7 +167,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaFormula#getStringValue()} without rule reference
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetStringValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -255,7 +255,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaFormula#getDateValue()} without rule reference
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -297,7 +297,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaFormula#getDurationValue()} without rule reference
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -310,7 +310,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	 * Tests {@link FormulaFormula#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);

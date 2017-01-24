@@ -20,7 +20,7 @@ public class FormulaFormula extends RuleCallFormula {
 		super();
 	}
 	
-	public FormulaFormula(FormulaDescription description, String ruleId) {
+	public FormulaFormula(FormulaDescription description, String ruleId) throws GLanguageException {
 		super(description, ruleId);
 	}
 	

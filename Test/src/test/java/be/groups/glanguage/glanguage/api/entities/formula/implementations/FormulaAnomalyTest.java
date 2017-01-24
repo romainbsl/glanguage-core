@@ -109,7 +109,7 @@ public class FormulaAnomalyTest {
 	/**
 	 * Tests {@link FormulaAnomaly#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula errorCode = mock(AbstractFormula.class);
 		when(errorCode.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);

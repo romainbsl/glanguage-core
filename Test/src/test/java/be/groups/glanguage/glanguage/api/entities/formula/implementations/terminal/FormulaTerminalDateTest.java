@@ -107,7 +107,7 @@ public class FormulaTerminalDateTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalDate#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
 		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		formula.getIntegerValue();
@@ -116,7 +116,7 @@ public class FormulaTerminalDateTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalDate#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
 		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		formula.getNumericValue();
@@ -134,7 +134,7 @@ public class FormulaTerminalDateTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalDate#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		formula.getBooleanValue();
@@ -152,7 +152,7 @@ public class FormulaTerminalDateTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalDate#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		formula.getDurationValue();
@@ -162,7 +162,7 @@ public class FormulaTerminalDateTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalDate#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		FormulaTerminalDate formula = new FormulaTerminalDate(null, "01/01/2015");
 		assertEquals("01/01/2015", formula.asText());
 	}

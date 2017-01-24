@@ -46,7 +46,7 @@ public class FormulaInTest {
 	/**
 	 * Tests {@link FormulaIn#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
@@ -72,7 +72,7 @@ public class FormulaInTest {
 	/**
 	 * Tests {@link FormulaIn#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
@@ -98,7 +98,7 @@ public class FormulaInTest {
 	/**
 	 * Tests {@link FormulaIn#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
@@ -190,7 +190,7 @@ public class FormulaInTest {
 	/**
 	 * Tests {@link FormulaIn#getDateValue()} with string parameter
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
@@ -216,7 +216,7 @@ public class FormulaInTest {
 	/**
 	 * Tests {@link FormulaIn#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
@@ -243,7 +243,7 @@ public class FormulaInTest {
 	 * Tests {@link FormulaIn#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.asText()).thenReturn("1");
 		

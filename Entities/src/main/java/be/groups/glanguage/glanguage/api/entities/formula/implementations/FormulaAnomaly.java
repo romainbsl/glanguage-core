@@ -37,7 +37,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
             if (parameters == null) {
                 throw new GLanguageException(new FormulaNullParameterListInnerError(this, null, "constructor"));
             }
-            if (parameters.size() != 1 || parameters.size() != 2) {
+            if (!(parameters.size() == 1 || parameters.size() == 2)) {
                 throw new GLanguageException(new FormulaWrongNumberOfParametersInnerError(this,
                                                                                           null,
                                                                                           "constructor",
@@ -130,10 +130,14 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
     public String asText() {
         StringBuilder sb = new StringBuilder();
         sb.append("putText(");
-        sb.append(getParameters().get(0).asText());
-        if (getParameters().size() > 1) {
-            sb.append("; ");
-            sb.append(getParameters().get(1).asText());
+        if (getParameters() != null && !getParameters().isEmpty()) {
+            sb.append(getParameters().get(0).asText());
+            if (getParameters().size() > 1) {
+                sb.append("; ");
+                sb.append(getParameters().get(1).asText());
+            }
+        } else {
+            sb.append("NO_KNOWN_PARAMETER");
         }
         sb.append(")");
         return sb.toString();

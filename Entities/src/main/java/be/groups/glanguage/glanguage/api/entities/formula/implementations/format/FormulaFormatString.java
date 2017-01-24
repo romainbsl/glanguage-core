@@ -4,7 +4,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.entities.utils.FormatAlignment;
+import be.groups.glanguage.glanguage.api.entities.utils.format.FormatAlignment;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

@@ -44,7 +44,9 @@ public enum GLanguageErrorRegistry {
     FORMULA_PARAMETER_LIST_NULL("FORMULA_PARAMETER_WRONG_TYPE", "A formula parameter list is null"),
     FORMULA_PARAMETER_NULL("FORMULA_PARAMETER_WRONG_TYPE", "A formula parameter is null"),
     FORMULA_PARAMETER_WRONG_NUMBER("FORMULA_PARAMETER_WRONG_TYPE", "The number of parameters of a formula is wrong"),
-    FORMULA_PARAMETER_WRONG_TYPE("FORMULA_PARAMETER_WRONG_TYPE", "Type of a formula parameter is wrong");
+    FORMULA_PARAMETER_WRONG_TYPE("FORMULA_PARAMETER_WRONG_TYPE", "Type of a formula parameter is wrong"),
+
+    ROUNDING_TYPE_INVALID("ROUNDING_TYPE_INVALID", "A rounding type is invalid");
 
 
     private String code;

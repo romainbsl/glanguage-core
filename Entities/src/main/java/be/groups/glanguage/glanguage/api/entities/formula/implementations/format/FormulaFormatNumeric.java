@@ -4,9 +4,9 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.entities.utils.FormatAlignment;
-import be.groups.glanguage.glanguage.api.entities.utils.FormatDouble;
-import be.groups.glanguage.glanguage.api.entities.utils.FormatSign;
+import be.groups.glanguage.glanguage.api.entities.utils.format.FormatAlignment;
+import be.groups.glanguage.glanguage.api.entities.utils.format.FormatDouble;
+import be.groups.glanguage.glanguage.api.entities.utils.format.FormatSign;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

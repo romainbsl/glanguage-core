@@ -1,4 +1,4 @@
-package be.groups.glanguage.glanguage.api.entities.utils;
+package be.groups.glanguage.glanguage.api.entities.utils.format;
 
 /**
  * Copied from be.groups.kernel.utils.format.Alignement<br>

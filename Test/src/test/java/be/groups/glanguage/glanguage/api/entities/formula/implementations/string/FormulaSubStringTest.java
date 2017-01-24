@@ -133,7 +133,7 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaSubString#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -155,7 +155,7 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaSubString#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -266,7 +266,7 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaSubString#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -288,7 +288,7 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaSubString#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -310,7 +310,7 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaSubString#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);

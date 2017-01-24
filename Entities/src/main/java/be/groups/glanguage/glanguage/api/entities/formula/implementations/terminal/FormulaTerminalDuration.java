@@ -36,11 +36,11 @@ public class FormulaTerminalDuration extends AbstractTerminalFormula {
         super();
     }
 
-    public FormulaTerminalDuration(FormulaDescription description, String constantValue) {
+    public FormulaTerminalDuration(FormulaDescription description, String constantValue) throws GLanguageException {
         super(description, constantValue);
     }
 
-    public FormulaTerminalDuration(FormulaDescription description, LocalDate date) {
+    public FormulaTerminalDuration(FormulaDescription description, LocalDate date) throws GLanguageException {
         super(description, date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 

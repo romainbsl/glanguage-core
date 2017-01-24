@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.business.parser;
 
+import be.groups.glanguage.glanguage.api.GLanguageEvaluationExceptionTest;
 import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
 import be.groups.glanguage.glanguage.api.business.action.standard.AsStandard;
 import be.groups.glanguage.glanguage.api.business.analysis.byaccj.SlangTab;
@@ -37,7 +38,7 @@ import java.time.LocalDate;
 
 import static org.junit.Assert.*;
 
-public class ParserTest {
+public class ParserTest extends GLanguageEvaluationExceptionTest {
 	
 	/*
 	 * Constants
@@ -770,7 +771,8 @@ public class ParserTest {
 		parser.analyze();
 		assertNotNull(semanticalAction.getFormula());
 		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
-				semanticalAction.getFormula() instanceof FormulaTerminalInteger);
+
+				   semanticalAction.getFormula() instanceof FormulaTerminalInteger);
 		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormula().getReturnType());
 		assertEquals(new Integer(1), semanticalAction.getFormula().getIntegerValue());
 	}

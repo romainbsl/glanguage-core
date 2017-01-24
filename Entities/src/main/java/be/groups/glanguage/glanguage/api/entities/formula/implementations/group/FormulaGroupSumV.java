@@ -21,7 +21,7 @@ public class FormulaGroupSumV extends GroupFormula {
 		super();
 	}
 
-	public FormulaGroupSumV(FormulaDescription description, String groupId) {
+	public FormulaGroupSumV(FormulaDescription description, String groupId) throws GLanguageException {
 		super(description, groupId);
 	}
 	

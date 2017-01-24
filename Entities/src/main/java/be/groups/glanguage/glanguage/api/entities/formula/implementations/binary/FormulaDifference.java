@@ -28,7 +28,7 @@ public class FormulaDifference extends BinaryFormula {
 		super();
 	}
 
-	public FormulaDifference(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) {
+	public FormulaDifference(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
 		super(description, child1, child2);
 	}
 

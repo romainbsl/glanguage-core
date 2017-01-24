@@ -29,7 +29,7 @@ public class FormulaGreaterOrEqual extends BinaryFormula {
 		super();
 	}
 
-	public FormulaGreaterOrEqual(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) {
+	public FormulaGreaterOrEqual(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
 		super(description, child1, child2);
 	}
 

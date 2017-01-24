@@ -19,7 +19,7 @@ public class FormulaUnaryMinus extends UnaryFormula {
         super();
     }
 
-    public FormulaUnaryMinus(FormulaDescription description, AbstractFormula child) {
+    public FormulaUnaryMinus(FormulaDescription description, AbstractFormula child) throws GLanguageException {
         super(description, child);
     }
 

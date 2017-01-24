@@ -106,7 +106,7 @@ public class FormulaTerminalBooleanTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalBoolean#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
 		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		formula.getIntegerValue();
@@ -115,7 +115,7 @@ public class FormulaTerminalBooleanTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalBoolean#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
 		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		formula.getNumericValue();
@@ -142,7 +142,7 @@ public class FormulaTerminalBooleanTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalBoolean#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		formula.getDateValue();
@@ -151,7 +151,7 @@ public class FormulaTerminalBooleanTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalDuration#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		formula.getDurationValue();
@@ -161,7 +161,7 @@ public class FormulaTerminalBooleanTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalBoolean#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
 		assertEquals("true", formula.asText());
 	}

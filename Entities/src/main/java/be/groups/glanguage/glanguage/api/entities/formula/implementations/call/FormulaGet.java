@@ -6,7 +6,9 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDes
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnTypeConverter;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.targets.FormulaCannotInvokeTargetObjectInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,13 +31,20 @@ public class FormulaGet extends CallFormula {
     }
 
     public FormulaGet(FormulaDescription description, FormulaDescription subFormulasDescription, FormulaReturnType
-            returnType, List<String> identifiers, List<List<AbstractFormula>> parameters) {
+            returnType, List<String> identifiers, List<List<AbstractFormula>> parameters) throws GLanguageException {
         super(description);
 
         setConstantValue(String.valueOf(returnType.ordinal()));
         this.parameters = new ArrayList<>(identifiers.size());
         for (int i = 0; i < identifiers.size(); i++) {
-            this.parameters.add(new FormulaPrimitive(subFormulasDescription, identifiers.get(i), parameters.get(i)));
+            try {
+                this.parameters.add(new FormulaPrimitive(subFormulasDescription, identifiers.get(i), parameters.get
+                        (i)));
+            } catch (GLanguageException e) {
+                e.getError().setOuterError(new FormulaInnerError(GLanguageErrorRegistry.FORMULA_INNER_ERROR, this,
+                                                                 null, "constructor", "Bad call chain"));
+                throw e;
+            }
         }
     }
 

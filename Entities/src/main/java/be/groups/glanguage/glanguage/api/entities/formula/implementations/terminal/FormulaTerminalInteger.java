@@ -32,7 +32,7 @@ public class FormulaTerminalInteger extends AbstractTerminalFormula {
         super();
     }
 
-    public FormulaTerminalInteger(FormulaDescription description, String constantValue) {
+    public FormulaTerminalInteger(FormulaDescription description, String constantValue) throws GLanguageException {
         super(description, constantValue);
     }
 

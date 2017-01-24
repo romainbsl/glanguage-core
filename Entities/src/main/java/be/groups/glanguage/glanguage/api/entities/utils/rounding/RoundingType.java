@@ -1,4 +1,4 @@
-package be.groups.glanguage.glanguage.api.entities.rule;
+package be.groups.glanguage.glanguage.api.entities.utils.rounding;
 
 /**
  * Rounding type's

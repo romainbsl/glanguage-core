@@ -182,7 +182,7 @@ public class FormulaDateTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaDate#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -196,7 +196,7 @@ public class FormulaDateTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaDate#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -210,7 +210,7 @@ public class FormulaDateTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaDate#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -224,7 +224,7 @@ public class FormulaDateTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaDate#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -274,7 +274,7 @@ public class FormulaDateTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaDate#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);

@@ -51,7 +51,7 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaApplicability#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -81,7 +81,7 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaApplicability#getIntegerValue()} without reference rule
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValueWithoutReference() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -93,7 +93,7 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaApplicability#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -123,7 +123,7 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaApplicability#getNumericValue()} without reference rule
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValueWithoutReference() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -135,7 +135,7 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaApplicability#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetStringValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -165,7 +165,7 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaApplicability#getStringValue()} without reference rule
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetStringValueWithoutReference() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -261,7 +261,7 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaApplicability#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -291,7 +291,7 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaApplicability#getDateValue()} without reference rule
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValueWithoutReference() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -303,7 +303,7 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaApplicability#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -333,7 +333,7 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 	/**
 	 * Tests {@link FormulaApplicability#getDurationValue()} without reference rule
 	 */
-	@Test(expected = IllegalAccessError.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValueWithoutReference() throws GLanguageException {
 		String ruleId = "some_rule";
 		
@@ -346,7 +346,7 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 	 * Tests {@link FormulaApplicability#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		String ruleId = "some_rule";
 		
 		FormulaApplicability formula = new FormulaApplicability(null, ruleId);

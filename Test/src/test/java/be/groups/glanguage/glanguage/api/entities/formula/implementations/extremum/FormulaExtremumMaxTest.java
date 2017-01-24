@@ -162,7 +162,7 @@ public class FormulaExtremumMaxTest {
 	/**
 	 * Tests {@link FormulaExtremumMax#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetStringValue() throws GLanguageException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
@@ -189,7 +189,7 @@ public class FormulaExtremumMaxTest {
 	/**
 	 * Tests {@link FormulaExtremumMax#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
@@ -216,7 +216,7 @@ public class FormulaExtremumMaxTest {
 	/**
 	 * Tests {@link FormulaExtremumMax#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		
@@ -243,7 +243,7 @@ public class FormulaExtremumMaxTest {
 	/**
 	 * Tests {@link FormulaExtremumMax#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		List<AbstractFormula> parameters = new ArrayList<>();
 		

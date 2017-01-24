@@ -29,7 +29,7 @@ public class FormulaOr extends BinaryFormula {
 		super();
 	}
 
-	public FormulaOr(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) {
+	public FormulaOr(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
 		super(description, child1, child2);
 	}
 

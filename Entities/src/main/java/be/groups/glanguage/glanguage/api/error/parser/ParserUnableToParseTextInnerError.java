@@ -9,13 +9,13 @@ public class ParserUnableToParseTextInnerError extends ParserInnerError {
 
     private Exception exception;
 
-    public ParserUnableToParseTextInnerError(String text, String methodName, Exception exception) {
-        super(GLanguageErrorRegistry.PARSER_UNABLE_TO_PARSE_FORMULA, methodName, getCause(), text);
+    public ParserUnableToParseTextInnerError(String text, String methodName, String cause, Exception exception) {
+        super(GLanguageErrorRegistry.PARSER_UNABLE_TO_PARSE_FORMULA, methodName, getCause(cause), text);
         this.exception = exception;
     }
 
-    private static String getCause() {
-        return "Unknown error";
+    private static String getCause(String cause) {
+        return cause != null ? cause : "Unknown error";
     }
 
 }

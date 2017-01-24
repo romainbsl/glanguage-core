@@ -6,7 +6,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.entities.utils.FormatAlignment;
+import be.groups.glanguage.glanguage.api.entities.utils.format.FormatAlignment;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
@@ -123,7 +123,7 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatString#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -149,7 +149,7 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatString#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -310,7 +310,7 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatString#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -336,7 +336,7 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatString#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -362,7 +362,7 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatString#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);

@@ -6,7 +6,15 @@ import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 /**
  * Created by michotte on 23/12/2016.
  */
-public class GLanguageEvaluationExceptionTest {
+public class GLanguageEvaluationExceptionTest extends BaseDatabaseTest {
+
+    public void handleException(Exception e) throws GLanguageException {
+        if (e instanceof GLanguageException) {
+            handleException((GLanguageException) e);
+        } else if ((e.getCause() instanceof GLanguageException)) {
+            handleException((GLanguageException) e.getCause());
+        }
+    }
 
     public void handleException(GLanguageException e) throws GLanguageException {
         System.out.println("error code: " + e.getError().getCode());

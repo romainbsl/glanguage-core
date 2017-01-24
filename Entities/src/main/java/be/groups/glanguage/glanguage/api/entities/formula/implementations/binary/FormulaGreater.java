@@ -29,7 +29,7 @@ public class FormulaGreater extends BinaryFormula {
 		super();
 	}
 
-	public FormulaGreater(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) {
+	public FormulaGreater(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
 		super(description, child1, child2);
 	}
 

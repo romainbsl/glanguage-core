@@ -19,7 +19,7 @@ public class FormulaExist extends UnaryFormula {
 		super();
 	}
 
-	public FormulaExist(FormulaDescription description, AbstractFormula child) {
+	public FormulaExist(FormulaDescription description, AbstractFormula child) throws GLanguageException {
 		super(description, child);
 	}
 

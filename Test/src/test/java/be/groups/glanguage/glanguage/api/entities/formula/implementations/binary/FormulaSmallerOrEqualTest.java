@@ -456,7 +456,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaSmallerOrEqual#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
@@ -474,7 +474,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaSmallerOrEqual#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
@@ -492,7 +492,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaSmallerOrEqual#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
@@ -852,7 +852,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaSmallerOrEqual#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
@@ -870,7 +870,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaSmallerOrEqual#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);

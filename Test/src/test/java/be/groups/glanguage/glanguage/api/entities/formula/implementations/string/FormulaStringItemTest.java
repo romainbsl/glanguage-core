@@ -133,7 +133,7 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaStringItem#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -155,7 +155,7 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaStringItem#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -265,7 +265,7 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaStringItem#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -287,7 +287,7 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaStringItem#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -309,7 +309,7 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaStringItem#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);

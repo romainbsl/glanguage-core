@@ -580,7 +580,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaPlus#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);

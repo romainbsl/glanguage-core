@@ -34,11 +34,11 @@ public class FormulaTerminalBoolean extends AbstractTerminalFormula {
         super();
     }
 
-    public FormulaTerminalBoolean(FormulaDescription description, String constantValue) {
+    public FormulaTerminalBoolean(FormulaDescription description, String constantValue) throws GLanguageException {
         super(description, constantValue);
     }
 
-    public FormulaTerminalBoolean(FormulaDescription description, Boolean constantValue) {
+    public FormulaTerminalBoolean(FormulaDescription description, Boolean constantValue) throws GLanguageException {
         this(description, constantValue.toString());
     }
 

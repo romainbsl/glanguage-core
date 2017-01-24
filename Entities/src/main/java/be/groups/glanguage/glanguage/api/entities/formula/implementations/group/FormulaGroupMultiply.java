@@ -21,7 +21,7 @@ public class FormulaGroupMultiply extends GroupFormula {
 		super();
 	}
 
-	public FormulaGroupMultiply(FormulaDescription description, String groupId) {
+	public FormulaGroupMultiply(FormulaDescription description, String groupId) throws GLanguageException {
 		super(description, groupId);
 	}
 	

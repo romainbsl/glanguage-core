@@ -7,6 +7,9 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.targets.FormulaCannotInvokeTargetObjectInnerError;
 
+
+import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.util.ArrayList;
@@ -21,11 +24,11 @@ public class FormulaPrimitive extends CallFormula {
 		super();
 	}
 	
-	public FormulaPrimitive(FormulaDescription description, String primitive, List<AbstractFormula> parameters) {
+	public FormulaPrimitive(FormulaDescription description, String primitive, List<AbstractFormula> parameters) throws GLanguageException {
 		super(description);
 		
 		if (primitive == null || primitive.isEmpty()) {
-			throw new IllegalArgumentException("primitive must be a non-null non-empty string");
+			throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
 		}
 		setConstantValue(primitive);
 		if (parameters != null) {

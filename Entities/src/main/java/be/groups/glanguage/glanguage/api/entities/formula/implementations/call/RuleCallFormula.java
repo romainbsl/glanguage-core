@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDes
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.FormulaReturnTypeInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.implementations.call
         .RuleCallFormulaReferencedRuleUnavailableInnerError;
@@ -26,11 +27,11 @@ public abstract class RuleCallFormula extends CallFormula {
         super();
     }
 
-    public RuleCallFormula(FormulaDescription description, String ruleId) {
+    public RuleCallFormula(FormulaDescription description, String ruleId) throws GLanguageException {
         super(description);
 
         if (ruleId == null || ruleId.isEmpty()) {
-            throw new IllegalArgumentException("ruleId must be a non-null non-empty string");
+            throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
         }
         setConstantValue(ruleId);
     }
@@ -75,8 +76,8 @@ public abstract class RuleCallFormula extends CallFormula {
     @Override
     protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
         FormulaReturnType formulaReturnType = getReturnType(evaluator);
-        if (!formulaReturnType.equals(FormulaReturnType.INTEGER) || formulaReturnType
-                .equals(FormulaReturnType.NUMERIC)) {
+        if (!(formulaReturnType.equals(FormulaReturnType.INTEGER) || formulaReturnType
+                .equals(FormulaReturnType.NUMERIC))) {
             throw new GLanguageException(new RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError(this,
                                                                                                             evaluator,
                                                                                                             "doGetNumericValue",

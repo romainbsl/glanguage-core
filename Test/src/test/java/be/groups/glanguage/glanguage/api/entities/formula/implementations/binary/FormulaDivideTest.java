@@ -124,7 +124,7 @@ public class FormulaDivideTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaDivide#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
@@ -160,7 +160,7 @@ public class FormulaDivideTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaDivide#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
@@ -178,7 +178,7 @@ public class FormulaDivideTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaDivide#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
@@ -196,7 +196,7 @@ public class FormulaDivideTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaDivide#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
@@ -214,7 +214,7 @@ public class FormulaDivideTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaDivide#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);

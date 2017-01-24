@@ -8,6 +8,7 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.FormulaReturnTypeInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,10 +28,10 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
         super();
     }
 
-    public GroupFormula(FormulaDescription description, String groupId) {
+    public GroupFormula(FormulaDescription description, String groupId) throws GLanguageException {
         super(description);
         if (groupId == null || groupId.isEmpty()) {
-            throw new IllegalArgumentException("groupId must be a non-null non-empty string");
+            throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
         }
         setConstantValue(groupId);
     }

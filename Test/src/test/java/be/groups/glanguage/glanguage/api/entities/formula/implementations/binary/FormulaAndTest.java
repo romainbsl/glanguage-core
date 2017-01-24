@@ -183,7 +183,7 @@ public class FormulaAndTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaAnd#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
@@ -201,7 +201,7 @@ public class FormulaAndTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaAnd#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
@@ -219,7 +219,7 @@ public class FormulaAndTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaAnd#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
@@ -381,7 +381,7 @@ public class FormulaAndTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaAnd#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
@@ -399,7 +399,7 @@ public class FormulaAndTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaAnd#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);

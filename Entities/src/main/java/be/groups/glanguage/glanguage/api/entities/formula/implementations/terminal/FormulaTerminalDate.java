@@ -35,11 +35,11 @@ public class FormulaTerminalDate extends AbstractTerminalFormula {
         super();
     }
 
-    public FormulaTerminalDate(FormulaDescription description, String constantValue) {
+    public FormulaTerminalDate(FormulaDescription description, String constantValue) throws GLanguageException {
         super(description, constantValue);
     }
 
-    public FormulaTerminalDate(FormulaDescription description, LocalDate constantValue) {
+    public FormulaTerminalDate(FormulaDescription description, LocalDate constantValue) throws GLanguageException {
         this(description, constantValue.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 

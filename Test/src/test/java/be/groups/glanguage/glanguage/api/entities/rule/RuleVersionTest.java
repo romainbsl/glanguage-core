@@ -1,6 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingType;
 import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;

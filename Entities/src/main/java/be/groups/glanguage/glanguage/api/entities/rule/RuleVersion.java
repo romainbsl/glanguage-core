@@ -5,6 +5,9 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+import be.groups.glanguage.glanguage.api.entities.utils.rounding.Rounder;
+import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingType;
+import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingTypeConverter;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.rule.*;
 
@@ -725,7 +728,11 @@ public class RuleVersion implements Comparable<RuleVersion> {
         Integer result = null;
         if (value != null) {
             if (isRoundable()) {
-                result = Rounder.round(value, roundingType, roundingPrecision).intValue();
+                try {
+                    result = Rounder.round(value, roundingType, roundingPrecision).intValue();
+                } catch (GLanguageException e) {
+                    e.getError().setOuterError(new RuleUnableToEvaluateIntegerInnerError(this, evaluator));
+                }
             } else {
                 result = value;
             }
@@ -742,7 +749,11 @@ public class RuleVersion implements Comparable<RuleVersion> {
         Double result = null;
         if (value != null) {
             if (isRoundable()) {
-                result = Rounder.round(value, roundingType, roundingPrecision);
+                try {
+                    result = Rounder.round(value, roundingType, roundingPrecision);
+                } catch (GLanguageException e) {
+                    e.getError().setOuterError(new RuleUnableToEvaluateNumericInnerError(this, evaluator));
+                }
             } else {
                 result = value;
             }

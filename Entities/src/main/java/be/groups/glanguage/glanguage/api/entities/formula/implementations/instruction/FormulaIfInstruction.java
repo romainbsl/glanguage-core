@@ -31,7 +31,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
     public FormulaIfInstruction(FormulaDescription description,
                                 AbstractFormula condition,
                                 AbstractFormula ifStatement,
-                                AbstractFormula elseStatement) {
+                                AbstractFormula elseStatement) throws GLanguageException {
         super(description);
         try {
             if (condition == null) {
@@ -50,6 +50,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
             }
         } catch (GLanguageException e) {
             e.getError().setOuterError(new FormulaUnableToInstantiateInnerError(this));
+            throw e;
         }
         this.parameters = new ArrayList<>();
         parameters.add(condition);

@@ -6,7 +6,7 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 /**
  * Created by michotte on 20/12/2016.
  */
-public abstract class RuleUnableToEvaluateNumericInnerError extends RuleUnableToEvaluateTypeInnerError {
+public class RuleUnableToEvaluateNumericInnerError extends RuleUnableToEvaluateTypeInnerError {
 
     public RuleUnableToEvaluateNumericInnerError(RuleVersion ruleVersion,
                                                  Evaluator evaluator) {

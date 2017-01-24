@@ -39,7 +39,7 @@ public class FormulaCannotInvokeTargetMethodInnerError extends FormulaInnerError
             }
         }
         sb.append(")'");
-        sb.append(" is undefined for object type " + object.getClass().getName());
+        sb.append(" is undefined for object type " + object.getClass().getSimpleName());
         return sb.toString();
     }
 

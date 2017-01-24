@@ -107,7 +107,7 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalDuration#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
 		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "P1Y2M3DT4H5M6.7S");
 		formula.getIntegerValue();
@@ -116,7 +116,7 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalDuration#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
 		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "P1Y2M3DT4H5M6.7S");
 		formula.getNumericValue();
@@ -134,7 +134,7 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalDuration#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
 		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "P1Y2M3DT4H5M6.7S");
 		formula.getBooleanValue();
@@ -143,7 +143,7 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalDuration#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
 		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "P1Y2M3DT4H5M6.7S");
 		formula.getDateValue();
@@ -198,7 +198,7 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalDuration#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "string");
 		assertEquals("string", formula.asText());
 	}
