@@ -3,7 +3,6 @@ package be.groups.glanguage.glanguage.api.entities.formula;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.evaluation.method.*;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.implementations.terminal
         .TerminalFormulaUnableToInitializeNullValueInnerError;
@@ -11,8 +10,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.Transient;
-import java.time.Duration;
-import java.time.LocalDate;
 import java.util.LinkedList;
 
 @Entity
@@ -44,20 +41,6 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
     @JsonIgnore
     @Transient
     @Override
-    protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
-        throw new GLanguageException(new FormulaCannotInvokeEvaluationIntegerMethodInnerError(this, evaluator));
-    }
-
-    @JsonIgnore
-    @Transient
-    @Override
-    protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
-        throw new GLanguageException(new FormulaCannotInvokeEvaluationNumericMethodInnerError(this, evaluator));
-    }
-
-    @JsonIgnore
-    @Transient
-    @Override
     protected String doGetStringValue(Evaluator evaluator) throws GLanguageException {
         if (getConstantValue() != null) {
             return getConstantValue();
@@ -66,27 +49,6 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
                                                                                                   evaluator,
                                                                                                   "doGetStringValue"));
         }
-    }
-
-    @JsonIgnore
-    @Transient
-    @Override
-    protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
-        throw new GLanguageException(new FormulaCannotInvokeEvaluationBooleanMethodInnerError(this, evaluator));
-    }
-
-    @JsonIgnore
-    @Transient
-    @Override
-    protected LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageException {
-        throw new GLanguageException(new FormulaCannotInvokeEvaluationDateMethodInnerError(this, evaluator));
-    }
-
-    @JsonIgnore
-    @Transient
-    @Override
-    protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageException {
-        throw new GLanguageException(new FormulaCannotInvokeEvaluationDurationMethodInnerError(this, evaluator));
     }
 
     @JsonIgnore

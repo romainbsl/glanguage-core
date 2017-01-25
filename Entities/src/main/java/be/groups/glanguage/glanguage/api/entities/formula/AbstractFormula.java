@@ -6,6 +6,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaRet
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.evaluation.method.*;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.*;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -221,7 +222,8 @@ public abstract class AbstractFormula {
         } catch (Exception e) {
             if (e.getCause() != null && e.getCause() instanceof GLanguageException) {
                 GLanguageException gLanguageException = (GLanguageException) e.getCause();
-                gLanguageException.getError().setOuterError(new FormulaUnableToInitializeParametersTypesInnerError(this, evaluator));
+                gLanguageException.getError().setOuterError(new FormulaUnableToInitializeParametersTypesInnerError(this,
+                                                                                                                   evaluator));
                 throw gLanguageException;
             }
             throw e;
@@ -281,16 +283,17 @@ public abstract class AbstractFormula {
         try {
             return doGetIntegerValue(evaluator);
         } catch (GLanguageException e) {
-            e.getError()
-                    .setOuterError(new FormulaUnableToEvaluateIntegerInnerError(this, evaluator) {
-                    });
+            e.getError().setOuterError(new FormulaUnableToEvaluateIntegerInnerError(this, evaluator));
             throw e;
         }
     }
 
     @JsonIgnore
     @Transient
-    protected abstract Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException;
+    protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
+        throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory
+                                             .getEvaluationInteger(this, evaluator));
+    }
 
     @JsonIgnore
     @Transient
@@ -304,16 +307,17 @@ public abstract class AbstractFormula {
         try {
             return doGetNumericValue(evaluator);
         } catch (GLanguageException e) {
-            e.getError()
-                    .setOuterError(new FormulaUnableToEvaluateNumericInnerError(this, evaluator) {
-                    });
+            e.getError().setOuterError(new FormulaUnableToEvaluateNumericInnerError(this, evaluator));
             throw e;
         }
     }
 
     @JsonIgnore
     @Transient
-    protected abstract Double doGetNumericValue(Evaluator evaluator) throws GLanguageException;
+    protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
+        throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory
+                                             .getEvaluationNumeric(this, evaluator));
+    }
 
     @JsonIgnore
     @Transient
@@ -327,16 +331,17 @@ public abstract class AbstractFormula {
         try {
             return doGetStringValue(evaluator);
         } catch (GLanguageException e) {
-            e.getError()
-                    .setOuterError(new FormulaUnableToEvaluateStringInnerError(this, evaluator) {
-                    });
+            e.getError().setOuterError(new FormulaUnableToEvaluateStringInnerError(this, evaluator));
             throw e;
         }
     }
 
     @JsonIgnore
     @Transient
-    protected abstract String doGetStringValue(Evaluator evaluator) throws GLanguageException;
+    protected String doGetStringValue(Evaluator evaluator) throws GLanguageException {
+        throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory
+                                             .getEvaluationString(this, evaluator));
+    }
 
     @JsonIgnore
     @Transient
@@ -350,16 +355,17 @@ public abstract class AbstractFormula {
         try {
             return doGetBooleanValue(evaluator);
         } catch (GLanguageException e) {
-            e.getError()
-                    .setOuterError(new FormulaUnableToEvaluateBooleanInnerError(this, evaluator) {
-                    });
+            e.getError().setOuterError(new FormulaUnableToEvaluateBooleanInnerError(this, evaluator));
             throw e;
         }
     }
 
     @JsonIgnore
     @Transient
-    protected abstract Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException;
+    protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
+        throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory
+                                             .getBoolean(this, evaluator));
+    }
 
     @JsonIgnore
     @Transient
@@ -373,16 +379,17 @@ public abstract class AbstractFormula {
         try {
             return doGetDateValue(evaluator);
         } catch (GLanguageException e) {
-            e.getError()
-                    .setOuterError(new FormulaUnableToEvaluateDateInnerError(this, evaluator) {
-                    });
+            e.getError().setOuterError(new FormulaUnableToEvaluateDateInnerError(this, evaluator));
             throw e;
         }
     }
 
     @JsonIgnore
     @Transient
-    protected abstract LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageException;
+    protected LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageException {
+        throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory
+                                             .getDate(this, evaluator));
+    }
 
     @JsonIgnore
     @Transient
@@ -396,16 +403,17 @@ public abstract class AbstractFormula {
         try {
             return doGetDurationValue(evaluator);
         } catch (GLanguageException e) {
-            e.getError()
-                    .setOuterError(new FormulaUnableToEvaluateDurationInnerError(this, evaluator) {
-                    });
+            e.getError().setOuterError(new FormulaUnableToEvaluateDurationInnerError(this, evaluator));
             throw e;
         }
     }
 
     @JsonIgnore
     @Transient
-    protected abstract Duration doGetDurationValue(Evaluator evaluator) throws GLanguageException;
+    protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageException {
+        throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory
+                                             .getEvaluationDuration(this, evaluator));
+    }
 
     @JsonIgnore
     @Transient
