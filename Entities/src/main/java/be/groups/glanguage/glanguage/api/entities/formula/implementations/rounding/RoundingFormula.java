@@ -15,6 +15,8 @@ import be.groups.glanguage.glanguage.api.error.formula.base.unable.instantiate.F
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Transient;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class RoundingFormula extends AbstractNonTerminalFormula {
@@ -29,7 +31,8 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
         super(description);
 
         try {
-            this.parameters = parameters;
+            this.parameters = new ArrayList<>();
+            this.parameters.addAll(parameters);
             if (parameters.size() < 2) {
                 getParameters().add(getDefaultPrecision(defaultPrecisionFormulaDescription));
             }
@@ -70,10 +73,14 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
                     throw new GLanguageException(new FormulaWrongParameterTypeInnerError(this,
                                                                                          evaluator,
                                                                                          "doGetNumericValue",
+                                                                                         "",
                                                                                          1,
                                                                                          returnType,
-                                                                                         FormulaReturnType.INTEGER,
-                                                                                         FormulaReturnType.NUMERIC));
+                                                                                         Arrays.asList
+                                                                                                 (FormulaReturnType
+                                                                                                          .INTEGER,
+                                                                                                  FormulaReturnType
+                                                                                                          .NUMERIC)));
             }
         } catch (GLanguageException e) {
             e.getError().setOuterError(new FormulaUnableToEvaluateNumericInnerError(this, evaluator));

@@ -19,6 +19,7 @@ import javax.persistence.Transient;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @Entity
 @DiscriminatorValue(FormulaType.Values.I_IF)
@@ -39,11 +40,13 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
             }
             if (!condition.getReturnType(null).equals(FormulaReturnType.BOOLEAN)) {
                 throw new GLanguageException(new FormulaWrongParameterTypeInnerError(this,
-                                                                                       null,
-                                                                                       "constructor",
-                                                                                       2,
-                                                                                       condition.getReturnType(null),
-                                                                                       FormulaReturnType.BOOLEAN));
+                                                                                     null,
+                                                                                     "constructor",
+                                                                                     "condition",
+                                                                                     2,
+                                                                                     condition.getReturnType(null),
+                                                                                     Arrays.asList(FormulaReturnType
+                                                                                                           .BOOLEAN)));
             }
             if (ifStatement == null) {
                 throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 2));
@@ -128,8 +131,11 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
             if (getParameters().size() > 2) {
                 return getParameters().get(2).getDateValue(evaluator);
             } else {
-                throw new GLanguageException(new FormulaUnableToEvaluateDateInnerError(this, evaluator, "Else " +
-                        "statement needed, no default value of type DATE"));
+                throw new GLanguageException(new FormulaUnableToEvaluateDateInnerError(this,
+                                                                                       evaluator,
+                                                                                       "Else " + "statement needed, "
+                                                                                               + "no default value of" +
+                                                                                               " " + "type DATE"));
             }
         }
     }

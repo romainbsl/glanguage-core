@@ -10,6 +10,8 @@ import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -55,7 +57,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter));
 						
 		assertTrue(formula.isValid());
 	}
@@ -71,7 +73,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter));
 						
 		assertTrue(formula.isValid());
 	}
@@ -87,7 +89,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter));
 						
 		assertFalse(formula.isValid());
 	}
@@ -107,7 +109,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter, precision));
 						
 		assertTrue(formula.isValid());
 	}
@@ -127,7 +129,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter, precision));
 						
 		assertTrue(formula.isValid());
 	}
@@ -147,7 +149,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter, precision));
 						
 		assertTrue(formula.isValid());
 	}
@@ -163,7 +165,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter));
 						
 		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
 	}
@@ -179,7 +181,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter));
 						
 		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
@@ -195,7 +197,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter));
 						
 		assertNull(formula.getReturnType(null));
 	}
@@ -215,7 +217,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter, precision));
 						
 		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
 	}
@@ -235,7 +237,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter, precision));
 						
 		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
@@ -255,7 +257,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter, precision));
 						
 		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
@@ -273,7 +275,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.getNumericValue(null)).thenReturn(10.0);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		assertEquals(Integer.valueOf(110), formula.getIntegerValue(null));
 	}
@@ -291,7 +293,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue(null));
 	}
@@ -309,7 +311,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.getNumericValue(null)).thenReturn(10.0);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		assertEquals(Double.valueOf(110), formula.getNumericValue(null));
 	}
@@ -327,7 +329,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		assertEquals(Double.valueOf(1.56), formula.getNumericValue(null));
 	}
@@ -345,7 +347,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		formula.getStringValue(null);
 	}
@@ -363,7 +365,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		formula.getBooleanValue(null);
 	}
@@ -381,7 +383,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		formula.getDateValue(null);
 	}
@@ -399,7 +401,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		formula.getDurationValue(null);
 	}
@@ -427,7 +429,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.asText()).thenReturn("0.01");
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		assertEquals("floor(some_rule; 0.01)", formula.asText());
 	}

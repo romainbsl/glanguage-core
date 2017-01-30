@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,15 +50,14 @@ public abstract class ExtremumFormula extends AbstractNonTerminalFormula {
                         this.parameters.add(p);
                     } else {
                         throw new GLanguageException(new FormulaWrongParameterTypeInnerError(this,
-                                                                                               null,
-                                                                                               "constructor",
-                                                                                               parameters
-                                                                                                       .indexOf(p) + 1,
-                                                                                               p.getReturnType(null),
-                                                                                               FormulaReturnType
-                                                                                                       .INTEGER,
-                                                                                               FormulaReturnType
-                                                                                                       .NUMERIC));
+                                                                                             null,
+                                                                                             "constructor",
+                                                                                             "",
+                                                                                             parameters.indexOf(p) + 1,
+                                                                                             p.getReturnType(null),
+                                                                                             Arrays.asList(
+                                                                                                     FormulaReturnType.INTEGER,
+                                                                                                     FormulaReturnType.NUMERIC)));
                     }
                 } catch (GLanguageException e) {
                     throw new RuntimeException(e);
