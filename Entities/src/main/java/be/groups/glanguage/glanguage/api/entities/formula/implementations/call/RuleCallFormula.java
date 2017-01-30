@@ -42,11 +42,11 @@ public abstract class RuleCallFormula extends CallFormula {
     public FormulaReturnType getReturnType(Evaluator evaluator) throws GLanguageException {
         try {
             getReferencedRule(evaluator);
+            return referencedRule.getReturnType(evaluator);
         } catch (GLanguageException e) {
             e.getError().setOuterError(new FormulaReturnTypeInnerError(this, evaluator));
             throw e;
         }
-        return referencedRule.getReturnType(evaluator);
     }
 
     @JsonIgnore

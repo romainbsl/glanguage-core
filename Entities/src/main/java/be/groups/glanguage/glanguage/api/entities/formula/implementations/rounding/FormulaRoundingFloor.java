@@ -11,6 +11,7 @@ import be.groups.glanguage.glanguage.api.error.formula.base.unable.instantiate.F
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_FLOOR)
@@ -22,9 +23,8 @@ public class FormulaRoundingFloor extends RoundingFormula {
 
     public FormulaRoundingFloor(FormulaDescription description,
                                 FormulaDescription precisionFormulaDescription,
-                                AbstractFormula parameter,
-                                AbstractFormula precision) throws GLanguageException {
-        super(description, precisionFormulaDescription, parameter, precision);
+                                List<AbstractFormula> parameters) throws GLanguageException {
+        super(description, precisionFormulaDescription, parameters);
     }
 
     @Override

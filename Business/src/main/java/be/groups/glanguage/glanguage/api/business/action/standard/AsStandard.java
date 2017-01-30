@@ -461,35 +461,30 @@ public class AsStandard implements SemanticalAction {
     @Override
     public AbstractFormula standardFunction(FormulaType formulaDescriptionId, LinkedList<AbstractFormula> parameters) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
-        FormulaDescription precisionFormulaDescription = FormulaDescriptionFactory
+        FormulaDescription defaultPrecisionFormulaDescription = FormulaDescriptionFactory
                 .getDescription(FormulaType.TERMINAL_INTEGER);
         try {
             switch (formulaDescriptionId) {
                 case F_CEIL:
                     return new FormulaRoundingCeil(formulaDescription,
-                                                   precisionFormulaDescription,
-                                                   parameters.get(0),
-                                                   (parameters.size() > 1 ? parameters.get(1) : null));
+                                                   defaultPrecisionFormulaDescription,
+                                                   parameters);
                 case F_FLOOR:
                     return new FormulaRoundingFloor(formulaDescription,
-                                                    precisionFormulaDescription,
-                                                    parameters.get(0),
-                                                    (parameters.size() > 1 ? parameters.get(1) : null));
+                                                    defaultPrecisionFormulaDescription,
+                                                    parameters);
                 case F_ROUNDED:
                     return new FormulaRoundingArithmetic(formulaDescription,
-                                                         precisionFormulaDescription,
-                                                         parameters.get(0),
-                                                         (parameters.size() > 1 ? parameters.get(1) : null));
+                                                         defaultPrecisionFormulaDescription,
+                                                         parameters);
                 case F_TRUNC:
                     return new FormulaRoundingTrunc(formulaDescription,
-                                                    precisionFormulaDescription,
-                                                    parameters.get(0),
-                                                    (parameters.size() > 1 ? parameters.get(1) : null));
+                                                    defaultPrecisionFormulaDescription,
+                                                    parameters);
                 case F_BANKERS_ROUNDED:
                     return new FormulaRoundingBankers(formulaDescription,
-                                                      precisionFormulaDescription,
-                                                      parameters.get(0),
-                                                      (parameters.size() > 1 ? parameters.get(1) : null));
+                                                      defaultPrecisionFormulaDescription,
+                                                      parameters);
                 case F_FORMAT_DATE:
                     return new FormulaFormatDate(formulaDescription, parameters);
                 case F_FORMAT_INTEGER:

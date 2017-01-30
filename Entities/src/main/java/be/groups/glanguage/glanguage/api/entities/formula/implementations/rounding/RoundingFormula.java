@@ -15,7 +15,7 @@ import be.groups.glanguage.glanguage.api.error.formula.base.unable.instantiate.F
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Transient;
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class RoundingFormula extends AbstractNonTerminalFormula {
 
@@ -24,21 +24,17 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
     }
 
     public RoundingFormula(FormulaDescription description,
-                           FormulaDescription precisionFormulaDescription,
-                           AbstractFormula parameter,
-                           AbstractFormula precision) throws GLanguageException {
+                           FormulaDescription defaultPrecisionFormulaDescription,
+                           List<AbstractFormula> parameters) throws GLanguageException {
         super(description);
 
         try {
-            this.parameters = new ArrayList<>();
-            parameters.add(parameter);
-            if (precision == null) {
-                setPrecision(getDefaultPrecision(precisionFormulaDescription));
-            } else {
-                setPrecision(precision);
+            this.parameters = parameters;
+            if (parameters.size() < 2) {
+                getParameters().add(getDefaultPrecision(defaultPrecisionFormulaDescription));
             }
         } catch (GLanguageException e) {
-            e.getError().setOuterError(new FormulaUnableToInstantiateInnerError(this, "Unable to get precision"));
+            e.getError().setOuterError(new FormulaUnableToInstantiateInnerError(this, null));
             throw e;
         }
     }
@@ -74,7 +70,7 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
                     throw new GLanguageException(new FormulaWrongParameterTypeInnerError(this,
                                                                                          evaluator,
                                                                                          "doGetNumericValue",
-                                                                                         0,
+                                                                                         1,
                                                                                          returnType,
                                                                                          FormulaReturnType.INTEGER,
                                                                                          FormulaReturnType.NUMERIC));
@@ -88,10 +84,6 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
     public abstract RoundingType getRoundingType();
 
     public abstract AbstractFormula getDefaultPrecision(FormulaDescription description) throws GLanguageException;
-
-    private void setPrecision(AbstractFormula precision) {
-        this.parameters.add(precision);
-    }
 
     @Override
     public String asText() {

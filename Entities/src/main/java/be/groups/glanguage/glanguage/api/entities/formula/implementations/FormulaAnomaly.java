@@ -9,7 +9,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterListInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaWrongNumberOfParametersInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaWrongParameterNumberInnerError;
 
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaWrongParameterTypeInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.instantiate.*;
@@ -21,6 +21,7 @@ import javax.persistence.Transient;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -38,12 +39,11 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
                 throw new GLanguageException(new FormulaNullParameterListInnerError(this, null, "constructor"));
             }
             if (!(parameters.size() == 1 || parameters.size() == 2)) {
-                throw new GLanguageException(new FormulaWrongNumberOfParametersInnerError(this,
-                                                                                          null,
-                                                                                          "constructor",
-                                                                                          parameters.size(),
-                                                                                          1,
-                                                                                          2));
+                throw new GLanguageException(new FormulaWrongParameterNumberInnerError(this,
+                                                                                       null,
+                                                                                       "constructor",
+                                                                                       parameters.size(),
+                                                                                       Arrays.asList(1, 2)));
             }
             if (parameters.get(0) == null) {
                 throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
@@ -56,20 +56,25 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
                 throw new GLanguageException(new FormulaWrongParameterTypeInnerError(this,
                                                                                      null,
                                                                                      "constructor",
+                                                                                     "code",
                                                                                      1,
                                                                                      parameters.get(0)
                                                                                              .getReturnType(null),
-                                                                                     FormulaReturnType.INTEGER,
-                                                                                     FormulaReturnType.STRING));
+                                                                                     Arrays.asList(FormulaReturnType
+                                                                                                           .INTEGER,
+                                                                                                   FormulaReturnType
+                                                                                                           .STRING)));
             }
             if (parameters.size() > 1 && !parameters.get(1).getReturnType(null).equals(FormulaReturnType.STRING)) {
                 throw new GLanguageException(new FormulaWrongParameterTypeInnerError(this,
                                                                                      null,
                                                                                      "constructor",
+                                                                                     "message",
                                                                                      2,
                                                                                      parameters.get(0)
                                                                                              .getReturnType(null),
-                                                                                     FormulaReturnType.STRING));
+                                                                                     Arrays.asList(FormulaReturnType
+                                                                                                           .STRING)));
             }
         } catch (GLanguageException e) {
             e.getError().setOuterError(new FormulaUnableToInstantiateInnerError(this));
