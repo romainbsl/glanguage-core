@@ -1,12 +1,12 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
-import java.util.ArrayList;
-
-import javax.persistence.Entity;
-
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+
+import javax.persistence.Entity;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Entity
 public abstract class BinaryFormula extends AbstractNonTerminalFormula {
@@ -16,7 +16,7 @@ public abstract class BinaryFormula extends AbstractNonTerminalFormula {
 	}
 	
 	public BinaryFormula(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) {
-		super(description);
+		super(description, Arrays.asList(child1, child2));
 		
 		if (child1 == null) {
 			throw new IllegalArgumentException("child1 must be non-null");

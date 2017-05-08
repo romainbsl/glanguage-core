@@ -1,13 +1,12 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.duration;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Entity;
-
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+
+import javax.persistence.Entity;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public abstract class DurationFormula extends AbstractNonTerminalFormula {
@@ -19,7 +18,7 @@ public abstract class DurationFormula extends AbstractNonTerminalFormula {
 	}
 	
 	public DurationFormula(FormulaDescription description, List<AbstractFormula> parameters) {
-		super(description);
+		super(description, parameters);
 		
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");

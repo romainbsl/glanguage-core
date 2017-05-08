@@ -7,14 +7,14 @@ package be.groups.glanguage.glanguage.api.entities.formula.description;
  */
 public enum FormulaReturnType {
 
-	UNDEFINED, INTEGER, NUMERIC, STRING, BOOLEAN, DATE, DURATION, PROCEDURE;
+	UNDEFINED, INTEGER, NUMERIC, STRING, BOOLEAN, DATE, DURATION, LIST, PROCEDURE;
 
 	/**
-	 * Translate a specified returnTypeId into a ReturnType object
+	 * Translate a specified returnTypeId into a {@link FormulaReturnType} enum
 	 * 
 	 * @param returnTypeId
 	 *            the id that has to be translated into a ReturnType
-	 * @return the ReturnType which ordinal number equals the specified
+	 * @return the {@link FormulaReturnType} which ordinal number equals the specified
 	 *         returnTypeId if it exists, null otherwise
 	 */
 	public static FormulaReturnType translate(Integer returnTypeId) {

@@ -14,6 +14,7 @@ import javax.persistence.Transient;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @Entity
 @DiscriminatorValue(FormulaType.Values.I_IF)
@@ -25,7 +26,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
 	
 	public FormulaIfInstruction(FormulaDescription description, AbstractFormula condition, AbstractFormula ifStatement,
 			AbstractFormula elseStatement) {
-		super(description);
+		super(description, Arrays.asList(condition, ifStatement, elseStatement));
 		
 		if (condition == null) {
 			throw new IllegalArgumentException("condition must be non-null");

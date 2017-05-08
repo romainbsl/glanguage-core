@@ -1,6 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.format;
 
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
@@ -18,8 +19,8 @@ public abstract class FormatFormula extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	protected FormatFormula(FormulaDescription description) {
-		super(description);
+	protected FormatFormula(FormulaDescription description, List<AbstractFormula> parameters) {
+		super(description, parameters);
 	}
 	
 	@JsonIgnore

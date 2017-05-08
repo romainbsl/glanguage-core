@@ -128,7 +128,7 @@ public class FormatDouble extends FormatInteger {
 		value = ((long) (Math.round(value * Math.pow(10, decimals)))) / Math.pow(10, decimals);
 		
 		// Trunc value before x
-		value = value - ((long) (value / Math.pow(10, width - decimals)) * Math.pow(10, width - decimals));
+		//value = value - ((long) (value / Math.pow(10, width - decimals)) * Math.pow(10, width - decimals));
 		
 		String Result = df.format(Math.abs(value));
 		

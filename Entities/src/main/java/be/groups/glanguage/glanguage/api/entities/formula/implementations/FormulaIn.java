@@ -24,7 +24,7 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 	}
 	
 	public FormulaIn(FormulaDescription description, AbstractFormula element, List<AbstractFormula> inList) {
-		super(description);
+		super(description, getParametersAsList(element, inList));
 		
 		if (element == null) {
 			throw new IllegalArgumentException("element must be non-null");
@@ -35,6 +35,13 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 		this.parameters = new ArrayList<>();
 		this.parameters.add(element);
 		this.parameters.addAll(inList);
+	}
+
+	private static List<AbstractFormula> getParametersAsList(AbstractFormula element, List<AbstractFormula> inList) {
+		List<AbstractFormula> list = new ArrayList<>();
+		list.add(element);
+		list.addAll(inList);
+		return list;
 	}
 
 	@JsonIgnore
@@ -88,10 +95,11 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 	
 	@Transient
 	@Override
-	public boolean isValid() {
-		FormulaReturnType elementReturnType = parameters.get(0).getReturnType(null);
+	public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) {
+		FormulaReturnType elementReturnType = parameters.get(0).getReturnType(evaluator);
 		List<FormulaReturnType> listReturnTypes =
-				parameters.subList(1, parameters.size()).stream().map(p -> p.getReturnType(null)).distinct().collect(Collectors.toList());
+				parameters.subList(1, parameters.size()).stream().map(p -> p.getReturnType(evaluator)).distinct().collect
+						(Collectors.toList());
 				
 		if (listReturnTypes.size() == 1) {
 			return elementReturnType.equals(listReturnTypes.get(0));

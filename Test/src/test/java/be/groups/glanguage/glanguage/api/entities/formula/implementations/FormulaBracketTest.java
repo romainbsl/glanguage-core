@@ -99,7 +99,7 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 		
 		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
 		
-		assertTrue(formula.isValid());
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**

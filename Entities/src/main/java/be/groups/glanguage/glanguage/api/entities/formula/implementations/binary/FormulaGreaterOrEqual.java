@@ -48,7 +48,11 @@ public class FormulaGreaterOrEqual extends BinaryFormula {
 		case NUMERIC:
 			return getParameters().get(0).getNumericValue(evaluator) >= getParameters().get(1).getNumericValue(evaluator);
 		case STRING:
-			return getParameters().get(0).getStringValue(evaluator).compareTo(getParameters().get(1).getStringValue(evaluator)) >= 0;
+			return getParameters().get(0).getStringValue(evaluator).compareTo(getParameters().get(1).getStringValue
+					(evaluator)) >= 0;
+		case DURATION:
+			return  getParameters().get(0).getDurationValue(evaluator).compareTo(getParameters().get(1)
+																						 .getDurationValue(evaluator)) >= 0;
 		default:
 			throw new IllegalArgumentException(
 					"Cannot compare unknown values in " + this.getClass().getName() + " object");

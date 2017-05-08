@@ -12,10 +12,8 @@ import org.hibernate.annotations.DiscriminatorOptions;
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Common implementation of a formula <br>
@@ -165,12 +163,8 @@ public abstract class AbstractFormula {
 
     @JsonIgnore
     @Transient
-    public boolean isValid() {
-        if (parametersTypes == null) {
-            initParametersTypes();
-        }
-
-        return description.isValid(parametersTypes);
+    public boolean isValid(Evaluator evaluator) {
+        return description.isValid(parameters, evaluator);
     }
 
     @JsonIgnore
@@ -182,21 +176,7 @@ public abstract class AbstractFormula {
     @JsonIgnore
     @Transient
     public FormulaReturnType getReturnType(Evaluator evaluator) {
-        if (parametersTypes == null) {
-            initParametersTypes(evaluator);
-        }
-
-        return description.getReturnType(parametersTypes);
-    }
-
-    private void initParametersTypes() {
-        initParametersTypes(null);
-    }
-
-    private void initParametersTypes(Evaluator evaluator) {
-        parametersTypes = parameters == null ? Arrays.asList() : parameters.stream()
-                .map(p -> p.getReturnType(evaluator))
-                .collect(Collectors.toList());
+        return description.getReturnType(parameters, evaluator);
     }
 
     /**

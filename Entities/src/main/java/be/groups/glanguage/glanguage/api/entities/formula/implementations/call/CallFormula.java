@@ -16,7 +16,7 @@ public abstract class CallFormula extends AbstractNonTerminalFormula {
 	}
 	
 	public CallFormula(FormulaDescription description) {
-		super(description);
+		super(description, null);
 	}
 
 	protected Object callFunctionAny(Object anObject, String aMethodName, AbstractFormula[] someMethodParameters,

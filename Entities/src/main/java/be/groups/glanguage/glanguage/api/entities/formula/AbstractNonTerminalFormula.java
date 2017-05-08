@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public abstract class AbstractNonTerminalFormula extends AbstractFormula {
@@ -16,10 +17,18 @@ public abstract class AbstractNonTerminalFormula extends AbstractFormula {
 		super();
 	}
 	
-	protected AbstractNonTerminalFormula(FormulaDescription description) {
+	protected AbstractNonTerminalFormula(FormulaDescription description, List<AbstractFormula> parameters) {
 		super(description);
+		// FIXME pass an evaluator with the whole plan in it, initialized by parser
+		isValid(parameters, null);
 	}
-	
+
+	@JsonIgnore
+	@Transient
+	public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) {
+		return this.getDescription().isValid(parameters, evaluator);
+	}
+
 	@JsonIgnore
 	@Transient
 	@Override
@@ -68,5 +77,5 @@ public abstract class AbstractNonTerminalFormula extends AbstractFormula {
 	public boolean isTerminal() {
 		return false;
 	}
-	
+
 }

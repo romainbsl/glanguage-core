@@ -22,7 +22,7 @@ public class FormulaStringLength extends AbstractNonTerminalFormula {
     }
 
     public FormulaStringLength(FormulaDescription description, List<AbstractFormula> parameters) {
-        super(description);
+        super(description, parameters);
 
         if (parameters == null) {
             throw new IllegalArgumentException("parameters must be non-null");

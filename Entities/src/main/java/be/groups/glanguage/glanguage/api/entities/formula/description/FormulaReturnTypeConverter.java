@@ -26,8 +26,10 @@ public class FormulaReturnTypeConverter implements AttributeConverter<FormulaRet
 				return 5;
 			case DURATION:
 				return 6;
-			case PROCEDURE:
+			case LIST:
 				return 7;
+			case PROCEDURE:
+				return 8;
 			default:
 				throw new IllegalArgumentException("Unknown attribute " + attribute);
 			}
@@ -55,6 +57,8 @@ public class FormulaReturnTypeConverter implements AttributeConverter<FormulaRet
 			case 6:
 				return FormulaReturnType.DURATION;
 			case 7:
+				return FormulaReturnType.LIST;
+			case 8:
 				return FormulaReturnType.PROCEDURE;
 			default:
 				throw new IllegalArgumentException("Unknown dbData " + dbData);

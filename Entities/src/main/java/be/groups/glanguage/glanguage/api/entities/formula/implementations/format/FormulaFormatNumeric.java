@@ -24,7 +24,7 @@ public class FormulaFormatNumeric extends FormatFormula {
     }
 
     public FormulaFormatNumeric(FormulaDescription description, List<AbstractFormula> parameters) {
-        super(description);
+        super(description, parameters);
 
         if (parameters == null) {
             throw new IllegalArgumentException("parameters must be non-null");

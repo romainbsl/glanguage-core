@@ -1,6 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.group;
 
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
@@ -24,7 +25,7 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
     }
 
     public GroupFormula(FormulaDescription description, String groupId) {
-        super(description);
+        super(description, null);
         if (groupId == null || groupId.isEmpty()) {
             throw new IllegalArgumentException("groupId must be a non-null non-empty string");
         }
@@ -77,10 +78,10 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
 
     @Transient
     @Override
-    public boolean isValid() {
+    public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) {
         if (groupRule != null) {
             Set<FormulaReturnType> returnTypes = groupRule.getGroupItems().stream()
-                    .map(i -> i.getReferencedRule(null).getReturnType(null)).distinct().collect(Collectors.toSet());
+                    .map(i -> i.getReferencedRule(evaluator).getReturnType(evaluator)).distinct().collect(Collectors.toSet());
 
             if (returnTypes.stream()
                     .allMatch(e -> Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC).contains(e))) {

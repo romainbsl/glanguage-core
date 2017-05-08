@@ -22,7 +22,7 @@ public class FormulaSubString extends AbstractNonTerminalFormula {
     }
 
     public FormulaSubString(FormulaDescription description, List<AbstractFormula> parameters) {
-        super(description);
+        super(description, parameters);
 
         if (parameters == null) {
             throw new IllegalArgumentException("parameters must be non-null");
@@ -41,7 +41,7 @@ public class FormulaSubString extends AbstractNonTerminalFormula {
 
         str = getParameters().get(0).getStringValue(evaluator);
         beginIndex = getParameters().get(1).getIntegerValue(evaluator) - 1;
-        endIndex = getParameters().get(2).getIntegerValue(evaluator) - 1;
+        endIndex = getParameters().size() > 2 ? getParameters().get(2).getIntegerValue(evaluator) - 1 : str.length() - 1;
 
         if ((0 <= beginIndex) && (beginIndex <= endIndex) && (endIndex < str.length())) {
             return str.substring(beginIndex, endIndex + 1);
