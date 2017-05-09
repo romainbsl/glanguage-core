@@ -1,9 +1,9 @@
-package be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate;
+package be.groups.glanguage.glanguage.api.error.utils;
 
 /**
- * Created by boissero on 5/9/2017.
+ * Created by michotte on 25/01/2017.
  */
-public enum FormulaMethod {
+public enum EvaluationMethod {
     VALUE("getValue"),
     INTEGER("getIntegerValue"),
     NUMERIC("getNumericValue"),
@@ -14,7 +14,7 @@ public enum FormulaMethod {
 
     private final String name;
 
-    FormulaMethod(String name) {
+    EvaluationMethod(String name) {
         this.name = name;
     }
 
