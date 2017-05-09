@@ -7,6 +7,7 @@ public class Application extends JerseyApplication {
 	public Application() {
 		super();
 		packages("be.groups.glanguage.glanguage.api.ws");
+		packages("be.groups.errorframework.webapplication.provider");
 	}
 	
 }

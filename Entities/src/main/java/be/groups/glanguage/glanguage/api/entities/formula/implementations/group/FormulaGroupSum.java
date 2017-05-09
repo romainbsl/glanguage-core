@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDes
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -20,14 +21,14 @@ public class FormulaGroupSum extends GroupFormula {
 		super();
 	}
 
-	public FormulaGroupSum(FormulaDescription description, String groupId) {
+	public FormulaGroupSum(FormulaDescription description, String groupId) throws GLanguageException {
 		super(description, groupId);
 	}
 	
 	@JsonIgnore
 	@Transient
 	@Override
-	public Double getNumericValue(Evaluator evaluator) {
+	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
 		if (getGroupRule() == null) {
 			throw new IllegalAccessError("Cannot invoke getRulesInGroup() method on " + this.getClass().getName()
 					+ " object while referenced rule (version id : " + getConstantValue()

@@ -1,17 +1,17 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
-
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaPrimitive}
@@ -46,8 +46,8 @@ public class FormulaPrimitiveTest {
 	/**
 	 * Tests {@link FormulaPrimitive#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetIntegerValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetIntegerValue() throws GLanguageException {
 		String primitive = "call";
 		
 		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
@@ -58,8 +58,8 @@ public class FormulaPrimitiveTest {
 	/**
 	 * Tests {@link FormulaPrimitive#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetNumericValue() throws GLanguageException {
 		String primitive = "call";
 		
 		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
@@ -70,8 +70,8 @@ public class FormulaPrimitiveTest {
 	/**
 	 * Tests {@link FormulaPrimitive#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetStringValue() throws GLanguageException {
 		String primitive = "call";
 		
 		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
@@ -82,8 +82,8 @@ public class FormulaPrimitiveTest {
 	/**
 	 * Tests {@link FormulaPrimitive#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetBooleanValue() throws GLanguageException {
 		String primitive = "call";
 		
 		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
@@ -94,8 +94,8 @@ public class FormulaPrimitiveTest {
 	/**
 	 * Tests {@link FormulaPrimitive#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetDateValue() throws GLanguageException {
 		String primitive = "call";
 		
 		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
@@ -106,8 +106,8 @@ public class FormulaPrimitiveTest {
 	/**
 	 * Tests {@link FormulaPrimitive#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetDurationValue() throws GLanguageException {
 		String primitive = "call";
 		
 		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
@@ -119,7 +119,7 @@ public class FormulaPrimitiveTest {
 	 * Tests {@link FormulaPrimitive#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		String primitive = "call";
 		
 		AbstractFormula calls3Param1 = mock(AbstractFormula.class);

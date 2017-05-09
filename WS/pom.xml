@@ -28,6 +28,11 @@
 			<artifactId>glanguage-api-business</artifactId>
 			<version>0.0.2</version>
 		</dependency>
+		<dependency>
+			<groupId>be.groups.error-framework</groupId>
+			<artifactId>error-framework-web</artifactId>
+			<version>0.5.3</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

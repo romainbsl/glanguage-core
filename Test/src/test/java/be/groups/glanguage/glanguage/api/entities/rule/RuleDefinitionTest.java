@@ -1,11 +1,13 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameterId;
+import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,24 +16,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-
-import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
-import be.groups.common.persistence.util.TransactionHelper;
-import be.groups.common.test.utils.Environment;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameterId;
-import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
-import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
-import be.groups.marmota.persistence.DatabaseIdentifier;
-import be.groups.marmota.persistence.JpaUtil;
-import be.groups.marmota.test.TNSNames;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link RuleDefinition}
@@ -85,7 +72,7 @@ public class RuleDefinitionTest extends BaseDatabaseTest {
 	}
 
 	/**
-	 * Tests {@link RuleDefinition#getVersion(LocalDateTime, LocalDateTime)}
+	 * Tests {@link RuleDefinition#getVersion(LocalDate, LocalDateTime)}
 	 * when no rule version is matching, neither are its rule sets
 	 */
 	@Test
@@ -114,7 +101,7 @@ public class RuleDefinitionTest extends BaseDatabaseTest {
 	}
 
 	/**
-	 * Tests {@link RuleDefinition#getVersion(LocalDateTime, LocalDateTime)}
+	 * Tests {@link RuleDefinition#getVersion(LocalDate, LocalDateTime)}
 	 * when a rule version is matching but not its rule sets
 	 */
 	@Test
@@ -143,7 +130,7 @@ public class RuleDefinitionTest extends BaseDatabaseTest {
 	}
 
 	/**
-	 * Tests {@link RuleDefinition#getVersion(LocalDateTime, LocalDateTime)}
+	 * Tests {@link RuleDefinition#getVersion(LocalDate, LocalDateTime)}
 	 * when no rule version is matching, but their rule sets are
 	 */
 	@Test
@@ -172,7 +159,7 @@ public class RuleDefinitionTest extends BaseDatabaseTest {
 	}
 
 	/**
-	 * Tests {@link RuleDefinition#getVersion(LocalDateTime, LocalDateTime)}
+	 * Tests {@link RuleDefinition#getVersion(LocalDate, LocalDateTime)}
 	 * when a rule version and its rule sets are matching
 	 */
 	@Test

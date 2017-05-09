@@ -7,6 +7,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -28,14 +29,14 @@ public class FormulaNot extends UnaryFormula {
 		super();
 	}
 
-	public FormulaNot(FormulaDescription description, AbstractFormula child) {
+	public FormulaNot(FormulaDescription description, AbstractFormula child) throws GLanguageException {
 		super(description, child);
 	}
 
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue(Evaluator evaluator) {
+	public Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
 		return !getParameters().get(0).getBooleanValue(evaluator);
 	}
 

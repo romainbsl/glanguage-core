@@ -3,6 +3,7 @@ package be.groups.glanguage.glanguage.api.business.plan;
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.universe.Universe;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ public class PlanTest extends BaseDatabaseTest {
      * Tests {@link Plan#evaluate()}}
      */
     @Test
-    public void testEvaluate() {
+    public void testEvaluate() throws GLanguageException {
         LocalDate effectivityDate = LocalDate.now();
         Plan plan = Universe.getPlan(-900003, effectivityDate);
         plan.initEvaluation();
@@ -54,7 +55,7 @@ public class PlanTest extends BaseDatabaseTest {
      * Tests {@link Plan#evaluateWithContext(Object, String, boolean)}
      */
     @Test
-    public void testEvaluateRule900002() {
+    public void testEvaluateRule900002() throws GLanguageException {
         LocalDate effectivityDate = LocalDate.now();
         Plan plan = Universe.getPlan(-900003, effectivityDate);
         plan.initEvaluation();
@@ -82,7 +83,7 @@ public class PlanTest extends BaseDatabaseTest {
      * Tests {@link Plan#evaluateWithContext(Object, String, boolean)}
      */
     @Test
-    public void testEvaluateRule900003() {
+    public void testEvaluateRule900003() throws GLanguageException {
         LocalDate effectivityDate = LocalDate.now();
         Plan plan = Universe.getPlan(-900003, effectivityDate);
         plan.initEvaluation();

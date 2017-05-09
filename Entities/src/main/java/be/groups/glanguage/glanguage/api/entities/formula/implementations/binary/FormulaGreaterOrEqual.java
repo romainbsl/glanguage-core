@@ -8,6 +8,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -28,14 +29,14 @@ public class FormulaGreaterOrEqual extends BinaryFormula {
 		super();
 	}
 
-	public FormulaGreaterOrEqual(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) {
+	public FormulaGreaterOrEqual(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
 		super(description, child1, child2);
 	}
 
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue(Evaluator evaluator) {
+	protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
 		switch (parameters.get(0).getReturnType(evaluator)) {
 		case DATE:
 			return !getParameters().get(0).getDateValue(evaluator).isBefore(getParameters().get(1).getDateValue(evaluator));

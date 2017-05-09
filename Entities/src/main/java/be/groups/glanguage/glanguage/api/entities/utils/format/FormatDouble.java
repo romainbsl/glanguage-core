@@ -1,4 +1,4 @@
-package be.groups.glanguage.glanguage.api.entities.utils;
+package be.groups.glanguage.glanguage.api.entities.utils.format;
 
 
 import java.math.RoundingMode;

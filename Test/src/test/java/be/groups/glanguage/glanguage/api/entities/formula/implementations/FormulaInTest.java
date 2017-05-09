@@ -3,6 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -45,8 +46,8 @@ public class FormulaInTest {
 	/**
 	 * Tests {@link FormulaIn#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetIntegerValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetIntegerValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(1);
@@ -71,8 +72,8 @@ public class FormulaInTest {
 	/**
 	 * Tests {@link FormulaIn#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetNumericValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(1);
@@ -97,8 +98,8 @@ public class FormulaInTest {
 	/**
 	 * Tests {@link FormulaIn#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(1);
@@ -124,7 +125,7 @@ public class FormulaInTest {
 	 * Tests {@link FormulaIn#getBooleanValue()} when parameter matches elements list
 	 */
 	@Test
-	public void testGetBooleanValueMatching() {
+	public void testGetBooleanValueMatching() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(1);
@@ -150,7 +151,7 @@ public class FormulaInTest {
 	 * Tests {@link FormulaIn#getBooleanValue()} when parameter doesn't match elements list
 	 */
 	@Test
-	public void testGetBooleanValueNotMatching() {
+	public void testGetBooleanValueNotMatching() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(4);
@@ -176,7 +177,7 @@ public class FormulaInTest {
 	 * Tests {@link FormulaIn#getBooleanValue()} when list is empty
 	 */
 	@Test
-	public void testGetBooleanValueListEmpty() {
+	public void testGetBooleanValueListEmpty() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(1);
@@ -189,8 +190,8 @@ public class FormulaInTest {
 	/**
 	 * Tests {@link FormulaIn#getDateValue()} with string parameter
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(1);
@@ -215,8 +216,8 @@ public class FormulaInTest {
 	/**
 	 * Tests {@link FormulaIn#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(1);
@@ -242,7 +243,7 @@ public class FormulaInTest {
 	 * Tests {@link FormulaIn#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.asText()).thenReturn("1");
 		

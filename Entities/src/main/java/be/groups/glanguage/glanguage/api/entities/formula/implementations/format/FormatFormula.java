@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
@@ -19,7 +20,7 @@ public abstract class FormatFormula extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	protected FormatFormula(FormulaDescription description, List<AbstractFormula> parameters) {
+	protected FormatFormula(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
 		super(description, parameters);
 	}
 	

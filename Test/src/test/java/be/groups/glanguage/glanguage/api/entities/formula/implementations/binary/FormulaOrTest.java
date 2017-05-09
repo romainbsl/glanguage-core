@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -48,7 +49,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidBothBoolean() {
+	public void testIsValidBothBoolean() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		
@@ -65,7 +66,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidFirstNotBoolean() {
+	public void testIsValidFirstNotBoolean() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -82,7 +83,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidSecondNotBoolean() {
+	public void testIsValidSecondNotBoolean() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		
@@ -99,7 +100,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidBothNotBoolean() {
+	public void testIsValidBothNotBoolean() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -116,7 +117,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeBothBoolean() {
+	public void testGetReturnTypeBothBoolean() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		
@@ -133,7 +134,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeFirstNotBoolean() {
+	public void testGetReturnTypeFirstNotBoolean() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -150,7 +151,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeSecondNotBoolean() {
+	public void testGetReturnTypeSecondNotBoolean() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		
@@ -167,7 +168,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeBothNotBoolean() {
+	public void testGetReturnTypeBothNotBoolean() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -182,8 +183,8 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaOr#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetIntegerValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetIntegerValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand1.getBooleanValue(null)).thenReturn(false);
@@ -200,8 +201,8 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaOr#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetNumericValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand1.getBooleanValue(null)).thenReturn(false);
@@ -218,8 +219,8 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaOr#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand1.getBooleanValue(null)).thenReturn(false);
@@ -237,7 +238,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaOr#getBooleanValue()} when parameters exist and both true
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothTrue() {
+	public void testGetBooleanValueParametersExistBothTrue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand1.getBooleanValue(null)).thenReturn(true);
@@ -255,7 +256,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaOr#getBooleanValue()} when parameters exist and left is false
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistLeftFalse() {
+	public void testGetBooleanValueParametersExistLeftFalse() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand1.getBooleanValue(null)).thenReturn(false);
@@ -273,7 +274,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaOr#getBooleanValue()} when parameters exist and right is false
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistRightFalse() {
+	public void testGetBooleanValueParametersExistRightFalse() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand1.getBooleanValue(null)).thenReturn(true);
@@ -291,7 +292,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaOr#getBooleanValue()} when parameters exist and both false
 	 */
 	@Test
-	public void testGetBooleanValueParametersExistBothFalse() {
+	public void testGetBooleanValueParametersExistBothFalse() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand1.getBooleanValue(null)).thenReturn(false);
@@ -309,7 +310,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaOr#getBooleanValue()} when left doesn't exist
 	 */
 	@Test(expected = NullPointerException.class)
-	public void testGetBooleanValueLeftNotExists() {
+	public void testGetBooleanValueLeftNotExists() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand1.getBooleanValue(null)).thenReturn(null);
@@ -327,7 +328,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaOr#getBooleanValue()} when left true and right doesn't exist
 	 */
 	@Test
-	public void testGetBooleanValueLeftTrueRightNotExists() {
+	public void testGetBooleanValueLeftTrueRightNotExists() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand1.getBooleanValue(null)).thenReturn(true);
@@ -345,7 +346,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaOr#getBooleanValue()} when left false and right doesn't exist
 	 */
 	@Test(expected = NullPointerException.class)
-	public void testGetBooleanValueRightNotExists() {
+	public void testGetBooleanValueRightNotExists() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand1.getBooleanValue(null)).thenReturn(false);
@@ -363,7 +364,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaOr#getBooleanValue()} when both parameter don't exist
 	 */
 	@Test(expected = NullPointerException.class)
-	public void testGetBooleanValueParametersNotExist() {
+	public void testGetBooleanValueParametersNotExist() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand1.getBooleanValue(null)).thenReturn(null);
@@ -380,8 +381,8 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaOr#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand1.getBooleanValue(null)).thenReturn(false);
@@ -398,8 +399,8 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaOr#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand1.getBooleanValue(null)).thenReturn(false);
@@ -427,7 +428,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaOr#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand1.asText()).thenReturn("some_rule1");

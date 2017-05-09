@@ -3,6 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.description;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 
 import javax.persistence.*;
 import java.time.Duration;
@@ -142,42 +143,57 @@ public class FormulaParameterConbinationItem {
     /*
      * Methods
      */
-    public boolean isValid(AbstractFormula formula, Evaluator evaluator) {
-        return isValidType(formula, evaluator) && isValidValue(formula, evaluator);
+    public boolean isValid(AbstractFormula formula, Evaluator evaluator) throws GLanguageException {
+        try {
+            return isValidType(formula, evaluator) && isValidValue(formula, evaluator);
+        } catch (GLanguageException e) {
+            // TODO
+            throw e;
+        }
     }
 
-    public boolean isValidType(AbstractFormula formula, Evaluator evaluator) {
-        return getTypes().contains(formula.getReturnType(evaluator));
+    public boolean isValidType(AbstractFormula formula, Evaluator evaluator) throws GLanguageException {
+        try {
+            return getTypes().contains(formula.getReturnType(evaluator));
+        } catch (GLanguageException e) {
+            // TODO
+            throw e;
+        }
     }
 
-    private boolean isValidValue(AbstractFormula formula, Evaluator evaluator) {
+    private boolean isValidValue(AbstractFormula formula, Evaluator evaluator) throws GLanguageException {
         if (getValues() != null && !getValues().isEmpty()) {
-            switch (formula.getReturnType(evaluator)) {
-                case INTEGER:
-                    return getValues().stream().map(v -> Integer.valueOf(v.getValue())).collect(Collectors.toList())
-                            .contains(formula.getIntegerValue(evaluator));
-                case NUMERIC:
-                    return getValues().stream().map(v -> Double.valueOf(v.getValue())).collect(Collectors.toList())
-                            .contains(formula.getNumericValue(evaluator));
-                case STRING:
-                    return getValues().stream().map(v -> v.getValue()).collect(Collectors.toList())
-                            .contains(formula.getStringValue(evaluator));
-                case BOOLEAN:
-                    return getValues().stream().map(v -> Boolean.valueOf(v.getValue())).collect(Collectors.toList())
-                            .contains(formula.getBooleanValue(evaluator));
-                case DATE:
-                    return getValues().stream().map(v -> LocalDate
-                            .parse(v.getValue(), DateTimeFormatter.ofPattern("dd/MM/yyyy"))).collect(Collectors.toList())
-                            .contains(formula.getDateValue(evaluator));
-                case DURATION:
-                    return getValues().stream().map(v -> Duration.parse(v.getValue())).collect(Collectors.toList())
-                            .contains(formula.getDurationValue(evaluator));
-                case LIST:
-                    //fall through
-                case PROCEDURE:
-                    //fall through
-                default:
-                    return true;
+            try {
+                switch (formula.getReturnType(evaluator)) {
+                    case INTEGER:
+                        return getValues().stream().map(v -> Integer.valueOf(v.getValue())).collect(Collectors.toList())
+                                .contains(formula.getIntegerValue(evaluator));
+                    case NUMERIC:
+                        return getValues().stream().map(v -> Double.valueOf(v.getValue())).collect(Collectors.toList())
+                                .contains(formula.getNumericValue(evaluator));
+                    case STRING:
+                        return getValues().stream().map(v -> v.getValue()).collect(Collectors.toList())
+                                .contains(formula.getStringValue(evaluator));
+                    case BOOLEAN:
+                        return getValues().stream().map(v -> Boolean.valueOf(v.getValue())).collect(Collectors.toList())
+                                .contains(formula.getBooleanValue(evaluator));
+                    case DATE:
+                        return getValues().stream().map(v -> LocalDate
+                                .parse(v.getValue(), DateTimeFormatter.ofPattern("dd/MM/yyyy"))).collect(Collectors.toList())
+                                .contains(formula.getDateValue(evaluator));
+                    case DURATION:
+                        return getValues().stream().map(v -> Duration.parse(v.getValue())).collect(Collectors.toList())
+                                .contains(formula.getDurationValue(evaluator));
+                    case LIST:
+                        //fall through
+                    case PROCEDURE:
+                        //fall through
+                    default:
+                        return true;
+                }
+            } catch (GLanguageException e) {
+                // TODO
+                throw e;
             }
         }
         return true;

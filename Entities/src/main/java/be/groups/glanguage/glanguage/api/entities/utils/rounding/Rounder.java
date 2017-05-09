@@ -1,4 +1,7 @@
-package be.groups.glanguage.glanguage.api.entities.rule;
+package be.groups.glanguage.glanguage.api.entities.utils.rounding;
+
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.error.utils.rounding.RoundingTypeInnerError;
 
 /**
  * Class that handles the rounding operation of a value according to a RoundingType and a precision
@@ -9,11 +12,11 @@ public class Rounder {
 	
 	public static final double TOLERANCE = Math.exp(-6);
 	
-	public static Double round(Integer value, RoundingType roundingType, Double precision) {
+	public static Double round(Integer value, RoundingType roundingType, Double precision) throws GLanguageException {
 		return round(value.doubleValue(), roundingType, precision);
 	}
 	
-	public static Double round(Double value, RoundingType roundingType, Double precision) {
+	public static Double round(Double value, RoundingType roundingType, Double precision) throws GLanguageException {
 		switch (roundingType) {
 			case ARITHMETIC:
 				return round(value, precision);
@@ -28,7 +31,7 @@ public class Rounder {
 			case UNDEFINED:
 				return value;
 			default:
-				throw new IllegalArgumentException("The RoundingType " + roundingType.name() + " is not a valid one !");
+				throw new GLanguageException(new RoundingTypeInnerError(roundingType));
 		}
 	}
 	

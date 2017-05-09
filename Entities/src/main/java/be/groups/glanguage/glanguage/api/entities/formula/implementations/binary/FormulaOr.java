@@ -7,6 +7,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -28,14 +29,14 @@ public class FormulaOr extends BinaryFormula {
 		super();
 	}
 
-	public FormulaOr(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) {
+	public FormulaOr(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
 		super(description, child1, child2);
 	}
 
 	@JsonIgnore
 	@Transient
 	@Override
-	public Boolean getBooleanValue(Evaluator evaluator) {
+	protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
 		return getParameters().get(0).getBooleanValue(evaluator) || getParameters().get(1).getBooleanValue(evaluator);
 	}
 

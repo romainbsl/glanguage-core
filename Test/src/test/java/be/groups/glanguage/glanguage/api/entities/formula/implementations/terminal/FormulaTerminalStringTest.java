@@ -1,23 +1,20 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import java.util.Arrays;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link FormulaTerminalString}
@@ -53,7 +50,7 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNoParameters() {
+	public void testIsValidNoParameters() throws GLanguageException {
 		FormulaTerminalString formula =
 				new FormulaTerminalString(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_STRING), "string");
 				
@@ -65,7 +62,7 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidParameters() {
+	public void testIsValidParameters() throws GLanguageException {
 		FormulaTerminalString formula =
 				new FormulaTerminalString(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_STRING), "string");
 				
@@ -82,7 +79,7 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNoParameters() {
+	public void testGetReturnTypeNoParameters() throws GLanguageException {
 		FormulaTerminalString formula =
 				new FormulaTerminalString(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_STRING), "string");
 				
@@ -94,7 +91,7 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeParameters() {
+	public void testGetReturnTypeParameters() throws GLanguageException {
 		FormulaTerminalString formula =
 				new FormulaTerminalString(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_STRING), "string");
 				
@@ -109,8 +106,8 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalString#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetIntegerValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetIntegerValue() throws GLanguageException {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getIntegerValue();
 	}
@@ -118,8 +115,8 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalString#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetNumericValue() throws GLanguageException {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getNumericValue();
 	}
@@ -128,7 +125,7 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalString#getStringValue()}
 	 */
 	@Test
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageException {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		assertEquals("string", formula.getStringValue());
 	}
@@ -136,8 +133,8 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalString#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetBooleanValue() throws GLanguageException {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getBooleanValue();
 	}
@@ -145,8 +142,8 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalString#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetDateValue() throws GLanguageException {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getDateValue();
 	}
@@ -154,8 +151,8 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaTerminalString#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetDurationValue() throws GLanguageException {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		formula.getDurationValue();
 	}
@@ -164,7 +161,7 @@ public class FormulaTerminalStringTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalString#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		FormulaTerminalString formula = new FormulaTerminalString(null, "string");
 		assertEquals("\"string\"", formula.asText());
 	}

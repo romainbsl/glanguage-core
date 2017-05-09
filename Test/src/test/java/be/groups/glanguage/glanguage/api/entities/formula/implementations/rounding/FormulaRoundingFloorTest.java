@@ -5,9 +5,12 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -48,13 +51,13 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidInteger() {
+	public void testIsValidInteger() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter));
 						
 		assertTrue(formula.isValid());
 	}
@@ -64,13 +67,13 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNumeric() {
+	public void testIsValidNumeric() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter));
 						
 		assertTrue(formula.isValid());
 	}
@@ -80,13 +83,13 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNotIntegerOrNumeric() {
+	public void testIsValidNotIntegerOrNumeric() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter));
 						
 		assertFalse(formula.isValid());
 	}
@@ -97,7 +100,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidIntegerInteger() {
+	public void testIsValidIntegerInteger() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -106,7 +109,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter, precision));
 						
 		assertTrue(formula.isValid());
 	}
@@ -117,7 +120,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNumericInteger() {
+	public void testIsValidNumericInteger() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -126,7 +129,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter, precision));
 						
 		assertTrue(formula.isValid());
 	}
@@ -137,7 +140,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNumericNumeric() {
+	public void testIsValidNumericNumeric() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -146,7 +149,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter, precision));
 						
 		assertTrue(formula.isValid());
 	}
@@ -156,13 +159,13 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeInteger() {
+	public void testGetReturnTypeInteger() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter));
 						
 		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
 	}
@@ -172,13 +175,13 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNumeric() {
+	public void testGetReturnTypeNumeric() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter));
 						
 		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
@@ -188,13 +191,13 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNotIntegerOrNumeric() {
+	public void testGetReturnTypeNotIntegerOrNumeric() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, null);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter));
 						
 		assertNull(formula.getReturnType(null));
 	}
@@ -205,7 +208,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeIntegerInteger() {
+	public void testGetReturnTypeIntegerInteger() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -214,7 +217,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter, precision));
 						
 		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
 	}
@@ -225,7 +228,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNumericInteger() {
+	public void testGetReturnTypeNumericInteger() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -234,7 +237,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter, precision));
 						
 		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
@@ -245,7 +248,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNumericNumeric() {
+	public void testGetReturnTypeNumericNumeric() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -254,7 +257,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		
 		FormulaRoundingFloor formula =
 				new FormulaRoundingFloor(FormulaDescriptionFactory.getDescription(FormulaType.F_FLOOR),
-						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), parameter, precision);
+						FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), Arrays.asList(parameter, precision));
 						
 		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
@@ -263,7 +266,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingFloor#getIntegerValue()} with integer parameter
 	 */
 	@Test
-	public void testGetIntegerValueInt() {
+	public void testGetIntegerValueInt() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(117);
@@ -272,7 +275,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.getNumericValue(null)).thenReturn(10.0);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		assertEquals(Integer.valueOf(110), formula.getIntegerValue(null));
 	}
@@ -281,7 +284,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingFloor#getIntegerValue()} with numeric parameter
 	 */
 	@Test
-	public void testGetIntegerValueNum() {
+	public void testGetIntegerValueNum() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.567);
@@ -290,7 +293,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue(null));
 	}
@@ -299,7 +302,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingFloor#getNumericValue()} with integer parameter
 	 */
 	@Test
-	public void testGetNumericValueInt() {
+	public void testGetNumericValueInt() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(117);
@@ -308,7 +311,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.getNumericValue(null)).thenReturn(10.0);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		assertEquals(Double.valueOf(110), formula.getNumericValue(null));
 	}
@@ -317,7 +320,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingFloor#getNumericValue()} with numeric parameter
 	 */
 	@Test
-	public void testGetNumericValueNum() {
+	public void testGetNumericValueNum() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.567);
@@ -326,7 +329,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		assertEquals(Double.valueOf(1.56), formula.getNumericValue(null));
 	}
@@ -334,8 +337,8 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaRoundingFloor#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.567);
@@ -344,7 +347,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		formula.getStringValue(null);
 	}
@@ -352,8 +355,8 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaRoundingFloor#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.567);
@@ -362,7 +365,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		formula.getBooleanValue(null);
 	}
@@ -370,8 +373,8 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaRoundingFloor#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.567);
@@ -380,7 +383,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		formula.getDateValue(null);
 	}
@@ -388,8 +391,8 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaRoundingFloor#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.getNumericValue(null)).thenReturn(1.567);
@@ -398,7 +401,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.getNumericValue(null)).thenReturn(0.01);
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		formula.getDurationValue(null);
 	}
@@ -417,7 +420,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaRoundingFloor#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(parameter.asText()).thenReturn("some_rule");
@@ -426,7 +429,7 @@ public class FormulaRoundingFloorTest extends BaseDatabaseTest {
 		when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(precision.asText()).thenReturn("0.01");
 		
-		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, parameter, precision);
+		FormulaRoundingFloor formula = new FormulaRoundingFloor(null, null, Arrays.asList(parameter, precision));
 		
 		assertEquals("floor(some_rule; 0.01)", formula.asText());
 	}

@@ -1,16 +1,5 @@
 package be.groups.glanguage.glanguage.api.ws;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.Response;
-
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import be.groups.common.test.utils.Environment;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaIn;
@@ -18,8 +7,17 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.F
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalInteger;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumeric;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalString;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.WsTestCategory;
 import be.groups.marmota.test.TNSNames;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.Response;
+
+import static org.junit.Assert.*;
 
 public class ParsingTest extends BaseJerseyResourceTest {
 	
@@ -34,7 +32,7 @@ public class ParsingTest extends BaseJerseyResourceTest {
 	
 	@Category(WsTestCategory.class)
 	@Test
-	public void testParseInteger() {
+	public void testParseInteger() throws GLanguageException {
 		String formulaString = "0";
 		Response response = target("/glanguage/parse").request().post(Entity.json(formulaString));
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
@@ -46,7 +44,7 @@ public class ParsingTest extends BaseJerseyResourceTest {
 	
 	@Category(WsTestCategory.class)
 	@Test
-	public void testParseDouble() {
+	public void testParseDouble() throws GLanguageException {
 		String formulaString = "0.0";
 		Response response = target("/glanguage/parse").request().post(Entity.json(formulaString));
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
@@ -58,7 +56,7 @@ public class ParsingTest extends BaseJerseyResourceTest {
 	
 	@Category(WsTestCategory.class)
 	@Test
-	public void testParseString() {
+	public void testParseString() throws GLanguageException {
 		String formulaString = "\"\"";
 		Response response = target("/glanguage/parse").request().post(Entity.json(formulaString));
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());

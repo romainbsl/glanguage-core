@@ -4,6 +4,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -19,14 +20,14 @@ public class FormulaMathAbs extends MathFormula {
 		super();
 	}
 
-	public FormulaMathAbs(FormulaDescription description, List<AbstractFormula> parameters) {
+	public FormulaMathAbs(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
 		super(description, parameters);
 	}
 
 	@JsonIgnore
 	@Transient
 	@Override
-	public Double getNumericValue(Evaluator evaluator) {
+	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
 		return Math.abs(getParameters().get(0).getNumericValue(evaluator));
 	}
 	

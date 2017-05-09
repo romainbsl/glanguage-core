@@ -6,9 +6,10 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaRet
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatDate;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumeric;
-import be.groups.glanguage.glanguage.api.entities.rule.RoundingType;
+import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleGroupItem;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -56,7 +57,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNoGroupRule() {
+	public void testIsValidNoGroupRule() throws GLanguageException {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 				
 		assertTrue(formula.isValid());
@@ -67,7 +68,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidGroupRuleWithWrongTypes() {
+	public void testIsValidGroupRuleWithWrongTypes() throws GLanguageException {
 		RuleVersion rv1 = mock(RuleVersion.class);
 		when(rv1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 
@@ -94,7 +95,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidGroupRuleWithRightTypes() {
+	public void testIsValidGroupRuleWithRightTypes() throws GLanguageException {
 		RuleVersion rv1 = mock(RuleVersion.class);
 		when(rv1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		RuleVersion rv2 = mock(RuleVersion.class);
@@ -127,7 +128,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnNoGroupRule() {
+	public void testGetReturnNoGroupRule() throws GLanguageException {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 				
 		assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType(null));
@@ -138,7 +139,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidGroupRuleIntegerAndNumeric() {
+	public void testIsValidGroupRuleIntegerAndNumeric() throws GLanguageException {
 		RuleVersion rv1 = mock(RuleVersion.class);
 		when(rv1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		RuleVersion rv2 = mock(RuleVersion.class);
@@ -173,7 +174,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidGroupRuleAllInteger() {
+	public void testIsValidGroupRuleAllInteger() throws GLanguageException {
 		RuleVersion rv1 = mock(RuleVersion.class);
 		when(rv1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		RuleVersion rv2 = mock(RuleVersion.class);
@@ -206,7 +207,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidGroupRuleAllNumeric() {
+	public void testIsValidGroupRuleAllNumeric() throws GLanguageException {
 		RuleVersion rv1 = mock(RuleVersion.class);
 		when(rv1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		RuleVersion rv2 = mock(RuleVersion.class);
@@ -238,7 +239,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaFormatDate#getIntegerValue()}
 	 */
 	@Test
-	public void testGetIntegerValue() {
+	public void testGetIntegerValue() throws GLanguageException {
 		FormulaTerminalNumeric formula1 = new FormulaTerminalNumeric(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_NUMERIC), "100.4");
 		FormulaTerminalNumeric formula2 = new FormulaTerminalNumeric(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_NUMERIC), "100.3");
 		
@@ -306,7 +307,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaFormatDate#getNumericValue()}
 	 */
 	@Test
-	public void testGetNumericValue() {
+	public void testGetNumericValue() throws GLanguageException {
 		FormulaTerminalNumeric formula1 = new FormulaTerminalNumeric(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_NUMERIC), "100.4");
 		FormulaTerminalNumeric formula2 = new FormulaTerminalNumeric(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_NUMERIC), "100.3");
 		
@@ -373,8 +374,8 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatDate#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {		
+	@Test(expected = GLanguageException.class)
+	public void testGetStringValue() throws GLanguageException {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 		
 		formula.getStringValue();
@@ -383,8 +384,8 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatDate#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetBooleanValue() throws GLanguageException {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 		
 		formula.getBooleanValue();
@@ -393,8 +394,8 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatDate#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetDateValue() throws GLanguageException {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 		
 		formula.getDateValue();
@@ -403,8 +404,8 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatDate#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetDurationValue() throws GLanguageException {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 		
 		formula.getDurationValue();
@@ -414,7 +415,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaFormatDate#operationAsText()}
 	 */
 	@Test
-	public void testOperationAsText() {
+	public void testOperationAsText() throws GLanguageException {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 		
 		assertEquals("sumv", formula.operationAsText());
@@ -424,7 +425,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaFormatDate#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
 		
 		assertEquals("sumv(1)", formula.asText());

@@ -6,6 +6,10 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDes
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnTypeConverter;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.targets.FormulaCannotInvokeTargetObjectInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -27,13 +31,20 @@ public class FormulaGet extends CallFormula {
     }
 
     public FormulaGet(FormulaDescription description, FormulaDescription subFormulasDescription, FormulaReturnType
-            returnType, List<String> identifiers, List<List<AbstractFormula>> parameters) {
+            returnType, List<String> identifiers, List<List<AbstractFormula>> parameters) throws GLanguageException {
         super(description);
 
         setConstantValue(String.valueOf(returnType.ordinal()));
         this.parameters = new ArrayList<>(identifiers.size());
         for (int i = 0; i < identifiers.size(); i++) {
-            this.parameters.add(new FormulaPrimitive(subFormulasDescription, identifiers.get(i), parameters.get(i)));
+            try {
+                this.parameters.add(new FormulaPrimitive(subFormulasDescription, identifiers.get(i), parameters.get
+                        (i)));
+            } catch (GLanguageException e) {
+                e.getError().setOuterError(new FormulaInnerError(GLanguageErrorRegistry.FORMULA_INNER_ERROR, this,
+                                                                 null, "constructor", "Bad call chain"));
+                throw e;
+            }
         }
     }
 
@@ -46,72 +57,90 @@ public class FormulaGet extends CallFormula {
     @JsonIgnore
     @Transient
     @Override
-    public Boolean getBooleanValue(Evaluator evaluator) {
+    protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
         try {
             return (Boolean) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
             // TODO report evaluation error
             throw cce;
+        } catch (GLanguageException e) {
+            // TODO report evaluation error
+            throw e;
         }
     }
 
     @JsonIgnore
     @Transient
     @Override
-    public LocalDate getDateValue(Evaluator evaluator) {
+    protected LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageException {
         try {
             return (LocalDate) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
             // TODO report evaluation error
             throw cce;
+        } catch (GLanguageException e) {
+            // TODO report evaluation error
+            throw e;
         }
     }
 
     @JsonIgnore
     @Transient
     @Override
-    public Duration getDurationValue(Evaluator evaluator) {
+    protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageException {
         try {
             return (Duration) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
             // TODO report evaluation error
             throw cce;
+        } catch (GLanguageException e) {
+            // TODO report evaluation error
+            throw e;
         }
     }
 
     @JsonIgnore
     @Transient
     @Override
-    public Integer getIntegerValue(Evaluator evaluator) {
+    protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
         try {
             return (Integer) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
             // TODO report evaluation error
             throw cce;
+        } catch (GLanguageException e) {
+            // TODO report evaluation error
+            throw e;
         }
     }
 
     @JsonIgnore
     @Transient
     @Override
-    public Double getNumericValue(Evaluator evaluator) {
+    protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
         try {
             return (Double) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
             // TODO report evaluation error
             throw cce;
+        } catch (GLanguageException e) {
+            // TODO report evaluation error
+            throw e;
         }
     }
 
     @JsonIgnore
     @Transient
     @Override
-    public String getStringValue(Evaluator evaluator) {
+    protected String doGetStringValue(Evaluator evaluator) throws GLanguageException {
         try {
             return (String) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
             // TODO report evaluation error
             throw cce;
+        } catch (GLanguageException e) {
+            // TODO report evaluation error
+            throw e;
         }
     }
 
@@ -148,7 +177,7 @@ public class FormulaGet extends CallFormula {
 
     @JsonIgnore
     @Transient
-    private Object getTargetedObject(Evaluator evaluator) {
+    private Object getTargetedObject(Evaluator evaluator) throws GLanguageException {
         Object result;
         if (evaluator != null) {
             result = evaluator.getContext();
@@ -157,13 +186,18 @@ public class FormulaGet extends CallFormula {
         }
 
         if(result == null) {
-            throw new IllegalAccessError("Cannot invoke getTargetetObject() method on " + this.getClass()
-                    .getName() + " object while context is not set - while branching is not done - (id : " + this
-                    .getId() + ")");
+            throw new GLanguageException(new FormulaCannotInvokeTargetObjectInnerError(this, evaluator, "Context " +
+                    "is unknown"));
         }
 
         for (AbstractFormula primitive : getParameters()) {
-            result = ((FormulaPrimitive) primitive).getTargetedObject(result, evaluator);
+            try {
+                result = ((FormulaPrimitive) primitive).getTargetedObject(result, evaluator);
+            } catch (GLanguageException e) {
+                e.getError().setOuterError(new FormulaCannotInvokeTargetObjectInnerError(this, evaluator, "Unable " +
+                        "to compute target chain"));
+                throw e;
+            }
         }
         return result;
     }

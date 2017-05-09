@@ -5,6 +5,8 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.utils.Agents;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.targets.FormulaCannotInvokeTargetMethodInnerError;
 
 import javax.persistence.Entity;
 
@@ -15,12 +17,12 @@ public abstract class CallFormula extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public CallFormula(FormulaDescription description) {
+	public CallFormula(FormulaDescription description) throws GLanguageException {
 		super(description, null);
 	}
 
 	protected Object callFunctionAny(Object anObject, String aMethodName, AbstractFormula[] someMethodParameters,
-									 Evaluator evaluator) {
+									 Evaluator evaluator) throws GLanguageException {
 		Agents agent;
 		Object result;
 		if(someMethodParameters == null) {
@@ -37,8 +39,8 @@ public abstract class CallFormula extends AbstractNonTerminalFormula {
 			try {
 				result = agent.call(someArguments);
 			} catch (Exception e) {
-				// TODO report evaluation error
-				throw e;
+				throw new GLanguageException(new FormulaCannotInvokeTargetMethodInnerError(this, evaluator, anObject,
+																						   aMethodName, someMethodParametersType));
 			}
 		}
 		return result;

@@ -3,6 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.description;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -117,12 +118,21 @@ public class FormulaDescription {
      * Methods
      */
     @Transient
-    public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) {
-        return usages.stream().anyMatch(u -> u.isValid(parameters, evaluator));
+    public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
+        return usages.stream().anyMatch(u -> {
+            try {
+                return u.isValid(parameters, evaluator);
+            } catch (GLanguageException e) {
+                // do_nothing
+            } finally {
+                return false;
+            }
+        });
     }
 
     @Transient
-    public FormulaReturnType getReturnType(List<AbstractFormula> parameters, Evaluator evaluator) {
+    public FormulaReturnType getReturnType(List<AbstractFormula> parameters, Evaluator evaluator) throws
+                                                                                                  GLanguageException {
         FormulaUsage usage = getUsage(parameters, evaluator);
         if (usage != null) {
             if (usage.getTypes().size() == 1) {
@@ -135,9 +145,18 @@ public class FormulaDescription {
         }
     }
 
+    @Transient
     private FormulaUsage getUsage(List<AbstractFormula> parameters, Evaluator evaluator) {
         // Select the valid usages
-        List<FormulaUsage> validUsages = usages.stream().filter(u -> u.isValid(parameters, evaluator)).collect(
+        List<FormulaUsage> validUsages = usages.stream().filter(u -> {
+            try {
+                return u.isValid(parameters, evaluator);
+            } catch (GLanguageException e) {
+                // do_nothing
+            } finally {
+                return false;
+            }
+        }).collect(
                 Collectors.toList());
         if (validUsages.size() == 1) {
             return validUsages.get(0);
@@ -200,11 +219,13 @@ public class FormulaDescription {
     /*
      * Utils
      */
-    @Override public String toString () {
+    @Override
+    public String toString () {
         return "FormulaDescription{" + "type=" + type + ", name='" + name + '\'' + ", description=" + description + "," + " priority=" + priority + ", position=" + position + ", usages=" + usages + '}';
     }
 
-    @Override public boolean equals (Object o){
+    @Override
+    public boolean equals (Object o){
         if (this == o) return true;
         if (!(o instanceof FormulaDescription)) return false;
 
@@ -213,7 +234,8 @@ public class FormulaDescription {
         return id.equals(that.id);
     }
 
-    @Override public int hashCode () {
+    @Override
+    public int hashCode () {
         return id.hashCode();
     }
 

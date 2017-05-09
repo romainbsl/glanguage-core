@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -48,7 +49,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidInteger() {
+	public void testIsValidInteger() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -63,7 +64,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNumeric() {
+	public void testIsValidNumeric() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -78,7 +79,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNotIntegerOrNumeric() {
+	public void testIsValidNotIntegerOrNumeric() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
@@ -93,7 +94,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeInteger() {
+	public void testGetReturnTypeInteger() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -108,7 +109,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNumeric() {
+	public void testGetReturnTypeNumeric() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -123,7 +124,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNotIntegerOrNumeric() {
+	public void testGetReturnTypeNotIntegerOrNumeric() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
@@ -137,7 +138,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaUnaryMinus#getIntegerValue()} when parameter exists
 	 */
 	@Test
-	public void testGetIntegerValueParameterExists() {
+	public void testGetIntegerValueParameterExists() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
@@ -151,7 +152,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaUnaryMinus#getIntegerValue()} when parameter doesn't exist
 	 */
 	@Test(expected = NullPointerException.class)
-	public void testGetIntegerValueParameterNotExists() {
+	public void testGetIntegerValueParameterNotExists() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(null);
@@ -165,7 +166,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaUnaryMinus#getNumericValue()} when parameter exists
 	 */
 	@Test
-	public void testGetNumericValueParameterExists() {
+	public void testGetNumericValueParameterExists() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand.getNumericValue(null)).thenReturn(1.5);
@@ -179,7 +180,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaUnaryMinus#getNumericValue()} when parameter doesn't exist
 	 */
 	@Test(expected = NullPointerException.class)
-	public void testGetNumericValueParameterNotExists() {
+	public void testGetNumericValueParameterNotExists() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand.getNumericValue(null)).thenReturn(null);
@@ -192,8 +193,8 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaUnaryMinus#getStringValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetStringValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
@@ -206,8 +207,8 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaUnaryMinus#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
@@ -220,8 +221,8 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaUnaryMinus#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
@@ -234,8 +235,8 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaUnaryMinus#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
@@ -259,7 +260,7 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaUnaryMinus#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.asText()).thenReturn("some_rule");

@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.evaluation;
 
 import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 
 import java.util.Map;
 
@@ -47,7 +48,7 @@ public interface Evaluator {
      *
      * @param ruleVersion The {@link RuleVersion} to evaluate
      */
-    default void evaluateRuleVersion(RuleVersion ruleVersion) {
+    default void evaluateRuleVersion(RuleVersion ruleVersion) throws GLanguageException {
         if (!isRuleVersionEvaluated(ruleVersion)) {
             ruleVersion.getValue(this);
         }

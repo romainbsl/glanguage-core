@@ -6,11 +6,11 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.F
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.RuleCallFormula;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleGroupItem;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Plan {
 
@@ -111,7 +111,7 @@ public class Plan {
 
     /**
      * Is a {@link RuleVersion} cached - Is there a value calculated for a {@link RuleVersion} ?
-     * 
+     *
      * @param ruleVersion The {@link RuleVersion} to check if it is cached
      * @return true if the {@link RuleVersion} {@code ruleVersion} is cached, false otherwise
      */
@@ -173,7 +173,7 @@ public class Plan {
      * Set the branching status of a {@link RuleVersion}
      *
      * @param ruleVersion the {@link RuleVersion} to set branching status
-     * @param branched branching status to set for the {@code ruleVersion}
+     * @param branched    branching status to set for the {@code ruleVersion}
      */
     private void setBranched(RuleVersion ruleVersion, boolean branched) {
         if (branchedRuleVersions == null) {
@@ -224,7 +224,7 @@ public class Plan {
      * Branch a {@link RuleVersion} with a context
      *
      * @param ruleVersion The {@link RuleVersion} to branch
-     * @param context The context to branch
+     * @param context     The context to branch
      */
     public void branch(RuleVersion ruleVersion, Object context) {
         if (!isBranched(ruleVersion)) {
@@ -249,8 +249,8 @@ public class Plan {
      * Branch a {@link RuleGroupItem} with a context
      *
      * @param fromRuleVersion The {@link RuleVersion} owning the {@code ruleGroupItem}
-     * @param ruleGroupItem The {@link RuleGroupItem} to branch
-     * @param context The context to branch
+     * @param ruleGroupItem   The {@link RuleGroupItem} to branch
+     * @param context         The context to branch
      */
     public void branch(RuleVersion fromRuleVersion, RuleGroupItem ruleGroupItem, Object context) {
         RuleVersion rv = getEffectiveRuleVersionByIdenitifier(String.valueOf(ruleGroupItem.getItemRule().getId()));
@@ -268,8 +268,8 @@ public class Plan {
      * Branch an {@link AbstractFormula} with a context
      *
      * @param fromRuleVersion The {@link RuleVersion} owning the {@code formula}
-     * @param formula The {@link AbstractFormula} to branch
-     * @param context The context to branch
+     * @param formula         The {@link AbstractFormula} to branch
+     * @param context         The context to branch
      */
     public void branch(RuleVersion fromRuleVersion, AbstractFormula formula, Object context) {
         if (!isBranched(formula)) {
@@ -297,8 +297,8 @@ public class Plan {
      * Branch an {@link RuleCallFormula} with a context
      *
      * @param fromRuleVersion The {@link RuleVersion} owning the {@code formula}
-     * @param formula The {@link RuleCallFormula} to branch
-     * @param context The context to branch
+     * @param formula         The {@link RuleCallFormula} to branch
+     * @param context         The context to branch
      */
     public void branch(RuleVersion fromRuleVersion, RuleCallFormula formula, Object context) {
         RuleVersion ruleVersion = getEffectiveRuleVersionByIdenitifier(formula.getConstantValue());
@@ -309,12 +309,11 @@ public class Plan {
             LOG.debug("Rule version not found");
             if (fromRuleVersion == null) {
                 throw new RuntimeException("There is no rule version in the plan corresponding to the rule reference " +
-                        "" + "\"" + formula
-                        .getConstantValue() + "\"");
+                        "\"" + formula.getConstantValue() + "\"");
             } else {
                 throw new RuntimeException("There is no rule version in the plan corresponding to the rule reference " +
-                        "" + "\"" + formula
-                        .getConstantValue() + "\" in the formula of rule \"" + fromRuleVersion.getCode() + "\"");
+                        "\"" + formula.getConstantValue() + "\" in the formula of rule \"" + fromRuleVersion.getCode() +
+                        "\"");
             }
         }
     }
@@ -348,7 +347,7 @@ public class Plan {
      *
      * @return The map of evaluated {@link RuleVersion}'s associated with their value as result of evaluation
      */
-    public Map<RuleVersion, Object> evaluate() {
+    public Map<RuleVersion, Object> evaluate() throws GLanguageException {
         return evaluateWithContext(null);
     }
 
@@ -358,9 +357,11 @@ public class Plan {
      * @param evaluator The evaluator to use to evaluate
      * @return The map of evaluated {@link RuleVersion}'s associated with their value as result of evaluation
      */
-    public Map<RuleVersion, Object> evaluate(Evaluator evaluator) {
-        getRuleVersions().forEach(rv -> evaluate(rv, false, evaluator));
-
+    public Map<RuleVersion, Object> evaluate(Evaluator evaluator) throws GLanguageException {
+//        getRuleVersions().forEach(rv -> evaluate(rv, false, evaluator));
+        for (RuleVersion rv : getRuleVersions()) {
+            evaluate(rv, false, evaluator);
+        }
         return getCurrentCache();
     }
 
@@ -368,16 +369,16 @@ public class Plan {
      * Evaluate a {@link RuleVersion}, recursively or not, with an evaluator
      *
      * @param ruleIdentifier The identifier of a {@link RuleVersion} to evaluate
-     * @param recursive Flag indicating whether to evaluate recursively or not
-     * @param evaluator The evaluator to use to evaluate
+     * @param recursive      Flag indicating whether to evaluate recursively or not
+     * @param evaluator      The evaluator to use to evaluate
      */
-    public void evaluate(String ruleIdentifier, boolean recursive, Evaluator evaluator) {
+    public void evaluate(String ruleIdentifier, boolean recursive, Evaluator evaluator) throws GLanguageException {
         RuleVersion ruleVersion = getEffectiveRuleVersionByIdenitifier(ruleIdentifier);
         if (ruleVersion != null) {
             evaluate(ruleVersion, recursive, evaluator);
         } else {
-            throw new RuntimeException("Unable to evaluateWithContext the rule identified by " + ruleIdentifier + " because " +
-                    "there is no rule corresponding to this identifier in this plan");
+            throw new RuntimeException("Unable to evaluateWithContext the rule identified by " + ruleIdentifier + " "
+                    + "because " + "there is no rule corresponding to this identifier in this plan");
         }
     }
 
@@ -387,23 +388,26 @@ public class Plan {
      * @param context The contxt to evaluate
      * @return The map of evaluated {@link RuleVersion}'s associated with their value as result of evaluation
      */
-    public Map<RuleVersion, Object> evaluateWithContext(Object context) {
+    public Map<RuleVersion, Object> evaluateWithContext(Object context) throws GLanguageException {
         if (!isBranched()) {
             branch(context);
         }
-        getRuleVersions().forEach(rv -> evaluate(rv, false, null));
-
+//        getRuleVersions().forEach(rv -> evaluate(rv, false, null));
+        for (RuleVersion rv : getRuleVersions()) {
+            evaluate(rv, false, null);
+        }
         return getCurrentCache();
     }
 
     /**
      * Evaluate a {@link RuleVersion}, recursively or not, with a context
      *
-     * @param context The context to evaluate
+     * @param context        The context to evaluate
      * @param ruleIdentifier The identifier of the {@link RuleVersion} to evaluate
-     * @param recursive Flag indicating whether to evaluate recursively or not
+     * @param recursive      Flag indicating whether to evaluate recursively or not
      */
-    public Map<RuleVersion, Object> evaluateWithContext(Object context, String ruleIdentifier, boolean recursive) {
+    public Map<RuleVersion, Object> evaluateWithContext(Object context, String ruleIdentifier, boolean recursive)
+            throws GLanguageException {
         RuleVersion ruleVersion = getEffectiveRuleVersionByIdenitifier(ruleIdentifier);
         if (ruleVersion != null) {
             if (!isBranched(ruleVersion)) {
@@ -411,11 +415,18 @@ public class Plan {
             }
             evaluate(ruleVersion, recursive, null);
         } else {
-            throw new RuntimeException("Unable to evaluateWithContext the rule identified by " + ruleIdentifier + " because " +
-                    "there is no rule corresponding to this identifier in this plan");
+            throw new RuntimeException("Unable to evaluateWithContext the rule identified by " + ruleIdentifier + " "
+                    + "because " + "there is no rule corresponding to this identifier in this plan");
         }
-        return getRuleVersions().stream().filter(RuleVersion::isEvaluated).collect(Collectors.toMap(r -> r, r -> r
-                .getValue()));
+
+//        return getRuleVersions().stream().filter(RuleVersion::isEvaluated).collect(Collectors.toMap(r -> r, r -> r.getValue()));
+        Map<RuleVersion, Object> result = new HashMap<>();
+        for (RuleVersion rv : getRuleVersions()) {
+            if (rv.isEvaluated()) {
+                result.put(rv, rv.getValue());
+            }
+        }
+        return result;
     }
 
     /**
@@ -425,22 +436,25 @@ public class Plan {
      * Evaluating a {@link RuleVersion} non-recursively means evaluating that {@link RuleVersion} only
      *
      * @param ruleVersion The {@link RuleVersion} to evaluate
-     * @param recursive Flag indicating whether to evaluate recursively or not
-     * @param evaluator The evaluator to use to evaluate. May be null
+     * @param recursive   Flag indicating whether to evaluate recursively or not
+     * @param evaluator   The evaluator to use to evaluate. May be null
      */
-    private void evaluate(RuleVersion ruleVersion, boolean recursive, Evaluator evaluator) {
-       if (evaluator != null) {
-           evaluator.evaluateRuleVersion(ruleVersion);
-       } else {
-           if (!isCached(ruleVersion)) {
-               Object value = ruleVersion.getValue(evaluator);
-               getCurrentCache().put(ruleVersion, value);
-           }
-       }
-       if (recursive && ruleVersion.getGroupItems() != null && !ruleVersion.getGroupItems().isEmpty()) {
-            ruleVersion.getGroupItems().stream().map(i -> i.getReferencedRule(evaluator)).forEach(rv -> evaluate(rv,
-                    recursive, evaluator));
-       }
+    private void evaluate(RuleVersion ruleVersion, boolean recursive, Evaluator evaluator) throws GLanguageException {
+        if (evaluator != null) {
+            evaluator.evaluateRuleVersion(ruleVersion);
+        } else {
+            if (!isCached(ruleVersion)) {
+                Object value = ruleVersion.getValue(evaluator);
+                getCurrentCache().put(ruleVersion, value);
+            }
+        }
+        if (recursive && ruleVersion.getGroupItems() != null && !ruleVersion.getGroupItems().isEmpty()) {
+//            ruleVersion.getGroupItems().stream().map(i -> i.getReferencedRule(evaluator))
+//                    .forEach(rv -> evaluate(rv, recursive, evaluator));
+            for (RuleGroupItem i : ruleVersion.getGroupItems()) {
+                evaluate(i.getReferencedRule(evaluator), recursive, evaluator);
+            }
+        }
     }
 
     //endregion

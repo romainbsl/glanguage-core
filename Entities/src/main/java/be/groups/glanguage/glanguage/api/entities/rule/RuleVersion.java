@@ -5,6 +5,11 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+import be.groups.glanguage.glanguage.api.entities.utils.rounding.Rounder;
+import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingType;
+import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingTypeConverter;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.error.rule.*;
 
 import javax.persistence.*;
 import java.time.Duration;
@@ -199,7 +204,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
      * @return the groupItems
      */
     @OneToMany(mappedBy = "groupRule", fetch = FetchType.EAGER)
-    @OrderBy(value = "SEQUENCE_NUMBER ASC")
+    @OrderBy(value = "SEQUENCE_NUMBER ASC\n")
     public SortedSet<RuleGroupItem> getGroupItems() {
         return groupItems;
     }
@@ -221,12 +226,12 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     @Transient
-    public Object getValue() {
+    public Object getValue() throws GLanguageException {
         return getValue(null);
     }
 
     @Transient
-    public Object getValue(Evaluator evaluator) {
+    public Object getValue(Evaluator evaluator) throws GLanguageException {
         try {
             switch (getReturnType(evaluator)) {
                 case BOOLEAN:
@@ -244,27 +249,33 @@ public class RuleVersion implements Comparable<RuleVersion> {
                 default:
                     return null;
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Unable to evaluate rule version [id: " + getId() + ", code: " +
-                    getRuleDescription()
-                    .getCode() + "]", e);
+        } catch (GLanguageException e) {
+            e.getError().setOuterError(new RuleUnableToEvaluateInnerError(this, evaluator));
+            throw e;
         }
     }
 
     @Transient
-    public Boolean getBooleanValue() {
+    public Boolean getBooleanValue() throws GLanguageException {
         return getBooleanValue(null);
     }
 
     @Transient
-    public Boolean getBooleanValue(Evaluator evaluator) {
+    public Boolean getBooleanValue(Evaluator evaluator) throws GLanguageException {
         Boolean val;
         if (evaluator != null && evaluator.isRuleVersionEvaluated(this)) {
             val = (Boolean) evaluator.getRuleVersionValue(this);
         } else if (evaluator == null && value != null) {
             val = (Boolean) value;
         } else {
-            val = formula.getBooleanValue(evaluator);
+            try {
+                val = formula.getBooleanValue(evaluator);
+            } catch (GLanguageException e) {
+                e.getError().setOuterError(new RuleUnableToEvaluateBooleanInnerError(this,
+                                                                                     evaluator) {
+                });
+                throw e;
+            }
         }
 
         if (evaluator != null || value == null) {
@@ -274,19 +285,26 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     @Transient
-    public LocalDate getDateValue() {
+    public LocalDate getDateValue() throws GLanguageException {
         return getDateValue(null);
     }
 
     @Transient
-    public LocalDate getDateValue(Evaluator  evaluator) {
+    public LocalDate getDateValue(Evaluator evaluator) throws GLanguageException {
         LocalDate val;
         if (evaluator != null && evaluator.isRuleVersionEvaluated(this)) {
             val = (LocalDate) evaluator.getRuleVersionValue(this);
         } else if (evaluator == null && value != null) {
             val = (LocalDate) value;
         } else {
-            val = formula.getDateValue(evaluator);
+            try {
+                val = formula.getDateValue(evaluator);
+            } catch (GLanguageException e) {
+                e.getError().setOuterError(new RuleUnableToEvaluateDateInnerError(this,
+                                                                                  evaluator) {
+                });
+                throw e;
+            }
         }
 
         if (evaluator != null || value == null) {
@@ -296,19 +314,26 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     @Transient
-    public Duration getDurationValue() {
+    public Duration getDurationValue() throws GLanguageException {
         return getDurationValue(null);
     }
 
     @Transient
-    public Duration getDurationValue(Evaluator evaluator) {
+    public Duration getDurationValue(Evaluator evaluator) throws GLanguageException {
         Duration val;
         if (evaluator != null && evaluator.isRuleVersionEvaluated(this)) {
             val = (Duration) evaluator.getRuleVersionValue(this);
         } else if (evaluator == null && value != null) {
             val = (Duration) value;
         } else {
-            val = formula.getDurationValue(evaluator);
+            try {
+                val = formula.getDurationValue(evaluator);
+            } catch (GLanguageException e) {
+                e.getError().setOuterError(new RuleUnableToEvaluateDurationInnerError(this,
+                                                                                      evaluator) {
+                });
+                throw e;
+            }
         }
 
         if (evaluator != null || value == null) {
@@ -318,19 +343,26 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     @Transient
-    public String getStringValue() {
+    public String getStringValue() throws GLanguageException {
         return getStringValue(null);
     }
 
     @Transient
-    public String getStringValue(Evaluator evaluator) {
+    public String getStringValue(Evaluator evaluator) throws GLanguageException {
         String val;
         if (evaluator != null && evaluator.isRuleVersionEvaluated(this)) {
             val = (String) evaluator.getRuleVersionValue(this);
         } else if (evaluator == null && value != null) {
             val = (String) value;
         } else {
-            val = formula.getStringValue(evaluator);
+            try {
+                val = formula.getStringValue(evaluator);
+            } catch (GLanguageException e) {
+                e.getError().setOuterError(new RuleUnableToEvaluateStringInnerError(this,
+                                                                                    evaluator) {
+                });
+                throw e;
+            }
         }
 
         if (evaluator != null || value == null) {
@@ -340,19 +372,30 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     @Transient
-    public Integer getIntegerValue() {
+    public Integer getIntegerValue() throws GLanguageException {
         return getIntegerValue(null);
     }
 
     @Transient
-    public Integer getIntegerValue(Evaluator evaluator) {
+    public Integer getIntegerValue(Evaluator evaluator) throws GLanguageException {
         Integer val;
         if (evaluator != null && evaluator.isRuleVersionEvaluated(this)) {
             val = (Integer) evaluator.getRuleVersionValue(this);
         } else if (evaluator == null && value != null) {
             val = (Integer) value;
         } else {
-            val = doGetIntegerValue(evaluator);
+            try {
+                val = doGetIntegerValue(evaluator);
+            } catch (GLanguageException e) {
+                e.getError().setOuterError(new RuleUnableToEvaluateIntegerInnerError(this,
+                                                                                     evaluator) {
+                    @Override
+                    public String getMainMessage() {
+                        return super.getMainMessage();
+                    }
+                });
+                throw e;
+            }
         }
 
         if (evaluator != null || value == null) {
@@ -362,19 +405,26 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     @Transient
-    public Double getNumericValue() {
+    public Double getNumericValue() throws GLanguageException {
         return getNumericValue(null);
     }
 
     @Transient
-    public Double getNumericValue(Evaluator evaluator) {
+    public Double getNumericValue(Evaluator evaluator) throws GLanguageException {
         Double val;
         if (evaluator != null && evaluator.isRuleVersionEvaluated(this)) {
             val = (Double) evaluator.getRuleVersionValue(this);
         } else if (evaluator == null && value != null) {
             val = (Double) value;
         } else {
-            val = doGetNumericValue(evaluator);
+            try {
+                val = doGetNumericValue(evaluator);
+            } catch (GLanguageException e) {
+                e.getError().setOuterError(new RuleUnableToEvaluateNumericInnerError(this,
+                                                                                     evaluator) {
+                });
+                throw e;
+            }
         }
 
         if (evaluator != null || value == null) {
@@ -384,7 +434,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     @Transient
-    private Integer doGetIntegerValue(Evaluator evaluator) {
+    private Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
         Double formulaValue = getDoubleValue(evaluator);
 
         Integer result = null;
@@ -400,7 +450,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     @Transient
-    private Double doGetNumericValue(Evaluator evaluator) {
+    private Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
         Double formulaValue = getDoubleValue(evaluator);
 
         Double result = null;
@@ -416,7 +466,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     @Transient
-    private Double getDoubleValue(Evaluator evaluator) {
+    private Double getDoubleValue(Evaluator evaluator) throws GLanguageException {
         switch (formula.getReturnType(evaluator)) {
             case INTEGER:
                 return formula.getIntegerValue(evaluator).doubleValue();
@@ -428,13 +478,18 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     @Transient
-    public FormulaReturnType getReturnType() {
+    public FormulaReturnType getReturnType() throws GLanguageException {
         return getReturnType(null);
     }
 
     @Transient
-    public FormulaReturnType getReturnType(Evaluator evaluator) {
-        return getFormula().getReturnType(evaluator);
+    public FormulaReturnType getReturnType(Evaluator evaluator) throws GLanguageException {
+        try {
+            return getFormula().getReturnType(evaluator);
+        } catch (GLanguageException e) {
+            e.getError().setOuterError(new RuleReturnTypeInnerError(this, evaluator));
+            throw e;
+        }
     }
 
     @Transient
@@ -465,7 +520,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
      * @return true if this is applicable, false otherwise
      */
     @Transient
-    public boolean isApplicable() {
+    public boolean isApplicable() throws GLanguageException {
         return isApplicable(null);
     }
 
@@ -476,8 +531,13 @@ public class RuleVersion implements Comparable<RuleVersion> {
      * @return true if this is applicable, false otherwise
      */
     @Transient
-    public boolean isApplicable(Evaluator evaluator) {
-        return applicabilityCondition != null ? applicabilityCondition.getBooleanValue(evaluator) : true;
+    public boolean isApplicable(Evaluator evaluator) throws GLanguageException {
+        try {
+            return applicabilityCondition != null ? applicabilityCondition.getBooleanValue(evaluator) : true;
+        } catch (GLanguageException e) {
+            e.getError().setOuterError(new RuleUnableToCheckApplicabilityInnerError(this, evaluator));
+            throw e;
+        }
     }
 
     @Transient
@@ -668,7 +728,11 @@ public class RuleVersion implements Comparable<RuleVersion> {
         Integer result = null;
         if (value != null) {
             if (isRoundable()) {
-                result = Rounder.round(value, roundingType, roundingPrecision).intValue();
+                try {
+                    result = Rounder.round(value, roundingType, roundingPrecision).intValue();
+                } catch (GLanguageException e) {
+                    e.getError().setOuterError(new RuleUnableToEvaluateIntegerInnerError(this, evaluator));
+                }
             } else {
                 result = value;
             }
@@ -685,7 +749,11 @@ public class RuleVersion implements Comparable<RuleVersion> {
         Double result = null;
         if (value != null) {
             if (isRoundable()) {
-                result = Rounder.round(value, roundingType, roundingPrecision);
+                try {
+                    result = Rounder.round(value, roundingType, roundingPrecision);
+                } catch (GLanguageException e) {
+                    e.getError().setOuterError(new RuleUnableToEvaluateNumericInnerError(this, evaluator));
+                }
             } else {
                 result = value;
             }

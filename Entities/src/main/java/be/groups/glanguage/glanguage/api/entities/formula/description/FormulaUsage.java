@@ -3,6 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.description;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 
 import javax.persistence.*;
 import java.util.List;
@@ -104,8 +105,13 @@ public class FormulaUsage {
     /*
      * Methods
      */
-    public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) {
-        return getParameterConbination().isValid(parameters, evaluator);
+    public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
+        try {
+            return getParameterConbination().isValid(parameters, evaluator);
+        } catch (GLanguageException e) {
+            // TODO
+            throw e;
+        }
     }
 
     /*

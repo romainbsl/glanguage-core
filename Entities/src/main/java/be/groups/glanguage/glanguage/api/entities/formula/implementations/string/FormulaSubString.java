@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -21,7 +22,7 @@ public class FormulaSubString extends AbstractNonTerminalFormula {
         super();
     }
 
-    public FormulaSubString(FormulaDescription description, List<AbstractFormula> parameters) {
+    public FormulaSubString(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
         super(description, parameters);
 
         if (parameters == null) {
@@ -35,7 +36,7 @@ public class FormulaSubString extends AbstractNonTerminalFormula {
     @JsonIgnore
     @Transient
     @Override
-    public String getStringValue(Evaluator evaluator) {
+    protected String doGetStringValue(Evaluator evaluator) throws GLanguageException {
         String str;
         int beginIndex, endIndex;
 

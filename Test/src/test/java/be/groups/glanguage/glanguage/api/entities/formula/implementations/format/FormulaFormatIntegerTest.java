@@ -6,8 +6,9 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.entities.utils.FormatAlignment;
-import be.groups.glanguage.glanguage.api.entities.utils.FormatSign;
+import be.groups.glanguage.glanguage.api.entities.utils.format.FormatAlignment;
+import be.groups.glanguage.glanguage.api.entities.utils.format.FormatSign;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -53,7 +54,7 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidMatching() {
+	public void testIsValidMatching() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -80,7 +81,7 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNotMatching() {
+	public void testIsValidNotMatching() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
@@ -107,7 +108,7 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeMatching() {
+	public void testGetReturnTypeMatching() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -132,8 +133,8 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatInteger#getIntegerValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetIntegerValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetIntegerValue() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.getIntegerValue(null)).thenReturn(10);
@@ -162,8 +163,8 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatInteger#getNumericValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetNumericValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetNumericValue() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.getIntegerValue(null)).thenReturn(10);
@@ -193,7 +194,7 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaFormatInteger#getStringValue()}
 	 */
 	@Test
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.getIntegerValue(null)).thenReturn(10);
@@ -224,7 +225,7 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaFormatInteger#getStringValue()} when value has exactly the correct size
 	 */
 	@Test
-	public void testGetStringValueExact() {
+	public void testGetStringValueExact() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.getIntegerValue(null)).thenReturn(10001);
@@ -255,7 +256,7 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaFormatInteger#getStringValue()} when value is too long
 	 */
 	@Test
-	public void testGetStringValueTooLong() {
+	public void testGetStringValueTooLong() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.getIntegerValue(null)).thenReturn(100011);
@@ -286,7 +287,7 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaFormatInteger#getStringValue()} when alignment is center
 	 */
 	@Test
-	public void testGetStringValueCenterAlign() {
+	public void testGetStringValueCenterAlign() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.getIntegerValue(null)).thenReturn(10);
@@ -317,7 +318,7 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaFormatInteger#getStringValue()} when alignment is right
 	 */
 	@Test
-	public void testGetStringValueRightAlign() {
+	public void testGetStringValueRightAlign() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.getIntegerValue(null)).thenReturn(10);
@@ -349,7 +350,7 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	 * there are no handled sign
 	 */
 	@Test
-	public void testGetStringValueNoneSignNegativeInteger() {
+	public void testGetStringValueNoneSignNegativeInteger() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.getIntegerValue(null)).thenReturn(-10);
@@ -381,7 +382,7 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	 * handled sign is positive
 	 */
 	@Test
-	public void testGetStringValuePositiveSignNegativeInteger() {
+	public void testGetStringValuePositiveSignNegativeInteger() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.getIntegerValue(null)).thenReturn(-10);
@@ -413,7 +414,7 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	 * handled sign is negative too
 	 */
 	@Test
-	public void testGetStringValueNegativeSignNegativeInteger() {
+	public void testGetStringValueNegativeSignNegativeInteger() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.getIntegerValue(null)).thenReturn(-10);
@@ -445,7 +446,7 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	 * handled sign is negative
 	 */
 	@Test
-	public void testGetStringValueNegativeSignPositiveInteger() {
+	public void testGetStringValueNegativeSignPositiveInteger() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.getIntegerValue(null)).thenReturn(10);
@@ -477,7 +478,7 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	 * signs are handled
 	 */
 	@Test
-	public void testGetStringValueBothSignsPositiveInteger() {
+	public void testGetStringValueBothSignsPositiveInteger() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.getIntegerValue(null)).thenReturn(-10);
@@ -507,8 +508,8 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatInteger#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.getIntegerValue(null)).thenReturn(10);
@@ -537,8 +538,8 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatInteger#getDateValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDateValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.getIntegerValue(null)).thenReturn(10);
@@ -567,8 +568,8 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaFormatInteger#getDurationValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetDurationValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.getIntegerValue(null)).thenReturn(10);
@@ -608,7 +609,7 @@ public class FormulaFormatIntegerTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaFormatInteger#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		AbstractFormula number = mock(AbstractFormula.class);
 		when(number.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(number.asText()).thenReturn("10");

@@ -12,7 +12,7 @@
   <artifactId>glanguage-api</artifactId>
   <version>0.0.2</version>
   <packaging>pom</packaging>
-  
+
   <modules>
   	<module>Entities</module>
   	<module>Test</module>

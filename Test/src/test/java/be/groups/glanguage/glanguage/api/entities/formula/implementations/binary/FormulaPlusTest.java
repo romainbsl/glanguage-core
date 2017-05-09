@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFact
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -56,7 +57,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidBothIntegers() {
+	public void testIsValidBothIntegers() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -73,7 +74,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidFirstIntSecondNum() {
+	public void testIsValidFirstIntSecondNum() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -91,7 +92,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidFirstIntSecondNotIntOrNum() {
+	public void testIsValidFirstIntSecondNotIntOrNum() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -109,7 +110,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidSecondIntFirstNotIntOrNum() {
+	public void testIsValidSecondIntFirstNotIntOrNum() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
@@ -126,7 +127,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidFirstNumSecondInt() {
+	public void testIsValidFirstNumSecondInt() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -144,7 +145,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidFirstNumSecondNotIntOrNum() {
+	public void testIsValidFirstNumSecondNotIntOrNum() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -162,7 +163,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidSecondNumFirstNotIntOrNum() {
+	public void testIsValidSecondNumFirstNotIntOrNum() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
@@ -179,7 +180,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidBothNumerics() {
+	public void testIsValidBothNumerics() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -196,7 +197,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidBothStrings() {
+	public void testIsValidBothStrings() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
@@ -213,7 +214,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidFirstDateSecondDuration() {
+	public void testIsValidFirstDateSecondDuration() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
@@ -230,7 +231,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidBothDurations() {
+	public void testIsValidBothDurations() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		
@@ -247,7 +248,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidFirstDurationSecondDate() {
+	public void testIsValidFirstDurationSecondDate() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		
@@ -264,7 +265,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidBothDate() {
+	public void testIsValidBothDate() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
@@ -281,7 +282,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeBothIntegers() {
+	public void testGetReturnTypeBothIntegers() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -298,7 +299,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeFirstIntSecondNum() {
+	public void testGetReturnTypeFirstIntSecondNum() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -316,7 +317,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeFirstIntSecondNotIntOrNum() {
+	public void testGetReturnTypeFirstIntSecondNotIntOrNum() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
@@ -334,7 +335,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeSecondIntFirstNotIntOrNum() {
+	public void testGetReturnTypeSecondIntFirstNotIntOrNum() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
@@ -351,7 +352,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeFirstNumSecondInt() {
+	public void testGetReturnTypeFirstNumSecondInt() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -369,7 +370,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeFirstNumSecondNotIntOrNum() {
+	public void testGetReturnTypeFirstNumSecondNotIntOrNum() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -387,7 +388,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeSecondNumFirstNotIntOrNum() {
+	public void testGetReturnTypeSecondNumFirstNotIntOrNum() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
@@ -404,7 +405,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeBothNumerics() {
+	public void testGetReturnTypeBothNumerics() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		
@@ -421,7 +422,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeBothStrings() {
+	public void testGetReturnTypeBothStrings() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		
@@ -438,7 +439,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeBothDurations() {
+	public void testGetReturnTypeBothDurations() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		
@@ -455,7 +456,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeFirstDateSecondDuration() {
+	public void testGetReturnTypeFirstDateSecondDuration() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		
@@ -472,7 +473,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeFirstDurationSecondDate() {
+	public void testGetReturnTypeFirstDurationSecondDate() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		
@@ -488,7 +489,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaPlus#getIntegerValue()} when both parameters are integers
 	 */
 	@Test
-	public void testGetIntegerValueIntInt() {
+	public void testGetIntegerValueIntInt() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getIntegerValue(null)).thenReturn(1);
@@ -506,7 +507,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaPlus#getNumericValue()} when both parameters are numerics
 	 */
 	@Test
-	public void testGetNumericValueNumNum() {
+	public void testGetNumericValueNumNum() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand1.getNumericValue(null)).thenReturn(1.5);
@@ -525,7 +526,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 * numeric
 	 */
 	@Test
-	public void testGetNumericValueIntNum() {
+	public void testGetNumericValueIntNum() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getNumericValue(null)).thenReturn(1.0);
@@ -544,7 +545,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 * integer
 	 */
 	@Test
-	public void testGetNumericValueNumInt() {
+	public void testGetNumericValueNumInt() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand1.getNumericValue(null)).thenReturn(2.3);
@@ -562,7 +563,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaPlus#getStringValue()}
 	 */
 	@Test
-	public void testGetStringValue() {
+	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand1.getStringValue(null)).thenReturn("some_value1");
@@ -579,8 +580,8 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaPlus#getBooleanValue()}
 	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetBooleanValue() {
+	@Test(expected = GLanguageException.class)
+	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getNumericValue(null)).thenReturn(1.0);
@@ -598,7 +599,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaPlus#getDateValue()} when operands are not of the good type
 	 */
 	@Test(expected = IllegalStateException.class)
-	public void testGetDateValueWrongParameterTypes() {
+	public void testGetDateValueWrongParameterTypes() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getNumericValue(null)).thenReturn(1.0);
@@ -615,7 +616,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaPlus#getDateValue()} when first operand is a date and second operand is a duration
 	 */
-	public void testGetDateValueFirstDateSecondDuration() {
+	public void testGetDateValueFirstDateSecondDuration() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(operand1.getDateValue(null)).thenReturn(LocalDate.of(2016, 1, 1));
@@ -632,7 +633,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaPlus#getDateValue()} when first operand is a duration and second operand is a date
 	 */
-	public void testGetDateValueFirstDurationSecondDate() {
+	public void testGetDateValueFirstDurationSecondDate() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		when(operand1.getDurationValue(null)).thenReturn(Duration.ofDays(1));
@@ -650,7 +651,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaPlus#getDurationValue()} when operands are not of the good type
 	 */
 	@Test(expected = NullPointerException.class)
-	public void testGetDurationValueWrongParameterTypes() {
+	public void testGetDurationValueWrongParameterTypes() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.getNumericValue(null)).thenReturn(1.0);
@@ -667,7 +668,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaPlus#getDurationValue()}
 	 */
-	public void testGetDurationValueBothDuration() {
+	public void testGetDurationValueBothDuration() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		when(operand1.getDurationValue(null)).thenReturn(Duration.ofDays(1));
@@ -695,7 +696,7 @@ public class FormulaPlusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaPlus#asText()}
 	 */
 	@Test
-	public void testAsText() {
+	public void testAsText() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand1.asText()).thenReturn("some_rule1");

@@ -1,130 +1,39 @@
 package be.groups.glanguage.glanguage.api.business.action;
 
-import java.time.LocalDate;
-import java.util.LinkedList;
-
 import be.groups.glanguage.glanguage.api.business.analysis.IdentifierParameterList;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBoolean;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDate;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDuration;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalInteger;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumeric;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalString;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.*;
+
+import java.time.LocalDate;
+import java.util.LinkedList;
 
 /**
  * Set of semantical actions applicable during analysis
  */
 public interface SemanticalAction {
-	
-	// /** Version du S-Langage concernee */
-	// public String versionSlangage ();
-	
+
 	/**
 	 * @return the formula resulting of the analysis
 	 */
-	public AbstractFormula getFormula();
+	AbstractFormula getFormula();
 
 	/**
 	 * @param formula the formula to set
 	 */
-	public void setFormula(AbstractFormula formula);
+	void setFormula(AbstractFormula formula);
 	
 	/** Initialize the set of semantical actions */
-	public void initialize();
+	void initialize();
 	
 	/** End analysis */
-	public void endAnalysis();
+	void endAnalysis();
 	
 	/** Begin analysis */
-	public void beginAnalysis();
-	
-	//// /**
-	//// * Est ce que tous les synonymes de {@code regle} connus dans l'univers des règles sont bien les synonymes de {@code regle}?
-	//// * @param regle
-	//// */
-	////// @Requires ("regle != null")
-	//// public boolean estSynonymesValide (Regle regle);
-	////
-	//// /**
-	//// * {@code code} designe-t-il un ensemble de versions de regles ou un fait de l'univers ?
-	//// * @param code
-	//// */
-	////// @Requires ("code != null")
-	//// public boolean existeIdentifiant (String code);
-	////
-	//// /**
-	//// * Un fait avec {@code code} existe-t-il ?
-	//// * @param code
-	//// */
-	////// @Requires ("code != null")
-	//// public boolean existeFait (String code);
-	//
-	// /**
-	// * Ajouter {@code regle} a l'univers.
-	// * @param regle
-	// */
-	//// @Requires ({
-	//// " regle != null",
-	//// "estSynonymesValide (regle)"
-	//// })
-	// public void ajouterRegle (Regle regle);
-	//
-	// /**
-	// * Ajouter {@code fait} a l'univers.
-	// * @param fait
-	// */
-	//// @Requires ({
-	//// " fait != null",
-	//// "estSynonymesValide (fait)"
-	//// })
-	// public void ajouterFait (Fait fait);
-	//
-	// /**
-	// * Creation d'une regle.
-	// * @param nom
-	// * @param syn
-	// * @param commmentaire
-	// * @param obs
-	// * @param deb
-	// * @param fin
-	// * @param grp
-	// * @param arrondir
-	// * @param app
-	// * @param frm
-	// */
-	//// @Requires ({
-	//// "nom != null",
-	//// "(obs != null) && (deb != null) && (fin != null)"
-	//// })
-	// public Regle creerRegle (String nom,
-	// MultilingualString syn,
-	// MultilingualString commentaire,
-	// Date obs,
-	// Date deb,
-	// Date fin,
-	// GroupeRegles grp,
-	// int arrondir, double precision,
-	// Formule app,
-	// Formule frm);
-	// /**
-	// * Creation d'un fait.
-	// * @param nom
-	// * @param syn
-	// * @param commmentaire
-	// * @param grp
-	// * @param frm
-	// */
-	//// @Requires (" nom != null")
-	// public Fait creerFait (String nom,
-	// MultilingualString syn,
-	// MultilingualString commentaire,
-	// GroupeRegles grp,
-	// Formule frm);
-	
+	void beginAnalysis();
+
 	/**
 	 * Creation of a date
 	 * 
@@ -133,12 +42,7 @@ public interface SemanticalAction {
 	 * @param y An integer representing a year
 	 * @return A LocalDate representing the date of day {@code d} of month {@code m} of year {@code y}
 	 */
-	// @Requires ({
-	// "1 <= j && j <= 31",
-	// "1 <= m && m <= 12",
-	// "a > 0"
-	// })
-	public LocalDate createDate(int d, int m, int y);
+	LocalDate createDate(int d, int m, int y);
 	
 	/**
 	 * Check that {@code n} String contains a positive integer between {@code min} and {@code max} inclusively if {@code max} is
@@ -150,46 +54,27 @@ public interface SemanticalAction {
 	 *        value means there is no upper limit
 	 * @return The integer represented by n
 	 */
-	public int checkInteger(String n, int min, int max);
-	
-	// /**
-	// * Ajouter la chaine multilingue {@code nouv} a la chaine {@code ml}.
-	// *
-	// * @param ml
-	// * @param nouv
-	// */
-	// public MultilingualString ajouterChaineMultilingue(MultilingualString ml,
-	// MultilingualString nouv);
-	//
-	// /**
-	// * Creation d'une chaine multilingue avec {@code tag} et {@code descr}.
-	// *
-	// * @param tag
-	// * @param descr
-	// */
-	// public MultilingualString creerChaineMultilingue(String tag, String descr);
+	int checkInteger(String n, int min, int max);
 	
 	/**
 	 * "Unary operation" node of type {@code opType} applied to {@link AbstractFormula} {@code formula}
 	 * 
-	 * @param formulaType The type of unary operation to apply to {@code formula}
+	 * @param formulaDescriptionId The type of unary operation to apply to {@code formula}
 	 * @param formula The {@link AbstractFormula} on which the unary operation has to be applied
 	 * @return A unary operation {@link AbstractFormula} of type {@code formulaType} with {@code formula1} as parameter
 	 */
-	// @Requires ("DefinitionsSLangage.operateurUnaireCorrect (codeOp)")
-	public AbstractFormula unaryOperation(FormulaType formulaDescriptionId, AbstractFormula formula);
+	AbstractFormula unaryOperation(FormulaType formulaDescriptionId, AbstractFormula formula);
 	
 	/**
 	 * "Binary operation" node of type {@code opType} applied to {@link AbstractFormula}'s {@code formula1} and {@code formula2}
 	 * 
-	 * @param formulaType The type of unary operation to apply to {@code formula1} and {@code formula2}
+	 * @param formulaDescriptionId The type of unary operation to apply to {@code formula1} and {@code formula2}
 	 * @param formula1 The first {@link AbstractFormula} on which the binary operation has to be applied
 	 * @param formula2 The second {@link AbstractFormula} on which the binary operation has to be applied
 	 * @return A binary operation {@link AbstractFormula} of type {@code formulaType} with {@code formula1} as first parameter and
 	 *         {@code formula2} as second parameter
 	 */
-	// @Requires ("DefinitionsSLangage.operateurBinaireCorrect (codeOp)")
-	public AbstractFormula binaryOperation(FormulaType formulaDescriptionId, AbstractFormula formula1, AbstractFormula formula2);
+	AbstractFormula binaryOperation(FormulaType formulaDescriptionId, AbstractFormula formula1, AbstractFormula formula2);
 	
 	/**
 	 * "In operation" node returning a boolean value whether the result of {@link AbstractFormula} formula is contained in {@code list}
@@ -199,16 +84,16 @@ public interface SemanticalAction {
 	 * @param list The list of values in which to check if the result of {@code formula} is - or is not - contained
 	 * @return A {@link AbstractFormula}
 	 */
-	public AbstractFormula inOperation(AbstractFormula formula, LinkedList<AbstractFormula> list);
+	AbstractFormula inOperation(AbstractFormula formula, LinkedList<AbstractFormula> list);
 	
 	/**
 	 * "Bracket formula" node 
-	 *  
-	 * @param formulaDescriptionId
-	 * @param formula
-	 * @return
+	 *
+	 * @param formula The formula to be encapsulated by a "bracket formula"
+	 * @return A {@link be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracket}
+	 * encapsulating {@code formula}
 	 */
-	public AbstractFormula bracketFormula(AbstractFormula formula);
+	AbstractFormula bracketFormula(AbstractFormula formula);
 	
 	/**
 	 * "Reference to a rule" node
@@ -216,7 +101,7 @@ public interface SemanticalAction {
 	 * @param name The name of the rule referenced
 	 * @return A {@link AbstractFormula}
 	 */
-	public AbstractFormula referenceFormula(String name);
+	AbstractFormula referenceFormula(String name);
 	
 	/**
 	 * "Terminal integer formula" node
@@ -225,7 +110,7 @@ public interface SemanticalAction {
 	 * @return A {@link FormulaTerminalInteger}
 	 */
 	// @Requires ("s != null") // && s is an integer
-	public AbstractFormula terminalIntegerFormula(String s);
+	AbstractFormula terminalIntegerFormula(String s);
 	
 	/**
 	 * "Terminal numeric formula" node
@@ -234,7 +119,7 @@ public interface SemanticalAction {
 	 * @return A {@link FormulaTerminalNumeric}
 	 */
 	// @Requires ("s != null") // && s is a double
-	public AbstractFormula terminalNumericFormula(String s);
+	AbstractFormula terminalNumericFormula(String s);
 	
 	/**
 	 * "Terminal date formula" node
@@ -243,7 +128,7 @@ public interface SemanticalAction {
 	 * @return A {@link FormulaTerminalDate}
 	 */
 	// @Requires ("d != null")
-	public AbstractFormula terminalDateFormula(LocalDate d);
+	AbstractFormula terminalDateFormula(LocalDate d);
 	
 	 /**
 	 * Terminal duration formula" node
@@ -252,7 +137,7 @@ public interface SemanticalAction {
 	 * @return A {@link FormulaTerminalDuration}
 	 */
 	 // @Requires ("duree != null")
-	 public AbstractFormula terminalDurationFormula(String duration);
+	 AbstractFormula terminalDurationFormula(String duration);
 	
 	/**
 	 * "Terminal boolean formula" node
@@ -260,7 +145,7 @@ public interface SemanticalAction {
 	 * @param b A boolean
 	 * @return A {@link FormulaTerminalBoolean}
 	 */
-	public AbstractFormula terminalBooleanFormula(boolean b);
+	AbstractFormula terminalBooleanFormula(boolean b);
 	
 	/**
 	 * "Terminal string formula" node
@@ -268,40 +153,32 @@ public interface SemanticalAction {
 	 * @param s A String
 	 * @return A {@link FormulaTerminalString}
 	 */
-	// @Requires ("s != null")
-	public AbstractFormula terminalStringFormula(String s);
+	AbstractFormula terminalStringFormula(String s);
 	
 	/**
 	 * "Empty formula" node
 	 * 
 	 * @return null
 	 */
-	public AbstractFormula emptyFormula();
+	AbstractFormula emptyFormula();
 	
 	/**
 	 * "Standard function" node
 	 * 
-	 * @param formulaType The type of formula to create
+	 * @param formulaDescriptionId The type of formula to create
 	 * @param parameters The parameters of the formula to create
 	 * @return A standard function {@link AbstractFormula} of type {@code formulaType} with {@code parameters}
 	 */
-	// @Requires ({
-	// "DefinitionsSLangage.fonctionCorrecte(cf)",
-	// "param != null"
-	// })
-	public AbstractFormula standardFunction(FormulaType formulaDescriptionId, LinkedList<AbstractFormula> parameters);
+	AbstractFormula standardFunction(FormulaType formulaDescriptionId, LinkedList<AbstractFormula> parameters);
 	
 	/**
 	 * "Standard group function" node
 	 * 
-	 * @param formulaType The type of formula to create
+	 * @param formulaDescriptionId The type of formula to create
 	 * @param groupName The name identifying the group
 	 * @return A standard group function {@link AbstractFormula} of type {@code formulaType} on a group identified by {@code groupName}
 	 */
-	// @Requires ({
-	// "DefinitionsSLangage.fonctionCorrecte(cf) && nomGroupe != null && !nomGroupe.isEmpty()"
-	// })
-	public AbstractFormula groupFunction(FormulaType formulaDescriptionId, String groupName);
+	AbstractFormula groupFunction(FormulaType formulaDescriptionId, String groupName);
 	
 	
 	/**
@@ -312,12 +189,7 @@ public interface SemanticalAction {
 	 * @return A {@link FormulaGet} that would return a result of type {@code returnType} by calling the methods sequence described in
 	 *         the {@code list}
 	 */
-	// @Requires ({
-	// "DefinitionsSLangage.typeCorrect(type)",
-	// "liste != null",
-	// "liste.identifiants != null && liste.identifiants.size() > 0"
-	// })
-	public AbstractFormula getFunction(FormulaReturnType returnType, IdentifierParameterList list);
+	AbstractFormula getFunction(FormulaReturnType returnType, IdentifierParameterList list);
 	
 	
 	/**
@@ -326,8 +198,7 @@ public interface SemanticalAction {
 	 * @param code The code of the rule
 	 * @return An {@link AbstractFormula} representing the call to the applicability condition of the rule identified by {@code code}
 	 */
-	// @Requires ("code != null")
-	public AbstractFormula applicabiltyCall(String code);
+	AbstractFormula applicabiltyCall(String code);
 	
 	/**
 	 * Value of the formula of the rule identified by {@code code}
@@ -335,8 +206,7 @@ public interface SemanticalAction {
 	 * @param code The code of the rule
 	 * @return An {@link AbstractFormula} representing the call to the formula of the rule identified by {@code code}
 	 */
-	// @Requires ("code != null")
-	public AbstractFormula formulaCall(String code);
+	AbstractFormula formulaCall(String code);
 	
 	/**
 	 * "If instruction" node
@@ -348,6 +218,6 @@ public interface SemanticalAction {
 	 * @param ifStatement The formula to evaluate if the {@code condition} is true
 	 * @param elseStatement The formula to evaluate if the {@code condition} is false
 	 */
-	public AbstractFormula ifInstruction(AbstractFormula condition, AbstractFormula ifStatement, AbstractFormula elseStatement);
+	AbstractFormula ifInstruction(AbstractFormula condition, AbstractFormula ifStatement, AbstractFormula elseStatement);
 	
 }
