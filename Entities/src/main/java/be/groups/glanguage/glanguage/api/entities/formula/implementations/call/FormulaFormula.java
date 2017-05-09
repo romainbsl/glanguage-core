@@ -30,8 +30,7 @@ public class FormulaFormula extends RuleCallFormula {
 			return ruleVersion.getFormula().getIntegerValue(evaluator);
 		} catch (GLanguageException e) {
 			e.getError()
-					.setOuterError(new FormulaUnableToEvaluateIntegerInnerError(this, null) {
-					});
+					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, FormulaMethod.INTEGER, null));
 			throw e;
 		}
 	}
@@ -42,8 +41,7 @@ public class FormulaFormula extends RuleCallFormula {
 			return ruleVersion.getFormula().getNumericValue(evaluator);
 		} catch (GLanguageException e) {
 			e.getError()
-					.setOuterError(new FormulaUnableToEvaluateNumericInnerError(this, null) {
-					});
+					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, FormulaMethod.NUMERIC, null));
 			throw e;
 		}
 	}
@@ -54,8 +52,7 @@ public class FormulaFormula extends RuleCallFormula {
 			return ruleVersion.getFormula().getStringValue(evaluator);
 		} catch (GLanguageException e) {
 			e.getError()
-					.setOuterError(new FormulaUnableToEvaluateStringInnerError(this, null) {
-					});
+					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, FormulaMethod.STRING, null));
 			throw e;
 		}
 	}
@@ -66,8 +63,7 @@ public class FormulaFormula extends RuleCallFormula {
 			return ruleVersion.getFormula().getBooleanValue(evaluator);
 		} catch (GLanguageException e) {
 			e.getError()
-					.setOuterError(new FormulaUnableToEvaluateBooleanInnerError(this, null) {
-					});
+					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, FormulaMethod.BOOLEAN, null));
 			throw e;
 		}
 	}
@@ -78,8 +74,7 @@ public class FormulaFormula extends RuleCallFormula {
 			return ruleVersion.getFormula().getDateValue(evaluator);
 		} catch (GLanguageException e) {
 			e.getError()
-					.setOuterError(new FormulaUnableToEvaluateDateInnerError(this, null) {
-					});
+					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, FormulaMethod.DATE, null));
 			throw e;
 		}
 	}
@@ -90,8 +85,7 @@ public class FormulaFormula extends RuleCallFormula {
 			return ruleVersion.getFormula().getDurationValue(evaluator);
 		} catch (GLanguageException e) {
 			e.getError()
-					.setOuterError(new FormulaUnableToEvaluateDurationInnerError(this, null) {
-					});
+					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, FormulaMethod.DURATION, null));
 			throw e;
 		}
 	}

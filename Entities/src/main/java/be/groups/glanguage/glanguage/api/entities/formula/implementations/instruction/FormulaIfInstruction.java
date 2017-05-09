@@ -9,7 +9,8 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaWrongParameterTypeInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.FormulaUnableToEvaluateDateInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.FormulaMethod;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.instantiate.FormulaUnableToInstantiateInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -40,13 +41,13 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
             }
             if (!condition.getReturnType(null).equals(FormulaReturnType.BOOLEAN)) {
                 throw new GLanguageException(new FormulaWrongParameterTypeInnerError(this,
-                                                                                     null,
-                                                                                     "constructor",
-                                                                                     "condition",
-                                                                                     2,
-                                                                                     condition.getReturnType(null),
-                                                                                     Arrays.asList(FormulaReturnType
-                                                                                                           .BOOLEAN)));
+                        null,
+                        "constructor",
+                        "condition",
+                        2,
+                        condition.getReturnType(null),
+                        Arrays.asList(FormulaReturnType
+                                .BOOLEAN)));
             }
             if (ifStatement == null) {
                 throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 2));
@@ -131,11 +132,10 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
             if (getParameters().size() > 2) {
                 return getParameters().get(2).getDateValue(evaluator);
             } else {
-                throw new GLanguageException(new FormulaUnableToEvaluateDateInnerError(this,
-                                                                                       evaluator,
-                                                                                       "Else " + "statement needed, "
-                                                                                               + "no default value of" +
-                                                                                               " " + "type DATE"));
+                throw new GLanguageException(new FormulaEvaluateTypeInnerError(this,
+                        evaluator,
+                        FormulaMethod.DATE,
+                        "Else statement needed, no default value of type DATE"));
             }
         }
     }

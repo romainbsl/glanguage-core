@@ -8,10 +8,10 @@ import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
 /**
  * Created by michotte on 20/12/2016.
  */
-public class FormulaUnableToEvaluateInnerError extends FormulaInnerError {
+public class FormulaEvaluateInnerError extends FormulaInnerError {
 
-    public FormulaUnableToEvaluateInnerError(AbstractFormula formula, Evaluator evaluator) {
-        super(GLanguageErrorRegistry.FORMULA_UNABLE_TO_EVALUATE, formula, evaluator, "getValue", null);
+    public FormulaEvaluateInnerError(AbstractFormula formula, Evaluator evaluator) {
+        super(GLanguageErrorRegistry.FORMULA_UNABLE_TO_EVALUATE, formula, evaluator, FormulaMethod.VALUE.getName(), null);
     }
 
 }
