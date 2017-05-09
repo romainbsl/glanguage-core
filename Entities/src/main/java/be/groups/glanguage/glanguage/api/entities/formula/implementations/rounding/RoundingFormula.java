@@ -11,8 +11,8 @@ import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaWrongParameterTypeInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.FormulaMethod;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.instantiate.FormulaUnableToInstantiateInnerError;
+import be.groups.glanguage.glanguage.api.error.utils.EvaluationMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Transient;
@@ -60,7 +60,7 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
         try {
             return getNumericValue().intValue();
         } catch (GLanguageException e) {
-            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, FormulaMethod.INTEGER, null));
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, EvaluationMethod.INTEGER, null));
             throw e;
         }
     }
@@ -93,7 +93,7 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
                                                                                                        FormulaReturnType.NUMERIC)));
             }
         } catch (GLanguageException e) {
-            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, FormulaMethod.NUMERIC,
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, EvaluationMethod.NUMERIC,
                     null));
             throw e;
         }

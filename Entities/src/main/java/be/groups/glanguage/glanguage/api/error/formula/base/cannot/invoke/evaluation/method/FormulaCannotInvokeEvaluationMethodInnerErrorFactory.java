@@ -4,7 +4,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
-import be.groups.glanguage.glanguage.api.error.utils.EvaluationMethodName;
+import be.groups.glanguage.glanguage.api.error.utils.EvaluationMethod;
 
 /**
  * Created by michotte on 25/01/2017.
@@ -13,36 +13,36 @@ public class FormulaCannotInvokeEvaluationMethodInnerErrorFactory {
 
     public static FormulaInnerError getType(AbstractFormula formula,
                                             Evaluator evaluator,
-                                            EvaluationMethodName methodName) {
+                                            EvaluationMethod method) {
         return new FormulaInnerError(GLanguageErrorRegistry.FORMULA_CANNOT_INVOKE_EVALUATION_TYPED_METHOD,
                                      formula,
                                      evaluator,
-                                     methodName.getMethodName(),
+                                     method.getName(),
                                      null);
     }
 
     public static FormulaInnerError getBoolean(AbstractFormula formula, Evaluator evaluator) {
-        return getType(formula, evaluator, EvaluationMethodName.BOOLEAN);
+        return getType(formula, evaluator, EvaluationMethod.BOOLEAN);
     }
 
     public static FormulaInnerError getDate(AbstractFormula formula, Evaluator evaluator) {
-        return getType(formula, evaluator, EvaluationMethodName.DATE);
+        return getType(formula, evaluator, EvaluationMethod.DATE);
     }
 
-    public static FormulaInnerError getEvaluationDuration(AbstractFormula formula, Evaluator evaluator) {
-        return getType(formula, evaluator, EvaluationMethodName.DURATION);
+    public static FormulaInnerError getDuration(AbstractFormula formula, Evaluator evaluator) {
+        return getType(formula, evaluator, EvaluationMethod.DURATION);
     }
 
-    public static FormulaInnerError getEvaluationInteger(AbstractFormula formula, Evaluator evaluator) {
-        return getType(formula, evaluator, EvaluationMethodName.INTEGER);
+    public static FormulaInnerError getInteger(AbstractFormula formula, Evaluator evaluator) {
+        return getType(formula, evaluator, EvaluationMethod.INTEGER);
     }
 
-    public static FormulaInnerError getEvaluationNumeric(AbstractFormula formula, Evaluator evaluator) {
-        return getType(formula, evaluator, EvaluationMethodName.NUMERIC);
+    public static FormulaInnerError getNumeric(AbstractFormula formula, Evaluator evaluator) {
+        return getType(formula, evaluator, EvaluationMethod.NUMERIC);
     }
 
-    public static FormulaInnerError getEvaluationString(AbstractFormula formula, Evaluator evaluator) {
-        return getType(formula, evaluator, EvaluationMethodName.STRING);
+    public static FormulaInnerError getString(AbstractFormula formula, Evaluator evaluator) {
+        return getType(formula, evaluator, EvaluationMethod.STRING);
     }
 
 }

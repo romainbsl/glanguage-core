@@ -10,8 +10,8 @@ import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaWrongParameterTypeInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.FormulaMethod;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.instantiate.FormulaUnableToInstantiateInnerError;
+import be.groups.glanguage.glanguage.api.error.utils.EvaluationMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -134,7 +134,7 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
             } else {
                 throw new GLanguageException(new FormulaEvaluateTypeInnerError(this,
                         evaluator,
-                        FormulaMethod.DATE,
+                        EvaluationMethod.DATE,
                         "Else statement needed, no default value of type DATE"));
             }
         }

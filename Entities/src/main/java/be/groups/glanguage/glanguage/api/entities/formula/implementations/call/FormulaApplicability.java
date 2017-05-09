@@ -32,19 +32,19 @@ public class FormulaApplicability extends RuleCallFormula {
 	@Override
 	protected Integer doGetIntegerValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
 		throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory
-											 .getEvaluationInteger(this, evaluator));
+											 .getInteger(this, evaluator));
 	}
 
 	@Override
 	protected Double doGetNumericValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
 		throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory
-											 .getEvaluationNumeric(this, evaluator));
+											 .getNumeric(this, evaluator));
 	}
 
 	@Override
 	protected String doGetStringValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
 		throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory
-											 .getEvaluationString(this, evaluator));
+											 .getString(this, evaluator));
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class FormulaApplicability extends RuleCallFormula {
 	@Override
 	protected Duration doGetDurationValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
 		throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory
-											 .getEvaluationDuration(this, evaluator));
+											 .getDuration(this, evaluator));
 	}
 	
 }
