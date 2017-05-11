@@ -6,7 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormulaTest;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescriptionTest;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaParameterDescriptionTest;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaParameterConbinationItemTest;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaParametersCombinationTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaAnomalyTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracketTest;
@@ -84,7 +84,7 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
 @SuiteClasses({RuleSetTest.class, RuleSetVersionTest.class, RuleIdentityTest.class, RuleDefinitionTest.class,
 		RuleDefinitionParameterTest.class, RuleVersionTest.class, RuleDescriptionTest.class, RuleGroupItemTest.class,
 		RounderTest.class, AbstractFormulaTest.class, FormulaDescriptionTest.class, FormulaParametersCombinationTest.class,
-		FormulaParameterDescriptionTest.class, FormulaTerminalBooleanTest.class, FormulaTerminalDurationTest.class,
+		FormulaParameterConbinationItemTest.class, FormulaTerminalBooleanTest.class, FormulaTerminalDurationTest.class,
 		FormulaTerminalIntegerTest.class, FormulaTerminalNumericTest.class, FormulaTerminalStringTest.class,
 		FormulaTerminalDateTest.class, FormulaExistTest.class, FormulaNotTest.class, FormulaUnaryMinusTest.class, FormulaAndTest.class,
 		FormulaOrTest.class, FormulaGreaterTest.class, FormulaGreaterOrEqualTest.class, FormulaSmallerTest.class,

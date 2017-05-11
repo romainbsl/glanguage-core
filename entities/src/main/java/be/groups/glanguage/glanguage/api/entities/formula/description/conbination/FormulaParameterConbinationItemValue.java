@@ -1,4 +1,4 @@
-package be.groups.glanguage.glanguage.api.entities.formula.description;
+package be.groups.glanguage.glanguage.api.entities.formula.description.conbination;
 
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
 

@@ -1,4 +1,7 @@
-package be.groups.glanguage.glanguage.api.entities.formula.description;
+package be.groups.glanguage.glanguage.api.entities.formula.description.conbination;
+
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnTypeConverter;
 
 import javax.persistence.*;
 

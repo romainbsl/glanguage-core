@@ -1,12 +1,18 @@
-package be.groups.glanguage.glanguage.api.entities.formula.description;
+package be.groups.glanguage.glanguage.api.entities.formula.description.usage;
 
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnTypeConverter;
+import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbination;
+import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem;
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -30,6 +36,7 @@ public class FormulaUsage {
     private String name;
     private MultilingualString description;
     private Set<FormulaReturnType> types;
+    private List<FormulaUsageParameterConbinationItem> overriddenParameters;
 
     /*
      * Constructors
@@ -75,6 +82,11 @@ public class FormulaUsage {
         return types;
     }
 
+    @OneToMany(mappedBy = "usage")
+    public List<FormulaUsageParameterConbinationItem> getOverriddenParameters() {
+        return overriddenParameters;
+    }
+
     /*
      * Setters
      */
@@ -105,13 +117,37 @@ public class FormulaUsage {
     /*
      * Methods
      */
-    public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
-        try {
-            return getParameterConbination().isValid(parameters, evaluator);
-        } catch (GLanguageException e) {
-            // TODO
-            throw e;
+    public void validate(AbstractFormula formula, List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
+        getParameterConbination().validate(formula, this, parameters, evaluator);
+    }
+
+    @Transient
+    public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) {
+        return getParameterConbination().isValid(parameters, evaluator);
+    }
+
+    @Transient
+    public String getParameterName(FormulaParameterConbinationItem conbinationParameter) {
+        if (getOverriddenParameters() != null && !getOverriddenParameters().isEmpty()) {
+            Optional<FormulaUsageParameterConbinationItem> overriddenParameter = getOverriddenParameters().stream()
+                    .filter(p -> p.getConbinationParameter().equals(conbinationParameter)).findFirst();
+            if (overriddenParameter.isPresent()) {
+                return overriddenParameter.get().getName().asText();
+            }
         }
+        return conbinationParameter.getName().asText();
+    }
+
+    @Transient
+    public String getParameterDescription(FormulaParameterConbinationItem conbinationParameter) {
+        if (getOverriddenParameters() != null && !getOverriddenParameters().isEmpty()) {
+            Optional<FormulaUsageParameterConbinationItem> overriddenParameter = getOverriddenParameters().stream()
+                    .filter(p -> p.getConbinationParameter().equals(conbinationParameter)).findFirst();
+            if (overriddenParameter.isPresent()) {
+                return overriddenParameter.get().getDescription().asText();
+            }
+        }
+        return conbinationParameter.getDescription().asText();
     }
 
     /*

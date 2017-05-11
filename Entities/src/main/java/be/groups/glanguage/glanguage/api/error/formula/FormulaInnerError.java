@@ -27,7 +27,7 @@ public class FormulaInnerError extends GLanguageInnerError {
         setMessage(createMessage());
     }
 
-    private void createFields(AbstractFormula formula, Evaluator evaluator, String methodName, String cause) {
+    protected void createFields(AbstractFormula formula, Evaluator evaluator, String methodName, String cause) {
         this.formulaIdentification = formula.getClass().getName() + "[id: " + formula.getId() + "]";
         this.evaluator = evaluator == null ? "null" : "not null";
         this.methodName = methodName;
@@ -45,6 +45,26 @@ public class FormulaInnerError extends GLanguageInnerError {
         }
         sb.append(" | \"" + formulaAsText + "\"");
         return sb.toString();
+    }
+
+    public String getFormulaIdentification() {
+        return formulaIdentification;
+    }
+
+    public String getEvaluator() {
+        return evaluator;
+    }
+
+    public String getMethodName() {
+        return methodName;
+    }
+
+    public String getCause() {
+        return cause;
+    }
+
+    public String getFormulaAsText() {
+        return formulaAsText;
     }
 
 }

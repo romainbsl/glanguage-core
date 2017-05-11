@@ -1,10 +1,8 @@
 package be.groups.glanguage.glanguage.api.error.formula.description;
 
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaWrongParameterNumberInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaWrongParameterTypeInnerError;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 
 import java.util.List;
 
@@ -13,28 +11,20 @@ import java.util.List;
  */
 public class FormulaDescriptionInnerErrorFactory {
 
-    public static FormulaInnerError getWrongParameterNumber(AbstractFormula formula,
-                                                            int actualNumberOfParameters,
-                                                            List<Integer> expectedNumberOfParameters) {
-        return new FormulaWrongParameterNumberInnerError(formula,
-                                                         null,
-                                                         "checkIsValid",
-                                                         actualNumberOfParameters,
-                                                         expectedNumberOfParameters);
+    public static FormulaDescriptionInnerError getUnableToValidate(AbstractFormula formula,
+                                                                   List<AbstractFormula> parameters,
+                                                                   Evaluator evaluator,
+                                                                   FormulaDescription formulaDescription) {
+        // TODO
+        return null;
     }
 
-    public static FormulaInnerError getWrongParameterType(AbstractFormula formula,
-                                                          String parameterName,
-                                                          int parameterIndex,
-                                                          FormulaReturnType actualReturnType,
-                                                          List<FormulaReturnType> expectedReturnTypes) {
-        return new FormulaWrongParameterTypeInnerError(formula,
-                                                       null,
-                                                       "checkIsValid",
-                                                       parameterName,
-                                                       parameterIndex,
-                                                       actualReturnType,
-                                                       expectedReturnTypes);
+    public static FormulaDescriptionInnerError getNoMatchingUsage(AbstractFormula formula,
+                                                                  List<AbstractFormula> parameters,
+                                                                  Evaluator evaluator,
+                                                                  FormulaDescription formulaDescription) {
+        // TODO
+        return null;
     }
 
 }

@@ -7,7 +7,6 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.evaluation.method.FormulaCannotInvokeEvaluationMethodInnerErrorFactory;
-import be.groups.glanguage.glanguage.api.error.formula.base.unable.FormulaReturnTypeInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.FormulaEvaluateInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
 import be.groups.glanguage.glanguage.api.error.utils.EvaluationMethod;
@@ -169,31 +168,20 @@ public abstract class AbstractFormula {
 
     @JsonIgnore
     @Transient
-    public boolean isValid(Evaluator evaluator) throws GLanguageException {
-        try {
-            return description.isValid(parameters, evaluator);
-        } catch (GLanguageException e) {
-            // TODO
-            // e.getError().setOuterError(new FormulaIsValidInnerError(this, evaluator));
-            throw e;
-        }
+    public boolean isValid(Evaluator evaluator) {
+        return description.isValid(parameters, evaluator);
     }
 
     @JsonIgnore
     @Transient
-    public FormulaReturnType getReturnType() throws GLanguageException {
+    public FormulaReturnType getReturnType() {
         return getReturnType(null);
     }
 
     @JsonIgnore
     @Transient
-    public FormulaReturnType getReturnType(Evaluator evaluator) throws GLanguageException {
-        try {
-            return description.getReturnType(parameters, evaluator);
-        } catch (GLanguageException e) {
-            e.getError().setOuterError(new FormulaReturnTypeInnerError(this, evaluator));
-            throw e;
-        }
+    public FormulaReturnType getReturnType(Evaluator evaluator) {
+        return description.getReturnType(parameters, evaluator);
     }
 
     /**

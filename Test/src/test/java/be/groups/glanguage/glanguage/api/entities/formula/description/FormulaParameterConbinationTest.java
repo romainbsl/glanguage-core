@@ -2,6 +2,9 @@ package be.groups.glanguage.glanguage.api.entities.formula.description;
 
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbination;
+import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem;
+import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItemType;
 import org.junit.Test;
 
 import java.util.*;
@@ -23,8 +26,8 @@ public class FormulaParameterConbinationTest {
     @Test
     public void testIsValidEmptyEmpty() {
         FormulaParameterConbination formulaParameterConbination = mock(FormulaParameterConbination.class);
-        when(formulaParameterConbination.getParamtersMinimumNumber()).thenReturn(0);
-        when(formulaParameterConbination.getParamtersMaximumNumber()).thenReturn(0);
+        when(formulaParameterConbination.getParametersMinimumNumber()).thenReturn(0);
+        when(formulaParameterConbination.getParametersMaximumNumber()).thenReturn(0);
         when(formulaParameterConbination.getParameters()).thenReturn(null);
 
         assertTrue(formulaParameterConbination.isValid(null, null));
@@ -44,8 +47,8 @@ public class FormulaParameterConbinationTest {
         formulaParameterConbinationItems.add(formulaParameterConbinationItem);
 
         FormulaParameterConbination formulaParameterConbination = mock(FormulaParameterConbination.class);
-//		when(formulaParameterConbination.getParamtersMinimumNumber()).thenReturn(0);
-//		when(formulaParameterConbination.getParamtersMaximumNumber()).thenReturn(0);
+//		when(formulaParameterConbination.getParametersMinimumNumber()).thenReturn(0);
+//		when(formulaParameterConbination.getParametersMaximumNumber()).thenReturn(0);
         when(formulaParameterConbination.getParameters()).thenReturn(formulaParameterConbinationItems);
 
         assertFalse(formulaParameterConbination.isValid(null, null));
@@ -59,8 +62,8 @@ public class FormulaParameterConbinationTest {
     @Test
     public void testIsValidNotEmptyEmpty() {
         FormulaParameterConbination formulaParameterConbination = mock(FormulaParameterConbination.class);
-        when(formulaParameterConbination.getParamtersMinimumNumber()).thenReturn(0);
-        when(formulaParameterConbination.getParamtersMaximumNumber()).thenReturn(0);
+        when(formulaParameterConbination.getParametersMinimumNumber()).thenReturn(0);
+        when(formulaParameterConbination.getParametersMaximumNumber()).thenReturn(0);
         when(formulaParameterConbination.getParameters()).thenReturn(null);
 
         AbstractFormula parameter = mock(AbstractFormula.class);
@@ -100,8 +103,8 @@ public class FormulaParameterConbinationTest {
         formulaParameterConbinationItems.add(formulaParameterConbinationItem2);
 
         FormulaParameterConbination formulaParameterConbination = mock(FormulaParameterConbination.class);
-//		when(formulaParameterConbination.getParamtersMinimumNumber()).thenReturn(0);
-//		when(formulaParameterConbination.getParamtersMaximumNumber()).thenReturn(0);
+//		when(formulaParameterConbination.getParametersMinimumNumber()).thenReturn(0);
+//		when(formulaParameterConbination.getParametersMaximumNumber()).thenReturn(0);
         when(formulaParameterConbination.getParameters()).thenReturn(formulaParameterConbinationItems);
 
         AbstractFormula parameter1 = mock(AbstractFormula.class);
@@ -144,8 +147,8 @@ public class FormulaParameterConbinationTest {
         formulaParameterConbinationItems.add(formulaParameterConbinationItem2);
 
         FormulaParameterConbination formulaParameterConbination = mock(FormulaParameterConbination.class);
-//		when(formulaParameterConbination.getParamtersMinimumNumber()).thenReturn(0);
-//		when(formulaParameterConbination.getParamtersMaximumNumber()).thenReturn(0);
+//		when(formulaParameterConbination.getParametersMinimumNumber()).thenReturn(0);
+//		when(formulaParameterConbination.getParametersMaximumNumber()).thenReturn(0);
         when(formulaParameterConbination.getParameters()).thenReturn(formulaParameterConbinationItems);
 
         AbstractFormula parameter1 = mock(AbstractFormula.class);
@@ -188,8 +191,8 @@ public class FormulaParameterConbinationTest {
         formulaParameterConbinationItems.add(formulaParameterConbinationItem2);
 
         FormulaParameterConbination formulaParameterConbination = mock(FormulaParameterConbination.class);
-//		when(formulaParameterConbination.getParamtersMinimumNumber()).thenReturn(0);
-//		when(formulaParameterConbination.getParamtersMaximumNumber()).thenReturn(0);
+//		when(formulaParameterConbination.getParametersMinimumNumber()).thenReturn(0);
+//		when(formulaParameterConbination.getParametersMaximumNumber()).thenReturn(0);
         when(formulaParameterConbination.getParameters()).thenReturn(formulaParameterConbinationItems);
 
         AbstractFormula parameter2 = mock(AbstractFormula.class);

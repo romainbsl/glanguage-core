@@ -14,11 +14,11 @@
  		<class>be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula</class>
  		
  		<class>be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription</class>
- 		<class>be.groups.glanguage.glanguage.api.entities.formula.description.FormulaParameterConbination</class>
- 		<class>be.groups.glanguage.glanguage.api.entities.formula.description.FormulaParameterConbinationItem</class>
-		<class>be.groups.glanguage.glanguage.api.entities.formula.description.FormulaParameterConbinationItemType</class>
-		<class>be.groups.glanguage.glanguage.api.entities.formula.description.FormulaParameterConbinationItemValue</class>
-		<class>be.groups.glanguage.glanguage.api.entities.formula.description.FormulaUsage</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbination</class>
+ 		<class>be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem</class>
+		<class>be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItemType</class>
+		<class>be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItemValue</class>
+		<class>be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsage</class>
  		
  		<!-- Standards formulas -->
  		
