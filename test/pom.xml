@@ -1,43 +1,46 @@
 <?xml version="1.0"?>
 <project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+		xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
-		<groupId>be.groups</groupId>
-		<artifactId>prestanew-test-pom</artifactId>
-		<version>0.1.1</version>
+		<groupId>be.groups.glanguage</groupId>
+		<artifactId>glanguage-api</artifactId>
+		<version>0.0.3-SNAPSHOT</version>
 	</parent>
 
-	<groupId>be.groups.glanguage</groupId>
 	<artifactId>glanguage-api-test</artifactId>
-	<version>0.0.2</version>
-	<name>Glanguage-Api-Test</name>
+
+	<name>Glanguage Core Test</name>
 
 	<properties>
 		<!-- Test dependencies -->
-		<junit.version>4.12</junit.version>
+		<!--<junit.version>4.12</junit.version>-->
 		<mockito.version>2.1.0-beta.120</mockito.version>
 	</properties>
 
+
+	<!-- Dependencies needed to implement employer tests layer -->
 	<dependencies>
+		<!-- ============================== GROUP S PROJECTS Dependencies ============================== -->
 		<!-- GroupS dependencies -->
 		<dependency>
 			<groupId>be.groups.glanguage</groupId>
 			<artifactId>glanguage-api-ws</artifactId>
-			<version>0.0.2</version>
+			<version>${project.parent.version}</version>
 			<classifier>classes</classifier>
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Test dependencies -->
+		<!-- Import PrestaNew dependencies for test layer -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
+			<groupId>be.groups.presta</groupId>
+			<artifactId>backoffice-test</artifactId>
+			<version>0.1.1</version>
 		</dependency>
 
+		<!-- Test dependencies -->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>

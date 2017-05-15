@@ -2,23 +2,61 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <!-- Parent BackOffice dependencies
+         contains build / dependencies needed for Presta New -->
   <parent>
-    <artifactId>prestanew-pom</artifactId>
-    <groupId>be.groups</groupId>
-    <version>0.0.6-SNAPSHOT</version>
+    <groupId>be.groups.presta</groupId>
+    <artifactId>backoffice</artifactId>
+    <version>0.1.1</version>
   </parent>
 
+  <!-- Header -->
   <groupId>be.groups.glanguage</groupId>
   <artifactId>glanguage-api</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3-SNAPSHOT</version>
   <packaging>pom</packaging>
 
+  <!-- Documentation -->
+  <name>Glanguage Core</name>
+
+  <organization>
+    <name>Group S</name>
+    <url>http://www.groups.be/</url>
+  </organization>
+
+  <properties>
+    <version.pnw-api-modules>0.2.4</version.pnw-api-modules>
+    <version.error-framework>0.5.7</version.error-framework>
+  </properties>
+
+  <!-- Maven modules -->
   <modules>
-  	<module>Entities</module>
-  	<module>Test</module>
-  	<module>Business</module>
-    <module>WS</module>
-    <module>DAO</module>
+    <module>entities</module>
+    <module>dao</module>
+    <module>business</module>
+    <module>ws</module>
+    <module>test</module>
   </modules>
-  
+
+  <!-- Dependencies to be shared in every layers -->
+  <dependencies>
+    <!-- ============================== GROUP S PROJECTS Dependencies ============================== -->
+    <!-- Group S Error Framework -->
+    <dependency>
+      <groupId>be.groups.error-framework</groupId>
+      <artifactId>error-framework-core</artifactId>
+      <version>${version.error-framework}</version>
+    </dependency>
+    <!-- ============================== 3rd party dependencies ============================== -->
+    <!-- Logging tools -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+    </dependency>
+  </dependencies>
+
 </project>

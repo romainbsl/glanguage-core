@@ -1,53 +1,41 @@
 <?xml version="1.0"?>
 <project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+		xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Master Project -->
 	<parent>
-		<groupId>be.groups</groupId>
-		<artifactId>prestanew-ws-pom</artifactId>
-		<version>0.1.0</version>
+		<groupId>be.groups.glanguage</groupId>
+		<artifactId>glanguage-api</artifactId>
+		<version>0.0.3-SNAPSHOT</version>
 	</parent>
-	<groupId>be.groups.glanguage</groupId>
+
 	<artifactId>glanguage-api-ws</artifactId>
-	<version>0.0.2</version>
-	<name>Glanguage-Api-WS</name>
 	<packaging>war</packaging>
+
+	<name>Glanguage Core Web Service</name>
+
+
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- Port on which Jetty (Dev + Test) instance will run -->
+		<be.groups.jetty.port>9011</be.groups.jetty.port>
 	</properties>
+
+	<!-- Dependencies needed to implement employer web service layer -->
 	<dependencies>
+		<!-- ============================== GROUP S PROJECTS Dependencies ============================== -->
+		<!-- Import PrestaNew dependencies for WS layer -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
+			<groupId>be.groups.presta</groupId>
+			<artifactId>backoffice-ws</artifactId>
+			<version>0.1.1</version>
+			<classifier>classes</classifier>
 		</dependency>
 		<dependency>
 			<groupId>be.groups.glanguage</groupId>
 			<artifactId>glanguage-api-business</artifactId>
-			<version>0.0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>be.groups.error-framework</groupId>
-			<artifactId>error-framework-web</artifactId>
-			<version>0.5.3</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
 </project>
