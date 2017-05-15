@@ -24,7 +24,7 @@
  
     <servlet>
         <servlet-name>Bootstrap</servlet-name>
-        <servlet-class>be.groups.common.jaxrs.Bootstrap</servlet-class>
+        <servlet-class>be.groups.presta.backoffice.ws.provider.Bootstrap</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
 </web-app>
