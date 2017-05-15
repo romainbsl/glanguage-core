@@ -232,6 +232,8 @@ public class RuleVersion implements Comparable<RuleVersion> {
 
     @Transient
     public Object getValue(Evaluator evaluator) throws GLanguageException {
+        if(!isApplicable(evaluator)) return null;
+
         try {
             switch (getReturnType(evaluator)) {
                 case BOOLEAN:
