@@ -1,6 +1,5 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
-import be.groups.common.entities.util.LocalDateConverter;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
@@ -10,6 +9,7 @@ import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingType;
 import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingTypeConverter;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.rule.*;
+import be.groups.presta.backoffice.domains.util.date.LocalDateConverter;
 
 import javax.persistence.*;
 import java.time.Duration;
@@ -484,18 +484,13 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     @Transient
-    public FormulaReturnType getReturnType() throws GLanguageException {
+    public FormulaReturnType getReturnType() {
         return getReturnType(null);
     }
 
     @Transient
-    public FormulaReturnType getReturnType(Evaluator evaluator) throws GLanguageException {
-        try {
+    public FormulaReturnType getReturnType(Evaluator evaluator) {
             return getFormula().getReturnType(evaluator);
-        } catch (GLanguageException e) {
-            e.getError().setOuterError(new RuleReturnTypeInnerError(this, evaluator));
-            throw e;
-        }
     }
 
     @Transient
