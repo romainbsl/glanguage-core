@@ -53,7 +53,8 @@ public enum GLanguageErrorRegistry {
     FORMULA_PARAMETER_CONBINATION_ITEM_UNABLE_TO_VALIDATE("FORMULA_PARAMETER_CONBINATION_ITEM_UNABLE_TO_VALIDATE",
                                                       "Unable to validate a conbination parameter"),
 
-    ROUNDING_TYPE_INVALID("ROUNDING_TYPE_INVALID", "A rounding type is invalid");
+    ROUNDING_TYPE_INVALID("ROUNDING_TYPE_INVALID", "A rounding type is invalid"),
+    AGENT_NOT_CALLABLE("AGENT_NOT_CALLABLE", "No such method or field to call");
 
 
     private String code;

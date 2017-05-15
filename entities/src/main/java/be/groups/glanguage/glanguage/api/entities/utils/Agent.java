@@ -1,10 +1,16 @@
 package be.groups.glanguage.glanguage.api.entities.utils;
 
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.error.utils.AgentNotCallableInnerError;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Copied from be.groups.kernel.utils.agents.Agents<br>
@@ -35,30 +41,50 @@ public class Agent {
      * @param methodName           Method name
      * @param methodParameterTypes list of types of the parameters
      */
-    public Agent(Object object, String methodName, Class<?>... methodParameterTypes) {
+    public Agent(Object object, String methodName, Class<?>... methodParameterTypes) throws GLanguageException {
         if (object == null) {
             throw new IllegalArgumentException("object must be non-null");
         }
         if (methodName == null || methodName.isEmpty()) {
             throw new IllegalArgumentException("methodName must be a non-null non-empty string");
         }
+
         this.object = object;
         this.methodName = methodName;
         this.fieldName = methodName;
 
-//        Stream<Method> matchMethods = Arrays.stream(object.getClass().getMethods())
-        Optional<Method> methodOptional = Arrays.stream(object.getClass().getMethods())
-                .filter(
-                        it -> it.getName().equals(methodName) &&
-                                Arrays.equals(it.getParameterTypes(), methodParameterTypes)
-                ).findFirst();
+        // Define stream with all public method of the target
+        Stream<Method> methodStream = Arrays.stream(object.getClass().getMethods());
 
-        /*if (methodParameterTypes == null || methodParameterTypes.length == 0) {*/
-        /*Optional<Method> methodOptional = matchMethods.findFirst();*/
+        Predicate<Method> methodPredicate =
+                it -> it.getName().equals(methodName) &&
+                        it.getParameterTypes().length == methodParameterTypes.length;
+
+        // Filter the stream to retrieve methods with the right method name and the right number of parameters
+        List<Method> matchMethods =
+                methodStream
+                        .filter(methodPredicate)
+                        .collect(Collectors.toList());
+
+        Optional<Method> methodOptional;
+
+        // If there is only one result, seems obvious
+        if (matchMethods.size() == 1)
+            methodOptional = matchMethods.stream().findFirst();
+        else {
+            // otherwise we filter on the parameter type, to find the one that match exactly
+            methodOptional =
+                    matchMethods.stream()
+                            .filter(
+                                    it -> Arrays.equals(it.getParameterTypes(), methodParameterTypes)
+                            )
+                            .findFirst();
+        }
 
         if (methodOptional.isPresent())
             method = methodOptional.get();
         else {
+            // If we didn't find a method, that means it could be a field
             Optional<Field> fieldOptional =
                     Arrays.stream(object.getClass().getFields())
                             .filter(it -> it.getName().equals(fieldName))
@@ -67,42 +93,26 @@ public class Agent {
             if (fieldOptional.isPresent())
                 field = fieldOptional.get();
         }
-       /* } else {
-            List<Method> methodList = matchMethods
-                    .filter(
-                            it ->
-                    )
-                    .collect(Collectors.toList());
 
-            if (methodList.size() == 1)
-                method = methodList.get(0);
-            else if (methodList.size() > 1) {
-                try {
-                    method = object.getClass().getMethod(methodName, methodParameterTypes);
-                } catch (NoSuchMethodException e) {
-                    throw new RuntimeException();
-                }
-            }
-        }*/
-
+//        If it isn't a method or a field we throw a proper GLanguageException
         if (!isMethod() && !isField())
-            throw new RuntimeException();
+            throw new GLanguageException(
+                    new AgentNotCallableInnerError(methodName, methodParameterTypes)
+            );
     }
 
-    private Method findBestMatchingMethod(List<Method> methodList, Class<?>[] methodParameterTypes) {
-        Method bestMatchingMethod = null;
-
-        for (Method checkMethod : methodList) {
-
-        }
-
-        return bestMatchingMethod;
-    }
-
+    /**
+     * Check if the Agent represents a public Method to be called
+     * @return True or False
+     */
     public boolean isMethod() {
         return this.method != null;
     }
 
+    /**
+     * Check if the Agent represents a public Field to be called
+     * @return True or False
+     */
     public boolean isField() {
         return this.field != null;
     }
@@ -159,7 +169,7 @@ public class Agent {
      * @return Résultat de l'exécution dynamique de la méthode {@code method}
      * portant sur l'objet cible {@code object}
      */
-    public static Object call(Object object, String methodName) {
+    public static Object call(Object object, String methodName) throws GLanguageException {
         if (object == null) {
             throw new IllegalArgumentException("object must be non-null");
         }
@@ -183,7 +193,7 @@ public class Agent {
      * portant sur l'objet {@code object} avec comme paramètres {@code methodParameters}
      */
     public static Object call(Object object, String methodName, Class<?>[] methodParametersType,
-                              Object[] methodParameters) {
+                              Object[] methodParameters) throws GLanguageException {
         if (object == null) {
             throw new IllegalArgumentException("object must be non-null");
         }
