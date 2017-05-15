@@ -4,7 +4,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.utils.Agents;
+import be.groups.glanguage.glanguage.api.entities.utils.Agent;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.targets.FormulaCannotInvokeTargetMethodInnerError;
 
@@ -23,10 +23,10 @@ public abstract class CallFormula extends AbstractNonTerminalFormula {
 
 	protected Object callFunctionAny(Object anObject, String aMethodName, AbstractFormula[] someMethodParameters,
 									 Evaluator evaluator) throws GLanguageException {
-		Agents agent;
+		Agent agent;
 		Object result;
 		if(someMethodParameters == null) {
-			agent = new Agents(anObject, aMethodName);
+			agent = new Agent(anObject, aMethodName);
 			result = agent.call();
 		} else {
 			Class<?>[] someMethodParametersType = new Class [someMethodParameters.length];
@@ -35,7 +35,7 @@ public abstract class CallFormula extends AbstractNonTerminalFormula {
 				someArguments[i] = someMethodParameters[i].getValue(evaluator);
 				someMethodParametersType[i] = someArguments[i] == null ? Object.class : someArguments[i].getClass();
 			}
-			agent = new Agents(anObject, aMethodName, someMethodParametersType);
+			agent = new Agent(anObject, aMethodName, someMethodParametersType);
 			try {
 				result = agent.call(someArguments);
 			} catch (Exception e) {
