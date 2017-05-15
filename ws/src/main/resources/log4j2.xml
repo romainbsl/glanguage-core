@@ -10,15 +10,15 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="com.wordnik" level="TRACE"/>
-        <Logger name="org.hibernate" level="TRACE"/>
+        <Logger name="com.wordnik" level="WARNING"/>
+        <Logger name="org.hibernate" level="WARNING"/>
 
-        <Logger name="be.groups" level="TRACE"/>
-        <Logger name="be.groups.lyrics.filter.LoggingFilter" level="TRACE">
+        <Logger name="be.groups" level="WARNING"/>
+        <Logger name="be.groups.lyrics.filter.LoggingFilter" level="WARNING">
             <AppenderRef ref="filter"/>
         </Logger>
 
-        <Root level="TRACE">
+        <Root level="WARNING">
             <AppenderRef ref="stdout"/>
         </Root>
     </Loggers>
