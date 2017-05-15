@@ -9,13 +9,13 @@ import com.wordnik.swagger.jersey.listing.JerseyResourceListingProvider;
 public class JerseyApplication extends ResourceConfig {
 	
 	public JerseyApplication() {
-        packages("be.groups.common.jaxrs");
-        packages("be.groups.common.json");
-        packages("be.groups.common.resource");
-        packages("be.groups.common.ws");
-        register(ApiListingResourceJSON.class);
-        register(JerseyApiDeclarationProvider.class);
-        register(JerseyResourceListingProvider.class);
+            packages("be.groups.presta.backoffice.ws.provider");
+            packages("be.groups.presta.backoffice.ws.exception");
+            packages("be.groups.presta.backoffice.ws.filter");
+            packages("be.groups.presta.backoffice.ws.resources.version");
+            register(ApiListingResourceJSON.class);
+            register(JerseyApiDeclarationProvider.class);
+            register(JerseyResourceListingProvider.class);
     }
 	
 }
