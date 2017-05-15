@@ -469,7 +469,11 @@ public class RuleVersion implements Comparable<RuleVersion> {
     private Double getDoubleValue(Evaluator evaluator) throws GLanguageException {
         switch (formula.getReturnType(evaluator)) {
             case INTEGER:
-                return formula.getIntegerValue(evaluator).doubleValue();
+                Integer result = formula.getIntegerValue(evaluator);
+                if (result != null)
+                    return formula.getIntegerValue(evaluator).doubleValue();
+                else
+                    return null;
             case NUMERIC:
                 return formula.getNumericValue(evaluator);
             default:
