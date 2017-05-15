@@ -33,7 +33,7 @@ public abstract class CallFormula extends AbstractNonTerminalFormula {
 			Object[] someArguments = new Object [someMethodParameters.length];
 			for (int i = 0; i < someMethodParameters.length; i++) {
 				someArguments[i] = someMethodParameters[i].getValue(evaluator);
-				someMethodParametersType[i] = someArguments[i].getClass();
+				someMethodParametersType[i] = someArguments[i] == null ? Object.class : someArguments[i].getClass();
 			}
 			agent = new Agents(anObject, aMethodName, someMethodParametersType);
 			try {
