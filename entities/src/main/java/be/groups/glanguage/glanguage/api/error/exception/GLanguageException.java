@@ -17,7 +17,7 @@ public class GLanguageException extends GroupSException {
     private static class GlanguageError extends RootError {
         @Override
         public String getRootErrorCode() {
-            return "GLANGUAGE_ERROR";
+            return "GLANGUAGE_TECHNICAL_EXCEPTION";
         }
         @Override
         public String getRootErrorMessage() {
