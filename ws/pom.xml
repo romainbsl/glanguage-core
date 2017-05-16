@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<project
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+		xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Master Project -->
+	<parent>
+		<groupId>be.groups.glanguage</groupId>
+		<artifactId>glanguage-api</artifactId>
+		<version>0.0.3-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>glanguage-api-ws</artifactId>
+	<packaging>war</packaging>
+
+	<name>Glanguage Core Web Service</name>
+
+
+	<properties>
+		<!-- Port on which Jetty (Dev + Test) instance will run -->
+		<be.groups.jetty.port>9011</be.groups.jetty.port>
+	</properties>
+
+	<!-- Dependencies needed to implement employer web service layer -->
+	<dependencies>
+		<!-- ============================== GROUP S PROJECTS Dependencies ============================== -->
+		<!-- Import PrestaNew dependencies for WS layer -->
+		<dependency>
+			<groupId>be.groups.presta</groupId>
+			<artifactId>backoffice-ws</artifactId>
+			<version>0.1.1</version>
+			<classifier>classes</classifier>
+		</dependency>
+		<dependency>
+			<groupId>be.groups.glanguage</groupId>
+			<artifactId>glanguage-api-business</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+	</dependencies>
+</project>
