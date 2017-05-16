@@ -40,4 +40,15 @@ public class ParserInnerError extends GLanguageInnerError {
         return sb.toString();
     }
 
+    public String getMethodName() {
+        return methodName;
+    }
+
+    public String getCause() {
+        return cause;
+    }
+
+    public String getText() {
+        return text;
+    }
 }

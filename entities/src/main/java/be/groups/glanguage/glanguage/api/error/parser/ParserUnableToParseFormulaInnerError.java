@@ -38,4 +38,7 @@ public class ParserUnableToParseFormulaInnerError extends ParserInnerError {
         return sb.toString();
     }
 
+    public Exception getException() {
+        return exception;
+    }
 }

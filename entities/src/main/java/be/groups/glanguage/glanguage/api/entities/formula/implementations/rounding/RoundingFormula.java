@@ -126,10 +126,6 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
         }
     }
 
-    private void setPrecision(AbstractFormula precision) {
-        this.parameters.add(precision);
-    }
-
     @Override
     public String asText() {
         return operationAsText() + "(" + getParameters().get(0).asText() + "; " + getParameters().get(1).asText() + ")";

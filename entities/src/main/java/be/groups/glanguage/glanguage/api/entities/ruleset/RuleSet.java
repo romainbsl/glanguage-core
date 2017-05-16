@@ -1,5 +1,11 @@
 package be.groups.glanguage.glanguage.api.entities.ruleset;
 
+import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -7,19 +13,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
 
 @Entity
 @Table(name = "RULE_SET")

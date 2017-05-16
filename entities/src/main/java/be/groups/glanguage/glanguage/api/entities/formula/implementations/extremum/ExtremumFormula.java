@@ -8,7 +8,6 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaRet
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterListInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaWrongParameterTypeInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.base.unable.FormulaReturnTypeInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.instantiate.FormulaUnableToInstantiateInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -76,18 +75,13 @@ public abstract class ExtremumFormula extends AbstractNonTerminalFormula {
     @JsonIgnore
     @Transient
     @Override
-    public FormulaReturnType getReturnType(Evaluator evaluator) throws GLanguageException {
-        try {
-            FormulaReturnType returnType = getParameters().get(0).getReturnType(evaluator);
-            Iterator<AbstractFormula> itParameters = getParameters().iterator();
-            while (!returnType.equals(FormulaReturnType.NUMERIC) && itParameters.hasNext()) {
-                returnType = itParameters.next().getReturnType(evaluator);
-            }
-            return returnType;
-        } catch (GLanguageException e) {
-            e.getError().setOuterError(new FormulaReturnTypeInnerError(this, evaluator));
-            throw e;
+    public FormulaReturnType getReturnType(Evaluator evaluator) {
+        FormulaReturnType returnType = getParameters().get(0).getReturnType(evaluator);
+        Iterator<AbstractFormula> itParameters = getParameters().iterator();
+        while (!returnType.equals(FormulaReturnType.NUMERIC) && itParameters.hasNext()) {
+            returnType = itParameters.next().getReturnType(evaluator);
         }
+        return returnType;
     }
 
     @JsonIgnore

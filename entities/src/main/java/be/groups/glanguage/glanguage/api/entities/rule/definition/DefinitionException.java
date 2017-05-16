@@ -1,8 +1,8 @@
 package be.groups.glanguage.glanguage.api.entities.rule.definition;
 
-import java.util.Collection;
-
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
+
+import java.util.Collection;
 
 public class DefinitionException extends RuntimeException {
 	

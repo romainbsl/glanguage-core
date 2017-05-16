@@ -44,27 +44,27 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
     /**
      * Collection of {@link RuleDefinition}'s of {@link DefinitionLevel#SOCIAL_SECRETARY} level
      */
-    private Collection<RuleDefinition> socialSecretaryRuleDefintions;
+    private Collection<RuleDefinition> socialSecretaryRuleDefinitions;
 
     /**
      * Collection of {@link RuleDefinition}'s of {@link DefinitionLevel#EMPLOYER} level
      */
-    private Collection<RuleDefinition> employerRuleDefintions;
+    private Collection<RuleDefinition> employerRuleDefinitions;
 
     /**
      * Collection of {@link RuleDefinition}'s of {@link DefinitionLevel#JOINT_COMMITTEE} level
      */
-    private Collection<RuleDefinition> jointCommitteeRuleDefintions;
+    private Collection<RuleDefinition> jointCommitteeRuleDefinitions;
 
     /**
      * Collection of {@link RuleDefinition}'s of {@link DefinitionLevel#COLLECTIVE_LABOR_AGREEMENT} level
      */
-    private Collection<RuleDefinition> collectiveLaborAgreementRuleDefintions;
+    private Collection<RuleDefinition> collectiveLaborAgreementRuleDefinitions;
 
     /**
      * Collection of {@link RuleDefinition}'s of {@link DefinitionLevel#CUSTOM} level
      */
-    private Collection<RuleDefinition> customRuleDefintions;
+    private Collection<RuleDefinition> customRuleDefinitions;
 
     public RuleIdentity() {
         super();
@@ -111,55 +111,55 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
      * @return the socialSecretaryRuleDefintions
      */
     @Transient
-    public Collection<RuleDefinition> getSocialSecretaryRuleDefintions() {
-        if (socialSecretaryRuleDefintions == null) {
+    public Collection<RuleDefinition> getSocialSecretaryRuleDefinitions() {
+        if (socialSecretaryRuleDefinitions == null) {
             allocateAllRuleDefinitions();
         }
-        return socialSecretaryRuleDefintions;
+        return socialSecretaryRuleDefinitions;
     }
 
     /**
      * @return the employerRuleDefintions
      */
     @Transient
-    public Collection<RuleDefinition> getEmployerRuleDefintions() {
-        if (employerRuleDefintions == null) {
+    public Collection<RuleDefinition> getEmployerRuleDefinitions() {
+        if (employerRuleDefinitions == null) {
             allocateAllRuleDefinitions();
         }
-        return employerRuleDefintions;
+        return employerRuleDefinitions;
     }
 
     /**
      * @return the jointCommitteRuleDefintions
      */
     @Transient
-    public Collection<RuleDefinition> getJointCommitteeRuleDefintions() {
-        if (jointCommitteeRuleDefintions == null) {
+    public Collection<RuleDefinition> getJointCommitteeRuleDefinitions() {
+        if (jointCommitteeRuleDefinitions == null) {
             allocateAllRuleDefinitions();
         }
-        return jointCommitteeRuleDefintions;
+        return jointCommitteeRuleDefinitions;
     }
 
     /**
      * @return the collectiveLaborAgreementRuleDefintions
      */
     @Transient
-    public Collection<RuleDefinition> getCollectiveLaborAgreementRuleDefintions() {
-        if (collectiveLaborAgreementRuleDefintions == null) {
+    public Collection<RuleDefinition> getCollectiveLaborAgreementRuleDefinitions() {
+        if (collectiveLaborAgreementRuleDefinitions == null) {
             allocateAllRuleDefinitions();
         }
-        return collectiveLaborAgreementRuleDefintions;
+        return collectiveLaborAgreementRuleDefinitions;
     }
 
     /**
      * @return the customRuleDefintions
      */
     @Transient
-    public Collection<RuleDefinition> getCustomRuleDefintions() {
-        if (customRuleDefintions == null) {
+    public Collection<RuleDefinition> getCustomRuleDefinitions() {
+        if (customRuleDefinitions == null) {
             allocateAllRuleDefinitions();
         }
-        return customRuleDefintions;
+        return customRuleDefinitions;
     }
 
     /**
@@ -212,11 +212,11 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
      */
     private void allocateAllRuleDefinitions() {
         // Create all maps and set
-        this.socialSecretaryRuleDefintions = new ArrayList<>();
-        this.employerRuleDefintions = new ArrayList<>();
-        this.jointCommitteeRuleDefintions = new ArrayList<>();
-        this.collectiveLaborAgreementRuleDefintions = new ArrayList<>();
-        this.customRuleDefintions = new ArrayList<>();
+        this.socialSecretaryRuleDefinitions = new ArrayList<>();
+        this.employerRuleDefinitions = new ArrayList<>();
+        this.jointCommitteeRuleDefinitions = new ArrayList<>();
+        this.collectiveLaborAgreementRuleDefinitions = new ArrayList<>();
+        this.customRuleDefinitions = new ArrayList<>();
 
         // Allocate all rule definitions
         for (RuleDefinition ruleDefinition : ruleDefinitions) {
@@ -225,19 +225,19 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
                     defaultRuleDefinition = ruleDefinition;
                     break;
                 case SOCIAL_SECRETARY:
-                    socialSecretaryRuleDefintions.add(ruleDefinition);
+                    socialSecretaryRuleDefinitions.add(ruleDefinition);
                     break;
                 case EMPLOYER:
-                    employerRuleDefintions.add(ruleDefinition);
+                    employerRuleDefinitions.add(ruleDefinition);
                     break;
                 case JOINT_COMMITTEE:
-                    jointCommitteeRuleDefintions.add(ruleDefinition);
+                    jointCommitteeRuleDefinitions.add(ruleDefinition);
                     break;
                 case COLLECTIVE_LABOR_AGREEMENT:
-                    collectiveLaborAgreementRuleDefintions.add(ruleDefinition);
+                    collectiveLaborAgreementRuleDefinitions.add(ruleDefinition);
                     break;
                 case CUSTOM:
-                    customRuleDefintions.add(ruleDefinition);
+                    customRuleDefinitions.add(ruleDefinition);
                     break;
                 default:
                     assert false;
@@ -255,7 +255,7 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
     /**
      * @param ruleDefinitions the ruleDefinitions to set
      */
-    private void setRuleDefinitions(Set<RuleDefinition> ruleDefinitions) {
+    public void setRuleDefinitions(Set<RuleDefinition> ruleDefinitions) {
         this.ruleDefinitions = ruleDefinitions;
     }
 
@@ -269,44 +269,44 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
     /**
      * @param defaultRuleDefinition the defaultRuleDefinition to set
      */
-    private void setDefaultRuleDefinition(RuleDefinition defaultRuleDefinition) {
+    public void setDefaultRuleDefinition(RuleDefinition defaultRuleDefinition) {
         this.defaultRuleDefinition = defaultRuleDefinition;
     }
 
     /**
-     * @param socialSecretaryRuleDefintions the socialSecretaryRuleDefintions to set
+     * @param socialSecretaryRuleDefinitions the socialSecretaryRuleDefintions to set
      */
-    private void setSocialSecretaryRuleDefintions(Collection<RuleDefinition> socialSecretaryRuleDefintions) {
-        this.socialSecretaryRuleDefintions = socialSecretaryRuleDefintions;
+    public void setSocialSecretaryRuleDefinitions(Collection<RuleDefinition> socialSecretaryRuleDefinitions) {
+        this.socialSecretaryRuleDefinitions = socialSecretaryRuleDefinitions;
     }
 
     /**
-     * @param employerRuleDefintions the employerRuleDefintions to set
+     * @param employerRuleDefinitions the employerRuleDefintions to set
      */
-    private void setEmployerRuleDefintions(Collection<RuleDefinition> employerRuleDefintions) {
-        this.employerRuleDefintions = employerRuleDefintions;
+    public void setEmployerRuleDefinitions(Collection<RuleDefinition> employerRuleDefinitions) {
+        this.employerRuleDefinitions = employerRuleDefinitions;
     }
 
     /**
-     * @param jointCommitteRuleDefintions the jointCommitteRuleDefintions to set
+     * @param jointCommitteeRuleDefinitions the jointCommitteRuleDefintions to set
      */
-    private void setJointCommitteeRuleDefintions(Collection<RuleDefinition> jointCommitteRuleDefintions) {
-        this.jointCommitteeRuleDefintions = jointCommitteRuleDefintions;
+    public void setJointCommitteeRuleDefinitions(Collection<RuleDefinition> jointCommitteeRuleDefinitions) {
+        this.jointCommitteeRuleDefinitions = jointCommitteeRuleDefinitions;
     }
 
     /**
-     * @param collectiveLaborAgreementRuleDefintions the collectiveLaborAgreementRuleDefintions to set
+     * @param collectiveLaborAgreementRuleDefinitions the collectiveLaborAgreementRuleDefintions to set
      */
-    private void setCollectiveLaborAgreementRuleDefintions(Collection<RuleDefinition>
-                                                                   collectiveLaborAgreementRuleDefintions) {
-        this.collectiveLaborAgreementRuleDefintions = collectiveLaborAgreementRuleDefintions;
+    public void setCollectiveLaborAgreementRuleDefinitions(Collection<RuleDefinition>
+                                                                   collectiveLaborAgreementRuleDefinitions) {
+        this.collectiveLaborAgreementRuleDefinitions = collectiveLaborAgreementRuleDefinitions;
     }
 
     /**
-     * @param customRuleDefintions the customRuleDefintions to set
+     * @param customRuleDefinitions the customRuleDefintions to set
      */
-    private void setCustomRuleDefintions(Collection<RuleDefinition> customRuleDefintions) {
-        this.customRuleDefintions = customRuleDefintions;
+    public void setCustomRuleDefinitions(Collection<RuleDefinition> customRuleDefinitions) {
+        this.customRuleDefinitions = customRuleDefinitions;
     }
 
     @Override

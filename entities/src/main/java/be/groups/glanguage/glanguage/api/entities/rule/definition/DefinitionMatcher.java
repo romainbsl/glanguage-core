@@ -3,14 +3,10 @@
  */
 package be.groups.glanguage.glanguage.api.entities.rule.definition;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 

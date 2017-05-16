@@ -6,11 +6,8 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaRet
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.base.unable.FormulaReturnTypeInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.implementations.call
-        .RuleCallFormulaReferencedRuleUnavailableInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.implementations.call
-        .RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.implementations.call.RuleCallFormulaReferencedRuleUnavailableInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.implementations.call.RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
@@ -39,13 +36,12 @@ public abstract class RuleCallFormula extends CallFormula {
     @JsonIgnore
     @Transient
     @Override
-    public FormulaReturnType getReturnType(Evaluator evaluator) throws GLanguageException {
+    public FormulaReturnType getReturnType(Evaluator evaluator) {
         try {
             getReferencedRule(evaluator);
             return referencedRule.getReturnType(evaluator);
         } catch (GLanguageException e) {
-            e.getError().setOuterError(new FormulaReturnTypeInnerError(this, evaluator));
-            throw e;
+            return FormulaReturnType.UNDEFINED;
         }
     }
 

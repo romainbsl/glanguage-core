@@ -43,4 +43,15 @@ public class FormulaCannotInvokeTargetMethodInnerError extends FormulaInnerError
         return sb.toString();
     }
 
+    public Object getObject() {
+        return object;
+    }
+
+    public String getMethodSignatureName() {
+        return methodSignatureName;
+    }
+
+    public Class<?>[] getMethodSignatureParametersType() {
+        return methodSignatureParametersType;
+    }
 }

@@ -13,12 +13,7 @@ public class TerminalFormulaUnableToInitializeNullValueInnerError extends Formul
     public TerminalFormulaUnableToInitializeNullValueInnerError(AbstractTerminalFormula formula,
                                                                 Evaluator evaluator,
                                                                 String methodName) {
-        super(GLanguageErrorRegistry.FORMULA_TERMINAL_NULL_VALUE, formula, evaluator, methodName, getCause());
+        super(GLanguageErrorRegistry.FORMULA_TERMINAL_NULL_VALUE, formula, evaluator, methodName, "Constant value is null");
     }
 
-    private static String getCause() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Constant value is null");
-        return sb.toString();
-    }
 }

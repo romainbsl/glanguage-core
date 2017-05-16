@@ -1,6 +1,5 @@
 package be.groups.glanguage.glanguage.api.entities.ruleset;
 
-import be.groups.common.entities.util.LocalDateTimeConverter;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
@@ -8,6 +7,7 @@ import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLeve
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.DefinitionMatcherStrategy;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
+import be.groups.presta.backoffice.domains.util.date.LocalDateTimeConverter;
 
 import javax.persistence.*;
 import java.time.LocalDate;

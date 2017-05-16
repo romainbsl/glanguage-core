@@ -6,9 +6,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFor
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,8 +25,10 @@ public class FormulaIn extends AbstractNonTerminalFormula {
         super();
     }
 
-    public FormulaIn(FormulaDescription description, AbstractFormula element, List<AbstractFormula> inList) throws GLanguageException {
-		super(description, getParametersAsList(element, inList));
+    public FormulaIn(FormulaDescription description,
+                     AbstractFormula element,
+                     List<AbstractFormula> inList) throws GLanguageException {
+        super(description, getParametersAsList(element, inList));
 
         if (element == null) {
             throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 0));
@@ -44,11 +44,11 @@ public class FormulaIn extends AbstractNonTerminalFormula {
     @Transient
     @JsonIgnore
     private static List<AbstractFormula> getParametersAsList(AbstractFormula element, List<AbstractFormula> inList) {
-		List<AbstractFormula> list = new ArrayList<>();
-		list.add(element);
-		list.addAll(inList);
-		return list;
-	}
+        List<AbstractFormula> list = new ArrayList<>();
+        list.add(element);
+        list.addAll(inList);
+        return list;
+    }
 
     @JsonIgnore
     @Transient
@@ -104,46 +104,17 @@ public class FormulaIn extends AbstractNonTerminalFormula {
     @Transient
     @Override
     public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
-        /*
-         * WORKAROUND
-         * It is not allowed to have checked exceptions thrown within a lambda expression without catching it within
-         * the lambda expression -> Blame Oracle for that !
-         * Therefore, the workaround consists in catching the checked exception inside of the lambda expression,
-         * wrapping it into an unchecked exception (e.g. RuntimeException), throwing it, surrounding the whole lambda
-         * into another try-catch block, catching the unchecked exception outside of the lambda expression and
-         * finally handling it
-         */
-        try {
-            FormulaReturnType elementReturnType = parameters.get(0).getReturnType(null);
-            List<FormulaReturnType> listReturnTypes = parameters.subList(1, parameters.size()).stream().map(p -> {
-                try {
-                    return p.getReturnType(null);
-                } catch (GLanguageException e) {
-                    throw new RuntimeException(e);
-                }
-            }).distinct().collect(Collectors.toList());
+        FormulaReturnType elementReturnType = parameters.get(0).getReturnType(evaluator);
+        List<FormulaReturnType> listReturnTypes = parameters.subList(1, parameters.size()).stream().map(p -> p
+                .getReturnType(evaluator)).distinct().collect(Collectors.toList());
 
-            if (listReturnTypes.size() == 1) {
-                return elementReturnType.equals(listReturnTypes.get(0));
-            } else {
-                List<FormulaReturnType> authorizedParametersTypes = Arrays.asList(FormulaReturnType.INTEGER,
-                                                                                  FormulaReturnType.NUMERIC);
-                return listReturnTypes.stream()
-                        .allMatch(authorizedParametersTypes::contains) && authorizedParametersTypes.contains(
-                        elementReturnType);
-            }
-        } catch (Exception e) {
-            if (e.getCause() instanceof GLanguageException) {
-                GLanguageException gLanguageException = (GLanguageException) e.getCause();
-                gLanguageException.getError()
-                        .setOuterError(new FormulaInnerError(GLanguageErrorRegistry.FORMULA_INNER_ERROR,
-                                                             this,
-                                                             null,
-                                                             "isValid",
-                                                             null));
-                throw gLanguageException;
-            }
-            throw e;
+        if (listReturnTypes.size() == 1) {
+            return elementReturnType.equals(listReturnTypes.get(0));
+        } else {
+            List<FormulaReturnType> authorizedParametersTypes = Arrays.asList(FormulaReturnType.INTEGER,
+                                                                              FormulaReturnType.NUMERIC);
+            return listReturnTypes.stream().allMatch(authorizedParametersTypes::contains) && authorizedParametersTypes
+                    .contains(elementReturnType);
         }
     }
 
@@ -163,40 +134,12 @@ public class FormulaIn extends AbstractNonTerminalFormula {
      * @return The type of the elements
      */
     private FormulaReturnType getElementsType(Evaluator evaluator) throws GLanguageException {
-        /*
-         * WORKAROUND
-         * It is not allowed to have checked exceptions thrown within a lambda expression without catching it within
-         * the lambda expression -> Blame Oracle for that !
-         * Therefore, the workaround consists in catching the checked exception inside of the lambda expression,
-         * wrapping it into an unchecked exception (e.g. RuntimeException), throwing it, surrounding the whole lambda
-         * into another try-catch block, catching the unchecked exception outside of the lambda expression and
-         * finally handling it
-         */
-        try {
-            Set<FormulaReturnType> returnTypes = parameters.stream().map(p -> {
-                try {
-                    return p.getReturnType(evaluator);
-                } catch (GLanguageException e) {
-                    throw new RuntimeException(e);
-                }
-            }).distinct().collect(Collectors.toSet());
-            if (returnTypes.size() == 1) {
-                return returnTypes.iterator().next();
-            } else {
-                return FormulaReturnType.NUMERIC;
-            }
-        } catch (Exception e) {
-            if (e.getCause() instanceof GLanguageException) {
-                GLanguageException gLanguageException = (GLanguageException) e.getCause();
-                gLanguageException.getError()
-                        .setOuterError(new FormulaInnerError(GLanguageErrorRegistry.FORMULA_INNER_ERROR,
-                                                             this,
-                                                             null,
-                                                             "isValid",
-                                                             null));
-                throw gLanguageException;
-            }
-            throw e;
+        Set<FormulaReturnType> returnTypes = parameters.stream().map(p -> p.getReturnType(evaluator)).distinct()
+                .collect(Collectors.toSet());
+        if (returnTypes.size() == 1) {
+            return returnTypes.iterator().next();
+        } else {
+            return FormulaReturnType.NUMERIC;
         }
     }
 

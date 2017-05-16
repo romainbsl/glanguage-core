@@ -2,9 +2,9 @@ package be.groups.glanguage.glanguage.api.error.formula.description.conbination;
 
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem;
 import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItemType;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsage;
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.formula.description.FormulaDescriptionInnerError;

@@ -1,14 +1,8 @@
 package be.groups.glanguage.glanguage.api.entities.rule.definition;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
+
+import javax.persistence.*;
 
 /**
  * A DefintionLevelParameter is a pair of RuleDefintionLevel and value

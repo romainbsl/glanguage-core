@@ -3,10 +3,9 @@
  */
 package be.groups.glanguage.glanguage.api.entities.rule.definition;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 /**
  * 

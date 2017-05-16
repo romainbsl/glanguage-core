@@ -73,11 +73,6 @@ public abstract class AbstractFormula {
     protected List<AbstractFormula> parameters;
 
     /**
-     * Types of the parameters
-     */
-    private List<FormulaReturnType> parametersTypes;
-
-    /**
      * Sequence number of this parameter in parent formula
      */
     private Integer sequenceNumber;

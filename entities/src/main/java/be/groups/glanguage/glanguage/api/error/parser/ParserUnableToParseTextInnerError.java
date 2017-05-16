@@ -18,4 +18,7 @@ public class ParserUnableToParseTextInnerError extends ParserInnerError {
         return cause != null ? cause : "Unknown error";
     }
 
+    public Exception getException() {
+        return exception;
+    }
 }

@@ -10,11 +10,11 @@ import be.groups.errorframework.core.exception.GroupSException;
 public class GLanguageException extends GroupSException {
 
     public GLanguageException(InnerError innerError) {
-        super(new GlanguageError());
+        super(new GLanguageError());
         getError().setInnerError(innerError);
     }
 
-    private static class GlanguageError extends RootError {
+    private static class GLanguageError extends RootError {
         @Override
         public String getRootErrorCode() {
             return "GLANGUAGE_TECHNICAL_EXCEPTION";

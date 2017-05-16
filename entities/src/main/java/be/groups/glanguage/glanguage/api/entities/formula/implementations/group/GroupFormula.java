@@ -6,11 +6,8 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFor
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
-import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.base.unable.FormulaReturnTypeInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
@@ -84,89 +81,34 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
     @Transient
     @Override
     public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
-        /*
-         * WORKAROUND
-         * It is not allowed to have checked exceptions thrown within a lambda expression without catching it within
-         * the lambda expression -> Blame Oracle for that !
-         * Therefore, the workaround consists in catching the checked exception inside of the lambda expression,
-         * wrapping it into an unchecked exception (e.g. RuntimeException), throwing it, surrounding the whole lambda
-         * into another try-catch block, catching the unchecked exception outside of the lambda expression and
-         * finally handling it
-         */
-        try{
-            if (groupRule != null) {
-                Set<FormulaReturnType> returnTypes = groupRule.getGroupItems().stream()
-                        .map(i -> {
-                            try {
-                                return i.getReferencedRule(null).getReturnType(null);
-                            } catch (GLanguageException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }).distinct().collect(Collectors.toSet());
-                if (returnTypes.stream()
-                        .allMatch(e -> Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC).contains(e))) {
-                    return true;
-                } else {
-                    return false;
-                }
+       if (groupRule != null) {
+            Set<FormulaReturnType> returnTypes = groupRule.getGroupItems().stream()
+                    .map(i -> i.getReferencedRule(null).getReturnType(null)).distinct().collect(Collectors.toSet());
+            if (returnTypes.stream()
+                    .allMatch(e -> Arrays.asList(FormulaReturnType.INTEGER, FormulaReturnType.NUMERIC).contains(e))) {
+                return true;
+            } else {
+                return false;
             }
-        } catch (Exception e) {
-            if (e.getCause() instanceof GLanguageException) {
-                GLanguageException gLanguageException = (GLanguageException) e.getCause();
-                gLanguageException.getError()
-                        .setOuterError(new FormulaInnerError(GLanguageErrorRegistry.FORMULA_INNER_ERROR,
-                                                             this,
-                                                             null,
-                                                             "isValid",
-                                                             null));
-                throw gLanguageException;
-            }
-            throw e;
-        }
-
-        return true;
+        } else {
+           return false;
+       }
     }
 
     @Transient
     @Override
-    public FormulaReturnType getReturnType(Evaluator evaluator) throws GLanguageException {
-        /*
-         * WORKAROUND
-         * It is not allowed to have checked exceptions thrown within a lambda expression without catching it within
-         * the lambda expression -> Blame Oracle for that !
-         * Therefore, the workaround consists in catching the checked exception inside of the lambda expression,
-         * wrapping it into an unchecked exception (e.g. RuntimeException), throwing it, surrounding the whole lambda
-         * into another try-catch block, catching the unchecked exception outside of the lambda expression and
-         * finally handling it
-         */
-        try {
-            if (groupRule != null) {
-                Set<FormulaReturnType> returnTypes = groupRule.getGroupItems().stream()
-                        .map(i -> {
-                            try {
-                                return i.getReferencedRule(evaluator).getReturnType(evaluator);
-                            } catch (GLanguageException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }).distinct()
-                        .collect(Collectors.toSet());
-                if (returnTypes.size() == 1) {
-                    return returnTypes.iterator().next();
-                } else {
-                    return FormulaReturnType.NUMERIC;
-                }
+    public FormulaReturnType getReturnType(Evaluator evaluator) {
+        if (groupRule != null) {
+            Set<FormulaReturnType> returnTypes = groupRule.getGroupItems().stream()
+                    .map(i -> i.getReferencedRule(evaluator).getReturnType(evaluator)).distinct()
+                    .collect(Collectors.toSet());
+            if (returnTypes.size() == 1) {
+                return returnTypes.iterator().next();
             } else {
-                return FormulaReturnType.UNDEFINED;
+                return FormulaReturnType.NUMERIC;
             }
-        } catch (Exception e) {
-            if (e.getCause() instanceof GLanguageException) {
-                GLanguageException gLanguageException = (GLanguageException) e.getCause();
-                gLanguageException.getError()
-                        .setOuterError(new FormulaReturnTypeInnerError(this,
-                                                                       null));
-                throw gLanguageException;
-            }
-            throw e;
+        } else {
+            return FormulaReturnType.UNDEFINED;
         }
     }
 

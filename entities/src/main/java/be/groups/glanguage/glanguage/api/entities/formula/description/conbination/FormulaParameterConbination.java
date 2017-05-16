@@ -4,10 +4,14 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsage;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.glanguage.glanguage.api.error.formula.description.conbination.FormulaParameterConbinationInnerErrorFactory;
+import be.groups.glanguage.glanguage.api.error.formula.description.conbination
+        .FormulaParameterConbinationInnerErrorFactory;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.SortedSet;
 
 /**
  * This class represent a conbination of parameters
@@ -102,44 +106,47 @@ public class FormulaParameterConbination {
         }
     }
 
-    private void validateParameters(AbstractFormula formula, FormulaUsage usage, List<AbstractFormula> parameters,
+    private void validateParameters(AbstractFormula formula,
+                                    FormulaUsage usage,
+                                    List<AbstractFormula> parameters,
                                     Evaluator evaluator) throws GLanguageException {
-        int i = 0;
-        int j = 0;
         List<FormulaParameterConbinationItem> conbinationParameters = new ArrayList<>(getParameters());
         ListIterator<FormulaParameterConbinationItem> itConbinationParameters = conbinationParameters.listIterator();
-        while (itConbinationParameters.hasNext()) {
-            FormulaParameterConbinationItem conbinationParameter = itConbinationParameters.next();
-            if (!conbinationParameter.isValid(parameters.get(i), evaluator)) {
+        ListIterator<AbstractFormula> itParameters = parameters.listIterator();
+        FormulaParameterConbinationItem conbinationParameter = itConbinationParameters.next();
+        AbstractFormula parameter = itParameters.next();
+        while (itConbinationParameters.hasNext() && itParameters.hasNext()) {
+            if (!conbinationParameter.isValid(parameter, evaluator)) {
                 if (!conbinationParameter.getOptional()) {
-                    conbinationParameter.validate(formula, usage, parameters.get(i), evaluator);
+                    conbinationParameter.validate(formula, usage, parameter, evaluator);
                 } else {
-                    j++;
+                    conbinationParameter = itConbinationParameters.next();
                 }
             } else {
-                i++;
-                if (conbinationParameter.isValid(parameters.get(i), evaluator) && conbinationParameter
-                        .getRepeatable()) {
-                    if (conbinationParameters.size() >= j + 1) {
-                        List<FormulaParameterConbinationItem> subList = conbinationParameters.subList(j + 1,
-                                                                                                      conbinationParameters
-                                                                                                              .size());
-                        int minimumNumberOfNonOptionalParameterAfterThis = Math.toIntExact(subList.stream()
-                                                                                                   .filter(p -> !p
-                                                                                                           .getOptional())
-                                                                                                   .count());
-                        int maximumNumberOfNonOptionalParameterAfterThis = subList.stream().anyMatch(p -> p
+                parameter = itParameters.next();
+                if (conbinationParameter.isValid(parameter, evaluator) && conbinationParameter.getRepeatable()) {
+                    int minimumNumberOfNonOptionalParameterAfterThis = 0;
+                    int maximumNumberOfNonOptionalParameterAfterThis = 0;
+                    if (itConbinationParameters.hasNext()) {
+                        List<FormulaParameterConbinationItem> subList = conbinationParameters.subList(
+                                conbinationParameters.indexOf(conbinationParameter) + 1,
+                                conbinationParameters.size());
+                        minimumNumberOfNonOptionalParameterAfterThis = Math.toIntExact(subList.stream().filter(p -> !p
+                                .getOptional()).count());
+                        maximumNumberOfNonOptionalParameterAfterThis = subList.stream().anyMatch(p -> p
                                 .getRepeatable()) ? Integer.MAX_VALUE : subList.size();
-                        ListIterator<AbstractFormula> itParameters = parameters.listIterator(i);
-                        while (itParameters.hasNext() && conbinationParameter.isValid(itParameters.next(),
-                                                                                      evaluator) && i < parameters
-                                .size() - minimumNumberOfNonOptionalParameterAfterThis) {
-                            i++;
-                        }
-                        if (i >= parameters.size() - maximumNumberOfNonOptionalParameterAfterThis) {
-                            j++;
-                        }
                     }
+                    while (itParameters.hasNext() && conbinationParameter.isValid((parameter = itParameters.next()),
+                                                                                  evaluator) && parameters.indexOf(
+                            parameter) < parameters.size() - minimumNumberOfNonOptionalParameterAfterThis) {
+                        ;
+                    }
+                    if (parameters.indexOf(parameter) >= parameters
+                            .size() - maximumNumberOfNonOptionalParameterAfterThis) {
+                        conbinationParameter = itConbinationParameters.next();
+                    }
+                } else {
+                    conbinationParameter = itConbinationParameters.next();
                 }
             }
         }
@@ -167,42 +174,43 @@ public class FormulaParameterConbination {
     }
 
     private boolean isValidParameters(List<AbstractFormula> parameters, Evaluator evaluator) {
-        int i = 0;
-        int j = 0;
         List<FormulaParameterConbinationItem> conbinationParameters = new ArrayList<>(getParameters());
         ListIterator<FormulaParameterConbinationItem> itConbinationParameters = conbinationParameters.listIterator();
-        while (itConbinationParameters.hasNext()) {
-            FormulaParameterConbinationItem conbinationParameter = itConbinationParameters.next();
-            if (!conbinationParameter.isValid(parameters.get(i), evaluator)) {
+        ListIterator<AbstractFormula> itParameters = parameters.listIterator();
+        FormulaParameterConbinationItem conbinationParameter = itConbinationParameters.next();
+        AbstractFormula parameter = itParameters.next();
+        while (itConbinationParameters.hasNext() && itParameters.hasNext()) {
+            if (!conbinationParameter.isValid(parameter, evaluator)) {
                 if (!conbinationParameter.getOptional()) {
                     return false;
                 } else {
-                    j++;
+                    conbinationParameter = itConbinationParameters.next();
                 }
             } else {
-                i++;
-                if (conbinationParameter.isValid(parameters.get(i), evaluator) && conbinationParameter
-                        .getRepeatable()) {
-                    if (conbinationParameters.size() >= j + 1) {
-                        List<FormulaParameterConbinationItem> subList = conbinationParameters.subList(j + 1,
-                                                                                                      conbinationParameters
-                                                                                                              .size());
-                        int minimumNumberOfNonOptionalParameterAfterThis = Math.toIntExact(subList.stream()
-                                                                                                   .filter(p -> !p
-                                                                                                           .getOptional())
-                                                                                                   .count());
-                        int maximumNumberOfNonOptionalParameterAfterThis = subList.stream().anyMatch(p -> p
+                parameter = itParameters.next();
+                if (conbinationParameter.isValid(parameter, evaluator) && conbinationParameter.getRepeatable()) {
+                    int minimumNumberOfNonOptionalParameterAfterThis = 0;
+                    int maximumNumberOfNonOptionalParameterAfterThis = 0;
+                    if (itConbinationParameters.hasNext()) {
+                        List<FormulaParameterConbinationItem> subList = conbinationParameters.subList(
+                                conbinationParameters.indexOf(conbinationParameter) + 1,
+                                conbinationParameters.size());
+                        minimumNumberOfNonOptionalParameterAfterThis = Math.toIntExact(subList.stream().filter(p -> !p
+                                .getOptional()).count());
+                        maximumNumberOfNonOptionalParameterAfterThis = subList.stream().anyMatch(p -> p
                                 .getRepeatable()) ? Integer.MAX_VALUE : subList.size();
-                        ListIterator<AbstractFormula> itParameters = parameters.listIterator(i);
-                        while (itParameters.hasNext() && conbinationParameter.isValid(itParameters.next(),
-                                                                                      evaluator) && i < parameters
-                                .size() - minimumNumberOfNonOptionalParameterAfterThis) {
-                            i++;
-                        }
-                        if (i >= parameters.size() - maximumNumberOfNonOptionalParameterAfterThis) {
-                            j++;
-                        }
                     }
+                    while (itParameters.hasNext() && conbinationParameter.isValid((parameter = itParameters.next()),
+                                                                                  evaluator) && parameters.indexOf(
+                            parameter) < parameters.size() - minimumNumberOfNonOptionalParameterAfterThis) {
+                        ;
+                    }
+                    if (parameters.indexOf(parameter) >= parameters
+                            .size() - maximumNumberOfNonOptionalParameterAfterThis) {
+                        conbinationParameter = itConbinationParameters.next();
+                    }
+                } else {
+                    conbinationParameter = itConbinationParameters.next();
                 }
             }
         }
