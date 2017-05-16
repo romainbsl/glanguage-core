@@ -98,7 +98,6 @@ public class AsStandard implements SemanticalAction {
 
     @Override
     public AbstractFormula unaryOperation(FormulaType formulaDescriptionId, AbstractFormula formula) {
-        AbstractFormula result = null;
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
         try {
             switch (formulaDescription.getType()) {
