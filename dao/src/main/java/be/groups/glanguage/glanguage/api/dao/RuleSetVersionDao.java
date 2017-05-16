@@ -1,21 +1,18 @@
 package be.groups.glanguage.glanguage.api.dao;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import javax.persistence.EntityManager;
-import javax.persistence.TemporalType;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
-
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion_;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet_;
 import be.groups.marmota.persistence.JpaUtil;
 import be.groups.presta.backoffice.persistence.base.BaseDao;
+
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
+import java.time.LocalDateTime;
 
 public class RuleSetVersionDao extends BaseDao<Integer, RuleSetVersion> {
 

@@ -1,14 +1,14 @@
 package be.groups.glanguage.glanguage.api.dao;
 
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula_;
+import be.groups.marmota.persistence.JpaUtil;
+import be.groups.presta.backoffice.persistence.base.BaseDao;
+
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
-import be.groups.common.persistence.base.BaseDao;
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula_;
-import be.groups.marmota.persistence.JpaUtil;
 
 public class FormulaDao extends BaseDao<Integer, AbstractFormula> {
 

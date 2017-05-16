@@ -1,8 +1,8 @@
 package be.groups.glanguage.glanguage.api.dao;
 
-import be.groups.common.persistence.base.BaseDao;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.marmota.persistence.JpaUtil;
+import be.groups.presta.backoffice.persistence.base.BaseDao;
 
 import javax.persistence.EntityManager;
 
