@@ -1,22 +1,14 @@
 package be.groups.glanguage.glanguage.api.ws.utils;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import be.groups.presta.backoffice.ws.filter.*;
 
 import javax.ws.rs.container.DynamicFeature;
 import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.FeatureContext;
-
-import be.groups.common.ws.utils.filter.DisconnectFilter;
-import be.groups.common.ws.utils.filter.LoggingFilter;
-import be.groups.common.ws.utils.filter.MDCFilter;
-import be.groups.common.ws.utils.filter.NoCacheFilter;
-import be.groups.common.ws.utils.filter.OriginFilter;
-import be.groups.common.ws.utils.filter.ReadBodyFilter;
-import be.groups.common.ws.utils.filter.ReleaseFilter;
-import be.groups.common.ws.utils.filter.StopWatchFilter;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 public class BaseDynamicBinding implements DynamicFeature {
 	
