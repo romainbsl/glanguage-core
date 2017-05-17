@@ -1,29 +1,17 @@
 package be.groups.glanguage.glanguage.api.business.universe;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.business.plan.Plan;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
+import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-import javax.persistence.EntityManager;
-
-import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import be.groups.common.persistence.util.TransactionHelper;
-import be.groups.common.test.utils.Environment;
-import be.groups.glanguage.glanguage.api.business.plan.Plan;
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
-import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
-import be.groups.marmota.persistence.DatabaseIdentifier;
-import be.groups.marmota.persistence.JpaUtil;
-import be.groups.marmota.test.TNSNames;
+import static org.junit.Assert.*;
 
 public class UniverseTest extends BaseDatabaseTest {
 
@@ -120,7 +108,7 @@ public class UniverseTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link Universe#getPlan(Integer, LocalDateTime, boolean)}
+	 * Tests {@link Universe#getPlan(Integer, LocalDate)}
 	 */
 	@Test
 	public void testGetPlan() {

@@ -1,6 +1,5 @@
 package be.groups.glanguage.glanguage.api.ws;
 
-import be.groups.common.test.utils.Environment;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaIn;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
@@ -10,6 +9,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.termin
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.WsTestCategory;
 import be.groups.marmota.test.TNSNames;
+import be.groups.presta.backoffice.test.base.Environment;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;

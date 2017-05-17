@@ -1,10 +1,10 @@
 package be.groups.glanguage.glanguage.api;
 
-import be.groups.common.persistence.util.TransactionHelper;
-import be.groups.common.test.utils.Environment;
 import be.groups.marmota.persistence.DatabaseIdentifier;
 import be.groups.marmota.persistence.JpaUtil;
 import be.groups.marmota.test.TNSNames;
+import be.groups.presta.backoffice.persistence.base.helper.TransactionHelper;
+import be.groups.presta.backoffice.test.base.Environment;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 

@@ -1,23 +1,46 @@
-package be.groups.glanguage.glanguage.api.entities.formula.description;
+package be.groups.glanguage.glanguage.api.entities.formula.description.conbination;
 
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbination;
-import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem;
-import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItemType;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.util.*;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
  * Created by michotte on 9/05/2017.
  */
-public class FormulaParameterConbinationTest {
+public class FormulaParameterConbinationTest extends BaseDatabaseTest {
+
+    /*
+	 * Tests
+	 */
+    /**
+     * Tests {@link FormulaParameterConbination} JPA mapping
+     */
+    @Test
+    @Category(JpaMappingTestsCategory.class)
+    public void testJpaMapping() {
+        FormulaParameterConbination parameterConbination = getEntityManager().find(FormulaParameterConbination
+                                                                                            .class, 2);
+
+		/* Checking entity */
+        assertNotNull(parameterConbination);
+        assertEquals(Integer.valueOf(2), parameterConbination.getId());
+
+		/* Checking relationships */
+        assertNotNull(parameterConbination.getParameters());
+        assertEquals(2, parameterConbination.getParameters().size());
+        assertEquals(2, parameterConbination.getParameters().stream().map(d -> d.getId()).distinct().count());
+
+    }
 
     /**
      * Tests {@link FormulaParameterConbination#isValid(List, Evaluator)}

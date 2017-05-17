@@ -1,11 +1,10 @@
 package be.groups.glanguage.glanguage.api.dao;
 
-import org.junit.BeforeClass;
-
-import be.groups.common.test.utils.Environment;
 import be.groups.marmota.persistence.DatabaseIdentifier;
 import be.groups.marmota.persistence.JpaUtil;
 import be.groups.marmota.test.TNSNames;
+import be.groups.presta.backoffice.test.base.Environment;
+import org.junit.BeforeClass;
 
 public class DaoTest {
 	

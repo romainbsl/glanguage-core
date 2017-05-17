@@ -1,41 +1,16 @@
 package be.groups.glanguage.glanguage.api.entities;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
-
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormulaTest;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescriptionTest;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaParameterConbinationItemTest;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaParametersCombinationTest;
+import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItemTest;
+import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaAnomalyTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracketTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaDateTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaInTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaAndTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDifferenceTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDivideTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaEqualTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaGreaterOrEqualTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaGreaterTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaIntegerDivisionTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMinusTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaModuloTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaMultiplyTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaOrTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaPlusTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerOrEqualTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaSmallerTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaApplicabilityTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaFormulaTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGetTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaPrimitiveTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaRuleReferenceTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationDaysTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationHoursTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationMinutesTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationMonthsTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.FormulaDurationYearsTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.*;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.*;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.*;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMaxTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMinTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumSignedMaxTest;
@@ -47,59 +22,49 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.format
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaIfInstructionTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathAbsTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathSignTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingArithmeticTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingBankersTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingCeilTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingFloorTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.FormulaRoundingTruncTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.*;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaStringItemTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaStringLengthTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaSubStringTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBooleanTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDateTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalDurationTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalIntegerTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumericTest;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalStringTest;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.*;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaExistTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaNotTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaUnaryMinusTest;
-import be.groups.glanguage.glanguage.api.entities.rule.RounderTest;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinitionTest;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleDescriptionTest;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleGroupItemTest;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentityTest;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleVersionTest;
+import be.groups.glanguage.glanguage.api.entities.rule.*;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcherTest;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameterTest;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetTest;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersionTest;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Test suite for Entities module
- * 
+ *
  * @author DUPIREFR
  */
 @RunWith(Suite.class)
 @SuiteClasses({RuleSetTest.class, RuleSetVersionTest.class, RuleIdentityTest.class, RuleDefinitionTest.class,
 		RuleDefinitionParameterTest.class, RuleVersionTest.class, RuleDescriptionTest.class, RuleGroupItemTest.class,
-		RounderTest.class, AbstractFormulaTest.class, FormulaDescriptionTest.class, FormulaParametersCombinationTest.class,
-		FormulaParameterConbinationItemTest.class, FormulaTerminalBooleanTest.class, FormulaTerminalDurationTest.class,
-		FormulaTerminalIntegerTest.class, FormulaTerminalNumericTest.class, FormulaTerminalStringTest.class,
-		FormulaTerminalDateTest.class, FormulaExistTest.class, FormulaNotTest.class, FormulaUnaryMinusTest.class, FormulaAndTest.class,
-		FormulaOrTest.class, FormulaGreaterTest.class, FormulaGreaterOrEqualTest.class, FormulaSmallerTest.class,
-		FormulaSmallerOrEqualTest.class, FormulaEqualTest.class, FormulaDifferenceTest.class, FormulaPlusTest.class,
-		FormulaMinusTest.class, FormulaMultiplyTest.class, FormulaDivideTest.class, FormulaIntegerDivisionTest.class,
-		FormulaModuloTest.class, FormulaExtremumMaxTest.class, FormulaExtremumMinTest.class, FormulaExtremumSignedMaxTest.class,
-		FormulaExtremumSignedMinTest.class, FormulaFormatStringTest.class, FormulaFormatIntegerTest.class,
-		FormulaFormatNumericTest.class, FormulaFormatDateTest.class, FormulaMathAbsTest.class, FormulaMathSignTest.class,
+		RounderTest.class, AbstractFormulaTest.class, FormulaDescriptionTest.class, FormulaParameterConbinationTest
+		.class, FormulaParameterConbinationItemTest.class, FormulaTerminalBooleanTest.class,
+		FormulaTerminalDurationTest.class, FormulaTerminalIntegerTest.class, FormulaTerminalNumericTest.class,
+		FormulaTerminalStringTest.class, FormulaTerminalDateTest.class, FormulaExistTest.class, FormulaNotTest.class,
+		FormulaUnaryMinusTest.class, FormulaAndTest.class, FormulaOrTest.class, FormulaGreaterTest.class,
+		FormulaGreaterOrEqualTest.class, FormulaSmallerTest.class, FormulaSmallerOrEqualTest.class, FormulaEqualTest
+		.class, FormulaDifferenceTest.class, FormulaPlusTest.class, FormulaMinusTest.class, FormulaMultiplyTest.class,
+		FormulaDivideTest.class, FormulaIntegerDivisionTest.class, FormulaModuloTest.class, FormulaExtremumMaxTest
+		.class, FormulaExtremumMinTest.class, FormulaExtremumSignedMaxTest.class, FormulaExtremumSignedMinTest.class,
+		FormulaFormatStringTest.class, FormulaFormatIntegerTest.class, FormulaFormatNumericTest.class,
+		FormulaFormatDateTest.class, FormulaMathAbsTest.class, FormulaMathSignTest.class,
 		FormulaRoundingArithmeticTest.class, FormulaRoundingCeilTest.class, FormulaRoundingFloorTest.class,
 		FormulaRoundingTruncTest.class, FormulaRoundingBankersTest.class, FormulaDurationDaysTest.class,
 		FormulaDurationHoursTest.class, FormulaDurationMinutesTest.class, FormulaDurationMonthsTest.class,
-		FormulaDurationYearsTest.class, FormulaIfInstructionTest.class, FormulaStringItemTest.class, FormulaStringLengthTest.class,
-		FormulaSubStringTest.class, FormulaApplicabilityTest.class, FormulaFormulaTest.class, FormulaGetTest.class,
-		FormulaPrimitiveTest.class, FormulaRuleReferenceTest.class, FormulaAnomalyTest.class, FormulaBracketTest.class,
-		FormulaDateTest.class, FormulaInTest.class, DefinitionMatcherTest.class})
+		FormulaDurationYearsTest.class, FormulaIfInstructionTest.class, FormulaStringItemTest.class,
+		FormulaStringLengthTest.class, FormulaSubStringTest.class, FormulaApplicabilityTest.class, FormulaFormulaTest
+		.class, FormulaGetTest.class, FormulaPrimitiveTest.class, FormulaRuleReferenceTest.class, FormulaAnomalyTest
+		.class, FormulaBracketTest.class, FormulaDateTest.class, FormulaInTest.class, DefinitionMatcherTest.class})
 public class EntitiesTestSuite {
 
 }

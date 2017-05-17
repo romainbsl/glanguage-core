@@ -1,9 +1,9 @@
-package be.groups.glanguage.glanguage.api.entities.utils;
+package be.groups.glanguage.glanguage.api.entities.utils.format;
 
 import org.junit.Test;
 
 /**
- * Created by michotte on 18/04/2017.
+ * Created by michotte on 17/05/2017.
  */
 public class FormatDoubleTest {
 

@@ -1,10 +1,10 @@
 package be.groups.glanguage.glanguage.api.ws;
 
+import be.groups.presta.backoffice.test.base.Environment;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.BeforeClass;
 
-import be.groups.common.test.utils.Environment;
 
 public class BaseJerseyResourceTest extends JerseyTest {
 
