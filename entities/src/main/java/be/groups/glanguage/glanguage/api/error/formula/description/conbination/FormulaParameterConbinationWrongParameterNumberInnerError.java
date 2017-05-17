@@ -3,12 +3,12 @@ package be.groups.glanguage.glanguage.api.error.formula.description.conbination;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
-import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.description.FormulaDescriptionInnerError;
 
 /**
  * Created by michotte on 20/12/2016.
  */
-public class FormulaParameterConbinationWrongParameterNumberInnerError extends FormulaInnerError {
+public class FormulaParameterConbinationWrongParameterNumberInnerError extends FormulaDescriptionInnerError {
 
     private Integer actualParameterNumber;
     private Integer expectedMinimimumParameterNumber;
@@ -20,7 +20,7 @@ public class FormulaParameterConbinationWrongParameterNumberInnerError extends F
                                                                      int actualParameterNumber,
                                                                      int expectedMinimimumParameterNumber,
                                                                      int expectedMaximimumParameterNumber) {
-        super(GLanguageErrorRegistry.FORMULA_PARAMETER_WRONG_NUMBER,
+        super(GLanguageErrorRegistry.FORMULA_PARAMETER_CONBINATION_WRONG_PARAMETER_NUMBER,
               formula,
               evaluator,
               methodName,

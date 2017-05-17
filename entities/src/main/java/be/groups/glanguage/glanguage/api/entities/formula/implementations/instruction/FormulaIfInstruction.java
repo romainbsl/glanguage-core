@@ -4,13 +4,9 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaWrongParameterTypeInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.base.unable.instantiate.FormulaUnableToInstantiateInnerError;
 import be.groups.glanguage.glanguage.api.error.utils.EvaluationMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -35,27 +31,6 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
                                 AbstractFormula ifStatement,
                                 AbstractFormula elseStatement) throws GLanguageException {
         super(description, Arrays.asList(condition, ifStatement, elseStatement));
-        try {
-            if (condition == null) {
-                throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
-            }
-            if (!condition.getReturnType(null).equals(FormulaReturnType.BOOLEAN)) {
-                throw new GLanguageException(new FormulaWrongParameterTypeInnerError(this,
-                        null,
-                        "constructor",
-                        "condition",
-                        2,
-                        condition.getReturnType(null),
-                        Arrays.asList(FormulaReturnType
-                                .BOOLEAN)));
-            }
-            if (ifStatement == null) {
-                throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 2));
-            }
-        } catch (GLanguageException e) {
-            e.getError().setOuterError(new FormulaUnableToInstantiateInnerError(this));
-            throw e;
-        }
         this.parameters = new ArrayList<>();
         parameters.add(condition);
         parameters.add(ifStatement);

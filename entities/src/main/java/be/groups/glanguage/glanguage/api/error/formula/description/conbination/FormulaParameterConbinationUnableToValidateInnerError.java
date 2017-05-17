@@ -14,7 +14,7 @@ public class FormulaParameterConbinationUnableToValidateInnerError extends Formu
     public FormulaParameterConbinationUnableToValidateInnerError(AbstractFormula formula,
                                                                  FormulaParameterConbination conbination,
                                                                  Evaluator evaluator) {
-        super(GLanguageErrorRegistry.FORMULA_PARAMETER_CONBINATION_ITEM_UNABLE_TO_VALIDATE,
+        super(GLanguageErrorRegistry.FORMULA_PARAMETER_CONBINATION_UNABLE_TO_VALIDATE,
               formula,
               evaluator,
               "validate",

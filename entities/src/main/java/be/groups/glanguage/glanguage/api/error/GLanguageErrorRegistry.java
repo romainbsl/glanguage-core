@@ -43,8 +43,13 @@ public enum GLanguageErrorRegistry {
 
     FORMULA_PARAMETER_LIST_NULL("FORMULA_PARAMETER_LIST_NULL", "A formula parameter list is null"),
     FORMULA_PARAMETER_NULL("FORMULA_PARAMETER_NULL", "A formula parameter is null"),
-    FORMULA_PARAMETER_WRONG_NUMBER("FORMULA_PARAMETER_WRONG_NUMBER", "The number of parameters of a formula is wrong"),
     FORMULA_PARAMETER_WRONG_TYPE("FORMULA_PARAMETER_WRONG_TYPE", "Type of a formula parameter is wrong"),
+
+    FORMULA_PARAMETER_CONBINATION_WRONG_PARAMETER_NUMBER("FORMULA_PARAMETER_CONBINATION_WRONG_PARAMETER_NUMBER", "The number of parameters of a formula is wrong"),
+    FORMULA_PARAMETER_CONBINATION_UNREACHABLE_PARAMETERS("FORMULA_PARAMETER_CONBINATION_UNREACHABLE_PARAMETERS",
+                                                         "There are unreachable parameters"),
+    FORMULA_PARAMETER_CONBINATION_UNABLE_TO_VALIDATE("FORMULA_PARAMETER_CONBINATION_UNABLE_TO_VALIDATE",
+                                                               "Unable to validate a parameter conbination"),
 
     FORMULA_PARAMETER_CONBINATION_ITEM_WRONG_TYPE("FORMULA_PARAMETER_CONBINATION_ITEM_WRONG_TYPE", "Type of a " +
             "parameter does not match the type of a conbination parameter"),

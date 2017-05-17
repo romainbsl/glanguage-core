@@ -3,6 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.description.conbinati
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsage;
+import be.groups.glanguage.glanguage.api.entities.utils.Language;
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.description.conbination
@@ -64,10 +65,20 @@ public class FormulaParameterConbinationItem {
         return name;
     }
 
+    @Transient
+    public Object getName(Language language) {
+        return name.asText(language);
+    }
+
     @ManyToOne
     @JoinColumn(name = "DESC_ID", referencedColumnName = "ID")
     public MultilingualString getDescription() {
         return description;
+    }
+
+    @Transient
+    public Object getDescription(Language language) {
+        return description.asText(language);
     }
 
     @Column(name = "SEQUENCE_NUMBER")
