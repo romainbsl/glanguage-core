@@ -1,4 +1,4 @@
-package be.groups.glanguage.glanguage.api.entities.formula.description.conbination;
+package be.groups.glanguage.glanguage.api.entities.formula.description.usage;
 
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnTypeConverter;
@@ -6,23 +6,23 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaRet
 import javax.persistence.*;
 
 /**
- * Created by michotte on 30/01/2017.
+ * Created by michotte on 17/05/2017.
  */
 @Entity
-@Table(name = "FORMULA_PARAM_CONB_ITEM_TYPE")
-public class FormulaParameterConbinationItemType {
+@Table(name = "FORMULA_USAGE_RETURN_TYPE")
+public class FormulaUsageReturnType {
 
     /*
      * Fields
      */
     private Integer id;
-    private FormulaParameterConbinationItem parameter;
+    private FormulaUsage usage;
     private FormulaReturnType returnType;
 
     /*
      * Constructors
      */
-    public FormulaParameterConbinationItemType() {
+    public FormulaUsageReturnType() {
         super();
     }
 
@@ -36,9 +36,9 @@ public class FormulaParameterConbinationItemType {
     }
 
     @ManyToOne
-    @JoinColumn(name = "FORMULA_PARAM_CONB_ITEM_ID", referencedColumnName = "ID")
-    public FormulaParameterConbinationItem getParameter() {
-        return parameter;
+    @JoinColumn(name = "FORMULA_USAGE_ID", referencedColumnName = "ID")
+    public FormulaUsage getUsage() {
+        return usage;
     }
 
     @Column(name = "FORMULA_RETURN_TYPE_ID", nullable = false)
@@ -54,8 +54,8 @@ public class FormulaParameterConbinationItemType {
         this.id = id;
     }
 
-    public void setParameter(FormulaParameterConbinationItem parameter) {
-        this.parameter = parameter;
+    public void setUsage(FormulaUsage usage) {
+        this.usage = usage;
     }
 
     public void setReturnType(FormulaReturnType returnType) {
@@ -68,9 +68,9 @@ public class FormulaParameterConbinationItemType {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof FormulaParameterConbinationItemType)) return false;
+        if (!(o instanceof FormulaUsageReturnType)) return false;
 
-        FormulaParameterConbinationItemType that = (FormulaParameterConbinationItemType) o;
+        FormulaUsageReturnType that = (FormulaUsageReturnType) o;
 
         return id.equals(that.id);
     }

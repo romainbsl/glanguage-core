@@ -159,7 +159,7 @@ public class FormulaDescription {
         FormulaUsage usage = getValidUsage(parameters, evaluator);
         if (usage != null) {
             if (usage.getTypes().size() == 1) {
-                return new ArrayList<>(usage.getTypes()).get(0);
+                return new ArrayList<>(usage.getReturnTypes()).get(0);
             } else {
                 return FormulaReturnType.UNDEFINED;
             }

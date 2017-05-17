@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.description.conbinati
 
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsage;
 import be.groups.glanguage.glanguage.api.entities.utils.Language;
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
@@ -13,6 +14,7 @@ import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -106,6 +108,11 @@ public class FormulaParameterConbinationItem {
         return types;
     }
 
+    @Transient
+    public List<FormulaReturnType> getReturnTypes() {
+        return getTypes().stream().map(FormulaParameterConbinationItemType::getReturnType).collect(Collectors.toList());
+    }
+
     @OneToMany(mappedBy = "parameter")
     public Set<FormulaParameterConbinationItemValue> getValues() {
         return values;
@@ -196,14 +203,17 @@ public class FormulaParameterConbinationItem {
         }
     }
 
+    @Transient
     public boolean isValid(AbstractFormula parameter, Evaluator evaluator) {
         return parameter != null && isValidType(parameter, evaluator) && isValidValue(parameter, evaluator);
     }
 
+    @Transient
     public boolean isValidType(AbstractFormula parameter, Evaluator evaluator) {
-        return getTypes().contains(parameter.getReturnType(evaluator));
+        return getReturnTypes().contains(parameter.getReturnType(evaluator));
     }
 
+    @Transient
     private boolean isValidValue(AbstractFormula parameter, Evaluator evaluator) {
         if (getValues() == null || getValues().isEmpty()) {
             return true;

@@ -4,7 +4,6 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem;
-import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItemType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsage;
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.formula.description.FormulaDescriptionInnerError;
@@ -39,11 +38,11 @@ public class FormulaParameterConbinationItemWrongParameterTypeInnerError extends
                                                      "] ('" + parameterAsText + "')");
         sb.append(" has a wrong type " + ": actual type = " + actualType.name());
         if (conbinationParameter.getTypes() != null) {
-            Iterator<FormulaParameterConbinationItemType> itExpectedTypes = conbinationParameter.getTypes().iterator();
+            Iterator<FormulaReturnType> itExpectedTypes = conbinationParameter.getReturnTypes().iterator();
             if (itExpectedTypes.hasNext()) {
-                sb.append(" , expected types = {'" + itExpectedTypes.next().getReturnType().name());
+                sb.append(" , expected type(s) = {'" + itExpectedTypes.next().name());
                 while (itExpectedTypes.hasNext()) {
-                    sb.append("', '" + itExpectedTypes.next().getReturnType().name());
+                    sb.append("', '" + itExpectedTypes.next().name());
                 }
                 sb.append("'}");
             }

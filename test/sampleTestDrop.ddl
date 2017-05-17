@@ -1,7 +1,14 @@
 drop table FORMULA cascade constraints
-drop table FORMULA_DESCRIPTION cascade constraints
-drop table FORMULA_PARAMETER_COMBINATION cascade constraints
-drop table FORMULA_PARAMETER_DESCRIPTION cascade constraints
+drop table FORMULA_DESC cascade constraints
+drop table FORMULA_PARAM_CONB cascade constraints
+drop table FORMULA_PARAM_CONB_ITEM cascade constraints
+drop table FORMULA_PARAM_CONB_ITEM_TYPE cascade constraints
+drop table FORMULA_PARAM_CONB_ITEM_VALUE cascade constraints
+drop table FORMULA_USAGE cascade constraints
+drop table FORMULA_USAGE_PARAM_CONB_ITEM cascade constraints
+drop table FORMULA_USAGE_RETURN_TYPE cascade constraints
+drop table MULTILINGUAL_STRING cascade constraints
+drop table MULTILINGUAL_STRING_ITEM cascade constraints
 drop table RULE_DEFINITION cascade constraints
 drop table RULE_DEFINITION_PARAMETER cascade constraints
 drop table RULE_DESCRIPTION cascade constraints

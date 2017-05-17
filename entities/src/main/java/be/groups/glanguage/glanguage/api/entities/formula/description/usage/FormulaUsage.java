@@ -4,7 +4,6 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnTypeConverter;
 import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbination;
 import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem;
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
@@ -14,6 +13,7 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * This class represents a usage of a formula.<br>
@@ -35,7 +35,7 @@ public class FormulaUsage {
     private FormulaParameterConbination parameterConbination;
     private String name;
     private MultilingualString description;
-    private Set<FormulaReturnType> types;
+    private Set<FormulaUsageReturnType> types;
     private List<FormulaUsageParameterConbinationItem> overriddenParameters;
 
     /*
@@ -54,13 +54,13 @@ public class FormulaUsage {
     }
 
     @ManyToOne
-    @JoinColumn(name = "FIORMULA_DESC_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "FORMULA_DESC_ID", referencedColumnName = "ID")
     public FormulaDescription getFormulaDescription() {
         return formulaDescription;
     }
 
     @ManyToOne
-    @JoinColumn(name = "FIORMULA_PARAM_CONB_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "FORMULA_PARAM_CONB_ID", referencedColumnName = "ID")
     public FormulaParameterConbination getParameterConbination() {
         return parameterConbination;
     }
@@ -76,10 +76,14 @@ public class FormulaUsage {
         return description;
     }
 
-    @Column(table = "FORMULA_PARAM_CONB_ITEM_TYPE", name = "FORMULA_RETURN_TYPE_ID")
-    @Convert(converter = FormulaReturnTypeConverter.class)
-    public Set<FormulaReturnType> getTypes() {
+    @OneToMany(mappedBy = "usage")
+    public Set<FormulaUsageReturnType> getTypes() {
         return types;
+    }
+
+    @Transient
+    public List<FormulaReturnType> getReturnTypes() {
+        return getTypes().stream().map(FormulaUsageReturnType::getReturnType).collect(Collectors.toList());
     }
 
     @OneToMany(mappedBy = "usage")
@@ -110,13 +114,17 @@ public class FormulaUsage {
         this.description = description;
     }
 
-    public void setTypes(Set<FormulaReturnType> types) {
+    public void setTypes(Set<FormulaUsageReturnType> types) {
         this.types = types;
     }
 
+    public void setOverriddenParameters(List<FormulaUsageParameterConbinationItem> overriddenParameters) {
+        this.overriddenParameters = overriddenParameters;
+    }
+
     /*
-     * Methods
-     */
+         * Methods
+         */
     public void validate(AbstractFormula formula, List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
         getParameterConbination().validate(formula, this, parameters, evaluator);
     }

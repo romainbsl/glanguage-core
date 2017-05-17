@@ -154,6 +154,7 @@ public class FormulaParameterConbination {
         }
     }
 
+    @Transient
     public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) {
         if (!isValidParameterNumber(parameters)) {
             return false;
@@ -164,6 +165,7 @@ public class FormulaParameterConbination {
         }
     }
 
+    @Transient
     private boolean isValidParameterNumber(List<AbstractFormula> parameters) {
         if (parameters == null || parameters.size() == 0 && getParametersMinimumNumber() != 0) {
             return false;
@@ -175,6 +177,7 @@ public class FormulaParameterConbination {
         }
     }
 
+    @Transient
     private boolean isValidParameters(List<AbstractFormula> parameters, Evaluator evaluator) {
         List<FormulaParameterConbinationItem> conbinationParameters = new ArrayList<>(getParameters());
         ListIterator<FormulaParameterConbinationItem> itConbinationParameters = conbinationParameters.listIterator();
@@ -215,10 +218,12 @@ public class FormulaParameterConbination {
         return true;
     }
 
+    @Transient
     public Integer getParametersMinimumNumber() {
         return Math.toIntExact(parameters.stream().filter(p -> !p.getOptional()).count());
     }
 
+    @Transient
     public Integer getParametersMaximumNumber() {
         if (parameters.stream().anyMatch(p -> p.getRepeatable())) {
             return Integer.MAX_VALUE;
