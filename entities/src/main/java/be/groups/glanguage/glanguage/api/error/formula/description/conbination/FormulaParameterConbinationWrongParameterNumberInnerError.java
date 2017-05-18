@@ -4,6 +4,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.formula.description.FormulaDescriptionInnerError;
+import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 
 /**
  * Created by michotte on 20/12/2016.
@@ -16,14 +17,13 @@ public class FormulaParameterConbinationWrongParameterNumberInnerError extends F
 
     public FormulaParameterConbinationWrongParameterNumberInnerError(AbstractFormula formula,
                                                                      Evaluator evaluator,
-                                                                     String methodName,
                                                                      int actualParameterNumber,
                                                                      int expectedMinimimumParameterNumber,
                                                                      int expectedMaximimumParameterNumber) {
         super(GLanguageErrorRegistry.FORMULA_PARAMETER_CONBINATION_WRONG_PARAMETER_NUMBER,
               formula,
               evaluator,
-              methodName,
+              ErrorMethod.VALIDATE.getName(),
               getCause(actualParameterNumber, expectedMinimimumParameterNumber, expectedMaximimumParameterNumber));
         this.actualParameterNumber = actualParameterNumber;
         this.expectedMinimimumParameterNumber = expectedMinimimumParameterNumber;

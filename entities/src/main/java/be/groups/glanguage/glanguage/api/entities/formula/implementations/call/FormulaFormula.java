@@ -6,7 +6,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
-import be.groups.glanguage.glanguage.api.error.utils.EvaluationMethod;
+import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -31,7 +31,7 @@ public class FormulaFormula extends RuleCallFormula {
 			return ruleVersion.getFormula().getIntegerValue(evaluator);
 		} catch (GLanguageException e) {
 			e.getError()
-					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, EvaluationMethod.INTEGER, null));
+					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.INTEGER, null));
 			throw e;
 		}
 	}
@@ -42,7 +42,7 @@ public class FormulaFormula extends RuleCallFormula {
 			return ruleVersion.getFormula().getNumericValue(evaluator);
 		} catch (GLanguageException e) {
 			e.getError()
-					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, EvaluationMethod.NUMERIC, null));
+					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.NUMERIC, null));
 			throw e;
 		}
 	}
@@ -53,7 +53,7 @@ public class FormulaFormula extends RuleCallFormula {
 			return ruleVersion.getFormula().getStringValue(evaluator);
 		} catch (GLanguageException e) {
 			e.getError()
-					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, EvaluationMethod.STRING, null));
+					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.STRING, null));
 			throw e;
 		}
 	}
@@ -64,7 +64,7 @@ public class FormulaFormula extends RuleCallFormula {
 			return ruleVersion.getFormula().getBooleanValue(evaluator);
 		} catch (GLanguageException e) {
 			e.getError()
-					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, EvaluationMethod.BOOLEAN, null));
+					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.BOOLEAN, null));
 			throw e;
 		}
 	}
@@ -75,7 +75,7 @@ public class FormulaFormula extends RuleCallFormula {
 			return ruleVersion.getFormula().getDateValue(evaluator);
 		} catch (GLanguageException e) {
 			e.getError()
-					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, EvaluationMethod.DATE, null));
+					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DATE, null));
 			throw e;
 		}
 	}
@@ -86,7 +86,7 @@ public class FormulaFormula extends RuleCallFormula {
 			return ruleVersion.getFormula().getDurationValue(evaluator);
 		} catch (GLanguageException e) {
 			e.getError()
-					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, EvaluationMethod.DURATION, null));
+					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DURATION, null));
 			throw e;
 		}
 	}

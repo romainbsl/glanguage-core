@@ -11,7 +11,6 @@ import be.groups.glanguage.glanguage.api.error.formula.description.FormulaDescri
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -139,19 +138,19 @@ public class FormulaDescription {
                     usage.validate(formula, parameters, evaluator);
                 } else {
                     throw new GLanguageException(FormulaDescriptionInnerErrorFactory
-                                                         .getNoMatchingUsage(formula, parameters, evaluator, this));
+                                                         .getNoMatchingUsage(formula, parameters, evaluator));
                 }
             }
         } catch (GLanguageException e) {
             e.getError().setOuterError(FormulaDescriptionInnerErrorFactory
-                                               .getUnableToValidate(formula, parameters, evaluator, this));
+                                               .getUnableToValidate(formula, parameters, evaluator));
             throw e;
         }
     }
 
     @Transient
     public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) {
-        return usages.stream().anyMatch(u -> u.isValid(parameters, evaluator));
+        return getUsages().stream().anyMatch(u -> u.isValid(parameters, evaluator));
     }
 
     @Transient
@@ -169,14 +168,17 @@ public class FormulaDescription {
     }
 
     @Transient
-    private FormulaUsage getValidUsage(List<AbstractFormula> parameters, Evaluator evaluator) {
+    public FormulaUsage getValidUsage(List<AbstractFormula> parameters, Evaluator evaluator) {
         // Only 1 usage -> return it
         if (getUsages().size() == 1) {
-            return getUsages().iterator().next();
+            FormulaUsage usage = getUsages().iterator().next();
+            if (usage.isValid(parameters, evaluator)) {
+                return usage;
+            }
         } else if (getUsages().size() > 1) {
             // More than 1 usages
             // Select the valid usages
-            List<FormulaUsage> validUsages = usages.stream().filter(u -> u.isValid(parameters, evaluator)).collect(
+            List<FormulaUsage> validUsages = getUsages().stream().filter(u -> u.isValid(parameters, evaluator)).collect(
                     Collectors.toList());
             if (validUsages.size() == 1) {
                 // Only 1 valid usage -> return it
@@ -210,13 +212,13 @@ public class FormulaDescription {
     }
 
     @Transient
-    private FormulaUsage getBestMatchingUsage(List<AbstractFormula> parameters, Evaluator evaluator) {
+    public FormulaUsage getBestMatchingUsage(List<AbstractFormula> parameters, Evaluator evaluator) {
         // Only 1 usage -> return it
         if (getUsages().size() == 1) {
             return getUsages().iterator().next();
-        } else {
+        } else if (getUsages().size() > 1) {
             // Select the usages with matching number of parameters
-            List<FormulaUsage> matchingUsages = usages.stream().filter(u -> u.getParameterConbination()
+            List<FormulaUsage> matchingUsages = getUsages().stream().filter(u -> u.getParameterConbination()
                     .getParametersMinimumNumber() <= parameters.size() && u.getParameterConbination()
                     .getParametersMaximumNumber() >= parameters.size()).collect(Collectors.toList());
             if (matchingUsages.size() == 1) {
@@ -261,14 +263,8 @@ public class FormulaDescription {
                             FormulaUsage matchingUsage = null;
                             for (FormulaUsage currentMatchingUsage : matchingMaximumParameterNumberUsages) {
                                 List<FormulaParameterConbinationItem> usageParameters = currentMatchingUsage
-                                        .getParameterConbination().getParameters().stream()
-                                        .sorted(new Comparator<FormulaParameterConbinationItem>() {
-                                            @Override
-                                            public int compare(FormulaParameterConbinationItem o1,
-                                                               FormulaParameterConbinationItem o2) {
-                                                return o1.getSequenceNumber().compareTo(o2.getSequenceNumber());
-                                            }
-                                        }).collect(Collectors.toList());
+                                        .getParameterConbination().getParameters().stream().collect(Collectors
+                                                                                                            .toList());
                                 int numberOfMatchingParameterTypes = 0;
                                 for (int i = 0; i < parameters.size(); i++) {
                                     if (usageParameters.get(i).isValidType(parameters.get(i), evaluator)) {
@@ -289,39 +285,45 @@ public class FormulaDescription {
         return null;
     }
 
-    private List<FormulaUsage> getUsagesWithMinimalParameterNumber(List<FormulaUsage> validUsages) {
-        // More than 1 valid usages
-        // Select the ones with smallest minimum parameter number
-        List<FormulaUsage> validMinimalUsages = null;
-        int minimumParameterNumber = Integer.MAX_VALUE;
-        for (FormulaUsage currentValidUsage : validUsages) {
-            if (currentValidUsage.getParameterConbination().getParametersMinimumNumber() < minimumParameterNumber) {
-                validMinimalUsages = new ArrayList<>();
-                minimumParameterNumber = currentValidUsage.getParameterConbination().getParametersMinimumNumber();
+    public List<FormulaUsage> getUsagesWithMinimalParameterNumber(List<FormulaUsage> usages) {
+        if (usages != null) {
+            if (usages.size() == 1) {
+                return usages;
+            } else if (usages.size() > 1) {
+                // More than 1 valid usages
+                // Select the ones with smallest minimum parameter number
+                List<FormulaUsage> validMinimalUsages = null;
+                int minimumParameterNumber = Integer.MAX_VALUE;
+                for (FormulaUsage currentValidUsage : usages) {
+                    if (currentValidUsage.getParameterConbination().getParametersMinimumNumber() < minimumParameterNumber) {
+                        validMinimalUsages = new ArrayList<>();
+                        minimumParameterNumber = currentValidUsage.getParameterConbination().getParametersMinimumNumber();
 
-            }
-            if (currentValidUsage.getParameterConbination().getParametersMinimumNumber() == minimumParameterNumber) {
-                validMinimalUsages.add(currentValidUsage);
-            }
-        }
-        if (validMinimalUsages.size() == 1) {
-            return validMinimalUsages;
-        } else if (validMinimalUsages.size() > 1) {
-            // More than one smallest minimum parameter number usages
-            // Select the ones with smallest maximum parameter number
-            List<FormulaUsage> validMaximalUsages = null;
-            int maximumParameterNumber = Integer.MAX_VALUE;
-            for (FormulaUsage currentValidUsage : validUsages) {
-                if (currentValidUsage.getParameterConbination().getParametersMaximumNumber() < maximumParameterNumber) {
-                    validMaximalUsages = new ArrayList<>();
-                    maximumParameterNumber = currentValidUsage.getParameterConbination().getParametersMaximumNumber();
+                    }
+                    if (currentValidUsage.getParameterConbination().getParametersMinimumNumber() == minimumParameterNumber) {
+                        validMinimalUsages.add(currentValidUsage);
+                    }
                 }
-                if (currentValidUsage.getParameterConbination()
-                        .getParametersMaximumNumber() == maximumParameterNumber) {
-                    validMaximalUsages.add(currentValidUsage);
+                if (validMinimalUsages.size() == 1) {
+                    return validMinimalUsages;
+                } else if (validMinimalUsages.size() > 1) {
+                    // More than one smallest minimum parameter number usages
+                    // Select the ones with smallest maximum parameter number
+                    List<FormulaUsage> validMaximalUsages = null;
+                    int maximumParameterNumber = Integer.MAX_VALUE;
+                    for (FormulaUsage currentValidUsage : usages) {
+                        if (currentValidUsage.getParameterConbination().getParametersMaximumNumber() < maximumParameterNumber) {
+                            validMaximalUsages = new ArrayList<>();
+                            maximumParameterNumber = currentValidUsage.getParameterConbination().getParametersMaximumNumber();
+                        }
+                        if (currentValidUsage.getParameterConbination()
+                                .getParametersMaximumNumber() == maximumParameterNumber) {
+                            validMaximalUsages.add(currentValidUsage);
+                        }
+                    }
+                    return validMaximalUsages;
                 }
             }
-            return validMaximalUsages;
         }
         return null;
     }

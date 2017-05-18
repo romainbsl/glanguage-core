@@ -3,7 +3,8 @@ package be.groups.glanguage.glanguage.api.error.utils;
 /**
  * Created by michotte on 25/01/2017.
  */
-public enum EvaluationMethod {
+public enum ErrorMethod {
+    VALIDATE("validate"),
     VALUE("getValue"),
     INTEGER("getIntegerValue"),
     NUMERIC("getNumericValue"),
@@ -14,7 +15,7 @@ public enum EvaluationMethod {
 
     private final String name;
 
-    EvaluationMethod(String name) {
+    ErrorMethod(String name) {
         this.name = name;
     }
 

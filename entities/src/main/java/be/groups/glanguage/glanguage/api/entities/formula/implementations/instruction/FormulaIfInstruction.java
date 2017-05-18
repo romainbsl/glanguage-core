@@ -7,7 +7,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDes
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
-import be.groups.glanguage.glanguage.api.error.utils.EvaluationMethod;
+import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -108,9 +108,9 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
                 return getParameters().get(2).getDateValue(evaluator);
             } else {
                 throw new GLanguageException(new FormulaEvaluateTypeInnerError(this,
-                        evaluator,
-                        EvaluationMethod.DATE,
-                        "Else statement needed, no default value of type DATE"));
+                                                                               evaluator,
+                                                                               ErrorMethod.DATE,
+                                                                               "Else statement needed, no default value of type DATE"));
             }
         }
     }

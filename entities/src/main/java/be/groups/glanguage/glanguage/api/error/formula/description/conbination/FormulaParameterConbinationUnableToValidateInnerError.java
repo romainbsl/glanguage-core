@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbination;
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.formula.description.FormulaDescriptionInnerError;
+import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 
 /**
  * Created by michotte on 11/05/2017.
@@ -17,7 +18,7 @@ public class FormulaParameterConbinationUnableToValidateInnerError extends Formu
         super(GLanguageErrorRegistry.FORMULA_PARAMETER_CONBINATION_UNABLE_TO_VALIDATE,
               formula,
               evaluator,
-              "validate",
+              ErrorMethod.VALIDATE.getName(),
               getCause(conbination));
     }
 

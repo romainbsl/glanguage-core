@@ -9,7 +9,7 @@ import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.evaluation.method.FormulaCannotInvokeEvaluationMethodInnerErrorFactory;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.FormulaEvaluateInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
-import be.groups.glanguage.glanguage.api.error.utils.EvaluationMethod;
+import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.hibernate.annotations.DiscriminatorOptions;
@@ -232,7 +232,7 @@ public abstract class AbstractFormula {
         try {
             return doGetIntegerValue(evaluator);
         } catch (GLanguageException e) {
-            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, EvaluationMethod.INTEGER, null));
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.INTEGER, null));
             throw e;
         }
     }
@@ -256,7 +256,7 @@ public abstract class AbstractFormula {
         try {
             return doGetNumericValue(evaluator);
         } catch (GLanguageException e) {
-            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, EvaluationMethod.NUMERIC, null));
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.NUMERIC, null));
             throw e;
         }
     }
@@ -280,7 +280,7 @@ public abstract class AbstractFormula {
         try {
             return doGetStringValue(evaluator);
         } catch (GLanguageException e) {
-            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, EvaluationMethod.STRING, null));
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.STRING, null));
             throw e;
         }
     }
@@ -304,7 +304,7 @@ public abstract class AbstractFormula {
         try {
             return doGetBooleanValue(evaluator);
         } catch (GLanguageException e) {
-            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, EvaluationMethod.BOOLEAN, null));
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.BOOLEAN, null));
             throw e;
         }
     }
@@ -328,7 +328,7 @@ public abstract class AbstractFormula {
         try {
             return doGetDateValue(evaluator);
         } catch (GLanguageException e) {
-            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, EvaluationMethod.DATE, null));
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DATE, null));
             throw e;
         }
     }
@@ -352,7 +352,7 @@ public abstract class AbstractFormula {
         try {
             return doGetDurationValue(evaluator);
         } catch (GLanguageException e) {
-            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, EvaluationMethod.DURATION, null));
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DURATION, null));
             throw e;
         }
     }

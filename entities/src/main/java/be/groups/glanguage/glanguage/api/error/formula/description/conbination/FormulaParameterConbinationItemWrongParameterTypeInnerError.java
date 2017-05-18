@@ -7,6 +7,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.conbinatio
 import be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsage;
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.formula.description.FormulaDescriptionInnerError;
+import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 
 import java.util.Iterator;
 
@@ -25,7 +26,7 @@ public class FormulaParameterConbinationItemWrongParameterTypeInnerError extends
         super(GLanguageErrorRegistry.FORMULA_PARAMETER_CONBINATION_ITEM_WRONG_TYPE,
               formula,
               evaluator,
-              "validate",
+              ErrorMethod.VALIDATE.getName(),
               getCause(usage, conbinationParameter, parameterAsText, actualType));
     }
 
@@ -33,7 +34,7 @@ public class FormulaParameterConbinationItemWrongParameterTypeInnerError extends
                                    FormulaParameterConbinationItem conbinationParameter,
                                    String parameterAsText,
                                    FormulaReturnType actualType) {
-        StringBuilder sb = new StringBuilder("Parameter " + getParameterName(usage,conbinationParameter) +
+        StringBuilder sb = new StringBuilder("Parameter " + usage.getParameterName(conbinationParameter) +
                                                      " at index [" + conbinationParameter.getSequenceNumber() +
                                                      "] ('" + parameterAsText + "')");
         sb.append(" has a wrong type " + ": actual type = " + actualType.name());
