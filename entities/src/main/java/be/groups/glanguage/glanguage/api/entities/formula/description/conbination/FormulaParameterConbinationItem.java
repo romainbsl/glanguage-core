@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  */
 @Entity
 @Table(name = "FORMULA_PARAM_CONB_ITEM")
-public class FormulaParameterConbinationItem {
+public class FormulaParameterConbinationItem implements Comparable<FormulaParameterConbinationItem> {
 
     /*
      * Fields
@@ -278,4 +278,8 @@ public class FormulaParameterConbinationItem {
         return id.hashCode();
     }
 
+    @Override
+    public int compareTo(FormulaParameterConbinationItem o) {
+        return getSequenceNumber().compareTo(o.getSequenceNumber());
+    }
 }
