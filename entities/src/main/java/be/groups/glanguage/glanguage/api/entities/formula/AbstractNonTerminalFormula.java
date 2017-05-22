@@ -20,13 +20,12 @@ public abstract class AbstractNonTerminalFormula extends AbstractFormula {
 																										   GLanguageException {
 		super(description);
 		// FIXME pass an evaluator with the whole plan in it, initialized by parser
-		isValid(parameters, null);
+		validate(parameters, null);
 	}
 
 	@JsonIgnore
-	@Transient
-	public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
-		return this.getDescription().isValid(parameters, evaluator);
+	public void validate(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
+		this.getDescription().validate(this, parameters, evaluator);
 	}
 
 	@JsonIgnore
