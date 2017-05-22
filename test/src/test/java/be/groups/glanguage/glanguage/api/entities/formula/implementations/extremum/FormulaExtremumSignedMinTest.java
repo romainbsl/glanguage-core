@@ -11,8 +11,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaExtremumSignedMin}
@@ -71,7 +70,8 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.getNumericValue(null)).thenReturn(2.0);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
+		FormulaExtremumSignedMin formula = spy(FormulaExtremumSignedMin.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		assertEquals(Integer.valueOf(-2), formula.getIntegerValue());
 	}
@@ -98,8 +98,9 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.getNumericValue(null)).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
-		
+		FormulaExtremumSignedMin formula = spy(FormulaExtremumSignedMin.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		assertEquals(Double.valueOf(1.5), formula.getNumericValue(), DELTA);
 	}
 	
@@ -126,8 +127,9 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.getNumericValue(null)).thenReturn(2.0);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
-		
+		FormulaExtremumSignedMin formula = spy(FormulaExtremumSignedMin.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		assertEquals(Double.valueOf(-1), formula.getNumericValue(), DELTA);
 	}
 	
@@ -153,8 +155,9 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.getNumericValue(null)).thenReturn(2.0);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
-		
+		FormulaExtremumSignedMin formula = spy(FormulaExtremumSignedMin.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		assertEquals(Double.valueOf(-2), formula.getNumericValue(), DELTA);
 	}
 	
@@ -181,8 +184,9 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.getNumericValue(null)).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
-		
+		FormulaExtremumSignedMin formula = spy(FormulaExtremumSignedMin.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		formula.getStringValue();
 	}
 	
@@ -208,8 +212,9 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.getNumericValue(null)).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
-		
+		FormulaExtremumSignedMin formula = spy(FormulaExtremumSignedMin.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		formula.getBooleanValue();
 	}
 	
@@ -235,8 +240,9 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.getNumericValue(null)).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
-		
+		FormulaExtremumSignedMin formula = spy(FormulaExtremumSignedMin.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		formula.getDateValue();
 	}
 	
@@ -262,8 +268,9 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.getNumericValue(null)).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
-		
+		FormulaExtremumSignedMin formula = spy(FormulaExtremumSignedMin.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		formula.getDurationValue();
 	}
 	
@@ -299,8 +306,9 @@ public class FormulaExtremumSignedMinTest {
 		when(param3.asText()).thenReturn("some_rule3");
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMin formula = new FormulaExtremumSignedMin(null, parameters);
-		
+		FormulaExtremumSignedMin formula = spy(FormulaExtremumSignedMin.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		assertEquals("smin(some_rule1, some_rule2, some_rule3)", formula.asText());
 	}
 	

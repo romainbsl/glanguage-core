@@ -11,8 +11,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaExtremumSignedMax}
@@ -71,7 +70,8 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.getNumericValue(null)).thenReturn(2.0);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
+		FormulaExtremumSignedMax formula = spy(FormulaExtremumSignedMax.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		assertEquals(Integer.valueOf(-4), formula.getIntegerValue());
 	}
@@ -98,7 +98,8 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.getNumericValue(null)).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
+		FormulaExtremumSignedMax formula = spy(FormulaExtremumSignedMax.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		assertEquals(Double.valueOf(-3.5), formula.getNumericValue(), DELTA);
 	}
@@ -126,7 +127,8 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.getNumericValue(null)).thenReturn(2.0);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
+		FormulaExtremumSignedMax formula = spy(FormulaExtremumSignedMax.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		assertEquals(Double.valueOf(-3), formula.getNumericValue(), DELTA);
 	}
@@ -153,7 +155,8 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.getNumericValue(null)).thenReturn(2.0);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
+		FormulaExtremumSignedMax formula = spy(FormulaExtremumSignedMax.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		assertEquals(Double.valueOf(-4), formula.getNumericValue(), DELTA);
 	}
@@ -181,7 +184,8 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.getNumericValue(null)).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
+		FormulaExtremumSignedMax formula = spy(FormulaExtremumSignedMax.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		formula.getStringValue();
 	}
@@ -208,7 +212,8 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.getNumericValue(null)).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
+		FormulaExtremumSignedMax formula = spy(FormulaExtremumSignedMax.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		formula.getBooleanValue();
 	}
@@ -235,7 +240,8 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.getNumericValue(null)).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
+		FormulaExtremumSignedMax formula = spy(FormulaExtremumSignedMax.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		formula.getDateValue();
 	}
@@ -262,7 +268,8 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.getNumericValue(null)).thenReturn(2.8);
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
+		FormulaExtremumSignedMax formula = spy(FormulaExtremumSignedMax.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		formula.getDurationValue();
 	}
@@ -299,7 +306,8 @@ public class FormulaExtremumSignedMaxTest {
 		when(param3.asText()).thenReturn("some_rule3");
 		parameters.add(param3);
 		
-		FormulaExtremumSignedMax formula = new FormulaExtremumSignedMax(null, parameters);
+		FormulaExtremumSignedMax formula = spy(FormulaExtremumSignedMax.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		assertEquals("smax(some_rule1, some_rule2, some_rule3)", formula.asText());
 	}

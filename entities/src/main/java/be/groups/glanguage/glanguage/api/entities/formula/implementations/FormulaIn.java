@@ -102,7 +102,6 @@ public class FormulaIn extends AbstractNonTerminalFormula {
     }
 
     @Transient
-    @Override
     public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
         FormulaReturnType elementReturnType = parameters.get(0).getReturnType(evaluator);
         List<FormulaReturnType> listReturnTypes = parameters.subList(1, parameters.size()).stream().map(p -> p

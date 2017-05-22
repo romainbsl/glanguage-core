@@ -11,8 +11,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaExtremumMin}
@@ -71,7 +70,8 @@ public class FormulaExtremumMinTest {
 		when(param3.getNumericValue(null)).thenReturn(2.0);
 		parameters.add(param3);
 		
-		FormulaExtremumMin formula = new FormulaExtremumMin(null, parameters);
+		FormulaExtremumMin formula = spy(FormulaExtremumMin.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		assertEquals(Integer.valueOf(-1), formula.getIntegerValue());
 	}
@@ -97,8 +97,9 @@ public class FormulaExtremumMinTest {
 		when(param3.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(param3.getNumericValue(null)).thenReturn(2.8);
 		parameters.add(param3);
-		
-		FormulaExtremumMin formula = new FormulaExtremumMin(null, parameters);
+
+		FormulaExtremumMin formula = spy(FormulaExtremumMin.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		assertEquals(Double.valueOf(-1.5), formula.getNumericValue(), DELTA);
 	}
@@ -125,8 +126,9 @@ public class FormulaExtremumMinTest {
 		when(param3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(param3.getNumericValue(null)).thenReturn(2.0);
 		parameters.add(param3);
-		
-		FormulaExtremumMin formula = new FormulaExtremumMin(null, parameters);
+
+		FormulaExtremumMin formula = spy(FormulaExtremumMin.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		assertEquals(Double.valueOf(-1), formula.getNumericValue(), DELTA);
 	}
@@ -152,8 +154,9 @@ public class FormulaExtremumMinTest {
 		when(param3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(param3.getNumericValue(null)).thenReturn(2.0);
 		parameters.add(param3);
-		
-		FormulaExtremumMin formula = new FormulaExtremumMin(null, parameters);
+
+		FormulaExtremumMin formula = spy(FormulaExtremumMin.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		assertEquals(Double.valueOf(-1), formula.getNumericValue(), DELTA);
 	}
@@ -180,8 +183,9 @@ public class FormulaExtremumMinTest {
 		when(param3.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(param3.getNumericValue(null)).thenReturn(2.8);
 		parameters.add(param3);
-		
-		FormulaExtremumMin formula = new FormulaExtremumMin(null, parameters);
+
+		FormulaExtremumMin formula = spy(FormulaExtremumMin.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		formula.getStringValue();
 	}
@@ -207,8 +211,9 @@ public class FormulaExtremumMinTest {
 		when(param3.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(param3.getNumericValue(null)).thenReturn(2.8);
 		parameters.add(param3);
-		
-		FormulaExtremumMin formula = new FormulaExtremumMin(null, parameters);
+
+		FormulaExtremumMin formula = spy(FormulaExtremumMin.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		formula.getBooleanValue();
 	}
@@ -234,8 +239,9 @@ public class FormulaExtremumMinTest {
 		when(param3.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(param3.getNumericValue(null)).thenReturn(2.8);
 		parameters.add(param3);
-		
-		FormulaExtremumMin formula = new FormulaExtremumMin(null, parameters);
+
+		FormulaExtremumMin formula = spy(FormulaExtremumMin.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		formula.getDateValue();
 	}
@@ -261,8 +267,9 @@ public class FormulaExtremumMinTest {
 		when(param3.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(param3.getNumericValue(null)).thenReturn(2.8);
 		parameters.add(param3);
-		
-		FormulaExtremumMin formula = new FormulaExtremumMin(null, parameters);
+
+		FormulaExtremumMin formula = spy(FormulaExtremumMin.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		formula.getDurationValue();
 	}
@@ -298,8 +305,9 @@ public class FormulaExtremumMinTest {
 		when(param3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(param3.asText()).thenReturn("some_rule3");
 		parameters.add(param3);
-		
-		FormulaExtremumMin formula = new FormulaExtremumMin(null, parameters);
+
+		FormulaExtremumMin formula = spy(FormulaExtremumMin.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		assertEquals("min(some_rule1, some_rule2, some_rule3)", formula.asText());
 	}

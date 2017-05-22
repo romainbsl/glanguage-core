@@ -79,7 +79,6 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
     }
 
     @Transient
-    @Override
     public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
        if (groupRule != null) {
             Set<FormulaReturnType> returnTypes = groupRule.getGroupItems().stream()
