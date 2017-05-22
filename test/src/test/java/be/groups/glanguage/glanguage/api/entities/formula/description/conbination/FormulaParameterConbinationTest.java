@@ -11,6 +11,8 @@ import be.groups.glanguage.glanguage.api.error.formula.description.conbination
 import be.groups.glanguage.glanguage.api.error.formula.description.conbination
         .FormulaParameterConbinationUnableToValidateInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.description.conbination
+        .FormulaParameterConbinationUnreachableParametersInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.description.conbination
         .FormulaParameterConbinationWrongParameterNumberInnerError;
 import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
 import org.junit.Test;
@@ -753,8 +755,10 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
      * when {@link FormulaParameterConbination#isValid(List, Evaluator)} is false
      * and {@link FormulaParameterConbination#isValidParameterNumber(List)} is false
      */
-    @Test
+    @Test(expected = GLanguageException.class)
     public void testValidateNotValidParameterNumber() throws GLanguageException {
+        AbstractFormula formula = mock(AbstractFormula.class);
+        FormulaUsage usage = mock(FormulaUsage.class);
         List<AbstractFormula> parameters = Collections.emptyList();
         FormulaParameterConbination formulaParameterConbination = spy(FormulaParameterConbination.class);
         doReturn(false).when(formulaParameterConbination).isValid(parameters, null);
@@ -762,7 +766,7 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
         doReturn(0).when(formulaParameterConbination).getParametersMinimumNumber();
         doReturn(0).when(formulaParameterConbination).getParametersMaximumNumber();
         try {
-            formulaParameterConbination.validate(null, null, parameters, null);
+            formulaParameterConbination.validate(formula, usage, parameters, null);
         } catch (GLanguageException e) {
             InnerError ie = e.getError().getInnerError();
             assertNotNull("inner error is null", ie);
@@ -783,7 +787,7 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
      * and {@link FormulaParameterConbination#isValidParameterNumber(List)} is true
      * and {@link FormulaParameterConbination#isValidParameters(List, Evaluator)} is false
      */
-    @Test
+    @Test(expected = GLanguageException.class)
     public void testValidateNotValidParameters() throws GLanguageException {
         List<AbstractFormula> parameters = Collections.emptyList();
         FormulaParameterConbination formulaParameterConbination = spy(FormulaParameterConbination.class);
@@ -800,8 +804,8 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
                                                                                                      usage,
                                                                                                      conbinationItem,
                                                                                                      "",
-                                                                                                     null))).when
-                (formulaParameterConbination).validateParameters(formula, usage, parameters, null);
+                                                                                                     null))).when(
+                formulaParameterConbination).validateParameters(formula, usage, parameters, null);
         try {
             formulaParameterConbination.validate(formula, usage, parameters, null);
         } catch (GLanguageException e) {
@@ -830,10 +834,784 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
         try {
             formulaParameterConbination.validate(null, null, parameters, null);
         } catch (GLanguageException e) {
-            fail("Exception thrown");
+            fail("Exception thrown : " + e);
         }
     }
 
-    //TODO validateParameters : copy testIsValidParameters... mmethods
+    /**
+     * Test {@link FormulaParameterConbination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
+     * when parameter list is not null and count 1 element {@code [parameter]} <br/>
+     * and {@link FormulaParameterConbination#getParameters()} returns a list of 1 element {@code
+     * [conbinationParmater]} <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater]
+     * .isValid
+     * ([parameter], null)} is true
+     */
+    @Test
+    public void testValidateParameters1Parameter1ConbinationParameterValid() {
+        AbstractFormula formula = mock(AbstractFormula.class);
+        FormulaUsage usage = mock(FormulaUsage.class);
+        AbstractFormula parameter = mock(AbstractFormula.class);
+        List<AbstractFormula> parameters = new ArrayList<>();
+        parameters.add(parameter);
+
+        FormulaParameterConbinationItem conbinationParamater = mock(FormulaParameterConbinationItem.class);
+        doReturn(true).when(conbinationParamater).isValid(parameter, null);
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater);
+
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        try {
+            conbination.validateParameters(formula, usage, parameters, null);
+        } catch (GLanguageException e) {
+            fail("Exception thrown : " + e);
+        }
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
+     * when parameter list is not null and count 1 element {@code [parameter]} <br/>
+     * and {@link FormulaParameterConbination#getParameters()} returns a list of 1 element {@code
+     * [conbinationParmater]} <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater]
+     * .isValid
+     * ([parameter], null)} is false <br/>
+     * and {@link FormulaParameterConbinationItem#getOptional()} is false
+     */
+    @Test(expected = GLanguageException.class)
+    public void testValidateParameters1Parameter1ConbinationParameterNotValidNotOptional() throws GLanguageException {
+        AbstractFormula formula = mock(AbstractFormula.class);
+        FormulaUsage usage = mock(FormulaUsage.class);
+        AbstractFormula parameter = mock(AbstractFormula.class);
+        List<AbstractFormula> parameters = new ArrayList<>();
+        parameters.add(parameter);
+
+        FormulaParameterConbinationItem conbinationParamater = mock(FormulaParameterConbinationItem.class);
+        doReturn(false).when(conbinationParamater).isValid(parameter, null);
+        doReturn(false).when(conbinationParamater).getOptional();
+        GLanguageException exception = new GLanguageException(new FormulaParameterConbinationItemUnableToValidateInnerError(
+                formula,
+                usage,
+                conbinationParamater,
+                "",
+                null));
+        try {
+            doThrow(exception).when(conbinationParamater).validate(formula, usage, parameter, null);
+        } catch (GLanguageException e) {
+            fail("Exception thrown : " + e);
+        }
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater);
+
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        try {
+            conbination.validateParameters(formula, usage, parameters, null);
+        } catch (GLanguageException e) {
+            InnerError ie = e.getError().getInnerError();
+            assertNotNull("inner error is null", ie);
+            assertEquals(exception, e);
+            throw e;
+        }
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
+     * when parameter list is not null and count 1 element {@code [parameter]} <br/>
+     * and {@link FormulaParameterConbination#getParameters()} returns a list of 1 element {@code
+     * [conbinationParmater]} <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater]
+     * .isValid
+     * ([parameter], null)} is false <br/>
+     * and {@link FormulaParameterConbinationItem#getOptional()} is true
+     */
+    @Test(expected = GLanguageException.class)
+    public void testValidateParameters1Parameter1ConbinationParameterNotValidOptional() throws GLanguageException {
+        AbstractFormula formula = mock(AbstractFormula.class);
+        FormulaUsage usage = mock(FormulaUsage.class);
+        AbstractFormula parameter = mock(AbstractFormula.class);
+        List<AbstractFormula> parameters = new ArrayList<>();
+        parameters.add(parameter);
+
+        FormulaParameterConbinationItem conbinationParamater = mock(FormulaParameterConbinationItem.class);
+        doReturn(false).when(conbinationParamater).isValid(parameter, null);
+        doReturn(true).when(conbinationParamater).getOptional();
+        GLanguageException exception = new GLanguageException(new FormulaParameterConbinationItemUnableToValidateInnerError(
+                formula,
+                usage,
+                conbinationParamater,
+                "",
+                null));
+        try {
+            doThrow(exception).when(conbinationParamater).validate(formula, usage, parameter, null);
+        } catch (GLanguageException e) {
+            fail("Exception thrown : " + e);
+        }
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater);
+
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        try {
+            conbination.validateParameters(formula, usage, parameters, null);
+        } catch (GLanguageException e) {
+            InnerError ie = e.getError().getInnerError();
+            assertNotNull("inner error is null", ie);
+            assertNotEquals(exception, e);
+            throw e;
+        }
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
+     * when parameter list is not null and count 1 element {@code [parameter]} <br/>
+     * and {@link FormulaParameterConbination#getParameters()} returns a list of 2 elements {@code
+     * [conbinationParmater1]} and {@code [conbinationParameter2]} <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater1]
+     * .isValid([parameter1], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#getOptional()} is true for [conbinationParmater2]
+     */
+    @Test
+    public void testValidateParameters1Parameter2ConbinationParameterFirstValidSecondNotValidOptional() {
+        AbstractFormula formula = mock(AbstractFormula.class);
+        FormulaUsage usage = mock(FormulaUsage.class);
+        AbstractFormula parameter1 = mock(AbstractFormula.class);
+        List<AbstractFormula> parameters = new ArrayList<>();
+        parameters.add(parameter1);
+
+        FormulaParameterConbinationItem conbinationParamater1 = mock(FormulaParameterConbinationItem.class);
+        doReturn(1).when(conbinationParamater1).getSequenceNumber();
+        doReturn(true).when(conbinationParamater1).isValid(parameter1, null);
+        FormulaParameterConbinationItem conbinationParamater2 = mock(FormulaParameterConbinationItem.class);
+        doReturn(2).when(conbinationParamater2).getSequenceNumber();
+        doReturn(true).when(conbinationParamater2).getOptional();
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater1);
+        conbinationParameters.add(conbinationParamater2);
+
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        try {
+            conbination.validateParameters(formula, usage, parameters, null);
+        } catch (GLanguageException e) {
+            fail("Exception thrown : " + e);
+        }
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
+     * when parameter list is not null and count 1 element {@code [parameter]} <br/>
+     * and {@link FormulaParameterConbination#getParameters()} returns a list of 2 elements {@code
+     * [conbinationParmater1]} and {@code [conbinationParameter2]} <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater1]
+     * .isValid([parameter1], null)} is false <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater2]
+     * .isValid([parameter1], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#getOptional()} is true for [conbinationParmater1]
+     */
+    @Test
+    public void testValidateParameters1Parameter2ConbinationParameterFirstNotValidOptionalSecondValid() {
+        AbstractFormula formula = mock(AbstractFormula.class);
+        FormulaUsage usage = mock(FormulaUsage.class);
+        AbstractFormula parameter1 = mock(AbstractFormula.class);
+        List<AbstractFormula> parameters = new ArrayList<>();
+        parameters.add(parameter1);
+
+        FormulaParameterConbinationItem conbinationParamater1 = mock(FormulaParameterConbinationItem.class);
+        doReturn(1).when(conbinationParamater1).getSequenceNumber();
+        doReturn(false).when(conbinationParamater1).isValid(parameter1, null);
+        doReturn(true).when(conbinationParamater1).getOptional();
+        FormulaParameterConbinationItem conbinationParamater2 = mock(FormulaParameterConbinationItem.class);
+        doReturn(2).when(conbinationParamater2).getSequenceNumber();
+        doReturn(true).when(conbinationParamater2).isValid(parameter1, null);
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater1);
+        conbinationParameters.add(conbinationParamater2);
+
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        try {
+            conbination.validateParameters(formula, usage, parameters, null);
+        } catch (GLanguageException e) {
+            fail("Exception thrown : " + e);
+        }
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
+     * when parameter list is not null and count 1 element {@code [parameter]}<br/>
+     * and {@link FormulaParameterConbination#getParameters()} returns a list of 2 elements {@code
+     * [conbinationParmater1]} and {@code [conbinationParameter2]} <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater1]
+     * .isValid([parameter1], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#getOptional()} is false for [conbinationParmater2]
+     */
+    @Test(expected = GLanguageException.class)
+    public void testValidateParameters1Parameter2ConbinationParameterFirstValidSecondNotOptional() throws GLanguageException {
+        AbstractFormula formula = mock(AbstractFormula.class);
+        FormulaUsage usage = mock(FormulaUsage.class);
+        AbstractFormula parameter1 = mock(AbstractFormula.class);
+        List<AbstractFormula> parameters = new ArrayList<>();
+        parameters.add(parameter1);
+
+        FormulaParameterConbinationItem conbinationParamater1 = mock(FormulaParameterConbinationItem.class);
+        doReturn(1).when(conbinationParamater1).getSequenceNumber();
+        doReturn(true).when(conbinationParamater1).isValid(parameter1, null);
+        FormulaParameterConbinationItem conbinationParamater2 = mock(FormulaParameterConbinationItem.class);
+        doReturn(2).when(conbinationParamater2).getSequenceNumber();
+        doReturn(false).when(conbinationParamater2).getOptional();
+        GLanguageException exception = new GLanguageException(new FormulaParameterConbinationItemUnableToValidateInnerError(
+                formula,
+                usage,
+                conbinationParamater2,
+                "",
+                null));
+        try {
+            doThrow(exception).when(conbinationParamater2).validate(formula, usage, null, null);
+        } catch (GLanguageException e) {
+            fail("Exception thrown : " + e);
+        }
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater1);
+        conbinationParameters.add(conbinationParamater2);
+
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        try {
+            conbination.validateParameters(formula, usage, parameters, null);
+        } catch (GLanguageException e) {
+            InnerError ie = e.getError().getInnerError();
+            assertNotNull("inner error is null", ie);
+            assertEquals(exception, e);
+            throw e;
+        }
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
+     * when parameter list is not null and count 2 element {@code [parameter1]} and {@code [parameter2]}<br/>
+     * and {@link FormulaParameterConbination#getParameters()} returns a list of 2 element {@code
+     * [conbinationParmater1]} and {@code [conbinationParameter2]} <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater1]
+     * .isValid([parameter1], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater2]
+     * .isValid([parameter2], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#getOptional()} is true for [conbinationParmater2]
+     */
+    @Test(expected = GLanguageException.class)
+    public void testValidateParameters2Parameter2ConbinationParameterFirstValidSecondNotValidOptional() throws GLanguageException {
+        AbstractFormula formula = mock(AbstractFormula.class);
+        FormulaUsage usage = mock(FormulaUsage.class);
+        AbstractFormula parameter1 = mock(AbstractFormula.class);
+        AbstractFormula parameter2 = mock(AbstractFormula.class);
+        List<AbstractFormula> parameters = new ArrayList<>();
+        parameters.add(parameter1);
+        parameters.add(parameter2);
+
+        FormulaParameterConbinationItem conbinationParamater1 = mock(FormulaParameterConbinationItem.class);
+        doReturn(1).when(conbinationParamater1).getSequenceNumber();
+        doReturn(true).when(conbinationParamater1).isValid(parameter1, null);
+        FormulaParameterConbinationItem conbinationParamater2 = mock(FormulaParameterConbinationItem.class);
+        doReturn(2).when(conbinationParamater2).getSequenceNumber();
+        doReturn(false).when(conbinationParamater2).isValid(parameter2, null);
+        doReturn(true).when(conbinationParamater2).getOptional();
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater1);
+        conbinationParameters.add(conbinationParamater2);
+
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        try {
+            conbination.validateParameters(formula, usage, parameters, null);
+        } catch (GLanguageException e) {
+            InnerError ie = e.getError().getInnerError();
+            assertNotNull("inner error is null", ie);
+            assertTrue(ie instanceof FormulaParameterConbinationUnreachableParametersInnerError);
+            throw e;
+        }
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
+     * when parameter list is not null and count 2 element {@code [parameter1]} and {@code [parameter2]}<br/>
+     * and {@link FormulaParameterConbination#getParameters()} returns a list of 2 element {@code
+     * [conbinationParmater1]} and {@code [conbinationParameter2]} <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater1]
+     * .isValid([parameter1], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater2]
+     * .isValid([parameter2], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#getOptional()} is false for [conbinationParmater1]
+     */
+    @Test(expected = GLanguageException.class)
+    public void testValidateParameters2Parameter2ConbinationParameterFirstNotValidNotOptionalSecondValid() throws GLanguageException {
+        AbstractFormula formula = mock(AbstractFormula.class);
+        FormulaUsage usage = mock(FormulaUsage.class);
+        AbstractFormula parameter1 = mock(AbstractFormula.class);
+        AbstractFormula parameter2 = mock(AbstractFormula.class);
+        List<AbstractFormula> parameters = new ArrayList<>();
+        parameters.add(parameter1);
+        parameters.add(parameter2);
+
+        FormulaParameterConbinationItem conbinationParamater1 = mock(FormulaParameterConbinationItem.class);
+        doReturn(1).when(conbinationParamater1).getSequenceNumber();
+        doReturn(false).when(conbinationParamater1).isValid(parameter1, null);
+        doReturn(false).when(conbinationParamater1).getOptional();
+        GLanguageException exception = new GLanguageException(new
+                                                                       FormulaParameterConbinationItemUnableToValidateInnerError(
+                formula,
+                usage,
+                conbinationParamater1,
+                "",
+                null));
+        try {
+            doThrow(exception).when(conbinationParamater1).validate(formula, usage, parameter1, null);
+        } catch (GLanguageException e) {
+            fail("Exception thrown : " + e);
+        }FormulaParameterConbinationItem conbinationParamater2 = mock(FormulaParameterConbinationItem.class);
+        doReturn(2).when(conbinationParamater2).getSequenceNumber();
+        doReturn(true).when(conbinationParamater2).isValid(parameter2, null);
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater1);
+        conbinationParameters.add(conbinationParamater2);
+
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        try {
+            conbination.validateParameters(formula, usage, parameters, null);
+        } catch (GLanguageException e) {
+            InnerError ie = e.getError().getInnerError();
+            assertNotNull("inner error is null", ie);
+            assertEquals(exception, e);
+            throw e;
+        }
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
+     * when parameter list is not null and count 2 element {@code [parameter1]} and {@code [parameter2]}<br/>
+     * and {@link FormulaParameterConbination#getParameters()} returns a list of 1 element {@code
+     * [conbinationParmater]} <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater]
+     * .isValid([parameter1], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#getRepeatable()} is false
+     */
+    @Test(expected = GLanguageException.class)
+    public void testValidateParameters2Parameter1ConbinationParameterValidNotRepeatable() throws GLanguageException {
+        AbstractFormula formula = mock(AbstractFormula.class);
+        FormulaUsage usage = mock(FormulaUsage.class);
+        AbstractFormula parameter1 = mock(AbstractFormula.class);
+        AbstractFormula parameter2 = mock(AbstractFormula.class);
+        List<AbstractFormula> parameters = new ArrayList<>();
+        parameters.add(parameter1);
+        parameters.add(parameter2);
+
+        FormulaParameterConbinationItem conbinationParamater = mock(FormulaParameterConbinationItem.class);
+        doReturn(true).when(conbinationParamater).isValid(parameter1, null);
+        doReturn(false).when(conbinationParamater).getRepeatable();
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater);
+
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        try {
+            conbination.validateParameters(formula, usage, parameters, null);
+        } catch (GLanguageException e) {
+            InnerError ie = e.getError().getInnerError();
+            assertNotNull("inner error is null", ie);
+            assertTrue(ie instanceof FormulaParameterConbinationUnreachableParametersInnerError);
+            throw e;
+        }
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
+     * when parameter list is not null and count 2 element {@code [parameter1]} and {@code [parameter2]}<br/>
+     * and {@link FormulaParameterConbination#getParameters()} returns a list of 1 element {@code
+     * [conbinationParmater]} <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater]
+     * .isValid([parameter1], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater]
+     * .isValid([parameter2], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#getRepeatable()} is true
+     */
+    @Test
+    public void testValidateParameters2Parameter1ConbinationParameterValidRepeatable() {
+        AbstractFormula formula = mock(AbstractFormula.class);
+        FormulaUsage usage = mock(FormulaUsage.class);
+        AbstractFormula parameter1 = mock(AbstractFormula.class);
+        AbstractFormula parameter2 = mock(AbstractFormula.class);
+        List<AbstractFormula> parameters = new ArrayList<>();
+        parameters.add(parameter1);
+        parameters.add(parameter2);
+
+        FormulaParameterConbinationItem conbinationParamater = mock(FormulaParameterConbinationItem.class);
+        doReturn(true).when(conbinationParamater).isValid(parameter1, null);
+        doReturn(true).when(conbinationParamater).isValid(parameter2, null);
+        doReturn(true).when(conbinationParamater).getRepeatable();
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater);
+
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        try {
+            conbination.validateParameters(formula, usage, parameters, null);
+        } catch (GLanguageException e) {
+            fail("Exception thrown : " + e);
+        }
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
+     * when parameter list is not null and count 2 element {@code [parameter1]} and {@code [parameter2]}<br/>
+     * and {@link FormulaParameterConbination#getParameters()} returns a list of 1 element {@code
+     * [conbinationParmater]} <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater]
+     * .isValid([parameter1], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater]
+     * .isValid([parameter2], null)} is false <br/>
+     * and {@link FormulaParameterConbinationItem#getRepeatable()} is true
+     */
+    @Test(expected = GLanguageException.class)
+    public void testValidateParameters2Parameter1ConbinationParameterValidNotValidRepeatable() throws GLanguageException {
+        AbstractFormula formula = mock(AbstractFormula.class);
+        FormulaUsage usage = mock(FormulaUsage.class);
+        AbstractFormula parameter1 = mock(AbstractFormula.class);
+        AbstractFormula parameter2 = mock(AbstractFormula.class);
+        List<AbstractFormula> parameters = new ArrayList<>();
+        parameters.add(parameter1);
+        parameters.add(parameter2);
+
+        FormulaParameterConbinationItem conbinationParamater = mock(FormulaParameterConbinationItem.class);
+        doReturn(true).when(conbinationParamater).isValid(parameter1, null);
+        doReturn(false).when(conbinationParamater).isValid(parameter2, null);
+        GLanguageException exception = new GLanguageException(new FormulaParameterConbinationItemUnableToValidateInnerError(
+                formula,
+                usage,
+                conbinationParamater,
+                "",
+                null));
+        try {
+            doThrow(exception).when(conbinationParamater).validate(formula, usage, parameter2, null);
+        } catch (GLanguageException e) {
+            fail("Exception thrown : " + e);
+        }
+        doReturn(true).when(conbinationParamater).getRepeatable();
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater);
+
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        try {
+            conbination.validateParameters(formula, usage, parameters, null);
+        } catch (GLanguageException e) {
+            InnerError ie = e.getError().getInnerError();
+            assertNotNull("inner error is null", ie);
+            assertTrue(ie instanceof FormulaParameterConbinationUnreachableParametersInnerError);
+            throw e;
+        }
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
+     * when parameter list is not null and count 2 elements {@code [parameter1]} and {@code [parameter2]}<br/>
+     * and {@link FormulaParameterConbination#getParameters()} returns a list of 2 elements {@code
+     * [conbinationParmater1]} and {@code [conbinationParameter2]} <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater1]
+     * .isValid([parameter1], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater1]
+     * .isValid([parameter2], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#getRepeatable()} is true for [conbinationParmater1]
+     * and {@link FormulaParameterConbinationItem#getOptional()} is true for [conbinationParmater2]
+     */
+    @Test
+    public void testValidateParameters2Parameter2ConbinationParameterFirstValidRepeatableSecondOptional() {
+        AbstractFormula formula = mock(AbstractFormula.class);
+        FormulaUsage usage = mock(FormulaUsage.class);
+        AbstractFormula parameter1 = mock(AbstractFormula.class);
+        AbstractFormula parameter2 = mock(AbstractFormula.class);
+        List<AbstractFormula> parameters = new ArrayList<>();
+        parameters.add(parameter1);
+        parameters.add(parameter2);
+
+        FormulaParameterConbinationItem conbinationParamater1 = mock(FormulaParameterConbinationItem.class);
+        doReturn(1).when(conbinationParamater1).getSequenceNumber();
+        doReturn(true).when(conbinationParamater1).isValid(parameter1, null);
+        doReturn(true).when(conbinationParamater1).isValid(parameter2, null);
+        doReturn(true).when(conbinationParamater1).getRepeatable();
+        FormulaParameterConbinationItem conbinationParamater2 = mock(FormulaParameterConbinationItem.class);
+        doReturn(2).when(conbinationParamater2).getSequenceNumber();
+        doReturn(true).when(conbinationParamater2).getOptional();
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater1);
+        conbinationParameters.add(conbinationParamater2);
+
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        try {
+            conbination.validateParameters(formula, usage, parameters, null);
+        } catch (GLanguageException e) {
+            fail("Exception thrown : " + e);
+        }
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
+     * when parameter list is not null and count 2 elements {@code [parameter1]} and {@code [parameter2]}<br/>
+     * and {@link FormulaParameterConbination#getParameters()} returns a list of 2 elements {@code
+     * [conbinationParmater1]} and {@code [conbinationParameter2]} <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater1]
+     * .isValid([parameter1], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater1]
+     * .isValid([parameter2], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater2]
+     * .isValid([parameter2], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#getRepeatable()} is true for [conbinationParmater1]
+     * and {@link FormulaParameterConbinationItem#getOptional()} is false for [conbinationParmater2]
+     */
+    @Test
+    public void testValidateParameters2Parameter2ConbinationParameterFirstValidRepeatableSecondValidNotOptional() {
+        AbstractFormula formula = mock(AbstractFormula.class);
+        FormulaUsage usage = mock(FormulaUsage.class);
+        AbstractFormula parameter1 = mock(AbstractFormula.class);
+        AbstractFormula parameter2 = mock(AbstractFormula.class);
+        List<AbstractFormula> parameters = new ArrayList<>();
+        parameters.add(parameter1);
+        parameters.add(parameter2);
+
+        FormulaParameterConbinationItem conbinationParamater1 = mock(FormulaParameterConbinationItem.class);
+        doReturn(1).when(conbinationParamater1).getSequenceNumber();
+        doReturn(true).when(conbinationParamater1).isValid(parameter1, null);
+        doReturn(true).when(conbinationParamater1).isValid(parameter2, null);
+        doReturn(true).when(conbinationParamater1).getRepeatable();
+        FormulaParameterConbinationItem conbinationParamater2 = mock(FormulaParameterConbinationItem.class);
+        doReturn(2).when(conbinationParamater2).getSequenceNumber();
+        doReturn(true).when(conbinationParamater2).isValid(parameter2, null);
+        doReturn(false).when(conbinationParamater2).getOptional();
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater1);
+        conbinationParameters.add(conbinationParamater2);
+
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        try {
+            conbination.validateParameters(formula, usage, parameters, null);
+        } catch (GLanguageException e) {
+            fail("Exception thrown : " + e);
+        }
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
+     * when parameter list is not null and count 2 elements {@code [parameter1]} and {@code [parameter2]}<br/>
+     * and {@link FormulaParameterConbination#getParameters()} returns a list of 2 elements {@code
+     * [conbinationParmater1]} and {@code [conbinationParameter2]} <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater1]
+     * .isValid([parameter1], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater1]
+     * .isValid([parameter2], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater2]
+     * .isValid([parameter2], null)} is false <br/>
+     * and {@link FormulaParameterConbinationItem#getRepeatable()} is true for [conbinationParmater1]
+     * and {@link FormulaParameterConbinationItem#getOptional()} is false for [conbinationParmater2]
+     */
+    @Test(expected = GLanguageException.class)
+    public void testValidateParameters2Parameter2ConbinationParameterFirstValidRepeatableSecondNotValidNotOptional() throws GLanguageException {
+        AbstractFormula formula = mock(AbstractFormula.class);
+        FormulaUsage usage = mock(FormulaUsage.class);
+        AbstractFormula parameter1 = mock(AbstractFormula.class);
+        AbstractFormula parameter2 = mock(AbstractFormula.class);
+        List<AbstractFormula> parameters = new ArrayList<>();
+        parameters.add(parameter1);
+        parameters.add(parameter2);
+
+        FormulaParameterConbinationItem conbinationParamater1 = mock(FormulaParameterConbinationItem.class);
+        doReturn(1).when(conbinationParamater1).getSequenceNumber();
+        doReturn(true).when(conbinationParamater1).isValid(parameter1, null);
+        doReturn(true).when(conbinationParamater1).isValid(parameter2, null);
+        doReturn(true).when(conbinationParamater1).getRepeatable();
+        FormulaParameterConbinationItem conbinationParamater2 = mock(FormulaParameterConbinationItem.class);
+        doReturn(2).when(conbinationParamater2).getSequenceNumber();
+        doReturn(false).when(conbinationParamater2).isValid(parameter2, null);
+        doReturn(false).when(conbinationParamater2).getOptional();
+        GLanguageException exception = new GLanguageException(new FormulaParameterConbinationItemUnableToValidateInnerError(
+                formula,
+                usage,
+                conbinationParamater2,
+                "",
+                null));
+        try {
+            doThrow(exception).when(conbinationParamater2).validate(formula, usage, parameter2, null);
+        } catch (GLanguageException e) {
+            fail("Exception thrown : " + e);
+        }
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater1);
+        conbinationParameters.add(conbinationParamater2);
+
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        try {
+            conbination.validateParameters(formula, usage, parameters, null);
+        } catch (GLanguageException e) {
+            InnerError ie = e.getError().getInnerError();
+            assertNotNull("inner error is null", ie);
+            assertEquals(exception, e);
+            throw e;
+        }
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
+     * when parameter list is not null and count 2 elements {@code [parameter1]} and {@code [parameter2]}<br/>
+     * and {@link FormulaParameterConbination#getParameters()} returns a list of 2 elements {@code
+     * [conbinationParmater1]} and {@code [conbinationParameter2]} <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater1]
+     * .isValid([parameter1], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#isValid(AbstractFormula, Evaluator)} {@code [conbinationParmater1]
+     * .isValid([parameter2], null)} is true <br/>
+     * and {@link FormulaParameterConbinationItem#getRepeatable()} is true for [conbinationParmater1]
+     * and {@link FormulaParameterConbinationItem#getOptional()} is true for [conbinationParmater2]
+     */
+    @Test
+    public void testValidateParameters2Parameter2ConbinationParameterFirstValidRepeatableSecondOptionalRepeatable() {
+        AbstractFormula formula = mock(AbstractFormula.class);
+        FormulaUsage usage = mock(FormulaUsage.class);
+        AbstractFormula parameter1 = mock(AbstractFormula.class);
+        AbstractFormula parameter2 = mock(AbstractFormula.class);
+        List<AbstractFormula> parameters = new ArrayList<>();
+        parameters.add(parameter1);
+        parameters.add(parameter2);
+
+        FormulaParameterConbinationItem conbinationParamater1 = mock(FormulaParameterConbinationItem.class);
+        doReturn(1).when(conbinationParamater1).getSequenceNumber();
+        doReturn(true).when(conbinationParamater1).isValid(parameter1, null);
+        doReturn(true).when(conbinationParamater1).isValid(parameter2, null);
+        doReturn(true).when(conbinationParamater1).getRepeatable();
+        FormulaParameterConbinationItem conbinationParamater2 = mock(FormulaParameterConbinationItem.class);
+        doReturn(2).when(conbinationParamater2).getSequenceNumber();
+        doReturn(true).when(conbinationParamater2).getOptional();
+        doReturn(true).when(conbinationParamater2).getRepeatable();
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater1);
+        conbinationParameters.add(conbinationParamater2);
+
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        try {
+            conbination.validateParameters(formula, usage, parameters, null);
+        } catch (GLanguageException e) {
+            fail("Exception thrown : " + e);
+        }
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#getParametersMinimumNumber()}
+     * when there is no conbination parameter
+     */
+    @Test
+    public void testGetParametersMinimumNumberNoConbinationParameter() {
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        assertEquals(Integer.valueOf(0), conbination.getParametersMinimumNumber());
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#getParametersMinimumNumber()}
+     * when there is 1 conbination parameter optional
+     */
+    @Test
+    public void testGetParametersMinimumNumber1ConbinationParameterOptional() {
+        FormulaParameterConbinationItem conbinationParamater = mock(FormulaParameterConbinationItem.class);
+        doReturn(1).when(conbinationParamater).getSequenceNumber();
+        doReturn(true).when(conbinationParamater).getOptional();
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        conbinationParameters.add(conbinationParamater);
+        assertEquals(Integer.valueOf(0), conbination.getParametersMinimumNumber());
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#getParametersMinimumNumber()}
+     * when there is 1 conbination parameter not optional
+     */
+    @Test
+    public void testGetParametersMinimumNumber1ConbinationParameterNotOptional() {
+        FormulaParameterConbinationItem conbinationParamater = mock(FormulaParameterConbinationItem.class);
+        doReturn(1).when(conbinationParamater).getSequenceNumber();
+        doReturn(false).when(conbinationParamater).getOptional();
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater);
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        assertEquals(Integer.valueOf(1), conbination.getParametersMinimumNumber());
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#getParametersMaximumNumber()}
+     * when there is no conbination parameter
+     */
+    @Test
+    public void testGetParametersMaximumNumberNoConbinationParameter() {
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        assertEquals(Integer.valueOf(0), conbination.getParametersMaximumNumber());
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#getParametersMaximumNumber()}
+     * when there is 1 conbination parameter repeatable
+     */
+    @Test
+    public void testGetParametersMaximumNumber1ConbinationParameterRepeatable() {
+        FormulaParameterConbinationItem conbinationParamater = mock(FormulaParameterConbinationItem.class);
+        doReturn(1).when(conbinationParamater).getSequenceNumber();
+        doReturn(true).when(conbinationParamater).getRepeatable();
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater);
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        assertEquals(Integer.valueOf(Integer.MAX_VALUE), conbination.getParametersMaximumNumber());
+    }
+
+    /**
+     * Test {@link FormulaParameterConbination#getParametersMaximumNumber()}
+     * when there is 1 conbination parameter not repeatable
+     */
+    @Test
+    public void testGetParametersMaximumNumber1ConbinationParameterNotRepeatable() {
+        FormulaParameterConbinationItem conbinationParamater = mock(FormulaParameterConbinationItem.class);
+        doReturn(1).when(conbinationParamater).getSequenceNumber();
+        doReturn(false).when(conbinationParamater).getRepeatable();
+        SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
+                FormulaParameterConbinationItem::getSequenceNumber));
+        conbinationParameters.add(conbinationParamater);
+        FormulaParameterConbination conbination = spy(FormulaParameterConbination.class);
+        doReturn(conbinationParameters).when(conbination).getParameters();
+        assertEquals(Integer.valueOf(1), conbination.getParametersMaximumNumber());
+    }
 
 }

@@ -9,11 +9,11 @@ import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 /**
  * Created by michotte on 17/05/2017.
  */
-public class FormulaParameterConbinationUnreachableParameters extends FormulaDescriptionInnerError {
+public class FormulaParameterConbinationUnreachableParametersInnerError extends FormulaDescriptionInnerError {
 
-    public FormulaParameterConbinationUnreachableParameters(AbstractFormula formula,
-                                                            int numberOfUnreachableParameters,
-                                                            Evaluator evaluator) {
+    public FormulaParameterConbinationUnreachableParametersInnerError(AbstractFormula formula,
+                                                                      int numberOfUnreachableParameters,
+                                                                      Evaluator evaluator) {
         super(GLanguageErrorRegistry.FORMULA_PARAMETER_CONBINATION_UNREACHABLE_PARAMETERS,
               formula,
               evaluator,

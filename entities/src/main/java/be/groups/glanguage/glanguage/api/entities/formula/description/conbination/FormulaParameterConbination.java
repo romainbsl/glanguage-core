@@ -104,6 +104,7 @@ public class FormulaParameterConbination {
         } catch (GLanguageException e) {
             e.getError().setOuterError(FormulaParameterConbinationInnerErrorFactory
                                                .getUnableToValidate(formula, this, evaluator));
+            throw e;
         }
     }
 
@@ -142,8 +143,8 @@ public class FormulaParameterConbination {
                         parameter = itParameters.next();
                         if (!conbinationParameter.isValid((parameter), evaluator) || parameters
                                 .indexOf(parameter) == parameters.size() - minimumNumberOfParameterAfterThis) {
-                            // Go back to the invalid parameter to get it
-                            // validated with the next conbination parameter at next loop iteration
+                            // Go back to the invalid parameter to get it validated with the next conbination
+                            // parameter at next loop iteration
                             itParameters.previous();
                             break;
                         }
@@ -222,9 +223,6 @@ public class FormulaParameterConbination {
                             itParameters.previous();
                             break;
                         }
-                    }
-                    if (parameters.indexOf(parameter) + 1 < parameters.size() - maximumNumberOfParameterAfterThis) {
-                        return false;
                     }
                 }
             }

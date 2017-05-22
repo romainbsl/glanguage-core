@@ -33,6 +33,6 @@ public class FormulaParameterConbinationInnerErrorFactory {
     public static FormulaDescriptionInnerError getUnreachableParameters(AbstractFormula formula,
                                                                         int numberOfUnreachableParameters,
                                                                         Evaluator evaluator) {
-        return new FormulaParameterConbinationUnreachableParameters(formula, numberOfUnreachableParameters, evaluator);
+        return new FormulaParameterConbinationUnreachableParametersInnerError(formula, numberOfUnreachableParameters, evaluator);
     }
 }
