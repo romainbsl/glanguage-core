@@ -5,6 +5,8 @@ import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsage;
+import be.groups.glanguage.glanguage.api.entities.utils.Language;
+import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.description.conbination
         .FormulaParameterConbinationItemUnableToValidateInnerError;
@@ -800,6 +802,9 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
         AbstractFormula formula = mock(AbstractFormula.class);
         FormulaUsage usage = mock(FormulaUsage.class);
         FormulaParameterConbinationItem conbinationItem = mock(FormulaParameterConbinationItem.class);
+        MultilingualString multilingualString = mock(MultilingualString.class);
+        doReturn("parameter").when(multilingualString).asText(Language.EN);
+        doReturn(multilingualString).when(usage).getParameterName(conbinationItem);
         doThrow(new GLanguageException(new FormulaParameterConbinationItemUnableToValidateInnerError(formula,
                                                                                                      usage,
                                                                                                      conbinationItem,
@@ -891,6 +896,9 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
         FormulaParameterConbinationItem conbinationParamater = mock(FormulaParameterConbinationItem.class);
         doReturn(false).when(conbinationParamater).isValid(parameter, null);
         doReturn(false).when(conbinationParamater).getOptional();
+        MultilingualString multilingualString = mock(MultilingualString.class);
+        doReturn("parameter").when(multilingualString).asText(Language.EN);
+        doReturn(multilingualString).when(usage).getParameterName(conbinationParamater);
         GLanguageException exception = new GLanguageException(new FormulaParameterConbinationItemUnableToValidateInnerError(
                 formula,
                 usage,
@@ -939,6 +947,9 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
         FormulaParameterConbinationItem conbinationParamater = mock(FormulaParameterConbinationItem.class);
         doReturn(false).when(conbinationParamater).isValid(parameter, null);
         doReturn(true).when(conbinationParamater).getOptional();
+        MultilingualString multilingualString = mock(MultilingualString.class);
+        doReturn("parameter").when(multilingualString).asText(Language.EN);
+        doReturn(multilingualString).when(usage).getParameterName(conbinationParamater);
         GLanguageException exception = new GLanguageException(new FormulaParameterConbinationItemUnableToValidateInnerError(
                 formula,
                 usage,
@@ -1053,7 +1064,8 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
      * and {@link FormulaParameterConbinationItem#getOptional()} is false for [conbinationParmater2]
      */
     @Test(expected = GLanguageException.class)
-    public void testValidateParameters1Parameter2ConbinationParameterFirstValidSecondNotOptional() throws GLanguageException {
+    public void testValidateParameters1Parameter2ConbinationParameterFirstValidSecondNotOptional() throws
+                                                                                                   GLanguageException {
         AbstractFormula formula = mock(AbstractFormula.class);
         FormulaUsage usage = mock(FormulaUsage.class);
         AbstractFormula parameter1 = mock(AbstractFormula.class);
@@ -1066,6 +1078,9 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
         FormulaParameterConbinationItem conbinationParamater2 = mock(FormulaParameterConbinationItem.class);
         doReturn(2).when(conbinationParamater2).getSequenceNumber();
         doReturn(false).when(conbinationParamater2).getOptional();
+        MultilingualString multilingualString1 = mock(MultilingualString.class);
+        doReturn("parameter").when(multilingualString1).asText(Language.EN);
+        doReturn(multilingualString1).when(usage).getParameterName(conbinationParamater2);
         GLanguageException exception = new GLanguageException(new FormulaParameterConbinationItemUnableToValidateInnerError(
                 formula,
                 usage,
@@ -1106,7 +1121,8 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
      * and {@link FormulaParameterConbinationItem#getOptional()} is true for [conbinationParmater2]
      */
     @Test(expected = GLanguageException.class)
-    public void testValidateParameters2Parameter2ConbinationParameterFirstValidSecondNotValidOptional() throws GLanguageException {
+    public void testValidateParameters2Parameter2ConbinationParameterFirstValidSecondNotValidOptional() throws
+                                                                                                        GLanguageException {
         AbstractFormula formula = mock(AbstractFormula.class);
         FormulaUsage usage = mock(FormulaUsage.class);
         AbstractFormula parameter1 = mock(AbstractFormula.class);
@@ -1151,7 +1167,8 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
      * and {@link FormulaParameterConbinationItem#getOptional()} is false for [conbinationParmater1]
      */
     @Test(expected = GLanguageException.class)
-    public void testValidateParameters2Parameter2ConbinationParameterFirstNotValidNotOptionalSecondValid() throws GLanguageException {
+    public void testValidateParameters2Parameter2ConbinationParameterFirstNotValidNotOptionalSecondValid() throws
+                                                                                                           GLanguageException {
         AbstractFormula formula = mock(AbstractFormula.class);
         FormulaUsage usage = mock(FormulaUsage.class);
         AbstractFormula parameter1 = mock(AbstractFormula.class);
@@ -1164,8 +1181,10 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
         doReturn(1).when(conbinationParamater1).getSequenceNumber();
         doReturn(false).when(conbinationParamater1).isValid(parameter1, null);
         doReturn(false).when(conbinationParamater1).getOptional();
-        GLanguageException exception = new GLanguageException(new
-                                                                       FormulaParameterConbinationItemUnableToValidateInnerError(
+        MultilingualString multilingualString1 = mock(MultilingualString.class);
+        doReturn("parameter").when(multilingualString1).asText(Language.EN);
+        doReturn(multilingualString1).when(usage).getParameterName(conbinationParamater1);
+        GLanguageException exception = new GLanguageException(new FormulaParameterConbinationItemUnableToValidateInnerError(
                 formula,
                 usage,
                 conbinationParamater1,
@@ -1175,7 +1194,8 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
             doThrow(exception).when(conbinationParamater1).validate(formula, usage, parameter1, null);
         } catch (GLanguageException e) {
             fail("Exception thrown : " + e);
-        }FormulaParameterConbinationItem conbinationParamater2 = mock(FormulaParameterConbinationItem.class);
+        }
+        FormulaParameterConbinationItem conbinationParamater2 = mock(FormulaParameterConbinationItem.class);
         doReturn(2).when(conbinationParamater2).getSequenceNumber();
         doReturn(true).when(conbinationParamater2).isValid(parameter2, null);
         SortedSet<FormulaParameterConbinationItem> conbinationParameters = new TreeSet<>(Comparator.comparing(
@@ -1283,7 +1303,8 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
      * and {@link FormulaParameterConbinationItem#getRepeatable()} is true
      */
     @Test(expected = GLanguageException.class)
-    public void testValidateParameters2Parameter1ConbinationParameterValidNotValidRepeatable() throws GLanguageException {
+    public void testValidateParameters2Parameter1ConbinationParameterValidNotValidRepeatable() throws
+                                                                                               GLanguageException {
         AbstractFormula formula = mock(AbstractFormula.class);
         FormulaUsage usage = mock(FormulaUsage.class);
         AbstractFormula parameter1 = mock(AbstractFormula.class);
@@ -1295,6 +1316,9 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
         FormulaParameterConbinationItem conbinationParamater = mock(FormulaParameterConbinationItem.class);
         doReturn(true).when(conbinationParamater).isValid(parameter1, null);
         doReturn(false).when(conbinationParamater).isValid(parameter2, null);
+        MultilingualString multilingualString1 = mock(MultilingualString.class);
+        doReturn("parameter").when(multilingualString1).asText(Language.EN);
+        doReturn(multilingualString1).when(usage).getParameterName(conbinationParamater);
         GLanguageException exception = new GLanguageException(new FormulaParameterConbinationItemUnableToValidateInnerError(
                 formula,
                 usage,
@@ -1429,7 +1453,8 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
      * and {@link FormulaParameterConbinationItem#getOptional()} is false for [conbinationParmater2]
      */
     @Test(expected = GLanguageException.class)
-    public void testValidateParameters2Parameter2ConbinationParameterFirstValidRepeatableSecondNotValidNotOptional() throws GLanguageException {
+    public void testValidateParameters2Parameter2ConbinationParameterFirstValidRepeatableSecondNotValidNotOptional()
+            throws GLanguageException {
         AbstractFormula formula = mock(AbstractFormula.class);
         FormulaUsage usage = mock(FormulaUsage.class);
         AbstractFormula parameter1 = mock(AbstractFormula.class);
@@ -1443,10 +1468,16 @@ public class FormulaParameterConbinationTest extends BaseDatabaseTest {
         doReturn(true).when(conbinationParamater1).isValid(parameter1, null);
         doReturn(true).when(conbinationParamater1).isValid(parameter2, null);
         doReturn(true).when(conbinationParamater1).getRepeatable();
+        MultilingualString multilingualString1 = mock(MultilingualString.class);
+        doReturn("parameter1").when(multilingualString1).asText(Language.EN);
+        doReturn(multilingualString1).when(usage).getParameterName(conbinationParamater1);
         FormulaParameterConbinationItem conbinationParamater2 = mock(FormulaParameterConbinationItem.class);
         doReturn(2).when(conbinationParamater2).getSequenceNumber();
         doReturn(false).when(conbinationParamater2).isValid(parameter2, null);
         doReturn(false).when(conbinationParamater2).getOptional();
+        MultilingualString multilingualString2 = mock(MultilingualString.class);
+        doReturn("parameter2").when(multilingualString2).asText(Language.EN);
+        doReturn(multilingualString2).when(usage).getParameterName(conbinationParamater2);
         GLanguageException exception = new GLanguageException(new FormulaParameterConbinationItemUnableToValidateInnerError(
                 formula,
                 usage,

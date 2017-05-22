@@ -38,7 +38,7 @@ public class FormulaParameterConbinationItemWrongParameterTypeInnerError extends
         StringBuilder sb = new StringBuilder("Parameter " + usage.getParameterName(conbinationParameter)
                 .asText(Language.EN) + " at index [" + conbinationParameter
                 .getSequenceNumber() + "] ('" + parameterAsText + "')");
-        sb.append(" has a wrong type " + ": actual type = " + actualType.name());
+        sb.append(" has a wrong type : " + " actual type = " + (actualType == null ? "[null]" : actualType.name()));
         if (conbinationParameter.getTypes() != null) {
             Iterator<FormulaReturnType> itExpectedTypes = conbinationParameter.getReturnTypes().iterator();
             if (itExpectedTypes.hasNext()) {

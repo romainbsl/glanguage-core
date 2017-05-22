@@ -197,6 +197,7 @@ public class FormulaParameterConbinationItem implements Comparable<FormulaParame
                                                                                                             usage,
                                                                                                             this,
                                                                                                             parameter
+                                                                                                                    == null ? "[null]" : parameter
                                                                                                                     .asText(),
                                                                                                             evaluator));
             throw e;
@@ -214,7 +215,7 @@ public class FormulaParameterConbinationItem implements Comparable<FormulaParame
     }
 
     @Transient
-    private boolean isValidValue(AbstractFormula parameter, Evaluator evaluator) {
+    public boolean isValidValue(AbstractFormula parameter, Evaluator evaluator) {
         if (getValues() == null || getValues().isEmpty()) {
             return true;
         } else {
