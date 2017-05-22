@@ -4,6 +4,7 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem;
 import be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsage;
+import be.groups.glanguage.glanguage.api.entities.utils.Language;
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.formula.description.FormulaDescriptionInnerError;
 import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
@@ -29,7 +30,8 @@ public class FormulaParameterConbinationItemUnableToValidateInnerError extends F
     private static String getCause(FormulaUsage usage,
                                    FormulaParameterConbinationItem conbinationParameter,
                                    String parameterAsText) {
-        return "Unable to validate parameter " + usage.getParameterName(conbinationParameter) + " at index [" +
-                conbinationParameter.getSequenceNumber() + "] ('" + parameterAsText + "')";
+        return "Unable to validate parameter " + usage.getParameterName(conbinationParameter)
+                .asText(Language.EN) + " at index [" + conbinationParameter
+                .getSequenceNumber() + "] ('" + parameterAsText + "')";
     }
 }

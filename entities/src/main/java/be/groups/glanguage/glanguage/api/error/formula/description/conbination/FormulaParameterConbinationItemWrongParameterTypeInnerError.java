@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem;
 import be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsage;
+import be.groups.glanguage.glanguage.api.entities.utils.Language;
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.formula.description.FormulaDescriptionInnerError;
 import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
@@ -34,9 +35,9 @@ public class FormulaParameterConbinationItemWrongParameterTypeInnerError extends
                                    FormulaParameterConbinationItem conbinationParameter,
                                    String parameterAsText,
                                    FormulaReturnType actualType) {
-        StringBuilder sb = new StringBuilder("Parameter " + usage.getParameterName(conbinationParameter) +
-                                                     " at index [" + conbinationParameter.getSequenceNumber() +
-                                                     "] ('" + parameterAsText + "')");
+        StringBuilder sb = new StringBuilder("Parameter " + usage.getParameterName(conbinationParameter)
+                .asText(Language.EN) + " at index [" + conbinationParameter
+                .getSequenceNumber() + "] ('" + parameterAsText + "')");
         sb.append(" has a wrong type " + ": actual type = " + actualType.name());
         if (conbinationParameter.getTypes() != null) {
             Iterator<FormulaReturnType> itExpectedTypes = conbinationParameter.getReturnTypes().iterator();

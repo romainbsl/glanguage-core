@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * A usage is a conbination of a {@link FormulaParameterConbination} and a set of {@link FormulaReturnType}'s for a
  * {@link FormulaDescription}.<br>
  * It also has a name and a {@link MultilingualString} description.<br>
- *
+ * <p>
  * Created by michotte on 4/05/2017.
  */
 @Entity
@@ -123,9 +123,11 @@ public class FormulaUsage {
     }
 
     /*
-         * Methods
-         */
-    public void validate(AbstractFormula formula, List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
+     * Methods
+     */
+    public void validate(AbstractFormula formula,
+                         List<AbstractFormula> parameters,
+                         Evaluator evaluator) throws GLanguageException {
         getParameterConbination().validate(formula, this, parameters, evaluator);
     }
 
@@ -135,27 +137,34 @@ public class FormulaUsage {
     }
 
     @Transient
-    public String getParameterName(FormulaParameterConbinationItem conbinationParameter) {
+    public MultilingualString getParameterName(FormulaParameterConbinationItem conbinationParameter) {
         if (getOverriddenParameters() != null && !getOverriddenParameters().isEmpty()) {
-            Optional<FormulaUsageParameterConbinationItem> overriddenParameter = getOverriddenParameters().stream()
-                    .filter(p -> p.getConbinationParameter().equals(conbinationParameter)).findFirst();
+            Optional<FormulaUsageParameterConbinationItem> overriddenParameter = getOverriddenParameter
+                    (conbinationParameter);
             if (overriddenParameter.isPresent()) {
-                return overriddenParameter.get().getName().asText();
+                return overriddenParameter.get().getName();
             }
-        }
-        return conbinationParameter.getName().asText();
+        } return conbinationParameter.getName();
     }
 
     @Transient
-    public String getParameterDescription(FormulaParameterConbinationItem conbinationParameter) {
+    public MultilingualString getParameterDescription(FormulaParameterConbinationItem conbinationParameter) {
         if (getOverriddenParameters() != null && !getOverriddenParameters().isEmpty()) {
-            Optional<FormulaUsageParameterConbinationItem> overriddenParameter = getOverriddenParameters().stream()
-                    .filter(p -> p.getConbinationParameter().equals(conbinationParameter)).findFirst();
+            Optional<FormulaUsageParameterConbinationItem> overriddenParameter = getOverriddenParameter
+                    (conbinationParameter);
             if (overriddenParameter.isPresent()) {
-                return overriddenParameter.get().getDescription().asText();
+                return overriddenParameter.get().getDescription();
             }
         }
-        return conbinationParameter.getDescription().asText();
+        return conbinationParameter.getDescription();
+    }
+
+    @Transient
+    private Optional<FormulaUsageParameterConbinationItem> getOverriddenParameter(FormulaParameterConbinationItem
+                                                                                conbinationParameter) {
+        return getOverriddenParameters().stream().filter(p -> p.getConbinationParameter().equals(conbinationParameter))
+                .findFirst();
+
     }
 
     /*
@@ -163,8 +172,8 @@ public class FormulaUsage {
      */
     @Override
     public String toString() {
-        return "FormulaUsage{" + ", name='" + name + '\'' + ", " +
-                "description=" + description + "parameterConbination=" + parameterConbination + '}';
+        return "FormulaUsage{" + ", name='" + name + '\'' + ", " + "description=" + description +
+                "parameterConbination=" + parameterConbination + '}';
     }
 
     @Override
