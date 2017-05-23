@@ -15,8 +15,7 @@ import org.junit.experimental.categories.Category;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaFormatString}
@@ -49,7 +48,7 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaFormatString#isValid()} when parameters match
+	 * Tests {@link FormulaFormatString#isValid(Evaluator)} when parameters match
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -65,15 +64,32 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
 		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaFormatString formula = new FormulaFormatString(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_STRING),
-				Arrays.asList(string, width, alignment, fill));
-				
-		assertTrue(formula.isValid());
+
+		FormulaFormatString formula = spy(FormulaFormatString.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_STRING)).when(formula).getDescription();
+		doReturn(Arrays.asList(string, width, alignment, fill)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
-	
+
 	/**
-	 * Tests {@link FormulaFormatString#isValid()} when parameters don't match
+	 * Tests {@link FormulaFormatString#isValid(Evaluator)} when parameters match and without optional parameters
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidMatchingWithoutOptionalParameters() throws GLanguageException {
+		AbstractFormula string = mock(AbstractFormula.class);
+		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+
+		FormulaFormatString formula = spy(FormulaFormatString.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_STRING)).when(formula).getDescription();
+		doReturn(Arrays.asList(string)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
+	}
+
+	/**
+	 * Tests {@link FormulaFormatString#isValid(Evaluator)} when parameters don't match
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -89,11 +105,12 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
 		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaFormatString formula = new FormulaFormatString(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_STRING),
-				Arrays.asList(string, width, alignment, fill));
-				
-		assertFalse(formula.isValid());
+
+		FormulaFormatString formula = spy(FormulaFormatString.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_STRING)).when(formula).getDescription();
+		doReturn(Arrays.asList(string, width, alignment, fill)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
@@ -102,21 +119,8 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testGetReturnTypeMatching() throws GLanguageException {
-		AbstractFormula string = mock(AbstractFormula.class);
-		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		AbstractFormula width = mock(AbstractFormula.class);
-		when(width.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		AbstractFormula alignment = mock(AbstractFormula.class);
-		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		AbstractFormula fill = mock(AbstractFormula.class);
-		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaFormatString formula = new FormulaFormatString(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_STRING),
-				Arrays.asList(string, width, alignment, fill));
-				
+		FormulaFormatString formula = spy(FormulaFormatString.class);
+
 		assertEquals(FormulaReturnType.STRING, formula.getReturnType(null));
 	}
 
@@ -140,9 +144,10 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 		AbstractFormula fill = mock(AbstractFormula.class);
 		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(fill.getStringValue(null)).thenReturn("0");
-		
-		FormulaFormatString formula = new FormulaFormatString(null, Arrays.asList(string, width, alignment, fill));
-		
+
+		FormulaFormatString formula = spy(FormulaFormatString.class);
+		doReturn(Arrays.asList(string, width, alignment, fill)).when(formula).getParameters();
+
 		formula.getIntegerValue(null);
 	}
 	
@@ -166,9 +171,10 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 		AbstractFormula fill = mock(AbstractFormula.class);
 		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(fill.getStringValue(null)).thenReturn("0");
-		
-		FormulaFormatString formula = new FormulaFormatString(null, Arrays.asList(string, width, alignment, fill));
-		
+
+		FormulaFormatString formula = spy(FormulaFormatString.class);
+		doReturn(Arrays.asList(string, width, alignment, fill)).when(formula).getParameters();
+
 		formula.getNumericValue(null);
 	}
 	
@@ -192,9 +198,10 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 		AbstractFormula fill = mock(AbstractFormula.class);
 		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(fill.getStringValue(null)).thenReturn("0");
-		
-		FormulaFormatString formula = new FormulaFormatString(null, Arrays.asList(string, width, alignment, fill));
-		
+
+		FormulaFormatString formula = spy(FormulaFormatString.class);
+		doReturn(Arrays.asList(string, width, alignment, fill)).when(formula).getParameters();
+
 		assertEquals(10, formula.getStringValue(null).length());
 		assertEquals("value00000", formula.getStringValue(null));
 	}
@@ -219,9 +226,10 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 		AbstractFormula fill = mock(AbstractFormula.class);
 		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(fill.getStringValue(null)).thenReturn("0");
-		
-		FormulaFormatString formula = new FormulaFormatString(null, Arrays.asList(string, width, alignment, fill));
-		
+
+		FormulaFormatString formula = spy(FormulaFormatString.class);
+		doReturn(Arrays.asList(string, width, alignment, fill)).when(formula).getParameters();
+
 		assertEquals(10, formula.getStringValue(null).length());
 		assertEquals("valueexact", formula.getStringValue(null));
 	}
@@ -246,9 +254,10 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 		AbstractFormula fill = mock(AbstractFormula.class);
 		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(fill.getStringValue(null)).thenReturn("0");
-		
-		FormulaFormatString formula = new FormulaFormatString(null, Arrays.asList(string, width, alignment, fill));
-		
+
+		FormulaFormatString formula = spy(FormulaFormatString.class);
+		doReturn(Arrays.asList(string, width, alignment, fill)).when(formula).getParameters();
+
 		assertEquals(10, formula.getStringValue(null).length());
 		assertEquals("value_too_", formula.getStringValue(null));
 	}
@@ -273,9 +282,10 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 		AbstractFormula fill = mock(AbstractFormula.class);
 		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(fill.getStringValue(null)).thenReturn("0");
-		
-		FormulaFormatString formula = new FormulaFormatString(null, Arrays.asList(string, width, alignment, fill));
-		
+
+		FormulaFormatString formula = spy(FormulaFormatString.class);
+		doReturn(Arrays.asList(string, width, alignment, fill)).when(formula).getParameters();
+
 		assertEquals(10, formula.getStringValue(null).length());
 		assertEquals("00value000", formula.getStringValue(null));
 	}
@@ -300,9 +310,10 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 		AbstractFormula fill = mock(AbstractFormula.class);
 		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(fill.getStringValue(null)).thenReturn("0");
-		
-		FormulaFormatString formula = new FormulaFormatString(null, Arrays.asList(string, width, alignment, fill));
-		
+
+		FormulaFormatString formula = spy(FormulaFormatString.class);
+		doReturn(Arrays.asList(string, width, alignment, fill)).when(formula).getParameters();
+
 		assertEquals(10, formula.getStringValue(null).length());
 		assertEquals("00000value", formula.getStringValue(null));
 	}
@@ -327,9 +338,10 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 		AbstractFormula fill = mock(AbstractFormula.class);
 		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(fill.getStringValue(null)).thenReturn("0");
-		
-		FormulaFormatString formula = new FormulaFormatString(null, Arrays.asList(string, width, alignment, fill));
-		
+
+		FormulaFormatString formula = spy(FormulaFormatString.class);
+		doReturn(Arrays.asList(string, width, alignment, fill)).when(formula).getParameters();
+
 		formula.getBooleanValue(null);
 	}
 	
@@ -353,9 +365,10 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 		AbstractFormula fill = mock(AbstractFormula.class);
 		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(fill.getStringValue(null)).thenReturn("0");
-		
-		FormulaFormatString formula = new FormulaFormatString(null, Arrays.asList(string, width, alignment, fill));
-		
+
+		FormulaFormatString formula = spy(FormulaFormatString.class);
+		doReturn(Arrays.asList(string, width, alignment, fill)).when(formula).getParameters();
+
 		formula.getDateValue(null);
 	}
 	
@@ -379,9 +392,10 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 		AbstractFormula fill = mock(AbstractFormula.class);
 		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(fill.getStringValue(null)).thenReturn("0");
-		
-		FormulaFormatString formula = new FormulaFormatString(null, Arrays.asList(string, width, alignment, fill));
-		
+
+		FormulaFormatString formula = spy(FormulaFormatString.class);
+		doReturn(Arrays.asList(string, width, alignment, fill)).when(formula).getParameters();
+
 		formula.getDurationValue(null);
 	}
 	
@@ -415,9 +429,11 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 		AbstractFormula fill = mock(AbstractFormula.class);
 		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(fill.asText()).thenReturn("0");
-		
-		FormulaFormatString formula = new FormulaFormatString(null, Arrays.asList(string, width, alignment, fill));
-		
+
+		FormulaFormatString formula = spy(FormulaFormatString.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_FORMAT_STRING)).when(formula).getDescription();
+		doReturn(Arrays.asList(string, width, alignment, fill)).when(formula).getParameters();
+
 		assertEquals("formatString(some_rule1; 10; " + FormatAlignment.Values.LEFT_JUSTIFY + "; 0)", formula.asText());
 	}
 	

@@ -37,7 +37,7 @@ public class FormulaParameterConbinationItemValue {
     }
 
     @ManyToOne
-    @JoinColumn(name = "FORMULA_PARAM_CONB_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "FORMULA_PARAM_CONB_ITEM_ID", referencedColumnName = "ID")
     public FormulaParameterConbinationItem getParameter() {
         return parameter;
     }

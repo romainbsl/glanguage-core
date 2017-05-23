@@ -3,7 +3,7 @@ create table FORMULA_DESC (ID number(10,0) not null, NAME varchar2(255 char) not
 create table FORMULA_PARAM_CONB (ID number(10,0) not null, DESCRIPTION varchar2(255 char) not null, NAME varchar2(255 char) not null, primary key (ID))
 create table FORMULA_PARAM_CONB_ITEM (id number(10,0) not null, DEFAULT_VALUE varchar2(255 char), OPTIONAL number(1,0), REPEATABLE number(1,0), SEQUENCE_NUMBER number(10,0), FORMULA_PARAM_CONB_ID number(10,0), DESC_ID number(10,0), NAME_ID number(10,0), primary key (id))
 create table FORMULA_PARAM_CONB_ITEM_TYPE (ID number(10,0) not null, FORMULA_RETURN_TYPE_ID number(10,0) not null, FORMULA_PARAM_CONB_ITEM_ID number(10,0), primary key (ID))
-create table FORMULA_PARAM_CONB_ITEM_VALUE (id number(10,0) not null, value varchar2(255 char), DESC_ID number(10,0), FORMULA_PARAM_CONB_ID number(10,0), primary key (id))
+create table FORMULA_PARAM_CONB_ITEM_VALUE (id number(10,0) not null, value varchar2(255 char), DESC_ID number(10,0), FORMULA_PARAM_CONB_ITEM_ID number(10,0), primary key (id))
 create table FORMULA_USAGE (id number(10,0) not null, name varchar2(255 char), DESC_ID number(10,0), FORMULA_DESC_ID number(10,0), FORMULA_PARAM_CONB_ID number(10,0), primary key (id))
 create table FORMULA_USAGE_PARAM_CONB_ITEM (id number(10,0) not null, FORMULA_PARAM_CONB_ITEM_ID number(10,0), DESC_ID number(10,0), NAME_ID number(10,0), FORMULA_USAGE_ID number(10,0), primary key (id))
 create table FORMULA_USAGE_RETURN_TYPE (ID number(10,0) not null, FORMULA_RETURN_TYPE_ID number(10,0) not null, FORMULA_USAGE_ID number(10,0), primary key (ID))
@@ -29,7 +29,7 @@ alter table FORMULA_PARAM_CONB_ITEM add constraint FK_52vc3a0m02ke2drdsmit56n2h 
 alter table FORMULA_PARAM_CONB_ITEM add constraint FK_lb1aqk3cdov8r34ce15bl3fxa foreign key (NAME_ID) references MULTILINGUAL_STRING
 alter table FORMULA_PARAM_CONB_ITEM_TYPE add constraint FK_j0m7ngvovy1k8p03w0ogf6pyn foreign key (FORMULA_PARAM_CONB_ITEM_ID) references FORMULA_PARAM_CONB_ITEM
 alter table FORMULA_PARAM_CONB_ITEM_VALUE add constraint FK_a8d657eb7j3cf7e97hnvyy8l1 foreign key (DESC_ID) references MULTILINGUAL_STRING
-alter table FORMULA_PARAM_CONB_ITEM_VALUE add constraint FK_qjflg3d8ysbp6qwo2t3570hpu foreign key (FORMULA_PARAM_CONB_ID) references FORMULA_PARAM_CONB_ITEM
+alter table FORMULA_PARAM_CONB_ITEM_VALUE add constraint FK_l5usxlw8vodjbonvrij0twh4v foreign key (FORMULA_PARAM_CONB_ITEM_ID) references FORMULA_PARAM_CONB_ITEM
 alter table FORMULA_USAGE add constraint FK_pi7fya10obe3a51p68jusqr6p foreign key (DESC_ID) references MULTILINGUAL_STRING
 alter table FORMULA_USAGE add constraint FK_djpu20trblh9s9gul8vgmeqox foreign key (FORMULA_DESC_ID) references FORMULA_DESC
 alter table FORMULA_USAGE add constraint FK_eufu6nq1tjbd22e79nhfw15n1 foreign key (FORMULA_PARAM_CONB_ID) references FORMULA_PARAM_CONB

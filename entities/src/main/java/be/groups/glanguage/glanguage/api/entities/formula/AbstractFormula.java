@@ -164,7 +164,7 @@ public abstract class AbstractFormula {
     @JsonIgnore
     @Transient
     public boolean isValid(Evaluator evaluator) {
-        return description.isValid(parameters, evaluator);
+        return getDescription().isValid(getParameters(), evaluator);
     }
 
     @JsonIgnore
@@ -176,7 +176,7 @@ public abstract class AbstractFormula {
     @JsonIgnore
     @Transient
     public FormulaReturnType getReturnType(Evaluator evaluator) {
-        return description.getReturnType(parameters, evaluator);
+        return getDescription().getReturnType(getParameters(), evaluator);
     }
 
     /**
@@ -367,7 +367,7 @@ public abstract class AbstractFormula {
     @JsonIgnore
     @Transient
     public boolean isBranched() {
-        return (parameters != null && !parameters.isEmpty() && parameters.stream()
+        return (getParameters() != null && !getParameters().isEmpty() && getParameters().stream()
                 .allMatch(AbstractFormula::isBranched));
     }
 
