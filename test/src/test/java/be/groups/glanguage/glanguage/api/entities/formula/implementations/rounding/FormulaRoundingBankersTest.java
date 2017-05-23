@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.round
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -13,8 +14,7 @@ import org.junit.experimental.categories.Category;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaRoundingBankers}
@@ -48,7 +48,7 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
     }
 
     /**
-     * Tests {@link FormulaRoundingBankers#isValid()} when parameter is integer
+     * Tests {@link FormulaRoundingBankers#isValid(Evaluator)} when parameter is integer
      */
     @Test
     @Category({DatabaseTestCategory.class})
@@ -56,19 +56,15 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .F_BANKERS_ROUNDED),
-                                                                    FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .TERMINAL_INTEGER),
-                                                                    Arrays.asList(parameter));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BANKERS_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
-        assertTrue(formula.isValid());
+        assertTrue(formula.isValid(null));
     }
 
     /**
-     * Tests {@link FormulaRoundingBankers#isValid()} when parameter is numeric
+     * Tests {@link FormulaRoundingBankers#isValid(Evaluator)} when parameter is numeric
      */
     @Test
     @Category({DatabaseTestCategory.class})
@@ -76,19 +72,15 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .F_BANKERS_ROUNDED),
-                                                                    FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .TERMINAL_INTEGER),
-                                                                    Arrays.asList(parameter));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BANKERS_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
-        assertTrue(formula.isValid());
+        assertTrue(formula.isValid(null));
     }
 
     /**
-     * Tests {@link FormulaRoundingBankers#isValid()} when parameter is not integer or numeric
+     * Tests {@link FormulaRoundingBankers#isValid(Evaluator)} when parameter is not integer or numeric
      */
     @Test
     @Category({DatabaseTestCategory.class})
@@ -96,19 +88,15 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .F_BANKERS_ROUNDED),
-                                                                    FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .TERMINAL_INTEGER),
-                                                                    Arrays.asList(parameter));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BANKERS_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
-        assertFalse(formula.isValid());
+        assertFalse(formula.isValid(null));
     }
 
     /**
-     * Tests {@link FormulaRoundingBankers#isValid()} when parameter is integer and precision is
+     * Tests {@link FormulaRoundingBankers#isValid(Evaluator)} when parameter is integer and precision is
      * integer
      */
     @Test
@@ -120,19 +108,15 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .F_BANKERS_ROUNDED),
-                                                                    FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .TERMINAL_INTEGER),
-                                                                    Arrays.asList(parameter, precision));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BANKERS_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
-        assertTrue(formula.isValid());
+        assertTrue(formula.isValid(null));
     }
 
     /**
-     * Tests {@link FormulaRoundingBankers#isValid()} when parameter is numeric and precision is
+     * Tests {@link FormulaRoundingBankers#isValid(Evaluator)} when parameter is numeric and precision is
      * integer
      */
     @Test
@@ -144,19 +128,15 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .F_BANKERS_ROUNDED),
-                                                                    FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .TERMINAL_INTEGER),
-                                                                    Arrays.asList(parameter, precision));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BANKERS_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
-        assertTrue(formula.isValid());
+        assertTrue(formula.isValid(null));
     }
 
     /**
-     * Tests {@link FormulaRoundingBankers#isValid()} when parameter is numeric and precision is
+     * Tests {@link FormulaRoundingBankers#isValid(Evaluator)} when parameter is numeric and precision is
      * numeric
      */
     @Test
@@ -168,15 +148,11 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .F_BANKERS_ROUNDED),
-                                                                    FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .TERMINAL_INTEGER),
-                                                                    Arrays.asList(parameter, precision));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BANKERS_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
-        assertTrue(formula.isValid());
+        assertFalse(formula.isValid(null));
     }
 
     /**
@@ -188,15 +164,11 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .F_BANKERS_ROUNDED),
-                                                                    FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .TERMINAL_INTEGER),
-                                                                    Arrays.asList(parameter));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BANKERS_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
-        assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
+        assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
     }
 
     /**
@@ -208,13 +180,9 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .F_BANKERS_ROUNDED),
-                                                                    FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .TERMINAL_INTEGER),
-                                                                    Arrays.asList(parameter));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BANKERS_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
         assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
     }
@@ -228,15 +196,11 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .F_BANKERS_ROUNDED),
-                                                                    FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .TERMINAL_INTEGER),
-                                                                    Arrays.asList(parameter));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BANKERS_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
-        assertNull(formula.getReturnType(null));
+        assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType(null));
     }
 
     /**
@@ -252,15 +216,11 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .F_BANKERS_ROUNDED),
-                                                                    FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .TERMINAL_INTEGER),
-                                                                    Arrays.asList(parameter, precision));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BANKERS_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
-        assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
+        assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
     }
 
     /**
@@ -276,13 +236,9 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .F_BANKERS_ROUNDED),
-                                                                    FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .TERMINAL_INTEGER),
-                                                                    Arrays.asList(parameter, precision));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BANKERS_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
     }
@@ -300,15 +256,11 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .F_BANKERS_ROUNDED),
-                                                                    FormulaDescriptionFactory
-                                                                            .getDescription(FormulaType
-                                                                                                    .TERMINAL_INTEGER),
-                                                                    Arrays.asList(parameter, precision));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BANKERS_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
-        assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
+        assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType(null));
     }
 
     /**
@@ -324,7 +276,8 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
         when(precision.getNumericValue(null)).thenReturn(10.0);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals(Integer.valueOf(117), formula.getIntegerValue(null));
     }
@@ -342,7 +295,8 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
         when(precision.getNumericValue(null)).thenReturn(2.0);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals(Integer.valueOf(1), formula.getIntegerValue(null));
     }
@@ -360,7 +314,8 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
         when(precision.getNumericValue(null)).thenReturn(10.0);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals(Double.valueOf(117), formula.getNumericValue(null));
     }
@@ -378,7 +333,8 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
         when(precision.getNumericValue(null)).thenReturn(2.0);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals(Double.valueOf(1.58), formula.getNumericValue(null));
     }
@@ -396,7 +352,8 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
         when(precision.getNumericValue(null)).thenReturn(2.0);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         formula.getStringValue(null);
     }
@@ -414,7 +371,8 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
         when(precision.getNumericValue(null)).thenReturn(2.0);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         formula.getBooleanValue(null);
     }
@@ -432,7 +390,8 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
         when(precision.getNumericValue(null)).thenReturn(2.0);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         formula.getDateValue(null);
     }
@@ -450,7 +409,8 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
         when(precision.getNumericValue(null)).thenReturn(2.0);
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         formula.getDurationValue(null);
     }
@@ -478,7 +438,9 @@ public class FormulaRoundingBankersTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
         when(precision.asText()).thenReturn("2");
 
-        FormulaRoundingBankers formula = new FormulaRoundingBankers(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingBankers formula = spy(FormulaRoundingBankers.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BANKERS_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals("bankers_rounded(some_rule; 2)", formula.asText());
     }

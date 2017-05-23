@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.round
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -13,8 +14,7 @@ import org.junit.experimental.categories.Category;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaRoundingTrunc}
@@ -48,7 +48,7 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
     }
 
     /**
-     * Tests {@link FormulaRoundingTrunc#isValid()} when parameter is integer
+     * Tests {@link FormulaRoundingTrunc#isValid(Evaluator)} when parameter is integer
      */
     @Test
     @Category({DatabaseTestCategory.class})
@@ -56,17 +56,15 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.F_TRUNC),
-                                                                FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.TERMINAL_INTEGER),
-                                                                Arrays.asList(parameter));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_TRUNC)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
-        assertTrue(formula.isValid());
+        assertTrue(formula.isValid(null));
     }
 
     /**
-     * Tests {@link FormulaRoundingTrunc#isValid()} when parameter is numeric
+     * Tests {@link FormulaRoundingTrunc#isValid(Evaluator)} when parameter is numeric
      */
     @Test
     @Category({DatabaseTestCategory.class})
@@ -74,17 +72,15 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.F_TRUNC),
-                                                                FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.TERMINAL_INTEGER),
-                                                                Arrays.asList(parameter));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_TRUNC)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
-        assertTrue(formula.isValid());
+        assertTrue(formula.isValid(null));
     }
 
     /**
-     * Tests {@link FormulaRoundingTrunc#isValid()} when parameter is not integer or numeric
+     * Tests {@link FormulaRoundingTrunc#isValid(Evaluator)} when parameter is not integer or numeric
      */
     @Test
     @Category({DatabaseTestCategory.class})
@@ -92,17 +88,15 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.F_TRUNC),
-                                                                FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.TERMINAL_INTEGER),
-                                                                Arrays.asList(parameter));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_TRUNC)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
-        assertFalse(formula.isValid());
+        assertFalse(formula.isValid(null));
     }
 
     /**
-     * Tests {@link FormulaRoundingTrunc#isValid()} when parameter is integer and precision is
+     * Tests {@link FormulaRoundingTrunc#isValid(Evaluator)} when parameter is integer and precision is
      * integer
      */
     @Test
@@ -114,17 +108,15 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.F_TRUNC),
-                                                                FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.TERMINAL_INTEGER),
-                                                                Arrays.asList(parameter, precision));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_TRUNC)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
-        assertTrue(formula.isValid());
+        assertTrue(formula.isValid(null));
     }
 
     /**
-     * Tests {@link FormulaRoundingTrunc#isValid()} when parameter is numeric and precision is
+     * Tests {@link FormulaRoundingTrunc#isValid(Evaluator)} when parameter is numeric and precision is
      * integer
      */
     @Test
@@ -136,17 +128,15 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.F_TRUNC),
-                                                                FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.TERMINAL_INTEGER),
-                                                                Arrays.asList(parameter, precision));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_TRUNC)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
-        assertTrue(formula.isValid());
+        assertTrue(formula.isValid(null));
     }
 
     /**
-     * Tests {@link FormulaRoundingTrunc#isValid()} when parameter is numeric and precision is
+     * Tests {@link FormulaRoundingTrunc#isValid(Evaluator)} when parameter is numeric and precision is
      * numeric
      */
     @Test
@@ -158,13 +148,11 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.F_TRUNC),
-                                                                FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.TERMINAL_INTEGER),
-                                                                Arrays.asList(parameter, precision));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_TRUNC)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
-        assertTrue(formula.isValid());
+        assertFalse(formula.isValid(null));
     }
 
     /**
@@ -176,13 +164,11 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.F_TRUNC),
-                                                                FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.TERMINAL_INTEGER),
-                                                                Arrays.asList(parameter));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_TRUNC)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
-        assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
+        assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
     }
 
     /**
@@ -194,11 +180,9 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.F_TRUNC),
-                                                                FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.TERMINAL_INTEGER),
-                                                                Arrays.asList(parameter));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_TRUNC)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
         assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
     }
@@ -212,13 +196,11 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.F_TRUNC),
-                                                                FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.TERMINAL_INTEGER),
-                                                                Arrays.asList(parameter));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_TRUNC)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
-        assertNull(formula.getReturnType(null));
+        assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType(null));
     }
 
     /**
@@ -234,13 +216,11 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.F_TRUNC),
-                                                                FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.TERMINAL_INTEGER),
-                                                                Arrays.asList(parameter, precision));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_TRUNC)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
-        assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
+        assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
     }
 
     /**
@@ -256,11 +236,9 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.F_TRUNC),
-                                                                FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.TERMINAL_INTEGER),
-                                                                Arrays.asList(parameter, precision));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_TRUNC)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
     }
@@ -278,13 +256,11 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.F_TRUNC),
-                                                                FormulaDescriptionFactory
-                                                                        .getDescription(FormulaType.TERMINAL_INTEGER),
-                                                                Arrays.asList(parameter, precision));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_TRUNC)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
-        assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
+        assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType(null));
     }
 
     /**
@@ -300,7 +276,8 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
         when(precision.getNumericValue(null)).thenReturn(10.0);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals(Integer.valueOf(117), formula.getIntegerValue(null));
     }
@@ -318,7 +295,8 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
         when(precision.getNumericValue(null)).thenReturn(2.0);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals(Integer.valueOf(1), formula.getIntegerValue(null));
     }
@@ -336,7 +314,8 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
         when(precision.getNumericValue(null)).thenReturn(10.0);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals(Double.valueOf(117), formula.getNumericValue(null));
     }
@@ -354,7 +333,8 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
         when(precision.getNumericValue(null)).thenReturn(2.0);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals(Double.valueOf(1.57), formula.getNumericValue(null));
     }
@@ -372,7 +352,8 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
         when(precision.getNumericValue(null)).thenReturn(2.0);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         formula.getStringValue(null);
     }
@@ -390,7 +371,8 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
         when(precision.getNumericValue(null)).thenReturn(2.0);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         formula.getBooleanValue(null);
     }
@@ -408,7 +390,8 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
         when(precision.getNumericValue(null)).thenReturn(2.0);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         formula.getDateValue(null);
     }
@@ -426,7 +409,8 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
         when(precision.getNumericValue(null)).thenReturn(2.0);
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         formula.getDurationValue(null);
     }
@@ -454,7 +438,9 @@ public class FormulaRoundingTruncTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
         when(precision.asText()).thenReturn("2");
 
-        FormulaRoundingTrunc formula = new FormulaRoundingTrunc(null, null, Arrays.asList(parameter, precision));
+        FormulaRoundingTrunc formula = spy(FormulaRoundingTrunc.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_TRUNC)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals("trunc(some_rule; 2)", formula.asText());
     }

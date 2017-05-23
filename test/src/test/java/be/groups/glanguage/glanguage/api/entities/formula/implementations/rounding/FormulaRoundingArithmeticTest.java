@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.round
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -13,8 +14,7 @@ import org.junit.experimental.categories.Category;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaRoundingArithmetic}
@@ -48,7 +48,7 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
     }
 
     /**
-     * Tests {@link FormulaRoundingArithmetic#isValid()} when parameter is integer
+     * Tests {@link FormulaRoundingArithmetic#isValid(Evaluator)} when parameter is integer
      */
     @Test
     @Category({DatabaseTestCategory.class})
@@ -56,19 +56,15 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .F_ROUNDED),
-                                                                          FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .TERMINAL_INTEGER),
-                                                                          Arrays.asList(parameter));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
-        assertTrue(formula.isValid());
+        assertTrue(formula.isValid(null));
     }
 
     /**
-     * Tests {@link FormulaRoundingArithmetic#isValid()} when parameter is numeric
+     * Tests {@link FormulaRoundingArithmetic#isValid(Evaluator)} when parameter is numeric
      */
     @Test
     @Category({DatabaseTestCategory.class})
@@ -76,19 +72,15 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .F_ROUNDED),
-                                                                          FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .TERMINAL_INTEGER),
-                                                                          Arrays.asList(parameter));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
-        assertTrue(formula.isValid());
+        assertTrue(formula.isValid(null));
     }
 
     /**
-     * Tests {@link FormulaRoundingArithmetic#isValid()} when parameter is not integer or numeric
+     * Tests {@link FormulaRoundingArithmetic#isValid(Evaluator)} when parameter is not integer or numeric
      */
     @Test
     @Category({DatabaseTestCategory.class})
@@ -96,19 +88,15 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .F_ROUNDED),
-                                                                          FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .TERMINAL_INTEGER),
-                                                                          Arrays.asList(parameter));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
-        assertFalse(formula.isValid());
+        assertFalse(formula.isValid(null));
     }
 
     /**
-     * Tests {@link FormulaRoundingArithmetic#isValid()} when parameter is integer and precision is
+     * Tests {@link FormulaRoundingArithmetic#isValid(Evaluator)} when parameter is integer and precision is
      * integer
      */
     @Test
@@ -120,19 +108,15 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .F_ROUNDED),
-                                                                          FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .TERMINAL_INTEGER),
-                                                                          Arrays.asList(parameter, precision));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
-        assertTrue(formula.isValid());
+        assertTrue(formula.isValid(null));
     }
 
     /**
-     * Tests {@link FormulaRoundingArithmetic#isValid()} when parameter is numeric and precision is
+     * Tests {@link FormulaRoundingArithmetic#isValid(Evaluator)} when parameter is numeric and precision is
      * integer
      */
     @Test
@@ -144,19 +128,15 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .F_ROUNDED),
-                                                                          FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .TERMINAL_INTEGER),
-                                                                          Arrays.asList(parameter, precision));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
-        assertTrue(formula.isValid());
+        assertTrue(formula.isValid(null));
     }
 
     /**
-     * Tests {@link FormulaRoundingArithmetic#isValid()} when parameter is numeric and precision is
+     * Tests {@link FormulaRoundingArithmetic#isValid(Evaluator)} when parameter is numeric and precision is
      * numeric
      */
     @Test
@@ -168,15 +148,11 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .F_ROUNDED),
-                                                                          FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .TERMINAL_INTEGER),
-                                                                          Arrays.asList(parameter, precision));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
-        assertTrue(formula.isValid());
+        assertTrue(formula.isValid(null));
     }
 
     /**
@@ -188,15 +164,11 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .F_ROUNDED),
-                                                                          FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .TERMINAL_INTEGER),
-                                                                          Arrays.asList(parameter));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
-        assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
+        assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
     }
 
     /**
@@ -208,13 +180,9 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .F_ROUNDED),
-                                                                          FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .TERMINAL_INTEGER),
-                                                                          Arrays.asList(parameter));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
         assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
     }
@@ -228,15 +196,11 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .F_ROUNDED),
-                                                                          FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .TERMINAL_INTEGER),
-                                                                          Arrays.asList(parameter));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter)).when(formula).getParameters();
 
-        assertNull(formula.getReturnType(null));
+        assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType(null));
     }
 
     /**
@@ -252,15 +216,11 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .F_ROUNDED),
-                                                                          FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .TERMINAL_INTEGER),
-                                                                          Arrays.asList(parameter, precision));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
-        assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
+        assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
     }
 
     /**
@@ -276,13 +236,9 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .F_ROUNDED),
-                                                                          FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .TERMINAL_INTEGER),
-                                                                          Arrays.asList(parameter, precision));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
     }
@@ -300,13 +256,9 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         AbstractFormula precision = mock(AbstractFormula.class);
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .F_ROUNDED),
-                                                                          FormulaDescriptionFactory
-                                                                                  .getDescription(FormulaType
-																										  .TERMINAL_INTEGER),
-                                                                          Arrays.asList(parameter, precision));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
     }
@@ -324,9 +276,8 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
         when(precision.getNumericValue(null)).thenReturn(10.0);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null,
-                                                                          null,
-                                                                          Arrays.asList(parameter, precision));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals(Integer.valueOf(110), formula.getIntegerValue(null));
     }
@@ -344,9 +295,8 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
         when(precision.getNumericValue(null)).thenReturn(0.01);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null,
-                                                                          null,
-                                                                          Arrays.asList(parameter, precision));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals(Integer.valueOf(1), formula.getIntegerValue(null));
     }
@@ -364,9 +314,8 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
         when(precision.getNumericValue(null)).thenReturn(10.0);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null,
-                                                                          null,
-                                                                          Arrays.asList(parameter, precision));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals(Double.valueOf(110), formula.getNumericValue(null));
     }
@@ -384,9 +333,8 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
         when(precision.getNumericValue(null)).thenReturn(0.01);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null,
-                                                                          null,
-                                                                          Arrays.asList(parameter, precision));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals(Double.valueOf(1.57), formula.getNumericValue(null));
     }
@@ -404,9 +352,8 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
         when(precision.getNumericValue(null)).thenReturn(0.01);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null,
-                                                                          null,
-                                                                          Arrays.asList(parameter, precision));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         formula.getStringValue(null);
     }
@@ -424,9 +371,8 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
         when(precision.getNumericValue(null)).thenReturn(0.01);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null,
-                                                                          null,
-                                                                          Arrays.asList(parameter, precision));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         formula.getBooleanValue(null);
     }
@@ -444,9 +390,8 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
         when(precision.getNumericValue(null)).thenReturn(0.01);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null,
-                                                                          null,
-                                                                          Arrays.asList(parameter, precision));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         formula.getDateValue(null);
     }
@@ -464,9 +409,8 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
         when(precision.getNumericValue(null)).thenReturn(0.01);
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null,
-                                                                          null,
-                                                                          Arrays.asList(parameter, precision));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         formula.getDurationValue(null);
     }
@@ -485,6 +429,7 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
      * Tests {@link FormulaRoundingArithmetic#asText()}
      */
     @Test
+    @Category(DatabaseTestCategory.class)
     public void testAsText() throws GLanguageException {
         AbstractFormula parameter = mock(AbstractFormula.class);
         when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
@@ -494,9 +439,9 @@ public class FormulaRoundingArithmeticTest extends BaseDatabaseTest {
         when(precision.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
         when(precision.asText()).thenReturn("0.01");
 
-        FormulaRoundingArithmetic formula = new FormulaRoundingArithmetic(null,
-                                                                          null,
-                                                                          Arrays.asList(parameter, precision));
+        FormulaRoundingArithmetic formula = spy(FormulaRoundingArithmetic.class);
+        doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_ROUNDED)).when(formula).getDescription();
+        doReturn(Arrays.asList(parameter, precision)).when(formula).getParameters();
 
         assertEquals("round(some_rule; 0.01)", formula.asText());
     }
