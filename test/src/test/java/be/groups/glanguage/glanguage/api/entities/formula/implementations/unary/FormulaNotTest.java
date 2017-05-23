@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.unary
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -10,9 +11,10 @@ import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaNot}
@@ -45,31 +47,35 @@ public class FormulaNotTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaNot#isValid()} when operand is boolean
+	 * Tests {@link FormulaNot#isValid(Evaluator)} when operand is boolean
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidBoolean() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
+
+		FormulaNot formula = spy(FormulaNot.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_NOT)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
 		
-		FormulaNot formula = new FormulaNot(FormulaDescriptionFactory.getDescription(FormulaType.OP_NOT), operand);
-		
-		assertTrue(formula.isValid());
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaNot#isValid()} when operand is not boolean
+	 * Tests {@link FormulaNot#isValid(Evaluator)} when operand is not boolean
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNotBoolean() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
-		
-		FormulaNot formula = new FormulaNot(FormulaDescriptionFactory.getDescription(FormulaType.OP_NOT), operand);
-		
-		assertFalse(formula.isValid());
+
+		FormulaNot formula = spy(FormulaNot.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_NOT)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
@@ -80,9 +86,11 @@ public class FormulaNotTest extends BaseDatabaseTest {
 	public void testGetReturnTypeBoolean() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
-		
-		FormulaNot formula = new FormulaNot(FormulaDescriptionFactory.getDescription(FormulaType.OP_NOT), operand);
-		
+
+		FormulaNot formula = spy(FormulaNot.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_NOT)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
@@ -94,10 +102,12 @@ public class FormulaNotTest extends BaseDatabaseTest {
 	public void testGetReturnTypeNotBoolean() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
-		
-		FormulaNot formula = new FormulaNot(FormulaDescriptionFactory.getDescription(FormulaType.OP_NOT), operand);
-		
-		assertNull(formula.getReturnType());
+
+		FormulaNot formula = spy(FormulaNot.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_NOT)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
+		assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType());
 	}
 	
 	/**
@@ -108,9 +118,10 @@ public class FormulaNotTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand.getBooleanValue(null)).thenReturn(true);
-		
-		FormulaNot formula = new FormulaNot(null, operand);
-		
+
+		FormulaNot formula = spy(FormulaNot.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getIntegerValue();
 	}
 	
@@ -122,9 +133,10 @@ public class FormulaNotTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand.getBooleanValue(null)).thenReturn(true);
-		
-		FormulaNot formula = new FormulaNot(null, operand);
-		
+
+		FormulaNot formula = spy(FormulaNot.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getNumericValue();
 	}
 	
@@ -136,9 +148,10 @@ public class FormulaNotTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand.getBooleanValue(null)).thenReturn(true);
-		
-		FormulaNot formula = new FormulaNot(null, operand);
-		
+
+		FormulaNot formula = spy(FormulaNot.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getStringValue();
 	}
 	
@@ -150,9 +163,10 @@ public class FormulaNotTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand.getBooleanValue(null)).thenReturn(true);
-		
-		FormulaNot formula = new FormulaNot(null, operand);
-		
+
+		FormulaNot formula = spy(FormulaNot.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 	
@@ -164,9 +178,10 @@ public class FormulaNotTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand.getBooleanValue(null)).thenReturn(null);
-		
-		FormulaNot formula = new FormulaNot(null, operand);
-		
+
+		FormulaNot formula = spy(FormulaNot.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getBooleanValue();
 	}
 	
@@ -178,9 +193,10 @@ public class FormulaNotTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand.getBooleanValue(null)).thenReturn(true);
-		
-		FormulaNot formula = new FormulaNot(null, operand);
-		
+
+		FormulaNot formula = spy(FormulaNot.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getDateValue();
 	}
 	
@@ -192,9 +208,10 @@ public class FormulaNotTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand.getBooleanValue(null)).thenReturn(true);
-		
-		FormulaNot formula = new FormulaNot(null, operand);
-		
+
+		FormulaNot formula = spy(FormulaNot.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getDurationValue();
 	}
 	
@@ -212,13 +229,16 @@ public class FormulaNotTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaNot#asText()}
 	 */
 	@Test
+	@Category({DatabaseTestCategory.class})
 	public void testAsText() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand.asText()).thenReturn("some_rule");
-		
-		FormulaNot formula = new FormulaNot(null, operand);
-		
+
+		FormulaNot formula = spy(FormulaNot.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_NOT)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		assertEquals("not some_rule", formula.asText());
 	}
 	

@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.unary
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -10,9 +11,10 @@ import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaUnaryMinus}
@@ -45,48 +47,51 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaUnaryMinus#isValid()} when operand is integer
+	 * Tests {@link FormulaUnaryMinus#isValid(Evaluator)} when operand is integer
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidInteger() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaUnaryMinus formula =
-				new FormulaUnaryMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_UNARY_MINUS), operand);
-				
-		assertTrue(formula.isValid());
+
+		FormulaUnaryMinus formula = spy(FormulaUnaryMinus.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_UNARY_MINUS)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaUnaryMinus#isValid()} when operand is numeric
+	 * Tests {@link FormulaUnaryMinus#isValid(Evaluator)} when operand is numeric
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNumeric() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaUnaryMinus formula =
-				new FormulaUnaryMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_UNARY_MINUS), operand);
-				
-		assertTrue(formula.isValid());
+
+		FormulaUnaryMinus formula = spy(FormulaUnaryMinus.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_UNARY_MINUS)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaUnaryMinus#isValid()} when operand is not integer or numeric
+	 * Tests {@link FormulaUnaryMinus#isValid(Evaluator)} when operand is not integer or numeric
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNotIntegerOrNumeric() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
-		
-		FormulaUnaryMinus formula =
-				new FormulaUnaryMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_UNARY_MINUS), operand);
-				
-		assertFalse(formula.isValid());
+
+		FormulaUnaryMinus formula = spy(FormulaUnaryMinus.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_UNARY_MINUS)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
@@ -97,10 +102,11 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	public void testGetReturnTypeInteger() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaUnaryMinus formula =
-				new FormulaUnaryMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_UNARY_MINUS), operand);
-				
+
+		FormulaUnaryMinus formula = spy(FormulaUnaryMinus.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_UNARY_MINUS)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
 	}
 	
@@ -112,10 +118,11 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	public void testGetReturnTypeNumeric() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaUnaryMinus formula =
-				new FormulaUnaryMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_UNARY_MINUS), operand);
-				
+
+		FormulaUnaryMinus formula = spy(FormulaUnaryMinus.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_UNARY_MINUS)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType());
 	}
 	
@@ -127,11 +134,12 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	public void testGetReturnTypeNotIntegerOrNumeric() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
-		
-		FormulaUnaryMinus formula =
-				new FormulaUnaryMinus(FormulaDescriptionFactory.getDescription(FormulaType.OP_UNARY_MINUS), operand);
-				
-		assertNull(formula.getReturnType());
+
+		FormulaUnaryMinus formula = spy(FormulaUnaryMinus.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_UNARY_MINUS)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
+		assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType());
 	}
 	
 	/**
@@ -142,9 +150,10 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
-		
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, operand);
-		
+
+		FormulaUnaryMinus formula = spy(FormulaUnaryMinus.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		assertEquals(Integer.valueOf(-1), formula.getIntegerValue());
 	}
 	
@@ -156,9 +165,10 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(null);
-		
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, operand);
-		
+
+		FormulaUnaryMinus formula = spy(FormulaUnaryMinus.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getIntegerValue();
 	}
 	
@@ -170,9 +180,10 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand.getNumericValue(null)).thenReturn(1.5);
-		
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, operand);
-		
+
+		FormulaUnaryMinus formula = spy(FormulaUnaryMinus.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		assertEquals(Double.valueOf(-1.5), formula.getNumericValue());
 	}
 	
@@ -184,9 +195,10 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand.getNumericValue(null)).thenReturn(null);
-		
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, operand);
-		
+
+		FormulaUnaryMinus formula = spy(FormulaUnaryMinus.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getNumericValue();
 	}
 	
@@ -198,9 +210,10 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
-		
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, operand);
-		
+
+		FormulaUnaryMinus formula = spy(FormulaUnaryMinus.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getStringValue();
 	}
 	
@@ -212,9 +225,10 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
-		
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, operand);
-		
+
+		FormulaUnaryMinus formula = spy(FormulaUnaryMinus.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getBooleanValue();
 	}
 	
@@ -226,9 +240,10 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
-		
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, operand);
-		
+
+		FormulaUnaryMinus formula = spy(FormulaUnaryMinus.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getDateValue();
 	}
 	
@@ -240,9 +255,10 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
-		
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, operand);
-		
+
+		FormulaUnaryMinus formula = spy(FormulaUnaryMinus.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getDurationValue();
 	}
 	
@@ -260,13 +276,16 @@ public class FormulaUnaryMinusTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaUnaryMinus#asText()}
 	 */
 	@Test
+	@Category({DatabaseTestCategory.class})
 	public void testAsText() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.asText()).thenReturn("some_rule");
-		
-		FormulaUnaryMinus formula = new FormulaUnaryMinus(null, operand);
-		
+
+		FormulaUnaryMinus formula = spy(FormulaUnaryMinus.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_UNARY_MINUS)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		assertEquals("- some_rule", formula.asText());
 	}
 	
