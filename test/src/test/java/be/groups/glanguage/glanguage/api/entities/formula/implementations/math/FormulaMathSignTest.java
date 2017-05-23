@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.math;
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -13,8 +14,7 @@ import org.junit.experimental.categories.Category;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaMathSign}
@@ -47,48 +47,51 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaMathSign#isValid()} when operand is integer
+	 * Tests {@link FormulaMathSign#isValid(Evaluator)} when operand is integer
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidInteger() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaMathSign formula =
-				new FormulaMathSign(FormulaDescriptionFactory.getDescription(FormulaType.F_SIGN), Arrays.asList(operand));
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SIGN)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
 				
-		assertTrue(formula.isValid());
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaMathSign#isValid()} when operand is numeric
+	 * Tests {@link FormulaMathSign#isValid(Evaluator)} when operand is numeric
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNumeric() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaMathSign formula =
-				new FormulaMathSign(FormulaDescriptionFactory.getDescription(FormulaType.F_SIGN), Arrays.asList(operand));
-				
-		assertTrue(formula.isValid());
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SIGN)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaMathSign#isValid()} when operand is not integer or numeric
+	 * Tests {@link FormulaMathSign#isValid(Evaluator)} when operand is not integer or numeric
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNotIntegerOrNumeric() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaMathSign formula =
-				new FormulaMathSign(FormulaDescriptionFactory.getDescription(FormulaType.F_SIGN), Arrays.asList(operand));
-				
-		assertFalse(formula.isValid());
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SIGN)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
@@ -99,11 +102,12 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 	public void testGetReturnTypeInteger() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaMathSign formula =
-				new FormulaMathSign(FormulaDescriptionFactory.getDescription(FormulaType.F_SIGN), Arrays.asList(operand));
-				
-		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SIGN)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
+		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
 	
 	/**
@@ -114,10 +118,11 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 	public void testGetReturnTypeNumeric() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaMathSign formula =
-				new FormulaMathSign(FormulaDescriptionFactory.getDescription(FormulaType.F_SIGN), Arrays.asList(operand));
-				
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SIGN)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
 	
@@ -129,11 +134,12 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 	public void testGetReturnTypeNotIntegerOrNumeric() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaMathSign formula =
-				new FormulaMathSign(FormulaDescriptionFactory.getDescription(FormulaType.F_SIGN), Arrays.asList(operand));
-				
-		assertNull(formula.getReturnType(null));
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SIGN)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
+		assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType(null));
 	}
 	
 	/**
@@ -144,9 +150,10 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getNumericValue(null)).thenReturn(1.0);
-		
-		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(operand));
-		
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		assertTrue(formula.getIntegerValue(null) >= 0);
 	}
 	
@@ -158,9 +165,10 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getNumericValue(null)).thenReturn(-1.0);
-		
-		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(operand));
-		
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		assertTrue(formula.getIntegerValue(null) <= 0);
 	}
 	
@@ -172,9 +180,10 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getNumericValue(null)).thenReturn(null);
-		
-		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(operand));
-		
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getIntegerValue(null);
 	}
 	
@@ -186,9 +195,10 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand.getNumericValue(null)).thenReturn(1.5);
-		
-		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(operand));
-		
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		assertTrue(formula.getNumericValue(null) >= 0);
 	}
 	
@@ -200,9 +210,10 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand.getNumericValue(null)).thenReturn(-1.5);
-		
-		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(operand));
-		
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		assertTrue(formula.getNumericValue(null) <= 0);
 	}
 	
@@ -214,9 +225,10 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand.getNumericValue(null)).thenReturn(null);
-		
-		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(operand));
-		
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getNumericValue(null);
 	}
 	
@@ -228,9 +240,10 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
-		
-		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(operand));
-		
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getStringValue(null);
 	}
 	
@@ -242,9 +255,10 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
-		
-		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(operand));
-		
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getBooleanValue(null);
 	}
 	
@@ -256,9 +270,10 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
-		
-		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(operand));
-		
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getDateValue(null);
 	}
 	
@@ -270,9 +285,10 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.getIntegerValue(null)).thenReturn(1);
-		
-		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(operand));
-		
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		formula.getDurationValue(null);
 	}
 	
@@ -290,13 +306,16 @@ public class FormulaMathSignTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMathSign#asText()}
 	 */
 	@Test
+	@Category({DatabaseTestCategory.class})
 	public void testAsText() throws GLanguageException {
 		AbstractFormula operand = mock(AbstractFormula.class);
 		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand.asText()).thenReturn("some_rule");
-		
-		FormulaMathSign formula = new FormulaMathSign(null, Arrays.asList(operand));
-		
+
+		FormulaMathSign formula = spy(FormulaMathSign.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SIGN)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand)).when(formula).getParameters();
+
 		assertEquals("sign(some_rule)", formula.asText());
 	}
 	
