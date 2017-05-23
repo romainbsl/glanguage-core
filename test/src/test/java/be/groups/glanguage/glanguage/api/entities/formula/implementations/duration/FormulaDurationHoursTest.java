@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.durat
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -14,8 +15,7 @@ import java.time.Duration;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaDurationHours}
@@ -48,63 +48,67 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaDurationHours#isValid()} with integer parameter
+	 * Tests {@link FormulaDurationHours#isValid(Evaluator)} with integer parameter
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidInteger() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaDurationHours formula =
-				new FormulaDurationHours(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS), Arrays.asList(parameter));
-				
-		assertTrue(formula.isValid());
+
+		FormulaDurationHours formula = spy(FormulaDurationHours.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaDurationHours#isValid()} with date parameter
+	 * Tests {@link FormulaDurationHours#isValid(Evaluator)} with date parameter
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidDate() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
-		
-		FormulaDurationHours formula =
-				new FormulaDurationHours(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS), Arrays.asList(parameter));
-				
-		assertFalse(formula.isValid());
+
+		FormulaDurationHours formula = spy(FormulaDurationHours.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaDurationHours#isValid()} with duration parameter
+	 * Tests {@link FormulaDurationHours#isValid(Evaluator)} with duration parameter
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidDuration() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
-		
-		FormulaDurationHours formula =
-				new FormulaDurationHours(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS), Arrays.asList(parameter));
-				
-		assertTrue(formula.isValid());
+
+		FormulaDurationHours formula = spy(FormulaDurationHours.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaDurationHours#isValid()} with parameter not integer nor date nor duration
+	 * Tests {@link FormulaDurationHours#isValid(Evaluator)} with parameter not integer nor date nor duration
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNotIntegerOrDateOrDuration() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaDurationHours formula =
-				new FormulaDurationHours(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS), Arrays.asList(parameter));
-				
-		assertFalse(formula.isValid());
+
+		FormulaDurationHours formula = spy(FormulaDurationHours.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
@@ -115,10 +119,11 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 	public void testGetReturnTypeInteger() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaDurationMinutes formula =
-				new FormulaDurationMinutes(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS), Arrays.asList(parameter));
-				
+
+		FormulaDurationHours formula = spy(FormulaDurationHours.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.DURATION, formula.getReturnType(null));
 	}
 	
@@ -130,11 +135,12 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 	public void testGetReturnTypeDate() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
-		
-		FormulaDurationHours formula =
-				new FormulaDurationHours(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS), Arrays.asList(parameter));
-				
-		assertNull(formula.getReturnType(null));
+
+		FormulaDurationHours formula = spy(FormulaDurationHours.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
+		assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType(null));
 	}
 	
 	/**
@@ -145,10 +151,11 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 	public void testGetReturnTypeDuration() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
-		
-		FormulaDurationHours formula =
-				new FormulaDurationHours(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS), Arrays.asList(parameter));
-				
+
+		FormulaDurationHours formula = spy(FormulaDurationHours.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
 	}
 	
@@ -160,11 +167,12 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 	public void testGetReturnTypeNotIntegerOrDateOrDuration() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaDurationHours formula =
-				new FormulaDurationHours(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS), Arrays.asList(parameter));
-				
-		assertNull(formula.getReturnType(null));
+
+		FormulaDurationHours formula = spy(FormulaDurationHours.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
+		assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType(null));
 	}
 	
 	/**
@@ -175,9 +183,10 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		when(parameter.getDurationValue(null)).thenReturn(Duration.ofHours(2L));
-		
-		FormulaDurationHours formula = new FormulaDurationHours(null, Arrays.asList(parameter));
-		
+
+		FormulaDurationHours formula = spy(FormulaDurationHours.class);
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals(Integer.valueOf(2), formula.getIntegerValue(null));
 	}
 	
@@ -189,9 +198,10 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		when(parameter.getDurationValue(null)).thenReturn(Duration.ofHours(2L));
-		
-		FormulaDurationHours formula = new FormulaDurationHours(null, Arrays.asList(parameter));
-		
+
+		FormulaDurationHours formula = spy(FormulaDurationHours.class);
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		formula.getNumericValue(null);
 	}
 	
@@ -203,9 +213,10 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		when(parameter.getDurationValue(null)).thenReturn(Duration.ofHours(2L));
-		
-		FormulaDurationHours formula = new FormulaDurationHours(null, Arrays.asList(parameter));
-		
+
+		FormulaDurationHours formula = spy(FormulaDurationHours.class);
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		formula.getStringValue(null);
 	}
 	
@@ -217,9 +228,10 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		when(parameter.getDurationValue(null)).thenReturn(Duration.ofHours(2L));
-		
-		FormulaDurationHours formula = new FormulaDurationHours(null, Arrays.asList(parameter));
-		
+
+		FormulaDurationHours formula = spy(FormulaDurationHours.class);
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		formula.getBooleanValue(null);
 	}
 	
@@ -231,9 +243,10 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		when(parameter.getDurationValue(null)).thenReturn(Duration.ofHours(2L));
-		
-		FormulaDurationHours formula = new FormulaDurationHours(null, Arrays.asList(parameter));
-		
+
+		FormulaDurationHours formula = spy(FormulaDurationHours.class);
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		formula.getDateValue(null);
 	}
 	
@@ -245,9 +258,10 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(2);
-		
-		FormulaDurationHours formula = new FormulaDurationHours(null, Arrays.asList(parameter));
-		
+
+		FormulaDurationHours formula = spy(FormulaDurationHours.class);
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals(Duration.ofHours(2L), formula.getDurationValue(null));
 	}
 	
@@ -265,13 +279,16 @@ public class FormulaDurationHoursTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDurationHours#asText()}
 	 */
 	@Test
+	@Category({DatabaseTestCategory.class})
 	public void testAsText() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.asText()).thenReturn("some_rule");
-		
-		FormulaDurationHours formula = new FormulaDurationHours(null, Arrays.asList(parameter));
-		
+
+		FormulaDurationHours formula = spy(FormulaDurationHours.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_HOURS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals("hours(some_rule)", formula.asText());
 	}
 	
