@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.strin
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -13,8 +14,7 @@ import org.junit.experimental.categories.Category;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaStringItem}
@@ -47,7 +47,7 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaStringItem#isValid()} when parameters match
+	 * Tests {@link FormulaStringItem#isValid(Evaluator)} when parameters match
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -60,15 +60,16 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 		
 		AbstractFormula index = mock(AbstractFormula.class);
 		when(index.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaStringItem formula = new FormulaStringItem(FormulaDescriptionFactory.getDescription(FormulaType.F_STRING_ITEM),
-				Arrays.asList(string, separator, index));
-				
-		assertTrue(formula.isValid());
+
+		FormulaStringItem formula = spy(FormulaStringItem.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_STRING_ITEM)).when(formula).getDescription();
+		doReturn(Arrays.asList(string, separator, index)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaStringItem#isValid()} when parameters don't match
+	 * Tests {@link FormulaStringItem#isValid(Evaluator)} when parameters don't match
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -81,11 +82,12 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 		
 		AbstractFormula index = mock(AbstractFormula.class);
 		when(index.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaStringItem formula = new FormulaStringItem(FormulaDescriptionFactory.getDescription(FormulaType.F_STRING_ITEM),
-				Arrays.asList(string, separator, index));
-				
-		assertFalse(formula.isValid());
+
+		FormulaStringItem formula = spy(FormulaStringItem.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_STRING_ITEM)).when(formula).getDescription();
+		doReturn(Arrays.asList(string, separator, index)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
@@ -102,10 +104,11 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 		
 		AbstractFormula index = mock(AbstractFormula.class);
 		when(index.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaStringItem formula = new FormulaStringItem(FormulaDescriptionFactory.getDescription(FormulaType.F_STRING_ITEM),
-				Arrays.asList(string, separator, index));
-				
+
+		FormulaStringItem formula = spy(FormulaStringItem.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_STRING_ITEM)).when(formula).getDescription();
+		doReturn(Arrays.asList(string, separator, index)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.STRING, formula.getReturnType(null));
 	}
 	
@@ -123,11 +126,12 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 		
 		AbstractFormula index = mock(AbstractFormula.class);
 		when(index.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaStringItem formula = new FormulaStringItem(FormulaDescriptionFactory.getDescription(FormulaType.F_STRING_ITEM),
-				Arrays.asList(string, separator, index));
-				
-		assertNull(formula.getReturnType(null));
+
+		FormulaStringItem formula = spy(FormulaStringItem.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_STRING_ITEM)).when(formula).getDescription();
+		doReturn(Arrays.asList(string, separator, index)).when(formula).getParameters();
+
+		assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType(null));
 	}
 	
 	/**
@@ -146,9 +150,10 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 		AbstractFormula index = mock(AbstractFormula.class);
 		when(index.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(index.getIntegerValue(null)).thenReturn(2);
-		
-		FormulaStringItem formula = new FormulaStringItem(null, Arrays.asList(string, separator, index));
-		
+
+		FormulaStringItem formula = spy(FormulaStringItem.class);
+		doReturn(Arrays.asList(string, separator, index)).when(formula).getParameters();
+
 		formula.getIntegerValue(null);
 	}
 	
@@ -168,9 +173,10 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 		AbstractFormula index = mock(AbstractFormula.class);
 		when(index.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(index.getIntegerValue(null)).thenReturn(2);
-		
-		FormulaStringItem formula = new FormulaStringItem(null, Arrays.asList(string, separator, index));
-		
+
+		FormulaStringItem formula = spy(FormulaStringItem.class);
+		doReturn(Arrays.asList(string, separator, index)).when(formula).getParameters();
+
 		formula.getNumericValue(null);
 	}
 	
@@ -190,9 +196,10 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 		AbstractFormula index = mock(AbstractFormula.class);
 		when(index.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(index.getIntegerValue(null)).thenReturn(2);
-		
-		FormulaStringItem formula = new FormulaStringItem(null, Arrays.asList(string, separator, index));
-		
+
+		FormulaStringItem formula = spy(FormulaStringItem.class);
+		doReturn(Arrays.asList(string, separator, index)).when(formula).getParameters();
+
 		assertEquals("special", formula.getStringValue(null));
 	}
 	
@@ -212,9 +219,10 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 		AbstractFormula index = mock(AbstractFormula.class);
 		when(index.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(index.getIntegerValue(null)).thenReturn(3);
-		
-		FormulaStringItem formula = new FormulaStringItem(null, Arrays.asList(string, separator, index));
-		
+
+		FormulaStringItem formula = spy(FormulaStringItem.class);
+		doReturn(Arrays.asList(string, separator, index)).when(formula).getParameters();
+
 		assertEquals("value", formula.getStringValue(null));
 	}
 	
@@ -234,9 +242,10 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 		AbstractFormula index = mock(AbstractFormula.class);
 		when(index.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(index.getIntegerValue(null)).thenReturn(4);
-		
-		FormulaStringItem formula = new FormulaStringItem(null, Arrays.asList(string, separator, index));
-		
+
+		FormulaStringItem formula = spy(FormulaStringItem.class);
+		doReturn(Arrays.asList(string, separator, index)).when(formula).getParameters();
+
 		assertEquals("", formula.getStringValue(null));
 	}
 	
@@ -256,9 +265,10 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 		AbstractFormula index = mock(AbstractFormula.class);
 		when(index.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(index.getIntegerValue(null)).thenReturn(2);
-		
-		FormulaStringItem formula = new FormulaStringItem(null, Arrays.asList(string, separator, index));
-		
+
+		FormulaStringItem formula = spy(FormulaStringItem.class);
+		doReturn(Arrays.asList(string, separator, index)).when(formula).getParameters();
+
 		assertEquals("value", formula.getStringValue(null));
 	}
 	
@@ -278,9 +288,10 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 		AbstractFormula index = mock(AbstractFormula.class);
 		when(index.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(index.getIntegerValue(null)).thenReturn(2);
-		
-		FormulaStringItem formula = new FormulaStringItem(null, Arrays.asList(string, separator, index));
-		
+
+		FormulaStringItem formula = spy(FormulaStringItem.class);
+		doReturn(Arrays.asList(string, separator, index)).when(formula).getParameters();
+
 		formula.getBooleanValue(null);
 	}
 	
@@ -300,9 +311,10 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 		AbstractFormula index = mock(AbstractFormula.class);
 		when(index.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(index.getIntegerValue(null)).thenReturn(2);
-		
-		FormulaStringItem formula = new FormulaStringItem(null, Arrays.asList(string, separator, index));
-		
+
+		FormulaStringItem formula = spy(FormulaStringItem.class);
+		doReturn(Arrays.asList(string, separator, index)).when(formula).getParameters();
+
 		formula.getDateValue(null);
 	}
 	
@@ -322,9 +334,10 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 		AbstractFormula index = mock(AbstractFormula.class);
 		when(index.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(index.getIntegerValue(null)).thenReturn(2);
-		
-		FormulaStringItem formula = new FormulaStringItem(null, Arrays.asList(string, separator, index));
-		
+
+		FormulaStringItem formula = spy(FormulaStringItem.class);
+		doReturn(Arrays.asList(string, separator, index)).when(formula).getParameters();
+
 		formula.getDurationValue(null);
 	}
 	
@@ -332,6 +345,7 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaStringItem#asText()}
 	 */
 	@Test
+	@Category({DatabaseTestCategory.class})
 	public void testAsText() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -344,9 +358,11 @@ public class FormulaStringItemTest extends BaseDatabaseTest {
 		AbstractFormula index = mock(AbstractFormula.class);
 		when(index.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(index.asText()).thenReturn("2");
-		
-		FormulaStringItem formula = new FormulaStringItem(null, Arrays.asList(string, separator, index));
-		
+
+		FormulaStringItem formula = spy(FormulaStringItem.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_STRING_ITEM)).when(formula).getDescription();
+		doReturn(Arrays.asList(string, separator, index)).when(formula).getParameters();
+
 		assertEquals("stringItem(some_rule; /; 2)", formula.asText());
 	}
 	

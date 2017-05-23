@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.strin
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -13,8 +14,7 @@ import org.junit.experimental.categories.Category;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaSubString}
@@ -47,7 +47,7 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaStringItem#isValid()} when parameters match
+	 * Tests {@link FormulaStringItem#isValid(Evaluator)} when parameters match
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -60,15 +60,16 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 		
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaStringItem formula = new FormulaStringItem(FormulaDescriptionFactory.getDescription(FormulaType.F_SUBSTRING),
-				Arrays.asList(string, beginIndex, endIndex));
+
+		FormulaSubString formula = spy(FormulaSubString.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SUBSTRING)).when(formula).getDescription();
+		doReturn(Arrays.asList(string, beginIndex, endIndex)).when(formula).getParameters();
 				
-		assertTrue(formula.isValid());
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaStringItem#isValid()} when parameters don't match
+	 * Tests {@link FormulaStringItem#isValid(Evaluator)} when parameters don't match
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -81,11 +82,12 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 		
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaStringItem formula = new FormulaStringItem(FormulaDescriptionFactory.getDescription(FormulaType.F_SUBSTRING),
-				Arrays.asList(string, beginIndex, endIndex));
-				
-		assertFalse(formula.isValid());
+
+		FormulaSubString formula = spy(FormulaSubString.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SUBSTRING)).when(formula).getDescription();
+		doReturn(Arrays.asList(string, beginIndex, endIndex)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
@@ -102,10 +104,11 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 		
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaStringItem formula = new FormulaStringItem(FormulaDescriptionFactory.getDescription(FormulaType.F_SUBSTRING),
-				Arrays.asList(string, beginIndex, endIndex));
-				
+
+		FormulaSubString formula = spy(FormulaSubString.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SUBSTRING)).when(formula).getDescription();
+		doReturn(Arrays.asList(string, beginIndex, endIndex)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.STRING, formula.getReturnType(null));
 	}
 	
@@ -123,11 +126,12 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 		
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaStringItem formula = new FormulaStringItem(FormulaDescriptionFactory.getDescription(FormulaType.F_SUBSTRING),
-				Arrays.asList(string, beginIndex, endIndex));
-				
-		assertNull(formula.getReturnType(null));
+
+		FormulaSubString formula = spy(FormulaSubString.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SUBSTRING)).when(formula).getDescription();
+		doReturn(Arrays.asList(string, beginIndex, endIndex)).when(formula).getParameters();
+
+		assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType(null));
 	}
 	
 	/**
@@ -146,9 +150,10 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue(null)).thenReturn(9);
-		
-		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
-		
+
+		FormulaSubString formula = spy(FormulaSubString.class);
+		doReturn(Arrays.asList(string, beginIndex, endIndex)).when(formula).getParameters();
+
 		formula.getIntegerValue(null);
 	}
 	
@@ -168,9 +173,10 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue(null)).thenReturn(9);
-		
-		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
-		
+
+		FormulaSubString formula = spy(FormulaSubString.class);
+		doReturn(Arrays.asList(string, beginIndex, endIndex)).when(formula).getParameters();
+
 		formula.getNumericValue(null);
 	}
 	
@@ -190,9 +196,10 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue(null)).thenReturn(9);
-		
-		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
-		
+
+		FormulaSubString formula = spy(FormulaSubString.class);
+		doReturn(Arrays.asList(string, beginIndex, endIndex)).when(formula).getParameters();
+
 		assertEquals("special", formula.getStringValue(null));
 	}
 	
@@ -212,9 +219,10 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue(null)).thenReturn(9);
-		
-		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
-		
+
+		FormulaSubString formula = spy(FormulaSubString.class);
+		doReturn(Arrays.asList(string, beginIndex, endIndex)).when(formula).getParameters();
+
 		formula.getStringValue(null);
 	}
 	
@@ -235,9 +243,10 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue(null)).thenReturn(2);
-		
-		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
-		
+
+		FormulaSubString formula = spy(FormulaSubString.class);
+		doReturn(Arrays.asList(string, beginIndex, endIndex)).when(formula).getParameters();
+
 		formula.getStringValue(null);
 	}
 	
@@ -257,9 +266,10 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue(null)).thenReturn(16);
-		
-		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
-		
+
+		FormulaSubString formula = spy(FormulaSubString.class);
+		doReturn(Arrays.asList(string, beginIndex, endIndex)).when(formula).getParameters();
+
 		formula.getStringValue(null);
 	}
 	
@@ -279,9 +289,10 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue(null)).thenReturn(9);
-		
-		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
-		
+
+		FormulaSubString formula = spy(FormulaSubString.class);
+		doReturn(Arrays.asList(string, beginIndex, endIndex)).when(formula).getParameters();
+
 		formula.getBooleanValue(null);
 	}
 	
@@ -301,9 +312,10 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue(null)).thenReturn(9);
-		
-		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
-		
+
+		FormulaSubString formula = spy(FormulaSubString.class);
+		doReturn(Arrays.asList(string, beginIndex, endIndex)).when(formula).getParameters();
+
 		formula.getDateValue(null);
 	}
 	
@@ -323,9 +335,10 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.getIntegerValue(null)).thenReturn(9);
-		
-		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
-		
+
+		FormulaSubString formula = spy(FormulaSubString.class);
+		doReturn(Arrays.asList(string, beginIndex, endIndex)).when(formula).getParameters();
+
 		formula.getDurationValue(null);
 	}
 	
@@ -333,6 +346,7 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaSubString#asText()}
 	 */
 	@Test
+	@Category({DatabaseTestCategory.class})
 	public void testAsText() throws GLanguageException {
 		AbstractFormula string = mock(AbstractFormula.class);
 		when(string.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
@@ -345,9 +359,11 @@ public class FormulaSubStringTest extends BaseDatabaseTest {
 		AbstractFormula endIndex = mock(AbstractFormula.class);
 		when(endIndex.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(endIndex.asText()).thenReturn("7");
-		
-		FormulaSubString formula = new FormulaSubString(null, Arrays.asList(string, beginIndex, endIndex));
-		
+
+		FormulaSubString formula = spy(FormulaSubString.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SUBSTRING)).when(formula).getDescription();
+		doReturn(Arrays.asList(string, beginIndex, endIndex)).when(formula).getParameters();
+
 		assertEquals("subString(some_rule; 3; 7)", formula.asText());
 	}
 	
