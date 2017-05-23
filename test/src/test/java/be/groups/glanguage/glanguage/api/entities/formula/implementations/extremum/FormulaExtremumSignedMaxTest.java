@@ -1,16 +1,21 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum;
 
+import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -18,7 +23,7 @@ import static org.mockito.Mockito.*;
  * 
  * @author DUPIREFR
  */
-public class FormulaExtremumSignedMaxTest {
+public class FormulaExtremumSignedMaxTest extends BaseDatabaseTest {
 	
 	/*
 	 * Constants
@@ -47,7 +52,118 @@ public class FormulaExtremumSignedMaxTest {
 		
 		assertFalse(formula.isTerminal());
 	}
-	
+
+	/**
+	 * Tests {@link FormulaExtremumMax#isValid(Evaluator)} when parameters match (2 integers)
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidMatchingIntegers() throws GLanguageException {
+		AbstractFormula param1 = mock(AbstractFormula.class);
+		when(param1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+
+		AbstractFormula param2 = mock(AbstractFormula.class);
+		when(param2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+
+		FormulaExtremumSignedMax formula = spy(FormulaExtremumSignedMax.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SMAX)).when(formula).getDescription();
+		doReturn(Arrays.asList(param1, param2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
+	}
+
+	/**
+	 * Tests {@link FormulaExtremumMax#isValid(Evaluator)} when parameters match (2 numerics)
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidMatchingNumerics() throws GLanguageException {
+		AbstractFormula param1 = mock(AbstractFormula.class);
+		when(param1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+
+		AbstractFormula param2 = mock(AbstractFormula.class);
+		when(param2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+
+		FormulaExtremumSignedMax formula = spy(FormulaExtremumSignedMax.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SMAX)).when(formula).getDescription();
+		doReturn(Arrays.asList(param1, param2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
+	}
+
+	/**
+	 * Tests {@link FormulaExtremumMax#isValid(Evaluator)} when parameters match (1 integer, 1 numeric)
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidMatchingIntegerNumeric() throws GLanguageException {
+		AbstractFormula param1 = mock(AbstractFormula.class);
+		when(param1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+
+		AbstractFormula param2 = mock(AbstractFormula.class);
+		when(param2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+
+		FormulaExtremumSignedMax formula = spy(FormulaExtremumSignedMax.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SMAX)).when(formula).getDescription();
+		doReturn(Arrays.asList(param1, param2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
+	}
+
+	/**
+	 * Tests {@link FormulaExtremumMax#isValid(Evaluator)} when parameters match (1 numeric, 1 integer)
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidMatchingNumericInteger() throws GLanguageException {
+		AbstractFormula param1 = mock(AbstractFormula.class);
+		when(param1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
+
+		AbstractFormula param2 = mock(AbstractFormula.class);
+		when(param2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+
+		FormulaExtremumSignedMax formula = spy(FormulaExtremumSignedMax.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SMAX)).when(formula).getDescription();
+		doReturn(Arrays.asList(param1, param2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
+	}
+
+	/**
+	 * Tests {@link FormulaExtremumMax#isValid(Evaluator)} when parameters don't match
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidNotMatching() throws GLanguageException {
+		AbstractFormula param1 = mock(AbstractFormula.class);
+		when(param1.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+
+		AbstractFormula param2 = mock(AbstractFormula.class);
+		when(param2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+
+		FormulaExtremumSignedMax formula = spy(FormulaExtremumSignedMax.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SMAX)).when(formula).getDescription();
+		doReturn(Arrays.asList(param1, param2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
+	}
+
+	/**
+	 * Tests {@link FormulaExtremumMax#isValid(Evaluator)} when parameters number don't match
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidNotMatchingNumber() throws GLanguageException {
+		AbstractFormula param1 = mock(AbstractFormula.class);
+		when(param1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
+
+		FormulaExtremumSignedMax formula = spy(FormulaExtremumSignedMax.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SMAX)).when(formula).getDescription();
+		doReturn(Arrays.asList(param1)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
+	}
+
 	/**
 	 * Tests {@link FormulaExtremumSignedMax#getIntegerValue()} when all parameters are integers
 	 */
@@ -307,6 +423,7 @@ public class FormulaExtremumSignedMaxTest {
 		parameters.add(param3);
 		
 		FormulaExtremumSignedMax formula = spy(FormulaExtremumSignedMax.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_SMAX)).when(formula).getDescription();
 		doReturn(parameters).when(formula).getParameters();
 		
 		assertEquals("smax(some_rule1, some_rule2, some_rule3)", formula.asText());
