@@ -2,13 +2,13 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.group
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatDate;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalNumeric;
-import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleGroupItem;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
@@ -19,8 +19,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaGroupSumV}
@@ -33,7 +32,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	 * Tests
 	 */
 	/**
-	 * Tests {@link FormulaFormatDate#getDiscriminatorValue()}
+	 * Tests {@link FormulaGroupSumV#getDiscriminatorValue()}
 	 */
 	@Test
 	public void testGetDiscriminatorValue() {
@@ -43,7 +42,7 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaFormatDate#isTerminal()}
+	 * Tests {@link FormulaGroupSumV#isTerminal()}
 	 */
 	@Test
 	public void testIsTerminal() {
@@ -53,18 +52,19 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaFormatDate#isValid()} when there is no group rule
+	 * Tests {@link FormulaGroupSumV#isValid(Evaluator)} when there is no group rule
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNoGroupRule() throws GLanguageException {
-		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
-				
-		assertTrue(formula.isValid());
+		FormulaGroupSumV formula = spy(FormulaGroupSumV.class);
+		doReturn("1").when(formula).getConstantValue();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaFormatDate#isValid()} when there is a rule with wrong type within the group rule
+	 * Tests {@link FormulaGroupSumV#isValid(Evaluator)} when there is a rule with wrong type within the group rule
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -83,15 +83,16 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 			}});
 		ruleGroup.add(ruleGroupItem);
 		groupRule.setGroupItems(ruleGroup);
-		
-		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
-		formula.setGroupRule(groupRule);
-		
-		assertFalse(formula.isValid());
+
+		FormulaGroupSumV formula = spy(FormulaGroupSumV.class);
+		doReturn("1").when(formula).getConstantValue();
+		doReturn(groupRule).when(formula).getGroupRule();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaFormatDate#isValid()} when there are rules with right type within the group rule
+	 * Tests {@link FormulaGroupSumV#isValid(Evaluator)} when there are rules with right type within the group rule
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -108,38 +109,36 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 		RuleGroupItem ruleGroupItem2 = new RuleGroupItem(); 
 		ruleGroupItem2.setGroupRule(groupRule);
 		ruleGroupItem2.setReferencedRule(rv2);
-		SortedSet<RuleGroupItem> ruleGroup = new TreeSet<>(new Comparator<RuleGroupItem>() {
-			@Override
-			public int compare(RuleGroupItem o1, RuleGroupItem o2) {
-				return o1.getSequenceNumber() - o2.getSequenceNumber();
-			}});
+		SortedSet<RuleGroupItem> ruleGroup = new TreeSet<>(Comparator.comparingInt(RuleGroupItem::getSequenceNumber));
 		ruleGroup.add(ruleGroupItem1);
 		ruleGroup.add(ruleGroupItem2);
 		groupRule.setGroupItems(ruleGroup);
-		
-		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
-		formula.setGroupRule(groupRule);
-		
-		assertTrue(formula.isValid());
+
+		FormulaGroupSumV formula = spy(FormulaGroupSumV.class);
+		doReturn("1").when(formula).getConstantValue();
+		doReturn(groupRule).when(formula).getGroupRule();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaFormatDate#isValid()} when there is no group rule
+	 * Tests {@link FormulaGroupSumV#isValid(Evaluator)} when there is no group rule
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnNoGroupRule() throws GLanguageException {
-		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
-				
+	public void testGetReturnTypeNoGroupRule() throws GLanguageException {
+		FormulaGroupSumV formula = spy(FormulaGroupSumV.class);
+		doReturn("1").when(formula).getConstantValue();
+
 		assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType(null));
 	}
 
 	/**
-	 * Tests {@link FormulaFormatDate#isValid()} when there are rules with integer and numeric type within the group rule
+	 * Tests {@link FormulaGroupSumV#isValid(Evaluator)} when there are rules with integer and numeric type within the group rule
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidGroupRuleIntegerAndNumeric() throws GLanguageException {
+	public void testGetReturnTypeGroupRuleIntegerAndNumeric() throws GLanguageException {
 		RuleVersion rv1 = mock(RuleVersion.class);
 		when(rv1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		RuleVersion rv2 = mock(RuleVersion.class);
@@ -154,27 +153,24 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 		ruleGroupItem2.setGroupRule(groupRule);
 		ruleGroupItem2.setReferencedRule(rv2);
 		ruleGroupItem1.setSequenceNumber(2);
-		SortedSet<RuleGroupItem> ruleGroup = new TreeSet<>(new Comparator<RuleGroupItem>() {
-			@Override
-			public int compare(RuleGroupItem o1, RuleGroupItem o2) {
-				return o1.getSequenceNumber() - o2.getSequenceNumber();
-			}});
+		SortedSet<RuleGroupItem> ruleGroup = new TreeSet<>(Comparator.comparingInt(RuleGroupItem::getSequenceNumber));
 		ruleGroup.add(ruleGroupItem1);
 		ruleGroup.add(ruleGroupItem2);
 		groupRule.setGroupItems(ruleGroup);
-		
-		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
-		formula.setGroupRule(groupRule);
-		
+
+		FormulaGroupSumV formula = spy(FormulaGroupSumV.class);
+		doReturn("1").when(formula).getConstantValue();
+		doReturn(groupRule).when(formula).getGroupRule();
+
 		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
 
 	/**
-	 * Tests {@link FormulaFormatDate#isValid()} when there are rules with integer type within the group rule
+	 * Tests {@link FormulaGroupSumV#isValid(Evaluator)} when there are rules with integer type within the group rule
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidGroupRuleAllInteger() throws GLanguageException {
+	public void testGetReturnTypeGroupRuleAllInteger() throws GLanguageException {
 		RuleVersion rv1 = mock(RuleVersion.class);
 		when(rv1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		RuleVersion rv2 = mock(RuleVersion.class);
@@ -187,27 +183,24 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 		RuleGroupItem ruleGroupItem2 = new RuleGroupItem(); 
 		ruleGroupItem2.setGroupRule(groupRule);
 		ruleGroupItem2.setReferencedRule(rv2);
-		SortedSet<RuleGroupItem> ruleGroup = new TreeSet<>(new Comparator<RuleGroupItem>() {
-			@Override
-			public int compare(RuleGroupItem o1, RuleGroupItem o2) {
-				return o1.getSequenceNumber() - o2.getSequenceNumber();
-			}});
+		SortedSet<RuleGroupItem> ruleGroup = new TreeSet<>(Comparator.comparingInt(RuleGroupItem::getSequenceNumber));
 		ruleGroup.add(ruleGroupItem1);
 		ruleGroup.add(ruleGroupItem2);
 		groupRule.setGroupItems(ruleGroup);
 		
-		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
-		formula.setGroupRule(groupRule);
+		FormulaGroupSumV formula = spy(FormulaGroupSumV.class);
+		doReturn("1").when(formula).getConstantValue();
+		doReturn(groupRule).when(formula).getGroupRule();
 		
 		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
 	}
 
 	/**
-	 * Tests {@link FormulaFormatDate#isValid()} when there are rules with numeric type within the group rule
+	 * Tests {@link FormulaGroupSumV#isValid(Evaluator)} when there are rules with numeric type within the group rule
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidGroupRuleAllNumeric() throws GLanguageException {
+	public void testGetReturnTypeGroupRuleAllNumeric() throws GLanguageException {
 		RuleVersion rv1 = mock(RuleVersion.class);
 		when(rv1.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		RuleVersion rv2 = mock(RuleVersion.class);
@@ -220,23 +213,20 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 		RuleGroupItem ruleGroupItem2 = new RuleGroupItem(); 
 		ruleGroupItem2.setGroupRule(groupRule);
 		ruleGroupItem2.setReferencedRule(rv2);
-		SortedSet<RuleGroupItem> ruleGroup = new TreeSet<>(new Comparator<RuleGroupItem>() {
-			@Override
-			public int compare(RuleGroupItem o1, RuleGroupItem o2) {
-				return o1.getSequenceNumber() - o2.getSequenceNumber();
-			}});
+		SortedSet<RuleGroupItem> ruleGroup = new TreeSet<>(Comparator.comparingInt(RuleGroupItem::getSequenceNumber));
 		ruleGroup.add(ruleGroupItem1);
 		ruleGroup.add(ruleGroupItem2);
 		groupRule.setGroupItems(ruleGroup);
-		
-		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
-		formula.setGroupRule(groupRule);
-		
+
+		FormulaGroupSumV formula = spy(FormulaGroupSumV.class);
+		doReturn("1").when(formula).getConstantValue();
+		doReturn(groupRule).when(formula).getGroupRule();
+
 		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
 
 	/**
-	 * Tests {@link FormulaFormatDate#getIntegerValue()}
+	 * Tests {@link FormulaGroupSumV#getIntegerValue()}
 	 */
 	@Test
 	public void testGetIntegerValue() throws GLanguageException {
@@ -285,26 +275,23 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 		ruleGroupItem5.setGroupRule(groupRule);
 		ruleGroupItem5.setReferencedRule(rv5);
 		ruleGroupItem5.setSequenceNumber(5);
-		SortedSet<RuleGroupItem> ruleGroup = new TreeSet<>(new Comparator<RuleGroupItem>() {
-			@Override
-			public int compare(RuleGroupItem o1, RuleGroupItem o2) {
-				return o1.getSequenceNumber() - o2.getSequenceNumber();
-			}});
+		SortedSet<RuleGroupItem> ruleGroup = new TreeSet<>(Comparator.comparingInt(RuleGroupItem::getSequenceNumber));
 		ruleGroup.add(ruleGroupItem1);
 		ruleGroup.add(ruleGroupItem2);
 		ruleGroup.add(ruleGroupItem3);
 		ruleGroup.add(ruleGroupItem4);
 		ruleGroup.add(ruleGroupItem5);
 		groupRule.setGroupItems(ruleGroup);
-		
-		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
-		formula.setGroupRule(groupRule);
-		
+
+		FormulaGroupSumV formula = spy(FormulaGroupSumV.class);
+		doReturn("1").when(formula).getConstantValue();
+		doReturn(groupRule).when(formula).getGroupRule();
+
 		assertEquals(new Integer(500), formula.getIntegerValue());
 	}
 	
 	/**
-	 * Tests {@link FormulaFormatDate#getNumericValue()}
+	 * Tests {@link FormulaGroupSumV#getNumericValue()}
 	 */
 	@Test
 	public void testGetNumericValue() throws GLanguageException {
@@ -353,81 +340,84 @@ public class FormulaGroupSumVTest extends BaseDatabaseTest {
 		ruleGroupItem5.setGroupRule(groupRule);
 		ruleGroupItem5.setReferencedRule(rv5);
 		ruleGroupItem5.setSequenceNumber(5);
-		SortedSet<RuleGroupItem> ruleGroup = new TreeSet<>(new Comparator<RuleGroupItem>() {
-			@Override
-			public int compare(RuleGroupItem o1, RuleGroupItem o2) {
-				return o1.getSequenceNumber() - o2.getSequenceNumber();
-			}});
+		SortedSet<RuleGroupItem> ruleGroup = new TreeSet<>(Comparator.comparingInt(RuleGroupItem::getSequenceNumber));
 		ruleGroup.add(ruleGroupItem1);
 		ruleGroup.add(ruleGroupItem2);
 		ruleGroup.add(ruleGroupItem3);
 		ruleGroup.add(ruleGroupItem4);
 		ruleGroup.add(ruleGroupItem5);
 		groupRule.setGroupItems(ruleGroup);
-		
-		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
-		formula.setGroupRule(groupRule);
-		
+
+		FormulaGroupSumV formula = spy(FormulaGroupSumV.class);
+		doReturn("1").when(formula).getConstantValue();
+		doReturn(groupRule).when(formula).getGroupRule();
+
 		assertEquals(new Double(502.0), formula.getNumericValue());
 	}
 	
 	/**
-	 * Tests {@link FormulaFormatDate#getStringValue()}
+	 * Tests {@link FormulaGroupSumV#getStringValue()}
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetStringValue() throws GLanguageException {
-		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
-		
+		FormulaGroupSumV formula = spy(FormulaGroupSumV.class);
+		doReturn("1").when(formula).getConstantValue();
+
 		formula.getStringValue();
 	}
 
 	/**
-	 * Tests {@link FormulaFormatDate#getBooleanValue()}
+	 * Tests {@link FormulaGroupSumV#getBooleanValue()}
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
-		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
-		
+		FormulaGroupSumV formula = spy(FormulaGroupSumV.class);
+		doReturn("1").when(formula).getConstantValue();
+
 		formula.getBooleanValue();
 	}
 	
 	/**
-	 * Tests {@link FormulaFormatDate#getDateValue()}
+	 * Tests {@link FormulaGroupSumV#getDateValue()}
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
-		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
-		
+		FormulaGroupSumV formula = spy(FormulaGroupSumV.class);
+		doReturn("1").when(formula).getConstantValue();
+
 		formula.getDateValue();
 	}
 	
 	/**
-	 * Tests {@link FormulaFormatDate#getDurationValue()}
+	 * Tests {@link FormulaGroupSumV#getDurationValue()}
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
-		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
-		
+		FormulaGroupSumV formula = spy(FormulaGroupSumV.class);
+		doReturn("1").when(formula).getConstantValue();
+
 		formula.getDurationValue();
 	}
 	
 	/**
-	 * Tests {@link FormulaFormatDate#operationAsText()}
+	 * Tests {@link FormulaGroupSumV#operationAsText()}
 	 */
 	@Test
 	public void testOperationAsText() throws GLanguageException {
-		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
-		
+		FormulaGroupSumV formula = spy(FormulaGroupSumV.class);
+		doReturn("1").when(formula).getConstantValue();
+
 		assertEquals("sumv", formula.operationAsText());
 	}
 	
 	/**
-	 * Tests {@link FormulaFormatDate#asText()}
+	 * Tests {@link FormulaGroupSumV#asText()}
 	 */
 	@Test
 	public void testAsText() throws GLanguageException {
-		FormulaGroupSumV formula = new FormulaGroupSumV(FormulaDescriptionFactory.getDescription(FormulaType.G_SUMV), "1");
-		
+		FormulaGroupSumV formula = spy(FormulaGroupSumV.class);
+		doReturn("1").when(formula).getConstantValue();
+
 		assertEquals("sumv(1)", formula.asText());
 	}
 	

@@ -24,7 +24,7 @@ public class FormulaGroupSumV extends GroupFormula {
 	public FormulaGroupSumV(FormulaDescription description, String groupId) throws GLanguageException {
 		super(description, groupId);
 	}
-	
+
 	@JsonIgnore
 	@Transient
 	@Override
