@@ -163,9 +163,7 @@ public abstract class AbstractFormula {
 
     @JsonIgnore
     @Transient
-    public boolean isValid(Evaluator evaluator) {
-        return getDescription().isValid(getParameters(), evaluator);
-    }
+    public abstract boolean isValid(Evaluator evaluator);
 
     @JsonIgnore
     @Transient
@@ -175,9 +173,7 @@ public abstract class AbstractFormula {
 
     @JsonIgnore
     @Transient
-    public FormulaReturnType getReturnType(Evaluator evaluator) {
-        return getDescription().getReturnType(getParameters(), evaluator);
-    }
+    public abstract FormulaReturnType getReturnType(Evaluator evaluator);
 
     /**
      * @return Default true

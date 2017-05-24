@@ -3,9 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.formula;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.implementations.terminal
-        .TerminalFormulaUnableToInitializeNullValueInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.implementations.terminal.TerminalFormulaUnableToInitializeNullValueInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
@@ -26,11 +24,17 @@ public abstract class AbstractTerminalFormula extends AbstractFormula {
     public AbstractTerminalFormula(FormulaDescription description, String constantValue) throws GLanguageException {
         this(description);
 
-        if (constantValue == null) {
-            throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
-        }
+        validate(constantValue);
+
         this.setConstantValue(constantValue);
     }
+
+    @JsonIgnore
+    @Transient
+    public abstract boolean isValid(Evaluator evaluator);
+
+    @JsonIgnore
+    public abstract void validate(String constantValue) throws GLanguageException;
 
     @Transient
     @Override

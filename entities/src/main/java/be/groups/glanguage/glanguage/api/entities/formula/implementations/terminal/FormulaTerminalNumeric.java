@@ -9,8 +9,11 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDes
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.glanguage.glanguage.api.error.formula.implementations.terminal.TerminalFormulaUnableToInitializeNullValueInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.implementations.terminal.TerminalFormulaUnableToParseValueInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.implementations.terminal
+        .TerminalFormulaUnableToInitializeNullValueInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.implementations.terminal
+        .TerminalFormulaUnableToParseValueInnerError;
+import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -34,6 +37,48 @@ public class FormulaTerminalNumeric extends AbstractTerminalFormula {
         super(description, constantValue);
     }
 
+    @Override
+    public boolean isValid(Evaluator evaluator) {
+        if (getConstantValue() != null) {
+            try {
+                Double.valueOf(getConstantValue());
+            } catch (NumberFormatException nfe) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void validate(String constantValue) throws GLanguageException {
+        if (constantValue != null) {
+            try {
+                Double.valueOf(constantValue);
+            } catch (NumberFormatException nfe) {
+                throw new GLanguageException(new TerminalFormulaUnableToParseValueInnerError(this,
+                                                                                             null,
+                                                                                             ErrorMethod.VALIDATE
+                                                                                                     .getName(),
+                                                                                             getConstantValue(),
+                                                                                             FormulaReturnType.BOOLEAN,
+                                                                                             "(-)?[0-9]*(.)?[0-9]*",
+                                                                                             nfe));
+            }
+        } else {
+            throw new GLanguageException(new TerminalFormulaUnableToInitializeNullValueInnerError(this,
+                                                                                                  null,
+                                                                                                  ErrorMethod.VALIDATE
+                                                                                                          .getName()));
+        }
+    }
+
+    @Override
+    public FormulaReturnType getReturnType(Evaluator evaluator) {
+        return FormulaReturnType.NUMERIC;
+    }
+
     @JsonIgnore
     @Transient
     @Override
@@ -50,17 +95,17 @@ public class FormulaTerminalNumeric extends AbstractTerminalFormula {
                 return Double.valueOf(getConstantValue());
             } catch (NumberFormatException nfe) {
                 throw new GLanguageException(new TerminalFormulaUnableToParseValueInnerError(this,
-                                                                                    evaluator,
-                                                                                    "doGetNumericValue",
-                                                                                    getConstantValue(),
-                                                                                    FormulaReturnType.BOOLEAN,
-                                                                                    "(-)?[0-9]*(.)?[0-9]*",
-                                                                                    nfe));
+                                                                                             evaluator,
+                                                                                             "doGetNumericValue",
+                                                                                             getConstantValue(),
+                                                                                             FormulaReturnType.BOOLEAN,
+                                                                                             "(-)?[0-9]*(.)?[0-9]*",
+                                                                                             nfe));
             }
         } else {
             throw new GLanguageException(new TerminalFormulaUnableToInitializeNullValueInnerError(this,
-                                                                                         evaluator,
-                                                                                         "doGetNumericValue"));
+                                                                                                  evaluator,
+                                                                                                  "doGetNumericValue"));
         }
     }
 

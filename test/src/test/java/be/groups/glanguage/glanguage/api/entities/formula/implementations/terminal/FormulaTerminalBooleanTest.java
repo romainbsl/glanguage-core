@@ -2,7 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.termi
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
@@ -10,11 +10,9 @@ import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import java.util.Arrays;
-
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
 
 /**
  * Test class for {@link FormulaTerminalBoolean}
@@ -44,71 +42,66 @@ public class FormulaTerminalBooleanTest extends BaseDatabaseTest {
 		FormulaTerminalBoolean formula = new FormulaTerminalBoolean();
 		assertTrue(formula.isTerminal());
 	}
-	
+
 	/**
-	 * Tests {@link FormulaTerminalBoolean#isValid()} when no parameters
+	 * Tests {@link FormulaTerminalBoolean#isValid(Evaluator)}
+	 * when {@link FormulaTerminalBoolean#getConstantValue()} is not null and well formatted
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNoParameters() throws GLanguageException {
-		FormulaTerminalBoolean formula =
-				new FormulaTerminalBoolean(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_BOOLEAN), true);
-				
-		assertTrue(formula.isValid());
+	public void testIsValid() throws GLanguageException {
+		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_BOOLEAN)).when(formula).getDescription();
+		doReturn("true").when(formula).getConstantValue();
+
+		assertTrue(formula.isValid(null));
 	}
-	
+
 	/**
-	 * Tests {@link FormulaTerminalBoolean#isValid()} when some parameters are present
+	 * Tests {@link FormulaTerminalBoolean#isValid(Evaluator)}
+	 * when {@link FormulaTerminalBoolean#getConstantValue()} is not null but not well formatted
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidParameters() throws GLanguageException {
-		FormulaTerminalBoolean formula =
-				new FormulaTerminalBoolean(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_BOOLEAN), true);
-				
-		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		
-		formula.setParameters(Arrays.asList(parameter));
-		
-		assertFalse(formula.isValid());
+	public void testIsValidNotWellFormatted() throws GLanguageException {
+		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_BOOLEAN)).when(formula).getDescription();
+		doReturn("ture").when(formula).getConstantValue();
+
+		assertFalse(formula.isValid(null));
 	}
-	
+
+	/**
+	 * Tests {@link FormulaTerminalBoolean#isValid(Evaluator)}
+	 * when {@link FormulaTerminalBoolean#getConstantValue()} is null
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidNull() throws GLanguageException {
+		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_BOOLEAN)).when(formula).getDescription();
+		doReturn(null).when(formula).getConstantValue();
+
+		assertFalse(formula.isValid(null));
+	}
+
 	/**
 	 * Tests {@link FormulaTerminalBoolean#getReturnType()} when no parameters
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNoParameters() throws GLanguageException {
-		FormulaTerminalBoolean formula =
-				new FormulaTerminalBoolean(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_BOOLEAN), true);
-				
+	public void testGetReturnType() throws GLanguageException {
+		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
-	
-	/**
-	 * Tests {@link FormulaTerminalBoolean#getReturnType()} when some parameters are present
-	 */
-	@Test
-	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeParameters() throws GLanguageException {
-		FormulaTerminalBoolean formula =
-				new FormulaTerminalBoolean(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_BOOLEAN), true);
-				
-		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.BOOLEAN);
-		
-		formula.setParameters(Arrays.asList(parameter));
-		
-		assertNull(formula.getReturnType());
-	}
-	
+
 	/**
 	 * Tests {@link FormulaTerminalBoolean#getIntegerValue()}
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
+		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
 		formula.getIntegerValue();
 	}
 	
@@ -117,7 +110,7 @@ public class FormulaTerminalBooleanTest extends BaseDatabaseTest {
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
+		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
 		formula.getNumericValue();
 	}
 	
@@ -126,7 +119,9 @@ public class FormulaTerminalBooleanTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetStringValue() throws GLanguageException {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
+		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
+		doReturn("true").when(formula).getConstantValue();
+
 		assertEquals("true", formula.getStringValue());
 	}
 	
@@ -135,7 +130,9 @@ public class FormulaTerminalBooleanTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetBooleanValue() throws GLanguageException {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
+		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
+		doReturn("true").when(formula).getConstantValue();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -144,7 +141,7 @@ public class FormulaTerminalBooleanTest extends BaseDatabaseTest {
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
+		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
 		formula.getDateValue();
 	}
 	
@@ -153,7 +150,7 @@ public class FormulaTerminalBooleanTest extends BaseDatabaseTest {
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
+		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
 		formula.getDurationValue();
 	}
 	
@@ -161,8 +158,12 @@ public class FormulaTerminalBooleanTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalBoolean#asText()}
 	 */
 	@Test
+	@Category({DatabaseTestCategory.class})
 	public void testAsText() throws GLanguageException {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean(null, true);
+		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_BOOLEAN)).when(formula).getDescription();
+		doReturn("true").when(formula).getConstantValue();
+
 		assertEquals("true", formula.asText());
 	}
 	

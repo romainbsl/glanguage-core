@@ -3,6 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
@@ -36,6 +37,16 @@ public class FormulaBracket extends AbstractFormula {
     @Override
     public boolean isTerminal() {
         return false;
+    }
+
+    @Override
+    public boolean isValid(Evaluator evaluator) {
+        return getParameters().get(0).isValid(evaluator);
+    }
+
+    @Override
+    public FormulaReturnType getReturnType(Evaluator evaluator) {
+        return getParameters().get(0).getReturnType(evaluator);
     }
 
     @JsonIgnore

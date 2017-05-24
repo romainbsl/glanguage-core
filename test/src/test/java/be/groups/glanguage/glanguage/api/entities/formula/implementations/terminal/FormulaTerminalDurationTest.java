@@ -2,7 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.termi
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
@@ -11,11 +11,10 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.time.Duration;
-import java.util.Arrays;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
 
 /**
  * Test class for {@link FormulaTerminalDuration}
@@ -45,63 +44,58 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 		FormulaTerminalDuration formula = new FormulaTerminalDuration();
 		assertTrue(formula.isTerminal());
 	}
-	
+
 	/**
-	 * Tests {@link FormulaTerminalDuration#isValid()} when no parameters
+	 * Tests {@link FormulaTerminalDuration#isValid(Evaluator)}
+	 * when {@link FormulaTerminalDuration#getConstantValue()} is not null and well formatted
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidNoParameters() throws GLanguageException {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration(
-				FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DURATION), "P1Y2M3DT4H5M6.7S");
-				
-		assertTrue(formula.isValid());
+	public void testIsValid() throws GLanguageException {
+		FormulaTerminalDuration formula = spy(FormulaTerminalDuration.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DURATION)).when(formula).getDescription();
+		doReturn("'P1Y2M3DT4H5M6.7S'").when(formula).getConstantValue();
+
+		assertTrue(formula.isValid(null));
 	}
-	
+
 	/**
-	 * Tests {@link FormulaTerminalDuration#isValid()} when some parameters are present
+	 * Tests {@link FormulaTerminalDuration#isValid(Evaluator)}
+	 * when {@link FormulaTerminalDuration#getConstantValue()} is not null but not well formatted
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testIsValidParameters() throws GLanguageException {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration(
-				FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DURATION), "P1Y2M3DT4H5M6.7S");
-				
-		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.DURATION);
-		
-		formula.setParameters(Arrays.asList(parameter));
-		
-		assertFalse(formula.isValid());
+	public void testIsValidNotWellFormatted() throws GLanguageException {
+		FormulaTerminalDuration formula = spy(FormulaTerminalDuration.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DURATION)).when(formula).getDescription();
+		doReturn("1Y2M3DT4H5M6.7S").when(formula).getConstantValue();
+
+		assertFalse(formula.isValid(null));
 	}
-	
+
+	/**
+	 * Tests {@link FormulaTerminalDuration#isValid(Evaluator)}
+	 * when {@link FormulaTerminalDuration#getConstantValue()} is null
+	 */
+	@Test
+	@Category({DatabaseTestCategory.class})
+	public void testIsValidNull() throws GLanguageException {
+		FormulaTerminalDuration formula = spy(FormulaTerminalDuration.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DURATION)).when(formula).getDescription();
+		doReturn(null).when(formula).getConstantValue();
+
+		assertFalse(formula.isValid(null));
+	}
+
 	/**
 	 * Tests {@link FormulaTerminalDuration#getReturnType()} when no parameters
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeNoParameters() throws GLanguageException {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration(
-				FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DURATION), "P1Y2M3DT4H5M6.7S");
-				
+	public void testGetReturnType() throws GLanguageException {
+		FormulaTerminalDuration formula = spy(FormulaTerminalDuration.class);
+
 		assertEquals(FormulaReturnType.DURATION, formula.getReturnType());
-	}
-	
-	/**
-	 * Tests {@link FormulaTerminalDuration#getReturnType()} when some parameters are present
-	 */
-	@Test
-	@Category({DatabaseTestCategory.class})
-	public void testGetReturnTypeParameters() throws GLanguageException {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration(
-				FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DURATION), "P1Y2M3DT4H5M6.7S");
-				
-		AbstractFormula parameter = mock(AbstractFormula.class);
-		when(parameter.getReturnType()).thenReturn(FormulaReturnType.DURATION);
-		
-		formula.setParameters(Arrays.asList(parameter));
-		
-		assertNull(formula.getReturnType());
 	}
 	
 	/**
@@ -109,7 +103,7 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "P1Y2M3DT4H5M6.7S");
+		FormulaTerminalDuration formula = spy(FormulaTerminalDuration.class);
 		formula.getIntegerValue();
 	}
 	
@@ -118,7 +112,7 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "P1Y2M3DT4H5M6.7S");
+		FormulaTerminalDuration formula = spy(FormulaTerminalDuration.class);
 		formula.getNumericValue();
 	}
 	
@@ -127,8 +121,10 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetStringValue() throws GLanguageException {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "P1Y2M3DT4H5M6.7S");
-		assertEquals("P1Y2M3DT4H5M6.7S", formula.getStringValue());
+		FormulaTerminalDuration formula = spy(FormulaTerminalDuration.class);
+		doReturn("'P1Y2M3DT4H5M6.7S'").when(formula).getConstantValue();
+
+		assertEquals("'P1Y2M3DT4H5M6.7S'", formula.getStringValue());
 	}
 	
 	/**
@@ -136,7 +132,7 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "P1Y2M3DT4H5M6.7S");
+		FormulaTerminalDuration formula = spy(FormulaTerminalDuration.class);
 		formula.getBooleanValue();
 	}
 	
@@ -145,7 +141,7 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "P1Y2M3DT4H5M6.7S");
+		FormulaTerminalDuration formula = spy(FormulaTerminalDuration.class);
 		formula.getDateValue();
 	}
 	
@@ -154,7 +150,9 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetDurationValue() throws GLanguageException {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "'P1Y2M3DT4H5M6.7S'");
+		FormulaTerminalDuration formula = spy(FormulaTerminalDuration.class);
+		doReturn("'P1Y2M3DT4H5M6.7S'").when(formula).getConstantValue();
+
 		assertEquals(Duration.parse("P430DT4H5M6.7S"), formula.getDurationValue());
 	}
 	
@@ -163,7 +161,9 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetDurationValueWithoutTime() throws GLanguageException {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "'P1Y2M3D'");
+		FormulaTerminalDuration formula = spy(FormulaTerminalDuration.class);
+		doReturn("'P1Y2M3D'").when(formula).getConstantValue();
+
 		assertEquals(Duration.parse("P430D"), formula.getDurationValue());
 	}
 	
@@ -172,7 +172,9 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetDurationValueWithoutYear() throws GLanguageException {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "'P2M3DT4H5M6.7S'");
+		FormulaTerminalDuration formula = spy(FormulaTerminalDuration.class);
+		doReturn("'P2M3DT4H5M6.7S'").when(formula).getConstantValue();
+
 		assertEquals(Duration.parse("P65DT4H5M6.7S"), formula.getDurationValue());
 	}
 	
@@ -181,7 +183,9 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetDurationValueWithoutYearAndMonth() throws GLanguageException {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "'P3DT4H5M6.7S'");
+		FormulaTerminalDuration formula = spy(FormulaTerminalDuration.class);
+		doReturn("'P3DT4H5M6.7S'").when(formula).getConstantValue();
+
 		assertEquals(Duration.parse("P3DT4H5M6.7S"), formula.getDurationValue());
 	}
 	
@@ -190,7 +194,9 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetDurationValueWithoutDates() throws GLanguageException {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "'PT4H5M6.7S'");
+		FormulaTerminalDuration formula = spy(FormulaTerminalDuration.class);
+		doReturn("'PT4H5M6.7S'").when(formula).getConstantValue();
+
 		assertEquals(Duration.parse("PT4H5M6.7S"), formula.getDurationValue());
 	}
 	
@@ -198,9 +204,13 @@ public class FormulaTerminalDurationTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaTerminalDuration#asText()}
 	 */
 	@Test
+	@Category({DatabaseTestCategory.class})
 	public void testAsText() throws GLanguageException {
-		FormulaTerminalDuration formula = new FormulaTerminalDuration(null, "string");
-		assertEquals("string", formula.asText());
+		FormulaTerminalDuration formula = spy(FormulaTerminalDuration.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DURATION)).when(formula).getDescription();
+		doReturn("'P1Y2M3DT4H5M6.7S'").when(formula).getConstantValue();
+
+		assertEquals("'P1Y2M3DT4H5M6.7S'", formula.asText());
 	}
 	
 }

@@ -15,6 +15,7 @@ import be.groups.glanguage.glanguage.api.error.formula.implementations.terminal
         .TerminalFormulaUnableToInitializeNullValueInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.implementations.terminal
         .TerminalFormulaUnableToParseValueInnerError;
+import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -40,6 +41,64 @@ public class FormulaTerminalBoolean extends AbstractTerminalFormula {
 
     public FormulaTerminalBoolean(FormulaDescription description, Boolean constantValue) throws GLanguageException {
         this(description, constantValue.toString());
+    }
+
+    @Override
+    public boolean isValid(Evaluator evaluator) {
+        if (getConstantValue() != null) {
+            if (getConstantValue().equalsIgnoreCase("true") || getConstantValue().equalsIgnoreCase("false")) {
+                try {
+                    Boolean.valueOf(getConstantValue());
+                } catch (Exception e) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void validate(String constantValue) throws GLanguageException {
+        if (constantValue != null) {
+            if (constantValue.equalsIgnoreCase("true") || constantValue.equalsIgnoreCase("false")) {
+                try {
+                    Boolean.valueOf(constantValue);
+                } catch (Exception e) {
+                    throw new GLanguageException(new TerminalFormulaUnableToParseValueInnerError(this,
+                                                                                                 null,
+                                                                                                 ErrorMethod.VALIDATE
+                                                                                                         .getName(),
+                                                                                                 constantValue,
+                                                                                                 FormulaReturnType
+                                                                                                         .BOOLEAN,
+                                                                                                 "[true;false;TRUE;"
+                                                                                                         + "FALSE]",
+                                                                                                 e));
+                }
+            } else {
+                throw new GLanguageException(new TerminalFormulaUnableToInitializeMalformedValueInnerError(this,
+                                                                                                           null,
+                                                                                                           ErrorMethod.VALIDATE
+                                                                                                                   .getName(),
+                                                                                                           constantValue,
+                                                                                                           FormulaReturnType.BOOLEAN,
+                                                                                                           "[true;false;TRUE;FALSE]"));
+            }
+        } else {
+            throw new GLanguageException(new TerminalFormulaUnableToInitializeNullValueInnerError(this,
+                                                                                                  null,
+                                                                                                  ErrorMethod.VALIDATE
+                                                                                                          .getName()));
+        }
+    }
+
+    @Override
+    public FormulaReturnType getReturnType(Evaluator evaluator) {
+        return FormulaReturnType.BOOLEAN;
     }
 
     @JsonIgnore

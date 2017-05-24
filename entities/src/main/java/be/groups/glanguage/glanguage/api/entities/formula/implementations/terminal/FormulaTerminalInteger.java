@@ -13,6 +13,7 @@ import be.groups.glanguage.glanguage.api.error.formula.implementations.terminal
         .TerminalFormulaUnableToInitializeNullValueInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.implementations.terminal
         .TerminalFormulaUnableToParseValueInnerError;
+import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -34,6 +35,48 @@ public class FormulaTerminalInteger extends AbstractTerminalFormula {
 
     public FormulaTerminalInteger(FormulaDescription description, String constantValue) throws GLanguageException {
         super(description, constantValue);
+    }
+
+    @Override
+    public boolean isValid(Evaluator evaluator) {
+        if (getConstantValue() != null) {
+            try {
+                Integer.valueOf(getConstantValue());
+            } catch (NumberFormatException nfe) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void validate(String constantValue) throws GLanguageException {
+        if (constantValue != null) {
+            try {
+                Integer.valueOf(constantValue);
+            } catch (NumberFormatException nfe) {
+                throw new GLanguageException(new TerminalFormulaUnableToParseValueInnerError(this,
+                                                                                             null,
+                                                                                             ErrorMethod.VALIDATE
+                                                                                                     .getName(),
+                                                                                             constantValue,
+                                                                                             FormulaReturnType.BOOLEAN,
+                                                                                             "(-)?[0-9]*",
+                                                                                             nfe));
+            }
+        } else {
+            throw new GLanguageException(new TerminalFormulaUnableToInitializeNullValueInnerError(this,
+                                                                                                  null,
+                                                                                                  ErrorMethod.VALIDATE
+                                                                                                          .getName()));
+        }
+    }
+
+    @Override
+    public FormulaReturnType getReturnType(Evaluator evaluator) {
+        return FormulaReturnType.INTEGER;
     }
 
     @JsonIgnore

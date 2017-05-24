@@ -6,7 +6,9 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -31,7 +33,22 @@ public class FormulaUndefined extends AbstractTerminalFormula {
 	protected FormulaUndefined(FormulaDescription description) {
 		super(description);
 	}
-		
+
+	@Override
+	public boolean isValid(Evaluator evaluator) {
+		return true;
+	}
+
+	@Override
+	public void validate(String constantValue) throws GLanguageException {
+		// do nothing
+	}
+
+	@Override
+	public FormulaReturnType getReturnType(Evaluator evaluator) {
+		return FormulaReturnType.UNDEFINED;
+	}
+
 	@JsonIgnore
 	@Transient
 	@Override
