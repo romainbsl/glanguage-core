@@ -2,7 +2,6 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 
 import be.groups.glanguage.glanguage.api.GLanguageEvaluationExceptionTest;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
@@ -13,7 +12,6 @@ import org.junit.Test;
 
 import java.time.Duration;
 import java.time.LocalDate;
-import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -58,11 +56,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
-		
-		FormulaDescription description = mock(FormulaDescription.class);
-		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.INTEGER);
-		formula.setDescription(description);
-		
+
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getIntegerValue(null)).thenReturn(1);
 
@@ -79,19 +73,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue(null));
 	}
-	
-	/**
-	 * Tests {@link FormulaFormula#getIntegerValue()} without rule reference
-	 */
-	@Test(expected = GLanguageException.class)
-	public void testGetIntegerValueWithoutRuleRef() throws GLanguageException {
-		String ruleId = "some_rule";
-		
-		FormulaFormula formula = new FormulaFormula(null, ruleId);
-		
-		formula.getIntegerValue(null);
-	}
-	
+
 	/**
 	 * Tests {@link FormulaFormula#getNumericValue()}
 	 */
@@ -100,11 +82,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
-		
-		FormulaDescription description = mock(FormulaDescription.class);
-		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.NUMERIC);
-		formula.setDescription(description);
-		
+
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getNumericValue(null)).thenReturn(1.5);
 
@@ -121,19 +99,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		
 		assertEquals(Double.valueOf(1.5), formula.getNumericValue(null));
 	}
-	
-	/**
-	 * Tests {@link FormulaFormula#getNumericValue()} without rule reference
-	 */
-	@Test(expected = GLanguageException.class)
-	public void testGetNumericValueWithoutRuleRef() throws GLanguageException {
-		String ruleId = "some_rule";
-		
-		FormulaFormula formula = new FormulaFormula(null, ruleId);
-		
-		formula.getNumericValue(null);
-	}
-	
+
 	/**
 	 * Tests {@link FormulaFormula#getStringValue()}
 	 */
@@ -142,11 +108,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
-		
-		FormulaDescription description = mock(FormulaDescription.class);
-		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.STRING);
-		formula.setDescription(description);
-		
+
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getStringValue(null)).thenReturn("string");
 
@@ -163,19 +125,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		
 		assertEquals("string", formula.getStringValue(null));
 	}
-	
-	/**
-	 * Tests {@link FormulaFormula#getStringValue()} without rule reference
-	 */
-	@Test(expected = GLanguageException.class)
-	public void testGetStringValueWithoutRuleRef() throws GLanguageException {
-		String ruleId = "some_rule";
-		
-		FormulaFormula formula = new FormulaFormula(null, ruleId);
-		
-		formula.getStringValue(null);
-	}
-	
+
 	/**
 	 * Tests {@link FormulaFormula#getBooleanValue()}
 	 */
@@ -184,11 +134,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
-		
-		FormulaDescription description = mock(FormulaDescription.class);
-		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.BOOLEAN);
-		formula.setDescription(description);
-		
+
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getBooleanValue(null)).thenReturn(true);
 
@@ -205,23 +151,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		
 		assertEquals(Boolean.TRUE, formula.getBooleanValue(null));
 	}
-	
-	/**
-	 * Tests {@link FormulaFormula#getBooleanValue()} without rule reference
-	 */
-	@Test(expected = GLanguageException.class)
-	public void testGetBooleanValueWithoutRuleRef() throws GLanguageException {
-		String ruleId = "some_rule";
-		
-		FormulaFormula formula = new FormulaFormula(null, ruleId);
 
-		try {
-			formula.getBooleanValue(null);
-		} catch (GLanguageException e) {
-			handleException(e);
-		}
-	}
-	
 	/**
 	 * Tests {@link FormulaFormula#getDateValue()}
 	 */
@@ -230,11 +160,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
-		
-		FormulaDescription description = mock(FormulaDescription.class);
-		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.DATE);
-		formula.setDescription(description);
-		
+
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
 
@@ -251,19 +177,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		
 		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue(null));
 	}
-	
-	/**
-	 * Tests {@link FormulaFormula#getDateValue()} without rule reference
-	 */
-	@Test(expected = GLanguageException.class)
-	public void testGetDateValueWithoutRuleRef() throws GLanguageException {
-		String ruleId = "some_rule";
-		
-		FormulaFormula formula = new FormulaFormula(null, ruleId);
-		
-		formula.getDateValue(null);
-	}
-	
+
 	/**
 	 * Tests {@link FormulaFormula#getDurationValue()}
 	 */
@@ -272,11 +186,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		String ruleId = "some_rule";
 		
 		FormulaFormula formula = new FormulaFormula(null, ruleId);
-		
-		FormulaDescription description = mock(FormulaDescription.class);
-		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.DURATION);
-		formula.setDescription(description);
-		
+
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getDurationValue(null)).thenReturn(Duration.ofDays(2L));
 
@@ -293,19 +203,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		
 		assertEquals(Duration.ofDays(2L), formula.getDurationValue(null));
 	}
-	
-	/**
-	 * Tests {@link FormulaFormula#getDurationValue()} without rule reference
-	 */
-	@Test(expected = GLanguageException.class)
-	public void testGetDurationValueWithoutRuleRef() throws GLanguageException {
-		String ruleId = "some_rule";
-		
-		FormulaFormula formula = new FormulaFormula(null, ruleId);
-		
-		formula.getDurationValue(null);
-	}
-	
+
 	/**
 	 * Tests {@link FormulaFormula#asText()}
 	 */

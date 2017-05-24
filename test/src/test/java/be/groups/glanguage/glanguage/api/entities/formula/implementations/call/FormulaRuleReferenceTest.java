@@ -1,7 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 
 import be.groups.glanguage.glanguage.api.GLanguageEvaluationExceptionTest;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
@@ -12,12 +11,10 @@ import org.junit.Test;
 
 import java.time.Duration;
 import java.time.LocalDate;
-import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaRuleReference}
@@ -57,10 +54,6 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		String ruleId = "some_rule";
 		
 		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
-		
-		FormulaDescription description = mock(FormulaDescription.class);
-		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.INTEGER);
-		formula.setDescription(description);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -96,10 +89,6 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		String ruleId = "some_rule";
 		
 		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
-		
-		FormulaDescription description = mock(FormulaDescription.class);
-		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.NUMERIC);
-		formula.setDescription(description);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -135,10 +124,6 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		String ruleId = "some_rule";
 		
 		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
-		
-		FormulaDescription description = mock(FormulaDescription.class);
-		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.STRING);
-		formula.setDescription(description);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -174,10 +159,6 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		String ruleId = "some_rule";
 		
 		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
-		
-		FormulaDescription description = mock(FormulaDescription.class);
-		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.BOOLEAN);
-		formula.setDescription(description);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -217,10 +198,6 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		String ruleId = "some_rule";
 		
 		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
-		
-		FormulaDescription description = mock(FormulaDescription.class);
-		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.DATE);
-		formula.setDescription(description);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -241,9 +218,8 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetDateValueWithoutRuleRef() throws GLanguageException {
-		String ruleId = "some_rule";
-		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
+		FormulaRuleReference formula = spy(FormulaRuleReference.class);
+		doReturn(FormulaReturnType.DATE).when(formula).getReturnType(null);
 		
 		formula.getDateValue(null);
 	}
@@ -256,10 +232,6 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		String ruleId = "some_rule";
 		
 		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
-		
-		FormulaDescription description = mock(FormulaDescription.class);
-		when(description.getReturnType(Arrays.asList())).thenReturn(FormulaReturnType.DURATION);
-		formula.setDescription(description);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);

@@ -1,6 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.call;
 
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
@@ -10,6 +11,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue(FormulaType.Values.C_RULE_REFERENCE)
@@ -21,6 +23,16 @@ public class FormulaRuleReference extends RuleCallFormula {
 
     public FormulaRuleReference(FormulaDescription description, String ruleId) throws GLanguageException {
         super(description, ruleId);
+    }
+
+    @Override
+    public boolean isValid(Evaluator evaluator) {
+        return true;
+    }
+
+    @Override
+    public void validate(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
+        // do nothing
     }
 
     @Override

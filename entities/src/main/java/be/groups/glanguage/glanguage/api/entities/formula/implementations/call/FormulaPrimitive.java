@@ -6,7 +6,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDes
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.targets
-        .FormulaCannotInvokeTargetObjectInnerError;
+		.FormulaCannotInvokeTargetObjectInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
 
 import javax.persistence.DiscriminatorValue;
@@ -34,6 +34,16 @@ public class FormulaPrimitive extends CallFormula {
 			this.parameters = new ArrayList<>();
 			this.parameters.addAll(parameters);
 		}
+	}
+
+	@Override
+	public boolean isValid(Evaluator evaluator) {
+		return true;
+	}
+
+	@Override
+	public void validate(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
+		// do nothing
 	}
 
 	protected Object getTargetedObject(Object object, Evaluator evaluator) throws GLanguageException {

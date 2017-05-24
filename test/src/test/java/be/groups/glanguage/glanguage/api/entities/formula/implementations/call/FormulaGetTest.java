@@ -15,12 +15,12 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaGet}
@@ -95,16 +95,18 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetIntegerValueRootContext() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("integerValue");
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.INTEGER, identifiers, parameters);
-		formula.setContext(context);
-		
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive = spy(FormulaPrimitive.class);
+		doReturn("integerValue").when(primitive).getConstantValue();
+		doReturn(parameters).when(primitive).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.INTEGER).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("1").when(formula).getConstantValue();
+		doReturn(Collections.singletonList(primitive)).when(formula).getParameters();
+
 		assertEquals(INTEGER_VALUE, formula.getValue());
 		assertEquals("get INTEGER integerValue", formula.asText());
 	}
@@ -114,18 +116,21 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetIntegerValueContractContext() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("contract");
-		identifiers.add("id");
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(new ArrayList<>());
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.INTEGER, identifiers, parameters);
-		formula.setContext(context);
-		
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive1 = spy(FormulaPrimitive.class);
+		doReturn("contract").when(primitive1).getConstantValue();
+		doReturn(parameters).when(primitive1).getParameters();
+		FormulaPrimitive primitive2 = spy(FormulaPrimitive.class);
+		doReturn("id").when(primitive2).getConstantValue();
+		doReturn(parameters).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.INTEGER).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("1").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
+
 		assertEquals(CONTRACT_ID, formula.getValue());
 		assertEquals("get INTEGER contract.id", formula.asText());
 	}
@@ -135,23 +140,27 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetIntegerValuePersonContextField() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("person");
-		identifiers.add("age");
-		
 		FormulaTerminalInteger formula1Parameter1 =
-				new FormulaTerminalInteger(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), String.valueOf(0));
+				new FormulaTerminalInteger(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER),
+										   String.valueOf(0));
 		List<AbstractFormula> formulasParameter1 = new ArrayList<>();
 		formulasParameter1.add(formula1Parameter1);
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(formulasParameter1);
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.INTEGER, identifiers, parameters);
-		formula.setContext(context);
-		
+
+		List<AbstractFormula> formulasParameter2 = new ArrayList<>();
+
+		FormulaPrimitive primitive1 = spy(FormulaPrimitive.class);
+		doReturn("person").when(primitive1).getConstantValue();
+		doReturn(formulasParameter1).when(primitive1).getParameters();
+		FormulaPrimitive primitive2 = spy(FormulaPrimitive.class);
+		doReturn("age").when(primitive2).getConstantValue();
+		doReturn(formulasParameter2).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.INTEGER).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("1").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
+
 		assertEquals(PERSON_1_AGE, formula.getValue());
 		assertEquals("get INTEGER person(0).age", formula.asText());
 	}
@@ -161,10 +170,6 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetIntegerValuePersonContextMethod() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("person");
-		identifiers.add("agePlus");
-		
 		FormulaTerminalInteger formula1Parameter1 =
 				new FormulaTerminalInteger(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), String.valueOf(1));
 		List<AbstractFormula> formulasParameter1 = new ArrayList<>();
@@ -174,15 +179,20 @@ public class FormulaGetTest extends BaseDatabaseTest {
 				new FormulaTerminalInteger(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), String.valueOf(10));
 		List<AbstractFormula> formulasParameter2 = new ArrayList<>();
 		formulasParameter2.add(formula1Parameter2);
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(formulasParameter1);
-		parameters.add(formulasParameter2);
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.INTEGER, identifiers, parameters);
-		formula.setContext(context);
-		
+
+		FormulaPrimitive primitive1 = spy(FormulaPrimitive.class);
+		doReturn("person").when(primitive1).getConstantValue();
+		doReturn(formulasParameter1).when(primitive1).getParameters();
+		FormulaPrimitive primitive2 = spy(FormulaPrimitive.class);
+		doReturn("agePlus").when(primitive2).getConstantValue();
+		doReturn(formulasParameter2).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.INTEGER).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("1").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
+
 		assertEquals(PERSON_2_AGE + 10, formula.getValue());
 		assertEquals("get INTEGER person(1).agePlus(10)", formula.asText());
 	}
@@ -192,16 +202,18 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetNumericValueRootContext() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("numericValue");
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.NUMERIC, identifiers, parameters);
-		formula.setContext(context);
-		
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive = spy(FormulaPrimitive.class);
+		doReturn("numericValue").when(primitive).getConstantValue();
+		doReturn(parameters).when(primitive).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.NUMERIC).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("2").when(formula).getConstantValue();
+		doReturn(Collections.singletonList(primitive)).when(formula).getParameters();
+
 		assertEquals(NUMERIC_VALUE, formula.getValue());
 		assertEquals("get NUMERIC numericValue", formula.asText());
 	}
@@ -211,18 +223,21 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetNumericValueContractContextField() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("contract");
-		identifiers.add("salary");
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(new ArrayList<>());
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.NUMERIC, identifiers, parameters);
-		formula.setContext(context);
-		
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive1 = spy(FormulaPrimitive.class);
+		doReturn("contract").when(primitive1).getConstantValue();
+		doReturn(parameters).when(primitive1).getParameters();
+		FormulaPrimitive primitive2 = spy(FormulaPrimitive.class);
+		doReturn("salary").when(primitive2).getConstantValue();
+		doReturn(parameters).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.NUMERIC).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("2").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
+
 		assertEquals(CONTRACT_SALARY, formula.getValue());
 		assertEquals("get NUMERIC contract.salary", formula.asText());
 	}
@@ -232,17 +247,20 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetNumericValueContractContextMethod() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("contract");
-		identifiers.add("doubleSalary");
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(new ArrayList<>());
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.NUMERIC, identifiers, parameters);
-		formula.setContext(context);
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive1 = spy(FormulaPrimitive.class);
+		doReturn("contract").when(primitive1).getConstantValue();
+		doReturn(parameters).when(primitive1).getParameters();
+		FormulaPrimitive primitive2 = spy(FormulaPrimitive.class);
+		doReturn("doubleSalary").when(primitive2).getConstantValue();
+		doReturn(parameters).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.NUMERIC).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("2").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
 		
 		assertEquals(CONTRACT_SALARY * 2, formula.getValue());
 		assertEquals("get NUMERIC contract.doubleSalary", formula.asText());
@@ -253,23 +271,26 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetNumericValueContractContextMethodWithParameter() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("contract");
-		identifiers.add("doubleSalary");
-		
+		List<AbstractFormula> parameters = new ArrayList<>();
+
 		FormulaTerminalInteger formula1Parameter2 =
 				new FormulaTerminalInteger(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), String.valueOf(3));
 		List<AbstractFormula> formulasParameter2 = new ArrayList<>();
 		formulasParameter2.add(formula1Parameter2);
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(new ArrayList<>());
-		parameters.add(formulasParameter2);
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.NUMERIC, identifiers, parameters);
-		formula.setContext(context);
-		
+
+		FormulaPrimitive primitive1 = spy(FormulaPrimitive.class);
+		doReturn("contract").when(primitive1).getConstantValue();
+		doReturn(parameters).when(primitive1).getParameters();
+		FormulaPrimitive primitive2 = spy(FormulaPrimitive.class);
+		doReturn("doubleSalary").when(primitive2).getConstantValue();
+		doReturn(formulasParameter2).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.NUMERIC).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("2").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
+
 		assertEquals(CONTRACT_SALARY * 3, formula.getValue());
 		assertEquals("get NUMERIC contract.doubleSalary(3)", formula.asText());
 	}
@@ -279,15 +300,17 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetStringValueRootContext() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("stringValue");
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.STRING, identifiers, parameters);
-		formula.setContext(context);
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive = spy(FormulaPrimitive.class);
+		doReturn("stringValue").when(primitive).getConstantValue();
+		doReturn(parameters).when(primitive).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.STRING).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("3").when(formula).getConstantValue();
+		doReturn(Collections.singletonList(primitive)).when(formula).getParameters();
 		
 		assertEquals(STRING_VALUE, formula.getValue());
 		assertEquals("get STRING stringValue", formula.asText());
@@ -298,18 +321,21 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetStringValueContractContextField() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("contract");
-		identifiers.add("label");
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(new ArrayList<>());
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.STRING, identifiers, parameters);
-		formula.setContext(context);
-		
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive1 = spy(FormulaPrimitive.class);
+		doReturn("contract").when(primitive1).getConstantValue();
+		doReturn(parameters).when(primitive1).getParameters();
+		FormulaPrimitive primitive2 = spy(FormulaPrimitive.class);
+		doReturn("label").when(primitive2).getConstantValue();
+		doReturn(parameters).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.STRING).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("3").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
+
 		assertEquals(CONTRACT_LABEL, formula.getValue());
 		assertEquals("get STRING contract.label", formula.asText());
 	}
@@ -319,18 +345,21 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetStringValueContractContextMethod() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("contract");
-		identifiers.add("labelToUpper");
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(new ArrayList<>());
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.STRING, identifiers, parameters);
-		formula.setContext(context);
-		
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive1 = spy(FormulaPrimitive.class);
+		doReturn("contract").when(primitive1).getConstantValue();
+		doReturn(parameters).when(primitive1).getParameters();
+		FormulaPrimitive primitive2 = spy(FormulaPrimitive.class);
+		doReturn("labelToUpper").when(primitive2).getConstantValue();
+		doReturn(parameters).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.STRING).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("3").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
+
 		assertEquals(CONTRACT_LABEL.toUpperCase(), formula.getValue());
 		assertEquals("get STRING contract.labelToUpper", formula.asText());
 	}
@@ -340,10 +369,6 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetStringValuePersonContextMethodWithParameters() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("person");
-		identifiers.add("nameReplace");
-		
 		FormulaTerminalInteger formula1Parameter1 =
 				new FormulaTerminalInteger(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), String.valueOf(1));
 		List<AbstractFormula> formulasParameter1 = new ArrayList<>();
@@ -356,15 +381,20 @@ public class FormulaGetTest extends BaseDatabaseTest {
 		List<AbstractFormula> formulasParameter2 = new ArrayList<>();
 		formulasParameter2.add(formula1Parameter2);
 		formulasParameter2.add(formula2Parameter2);
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(formulasParameter1);
-		parameters.add(formulasParameter2);
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.STRING, identifiers, parameters);
-		formula.setContext(context);
-		
+
+		FormulaPrimitive primitive1 = spy(FormulaPrimitive.class);
+		doReturn("person").when(primitive1).getConstantValue();
+		doReturn(formulasParameter1).when(primitive1).getParameters();
+		FormulaPrimitive primitive2 = spy(FormulaPrimitive.class);
+		doReturn("nameReplace").when(primitive2).getConstantValue();
+		doReturn(formulasParameter2).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.STRING).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("3").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
+
 		assertEquals(PERSON_2_NAME.replace("pire", "mieux"), formula.getValue());
 		assertEquals("get STRING person(1).nameReplace(\"pire\"; \"mieux\")", formula.asText());
 	}
@@ -374,16 +404,18 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetBooleanValueRootContext() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("booleanValue");
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.BOOLEAN, identifiers, parameters);
-		formula.setContext(context);
-		
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive = spy(FormulaPrimitive.class);
+		doReturn("booleanValue").when(primitive).getConstantValue();
+		doReturn(parameters).when(primitive).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.BOOLEAN).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("4").when(formula).getConstantValue();
+		doReturn(Collections.singletonList(primitive)).when(formula).getParameters();
+
 		assertEquals(BOOLEAN_VALUE, formula.getValue());
 		assertEquals("get BOOLEAN booleanValue", formula.asText());
 	}
@@ -393,23 +425,27 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetBooleanValuePersonContext1() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("person");
-		identifiers.add("isStillThere");
-		
 		FormulaTerminalInteger formula1Parameter1 =
 				new FormulaTerminalInteger(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), String.valueOf(0));
 		List<AbstractFormula> formulasParameter1 = new ArrayList<>();
 		formulasParameter1.add(formula1Parameter1);
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(formulasParameter1);
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.BOOLEAN, identifiers, parameters);
-		formula.setContext(context);
-		
+
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive1 = spy(FormulaPrimitive.class);
+		doReturn("person").when(primitive1).getConstantValue();
+		doReturn(formulasParameter1).when(primitive1).getParameters();
+
+		FormulaPrimitive primitive2 = spy(FormulaPrimitive.class);
+		doReturn("isStillThere").when(primitive2).getConstantValue();
+		doReturn(parameters).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.BOOLEAN).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("4").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
+
 		assertEquals(PERSON_1_IS_STILL_THERE, formula.getValue());
 		assertEquals("get BOOLEAN person(0).isStillThere", formula.asText());
 	}
@@ -419,22 +455,26 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetBooleanValuePersonContext2() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("person");
-		identifiers.add("isStillThere");
-		
 		FormulaTerminalInteger formula1Parameter1 =
 				new FormulaTerminalInteger(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), String.valueOf(1));
 		List<AbstractFormula> formulasParameter1 = new ArrayList<>();
 		formulasParameter1.add(formula1Parameter1);
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(formulasParameter1);
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.BOOLEAN, identifiers, parameters);
-		formula.setContext(context);
+
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive1 = spy(FormulaPrimitive.class);
+		doReturn("person").when(primitive1).getConstantValue();
+		doReturn(formulasParameter1).when(primitive1).getParameters();
+
+		FormulaPrimitive primitive2 = spy(FormulaPrimitive.class);
+		doReturn("isStillThere").when(primitive2).getConstantValue();
+		doReturn(parameters).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.BOOLEAN).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("4").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
 		
 		assertEquals(PERSON_2_IS_STILL_THERE, formula.getValue());
 		assertEquals("get BOOLEAN person(1).isStillThere", formula.asText());
@@ -445,15 +485,17 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetDateValueRootContext() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("dateValue");
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.DATE, identifiers, parameters);
-		formula.setContext(context);
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive = spy(FormulaPrimitive.class);
+		doReturn("dateValue").when(primitive).getConstantValue();
+		doReturn(parameters).when(primitive).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.DATE).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("5").when(formula).getConstantValue();
+		doReturn(Collections.singletonList(primitive)).when(formula).getParameters();
 		
 		assertEquals(DATE_VALUE, formula.getValue());
 		assertEquals("get DATE dateValue", formula.asText());
@@ -464,23 +506,28 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetDateValuePersonContextField() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("person");
-		identifiers.add("birthDate");
-		
 		FormulaTerminalInteger formula1Parameter1 =
-				new FormulaTerminalInteger(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), String.valueOf(0));
+				new FormulaTerminalInteger(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER),
+										   String.valueOf(0));
 		List<AbstractFormula> formulasParameter1 = new ArrayList<>();
 		formulasParameter1.add(formula1Parameter1);
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(formulasParameter1);
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.DATE, identifiers, parameters);
-		formula.setContext(context);
-		
+
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive1 = spy(FormulaPrimitive.class);
+		doReturn("person").when(primitive1).getConstantValue();
+		doReturn(formulasParameter1).when(primitive1).getParameters();
+
+		FormulaPrimitive primitive2 = spy(FormulaPrimitive.class);
+		doReturn("birthDate").when(primitive2).getConstantValue();
+		doReturn(parameters).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.DATE).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("5").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
+
 		assertEquals(PERSON_1_BIRTH_DATE, formula.getValue());
 		assertEquals("get DATE person(0).birthDate", formula.asText());
 	}
@@ -490,10 +537,6 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetDateValuePersonContextMethod() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("person");
-		identifiers.add("birthDatePlusDays");
-		
 		FormulaTerminalInteger formula1Parameter1 =
 				new FormulaTerminalInteger(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), String.valueOf(0));
 		List<AbstractFormula> formulasParameter1 = new ArrayList<>();
@@ -502,15 +545,21 @@ public class FormulaGetTest extends BaseDatabaseTest {
 				new FormulaTerminalInteger(FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER), String.valueOf(1));
 		List<AbstractFormula> formulasParameter2 = new ArrayList<>();
 		formulasParameter2.add(formula1Parameter2);
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(formulasParameter1);
-		parameters.add(formulasParameter2);
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.DATE, identifiers, parameters);
-		formula.setContext(context);
-		
+
+		FormulaPrimitive primitive1 = spy(FormulaPrimitive.class);
+		doReturn("person").when(primitive1).getConstantValue();
+		doReturn(formulasParameter1).when(primitive1).getParameters();
+
+		FormulaPrimitive primitive2 = spy(FormulaPrimitive.class);
+		doReturn("birthDatePlusDays").when(primitive2).getConstantValue();
+		doReturn(formulasParameter2).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.DATE).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("5").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
+
 		assertEquals(PERSON_1_BIRTH_DATE.plusDays(1), formula.getValue());
 		assertEquals("get DATE person(0).birthDatePlusDays(1)", formula.asText());
 	}
@@ -520,16 +569,18 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetDurationValueRootContext() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("durationValue");
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.DURATION, identifiers, parameters);
-		formula.setContext(context);
-		
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive = spy(FormulaPrimitive.class);
+		doReturn("durationValue").when(primitive).getConstantValue();
+		doReturn(parameters).when(primitive).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.DURATION).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("6").when(formula).getConstantValue();
+		doReturn(Collections.singletonList(primitive)).when(formula).getParameters();
+
 		assertEquals(DURATION_VALUE, formula.getValue());
 		assertEquals("get DURATION durationValue", formula.asText());
 	}
@@ -539,17 +590,21 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetDurationValueContractContextField() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("contract");
-		identifiers.add("hours");
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(new ArrayList<>());
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.DURATION, identifiers, parameters);
-		formula.setContext(context);
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive1 = spy(FormulaPrimitive.class);
+		doReturn("contract").when(primitive1).getConstantValue();
+		doReturn(parameters).when(primitive1).getParameters();
+
+		FormulaPrimitive primitive2 = spy(FormulaPrimitive.class);
+		doReturn("hours").when(primitive2).getConstantValue();
+		doReturn(parameters).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.DURATION).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("6").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
 		
 		assertEquals(CONTRACT_HOURS, formula.getValue());
 		assertEquals("get DURATION contract.hours", formula.asText());
@@ -560,18 +615,22 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetDurationValueContractContextMethod() throws GLanguageException {
-		List<String> identifiers = new ArrayList<>();
-		identifiers.add("contract");
-		identifiers.add("halfHours");
-		
-		List<List<AbstractFormula>> parameters = new ArrayList<>();
-		parameters.add(new ArrayList<>());
-		parameters.add(new ArrayList<>());
-		
-		FormulaGet formula = new FormulaGet(FormulaDescriptionFactory.getDescription(FormulaType.C_GET),
-				FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE), FormulaReturnType.DURATION, identifiers, parameters);
-		formula.setContext(context);
-		
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive1 = spy(FormulaPrimitive.class);
+		doReturn("contract").when(primitive1).getConstantValue();
+		doReturn(parameters).when(primitive1).getParameters();
+
+		FormulaPrimitive primitive2 = spy(FormulaPrimitive.class);
+		doReturn("halfHours").when(primitive2).getConstantValue();
+		doReturn(parameters).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		doReturn(FormulaReturnType.DURATION).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("6").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
+
 		assertEquals(Duration.ofHours(CONTRACT_HOURS.toHours() / 2), formula.getValue());
 		assertEquals("get DURATION contract.halfHours", formula.asText());
 	}
@@ -601,14 +660,14 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	
 	@SuppressWarnings("unused")
 	public class Context {
-		private List<ContextPerson> person;
-		private ContextContract contract;
-		private String stringValue;
-		private Integer integerValue;
-		private Double numericValue;
-		private Boolean booleanValue;
-		private LocalDate dateValue;
-		private Duration durationValue;
+		public List<ContextPerson> person;
+		public ContextContract contract;
+		public String stringValue;
+		public Integer integerValue;
+		public Double numericValue;
+		public Boolean booleanValue;
+		public LocalDate dateValue;
+		public Duration durationValue;
 		
 		public Context(List<ContextPerson> person, ContextContract contract, String stringValue, Integer integerValue,
 				Double numericValue, Boolean booleanValue, LocalDate dateValue, Duration durationValue) {
@@ -634,12 +693,12 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	
 	@SuppressWarnings("unused")
 	public class ContextPerson {
-		private String name;
-		private Integer age;
-		private Double numericValue;
-		private Boolean isStillThere;
-		private LocalDate birthDate;
-		private Duration durationValue;
+		public String name;
+		public Integer age;
+		public Double numericValue;
+		public Boolean isStillThere;
+		public LocalDate birthDate;
+		public Duration durationValue;
 		
 		public ContextPerson(String name, Integer age, Double numericValue, Boolean isStillThere, LocalDate birthDate,
 				Duration durationValue) {
@@ -667,11 +726,11 @@ public class FormulaGetTest extends BaseDatabaseTest {
 	
 	@SuppressWarnings("unused")
 	public class ContextContract {
-		private String label;
-		private Integer id;
-		private Double salary;
-		private LocalDate startDate;
-		private Duration hours;
+		public String label;
+		public Integer id;
+		public Double salary;
+		public LocalDate startDate;
+		public Duration hours;
 		
 		public ContextContract(String label, Integer id, Double salary, LocalDate startDate, Duration hours) {
 			super();

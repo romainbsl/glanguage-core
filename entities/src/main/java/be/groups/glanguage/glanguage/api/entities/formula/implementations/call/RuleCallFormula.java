@@ -49,6 +49,7 @@ public abstract class RuleCallFormula extends CallFormula {
     @Transient
     @Override
     protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
+        getReferencedRule(evaluator);
         FormulaReturnType formulaReturnType = getReturnType(evaluator);
         if (!formulaReturnType.equals(FormulaReturnType.INTEGER) || formulaReturnType
                 .equals(FormulaReturnType.NUMERIC)) {
@@ -71,6 +72,7 @@ public abstract class RuleCallFormula extends CallFormula {
     @Transient
     @Override
     protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
+        getReferencedRule(evaluator);
         FormulaReturnType formulaReturnType = getReturnType(evaluator);
         if (!(formulaReturnType.equals(FormulaReturnType.INTEGER) || formulaReturnType
                 .equals(FormulaReturnType.NUMERIC))) {
@@ -93,6 +95,7 @@ public abstract class RuleCallFormula extends CallFormula {
     @Transient
     @Override
     protected String doGetStringValue(Evaluator evaluator) throws GLanguageException {
+        getReferencedRule(evaluator);
         if (!getReturnType(evaluator).equals(FormulaReturnType.STRING)) {
             throw new GLanguageException(new RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError(this,
                                                                                                             evaluator,
@@ -112,6 +115,7 @@ public abstract class RuleCallFormula extends CallFormula {
     @Transient
     @Override
     protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
+        getReferencedRule(evaluator);
         if (!getReturnType(evaluator).equals(FormulaReturnType.BOOLEAN)) {
             throw new GLanguageException(new RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError(this,
                                                                                                             evaluator,
@@ -131,6 +135,7 @@ public abstract class RuleCallFormula extends CallFormula {
     @Transient
     @Override
     public LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageException {
+        getReferencedRule(evaluator);
         if (!getReturnType(evaluator).equals(FormulaReturnType.DATE)) {
             throw new GLanguageException(new RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError(this,
                                                                                                             evaluator,
@@ -150,6 +155,7 @@ public abstract class RuleCallFormula extends CallFormula {
     @Transient
     @Override
     public Duration doGetDurationValue(Evaluator evaluator) throws GLanguageException {
+        getReferencedRule(evaluator);
         if (!getReturnType(evaluator).equals(FormulaReturnType.DURATION)) {
             throw new GLanguageException(new RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError(this,
                                                                                                             evaluator,

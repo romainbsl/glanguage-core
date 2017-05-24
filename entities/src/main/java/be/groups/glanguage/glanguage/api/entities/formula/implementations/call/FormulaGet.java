@@ -48,6 +48,29 @@ public class FormulaGet extends CallFormula {
         }
     }
 
+    @JsonIgnore
+    @Transient
+    public Object getContext() {
+        return context;
+    }
+
+    /**
+     * @param context the context to set
+     */
+    public void setContext(Object context) {
+        this.context = context;
+    }
+
+    @Override
+    public boolean isValid(Evaluator evaluator) {
+        return true;
+    }
+
+    @Override
+    public void validate(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
+        // do nothing
+    }
+
     @Transient
     @Override
     public FormulaReturnType getReturnType(Evaluator evaluator) {
@@ -147,7 +170,7 @@ public class FormulaGet extends CallFormula {
     @JsonIgnore
     @Transient
     public boolean isBranched() {
-        return context != null && super.isBranched();
+        return getContext() != null && super.isBranched();
     }
 
     @Override
@@ -168,13 +191,6 @@ public class FormulaGet extends CallFormula {
         return sb.toString();
     }
 
-    /**
-     * @param context the context to set
-     */
-    public void setContext(Object context) {
-        this.context = context;
-    }
-
     @JsonIgnore
     @Transient
     private Object getTargetedObject(Evaluator evaluator) throws GLanguageException {
@@ -182,7 +198,7 @@ public class FormulaGet extends CallFormula {
         if (evaluator != null) {
             result = evaluator.getContext();
         } else {
-            result = context;
+            result = getContext();
         }
 
         if(result == null) {

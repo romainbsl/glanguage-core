@@ -5,13 +5,13 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaPrimitive}
@@ -48,10 +48,10 @@ public class FormulaPrimitiveTest {
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetIntegerValue() throws GLanguageException {
-		String primitive = "call";
-		
-		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
-		
+		List<AbstractFormula> parameters = new ArrayList<>();
+		FormulaPrimitive formula = spy(FormulaPrimitive.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		formula.getIntegerValue();
 	}
 	
@@ -60,10 +60,10 @@ public class FormulaPrimitiveTest {
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetNumericValue() throws GLanguageException {
-		String primitive = "call";
-		
-		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
-		
+		List<AbstractFormula> parameters = new ArrayList<>();
+		FormulaPrimitive formula = spy(FormulaPrimitive.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		formula.getNumericValue();
 	}
 	
@@ -72,10 +72,10 @@ public class FormulaPrimitiveTest {
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetStringValue() throws GLanguageException {
-		String primitive = "call";
-		
-		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
-		
+		List<AbstractFormula> parameters = new ArrayList<>();
+		FormulaPrimitive formula = spy(FormulaPrimitive.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		formula.getStringValue();
 	}
 	
@@ -84,10 +84,10 @@ public class FormulaPrimitiveTest {
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetBooleanValue() throws GLanguageException {
-		String primitive = "call";
-		
-		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
-		
+		List<AbstractFormula> parameters = new ArrayList<>();
+		FormulaPrimitive formula = spy(FormulaPrimitive.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		formula.getBooleanValue();
 	}
 	
@@ -96,10 +96,10 @@ public class FormulaPrimitiveTest {
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetDateValue() throws GLanguageException {
-		String primitive = "call";
-		
-		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
-		
+		List<AbstractFormula> parameters = new ArrayList<>();
+		FormulaPrimitive formula = spy(FormulaPrimitive.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		formula.getDateValue();
 	}
 	
@@ -108,10 +108,10 @@ public class FormulaPrimitiveTest {
 	 */
 	@Test(expected = GLanguageException.class)
 	public void testGetDurationValue() throws GLanguageException {
-		String primitive = "call";
-		
-		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, Arrays.asList());
-		
+		List<AbstractFormula> parameters = new ArrayList<>();
+		FormulaPrimitive formula = spy(FormulaPrimitive.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		formula.getDurationValue();
 	}
 	
