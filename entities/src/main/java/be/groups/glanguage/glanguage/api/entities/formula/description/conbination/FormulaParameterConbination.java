@@ -202,7 +202,6 @@ public class FormulaParameterConbination {
             } else {
                 if (itParameters.hasNext() && conbinationParameter.getRepeatable()) {
                     int minimumNumberOfParameterAfterThis = 0;
-                    int maximumNumberOfParameterAfterThis = 0;
                     if (itConbinationParameters.hasNext()) {
                         List<FormulaParameterConbinationItem> subList = conbinationParameters.subList(
                                 conbinationParameters.indexOf(conbinationParameter) + 1,
@@ -210,8 +209,6 @@ public class FormulaParameterConbination {
                         minimumNumberOfParameterAfterThis = Math.toIntExact(subList.stream()
                                                                                     .filter(p -> !p.getOptional())
                                                                                     .count());
-                        maximumNumberOfParameterAfterThis = subList.stream().anyMatch(p -> p.getRepeatable()) ?
-                                Integer.MAX_VALUE : subList.size();
                     }
                     while (itParameters.hasNext() && parameters.indexOf(parameter) < parameters
                             .size() - minimumNumberOfParameterAfterThis) {
