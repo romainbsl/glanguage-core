@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations;
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -12,10 +13,10 @@ import org.junit.experimental.categories.Category;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaBracket}
@@ -48,7 +49,7 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaBracket#isValid()} with integer parameter
+	 * Tests {@link FormulaBracket#isValid(Evaluator)} with integer parameter
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -56,79 +57,91 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
-		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
-		
-		assertTrue(formula.isValid());
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaBracket#isValid()} with numeric parameter
+	 * Tests {@link FormulaBracket#isValid(Evaluator)} with numeric parameter
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidNumeric() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
-		
-		assertTrue(formula.isValid());
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaBracket#isValid()} with string parameter
+	 * Tests {@link FormulaBracket#isValid(Evaluator)} with string parameter
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidString() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
-		
-		assertTrue(formula.isValid());
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaBracket#isValid()} with boolean parameter
+	 * Tests {@link FormulaBracket#isValid(Evaluator)} with boolean parameter
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidBoolean() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
-		
-		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
-		
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaBracket#isValid()} with date parameter
+	 * Tests {@link FormulaBracket#isValid(Evaluator)} with date parameter
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidDate() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
-		
-		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
-		
-		assertTrue(formula.isValid());
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaBracket#isValid()} with duration parameter
+	 * Tests {@link FormulaBracket#isValid(Evaluator)} with duration parameter
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
 	public void testIsValidDuration() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
-		
-		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
-		
-		assertTrue(formula.isValid());
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
@@ -139,9 +152,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	public void testGetReturnTypeInteger() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
-		
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType(null));
 	}
 	
@@ -153,9 +168,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	public void testGetReturnTypeNumeric() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
-		
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.NUMERIC, formula.getReturnType(null));
 	}
 	
@@ -167,9 +184,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	public void testGetReturnTypeString() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
-		
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.STRING, formula.getReturnType(null));
 	}
 	
@@ -181,9 +200,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	public void testGetReturnTypeBoolean() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
-		
-		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
-		
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType(null));
 	}
 	
@@ -195,9 +216,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	public void testGetReturnTypeDate() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
-		
-		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
-		
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.DATE, formula.getReturnType(null));
 	}
 	
@@ -209,9 +232,11 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	public void testGetReturnTypeDuration() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
-		
-		FormulaBracket formula = new FormulaBracket(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS), parameter);
-		
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.DURATION, formula.getReturnType(null));
 	}
 	
@@ -222,9 +247,10 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	public void testGetIntegerValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getIntegerValue(null)).thenReturn(1);
-		
-		FormulaBracket formula = new FormulaBracket(null, parameter);
-		
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue(null));
 	}
 	
@@ -235,9 +261,10 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	public void testGetNumericValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getNumericValue(null)).thenReturn(2.5);
-		
-		FormulaBracket formula = new FormulaBracket(null, parameter);
-		
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals(Double.valueOf(2.5), formula.getNumericValue(null));
 	}
 	
@@ -248,9 +275,10 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	public void testGetStringValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getStringValue(null)).thenReturn("some_value");
-		
-		FormulaBracket formula = new FormulaBracket(null, parameter);
-		
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals("some_value", formula.getStringValue(null));
 	}
 	
@@ -261,9 +289,10 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	public void testGetBooleanValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getBooleanValue(null)).thenReturn(true);
-		
-		FormulaBracket formula = new FormulaBracket(null, parameter);
-		
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue(null));
 	}
 	
@@ -274,9 +303,10 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	public void testGetDateValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
-		
-		FormulaBracket formula = new FormulaBracket(null, parameter);
-		
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue(null));
 	}
 	
@@ -287,9 +317,10 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	public void testGetDurationValue() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getDurationValue(null)).thenReturn(Duration.ofDays(2L));
-		
-		FormulaBracket formula = new FormulaBracket(null, parameter);
-		
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals(Duration.ofDays(2L), formula.getDurationValue(null));
 	}
 	
@@ -297,13 +328,16 @@ public class FormulaBracketTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaBracket#asText()}
 	 */
 	@Test
+	@Category(DatabaseTestCategory.class)
 	public void testAsText() throws GLanguageException {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(parameter.asText()).thenReturn("some_rule");
-		
-		FormulaBracket formula = new FormulaBracket(null, parameter);
-		
+
+		FormulaBracket formula = spy(FormulaBracket.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS)).when(formula).getDescription();
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals("(some_rule)", formula.asText());
 	}
 	

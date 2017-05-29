@@ -10,8 +10,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaIn}
@@ -51,21 +50,22 @@ public class FormulaInTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(1);
-		
+
 		AbstractFormula element1 = mock(AbstractFormula.class);
 		when(element1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element1.getIntegerValue(null)).thenReturn(1);
-		
+
 		AbstractFormula element2 = mock(AbstractFormula.class);
 		when(element2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element2.getIntegerValue(null)).thenReturn(2);
-		
+
 		AbstractFormula element3 = mock(AbstractFormula.class);
 		when(element3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element3.getIntegerValue(null)).thenReturn(3);
-		
-		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
-		
+
+		FormulaIn formula = spy(FormulaIn.class);
+		doReturn(Arrays.asList(parameter, element1, element2, element3)).when(formula).getParameters();
+
 		formula.getIntegerValue(null);
 	}
 	
@@ -77,21 +77,22 @@ public class FormulaInTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(1);
-		
+
 		AbstractFormula element1 = mock(AbstractFormula.class);
 		when(element1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element1.getIntegerValue(null)).thenReturn(1);
-		
+
 		AbstractFormula element2 = mock(AbstractFormula.class);
 		when(element2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element2.getIntegerValue(null)).thenReturn(2);
-		
+
 		AbstractFormula element3 = mock(AbstractFormula.class);
 		when(element3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element3.getIntegerValue(null)).thenReturn(3);
-		
-		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
-		
+
+		FormulaIn formula = spy(FormulaIn.class);
+		doReturn(Arrays.asList(parameter, element1, element2, element3)).when(formula).getParameters();
+
 		formula.getNumericValue(null);
 	}
 	
@@ -103,21 +104,22 @@ public class FormulaInTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(1);
-		
+
 		AbstractFormula element1 = mock(AbstractFormula.class);
 		when(element1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element1.getIntegerValue(null)).thenReturn(1);
-		
+
 		AbstractFormula element2 = mock(AbstractFormula.class);
 		when(element2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element2.getIntegerValue(null)).thenReturn(2);
-		
+
 		AbstractFormula element3 = mock(AbstractFormula.class);
 		when(element3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element3.getIntegerValue(null)).thenReturn(3);
-		
-		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
-		
+
+		FormulaIn formula = spy(FormulaIn.class);
+		doReturn(Arrays.asList(parameter, element1, element2, element3)).when(formula).getParameters();
+
 		formula.getStringValue(null);
 	}
 	
@@ -129,21 +131,22 @@ public class FormulaInTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(1);
-		
+
 		AbstractFormula element1 = mock(AbstractFormula.class);
 		when(element1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element1.getIntegerValue(null)).thenReturn(1);
-		
+
 		AbstractFormula element2 = mock(AbstractFormula.class);
 		when(element2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element2.getIntegerValue(null)).thenReturn(2);
-		
+
 		AbstractFormula element3 = mock(AbstractFormula.class);
 		when(element3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element3.getIntegerValue(null)).thenReturn(3);
-		
-		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
-		
+
+		FormulaIn formula = spy(FormulaIn.class);
+		doReturn(Arrays.asList(parameter, element1, element2, element3)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue(null));
 	}
 	
@@ -167,9 +170,10 @@ public class FormulaInTest {
 		AbstractFormula element3 = mock(AbstractFormula.class);
 		when(element3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element3.getIntegerValue(null)).thenReturn(3);
-		
-		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
-		
+
+		FormulaIn formula = spy(FormulaIn.class);
+		doReturn(Arrays.asList(parameter, element1, element2, element3)).when(formula).getParameters();
+
 		assertEquals(Boolean.FALSE, formula.getBooleanValue(null));
 	}
 	
@@ -181,9 +185,10 @@ public class FormulaInTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(1);
-		
-		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList());
-		
+
+		FormulaIn formula = spy(FormulaIn.class);
+		doReturn(Arrays.asList(parameter)).when(formula).getParameters();
+
 		assertEquals(Boolean.FALSE, formula.getBooleanValue(null));
 	}
 	
@@ -195,21 +200,22 @@ public class FormulaInTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(1);
-		
+
 		AbstractFormula element1 = mock(AbstractFormula.class);
 		when(element1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element1.getIntegerValue(null)).thenReturn(1);
-		
+
 		AbstractFormula element2 = mock(AbstractFormula.class);
 		when(element2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element2.getIntegerValue(null)).thenReturn(2);
-		
+
 		AbstractFormula element3 = mock(AbstractFormula.class);
 		when(element3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element3.getIntegerValue(null)).thenReturn(3);
-		
-		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
-		
+
+		FormulaIn formula = spy(FormulaIn.class);
+		doReturn(Arrays.asList(parameter, element1, element2, element3)).when(formula).getParameters();
+
 		formula.getDateValue(null);
 	}
 	
@@ -221,21 +227,22 @@ public class FormulaInTest {
 		AbstractFormula parameter = mock(AbstractFormula.class);
 		when(parameter.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(parameter.getIntegerValue(null)).thenReturn(1);
-		
+
 		AbstractFormula element1 = mock(AbstractFormula.class);
 		when(element1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element1.getIntegerValue(null)).thenReturn(1);
-		
+
 		AbstractFormula element2 = mock(AbstractFormula.class);
 		when(element2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element2.getIntegerValue(null)).thenReturn(2);
-		
+
 		AbstractFormula element3 = mock(AbstractFormula.class);
 		when(element3.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(element3.getIntegerValue(null)).thenReturn(3);
-		
-		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
-		
+
+		FormulaIn formula = spy(FormulaIn.class);
+		doReturn(Arrays.asList(parameter, element1, element2, element3)).when(formula).getParameters();
+
 		formula.getDurationValue(null);
 	}
 	
@@ -255,9 +262,10 @@ public class FormulaInTest {
 		
 		AbstractFormula element3 = mock(AbstractFormula.class);
 		when(element3.asText()).thenReturn("3");
-		
-		FormulaIn formula = new FormulaIn(null, parameter, Arrays.asList(element1, element2, element3));
-		
+
+		FormulaIn formula = spy(FormulaIn.class);
+		doReturn(Arrays.asList(parameter, element1, element2, element3)).when(formula).getParameters();
+
 		assertEquals("1 in (1, 2, 3)", formula.asText());
 	}
 	

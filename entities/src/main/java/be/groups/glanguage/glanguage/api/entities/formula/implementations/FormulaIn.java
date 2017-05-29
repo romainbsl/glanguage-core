@@ -133,7 +133,7 @@ public class FormulaIn extends AbstractNonTerminalFormula {
      * @return The type of the elements
      */
     private FormulaReturnType getElementsType(Evaluator evaluator) throws GLanguageException {
-        Set<FormulaReturnType> returnTypes = parameters.stream().map(p -> p.getReturnType(evaluator)).distinct()
+        Set<FormulaReturnType> returnTypes = getParameters().stream().map(p -> p.getReturnType(evaluator)).distinct()
                 .collect(Collectors.toSet());
         if (returnTypes.size() == 1) {
             return returnTypes.iterator().next();

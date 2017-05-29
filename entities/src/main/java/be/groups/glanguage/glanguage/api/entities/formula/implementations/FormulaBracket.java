@@ -41,12 +41,12 @@ public class FormulaBracket extends AbstractFormula {
 
     @Override
     public boolean isValid(Evaluator evaluator) {
-        return getParameters().get(0).isValid(evaluator);
+        return getDescription().isValid(getParameters(), evaluator);
     }
 
     @Override
     public FormulaReturnType getReturnType(Evaluator evaluator) {
-        return getParameters().get(0).getReturnType(evaluator);
+        return getDescription().getReturnType(getParameters(), evaluator);
     }
 
     @JsonIgnore

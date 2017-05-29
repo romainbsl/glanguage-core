@@ -13,8 +13,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaAnomaly}
@@ -61,7 +60,8 @@ public class FormulaAnomalyTest {
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
 		
-		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
+		FormulaAnomaly formula = spy(FormulaAnomaly.class);
+		doReturn(parameters).when(formula).getParameters();
 		
 		assertEquals(Integer.valueOf(0), formula.getIntegerValue(null));
 	}
@@ -80,9 +80,10 @@ public class FormulaAnomalyTest {
 		when(errorMessage.getStringValue(null)).thenReturn("System error");
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
-		
-		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
-		
+
+		FormulaAnomaly formula = spy(FormulaAnomaly.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		assertEquals(Double.valueOf(0), formula.getNumericValue(null));
 	}
 	
@@ -100,9 +101,10 @@ public class FormulaAnomalyTest {
 		when(errorMessage.getStringValue(null)).thenReturn("System error");
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
-		
-		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
-		
+
+		FormulaAnomaly formula = spy(FormulaAnomaly.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		assertEquals("", formula.getStringValue(null));
 	}
 	
@@ -120,9 +122,10 @@ public class FormulaAnomalyTest {
 		when(errorMessage.getStringValue(null)).thenReturn("System error");
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
-		
-		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
-		
+
+		FormulaAnomaly formula = spy(FormulaAnomaly.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		formula.getBooleanValue(null);
 	}
 	
@@ -140,9 +143,10 @@ public class FormulaAnomalyTest {
 		when(errorMessage.getStringValue(null)).thenReturn("System error");
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
-		
-		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
-		
+
+		FormulaAnomaly formula = spy(FormulaAnomaly.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		assertEquals(LocalDate.MIN, formula.getDateValue(null));
 	}
 	
@@ -160,9 +164,10 @@ public class FormulaAnomalyTest {
 		when(errorMessage.getStringValue(null)).thenReturn("System error");
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
-		
-		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
-		
+
+		FormulaAnomaly formula = spy(FormulaAnomaly.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		assertEquals(Duration.ZERO, formula.getDurationValue(null));
 	}
 	
@@ -180,9 +185,10 @@ public class FormulaAnomalyTest {
 		when(errorMessage.asText()).thenReturn("System error");
 		
 		List<AbstractFormula> parameters = Arrays.asList(errorCode, errorMessage);
-		
-		FormulaAnomaly formula = new FormulaAnomaly(null, parameters);
-		
+
+		FormulaAnomaly formula = spy(FormulaAnomaly.class);
+		doReturn(parameters).when(formula).getParameters();
+
 		assertEquals("putText(1; System error)", formula.asText());
 	}
 	
