@@ -309,7 +309,7 @@ public class FormulaDescription {
                 } else if (validMinimalUsages.size() > 1) {
                     // More than one smallest minimum parameter number usages
                     // Select the ones with smallest maximum parameter number
-                    List<FormulaUsage> validMaximalUsages = null;
+                    List<FormulaUsage> validMaximalUsages = new ArrayList<>();
                     int maximumParameterNumber = Integer.MAX_VALUE;
                     for (FormulaUsage currentValidUsage : usages) {
                         if (currentValidUsage.getParameterConbination().getParametersMaximumNumber() < maximumParameterNumber) {
