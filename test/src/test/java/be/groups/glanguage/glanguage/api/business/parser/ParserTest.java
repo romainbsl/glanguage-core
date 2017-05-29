@@ -582,7 +582,7 @@ public class ParserTest extends GLanguageEvaluationExceptionTest {
 	
 	@Test
 	public void testParseIn() throws GLanguageException {
-		String str = "r1 in (2;3)";
+		String str = "1 in (2;3)";
 		SemanticalAction semanticalAction = new AsStandard();
 		SlangTab parser = new SlangTab(true);
 		parser.setSemanticalAction(semanticalAction);
@@ -592,6 +592,7 @@ public class ParserTest extends GLanguageEvaluationExceptionTest {
 		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
 				semanticalAction.getFormula() instanceof FormulaIn);
 		assertEquals(FormulaReturnType.BOOLEAN, semanticalAction.getFormula().getReturnType());
+		assertFalse(semanticalAction.getFormula().getBooleanValue());
 	}
 	
 	/*
@@ -3871,7 +3872,7 @@ public class ParserTest extends GLanguageEvaluationExceptionTest {
 		assertNotNull(semanticalAction.getFormula());
 		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
 				semanticalAction.getFormula() instanceof FormulaMathSign);
-		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormula().getReturnType());
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormula().getReturnType());
 		assertTrue(semanticalAction.getFormula().getIntegerValue() > 0);
 	}
 	
@@ -3889,7 +3890,7 @@ public class ParserTest extends GLanguageEvaluationExceptionTest {
 		assertNotNull(semanticalAction.getFormula());
 		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
 				semanticalAction.getFormula() instanceof FormulaMathSign);
-		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormula().getReturnType());
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormula().getReturnType());
 		assertTrue(semanticalAction.getFormula().getIntegerValue() < 0);
 	}
 	
@@ -3907,7 +3908,7 @@ public class ParserTest extends GLanguageEvaluationExceptionTest {
 		assertNotNull(semanticalAction.getFormula());
 		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
 				semanticalAction.getFormula() instanceof FormulaMathSign);
-		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormula().getReturnType());
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormula().getReturnType());
 		assertTrue(semanticalAction.getFormula().getIntegerValue() == 0);
 	}
 	
@@ -3925,7 +3926,7 @@ public class ParserTest extends GLanguageEvaluationExceptionTest {
 		assertNotNull(semanticalAction.getFormula());
 		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
 				semanticalAction.getFormula() instanceof FormulaMathSign);
-		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormula().getReturnType());
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormula().getReturnType());
 		assertTrue(semanticalAction.getFormula().getIntegerValue() == 0);
 	}
 	
@@ -3943,7 +3944,7 @@ public class ParserTest extends GLanguageEvaluationExceptionTest {
 		assertNotNull(semanticalAction.getFormula());
 		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
 				semanticalAction.getFormula() instanceof FormulaMathSign);
-		assertEquals(FormulaReturnType.INTEGER, semanticalAction.getFormula().getReturnType());
+		assertEquals(FormulaReturnType.NUMERIC, semanticalAction.getFormula().getReturnType());
 		assertTrue(semanticalAction.getFormula().getIntegerValue() < 0);
 	}
 	
@@ -4001,7 +4002,7 @@ public class ParserTest extends GLanguageEvaluationExceptionTest {
 		assertNotNull(semanticalAction.getFormula());
 		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
 				semanticalAction.getFormula() instanceof FormulaAnomaly);
-		assertEquals(FormulaReturnType.PROCEDURE, semanticalAction.getFormula().getReturnType());
+		assertEquals(FormulaReturnType.UNDEFINED, semanticalAction.getFormula().getReturnType());
 		assertEquals(new Integer(0), semanticalAction.getFormula().getIntegerValue());
 		assertEquals(new Double(0.0), semanticalAction.getFormula().getNumericValue());
 		assertEquals(new String(""), semanticalAction.getFormula().getStringValue());
@@ -4023,7 +4024,7 @@ public class ParserTest extends GLanguageEvaluationExceptionTest {
 		assertNotNull(semanticalAction.getFormula());
 		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
 				semanticalAction.getFormula() instanceof FormulaAnomaly);
-		assertEquals(FormulaReturnType.PROCEDURE, semanticalAction.getFormula().getReturnType());
+		assertEquals(FormulaReturnType.UNDEFINED, semanticalAction.getFormula().getReturnType());
 		assertEquals(new Integer(0), semanticalAction.getFormula().getIntegerValue());
 		assertEquals(new Double(0.0), semanticalAction.getFormula().getNumericValue());
 		assertEquals(new String(""), semanticalAction.getFormula().getStringValue());
@@ -4045,7 +4046,7 @@ public class ParserTest extends GLanguageEvaluationExceptionTest {
 		assertNotNull(semanticalAction.getFormula());
 		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
 				semanticalAction.getFormula() instanceof FormulaAnomaly);
-		assertEquals(FormulaReturnType.PROCEDURE, semanticalAction.getFormula().getReturnType());
+		assertEquals(FormulaReturnType.UNDEFINED, semanticalAction.getFormula().getReturnType());
 		assertEquals(new Integer(0), semanticalAction.getFormula().getIntegerValue());
 		assertEquals(new Double(0.0), semanticalAction.getFormula().getNumericValue());
 		assertEquals(new String(""), semanticalAction.getFormula().getStringValue());
@@ -4067,7 +4068,7 @@ public class ParserTest extends GLanguageEvaluationExceptionTest {
 		assertNotNull(semanticalAction.getFormula());
 		assertTrue("Formula object type not expected : " + semanticalAction.getFormula().getDescription().getName(),
 				semanticalAction.getFormula() instanceof FormulaAnomaly);
-		assertEquals(FormulaReturnType.PROCEDURE, semanticalAction.getFormula().getReturnType());
+		assertEquals(FormulaReturnType.UNDEFINED, semanticalAction.getFormula().getReturnType());
 		assertEquals(new Integer(0), semanticalAction.getFormula().getIntegerValue());
 		assertEquals(new Double(0.0), semanticalAction.getFormula().getNumericValue());
 		assertEquals(new String(""), semanticalAction.getFormula().getStringValue());
