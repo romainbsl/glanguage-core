@@ -228,8 +228,8 @@ public class FormulaParameterConbinationItem implements Comparable<FormulaParame
                         return getValues().stream().map(v -> Double.valueOf(v.getValue())).collect(Collectors.toList())
                                 .contains(parameter.getNumericValue(evaluator));
                     case STRING:
-                        return getValues().stream().map(v -> v.getValue()).collect(Collectors.toList()).contains(
-                                parameter.getStringValue(evaluator));
+                        String value = parameter.getStringValue(evaluator);
+                        return getValues().stream().map(v -> v.getValue()).anyMatch(v -> v.equalsIgnoreCase(value));
                     case BOOLEAN:
                         return getValues().stream().map(v -> Boolean.valueOf(v.getValue())).collect(Collectors.toList())
                                 .contains(parameter.getBooleanValue(evaluator));
