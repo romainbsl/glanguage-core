@@ -61,6 +61,7 @@ public class FormulaFormatStringTest extends BaseDatabaseTest {
 		
 		AbstractFormula alignment = mock(AbstractFormula.class);
 		when(alignment.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
+		when(alignment.getStringValue(null)).thenReturn(FormatAlignment.Values.NO_JUSTIFY);
 		
 		AbstractFormula fill = mock(AbstractFormula.class);
 		when(fill.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
