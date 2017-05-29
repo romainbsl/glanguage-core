@@ -37,7 +37,7 @@ public class FormulaAnd extends BinaryFormula {
 	@Transient
 	@Override
 	protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
-		return parameters.get(0).getBooleanValue(evaluator) && parameters.get(1).getBooleanValue(evaluator);
+		return getParameters().get(0).getBooleanValue(evaluator) && getParameters().get(1).getBooleanValue(evaluator);
 	}
 
 	@Override

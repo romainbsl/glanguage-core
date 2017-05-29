@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.binar
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -11,10 +12,10 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaDifference}
@@ -47,7 +48,7 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaDifference#isValid()} when both operands are integers
+	 * Tests {@link FormulaDifference#isValid(Evaluator)} when both operands are integers
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -58,14 +59,15 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
 				
-		assertTrue(formula.isValid());
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaDifference#isValid()} when first operand is integer and second numeric
+	 * Tests {@link FormulaDifference#isValid(Evaluator)} when first operand is integer and second numeric
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -75,15 +77,16 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
-		assertTrue(formula.isValid());
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaDifference#isValid()} when first operand is integer and second is not
+	 * Tests {@link FormulaDifference#isValid(Evaluator)} when first operand is integer and second is not
 	 * integer or numeric
 	 */
 	@Test
@@ -94,15 +97,16 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaDifference#isValid()} when second operand is integer and first is not
+	 * Tests {@link FormulaDifference#isValid(Evaluator)} when second operand is integer and first is not
 	 * integer or numeric
 	 */
 	@Test
@@ -113,15 +117,16 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaDifference#isValid()} when first operand is numeric and second integer
+	 * Tests {@link FormulaDifference#isValid(Evaluator)} when first operand is numeric and second integer
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -131,15 +136,16 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
-		assertTrue(formula.isValid());
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaDifference#isValid()} when first operand is numeric and second is not
+	 * Tests {@link FormulaDifference#isValid(Evaluator)} when first operand is numeric and second is not
 	 * integer or numeric
 	 */
 	@Test
@@ -150,15 +156,16 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaDifference#isValid()} when second operand is numeric and first is not
+	 * Tests {@link FormulaDifference#isValid(Evaluator)} when second operand is numeric and first is not
 	 * integer or numeric
 	 */
 	@Test
@@ -169,15 +176,16 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaDifference#isValid()} when both operands are numerics
+	 * Tests {@link FormulaDifference#isValid(Evaluator)} when both operands are numerics
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -187,15 +195,16 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
-		assertTrue(formula.isValid());
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaDifference#isValid()} when both operands are strings
+	 * Tests {@link FormulaDifference#isValid(Evaluator)} when both operands are strings
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -205,15 +214,16 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
-		assertTrue(formula.isValid());
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaDifference#isValid()} when both operands are booleans
+	 * Tests {@link FormulaDifference#isValid(Evaluator)} when both operands are booleans
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -223,15 +233,16 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaDifference#isValid()} when both operands are dates
+	 * Tests {@link FormulaDifference#isValid(Evaluator)} when both operands are dates
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -241,15 +252,16 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
-		assertTrue(formula.isValid());
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaDifference#isValid()} when first operand is a date and second is a
+	 * Tests {@link FormulaDifference#isValid(Evaluator)} when first operand is a date and second is a
 	 * duration
 	 */
 	@Test
@@ -260,15 +272,16 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaDifference#isValid()} when first operand is a duration and second is a
+	 * Tests {@link FormulaDifference#isValid(Evaluator)} when first operand is a duration and second is a
 	 * date
 	 */
 	@Test
@@ -279,15 +292,16 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaDifference#isValid()} when both operands are durations
+	 * Tests {@link FormulaDifference#isValid(Evaluator)} when both operands are durations
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -297,11 +311,12 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
-		assertTrue(formula.isValid());
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
@@ -315,10 +330,11 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
@@ -334,10 +350,11 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
@@ -353,10 +370,11 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
@@ -371,10 +389,11 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
@@ -389,10 +408,11 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
@@ -407,11 +427,12 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
-		assertNull(formula.getReturnType());
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
 	/**
@@ -425,10 +446,11 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
@@ -443,10 +465,11 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
-		
-		FormulaDifference formula =
-				new FormulaDifference(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE), operand1, operand2);
-				
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
@@ -462,9 +485,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getValue(null)).thenReturn(0);
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getIntegerValue();
 	}
 	
@@ -480,9 +504,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getValue(null)).thenReturn(0);
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getNumericValue();
 	}
 	
@@ -498,9 +523,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getValue(null)).thenReturn(0);
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getStringValue();
 	}
 	
@@ -517,9 +543,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getValue(null)).thenReturn(0);
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -536,9 +563,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getValue(null)).thenReturn(1);
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 	
@@ -555,9 +583,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand2.getValue(null)).thenReturn(0.5);
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -574,9 +603,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand2.getValue(null)).thenReturn(1.5);
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 	
@@ -593,9 +623,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand2.getValue(null)).thenReturn(0.5);
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -612,9 +643,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand2.getValue(null)).thenReturn(1.0);
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 	
@@ -631,9 +663,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getValue(null)).thenReturn(0.0);
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -650,9 +683,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getValue(null)).thenReturn(1.0);
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 	
@@ -669,9 +703,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand2.getValue(null)).thenReturn("aaa");
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -688,9 +723,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand2.getValue(null)).thenReturn("aaa");
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 	
@@ -707,9 +743,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(operand2.getValue(null)).thenReturn(LocalDate.of(2014, 1, 1));
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -726,9 +763,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(operand2.getValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 	
@@ -744,9 +782,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getValue(null)).thenReturn(0);
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getDateValue();
 	}
 	
@@ -762,9 +801,10 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getValue(null)).thenReturn(0);
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getDurationValue();
 	}
 	
@@ -782,6 +822,7 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaDifference#asText()}
 	 */
 	@Test
+	@Category(DatabaseTestCategory.class)
 	public void testAsText() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
@@ -790,9 +831,11 @@ public class FormulaDifferenceTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.asText()).thenReturn("some_rule2");
-		
-		FormulaDifference formula = new FormulaDifference(null, operand1, operand2);
-		
+
+		FormulaDifference formula = spy(FormulaDifference.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_DIFFERENCE)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals("some_rule1 <> some_rule2", formula.asText());
 	}
 	

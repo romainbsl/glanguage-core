@@ -37,11 +37,11 @@ public class FormulaGreaterOrEqual extends BinaryFormula {
 	@Transient
 	@Override
 	protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
-		switch (parameters.get(0).getReturnType(evaluator)) {
+		switch (getParameters().get(0).getReturnType(evaluator)) {
 		case DATE:
 			return !getParameters().get(0).getDateValue(evaluator).isBefore(getParameters().get(1).getDateValue(evaluator));
 		case INTEGER:
-			if (parameters.get(1).getReturnType(evaluator).equals(FormulaReturnType.INTEGER)) {
+			if (getParameters().get(1).getReturnType(evaluator).equals(FormulaReturnType.INTEGER)) {
 				return getParameters().get(0).getIntegerValue(evaluator) >= getParameters().get(1).getIntegerValue(evaluator);
 			} else { // TODO use numeric each time?
 				return getParameters().get(0).getNumericValue(evaluator) >= getParameters().get(1).getNumericValue(evaluator);

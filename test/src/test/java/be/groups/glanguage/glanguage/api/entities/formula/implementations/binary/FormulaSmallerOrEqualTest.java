@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.binar
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -11,10 +12,10 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaSmallerOrEqual}
@@ -47,7 +48,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaSmallerOrEqual#isValid()} when both operands are integers
+	 * Tests {@link FormulaSmallerOrEqual#isValid(Evaluator)} when both operands are integers
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -58,14 +59,15 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
-		assertTrue(formula.isValid());
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaSmallerOrEqual#isValid()} when first operand is integer and second
+	 * Tests {@link FormulaSmallerOrEqual#isValid(Evaluator)} when first operand is integer and second
 	 * numeric
 	 */
 	@Test
@@ -76,15 +78,16 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
-		assertTrue(formula.isValid());
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaSmallerOrEqual#isValid()} when first operand is integer and second is not
+	 * Tests {@link FormulaSmallerOrEqual#isValid(Evaluator)} when first operand is integer and second is not
 	 * integer or numeric
 	 */
 	@Test
@@ -95,15 +98,16 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaSmallerOrEqual#isValid()} when second operand is integer and first is not
+	 * Tests {@link FormulaSmallerOrEqual#isValid(Evaluator)} when second operand is integer and first is not
 	 * integer or numeric
 	 */
 	@Test
@@ -114,15 +118,16 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaSmallerOrEqual#isValid()} when first operand is numeric and second
+	 * Tests {@link FormulaSmallerOrEqual#isValid(Evaluator)} when first operand is numeric and second
 	 * integer
 	 */
 	@Test
@@ -133,15 +138,16 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
-		assertTrue(formula.isValid());
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaSmallerOrEqual#isValid()} when first operand is numeric and second is not
+	 * Tests {@link FormulaSmallerOrEqual#isValid(Evaluator)} when first operand is numeric and second is not
 	 * integer or numeric
 	 */
 	@Test
@@ -152,15 +158,16 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaSmallerOrEqual#isValid()} when second operand is numeric and first is not
+	 * Tests {@link FormulaSmallerOrEqual#isValid(Evaluator)} when second operand is numeric and first is not
 	 * integer or numeric
 	 */
 	@Test
@@ -171,15 +178,16 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaSmallerOrEqual#isValid()} when both operands are numerics
+	 * Tests {@link FormulaSmallerOrEqual#isValid(Evaluator)} when both operands are numerics
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -189,15 +197,16 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
-		assertTrue(formula.isValid());
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaSmallerOrEqual#isValid()} when both operands are strings
+	 * Tests {@link FormulaSmallerOrEqual#isValid(Evaluator)} when both operands are strings
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -207,15 +216,16 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
-		assertTrue(formula.isValid());
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaSmallerOrEqual#isValid()} when both operands are booleans
+	 * Tests {@link FormulaSmallerOrEqual#isValid(Evaluator)} when both operands are booleans
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -225,15 +235,16 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaSmallerOrEqual#isValid()} when both operands are dates
+	 * Tests {@link FormulaSmallerOrEqual#isValid(Evaluator)} when both operands are dates
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -243,15 +254,16 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
-		assertTrue(formula.isValid());
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaSmallerOrEqual#isValid()} when first operand is a date and second is a
+	 * Tests {@link FormulaSmallerOrEqual#isValid(Evaluator)} when first operand is a date and second is a
 	 * duration
 	 */
 	@Test
@@ -262,15 +274,16 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaSmallerOrEqual#isValid()} when first operand is a duration and second is
+	 * Tests {@link FormulaSmallerOrEqual#isValid(Evaluator)} when first operand is a duration and second is
 	 * a date
 	 */
 	@Test
@@ -281,15 +294,16 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaSmallerOrEqual#isValid()} when both operands are durations
+	 * Tests {@link FormulaSmallerOrEqual#isValid(Evaluator)} when both operands are durations
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -299,11 +313,12 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
@@ -317,10 +332,11 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
@@ -336,10 +352,11 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
@@ -355,10 +372,11 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
@@ -373,10 +391,11 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
@@ -391,10 +410,11 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
@@ -409,11 +429,12 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
-		assertNull(formula.getReturnType());
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType());
 	}
 	
 	/**
@@ -427,10 +448,11 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
@@ -445,11 +467,12 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(
-				FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL), operand1, operand2);
-				
-		assertNull(formula.getReturnType());
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
 	
@@ -465,9 +488,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getIntegerValue(null)).thenReturn(0);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getIntegerValue();
 	}
 	
@@ -483,9 +507,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getIntegerValue(null)).thenReturn(0);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getNumericValue();
 	}
 	
@@ -501,9 +526,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getIntegerValue(null)).thenReturn(0);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getStringValue();
 	}
 	
@@ -520,9 +546,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getIntegerValue(null)).thenReturn(0);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 	
@@ -539,9 +566,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getIntegerValue(null)).thenReturn(1);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -558,9 +586,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getIntegerValue(null)).thenReturn(2);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -577,9 +606,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand2.getNumericValue(null)).thenReturn(0.5);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 	
@@ -596,9 +626,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand2.getNumericValue(null)).thenReturn(1.5);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -615,9 +646,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand2.getNumericValue(null)).thenReturn(2.5);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -634,9 +666,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand2.getNumericValue(null)).thenReturn(0.5);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 	
@@ -653,9 +686,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand2.getNumericValue(null)).thenReturn(1.0);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -672,9 +706,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand2.getNumericValue(null)).thenReturn(2.5);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -691,9 +726,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getNumericValue(null)).thenReturn(0.0);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 	
@@ -710,9 +746,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getNumericValue(null)).thenReturn(1.0);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -729,9 +766,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getNumericValue(null)).thenReturn(2.0);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -748,9 +786,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand2.getStringValue(null)).thenReturn("aaa");
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 	
@@ -767,9 +806,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand2.getStringValue(null)).thenReturn("aaa");
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -786,9 +826,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(operand2.getStringValue(null)).thenReturn("aab");
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -805,9 +846,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(operand2.getDateValue(null)).thenReturn(LocalDate.of(2014, 1, 1));
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 	
@@ -824,9 +866,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(operand2.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -843,9 +886,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(operand2.getDateValue(null)).thenReturn(LocalDate.of(2016, 1, 1));
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -861,9 +905,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getIntegerValue(null)).thenReturn(0);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getDateValue();
 	}
 	
@@ -879,9 +924,10 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getValue(null)).thenReturn(0);
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getDurationValue();
 	}
 	
@@ -899,6 +945,7 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaSmallerOrEqual#asText()}
 	 */
 	@Test
+	@Category(DatabaseTestCategory.class)
 	public void testAsText() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
@@ -907,9 +954,11 @@ public class FormulaSmallerOrEqualTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.asText()).thenReturn("some_rule2");
-		
-		FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual(null, operand1, operand2);
-		
+
+		FormulaSmallerOrEqual formula = spy(FormulaSmallerOrEqual.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_SMALLER_OR_EQUAL)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals("some_rule1 <= some_rule2", formula.asText());
 	}
 	

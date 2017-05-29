@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.binar
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -10,9 +11,10 @@ import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaOr}
@@ -45,7 +47,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaOr#isValid()} when both operands are boolean
+	 * Tests {@link FormulaOr#isValid(Evaluator)} when both operands are boolean
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -56,13 +58,15 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		
-		FormulaOr formula = new FormulaOr(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR), operand1, operand2);
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
 		
-		assertTrue(formula.isValid());
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaOr#isValid()} when first operand is not boolean
+	 * Tests {@link FormulaOr#isValid(Evaluator)} when first operand is not boolean
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -72,14 +76,16 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
-		
-		FormulaOr formula = new FormulaOr(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR), operand1, operand2);
-		
-		assertFalse(formula.isValid());
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaOr#isValid()} when second operand is not boolean
+	 * Tests {@link FormulaOr#isValid(Evaluator)} when second operand is not boolean
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -89,14 +95,16 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaOr formula = new FormulaOr(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR), operand1, operand2);
-		
-		assertFalse(formula.isValid());
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaOr#isValid()} when both operands are not boolean
+	 * Tests {@link FormulaOr#isValid(Evaluator)} when both operands are not boolean
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -106,10 +114,12 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaOr formula = new FormulaOr(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR), operand1, operand2);
-		
-		assertFalse(formula.isValid());
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
@@ -123,9 +133,11 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
-		
-		FormulaOr formula = new FormulaOr(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR), operand1, operand2);
-		
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
 	
@@ -140,10 +152,12 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
-		
-		FormulaOr formula = new FormulaOr(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR), operand1, operand2);
-		
-		assertNull(formula.getReturnType());
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType());
 	}
 	
 	/**
@@ -157,10 +171,12 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaOr formula = new FormulaOr(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR), operand1, operand2);
-		
-		assertNull(formula.getReturnType());
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType());
 	}
 	
 	/**
@@ -174,10 +190,12 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaOr formula = new FormulaOr(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR), operand1, operand2);
-		
-		assertNull(formula.getReturnType());
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType());
 	}
 	
 	/**
@@ -192,9 +210,10 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand2.getBooleanValue(null)).thenReturn(false);
-		
-		FormulaOr formula = new FormulaOr(null, operand1, operand2);
-		
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getIntegerValue();
 	}
 	
@@ -210,9 +229,10 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand2.getBooleanValue(null)).thenReturn(false);
-		
-		FormulaOr formula = new FormulaOr(null, operand1, operand2);
-		
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getNumericValue();
 	}
 	
@@ -228,9 +248,10 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand2.getBooleanValue(null)).thenReturn(false);
-		
-		FormulaOr formula = new FormulaOr(null, operand1, operand2);
-		
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getStringValue();
 	}
 	
@@ -246,9 +267,10 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand2.getBooleanValue(null)).thenReturn(true);
-		
-		FormulaOr formula = new FormulaOr(null, operand1, operand2);
-		
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -264,9 +286,10 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand2.getBooleanValue(null)).thenReturn(true);
-		
-		FormulaOr formula = new FormulaOr(null, operand1, operand2);
-		
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -282,9 +305,10 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand2.getBooleanValue(null)).thenReturn(false);
-		
-		FormulaOr formula = new FormulaOr(null, operand1, operand2);
-		
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -300,9 +324,10 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand2.getBooleanValue(null)).thenReturn(false);
-		
-		FormulaOr formula = new FormulaOr(null, operand1, operand2);
-		
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.FALSE, formula.getBooleanValue());
 	}
 	
@@ -318,9 +343,10 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand2.getBooleanValue(null)).thenReturn(true);
-		
-		FormulaOr formula = new FormulaOr(null, operand1, operand2);
-		
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getBooleanValue();
 	}
 	
@@ -336,9 +362,10 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand2.getBooleanValue(null)).thenReturn(null);
-		
-		FormulaOr formula = new FormulaOr(null, operand1, operand2);
-		
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue());
 	}
 	
@@ -354,9 +381,10 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand2.getBooleanValue(null)).thenReturn(null);
-		
-		FormulaOr formula = new FormulaOr(null, operand1, operand2);
-		
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getBooleanValue();
 	}
 	
@@ -372,9 +400,10 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand2.getBooleanValue(null)).thenReturn(null);
-		
-		FormulaOr formula = new FormulaOr(null, operand1, operand2);
-		
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getBooleanValue();
 	}
 	
@@ -390,9 +419,10 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand2.getBooleanValue(null)).thenReturn(false);
-		
-		FormulaOr formula = new FormulaOr(null, operand1, operand2);
-		
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getDateValue();
 	}
 	
@@ -408,9 +438,10 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand2.getBooleanValue(null)).thenReturn(false);
-		
-		FormulaOr formula = new FormulaOr(null, operand1, operand2);
-		
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getDurationValue();
 	}
 	
@@ -428,6 +459,7 @@ public class FormulaOrTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaOr#asText()}
 	 */
 	@Test
+	@Category(DatabaseTestCategory.class)
 	public void testAsText() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
@@ -436,9 +468,11 @@ public class FormulaOrTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(operand2.asText()).thenReturn("some_rule2");
-		
-		FormulaOr formula = new FormulaOr(null, operand1, operand2);
-		
+
+		FormulaOr formula = spy(FormulaOr.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_OR)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals("some_rule1 or some_rule2", formula.asText());
 	}
 	

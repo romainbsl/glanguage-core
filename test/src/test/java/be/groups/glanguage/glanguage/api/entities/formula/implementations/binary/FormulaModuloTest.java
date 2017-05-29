@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.binar
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -10,9 +11,10 @@ import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaModulo}
@@ -45,7 +47,7 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaModulo#isValid()} when operands are integers
+	 * Tests {@link FormulaModulo#isValid(Evaluator)} when operands are integers
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -56,14 +58,15 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 		AbstractFormula denominator = mock(AbstractFormula.class);
 		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
-		FormulaModulo formula =
-				new FormulaModulo(FormulaDescriptionFactory.getDescription(FormulaType.OP_MODULO), numerator, denominator);
+		FormulaModulo formula = spy(FormulaModulo.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_MODULO)).when(formula).getDescription();
+		doReturn(Arrays.asList(numerator, denominator)).when(formula).getParameters();
 				
-		assertTrue(formula.isValid());
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaModulo#isValid()} when operands are not integers
+	 * Tests {@link FormulaModulo#isValid(Evaluator)} when operands are not integers
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -73,11 +76,12 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 		
 		AbstractFormula denominator = mock(AbstractFormula.class);
 		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaModulo formula =
-				new FormulaModulo(FormulaDescriptionFactory.getDescription(FormulaType.OP_MODULO), numerator, denominator);
-				
-		assertFalse(formula.isValid());
+
+		FormulaModulo formula = spy(FormulaModulo.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_MODULO)).when(formula).getDescription();
+		doReturn(Arrays.asList(numerator, denominator)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
@@ -91,10 +95,11 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 		
 		AbstractFormula denominator = mock(AbstractFormula.class);
 		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaModulo formula =
-				new FormulaModulo(FormulaDescriptionFactory.getDescription(FormulaType.OP_MODULO), numerator, denominator);
-				
+
+		FormulaModulo formula = spy(FormulaModulo.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_MODULO)).when(formula).getDescription();
+		doReturn(Arrays.asList(numerator, denominator)).when(formula).getParameters();
+
 		assertEquals(FormulaReturnType.INTEGER, formula.getReturnType());
 	}
 	
@@ -109,11 +114,12 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 		
 		AbstractFormula denominator = mock(AbstractFormula.class);
 		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaModulo formula =
-				new FormulaModulo(FormulaDescriptionFactory.getDescription(FormulaType.OP_MODULO), numerator, denominator);
-				
-		assertNull(formula.getReturnType());
+
+		FormulaModulo formula = spy(FormulaModulo.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_MODULO)).when(formula).getDescription();
+		doReturn(Arrays.asList(numerator, denominator)).when(formula).getParameters();
+
+		assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType());
 	}
 	
 	/**
@@ -128,9 +134,10 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 		AbstractFormula denominator = mock(AbstractFormula.class);
 		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(denominator.getIntegerValue(null)).thenReturn(3);
-		
-		FormulaModulo formula = new FormulaModulo(null, numerator, denominator);
-		
+
+		FormulaModulo formula = spy(FormulaModulo.class);
+		doReturn(Arrays.asList(numerator, denominator)).when(formula).getParameters();
+
 		assertEquals(Integer.valueOf(2), formula.getIntegerValue());
 	}
 	
@@ -146,9 +153,10 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 		AbstractFormula denominator = mock(AbstractFormula.class);
 		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(denominator.getIntegerValue(null)).thenReturn(2);
-		
-		FormulaModulo formula = new FormulaModulo(null, numerator, denominator);
-		
+
+		FormulaModulo formula = spy(FormulaModulo.class);
+		doReturn(Arrays.asList(numerator, denominator)).when(formula).getParameters();
+
 		formula.getNumericValue();
 	}
 	
@@ -164,9 +172,10 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 		AbstractFormula denominator = mock(AbstractFormula.class);
 		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(denominator.getIntegerValue(null)).thenReturn(2);
-		
-		FormulaModulo formula = new FormulaModulo(null, numerator, denominator);
-		
+
+		FormulaModulo formula = spy(FormulaModulo.class);
+		doReturn(Arrays.asList(numerator, denominator)).when(formula).getParameters();
+
 		formula.getStringValue();
 	}
 	
@@ -182,9 +191,10 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 		AbstractFormula denominator = mock(AbstractFormula.class);
 		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(denominator.getIntegerValue(null)).thenReturn(2);
-		
-		FormulaModulo formula = new FormulaModulo(null, numerator, denominator);
-		
+
+		FormulaModulo formula = spy(FormulaModulo.class);
+		doReturn(Arrays.asList(numerator, denominator)).when(formula).getParameters();
+
 		formula.getBooleanValue();
 	}
 	
@@ -200,9 +210,10 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 		AbstractFormula denominator = mock(AbstractFormula.class);
 		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(denominator.getIntegerValue(null)).thenReturn(2);
-		
-		FormulaModulo formula = new FormulaModulo(null, numerator, denominator);
-		
+
+		FormulaModulo formula = spy(FormulaModulo.class);
+		doReturn(Arrays.asList(numerator, denominator)).when(formula).getParameters();
+
 		formula.getDateValue();
 	}
 	
@@ -218,9 +229,10 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 		AbstractFormula denominator = mock(AbstractFormula.class);
 		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(denominator.getIntegerValue(null)).thenReturn(2);
-		
-		FormulaModulo formula = new FormulaModulo(null, numerator, denominator);
-		
+
+		FormulaModulo formula = spy(FormulaModulo.class);
+		doReturn(Arrays.asList(numerator, denominator)).when(formula).getParameters();
+
 		formula.getDurationValue();
 	}
 	
@@ -238,6 +250,7 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaModulo#asText()}
 	 */
 	@Test
+	@Category(DatabaseTestCategory.class)
 	public void testAsText() throws GLanguageException {
 		AbstractFormula numerator = mock(AbstractFormula.class);
 		when(numerator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
@@ -246,9 +259,11 @@ public class FormulaModuloTest extends BaseDatabaseTest {
 		AbstractFormula denominator = mock(AbstractFormula.class);
 		when(denominator.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(denominator.asText()).thenReturn("some_rule2");
-		
-		FormulaModulo formula = new FormulaModulo(null, numerator, denominator);
-		
+
+		FormulaModulo formula = spy(FormulaModulo.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_MODULO)).when(formula).getDescription();
+		doReturn(Arrays.asList(numerator, denominator)).when(formula).getParameters();
+
 		assertEquals("some_rule1 \\ some_rule2", formula.asText());
 	}
 	

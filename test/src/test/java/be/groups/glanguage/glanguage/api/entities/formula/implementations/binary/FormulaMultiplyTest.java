@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.binar
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -10,9 +11,10 @@ import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaMultiply}
@@ -50,7 +52,7 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Tests {@link FormulaMultiply#isValid()} when both operands are integers
+	 * Tests {@link FormulaMultiply#isValid(Evaluator)} when both operands are integers
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -61,14 +63,15 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		
-		FormulaMultiply formula =
-				new FormulaMultiply(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY), operand1, operand2);
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
 				
-		assertTrue(formula.isValid());
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaMultiply#isValid()} when first operand is integer and second numeric
+	 * Tests {@link FormulaMultiply#isValid(Evaluator)} when first operand is integer and second numeric
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -78,15 +81,16 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaMultiply formula =
-				new FormulaMultiply(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY), operand1, operand2);
-				
-		assertTrue(formula.isValid());
+
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaMultiply#isValid()} when first operand is integer and second is not
+	 * Tests {@link FormulaMultiply#isValid(Evaluator)} when first operand is integer and second is not
 	 * integer or numeric
 	 */
 	@Test
@@ -97,15 +101,16 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaMultiply formula =
-				new FormulaMultiply(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaMultiply#isValid()} when second operand is integer and first is not
+	 * Tests {@link FormulaMultiply#isValid(Evaluator)} when second operand is integer and first is not
 	 * integer or numeric
 	 */
 	@Test
@@ -116,15 +121,16 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaMultiply formula =
-				new FormulaMultiply(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaMultiply#isValid()} when first operand is numeric and second integer
+	 * Tests {@link FormulaMultiply#isValid(Evaluator)} when first operand is numeric and second integer
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -134,15 +140,16 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
-		
-		FormulaMultiply formula =
-				new FormulaMultiply(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY), operand1, operand2);
-				
-		assertTrue(formula.isValid());
+
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaMultiply#isValid()} when first operand is numeric and second is not
+	 * Tests {@link FormulaMultiply#isValid(Evaluator)} when first operand is numeric and second is not
 	 * integer or numeric
 	 */
 	@Test
@@ -153,15 +160,16 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		
-		FormulaMultiply formula =
-				new FormulaMultiply(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaMultiply#isValid()} when second operand is numeric and first is not
+	 * Tests {@link FormulaMultiply#isValid(Evaluator)} when second operand is numeric and first is not
 	 * integer or numeric
 	 */
 	@Test
@@ -172,15 +180,16 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaMultiply formula =
-				new FormulaMultiply(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY), operand1, operand2);
-				
-		assertFalse(formula.isValid());
+
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertFalse(formula.isValid(null));
 	}
 	
 	/**
-	 * Tests {@link FormulaMultiply#isValid()} when both operands are numerics
+	 * Tests {@link FormulaMultiply#isValid(Evaluator)} when both operands are numerics
 	 */
 	@Test
 	@Category({DatabaseTestCategory.class})
@@ -190,11 +199,12 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
-		
-		FormulaMultiply formula =
-				new FormulaMultiply(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY), operand1, operand2);
-				
-		assertTrue(formula.isValid());
+
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
+		assertTrue(formula.isValid(null));
 	}
 	
 	/**
@@ -209,9 +219,10 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getNumericValue(null)).thenReturn(3.0);
-		
-		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
-		
+
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Integer.valueOf(6), formula.getIntegerValue());
 	}
 	
@@ -227,9 +238,10 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand2.getNumericValue(null)).thenReturn(2.3);
-		
-		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
-		
+
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Double.valueOf(3.45), formula.getNumericValue(), DELTA);
 	}
 	
@@ -246,9 +258,10 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(operand2.getNumericValue(null)).thenReturn(2.3);
-		
-		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
-		
+
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Double.valueOf(4.6), formula.getNumericValue(), DELTA);
 	}
 	
@@ -265,9 +278,10 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getNumericValue(null)).thenReturn(2.0);
-		
-		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
-		
+
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals(Double.valueOf(4.6), formula.getNumericValue(), DELTA);
 	}
 	
@@ -283,9 +297,10 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getNumericValue(null)).thenReturn(3.0);
-		
-		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
-		
+
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getStringValue();
 	}
 	
@@ -301,9 +316,10 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getNumericValue(null)).thenReturn(3.0);
-		
-		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
-		
+
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getBooleanValue();
 	}
 	
@@ -319,9 +335,10 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getNumericValue(null)).thenReturn(3.0);
-		
-		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
-		
+
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getDateValue();
 	}
 	
@@ -337,9 +354,10 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.getNumericValue(null)).thenReturn(3.0);
-		
-		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
-		
+
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		formula.getDurationValue();
 	}
 	
@@ -357,6 +375,7 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 	 * Tests {@link FormulaMultiply#asText()}
 	 */
 	@Test
+	@Category(DatabaseTestCategory.class)
 	public void testAsText() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
@@ -365,9 +384,11 @@ public class FormulaMultiplyTest extends BaseDatabaseTest {
 		AbstractFormula operand2 = mock(AbstractFormula.class);
 		when(operand2.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(operand2.asText()).thenReturn("some_rule2");
-		
-		FormulaMultiply formula = new FormulaMultiply(null, operand1, operand2);
-		
+
+		FormulaMultiply formula = spy(FormulaMultiply.class);
+		doReturn(FormulaDescriptionFactory.getDescription(FormulaType.OP_MULTIPLY)).when(formula).getDescription();
+		doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
+
 		assertEquals("some_rule1 * some_rule2", formula.asText());
 	}
 	
