@@ -20,9 +20,8 @@ public class FormulaRoundingBankers extends RoundingFormula {
     }
 
     public FormulaRoundingBankers(FormulaDescription description,
-                                  FormulaDescription precisionFormulaDescription,
                                   List<AbstractFormula> parameters) throws GLanguageException {
-        super(description, precisionFormulaDescription, parameters);
+        super(description, parameters);
     }
 
     @Override

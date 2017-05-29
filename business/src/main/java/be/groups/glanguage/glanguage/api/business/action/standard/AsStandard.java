@@ -117,11 +117,10 @@ public class AsStandard implements SemanticalAction {
         } catch (GLanguageException e) {
             LinkedList<AbstractFormula> parameters = new LinkedList<>();
             parameters.add(formula);
-            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(
-                        formulaDescription,
-                        parameters,
-                        "unaryOperation",
-                        null));
+            e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
+                                                                                parameters,
+                                                                                "unaryOperation",
+                                                                                null));
             /*
              * WORKAROUND
              * Given that SlangTab is generated, it is not possible to make the "yyparse()" method within
@@ -460,30 +459,18 @@ public class AsStandard implements SemanticalAction {
     @Override
     public AbstractFormula standardFunction(FormulaType formulaDescriptionId, LinkedList<AbstractFormula> parameters) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
-        FormulaDescription defaultPrecisionFormulaDescription = FormulaDescriptionFactory
-                .getDescription(FormulaType.TERMINAL_INTEGER);
         try {
             switch (formulaDescriptionId) {
                 case F_CEIL:
-                    return new FormulaRoundingCeil(formulaDescription,
-                                                   defaultPrecisionFormulaDescription,
-                                                   parameters);
+                    return new FormulaRoundingCeil(formulaDescription, parameters);
                 case F_FLOOR:
-                    return new FormulaRoundingFloor(formulaDescription,
-                                                    defaultPrecisionFormulaDescription,
-                                                    parameters);
+                    return new FormulaRoundingFloor(formulaDescription, parameters);
                 case F_ROUNDED:
-                    return new FormulaRoundingArithmetic(formulaDescription,
-                                                         defaultPrecisionFormulaDescription,
-                                                         parameters);
+                    return new FormulaRoundingArithmetic(formulaDescription, parameters);
                 case F_TRUNC:
-                    return new FormulaRoundingTrunc(formulaDescription,
-                                                    defaultPrecisionFormulaDescription,
-                                                    parameters);
+                    return new FormulaRoundingTrunc(formulaDescription, parameters);
                 case F_BANKERS_ROUNDED:
-                    return new FormulaRoundingBankers(formulaDescription,
-                                                      defaultPrecisionFormulaDescription,
-                                                      parameters);
+                    return new FormulaRoundingBankers(formulaDescription, parameters);
                 case F_FORMAT_DATE:
                     return new FormulaFormatDate(formulaDescription, parameters);
                 case F_FORMAT_INTEGER:

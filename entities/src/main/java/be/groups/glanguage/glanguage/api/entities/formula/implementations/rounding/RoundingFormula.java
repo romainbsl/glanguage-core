@@ -11,7 +11,6 @@ import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaWrongParameterTypeInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.base.unable.instantiate.FormulaUnableToInstantiateInnerError;
 import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,28 +26,20 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
     }
 
     public RoundingFormula(FormulaDescription description,
-                           FormulaDescription defaultPrecisionFormulaDescription,
                            List<AbstractFormula> parameters) throws GLanguageException {
         super(description,
-              getParametersAsList(parameters, defaultPrecisionFormulaDescription));
-
-        try {
-            this.parameters = getParametersAsList(parameters, defaultPrecisionFormulaDescription);
-        } catch (GLanguageException e) {
-            e.getError().setOuterError(new FormulaUnableToInstantiateInnerError(this, null));
-            throw e;
-        }
+              getParametersAsList(parameters, description));
     }
 
     @Transient
     @JsonIgnore
     private static List<AbstractFormula> getParametersAsList(List<AbstractFormula> parameters,
-                                                             FormulaDescription defaultPrecisionFormulaDescription)
+                                                             FormulaDescription description)
             throws GLanguageException {
         List<AbstractFormula> list = new ArrayList<>();
         list.addAll(parameters);
         if (parameters.size() < 2) {
-            list.add(getDefaultPrecision(defaultPrecisionFormulaDescription));
+            list.add(getDefaultPrecision(description));
         }
         return list;
     }

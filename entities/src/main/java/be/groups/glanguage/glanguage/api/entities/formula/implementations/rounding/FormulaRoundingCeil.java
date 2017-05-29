@@ -20,9 +20,8 @@ public class FormulaRoundingCeil extends RoundingFormula {
     }
 
     public FormulaRoundingCeil(FormulaDescription description,
-                               FormulaDescription precisionFormulaDescription,
                                List<AbstractFormula> parameters) throws GLanguageException {
-        super(description, precisionFormulaDescription, parameters);
+        super(description, parameters);
     }
 
     @Override

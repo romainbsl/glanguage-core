@@ -20,9 +20,8 @@ public class FormulaRoundingFloor extends RoundingFormula {
     }
 
     public FormulaRoundingFloor(FormulaDescription description,
-                                FormulaDescription precisionFormulaDescription,
                                 List<AbstractFormula> parameters) throws GLanguageException {
-        super(description, precisionFormulaDescription, parameters);
+        super(description, parameters);
     }
 
     @Override
