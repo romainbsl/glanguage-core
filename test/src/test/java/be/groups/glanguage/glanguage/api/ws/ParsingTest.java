@@ -79,13 +79,14 @@ public class ParsingTest extends BaseJerseyResourceTest {
 	
 	@Category(WsTestCategory.class)
 	@Test
-	public void testParseIn() {
-		String formulaString = "r1 in (2 ; 3)";
+	public void testParseIn() throws GLanguageException {
+		String formulaString = "1 in (2 ; 3)";
 		Response response = target("/glanguage/parse").request().post(Entity.json(formulaString));
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 		FormulaIn formula = response.readEntity(FormulaIn.class);
 		assertNotNull(formula);
 		assertTrue("Formula object type unexcpeted " + formula.getClass(), formula instanceof FormulaIn);
+		assertFalse(formula.getBooleanValue());
 	}
 	
 }
