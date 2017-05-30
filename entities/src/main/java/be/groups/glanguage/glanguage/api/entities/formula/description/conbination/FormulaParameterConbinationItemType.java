@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.description.conbinati
 
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnTypeConverter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -35,6 +36,7 @@ public class FormulaParameterConbinationItemType {
         return id;
     }
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "FORMULA_PARAM_CONB_ITEM_ID", referencedColumnName = "ID")
     public FormulaParameterConbinationItem getParameter() {

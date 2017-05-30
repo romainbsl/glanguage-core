@@ -9,6 +9,7 @@ import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.description.conbination
         .FormulaParameterConbinationItemInnerErrorFactory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.Duration;
@@ -55,6 +56,7 @@ public class FormulaParameterConbinationItem implements Comparable<FormulaParame
         return id;
     }
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "FORMULA_PARAM_CONB_ID", referencedColumnName = "ID")
     public FormulaParameterConbination getConbination() {

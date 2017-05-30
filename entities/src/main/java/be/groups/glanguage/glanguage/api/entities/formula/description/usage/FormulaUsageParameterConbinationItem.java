@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.description.usage;
 
 import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem;
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -43,6 +44,7 @@ public class FormulaUsageParameterConbinationItem {
         return conbinationParameter;
     }
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "FORMULA_USAGE_ID", referencedColumnName = "ID")
     public FormulaUsage getUsage() {

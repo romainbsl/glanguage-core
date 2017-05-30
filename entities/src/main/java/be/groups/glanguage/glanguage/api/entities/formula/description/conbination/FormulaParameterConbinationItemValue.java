@@ -1,6 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.formula.description.conbination;
 
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -36,6 +37,7 @@ public class FormulaParameterConbinationItemValue {
         return id;
     }
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "FORMULA_PARAM_CONB_ITEM_ID", referencedColumnName = "ID")
     public FormulaParameterConbinationItem getParameter() {

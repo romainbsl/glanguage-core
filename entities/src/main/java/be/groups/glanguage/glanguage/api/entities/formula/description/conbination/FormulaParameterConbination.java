@@ -6,6 +6,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.usage.Form
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.description.conbination
         .FormulaParameterConbinationInnerErrorFactory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -165,6 +166,7 @@ public class FormulaParameterConbination {
         }
     }
 
+    @JsonIgnore
     @Transient
     public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) {
         return isValidParameterNumber(parameters) && (parameters == null || parameters.size() == 0 || isValidParameters(
@@ -172,6 +174,7 @@ public class FormulaParameterConbination {
                 evaluator));
     }
 
+    @JsonIgnore
     @Transient
     public boolean isValidParameterNumber(List<AbstractFormula> parameters) {
         if (parameters == null || parameters.size() == 0) {
@@ -182,6 +185,7 @@ public class FormulaParameterConbination {
         }
     }
 
+    @JsonIgnore
     @Transient
     public boolean isValidParameters(List<AbstractFormula> parameters, Evaluator evaluator) {
         List<FormulaParameterConbinationItem> conbinationParameters = new ArrayList<>(getParameters());
@@ -229,11 +233,13 @@ public class FormulaParameterConbination {
                 conbinationParameters.size()).stream().allMatch(FormulaParameterConbinationItem::getOptional)));
     }
 
+    @JsonIgnore
     @Transient
     public Integer getParametersMinimumNumber() {
         return Math.toIntExact(getParameters().stream().filter(p -> !p.getOptional()).count());
     }
 
+    @JsonIgnore
     @Transient
     public Integer getParametersMaximumNumber() {
         if (getParameters().stream().anyMatch(FormulaParameterConbinationItem::getRepeatable)) {

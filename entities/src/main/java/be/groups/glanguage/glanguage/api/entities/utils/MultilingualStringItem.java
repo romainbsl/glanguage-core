@@ -1,5 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.utils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -34,6 +36,7 @@ public class MultilingualStringItem {
         return id;
     }
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "MULTILINGUAL_STRING_ID", referencedColumnName = "ID")
     public MultilingualString getMultilingualString() {

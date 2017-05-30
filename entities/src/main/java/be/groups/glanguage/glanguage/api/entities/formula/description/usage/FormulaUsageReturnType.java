@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.description.usage;
 
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnTypeConverter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -35,6 +36,7 @@ public class FormulaUsageReturnType {
         return id;
     }
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "FORMULA_USAGE_ID", referencedColumnName = "ID")
     public FormulaUsage getUsage() {

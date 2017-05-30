@@ -8,6 +8,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.conbinatio
 import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem;
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -53,6 +54,7 @@ public class FormulaUsage {
         return id;
     }
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "FORMULA_DESC_ID", referencedColumnName = "ID")
     public FormulaDescription getFormulaDescription() {
