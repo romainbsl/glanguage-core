@@ -2,8 +2,8 @@ package be.groups.glanguage.glanguage.api.entities;
 
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormulaTest;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescriptionTest;
-import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItemTest;
-import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationTest;
+import be.groups.glanguage.glanguage.api.entities.formula.description.combination.FormulaParameterCombinationItemTest;
+import be.groups.glanguage.glanguage.api.entities.formula.description.combination.FormulaParameterCombinationTest;
 import be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsageTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaAnomalyTest;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracketTest;
@@ -50,7 +50,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({RuleSetTest.class, RuleSetVersionTest.class, RuleIdentityTest.class, RuleDefinitionTest.class,
 		RuleDefinitionParameterTest.class, RuleVersionTest.class, RuleDescriptionTest.class, RuleGroupItemTest.class,
 		RounderTest.class, DefinitionMatcherTest.class, AbstractFormulaTest.class, FormulaDescriptionTest.class,
-		FormulaUsageTest.class, FormulaParameterConbinationTest.class, FormulaParameterConbinationItemTest.class,
+		FormulaUsageTest.class, FormulaParameterCombinationTest.class, FormulaParameterCombinationItemTest.class,
 		FormulaTerminalBooleanTest.class, FormulaTerminalDurationTest.class, FormulaTerminalIntegerTest.class,
 		FormulaTerminalNumericTest.class, FormulaTerminalStringTest.class, FormulaTerminalDateTest.class,
 		FormulaExistTest.class, FormulaNotTest.class, FormulaUnaryMinusTest.class, FormulaAndTest.class, FormulaOrTest

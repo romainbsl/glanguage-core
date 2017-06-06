@@ -1,32 +1,32 @@
 package be.groups.glanguage.glanguage.api.entities.formula.description.usage;
 
-import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem;
+import be.groups.glanguage.glanguage.api.entities.formula.description.combination.FormulaParameterCombinationItem;
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
 /**
- * This class represent an item of a conbination of parameters overridden by a usage
+ * This class represent an item of a combination of parameters overridden by a usage
  * Created by michotte on 4/05/2017.
  */
 @Entity
-@Table(name = "FORMULA_USAGE_PARAM_CONB_ITEM")
-public class FormulaUsageParameterConbinationItem {
+@Table(name = "FORMULA_USAGE_PARAM_COMB_ITEM")
+public class FormulaUsageParameterCombinationItem {
 
     /*
      * Fields
      */
     private Integer id;
     private FormulaUsage usage;
-    private FormulaParameterConbinationItem conbinationParameter;
+    private FormulaParameterCombinationItem combinationParameter;
     private MultilingualString name;
     private MultilingualString description;
 
     /*
      * Constructors
      */
-    public FormulaUsageParameterConbinationItem() {
+    public FormulaUsageParameterCombinationItem() {
         super();
     }
 
@@ -39,9 +39,9 @@ public class FormulaUsageParameterConbinationItem {
     }
 
     @ManyToOne
-    @JoinColumn(name = "FORMULA_PARAM_CONB_ITEM_ID", referencedColumnName = "ID")
-    public FormulaParameterConbinationItem getConbinationParameter() {
-        return conbinationParameter;
+    @JoinColumn(name = "FORMULA_PARAM_COMB_ITEM_ID", referencedColumnName = "ID")
+    public FormulaParameterCombinationItem getCombinationParameter() {
+        return combinationParameter;
     }
 
     @JsonIgnore
@@ -74,8 +74,8 @@ public class FormulaUsageParameterConbinationItem {
         this.usage = usage;
     }
 
-    public void setConbinationParameter(FormulaParameterConbinationItem conbinationParameter) {
-        this.conbinationParameter = conbinationParameter;
+    public void setCombinationParameter(FormulaParameterCombinationItem combinationParameter) {
+        this.combinationParameter = combinationParameter;
     }
 
     public void setName(MultilingualString name) {
@@ -91,16 +91,16 @@ public class FormulaUsageParameterConbinationItem {
      */
     @Override
     public String toString() {
-        return "FormulaUsageParameterConbinationItem{" + "usage=" + usage + ", parameter=" + conbinationParameter +
+        return "FormulaUsageParameterCombinationItem{" + "usage=" + usage + ", parameter=" + combinationParameter +
                 ", name=" + name + ", description=" + description + '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof FormulaUsageParameterConbinationItem)) return false;
+        if (!(o instanceof FormulaUsageParameterCombinationItem)) return false;
 
-        FormulaUsageParameterConbinationItem that = (FormulaUsageParameterConbinationItem) o;
+        FormulaUsageParameterCombinationItem that = (FormulaUsageParameterCombinationItem) o;
 
         return id.equals(that.id);
     }

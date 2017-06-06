@@ -1,4 +1,4 @@
-package be.groups.glanguage.glanguage.api.entities.formula.description.conbination;
+package be.groups.glanguage.glanguage.api.entities.formula.description.combination;
 
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnTypeConverter;
@@ -10,20 +10,20 @@ import javax.persistence.*;
  * Created by michotte on 30/01/2017.
  */
 @Entity
-@Table(name = "FORMULA_PARAM_CONB_ITEM_TYPE")
-public class FormulaParameterConbinationItemType {
+@Table(name = "FORMULA_PARAM_COMB_ITEM_TYPE")
+public class FormulaParameterCombinationItemType {
 
     /*
      * Fields
      */
     private Integer id;
-    private FormulaParameterConbinationItem parameter;
+    private FormulaParameterCombinationItem parameter;
     private FormulaReturnType returnType;
 
     /*
      * Constructors
      */
-    public FormulaParameterConbinationItemType() {
+    public FormulaParameterCombinationItemType() {
         super();
     }
 
@@ -38,8 +38,8 @@ public class FormulaParameterConbinationItemType {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "FORMULA_PARAM_CONB_ITEM_ID", referencedColumnName = "ID")
-    public FormulaParameterConbinationItem getParameter() {
+    @JoinColumn(name = "FORMULA_PARAM_COMB_ITEM_ID", referencedColumnName = "ID")
+    public FormulaParameterCombinationItem getParameter() {
         return parameter;
     }
 
@@ -56,7 +56,7 @@ public class FormulaParameterConbinationItemType {
         this.id = id;
     }
 
-    public void setParameter(FormulaParameterConbinationItem parameter) {
+    public void setParameter(FormulaParameterCombinationItem parameter) {
         this.parameter = parameter;
     }
 
@@ -70,9 +70,9 @@ public class FormulaParameterConbinationItemType {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof FormulaParameterConbinationItemType)) return false;
+        if (!(o instanceof FormulaParameterCombinationItemType)) return false;
 
-        FormulaParameterConbinationItemType that = (FormulaParameterConbinationItemType) o;
+        FormulaParameterCombinationItemType that = (FormulaParameterCombinationItemType) o;
 
         return id.equals(that.id);
     }

@@ -1,4 +1,4 @@
-package be.groups.glanguage.glanguage.api.entities.formula.description.conbination;
+package be.groups.glanguage.glanguage.api.entities.formula.description.combination;
 
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
@@ -7,8 +7,8 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.usage.Form
 import be.groups.glanguage.glanguage.api.entities.utils.Language;
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.glanguage.glanguage.api.error.formula.description.conbination
-        .FormulaParameterConbinationItemInnerErrorFactory;
+import be.groups.glanguage.glanguage.api.error.formula.description.combination
+        .FormulaParameterCombinationItemInnerErrorFactory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -20,31 +20,31 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * This class represent an item of a conbination of parameters
+ * This class represent an item of a combination of parameters
  * Created by michotte on 4/05/2017.
  */
 @Entity
-@Table(name = "FORMULA_PARAM_CONB_ITEM")
-public class FormulaParameterConbinationItem implements Comparable<FormulaParameterConbinationItem> {
+@Table(name = "FORMULA_PARAM_COMB_ITEM")
+public class FormulaParameterCombinationItem implements Comparable<FormulaParameterCombinationItem> {
 
     /*
      * Fields
      */
     private Integer id;
-    private FormulaParameterConbination conbination;
+    private FormulaParameterCombination combination;
     private MultilingualString name;
     private MultilingualString description;
     private Integer sequenceNumber;
     private Boolean optional;
     private String defaultValue;
     private Boolean repeatable;
-    private Set<FormulaParameterConbinationItemType> types;
-    private Set<FormulaParameterConbinationItemValue> values;
+    private Set<FormulaParameterCombinationItemType> types;
+    private Set<FormulaParameterCombinationItemValue> values;
 
     /*
      * Constructors
      */
-    public FormulaParameterConbinationItem() {
+    public FormulaParameterCombinationItem() {
         super();
     }
 
@@ -58,9 +58,9 @@ public class FormulaParameterConbinationItem implements Comparable<FormulaParame
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "FORMULA_PARAM_CONB_ID", referencedColumnName = "ID")
-    public FormulaParameterConbination getConbination() {
-        return conbination;
+    @JoinColumn(name = "FORMULA_PARAM_COMB_ID", referencedColumnName = "ID")
+    public FormulaParameterCombination getCombination() {
+        return combination;
     }
 
     @ManyToOne
@@ -106,17 +106,17 @@ public class FormulaParameterConbinationItem implements Comparable<FormulaParame
     }
 
     @OneToMany(mappedBy = "parameter")
-    public Set<FormulaParameterConbinationItemType> getTypes() {
+    public Set<FormulaParameterCombinationItemType> getTypes() {
         return types;
     }
 
     @Transient
     public List<FormulaReturnType> getReturnTypes() {
-        return getTypes().stream().map(FormulaParameterConbinationItemType::getReturnType).collect(Collectors.toList());
+        return getTypes().stream().map(FormulaParameterCombinationItemType::getReturnType).collect(Collectors.toList());
     }
 
     @OneToMany(mappedBy = "parameter")
-    public Set<FormulaParameterConbinationItemValue> getValues() {
+    public Set<FormulaParameterCombinationItemValue> getValues() {
         return values;
     }
 
@@ -127,8 +127,8 @@ public class FormulaParameterConbinationItem implements Comparable<FormulaParame
         this.id = id;
     }
 
-    public void setConbination(FormulaParameterConbination conbination) {
-        this.conbination = conbination;
+    public void setCombination(FormulaParameterCombination combination) {
+        this.combination = combination;
     }
 
     public void setName(MultilingualString name) {
@@ -155,11 +155,11 @@ public class FormulaParameterConbinationItem implements Comparable<FormulaParame
         this.repeatable = repeatable;
     }
 
-    public void setTypes(Set<FormulaParameterConbinationItemType> types) {
+    public void setTypes(Set<FormulaParameterCombinationItemType> types) {
         this.types = types;
     }
 
-    public void setValues(Set<FormulaParameterConbinationItemValue> values) {
+    public void setValues(Set<FormulaParameterCombinationItemValue> values) {
         this.values = values;
     }
 
@@ -173,11 +173,11 @@ public class FormulaParameterConbinationItem implements Comparable<FormulaParame
         try {
             if (!isValid(parameter, evaluator)) {
                 if (parameter == null) {
-                    throw new GLanguageException(FormulaParameterConbinationItemInnerErrorFactory
+                    throw new GLanguageException(FormulaParameterCombinationItemInnerErrorFactory
                                                          .getNullParameter(formula, usage, this, evaluator));
                 }
                 if (!isValidType(parameter, evaluator)) {
-                    throw new GLanguageException(FormulaParameterConbinationItemInnerErrorFactory.getWrongParameterType(
+                    throw new GLanguageException(FormulaParameterCombinationItemInnerErrorFactory.getWrongParameterType(
                             formula,
                             usage,
                             this,
@@ -185,7 +185,7 @@ public class FormulaParameterConbinationItem implements Comparable<FormulaParame
                             parameter.getReturnType(evaluator),
                             evaluator));
                 } else if (!isValidValue(parameter, evaluator)) {
-                    throw new GLanguageException(FormulaParameterConbinationItemInnerErrorFactory
+                    throw new GLanguageException(FormulaParameterCombinationItemInnerErrorFactory
                                                          .getWrongParameterValue(formula,
                                                                                  usage,
                                                                                  this,
@@ -195,7 +195,7 @@ public class FormulaParameterConbinationItem implements Comparable<FormulaParame
                 }
             }
         } catch (GLanguageException e) {
-            e.getError().setOuterError(FormulaParameterConbinationItemInnerErrorFactory.getUnableToValidate(formula,
+            e.getError().setOuterError(FormulaParameterCombinationItemInnerErrorFactory.getUnableToValidate(formula,
                                                                                                             usage,
                                                                                                             this,
                                                                                                             parameter
@@ -261,7 +261,7 @@ public class FormulaParameterConbinationItem implements Comparable<FormulaParame
      */
     @Override
     public String toString() {
-        return "FormulaParameterConbinationItem{" + "name=" + name + ", description=" + description + ", " +
+        return "FormulaParameterCombinationItem{" + "name=" + name + ", description=" + description + ", " +
                 "sequenceNumber=" + sequenceNumber + ", optional=" + optional + ", defaultValue='" + defaultValue +
                 '\'' + ", repeatable=" + repeatable + ", types=" + types + ", values=" + values + '}';
     }
@@ -269,9 +269,9 @@ public class FormulaParameterConbinationItem implements Comparable<FormulaParame
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof FormulaParameterConbinationItem)) return false;
+        if (!(o instanceof FormulaParameterCombinationItem)) return false;
 
-        FormulaParameterConbinationItem that = (FormulaParameterConbinationItem) o;
+        FormulaParameterCombinationItem that = (FormulaParameterCombinationItem) o;
 
         return id.equals(that.id);
     }
@@ -282,7 +282,7 @@ public class FormulaParameterConbinationItem implements Comparable<FormulaParame
     }
 
     @Override
-    public int compareTo(FormulaParameterConbinationItem o) {
+    public int compareTo(FormulaParameterCombinationItem o) {
         return getSequenceNumber().compareTo(o.getSequenceNumber());
     }
 }

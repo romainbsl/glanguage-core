@@ -1,4 +1,4 @@
-package be.groups.glanguage.glanguage.api.entities.formula.description.conbination;
+package be.groups.glanguage.glanguage.api.entities.formula.description.combination;
 
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -6,26 +6,26 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 /**
- * This class represent a possible value for a {@link FormulaParameterConbinationItem} and a description of the
+ * This class represent a possible value for a {@link FormulaParameterCombinationItem} and a description of the
  * meaning of that value
  * Created by michotte on 4/05/2017.
  */
 @Entity
-@Table(name = "FORMULA_PARAM_CONB_ITEM_VALUE")
-public class FormulaParameterConbinationItemValue {
+@Table(name = "FORMULA_PARAM_COMB_ITEM_VALUE")
+public class FormulaParameterCombinationItemValue {
 
     /*
      * Fields
      */
     private Integer id;
-    private FormulaParameterConbinationItem parameter;
+    private FormulaParameterCombinationItem parameter;
     private String value;
     private MultilingualString description;
 
     /*
      * Constructors
      */
-    public FormulaParameterConbinationItemValue() {
+    public FormulaParameterCombinationItemValue() {
         super();
     }
 
@@ -39,8 +39,8 @@ public class FormulaParameterConbinationItemValue {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "FORMULA_PARAM_CONB_ITEM_ID", referencedColumnName = "ID")
-    public FormulaParameterConbinationItem getParameter() {
+    @JoinColumn(name = "FORMULA_PARAM_COMB_ITEM_ID", referencedColumnName = "ID")
+    public FormulaParameterCombinationItem getParameter() {
         return parameter;
     }
 
@@ -62,7 +62,7 @@ public class FormulaParameterConbinationItemValue {
         this.id = id;
     }
 
-    public void setParameter(FormulaParameterConbinationItem parameter) {
+    public void setParameter(FormulaParameterCombinationItem parameter) {
         this.parameter = parameter;
     }
 
@@ -79,15 +79,15 @@ public class FormulaParameterConbinationItemValue {
      */
     @Override
     public String toString() {
-        return "FormulaParameterConbinationItemValue{" + "value='" + value + '\'' + ", description=" + description + '}';
+        return "FormulaParameterCombinationItemValue{" + "value='" + value + '\'' + ", description=" + description + '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof FormulaParameterConbinationItemValue)) return false;
+        if (!(o instanceof FormulaParameterCombinationItemValue)) return false;
 
-        FormulaParameterConbinationItemValue that = (FormulaParameterConbinationItemValue) o;
+        FormulaParameterCombinationItemValue that = (FormulaParameterCombinationItemValue) o;
 
         return id.equals(that.id);
     }

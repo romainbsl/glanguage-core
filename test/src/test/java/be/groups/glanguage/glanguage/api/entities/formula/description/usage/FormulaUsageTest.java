@@ -5,13 +5,13 @@ import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbination;
-import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem;
+import be.groups.glanguage.glanguage.api.entities.formula.description.combination.FormulaParameterCombination;
+import be.groups.glanguage.glanguage.api.entities.formula.description.combination.FormulaParameterCombinationItem;
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualStringItem;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.glanguage.glanguage.api.error.formula.description.conbination
-        .FormulaParameterConbinationUnableToValidateInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.description.combination
+        .FormulaParameterCombinationUnableToValidateInnerError;
 import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -44,26 +44,26 @@ public class FormulaUsageTest extends BaseDatabaseTest {
 
 		/* Checking relationships */
         assertNotNull(formulaUsage.getFormulaDescription());
-        assertNotNull(formulaUsage.getParameterConbination());
+        assertNotNull(formulaUsage.getParameterCombination());
         assertEquals(Integer.valueOf(1), formulaUsage.getFormulaDescription().getId());
-        assertEquals(Integer.valueOf(1), formulaUsage.getParameterConbination().getId());
+        assertEquals(Integer.valueOf(1), formulaUsage.getParameterCombination().getId());
     }
 
     /**
      * Tests {@link FormulaUsage#validate(AbstractFormula, List, Evaluator)}
-     * when {@link FormulaParameterConbination#validate(AbstractFormula, FormulaUsage, List, Evaluator)} does not
+     * when {@link FormulaParameterCombination#validate(AbstractFormula, FormulaUsage, List, Evaluator)} does not
      * throw an exception
      */
     @Test
-    public void validateValidConbination() {
+    public void validateValidCombination() {
         FormulaUsage usage = spy(FormulaUsage.class);
-        FormulaParameterConbination conbination = mock(FormulaParameterConbination.class);
+        FormulaParameterCombination combination = mock(FormulaParameterCombination.class);
         try {
-            doNothing().when(conbination).validate(null, usage, null, null);
+            doNothing().when(combination).validate(null, usage, null, null);
         } catch (GLanguageException e) {
             fail("Exception thrown" + e);
         }
-        doReturn(conbination).when(usage).getParameterConbination();
+        doReturn(combination).when(usage).getParameterCombination();
         try {
             usage.validate(null, null, null);
         } catch (GLanguageException e) {
@@ -73,24 +73,24 @@ public class FormulaUsageTest extends BaseDatabaseTest {
 
     /**
      * Tests {@link FormulaUsage#validate(AbstractFormula, List, Evaluator)}
-     * when {@link FormulaParameterConbination#validate(AbstractFormula, FormulaUsage, List, Evaluator)} throws an
+     * when {@link FormulaParameterCombination#validate(AbstractFormula, FormulaUsage, List, Evaluator)} throws an
      * exception
      */
     @Test(expected = GLanguageException.class)
-    public void validateNotValidConbination() throws GLanguageException {
+    public void validateNotValidCombination() throws GLanguageException {
         AbstractFormula formula = mock(AbstractFormula.class);
         FormulaUsage usage = spy(FormulaUsage.class);
-        FormulaParameterConbination conbination = mock(FormulaParameterConbination.class);
-        GLanguageException exception = new GLanguageException(new FormulaParameterConbinationUnableToValidateInnerError(
+        FormulaParameterCombination combination = mock(FormulaParameterCombination.class);
+        GLanguageException exception = new GLanguageException(new FormulaParameterCombinationUnableToValidateInnerError(
                 formula,
-                conbination,
+                combination,
                 null));
         try {
-            doThrow(exception).when(conbination).validate(null, usage, null, null);
+            doThrow(exception).when(combination).validate(null, usage, null, null);
         } catch (GLanguageException e) {
             fail("Exception thrown" + e);
         }
-        doReturn(conbination).when(usage).getParameterConbination();
+        doReturn(combination).when(usage).getParameterCombination();
         try {
             usage.validate(null, null, null);
         } catch (GLanguageException e) {
@@ -103,94 +103,94 @@ public class FormulaUsageTest extends BaseDatabaseTest {
 
     /**
      * Tests {@link FormulaUsage#isValid(List, Evaluator)}
-     * when {@link FormulaParameterConbination#isValid(List, Evaluator)} is true
+     * when {@link FormulaParameterCombination#isValid(List, Evaluator)} is true
      */
     @Test
-    public void isValidValidConbination() {
-        FormulaParameterConbination conbination = mock(FormulaParameterConbination.class);
-        doReturn(true).when(conbination).isValid(null, null);
+    public void isValidValidCombination() {
+        FormulaParameterCombination combination = mock(FormulaParameterCombination.class);
+        doReturn(true).when(combination).isValid(null, null);
 
         FormulaUsage usage = spy(FormulaUsage.class);
-        doReturn(conbination).when(usage).getParameterConbination();
+        doReturn(combination).when(usage).getParameterCombination();
         assertTrue(usage.isValid(null, null));
     }
 
     /**
      * Tests {@link FormulaUsage#isValid(List, Evaluator)}
-     * when {@link FormulaParameterConbination#isValid(List, Evaluator)} is false
+     * when {@link FormulaParameterCombination#isValid(List, Evaluator)} is false
      */
     @Test
-    public void isValidNotValidConbination() {
-        FormulaParameterConbination conbination = mock(FormulaParameterConbination.class);
-        doReturn(false).when(conbination).isValid(null, null);
+    public void isValidNotValidCombination() {
+        FormulaParameterCombination combination = mock(FormulaParameterCombination.class);
+        doReturn(false).when(combination).isValid(null, null);
 
         FormulaUsage usage = spy(FormulaUsage.class);
-        doReturn(conbination).when(usage).getParameterConbination();
+        doReturn(combination).when(usage).getParameterCombination();
         assertFalse(usage.isValid(null, null));
     }
 
     /**
-     * Test {@link FormulaUsage#getParameterName(FormulaParameterConbinationItem)}
+     * Test {@link FormulaUsage#getParameterName(FormulaParameterCombinationItem)}
      * when there is no overridden parameter name
      */
     @Test
     public void getParameterNameDescriptionNotOverridden() {
-        FormulaParameterConbination conbination = mock(FormulaParameterConbination.class);
-        FormulaParameterConbinationItem conbinationItem = mock(FormulaParameterConbinationItem.class);
+        FormulaParameterCombination combination = mock(FormulaParameterCombination.class);
+        FormulaParameterCombinationItem combinationItem = mock(FormulaParameterCombinationItem.class);
         MultilingualString multilingualName = new MultilingualString();
         MultilingualStringItem multilingualStringItemName = new MultilingualStringItem();
         multilingualStringItemName.setId(1);
         Set<MultilingualStringItem> multilingualStringItemsName = new HashSet<>();
         multilingualStringItemsName.add(multilingualStringItemName);
         multilingualName.setItems(multilingualStringItemsName);
-        doReturn(multilingualName).when(conbinationItem).getName();
+        doReturn(multilingualName).when(combinationItem).getName();
         MultilingualString multilingualDescription = new MultilingualString();
         MultilingualStringItem multilingualStringItemDescription = new MultilingualStringItem();
         multilingualStringItemDescription.setId(2);
         Set<MultilingualStringItem> multilingualStringItemsDescription = new HashSet<>();
         multilingualStringItemsDescription.add(multilingualStringItemDescription);
         multilingualDescription.setItems(multilingualStringItemsDescription);
-        doReturn(multilingualDescription).when(conbinationItem).getDescription();
-        SortedSet<FormulaParameterConbinationItem> conbinationItems = new TreeSet<>(Comparator.comparing(
-                FormulaParameterConbinationItem::getSequenceNumber));
-        conbinationItems.add(conbinationItem);
-        doReturn(conbinationItems).when(conbination).getParameters();
+        doReturn(multilingualDescription).when(combinationItem).getDescription();
+        SortedSet<FormulaParameterCombinationItem> combinationItems = new TreeSet<>(Comparator.comparing(
+                FormulaParameterCombinationItem::getSequenceNumber));
+        combinationItems.add(combinationItem);
+        doReturn(combinationItems).when(combination).getParameters();
 
         FormulaUsage usage = spy(FormulaUsage.class);
         doReturn(null).when(usage).getOverriddenParameters();
-        assertEquals("name not returned", multilingualName, usage.getParameterName(conbinationItem));
+        assertEquals("name not returned", multilingualName, usage.getParameterName(combinationItem));
         assertEquals("description not returned",
                      multilingualDescription,
-                     usage.getParameterDescription(conbinationItem));
+                     usage.getParameterDescription(combinationItem));
     }
 
     @Test
     public void getParameterNameDescriptionOverridden() {
-        FormulaParameterConbination conbination = mock(FormulaParameterConbination.class);
-        FormulaParameterConbinationItem conbinationItem = mock(FormulaParameterConbinationItem.class);
+        FormulaParameterCombination combination = mock(FormulaParameterCombination.class);
+        FormulaParameterCombinationItem combinationItem = mock(FormulaParameterCombinationItem.class);
         MultilingualString multilingualName = new MultilingualString();
         MultilingualStringItem multilingualStringItemName = new MultilingualStringItem();
         multilingualStringItemName.setId(1);
         Set<MultilingualStringItem> multilingualStringItemsName = new HashSet<>();
         multilingualStringItemsName.add(multilingualStringItemName);
         multilingualName.setItems(multilingualStringItemsName);
-        doReturn(multilingualName).when(conbinationItem).getName();
+        doReturn(multilingualName).when(combinationItem).getName();
         MultilingualString multilingualDescription = new MultilingualString();
         MultilingualStringItem multilingualStringItemDescription = new MultilingualStringItem();
         multilingualStringItemDescription.setId(2);
         Set<MultilingualStringItem> multilingualStringItemsDescription = new HashSet<>();
         multilingualStringItemsDescription.add(multilingualStringItemDescription);
         multilingualDescription.setItems(multilingualStringItemsDescription);
-        doReturn(multilingualDescription).when(conbinationItem).getDescription();
-        SortedSet<FormulaParameterConbinationItem> conbinationItems = new TreeSet<>(Comparator.comparing(
-                FormulaParameterConbinationItem::getSequenceNumber));
-        conbinationItems.add(conbinationItem);
-        doReturn(conbinationItems).when(conbination).getParameters();
+        doReturn(multilingualDescription).when(combinationItem).getDescription();
+        SortedSet<FormulaParameterCombinationItem> combinationItems = new TreeSet<>(Comparator.comparing(
+                FormulaParameterCombinationItem::getSequenceNumber));
+        combinationItems.add(combinationItem);
+        doReturn(combinationItems).when(combination).getParameters();
 
         FormulaUsage usage = spy(FormulaUsage.class);
-        List<FormulaUsageParameterConbinationItem> overriddenParameters = new ArrayList<>();
-        FormulaUsageParameterConbinationItem overriddenParameter = mock(FormulaUsageParameterConbinationItem.class);
-        doReturn(conbinationItem).when(overriddenParameter).getConbinationParameter();
+        List<FormulaUsageParameterCombinationItem> overriddenParameters = new ArrayList<>();
+        FormulaUsageParameterCombinationItem overriddenParameter = mock(FormulaUsageParameterCombinationItem.class);
+        doReturn(combinationItem).when(overriddenParameter).getCombinationParameter();
         MultilingualString overriddenMultilingualName = new MultilingualString();
         MultilingualStringItem overriddenMultilingualStringItemName = new MultilingualStringItem();
         overriddenMultilingualStringItemName.setId(3);
@@ -209,10 +209,10 @@ public class FormulaUsageTest extends BaseDatabaseTest {
         doReturn(overriddenParameters).when(usage).getOverriddenParameters();
         assertEquals("overridden name not returned",
                      overriddenMultilingualName,
-                     usage.getParameterName(conbinationItem));
+                     usage.getParameterName(combinationItem));
         assertEquals("overridden description not returned",
                      overriddenMultilingualDescription,
-                     usage.getParameterDescription(conbinationItem));
+                     usage.getParameterDescription(combinationItem));
     }
 
 

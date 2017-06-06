@@ -1,8 +1,8 @@
-package be.groups.glanguage.glanguage.api.error.formula.description.conbination;
+package be.groups.glanguage.glanguage.api.error.formula.description.combination;
 
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem;
+import be.groups.glanguage.glanguage.api.entities.formula.description.combination.FormulaParameterCombinationItem;
 import be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsage;
 import be.groups.glanguage.glanguage.api.entities.utils.Language;
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
@@ -12,26 +12,26 @@ import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 /**
  * Created by michotte on 11/05/2017.
  */
-public class FormulaParameterConbinationItemUnableToValidateInnerError extends FormulaDescriptionInnerError {
+public class FormulaParameterCombinationItemUnableToValidateInnerError extends FormulaDescriptionInnerError {
 
-    public FormulaParameterConbinationItemUnableToValidateInnerError(AbstractFormula formula,
+    public FormulaParameterCombinationItemUnableToValidateInnerError(AbstractFormula formula,
                                                                      FormulaUsage usage,
-                                                                     FormulaParameterConbinationItem
-                                                                             conbinationParameter,
+                                                                     FormulaParameterCombinationItem
+                                                                             combinationParameter,
                                                                      String parameterAsText,
                                                                      Evaluator evaluator) {
-        super(GLanguageErrorRegistry.FORMULA_PARAMETER_CONBINATION_ITEM_UNABLE_TO_VALIDATE,
+        super(GLanguageErrorRegistry.FORMULA_PARAMETER_COMBINATION_ITEM_UNABLE_TO_VALIDATE,
               formula,
               evaluator,
               ErrorMethod.VALIDATE.getName(),
-              getCause(usage, conbinationParameter, parameterAsText));
+              getCause(usage, combinationParameter, parameterAsText));
     }
 
     private static String getCause(FormulaUsage usage,
-                                   FormulaParameterConbinationItem conbinationParameter,
+                                   FormulaParameterCombinationItem combinationParameter,
                                    String parameterAsText) {
-        return "Unable to validate parameter " + usage.getParameterName(conbinationParameter)
-                .asText(Language.EN) + " at index [" + conbinationParameter
+        return "Unable to validate parameter " + usage.getParameterName(combinationParameter)
+                .asText(Language.EN) + " at index [" + combinationParameter
                 .getSequenceNumber() + "] ('" + parameterAsText + "')";
     }
 }

@@ -1,4 +1,4 @@
-package be.groups.glanguage.glanguage.api.error.formula.description.conbination;
+package be.groups.glanguage.glanguage.api.error.formula.description.combination;
 
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
@@ -9,18 +9,18 @@ import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 /**
  * Created by michotte on 20/12/2016.
  */
-public class FormulaParameterConbinationWrongParameterNumberInnerError extends FormulaDescriptionInnerError {
+public class FormulaParameterCombinationWrongParameterNumberInnerError extends FormulaDescriptionInnerError {
 
     private Integer actualParameterNumber;
     private Integer expectedMinimimumParameterNumber;
     private Integer expectedMaximimumParameterNumber;
 
-    public FormulaParameterConbinationWrongParameterNumberInnerError(AbstractFormula formula,
+    public FormulaParameterCombinationWrongParameterNumberInnerError(AbstractFormula formula,
                                                                      Evaluator evaluator,
                                                                      int actualParameterNumber,
                                                                      int expectedMinimimumParameterNumber,
                                                                      int expectedMaximimumParameterNumber) {
-        super(GLanguageErrorRegistry.FORMULA_PARAMETER_CONBINATION_WRONG_PARAMETER_NUMBER,
+        super(GLanguageErrorRegistry.FORMULA_PARAMETER_COMBINATION_WRONG_PARAMETER_NUMBER,
               formula,
               evaluator,
               ErrorMethod.VALIDATE.getName(),

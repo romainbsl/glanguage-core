@@ -2,7 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.formula.description;
 
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem;
+import be.groups.glanguage.glanguage.api.entities.formula.description.combination.FormulaParameterCombinationItem;
 import be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsage;
 import be.groups.glanguage.glanguage.api.entities.utils.Language;
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
@@ -196,7 +196,7 @@ public class FormulaDescription {
                     Integer minimumParametersReturnTypesNumber = Integer.MAX_VALUE;
                     FormulaUsage usage = null;
                     for (FormulaUsage currentUsage : validUsages) {
-                        Integer currentUsageParametersReturnTypesNumber = currentUsage.getParameterConbination()
+                        Integer currentUsageParametersReturnTypesNumber = currentUsage.getParameterCombination()
                                 .getParameters().stream().map(p -> p.getTypes().size()).reduce((i1, i2) -> i1 + i2)
                                 .orElse(0);
                         if (currentUsageParametersReturnTypesNumber < minimumParametersReturnTypesNumber) {
@@ -218,8 +218,8 @@ public class FormulaDescription {
             return getUsages().iterator().next();
         } else if (getUsages().size() > 1) {
             // Select the usages with matching number of parameters
-            List<FormulaUsage> matchingUsages = getUsages().stream().filter(u -> u.getParameterConbination()
-                    .getParametersMinimumNumber() <= parameters.size() && u.getParameterConbination()
+            List<FormulaUsage> matchingUsages = getUsages().stream().filter(u -> u.getParameterCombination()
+                    .getParametersMinimumNumber() <= parameters.size() && u.getParameterCombination()
                     .getParametersMaximumNumber() >= parameters.size()).collect(Collectors.toList());
             if (matchingUsages.size() == 1) {
                 // Only 1 matching usage -> return it
@@ -236,7 +236,7 @@ public class FormulaDescription {
                     // Select the matching usages with minimum number of parameter equal to parameters list size
                     ArrayList<FormulaUsage> matchingMinimumParameterNumberUsages = new ArrayList<>();
                     for (FormulaUsage usage : matchingUsages) {
-                        if (usage.getParameterConbination().getParametersMinimumNumber() == parameters.size()) {
+                        if (usage.getParameterCombination().getParametersMinimumNumber() == parameters.size()) {
                             matchingMinimumParameterNumberUsages.add(usage);
                         }
                     }
@@ -248,7 +248,7 @@ public class FormulaDescription {
                         // Select the matching usages with maximum number of parameter equal to parameters list size
                         ArrayList<FormulaUsage> matchingMaximumParameterNumberUsages = new ArrayList<>();
                         for (FormulaUsage matchingUsage : matchingMinimumParameterNumberUsages) {
-                            if (matchingUsage.getParameterConbination().getParametersMaximumNumber() == parameters
+                            if (matchingUsage.getParameterCombination().getParametersMaximumNumber() == parameters
                                     .size()) {
                                 matchingMaximumParameterNumberUsages.add(matchingUsage);
                             }
@@ -262,8 +262,8 @@ public class FormulaDescription {
                             int maximumNumberOfMatchinParameterTypes = 0;
                             FormulaUsage matchingUsage = null;
                             for (FormulaUsage currentMatchingUsage : matchingMaximumParameterNumberUsages) {
-                                List<FormulaParameterConbinationItem> usageParameters = currentMatchingUsage
-                                        .getParameterConbination().getParameters().stream().collect(Collectors
+                                List<FormulaParameterCombinationItem> usageParameters = currentMatchingUsage
+                                        .getParameterCombination().getParameters().stream().collect(Collectors
                                                                                                             .toList());
                                 int numberOfMatchingParameterTypes = 0;
                                 for (int i = 0; i < parameters.size(); i++) {
@@ -295,12 +295,12 @@ public class FormulaDescription {
                 List<FormulaUsage> validMinimalUsages = null;
                 int minimumParameterNumber = Integer.MAX_VALUE;
                 for (FormulaUsage currentValidUsage : usages) {
-                    if (currentValidUsage.getParameterConbination().getParametersMinimumNumber() < minimumParameterNumber) {
+                    if (currentValidUsage.getParameterCombination().getParametersMinimumNumber() < minimumParameterNumber) {
                         validMinimalUsages = new ArrayList<>();
-                        minimumParameterNumber = currentValidUsage.getParameterConbination().getParametersMinimumNumber();
+                        minimumParameterNumber = currentValidUsage.getParameterCombination().getParametersMinimumNumber();
 
                     }
-                    if (currentValidUsage.getParameterConbination().getParametersMinimumNumber() == minimumParameterNumber) {
+                    if (currentValidUsage.getParameterCombination().getParametersMinimumNumber() == minimumParameterNumber) {
                         validMinimalUsages.add(currentValidUsage);
                     }
                 }
@@ -312,11 +312,11 @@ public class FormulaDescription {
                     List<FormulaUsage> validMaximalUsages = new ArrayList<>();
                     int maximumParameterNumber = Integer.MAX_VALUE;
                     for (FormulaUsage currentValidUsage : usages) {
-                        if (currentValidUsage.getParameterConbination().getParametersMaximumNumber() < maximumParameterNumber) {
+                        if (currentValidUsage.getParameterCombination().getParametersMaximumNumber() < maximumParameterNumber) {
                             validMaximalUsages = new ArrayList<>();
-                            maximumParameterNumber = currentValidUsage.getParameterConbination().getParametersMaximumNumber();
+                            maximumParameterNumber = currentValidUsage.getParameterCombination().getParametersMaximumNumber();
                         }
-                        if (currentValidUsage.getParameterConbination()
+                        if (currentValidUsage.getParameterCombination()
                                 .getParametersMaximumNumber() == maximumParameterNumber) {
                             validMaximalUsages.add(currentValidUsage);
                         }

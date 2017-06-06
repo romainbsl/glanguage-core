@@ -13,15 +13,15 @@
 		<class>be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula</class>
 		<class>be.groups.glanguage.glanguage.api.entities.formula.AbstractTerminalFormula</class>
 
-		<!-- Formula description/usage/conbination -->
+		<!-- Formula description/uscombinationtion -->
 		<class>be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription</class>
 		<class>be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsage</class>
-		<class>be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsageParameterConbinationItem</class>
+		<class>be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsageParameterCombinationItem</class>
 		<class>be.groups.glanguage.glanguage.api.entities.formula.description.usage.FormulaUsageReturnType</class>
-		<class>be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbination</class>
-		<class>be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem</class>
-		<class>be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItemType</class>
-		<class>be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItemValue</class>
+		<class>be.groups.glanguage.glanguage.api.entities.formula.description.combination.FormulaParameterCombination</class>
+		<class>be.groups.glanguage.glanguage.api.entities.formula.description.combination.FormulaParameterCombinationItem</class>
+		<class>be.groups.glanguage.glanguage.api.entities.formula.description.combination.FormulaParameterCombinationItemType</class>
+		<class>be.groups.glanguage.glanguage.api.entities.formula.description.combination.FormulaParameterCombinationItemValue</class>
 
 		<!-- Standards formulas -->
 

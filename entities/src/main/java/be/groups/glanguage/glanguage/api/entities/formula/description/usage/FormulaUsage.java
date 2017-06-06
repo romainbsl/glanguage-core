@@ -4,8 +4,8 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbination;
-import be.groups.glanguage.glanguage.api.entities.formula.description.conbination.FormulaParameterConbinationItem;
+import be.groups.glanguage.glanguage.api.entities.formula.description.combination.FormulaParameterCombination;
+import be.groups.glanguage.glanguage.api.entities.formula.description.combination.FormulaParameterCombinationItem;
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 /**
  * This class represents a usage of a formula.<br>
- * A usage is a conbination of a {@link FormulaParameterConbination} and a set of {@link FormulaReturnType}'s for a
+ * A usage is a combination of a {@link FormulaParameterCombination} and a set of {@link FormulaReturnType}'s for a
  * {@link FormulaDescription}.<br>
  * It also has a name and a {@link MultilingualString} description.<br>
  * <p>
@@ -33,11 +33,11 @@ public class FormulaUsage {
      */
     private Integer id;
     private FormulaDescription formulaDescription;
-    private FormulaParameterConbination parameterConbination;
+    private FormulaParameterCombination parameterCombination;
     private String name;
     private MultilingualString description;
     private Set<FormulaUsageReturnType> types;
-    private List<FormulaUsageParameterConbinationItem> overriddenParameters;
+    private List<FormulaUsageParameterCombinationItem> overriddenParameters;
 
     /*
      * Constructors
@@ -62,9 +62,9 @@ public class FormulaUsage {
     }
 
     @ManyToOne
-    @JoinColumn(name = "FORMULA_PARAM_CONB_ID", referencedColumnName = "ID")
-    public FormulaParameterConbination getParameterConbination() {
-        return parameterConbination;
+    @JoinColumn(name = "FORMULA_PARAM_COMB_ID", referencedColumnName = "ID")
+    public FormulaParameterCombination getParameterCombination() {
+        return parameterCombination;
     }
 
     @Column
@@ -89,7 +89,7 @@ public class FormulaUsage {
     }
 
     @OneToMany(mappedBy = "usage")
-    public List<FormulaUsageParameterConbinationItem> getOverriddenParameters() {
+    public List<FormulaUsageParameterCombinationItem> getOverriddenParameters() {
         return overriddenParameters;
     }
 
@@ -104,8 +104,8 @@ public class FormulaUsage {
         this.formulaDescription = formulaDescription;
     }
 
-    public void setParameterConbination(FormulaParameterConbination parameterConbination) {
-        this.parameterConbination = parameterConbination;
+    public void setParameterCombination(FormulaParameterCombination parameterCombination) {
+        this.parameterCombination = parameterCombination;
     }
 
     public void setName(String name) {
@@ -120,7 +120,7 @@ public class FormulaUsage {
         this.types = types;
     }
 
-    public void setOverriddenParameters(List<FormulaUsageParameterConbinationItem> overriddenParameters) {
+    public void setOverriddenParameters(List<FormulaUsageParameterCombinationItem> overriddenParameters) {
         this.overriddenParameters = overriddenParameters;
     }
 
@@ -130,41 +130,41 @@ public class FormulaUsage {
     public void validate(AbstractFormula formula,
                          List<AbstractFormula> parameters,
                          Evaluator evaluator) throws GLanguageException {
-        getParameterConbination().validate(formula, this, parameters, evaluator);
+        getParameterCombination().validate(formula, this, parameters, evaluator);
     }
 
     @Transient
     public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) {
-        return getParameterConbination().isValid(parameters, evaluator);
+        return getParameterCombination().isValid(parameters, evaluator);
     }
 
     @Transient
-    public MultilingualString getParameterName(FormulaParameterConbinationItem conbinationParameter) {
+    public MultilingualString getParameterName(FormulaParameterCombinationItem combinationParameter) {
         if (getOverriddenParameters() != null && !getOverriddenParameters().isEmpty()) {
-            Optional<FormulaUsageParameterConbinationItem> overriddenParameter = getOverriddenParameter
-                    (conbinationParameter);
+            Optional<FormulaUsageParameterCombinationItem> overriddenParameter = getOverriddenParameter
+                    (combinationParameter);
             if (overriddenParameter.isPresent()) {
                 return overriddenParameter.get().getName();
             }
-        } return conbinationParameter.getName();
+        } return combinationParameter.getName();
     }
 
     @Transient
-    public MultilingualString getParameterDescription(FormulaParameterConbinationItem conbinationParameter) {
+    public MultilingualString getParameterDescription(FormulaParameterCombinationItem combinationParameter) {
         if (getOverriddenParameters() != null && !getOverriddenParameters().isEmpty()) {
-            Optional<FormulaUsageParameterConbinationItem> overriddenParameter = getOverriddenParameter
-                    (conbinationParameter);
+            Optional<FormulaUsageParameterCombinationItem> overriddenParameter = getOverriddenParameter
+                    (combinationParameter);
             if (overriddenParameter.isPresent()) {
                 return overriddenParameter.get().getDescription();
             }
         }
-        return conbinationParameter.getDescription();
+        return combinationParameter.getDescription();
     }
 
     @Transient
-    private Optional<FormulaUsageParameterConbinationItem> getOverriddenParameter(FormulaParameterConbinationItem
-                                                                                conbinationParameter) {
-        return getOverriddenParameters().stream().filter(p -> p.getConbinationParameter().equals(conbinationParameter))
+    private Optional<FormulaUsageParameterCombinationItem> getOverriddenParameter(FormulaParameterCombinationItem
+                                                                                combinationParameter) {
+        return getOverriddenParameters().stream().filter(p -> p.getCombinationParameter().equals(combinationParameter))
                 .findFirst();
 
     }
@@ -175,7 +175,7 @@ public class FormulaUsage {
     @Override
     public String toString() {
         return "FormulaUsage{" + ", name='" + name + '\'' + ", " + "description=" + description +
-                "parameterConbination=" + parameterConbination + '}';
+                "parameterCombination=" + parameterCombination + '}';
     }
 
     @Override

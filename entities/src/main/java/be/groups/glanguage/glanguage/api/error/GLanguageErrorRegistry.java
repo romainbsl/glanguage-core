@@ -49,18 +49,18 @@ public enum GLanguageErrorRegistry {
             "description"),
     FORMULA_DESCRIPTION_NO_MATCHING_USAGE("FORMULA_DESCRIPTION_NO_MATCHING_USAGE", "Unable to find a matching usage"),
 
-    FORMULA_PARAMETER_CONBINATION_WRONG_PARAMETER_NUMBER("FORMULA_PARAMETER_CONBINATION_WRONG_PARAMETER_NUMBER", "The number of parameters of a formula is wrong"),
-    FORMULA_PARAMETER_CONBINATION_UNREACHABLE_PARAMETERS("FORMULA_PARAMETER_CONBINATION_UNREACHABLE_PARAMETERS",
+    FORMULA_PARAMETER_COMBINATION_WRONG_PARAMETER_NUMBER("FORMULA_PARAMETER_COMBINATION_WRONG_PARAMETER_NUMBER", "The number of parameters of a formula is wrong"),
+    FORMULA_PARAMETER_COMBINATION_UNREACHABLE_PARAMETERS("FORMULA_PARAMETER_COMBINATION_UNREACHABLE_PARAMETERS",
                                                          "There are unreachable parameters"),
-    FORMULA_PARAMETER_CONBINATION_UNABLE_TO_VALIDATE("FORMULA_PARAMETER_CONBINATION_UNABLE_TO_VALIDATE",
-                                                               "Unable to validate a parameter conbination"),
+    FORMULA_PARAMETER_COMBINATION_UNABLE_TO_VALIDATE("FORMULA_PARAMETER_COMBINATION_UNABLE_TO_VALIDATE",
+                                                               "Unable to validate a parameter combination"),
 
-    FORMULA_PARAMETER_CONBINATION_ITEM_WRONG_TYPE("FORMULA_PARAMETER_CONBINATION_ITEM_WRONG_TYPE", "Type of a " +
-            "parameter does not match the type of a conbination parameter"),
-    FORMULA_PARAMETER_CONBINATION_ITEM_WRONG_VALUE("FORMULA_PARAMETER_CONBINATION_ITEM_WRONG_VALUE", "Type of a " +
-            "parameter does not match the possible values of a conbination parameter"),
-    FORMULA_PARAMETER_CONBINATION_ITEM_UNABLE_TO_VALIDATE("FORMULA_PARAMETER_CONBINATION_ITEM_UNABLE_TO_VALIDATE",
-                                                      "Unable to validate a conbination parameter"),
+    FORMULA_PARAMETER_COMBINATION_ITEM_WRONG_TYPE("FORMULA_PARAMETER_COMBINATION_ITEM_WRONG_TYPE", "Type of a " +
+            "parameter does not match the type of a combination parameter"),
+    FORMULA_PARAMETER_COMBINATION_ITEM_WRONG_VALUE("FORMULA_PARAMETER_COMBINATION_ITEM_WRONG_VALUE", "Type of a " +
+            "parameter does not match the possible values of a combination parameter"),
+    FORMULA_PARAMETER_COMBINATION_ITEM_UNABLE_TO_VALIDATE("FORMULA_PARAMETER_COMBINATION_ITEM_UNABLE_TO_VALIDATE",
+                                                      "Unable to validate a combination parameter"),
 
     ROUNDING_TYPE_INVALID("ROUNDING_TYPE_INVALID", "A rounding type is invalid"),
     AGENT_NOT_CALLABLE("AGENT_NOT_CALLABLE", "No such method or field to call");
