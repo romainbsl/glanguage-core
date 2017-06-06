@@ -3,8 +3,10 @@ package be.groups.glanguage.glanguage.api.ws.resource;
 import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
 import be.groups.glanguage.glanguage.api.business.action.standard.AsStandard;
 import be.groups.glanguage.glanguage.api.business.analysis.byaccj.SlangTab;
+import be.groups.glanguage.glanguage.api.business.evaluation.PlanEvaluator;
 import be.groups.glanguage.glanguage.api.business.plan.Plan;
 import be.groups.glanguage.glanguage.api.business.universe.Universe;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.marmota.persistence.DatabaseIdentifier;
@@ -39,21 +41,26 @@ public class MainSampleResource {
     }
 
     @POST
-    @Path("/parse")
+    @Path("/parse/{ruleSetVersionId}")
     @ApiOperation(value = "parse formula string", response = Response.class)
     public Response getFormulaFromString(@Context ContainerRequestContext request,
                                          @ApiParam(value = "formulaString", required = true, defaultValue = "")
-                                                 String formulaString) throws GLanguageException {
+                                                 String formulaString,
+                                         @ApiParam(value = "ruleSetVersionId", required = true) @PathParam
+                                                 ("ruleSetVersionId") Integer ruleSetVersionId) throws
+                                                                                                GLanguageException {
         initializePersistence();
-        return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).entity(parse(formulaString))
+        return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).entity(parse(formulaString,
+                                                                                                 ruleSetVersionId))
                 .build();
     }
 
-    private AbstractFormula parse(String formulaString) throws GLanguageException {
+    private AbstractFormula parse(String formulaString, Integer ruleSetVersionId) throws GLanguageException {
         SemanticalAction semanticalAction = new AsStandard();
         SlangTab parser = new SlangTab(true);
         parser.setSemanticalAction(semanticalAction);
         parser.setFormulaString(formulaString);
+        parser.setEvaluator(new PlanEvaluator(Universe.getPlan(ruleSetVersionId, LocalDate.now()), LocalDate.now()));
         parser.analyze();
         return semanticalAction.getFormula();
     }
@@ -68,63 +75,60 @@ public class MainSampleResource {
                                                  ("ruleSetVersionId") Integer ruleSetVersionId,
                                          @QueryParam("effectivityDate") LocalDate effectivityDate) {
 
-        LOG.error("Enter : " +
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+        LOG.error("Enter : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
         initializePersistence();
         try {
             return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).entity(asText(formulaId,
-                    ruleSetVersionId,
-                    effectivityDate
-                            == null
-                            ?
-                            LocalDate
-                                    .now()
-                            :
-                            effectivityDate))
+                                                                                                      ruleSetVersionId,
+                                                                                                      effectivityDate
+                                                                                                              == null
+                                                                                                              ?
+                                                                                                              LocalDate
+                                                                                                              .now()
+                                                                                                              :
+                                                                                                              effectivityDate))
                     .build();
         } catch (Exception e) {
-            LOG.error("Exception : "+
-                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+            LOG.error("Exception : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
             LOG.error("Unable to get the string representation of the formula identified by " + formulaId, e);
             return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
         } finally {
-            LOG.error("Exit : " +
-                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+            LOG.error("Exit : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
         }
     }
 
     private void initializePersistence() {
-        LOG.error("Enter Init Persistence : " +
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
+        LOG.error("Enter Init Persistence : " + LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
 
         JpaUtil.setCentralEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
 
-        LOG.error("Exit Init Persistence : " +
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
+        LOG.error("Exit Init Persistence : " + LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
     }
 
     private String asText(Integer formulaId, Integer ruleSetVersionId, LocalDate effectivityDate) {
         AbstractFormula formula = Universe.getFormula(formulaId);
         if (formula != null) {
-            LOG.error("Enter Plan : " +
-                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
+            LOG.error("Enter Plan : " + LocalDateTime.now()
+                    .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
 
             Plan plan = Universe.getPlan(ruleSetVersionId, effectivityDate);
 
 //            plan.setRuleVersions(RuleVersionFactory
 //                    .getRuleVersions(ruleSetVersionId, effectivityDate != null ? effectivityDate : LocalDate.now()));
 
-            LOG.error("Exit Plan : " +
-                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
+            LOG.error("Exit Plan : " + LocalDateTime.now()
+                    .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
 
 
-            LOG.error("Enter Branch : " +
-                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
+            LOG.error("Enter Branch : " + LocalDateTime.now()
+                    .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
 
             plan.branch(null, formula, null);
 
-            LOG.error("Exit Branch : " +
-                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
+            LOG.error("Exit Branch : " + LocalDateTime.now()
+                    .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
 
             return formula.asText();
         } else {
