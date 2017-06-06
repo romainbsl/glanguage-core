@@ -17,11 +17,11 @@ public abstract class AbstractNonTerminalFormula extends AbstractFormula {
 		super();
 	}
 	
-	protected AbstractNonTerminalFormula(FormulaDescription description, List<AbstractFormula> parameters) throws
+	protected AbstractNonTerminalFormula(FormulaDescription description, List<AbstractFormula> parameters, Evaluator evaluator
+										 ) throws
 																										   GLanguageException {
 		super(description);
-		// FIXME pass an evaluator with the whole plan in it, initialized by parser
-		validate(parameters, null);
+		validate(parameters, evaluator);
 		this.parameters = parameters;
 	}
 

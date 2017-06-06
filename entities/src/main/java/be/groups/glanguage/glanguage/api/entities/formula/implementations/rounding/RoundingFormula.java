@@ -26,9 +26,9 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
     }
 
     public RoundingFormula(FormulaDescription description,
-                           List<AbstractFormula> parameters) throws GLanguageException {
+                           List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
         super(description,
-              getParametersAsList(parameters, description));
+              getParametersAsList(parameters, description), evaluator);
     }
 
     @Transient

@@ -9,7 +9,8 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.targets.FormulaCannotInvokeTargetObjectInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.targets
+        .FormulaCannotInvokeTargetObjectInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -30,19 +31,28 @@ public class FormulaGet extends CallFormula {
         super();
     }
 
-    public FormulaGet(FormulaDescription description, FormulaDescription subFormulasDescription, FormulaReturnType
-            returnType, List<String> identifiers, List<List<AbstractFormula>> parameters) throws GLanguageException {
-        super(description);
+    public FormulaGet(FormulaDescription description,
+                      FormulaDescription subFormulasDescription,
+                      FormulaReturnType returnType,
+                      List<String> identifiers,
+                      List<List<AbstractFormula>> parameters,
+                      Evaluator evaluator) throws GLanguageException {
+        super(description, evaluator);
 
         setConstantValue(String.valueOf(returnType.ordinal()));
         this.parameters = new ArrayList<>(identifiers.size());
         for (int i = 0; i < identifiers.size(); i++) {
             try {
-                this.parameters.add(new FormulaPrimitive(subFormulasDescription, identifiers.get(i), parameters.get
-                        (i)));
+                this.parameters.add(new FormulaPrimitive(subFormulasDescription,
+                                                         identifiers.get(i),
+                                                         parameters.get(i),
+                                                         evaluator));
             } catch (GLanguageException e) {
-                e.getError().setOuterError(new FormulaInnerError(GLanguageErrorRegistry.FORMULA_INNER_ERROR, this,
-                                                                 null, "constructor", "Bad call chain"));
+                e.getError().setOuterError(new FormulaInnerError(GLanguageErrorRegistry.FORMULA_INNER_ERROR,
+                                                                 this,
+                                                                 evaluator,
+                                                                 "constructor",
+                                                                 "Bad call chain"));
                 throw e;
             }
         }
@@ -201,17 +211,20 @@ public class FormulaGet extends CallFormula {
             result = getContext();
         }
 
-        if(result == null) {
-            throw new GLanguageException(new FormulaCannotInvokeTargetObjectInnerError(this, evaluator, "Context " +
-                    "is unknown"));
+        if (result == null) {
+            throw new GLanguageException(new FormulaCannotInvokeTargetObjectInnerError(this,
+                                                                                       evaluator,
+                                                                                       "Context " + "is unknown"));
         }
 
         for (AbstractFormula primitive : getParameters()) {
             try {
                 result = ((FormulaPrimitive) primitive).getTargetedObject(result, evaluator);
             } catch (GLanguageException e) {
-                e.getError().setOuterError(new FormulaCannotInvokeTargetObjectInnerError(this, evaluator, "Unable " +
-                        "to compute target chain"));
+                e.getError().setOuterError(new FormulaCannotInvokeTargetObjectInnerError(this,
+                                                                                         evaluator,
+                                                                                         "Unable " + "to compute " +
+                                                                                                 "target chain"));
                 throw e;
             }
         }

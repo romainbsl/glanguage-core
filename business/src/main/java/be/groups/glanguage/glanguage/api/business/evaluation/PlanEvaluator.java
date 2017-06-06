@@ -33,12 +33,13 @@ public class PlanEvaluator implements Evaluator {
     }
 
     @Override
-    public RuleVersion getRuleVersion(String ruleIdentityId) {
-        if (!ruleVersionsByRuleIdentityId.containsKey(ruleIdentityId)) {
-            ruleVersionsByRuleIdentityId.put(ruleIdentityId, plan.getEffectiveRuleVersionByRuleIdentityId
-                    (ruleIdentityId));
-        }
-        return ruleVersionsByRuleIdentityId.get(ruleIdentityId);
+    public RuleVersion getRuleVersion(String ruleIdentifier) {
+//        if (!ruleVersionsByRuleIdentityId.containsKey(ruleIdentityId)) {
+//            ruleVersionsByRuleIdentityId.put(ruleIdentityId, plan.getEffectiveRuleVersionByRuleIdentityId(ruleIdentityId));
+//        }
+//        return ruleVersionsByRuleIdentityId.get(ruleIdentityId);
+
+        return plan.getEffectiveRuleVersionByIdenitifier(ruleIdentifier);
     }
 
     @Override

@@ -15,25 +15,27 @@ import java.util.List;
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_SIGN)
 public class FormulaMathSign extends MathFormula {
-	
-	public FormulaMathSign() {
-		super();
-	}
-	
-	public FormulaMathSign(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-		super(description, parameters);
-	}
 
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
-		return Double.valueOf(Double.compare(getParameters().get(0).getNumericValue(evaluator), 0.0));
-	}
-	
-	@Override
-	public String operationAsText() {
-		return "sign";
-	}
-	
+    public FormulaMathSign() {
+        super();
+    }
+
+    public FormulaMathSign(FormulaDescription description,
+                           List<AbstractFormula> parameters,
+                           Evaluator evaluator) throws GLanguageException {
+        super(description, parameters, evaluator);
+    }
+
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
+        return Double.valueOf(Double.compare(getParameters().get(0).getNumericValue(evaluator), 0.0));
+    }
+
+    @Override
+    public String operationAsText() {
+        return "sign";
+    }
+
 }

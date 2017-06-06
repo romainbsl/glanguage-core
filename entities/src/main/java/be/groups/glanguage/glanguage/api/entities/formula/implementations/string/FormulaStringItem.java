@@ -17,56 +17,58 @@ import java.util.List;
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_STRING_ITEM)
 public class FormulaStringItem extends AbstractNonTerminalFormula {
-	
-	public FormulaStringItem() {
-		super();
-	}
-	
-	public FormulaStringItem(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-		super(description, parameters);
-		
-		if (parameters == null) {
-			throw new IllegalArgumentException("parameters must be non-null");
-		}
-		
-		this.parameters = new ArrayList<>();
-		this.parameters.addAll(parameters);
-	}
-	
-	@JsonIgnore
-	@Transient
-	@Override
-	protected String doGetStringValue(Evaluator evaluator) throws GLanguageException {
-		String str, separatorString, separatorRegex;
-		int index;
-		String[] items;
-		
-		str = getParameters().get(0).getStringValue(evaluator);
-		separatorString = getParameters().get(1).getStringValue(evaluator);
-		index = getParameters().get(2).getIntegerValue(evaluator);
-		if (separatorString.isEmpty() || index <= 0) {
-			return "";
-		} else {
-			if (separatorString.equals("|")) { // '|' is a special character in regex, it must be
-											   // escaped
-				separatorRegex = "\\" + separatorString.charAt(0);
-			} else {
-				separatorRegex = "" + separatorString.charAt(0);
-			}
-			items = str.split(separatorRegex);
-			
-			if (items.length <= 0 || !(0 <= (index - 1) && (index - 1) < items.length)) {
-				return "";
-			} else {
-				return items[index - 1];
-			}
-		}
-	}
-	
-	@Override
-	public String asText() {
-		return "stringItem(" + getParameters().get(0).asText() + "; " + getParameters().get(1).asText() + "; "
-				+ getParameters().get(2).asText() + ")";
-	}
-	
+
+    public FormulaStringItem() {
+        super();
+    }
+
+    public FormulaStringItem(FormulaDescription description,
+                             List<AbstractFormula> parameters,
+                             Evaluator evaluator) throws GLanguageException {
+        super(description, parameters, evaluator);
+
+        if (parameters == null) {
+            throw new IllegalArgumentException("parameters must be non-null");
+        }
+
+        this.parameters = new ArrayList<>();
+        this.parameters.addAll(parameters);
+    }
+
+    @JsonIgnore
+    @Transient
+    @Override
+    protected String doGetStringValue(Evaluator evaluator) throws GLanguageException {
+        String str, separatorString, separatorRegex;
+        int index;
+        String[] items;
+
+        str = getParameters().get(0).getStringValue(evaluator);
+        separatorString = getParameters().get(1).getStringValue(evaluator);
+        index = getParameters().get(2).getIntegerValue(evaluator);
+        if (separatorString.isEmpty() || index <= 0) {
+            return "";
+        } else {
+            if (separatorString.equals("|")) { // '|' is a special character in regex, it must be
+                // escaped
+                separatorRegex = "\\" + separatorString.charAt(0);
+            } else {
+                separatorRegex = "" + separatorString.charAt(0);
+            }
+            items = str.split(separatorRegex);
+
+            if (items.length <= 0 || !(0 <= (index - 1) && (index - 1) < items.length)) {
+                return "";
+            } else {
+                return items[index - 1];
+            }
+        }
+    }
+
+    @Override
+    public String asText() {
+        return "stringItem(" + getParameters().get(0).asText() + "; " + getParameters().get(1)
+                .asText() + "; " + getParameters().get(2).asText() + ")";
+    }
+
 }

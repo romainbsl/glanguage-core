@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.business.action.standard;
 
 import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
 import be.groups.glanguage.glanguage.api.business.analysis.IdentifierParameterList;
+import be.groups.glanguage.glanguage.api.business.evaluation.PlanEvaluator;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
@@ -97,18 +98,20 @@ public class AsStandard implements SemanticalAction {
     }
 
     @Override
-    public AbstractFormula unaryOperation(FormulaType formulaDescriptionId, AbstractFormula formula) {
+    public AbstractFormula unaryOperation(FormulaType formulaDescriptionId,
+                                          AbstractFormula formula,
+                                          PlanEvaluator evaluator) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
         try {
             switch (formulaDescription.getType()) {
                 case OP_NOT:
-                    return new FormulaNot(formulaDescription, formula);
+                    return new FormulaNot(formulaDescription, formula, evaluator);
                 case OP_UNARY_PLUS:
                     return formula;
                 case OP_UNARY_MINUS:
-                    return new FormulaUnaryMinus(formulaDescription, formula);
+                    return new FormulaUnaryMinus(formulaDescription, formula, evaluator);
                 case OP_EXIST:
-                    return new FormulaExist(formulaDescription, formula);
+                    return new FormulaExist(formulaDescription, formula, evaluator);
                 default:
                     throw new GLanguageException(new ParserUnknownFormulaTypeInnerError(formulaDescriptionId,
                                                                                         "unaryOperation",
@@ -141,38 +144,39 @@ public class AsStandard implements SemanticalAction {
     @Override
     public AbstractFormula binaryOperation(FormulaType formulaDescriptionId,
                                            AbstractFormula formula1,
-                                           AbstractFormula formula2) {
+                                           AbstractFormula formula2,
+                                           PlanEvaluator evaluator) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
         try {
             switch (formulaDescriptionId) {
                 case OP_MULTIPLY:
-                    return new FormulaMultiply(formulaDescription, formula1, formula2);
+                    return new FormulaMultiply(formulaDescription, formula1, formula2, evaluator);
                 case OP_DIVIDE:
-                    return new FormulaDivide(formulaDescription, formula1, formula2);
+                    return new FormulaDivide(formulaDescription, formula1, formula2, evaluator);
                 case OP_INTEGER_DIVISION:
-                    return new FormulaIntegerDivision(formulaDescription, formula1, formula2);
+                    return new FormulaIntegerDivision(formulaDescription, formula1, formula2, evaluator);
                 case OP_MODULO:
-                    return new FormulaModulo(formulaDescription, formula1, formula2);
+                    return new FormulaModulo(formulaDescription, formula1, formula2, evaluator);
                 case OP_PLUS:
-                    return new FormulaPlus(formulaDescription, formula1, formula2);
+                    return new FormulaPlus(formulaDescription, formula1, formula2, evaluator);
                 case OP_MINUS:
-                    return new FormulaMinus(formulaDescription, formula1, formula2);
+                    return new FormulaMinus(formulaDescription, formula1, formula2, evaluator);
                 case OP_EQUAL:
-                    return new FormulaEqual(formulaDescription, formula1, formula2);
+                    return new FormulaEqual(formulaDescription, formula1, formula2, evaluator);
                 case OP_DIFFERENCE:
-                    return new FormulaDifference(formulaDescription, formula1, formula2);
+                    return new FormulaDifference(formulaDescription, formula1, formula2, evaluator);
                 case OP_SMALLER:
-                    return new FormulaSmaller(formulaDescription, formula1, formula2);
+                    return new FormulaSmaller(formulaDescription, formula1, formula2, evaluator);
                 case OP_SMALLER_OR_EQUAL:
-                    return new FormulaSmallerOrEqual(formulaDescription, formula1, formula2);
+                    return new FormulaSmallerOrEqual(formulaDescription, formula1, formula2, evaluator);
                 case OP_GREATER:
-                    return new FormulaGreater(formulaDescription, formula1, formula2);
+                    return new FormulaGreater(formulaDescription, formula1, formula2, evaluator);
                 case OP_GREATER_OR_EQUAL:
-                    return new FormulaGreaterOrEqual(formulaDescription, formula1, formula2);
+                    return new FormulaGreaterOrEqual(formulaDescription, formula1, formula2, evaluator);
                 case OP_AND:
-                    return new FormulaAnd(formulaDescription, formula1, formula2);
+                    return new FormulaAnd(formulaDescription, formula1, formula2, evaluator);
                 case OP_OR:
-                    return new FormulaOr(formulaDescription, formula1, formula2);
+                    return new FormulaOr(formulaDescription, formula1, formula2, evaluator);
                 default:
                     throw new GLanguageException(new ParserUnknownFormulaTypeInnerError(formulaDescriptionId,
                                                                                         "binaryOperation",
@@ -233,10 +237,12 @@ public class AsStandard implements SemanticalAction {
     }
 
     @Override
-    public AbstractFormula inOperation(AbstractFormula element, LinkedList<AbstractFormula> inList) {
+    public AbstractFormula inOperation(AbstractFormula element,
+                                       LinkedList<AbstractFormula> inList,
+                                       PlanEvaluator evaluator) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.F_IN);
         try {
-            return new FormulaIn(formulaDescription, element, inList);
+            return new FormulaIn(formulaDescription, element, inList, evaluator);
         } catch (GLanguageException e) {
             LinkedList<AbstractFormula> parameters = new LinkedList<>();
             parameters.add(element);
@@ -263,10 +269,10 @@ public class AsStandard implements SemanticalAction {
     }
 
     @Override
-    public AbstractFormula referenceFormula(String ruleId) {
+    public AbstractFormula referenceFormula(String ruleId, PlanEvaluator evaluator) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_RULE_REFERENCE);
         try {
-            return new FormulaRuleReference(formulaDescription, ruleId);
+            return new FormulaRuleReference(formulaDescription, ruleId, evaluator);
         } catch (GLanguageException e) {
             e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
                                                                                 null,
@@ -457,60 +463,62 @@ public class AsStandard implements SemanticalAction {
     }
 
     @Override
-    public AbstractFormula standardFunction(FormulaType formulaDescriptionId, LinkedList<AbstractFormula> parameters) {
+    public AbstractFormula standardFunction(FormulaType formulaDescriptionId,
+                                            LinkedList<AbstractFormula> parameters,
+                                            PlanEvaluator evaluator) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
         try {
             switch (formulaDescriptionId) {
                 case F_CEIL:
-                    return new FormulaRoundingCeil(formulaDescription, parameters);
+                    return new FormulaRoundingCeil(formulaDescription, parameters, evaluator);
                 case F_FLOOR:
-                    return new FormulaRoundingFloor(formulaDescription, parameters);
+                    return new FormulaRoundingFloor(formulaDescription, parameters, evaluator);
                 case F_ROUNDED:
-                    return new FormulaRoundingArithmetic(formulaDescription, parameters);
+                    return new FormulaRoundingArithmetic(formulaDescription, parameters, evaluator);
                 case F_TRUNC:
-                    return new FormulaRoundingTrunc(formulaDescription, parameters);
+                    return new FormulaRoundingTrunc(formulaDescription, parameters, evaluator);
                 case F_BANKERS_ROUNDED:
-                    return new FormulaRoundingBankers(formulaDescription, parameters);
+                    return new FormulaRoundingBankers(formulaDescription, parameters, evaluator);
                 case F_FORMAT_DATE:
-                    return new FormulaFormatDate(formulaDescription, parameters);
+                    return new FormulaFormatDate(formulaDescription, parameters, evaluator);
                 case F_FORMAT_INTEGER:
-                    return new FormulaFormatInteger(formulaDescription, parameters);
+                    return new FormulaFormatInteger(formulaDescription, parameters, evaluator);
                 case F_FORMAT_NUMERIC:
-                    return new FormulaFormatNumeric(formulaDescription, parameters);
+                    return new FormulaFormatNumeric(formulaDescription, parameters, evaluator);
                 case F_FORMAT_STRING:
-                    return new FormulaFormatString(formulaDescription, parameters);
+                    return new FormulaFormatString(formulaDescription, parameters, evaluator);
                 case F_STRING_ITEM:
-                    return new FormulaStringItem(formulaDescription, parameters);
+                    return new FormulaStringItem(formulaDescription, parameters, evaluator);
                 case F_SUBSTRING:
-                    return new FormulaSubString(formulaDescription, parameters);
+                    return new FormulaSubString(formulaDescription, parameters, evaluator);
                 case F_MAX:
-                    return new FormulaExtremumMax(formulaDescription, parameters);
+                    return new FormulaExtremumMax(formulaDescription, parameters, evaluator);
                 case F_MIN:
-                    return new FormulaExtremumMin(formulaDescription, parameters);
+                    return new FormulaExtremumMin(formulaDescription, parameters, evaluator);
                 case F_SMAX:
-                    return new FormulaExtremumSignedMax(formulaDescription, parameters);
+                    return new FormulaExtremumSignedMax(formulaDescription, parameters, evaluator);
                 case F_SMIN:
-                    return new FormulaExtremumSignedMin(formulaDescription, parameters);
+                    return new FormulaExtremumSignedMin(formulaDescription, parameters, evaluator);
                 case F_DATE:
-                    return new FormulaDate(formulaDescription, parameters);
+                    return new FormulaDate(formulaDescription, parameters, evaluator);
                 case F_MINUTES:
-                    return new FormulaDurationMinutes(formulaDescription, parameters);
+                    return new FormulaDurationMinutes(formulaDescription, parameters, evaluator);
                 case F_HOURS:
-                    return new FormulaDurationHours(formulaDescription, parameters);
+                    return new FormulaDurationHours(formulaDescription, parameters, evaluator);
                 case F_DAYS:
-                    return new FormulaDurationDays(formulaDescription, parameters);
+                    return new FormulaDurationDays(formulaDescription, parameters, evaluator);
                 case F_MONTHS:
-                    return new FormulaDurationMonths(formulaDescription, parameters);
+                    return new FormulaDurationMonths(formulaDescription, parameters, evaluator);
                 case F_YEARS:
-                    return new FormulaDurationYears(formulaDescription, parameters);
+                    return new FormulaDurationYears(formulaDescription, parameters, evaluator);
                 case F_ABS:
-                    return new FormulaMathAbs(formulaDescription, parameters);
+                    return new FormulaMathAbs(formulaDescription, parameters, evaluator);
                 case F_SIGN:
-                    return new FormulaMathSign(formulaDescription, parameters);
+                    return new FormulaMathSign(formulaDescription, parameters, evaluator);
                 case F_PUT_TEXT:
-                    return new FormulaAnomaly(formulaDescription, parameters);
+                    return new FormulaAnomaly(formulaDescription, parameters, evaluator);
                 case F_STRING_LENGTH:
-                    return new FormulaStringLength(formulaDescription, parameters);
+                    return new FormulaStringLength(formulaDescription, parameters, evaluator);
                 default:
                     throw new GLanguageException(new ParserUnknownFormulaTypeInnerError(formulaDescriptionId,
                                                                                         "standardFunction",
@@ -536,16 +544,16 @@ public class AsStandard implements SemanticalAction {
     }
 
     @Override
-    public AbstractFormula groupFunction(FormulaType formulaDescriptionId, String groupName) {
+    public AbstractFormula groupFunction(FormulaType formulaDescriptionId, String groupName, PlanEvaluator evaluator) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
         try {
             switch (formulaDescriptionId) {
                 case G_MULT:
-                    return new FormulaGroupMultiply(formulaDescription, groupName);
+                    return new FormulaGroupMultiply(formulaDescription, groupName, evaluator);
                 case G_SUM:
-                    return new FormulaGroupSum(formulaDescription, groupName);
+                    return new FormulaGroupSum(formulaDescription, groupName, evaluator);
                 case G_SUMV:
-                    return new FormulaGroupSumV(formulaDescription, groupName);
+                    return new FormulaGroupSumV(formulaDescription, groupName, evaluator);
                 default:
                     throw new InternalError("Internal error : unknown group function formula type : " +
                                                     formulaDescriptionId);
@@ -570,7 +578,9 @@ public class AsStandard implements SemanticalAction {
     }
 
     @Override
-    public AbstractFormula getFunction(FormulaReturnType returnType, IdentifierParameterList identifierParameterlist) {
+    public AbstractFormula getFunction(FormulaReturnType returnType,
+                                       IdentifierParameterList identifierParameterlist,
+                                       PlanEvaluator evaluator) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_GET);
         FormulaDescription subFormulasDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE);
         try {
@@ -578,7 +588,8 @@ public class AsStandard implements SemanticalAction {
                                   subFormulasDescription,
                                   returnType,
                                   identifierParameterlist.getIdentifiers(),
-                                  identifierParameterlist.getParameters());
+                                  identifierParameterlist.getParameters(),
+                                  evaluator);
         } catch (GLanguageException e) {
             e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
                                                                                 null,
@@ -599,10 +610,10 @@ public class AsStandard implements SemanticalAction {
     }
 
     @Override
-    public AbstractFormula applicabiltyCall(String code) {
+    public AbstractFormula applicabiltyCall(String code, PlanEvaluator evaluator) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_APPLICABILITY);
         try {
-            return new FormulaApplicability(formulaDescription, code);
+            return new FormulaApplicability(formulaDescription, code, evaluator);
         } catch (GLanguageException e) {
             e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
                                                                                 null,
@@ -623,10 +634,10 @@ public class AsStandard implements SemanticalAction {
     }
 
     @Override
-    public AbstractFormula formulaCall(String code) {
+    public AbstractFormula formulaCall(String code, PlanEvaluator evaluator) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_FORMULA);
         try {
-            return new FormulaFormula(formulaDescription, code);
+            return new FormulaFormula(formulaDescription, code, evaluator);
         } catch (GLanguageException e) {
             e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
                                                                                 null,
@@ -649,10 +660,11 @@ public class AsStandard implements SemanticalAction {
     @Override
     public AbstractFormula ifInstruction(AbstractFormula condition,
                                          AbstractFormula ifStatement,
-                                         AbstractFormula elseStatement) {
+                                         AbstractFormula elseStatement,
+                                         PlanEvaluator evaluator) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.I_IF);
         try {
-            return new FormulaIfInstruction(formulaDescription, condition, ifStatement, elseStatement);
+            return new FormulaIfInstruction(formulaDescription, condition, ifStatement, elseStatement, evaluator);
         } catch (GLanguageException e) {
             e.getError().setInnerError(new ParserUnableToParseFormulaInnerError(formulaDescription,
                                                                                 null,

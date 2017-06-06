@@ -21,8 +21,10 @@ public class FormulaDurationDays extends DurationFormula {
         super();
     }
 
-    public FormulaDurationDays(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-        super(description, parameters);
+    public FormulaDurationDays(FormulaDescription description,
+                               List<AbstractFormula> parameters,
+                               Evaluator evaluator) throws GLanguageException {
+        super(description, parameters, evaluator);
     }
 
     @JsonIgnore

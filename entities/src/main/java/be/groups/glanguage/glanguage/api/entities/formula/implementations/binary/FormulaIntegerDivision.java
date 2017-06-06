@@ -15,24 +15,27 @@ import javax.persistence.Transient;
 @DiscriminatorValue(FormulaType.Values.OP_INTEGER_DIVISION)
 public class FormulaIntegerDivision extends BinaryFormula {
 
-	protected FormulaIntegerDivision() {
-		super();
-	}
+    protected FormulaIntegerDivision() {
+        super();
+    }
 
-	public FormulaIntegerDivision(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
-		super(description, child1, child2);
-	}
+    public FormulaIntegerDivision(FormulaDescription description,
+                                  AbstractFormula child1,
+                                  AbstractFormula child2,
+                                  Evaluator evaluator) throws GLanguageException {
+        super(description, child1, child2, evaluator);
+    }
 
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
-		return getParameters().get(0).getIntegerValue(evaluator) / getParameters().get(1).getIntegerValue(evaluator);
-	}
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
+        return getParameters().get(0).getIntegerValue(evaluator) / getParameters().get(1).getIntegerValue(evaluator);
+    }
 
-	@Override
-	public String operationAsText() {
-		return "/";
-	}
+    @Override
+    public String operationAsText() {
+        return "/";
+    }
 
 }

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
@@ -18,31 +18,34 @@ import javax.persistence.Transient;
  * Formula representing a logical or operation<br>
  * This Formula has exactly two (2) parameters<br>
  * The type of the parameters must be boolean
- * 
+ *
  * @author michotte
  */
 @Entity
 @DiscriminatorValue(FormulaType.Values.OP_OR)
 public class FormulaOr extends BinaryFormula {
 
-	protected FormulaOr() {
-		super();
-	}
+    protected FormulaOr() {
+        super();
+    }
 
-	public FormulaOr(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
-		super(description, child1, child2);
-	}
+    public FormulaOr(FormulaDescription description,
+                     AbstractFormula child1,
+                     AbstractFormula child2,
+                     Evaluator evaluator) throws GLanguageException {
+        super(description, child1, child2, evaluator);
+    }
+    
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
+        return getParameters().get(0).getBooleanValue(evaluator) || getParameters().get(1).getBooleanValue(evaluator);
+    }
 
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
-		return getParameters().get(0).getBooleanValue(evaluator) || getParameters().get(1).getBooleanValue(evaluator);
-	}
-
-	@Override
-	public String operationAsText() {
-		return "or";
-	}
+    @Override
+    public String operationAsText() {
+        return "or";
+    }
 
 }

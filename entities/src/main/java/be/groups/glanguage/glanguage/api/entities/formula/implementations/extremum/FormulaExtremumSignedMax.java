@@ -16,43 +16,45 @@ import java.util.List;
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_SMAX)
 public class FormulaExtremumSignedMax extends ExtremumFormula {
-	
-	public FormulaExtremumSignedMax() {
-		super();
-	}
-	
-	public FormulaExtremumSignedMax(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-		super(description, parameters);
-	}
 
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
-		Iterator<AbstractFormula> itParameters = getParameters().iterator();
-		double temp;
-		double sign = 0.0;
-		double result = Double.MIN_VALUE;
-		do {
-			temp = itParameters.next().getNumericValue(evaluator);
-			if (sign == 0.0) {
-				if (Double.compare(temp, 0.0) >= 0) {
-					sign = 1.0;
-				} else {
-					sign = -1.0;
-				}
-			}
-			temp = Math.abs(temp);
-			if (result < temp) {
-				result = temp;
-			}
-		} while (itParameters.hasNext());
-		return result * sign;
-	}
-	
-	@Override
-	public String operationAsText() {
-		return "smax";
-	}
-	
+    public FormulaExtremumSignedMax() {
+        super();
+    }
+
+    public FormulaExtremumSignedMax(FormulaDescription description,
+                                    List<AbstractFormula> parameters,
+                                    Evaluator evaluator) throws GLanguageException {
+        super(description, parameters, evaluator);
+    }
+
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
+        Iterator<AbstractFormula> itParameters = getParameters().iterator();
+        double temp;
+        double sign = 0.0;
+        double result = Double.MIN_VALUE;
+        do {
+            temp = itParameters.next().getNumericValue(evaluator);
+            if (sign == 0.0) {
+                if (Double.compare(temp, 0.0) >= 0) {
+                    sign = 1.0;
+                } else {
+                    sign = -1.0;
+                }
+            }
+            temp = Math.abs(temp);
+            if (result < temp) {
+                result = temp;
+            }
+        } while (itParameters.hasNext());
+        return result * sign;
+    }
+
+    @Override
+    public String operationAsText() {
+        return "smax";
+    }
+
 }

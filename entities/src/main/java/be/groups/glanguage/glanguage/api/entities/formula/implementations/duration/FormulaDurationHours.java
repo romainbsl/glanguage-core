@@ -17,36 +17,38 @@ import java.util.List;
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_HOURS)
 public class FormulaDurationHours extends DurationFormula {
-	
-	public FormulaDurationHours() {
-		super();
-	}
-	
-	public FormulaDurationHours(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-		super(description, parameters);
-	}
-	
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
-		if (getParameters().get(0).getReturnType(evaluator).equals(FormulaReturnType.DURATION)) {
-			return Math.toIntExact(getParameters().get(0).getDurationValue(evaluator).toHours());
-		} else {
-			return getParameters().get(0).getIntegerValue(evaluator);
-		}
-	}
-	
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageException {
-		return Duration.ofHours(getIntegerValue(evaluator));
-	}
-	
-	@Override
-	public String operationAsText() {
-		return "hours";
-	}
-	
+
+    public FormulaDurationHours() {
+        super();
+    }
+
+    public FormulaDurationHours(FormulaDescription description,
+                                List<AbstractFormula> parameters,
+                                Evaluator evaluator) throws GLanguageException {
+        super(description, parameters, evaluator);
+    }
+
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
+        if (getParameters().get(0).getReturnType(evaluator).equals(FormulaReturnType.DURATION)) {
+            return Math.toIntExact(getParameters().get(0).getDurationValue(evaluator).toHours());
+        } else {
+            return getParameters().get(0).getIntegerValue(evaluator);
+        }
+    }
+
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageException {
+        return Duration.ofHours(getIntegerValue(evaluator));
+    }
+
+    @Override
+    public String operationAsText() {
+        return "hours";
+    }
+
 }

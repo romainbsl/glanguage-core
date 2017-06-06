@@ -26,8 +26,8 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
         super();
     }
 
-    public GroupFormula(FormulaDescription description, String groupId) throws GLanguageException {
-        super(description, null);
+    public GroupFormula(FormulaDescription description, String groupId, Evaluator evaluator) throws GLanguageException {
+        super(description, null, evaluator);
         if (groupId == null || groupId.isEmpty()) {
             throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
         }

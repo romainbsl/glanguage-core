@@ -16,34 +16,36 @@ import java.util.List;
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_MIN)
 public class FormulaExtremumMin extends ExtremumFormula {
-	
-	public FormulaExtremumMin() {
-		super();
-	}
-	
-	public FormulaExtremumMin(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-		super(description, parameters);
-	}
 
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
-		Iterator<AbstractFormula> itParameters = getParameters().iterator();
-		double temp;
-		double result = Double.MAX_VALUE;
-		do {
-			temp = itParameters.next().getNumericValue(evaluator);
-			if (result > temp) {
-				result = temp;
-			}
-		} while (itParameters.hasNext());
-		return result;
-	}
-	
-	@Override
-	public String operationAsText() {
-		return "min";
-	}
-	
+    public FormulaExtremumMin() {
+        super();
+    }
+
+    public FormulaExtremumMin(FormulaDescription description,
+                              List<AbstractFormula> parameters,
+                              Evaluator evaluator) throws GLanguageException {
+        super(description, parameters, evaluator);
+    }
+
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
+        Iterator<AbstractFormula> itParameters = getParameters().iterator();
+        double temp;
+        double result = Double.MAX_VALUE;
+        do {
+            temp = itParameters.next().getNumericValue(evaluator);
+            if (result > temp) {
+                result = temp;
+            }
+        } while (itParameters.hasNext());
+        return result;
+    }
+
+    @Override
+    public String operationAsText() {
+        return "min";
+    }
+
 }

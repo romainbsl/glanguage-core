@@ -16,40 +16,41 @@ import java.util.Iterator;
 @Entity
 @DiscriminatorValue(FormulaType.Values.G_MULT)
 public class FormulaGroupMultiply extends GroupFormula {
-		
-	public FormulaGroupMultiply() {
-		super();
-	}
 
-	public FormulaGroupMultiply(FormulaDescription description, String groupId) throws GLanguageException {
-		super(description, groupId);
-	}
-	
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
-		if (getGroupRule() == null) {
-			throw new IllegalAccessError("Cannot invoke getRulesInGroup() method on " + this.getClass().getName()
-					+ " object while referenced rule (version id : " + getConstantValue()
-					+ ") is not set - while branching is not done");
-		} else if (!(getReturnType(evaluator).equals(FormulaReturnType.INTEGER)
-				|| getReturnType(evaluator).equals(FormulaReturnType.NUMERIC))) {
-			throw new IllegalAccessError("Cannot invoke getIntegerValue() method on " + this.getClass().getName()
-					+ " object if referenced rule group  (version id : " + getConstantValue()
-					+ ") has rules that are not of type INTEGER or NUMERIC");
-		}
-		double result = 1.0;
-		Iterator<RuleVersion> itGroupItems = getRulesInGroup(evaluator).iterator();
-		while (itGroupItems.hasNext()) {
-			result *= itGroupItems.next().getNumericValue(evaluator);
-		}
-		return result;
-	}
-	
-	@Override
-	public String operationAsText() {
-		return "multiply";
-	}
-	
+    public FormulaGroupMultiply() {
+        super();
+    }
+
+    public FormulaGroupMultiply(FormulaDescription description,
+                                String groupId,
+                                Evaluator evaluator) throws GLanguageException {
+        super(description, groupId, evaluator);
+    }
+
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
+        if (getGroupRule() == null) {
+            throw new IllegalAccessError("Cannot invoke getRulesInGroup() method on " + this.getClass()
+                    .getName() + " object while referenced rule (version id : " + getConstantValue() + ") is not set " + "- while branching is not done");
+        } else if (!(getReturnType(evaluator).equals(FormulaReturnType.INTEGER) || getReturnType(evaluator).equals(
+                FormulaReturnType.NUMERIC))) {
+            throw new IllegalAccessError("Cannot invoke getIntegerValue() method on " + this.getClass()
+                    .getName() + " object if referenced rule group  (version id : " + getConstantValue() + ") has " +
+												 "rules that are not of type INTEGER or NUMERIC");
+        }
+        double result = 1.0;
+        Iterator<RuleVersion> itGroupItems = getRulesInGroup(evaluator).iterator();
+        while (itGroupItems.hasNext()) {
+            result *= itGroupItems.next().getNumericValue(evaluator);
+        }
+        return result;
+    }
+
+    @Override
+    public String operationAsText() {
+        return "multiply";
+    }
+
 }

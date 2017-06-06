@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding;
 
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -20,8 +21,9 @@ public class FormulaRoundingArithmetic extends RoundingFormula {
     }
 
     public FormulaRoundingArithmetic(FormulaDescription description,
-                                     List<AbstractFormula> parameters) throws GLanguageException {
-        super(description, parameters);
+                                     List<AbstractFormula> parameters,
+                                     Evaluator evaluator) throws GLanguageException {
+        super(description, parameters, evaluator);
     }
 
     @Override

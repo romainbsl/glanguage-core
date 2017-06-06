@@ -130,7 +130,7 @@ public class FormulaPrimitiveTest {
 		
 		List<AbstractFormula> parameters = Arrays.asList(calls3Param1, calls3Param2);
 		
-		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, parameters);
+		FormulaPrimitive formula = new FormulaPrimitive(null, primitive, parameters, null);
 		
 		assertEquals("call(some_rule1; some_rule2)", formula.asText());
 	}

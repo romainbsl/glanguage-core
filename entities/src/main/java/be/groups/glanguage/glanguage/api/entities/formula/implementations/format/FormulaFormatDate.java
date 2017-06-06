@@ -22,8 +22,10 @@ public class FormulaFormatDate extends FormatFormula {
         super();
     }
 
-    public FormulaFormatDate(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-		super(description, parameters);
+    public FormulaFormatDate(FormulaDescription description,
+                             List<AbstractFormula> parameters,
+                             Evaluator evaluator) throws GLanguageException {
+        super(description, parameters, evaluator);
 
         if (parameters == null) {
             throw new IllegalArgumentException("parameters must be non-null");
@@ -37,8 +39,9 @@ public class FormulaFormatDate extends FormatFormula {
     @Transient
     @Override
     protected String doGetStringValue(Evaluator evaluator) throws GLanguageException {
-        return getParameters().get(0).getDateValue(evaluator)
-                .format(DateTimeFormatter.ofPattern(getParameters().get(1).getStringValue(null)));
+        return getParameters().get(0).getDateValue(evaluator).format(DateTimeFormatter.ofPattern(getParameters().get(1)
+                                                                                                         .getStringValue(
+                                                                                                                 null)));
     }
 
     @Override

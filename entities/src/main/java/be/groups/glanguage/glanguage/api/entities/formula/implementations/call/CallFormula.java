@@ -17,8 +17,8 @@ public abstract class CallFormula extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public CallFormula(FormulaDescription description) throws GLanguageException {
-		super(description, null);
+	public CallFormula(FormulaDescription description, Evaluator evaluator) throws GLanguageException {
+		super(description, null, evaluator);
 	}
 
 	protected Object callFunctionAny(Object anObject, String aMethodName, AbstractFormula[] someMethodParameters,

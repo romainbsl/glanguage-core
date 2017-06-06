@@ -20,8 +20,10 @@ public abstract class FormatFormula extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	protected FormatFormula(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-		super(description, parameters);
+	protected FormatFormula(FormulaDescription description,
+                            List<AbstractFormula> parameters,
+                            Evaluator evaluator) throws GLanguageException {
+		super(description, parameters, evaluator);
 	}
 	
 	@JsonIgnore

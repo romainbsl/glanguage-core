@@ -24,54 +24,11 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
         super();
     }
 
-    public FormulaAnomaly(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-		super(description, parameters);
-//        try {
-//            if (parameters == null) {
-//                throw new GLanguageException(new FormulaNullParameterListInnerError(this, null, "constructor"));
-//            }
-//            if (!(parameters.size() == 1 || parameters.size() == 2)) {
-//                throw new GLanguageException(new FormulaParameterConbinationWrongParameterNumberInnerError(this,
-//                                                                                                           null,
-//                                                                                                           "constructor",
-//                                                                                                           parameters.size(),
-//                                                                                                           Arrays.asList(1, 2)));
-//            }
-//            if (parameters.get(0) == null) {
-//                throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
-//            }
-//            if (parameters.size() == 2 && parameters.get(1) == null) {
-//                throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 2));
-//            }
-//            if (!(parameters.get(0).getReturnType(null).equals(FormulaReturnType.INTEGER) || parameters.get(0)
-//                    .getReturnType(null).equals(FormulaReturnType.STRING))) {
-//                throw new GLanguageException(new FormulaWrongParameterTypeInnerError(this,
-//                                                                                     null,
-//                                                                                     "constructor",
-//                                                                                     "code",
-//                                                                                     1,
-//                                                                                     parameters.get(0)
-//                                                                                             .getReturnType(null),
-//                                                                                     Arrays.asList(FormulaReturnType
-//                                                                                                           .INTEGER,
-//                                                                                                   FormulaReturnType
-//                                                                                                           .STRING)));
-//            }
-//            if (parameters.size() > 1 && !parameters.get(1).getReturnType(null).equals(FormulaReturnType.STRING)) {
-//                throw new GLanguageException(new FormulaWrongParameterTypeInnerError(this,
-//                                                                                     null,
-//                                                                                     "constructor",
-//                                                                                     "message",
-//                                                                                     2,
-//                                                                                     parameters.get(0)
-//                                                                                             .getReturnType(null),
-//                                                                                     Arrays.asList(FormulaReturnType
-//                                                                                                           .STRING)));
-//            }
-//        } catch (GLanguageException e) {
-//            e.getError().setOuterError(new FormulaUnableToInstantiateInnerError(this));
-//            throw e;
-//        }
+    public FormulaAnomaly(FormulaDescription description,
+                          List<AbstractFormula> parameters,
+                          Evaluator evaluator) throws GLanguageException {
+        super(description, parameters, evaluator);
+
         this.parameters = new ArrayList<>();
         this.parameters.addAll(parameters);
     }

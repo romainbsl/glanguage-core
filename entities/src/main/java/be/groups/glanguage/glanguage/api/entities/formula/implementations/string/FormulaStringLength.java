@@ -22,8 +22,10 @@ public class FormulaStringLength extends AbstractNonTerminalFormula {
         super();
     }
 
-    public FormulaStringLength(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-        super(description, parameters);
+    public FormulaStringLength(FormulaDescription description,
+                               List<AbstractFormula> parameters,
+                               Evaluator evaluator) throws GLanguageException {
+        super(description, parameters, evaluator);
 
         if (parameters == null) {
             throw new IllegalArgumentException("parameters must be non-null");
@@ -44,8 +46,8 @@ public class FormulaStringLength extends AbstractNonTerminalFormula {
     @Transient
     @Override
     protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
-        return getParameters().get(0).getStringValue(evaluator) != null ? getParameters().get(0)
-                .getStringValue(evaluator).length() : 0;
+        return getParameters().get(0).getStringValue(evaluator) != null ? getParameters().get(0).getStringValue(
+                evaluator).length() : 0;
     }
 
     @Override

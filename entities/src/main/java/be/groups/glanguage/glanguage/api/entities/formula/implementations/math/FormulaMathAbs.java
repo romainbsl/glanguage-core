@@ -15,25 +15,27 @@ import java.util.List;
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_ABS)
 public class FormulaMathAbs extends MathFormula {
-	
-	public FormulaMathAbs() {
-		super();
-	}
 
-	public FormulaMathAbs(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-		super(description, parameters);
-	}
+    public FormulaMathAbs() {
+        super();
+    }
 
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
-		return Math.abs(getParameters().get(0).getNumericValue(evaluator));
-	}
-	
-	@Override
-	public String operationAsText() {
-		return "abs";
-	}
-	
+    public FormulaMathAbs(FormulaDescription description,
+                          List<AbstractFormula> parameters,
+                          Evaluator evaluator) throws GLanguageException {
+        super(description, parameters, evaluator);
+    }
+
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
+        return Math.abs(getParameters().get(0).getNumericValue(evaluator));
+    }
+
+    @Override
+    public String operationAsText() {
+        return "abs";
+    }
+
 }

@@ -18,94 +18,90 @@ import java.util.List;
 @Entity
 @DiscriminatorValue(FormulaType.Values.C_FORMULA)
 public class FormulaFormula extends RuleCallFormula {
-	
-	protected FormulaFormula() {
-		super();
-	}
-	
-	public FormulaFormula(FormulaDescription description, String ruleId) throws GLanguageException {
-		super(description, ruleId);
-	}
 
-	@Override
-	public boolean isValid(Evaluator evaluator) {
-		return true;
-	}
+    protected FormulaFormula() {
+        super();
+    }
 
-	@Override
-	public void validate(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
-		// do nothing
-	}
+    public FormulaFormula(FormulaDescription description,
+                          String ruleId,
+                          Evaluator evaluator) throws GLanguageException {
+        super(description, ruleId, evaluator);
+    }
 
-	@Override
-	protected Integer doGetIntegerValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		try {
-			return ruleVersion.getFormula().getIntegerValue(evaluator);
-		} catch (GLanguageException e) {
-			e.getError()
-					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.INTEGER, null));
-			throw e;
-		}
-	}
-	
-	@Override
-	protected Double doGetNumericValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		try {
-			return ruleVersion.getFormula().getNumericValue(evaluator);
-		} catch (GLanguageException e) {
-			e.getError()
-					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.NUMERIC, null));
-			throw e;
-		}
-	}
-	
-	@Override
-	protected String doGetStringValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		try {
-			return ruleVersion.getFormula().getStringValue(evaluator);
-		} catch (GLanguageException e) {
-			e.getError()
-					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.STRING, null));
-			throw e;
-		}
-	}
-	
-	@Override
-	protected Boolean doGetBooleanValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		try {
-			return ruleVersion.getFormula().getBooleanValue(evaluator);
-		} catch (GLanguageException e) {
-			e.getError()
-					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.BOOLEAN, null));
-			throw e;
-		}
-	}
-	
-	@Override
-	protected LocalDate doGetDateValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		try {
-			return ruleVersion.getFormula().getDateValue(evaluator);
-		} catch (GLanguageException e) {
-			e.getError()
-					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DATE, null));
-			throw e;
-		}
-	}
-	
-	@Override
-	protected Duration doGetDurationValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		try {
-			return ruleVersion.getFormula().getDurationValue(evaluator);
-		} catch (GLanguageException e) {
-			e.getError()
-					.setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DURATION, null));
-			throw e;
-		}
-	}
-	
-	@Override
-	public String operationAsText() {
-		return ".formula";
-	}
-	
+    @Override
+    public boolean isValid(Evaluator evaluator) {
+        return true;
+    }
+
+    @Override
+    public void validate(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
+        // do nothing
+    }
+
+    @Override
+    protected Integer doGetIntegerValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+        try {
+            return ruleVersion.getFormula().getIntegerValue(evaluator);
+        } catch (GLanguageException e) {
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.INTEGER, null));
+            throw e;
+        }
+    }
+
+    @Override
+    protected Double doGetNumericValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+        try {
+            return ruleVersion.getFormula().getNumericValue(evaluator);
+        } catch (GLanguageException e) {
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.NUMERIC, null));
+            throw e;
+        }
+    }
+
+    @Override
+    protected String doGetStringValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+        try {
+            return ruleVersion.getFormula().getStringValue(evaluator);
+        } catch (GLanguageException e) {
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.STRING, null));
+            throw e;
+        }
+    }
+
+    @Override
+    protected Boolean doGetBooleanValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+        try {
+            return ruleVersion.getFormula().getBooleanValue(evaluator);
+        } catch (GLanguageException e) {
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.BOOLEAN, null));
+            throw e;
+        }
+    }
+
+    @Override
+    protected LocalDate doGetDateValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+        try {
+            return ruleVersion.getFormula().getDateValue(evaluator);
+        } catch (GLanguageException e) {
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DATE, null));
+            throw e;
+        }
+    }
+
+    @Override
+    protected Duration doGetDurationValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+        try {
+            return ruleVersion.getFormula().getDurationValue(evaluator);
+        } catch (GLanguageException e) {
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DURATION, null));
+            throw e;
+        }
+    }
+
+    @Override
+    public String operationAsText() {
+        return ".formula";
+    }
+
 }

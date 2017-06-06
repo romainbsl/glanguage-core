@@ -19,8 +19,10 @@ public class FormulaUnaryMinus extends UnaryFormula {
         super();
     }
 
-    public FormulaUnaryMinus(FormulaDescription description, AbstractFormula child) throws GLanguageException {
-        super(description, child);
+    public FormulaUnaryMinus(FormulaDescription description,
+                             AbstractFormula child,
+                             Evaluator evaluator) throws GLanguageException {
+        super(description, child, evaluator);
     }
 
     @JsonIgnore
