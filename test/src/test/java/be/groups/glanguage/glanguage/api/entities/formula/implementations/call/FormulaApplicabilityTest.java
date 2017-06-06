@@ -87,7 +87,7 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 	public void testGetBooleanValueCondTrue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
+		FormulaApplicability formula = new FormulaApplicability(null, ruleId, null);
 		
 		AbstractFormula applicabilityCondition = mock(AbstractFormula.class);
 		when(applicabilityCondition.getBooleanValue(null)).thenReturn(true);
@@ -113,7 +113,7 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 	public void testGetBooleanValueCondFalse() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(null, ruleId);
+		FormulaApplicability formula = new FormulaApplicability(null, ruleId, null);
 
 		AbstractFormula applicabilityCondition = mock(AbstractFormula.class);
 		when(applicabilityCondition.getBooleanValue(null)).thenReturn(false);

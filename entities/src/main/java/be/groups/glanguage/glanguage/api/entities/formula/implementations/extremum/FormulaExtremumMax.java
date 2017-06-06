@@ -16,36 +16,38 @@ import java.util.List;
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_MAX)
 public class FormulaExtremumMax extends ExtremumFormula {
-	
-	public FormulaExtremumMax() {
-		super();
-	}
-	
-	public FormulaExtremumMax(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-		super(description, parameters);
-	}
 
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
-		Iterator<AbstractFormula> itParameters = getParameters().iterator();
-		Double temp;
-		Double result = Double.MIN_VALUE;
-		do {
-			temp = itParameters.next().getNumericValue(evaluator);
-			
-			if (result < temp) {
-				result = temp;
-			}
-		} while (itParameters.hasNext());
-		
-		return result;
-	}
-	
-	@Override
-	public String operationAsText() {
-		return "max";
-	}
-	
+    public FormulaExtremumMax() {
+        super();
+    }
+
+    public FormulaExtremumMax(FormulaDescription description,
+                              List<AbstractFormula> parameters,
+                              Evaluator evaluator) throws GLanguageException {
+        super(description, parameters, evaluator);
+    }
+
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
+        Iterator<AbstractFormula> itParameters = getParameters().iterator();
+        Double temp;
+        Double result = Double.MIN_VALUE;
+        do {
+            temp = itParameters.next().getNumericValue(evaluator);
+
+            if (result < temp) {
+                result = temp;
+            }
+        } while (itParameters.hasNext());
+
+        return result;
+    }
+
+    @Override
+    public String operationAsText() {
+        return "max";
+    }
+
 }

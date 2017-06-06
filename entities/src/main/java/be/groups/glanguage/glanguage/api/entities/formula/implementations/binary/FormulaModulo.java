@@ -15,24 +15,27 @@ import javax.persistence.Transient;
 @DiscriminatorValue(FormulaType.Values.OP_MODULO)
 public class FormulaModulo extends BinaryFormula {
 
-	protected FormulaModulo() {
-		super();
-	}
+    protected FormulaModulo() {
+        super();
+    }
 
-	public FormulaModulo(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
-		super(description, child1, child2);
-	}
+    public FormulaModulo(FormulaDescription description,
+                         AbstractFormula child1,
+                         AbstractFormula child2,
+                         Evaluator evaluator) throws GLanguageException {
+        super(description, child1, child2, evaluator);
+    }
 
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
-		return getParameters().get(0).getIntegerValue(evaluator) % getParameters().get(1).getIntegerValue(evaluator);
-	}
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
+        return getParameters().get(0).getIntegerValue(evaluator) % getParameters().get(1).getIntegerValue(evaluator);
+    }
 
-	@Override
-	public String operationAsText() {
-		return "\\";
-	}
+    @Override
+    public String operationAsText() {
+        return "\\";
+    }
 
 }

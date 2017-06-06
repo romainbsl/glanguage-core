@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.binary;
 
@@ -17,31 +17,34 @@ import javax.persistence.Transient;
 /**
  * Formula representing a logical equal operation<br>
  * This Formula has exactly two (2) parameters
- * 
+ *
  * @author michotte
  */
 @Entity
 @DiscriminatorValue(FormulaType.Values.OP_EQUAL)
 public class FormulaEqual extends BinaryFormula {
 
-	protected FormulaEqual() {
-		super();
-	}
+    protected FormulaEqual() {
+        super();
+    }
 
-	public FormulaEqual(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
-		super(description, child1, child2);
-	}
+    public FormulaEqual(FormulaDescription description,
+                        AbstractFormula child1,
+                        AbstractFormula child2,
+                        Evaluator evaluator) throws GLanguageException {
+        super(description, child1, child2, evaluator);
+    }
 
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
-		return getParameters().get(0).getValue(evaluator).equals(getParameters().get(1).getValue(evaluator));
-	}
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
+        return getParameters().get(0).getValue(evaluator).equals(getParameters().get(1).getValue(evaluator));
+    }
 
-	@Override
-	public String operationAsText() {
-		return "=";
-	}
+    @Override
+    public String operationAsText() {
+        return "=";
+    }
 
 }

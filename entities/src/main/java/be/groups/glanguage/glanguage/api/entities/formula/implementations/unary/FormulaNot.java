@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.unary;
 
@@ -18,31 +18,33 @@ import javax.persistence.Transient;
  * Formula representing a logical not operation<br>
  * This Formula has exactly one (1) parameter<br>
  * The type of the parameter must be boolean
- * 
+ *
  * @author michotte
  */
 @Entity
 @DiscriminatorValue(FormulaType.Values.OP_NOT)
 public class FormulaNot extends UnaryFormula {
 
-	protected FormulaNot() {
-		super();
-	}
+    protected FormulaNot() {
+        super();
+    }
 
-	public FormulaNot(FormulaDescription description, AbstractFormula child) throws GLanguageException {
-		super(description, child);
-	}
+    public FormulaNot(FormulaDescription description,
+                      AbstractFormula child,
+                      Evaluator evaluator) throws GLanguageException {
+        super(description, child, evaluator);
+    }
 
-	@JsonIgnore
-	@Transient
-	@Override
-	public Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
-		return !getParameters().get(0).getBooleanValue(evaluator);
-	}
+    @JsonIgnore
+    @Transient
+    @Override
+    public Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
+        return !getParameters().get(0).getBooleanValue(evaluator);
+    }
 
-	@Override
-	public String operationAsText() {
-		return "not";
-	}
+    @Override
+    public String operationAsText() {
+        return "not";
+    }
 
 }

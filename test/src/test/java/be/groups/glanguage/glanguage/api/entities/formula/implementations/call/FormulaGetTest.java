@@ -653,7 +653,7 @@ public class FormulaGetTest extends BaseDatabaseTest {
 		List<List<AbstractFormula>> parameters =
 				Arrays.asList(Arrays.asList(), Arrays.asList(), Arrays.asList(calls3Param1, calls3Param2));
 				
-		FormulaGet formula = new FormulaGet(null, null, returnType, identifiers, parameters);
+		FormulaGet formula = new FormulaGet(null, null, returnType, identifiers, parameters, null);
 		
 		assertEquals("get BOOLEAN call1.call2.call3(some_rule1; some_rule2)", formula.asText());
 	}

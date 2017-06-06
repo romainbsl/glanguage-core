@@ -29,8 +29,9 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
     public FormulaIfInstruction(FormulaDescription description,
                                 AbstractFormula condition,
                                 AbstractFormula ifStatement,
-                                AbstractFormula elseStatement) throws GLanguageException {
-        super(description, Arrays.asList(condition, ifStatement, elseStatement));
+                                AbstractFormula elseStatement,
+                                Evaluator evaluator) throws GLanguageException {
+        super(description, Arrays.asList(condition, ifStatement, elseStatement), evaluator);
         this.parameters = new ArrayList<>();
         parameters.add(condition);
         parameters.add(ifStatement);
@@ -110,7 +111,8 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
                 throw new GLanguageException(new FormulaEvaluateTypeInnerError(this,
                                                                                evaluator,
                                                                                ErrorMethod.DATE,
-                                                                               "Else statement needed, no default value of type DATE"));
+                                                                               "Else statement needed, no default " +
+                                                                                       "value of type DATE"));
             }
         }
     }

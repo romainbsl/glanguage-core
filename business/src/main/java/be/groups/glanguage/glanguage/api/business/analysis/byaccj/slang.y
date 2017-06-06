@@ -3,6 +3,7 @@ package be.groups.glanguage.glanguage.api.business.analysis.byaccj;
 
 import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
 import be.groups.glanguage.glanguage.api.business.analysis.IdentifierParameterList;
+import be.groups.glanguage.glanguage.api.business.evaluation.PlanEvaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
@@ -225,7 +226,7 @@ expr:
 				}
 	| expr T_IN '(' expressionList ')' %prec ATOMIC_CALL	
 				{
-					$$ = aSem.inOperation ($1, $4);if (yydebug) debug("expr t_in in");
+					$$ = aSem.inOperation ($1, $4, getEvaluator());if (yydebug) debug("expr t_in in");
 				}
 	| '(' expr ')'				
 				{
@@ -233,75 +234,75 @@ expr:
 				}
 	| T_NOT expr				
 				{
-					$$ = aSem.unaryOperation (FormulaType.OP_NOT, $2);
+					$$ = aSem.unaryOperation (FormulaType.OP_NOT, $2, getEvaluator());
 				}
 	| '+' expr %prec UNARY_OP	
 				{
-					$$ = aSem.unaryOperation (FormulaType.OP_UNARY_PLUS, $2);if (yydebug) debug(" + in expr");
+					$$ = aSem.unaryOperation (FormulaType.OP_UNARY_PLUS, $2, getEvaluator());if (yydebug) debug(" + in expr");
 				}
 	| '-' expr %prec UNARY_OP	
 				{
-					$$ = aSem.unaryOperation (FormulaType.OP_UNARY_MINUS, $2);if (yydebug) debug("- in expr");
+					$$ = aSem.unaryOperation (FormulaType.OP_UNARY_MINUS, $2, getEvaluator());if (yydebug) debug("- in expr");
 				}
 	| '?' expr					
 				{
-					$$ = aSem.unaryOperation (FormulaType.OP_EXIST, $2);if (yydebug) debug("? in expr");
+					$$ = aSem.unaryOperation (FormulaType.OP_EXIST, $2, getEvaluator());if (yydebug) debug("? in expr");
 				}
 	| expr '*' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_MULTIPLY, $1, $3);if (yydebug) debug("* in expr");
+					$$ = aSem.binaryOperation (FormulaType.OP_MULTIPLY, $1, $3, getEvaluator());if (yydebug) debug("* in expr");
 				}
 	| expr '/' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_DIVIDE, $1, $3);if (yydebug) debug("/ in expr");
+					$$ = aSem.binaryOperation (FormulaType.OP_DIVIDE, $1, $3, getEvaluator());if (yydebug) debug("/ in expr");
 				}
 	| expr T_INTEGER_DIV expr	
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_INTEGER_DIVISION, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_INTEGER_DIVISION, $1, $3, getEvaluator());
 				}
 	| expr T_MODULO expr		
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_MODULO, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_MODULO, $1, $3, getEvaluator());
 				}
 	| expr '+' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_PLUS, $1, $3);if (yydebug) debug("+expr in expr");
+					$$ = aSem.binaryOperation (FormulaType.OP_PLUS, $1, $3, getEvaluator());if (yydebug) debug("+expr in expr");
 				}
 	| expr '-' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_MINUS, $1, $3);if (yydebug) debug("-expr in expr");
+					$$ = aSem.binaryOperation (FormulaType.OP_MINUS, $1, $3, getEvaluator());if (yydebug) debug("-expr in expr");
 				}
 	| expr '=' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_EQUAL, $1, $3);if (yydebug) debug("=expr in expr");
+					$$ = aSem.binaryOperation (FormulaType.OP_EQUAL, $1, $3, getEvaluator());if (yydebug) debug("=expr in expr");
 				}
 	| expr T_DIFFERENT expr		
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_DIFFERENCE, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_DIFFERENCE, $1, $3, getEvaluator());
 				}
 	| expr '<' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_SMALLER, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_SMALLER, $1, $3, getEvaluator());
 				}
 	| expr T_SMALLER_EQ expr	
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_SMALLER_OR_EQUAL, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_SMALLER_OR_EQUAL, $1, $3, getEvaluator());
 				}
 	| expr '>' expr				
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_GREATER, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_GREATER, $1, $3, getEvaluator());
 				}
 	| expr T_GREATER_EQ expr	
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_GREATER_OR_EQUAL, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_GREATER_OR_EQUAL, $1, $3, getEvaluator());
 				}
 	| expr T_AND expr			
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_AND, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_AND, $1, $3, getEvaluator());
 				}
 	| expr T_OR expr			
 				{
-					$$ = aSem.binaryOperation (FormulaType.OP_OR, $1, $3);
+					$$ = aSem.binaryOperation (FormulaType.OP_OR, $1, $3, getEvaluator());
 				}
 	;
 
@@ -415,7 +416,7 @@ month:
 entity:
 	V_IDENT					
 				{
-					$$ = aSem.referenceFormula ($1); if (yydebug) debug("v_ident entity");
+					$$ = aSem.referenceFormula ($1, getEvaluator()); if (yydebug) debug("v_ident entity");
 				}
 	;
 	
@@ -434,130 +435,130 @@ functionalCall:
 objectCall:
 	V_IDENT '.' T_APPLIC		
 				{
-					$$ = aSem.applicabiltyCall ($1);
+					$$ = aSem.applicabiltyCall ($1, getEvaluator());
 				}
 	| V_IDENT '.' T_FORMULA		
 				{
-					$$ = aSem.formulaCall ($1);
+					$$ = aSem.formulaCall ($1, getEvaluator());
 				}
 	;
 	
 standardFunction:
 	T_ABS '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_ABS, $3);
+					$$ = aSem.standardFunction (FormulaType.F_ABS, $3, getEvaluator());
 				}
 	| T_BANKERS_ROUNDED '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_BANKERS_ROUNDED, $3);
+					$$ = aSem.standardFunction (FormulaType.F_BANKERS_ROUNDED, $3, getEvaluator());
 				}
 	| T_CEIL '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_CEIL, $3);
+					$$ = aSem.standardFunction (FormulaType.F_CEIL, $3, getEvaluator());
 				}
 	| T_FLOOR '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_FLOOR, $3);
+					$$ = aSem.standardFunction (FormulaType.F_FLOOR, $3, getEvaluator());
 				}
 	| T_FORMATDATE '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_FORMAT_DATE, $3);
+					$$ = aSem.standardFunction (FormulaType.F_FORMAT_DATE, $3, getEvaluator());
 				}
 	| T_FORMATINTEGER '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_FORMAT_INTEGER, $3);
+					$$ = aSem.standardFunction (FormulaType.F_FORMAT_INTEGER, $3, getEvaluator());
 				}
 	| T_FORMATNUMERIC '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_FORMAT_NUMERIC, $3);
+					$$ = aSem.standardFunction (FormulaType.F_FORMAT_NUMERIC, $3, getEvaluator());
 				}
 	| T_FORMATSTRING '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_FORMAT_STRING, $3);
+					$$ = aSem.standardFunction (FormulaType.F_FORMAT_STRING, $3, getEvaluator());
 				}
 	| T_ROUNDED '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_ROUNDED, $3);
+					$$ = aSem.standardFunction (FormulaType.F_ROUNDED, $3, getEvaluator());
 				}
 	| T_SIGN '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_SIGN, $3);
+					$$ = aSem.standardFunction (FormulaType.F_SIGN, $3, getEvaluator());
 				}
 	| T_STRINGITEM '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_STRING_ITEM, $3);
+					$$ = aSem.standardFunction (FormulaType.F_STRING_ITEM, $3, getEvaluator());
 				}				
 	| T_SUBSTRING '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_SUBSTRING, $3);
+					$$ = aSem.standardFunction (FormulaType.F_SUBSTRING, $3, getEvaluator());
 				}				
 	| T_TRUNC '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_TRUNC, $3);
+					$$ = aSem.standardFunction (FormulaType.F_TRUNC, $3, getEvaluator());
 				}
 	| T_GET type getCall				
 				{
-					$$ = aSem.getFunction ($2, $3); if (yydebug) debug("t_get "+$2+" "+$3);
+					$$ = aSem.getFunction ($2, $3, getEvaluator()); if (yydebug) debug("t_get "+$2+" "+$3);
 				}
 	| T_MULTIPLY '(' V_IDENT ')'		
 				{
-					$$ = aSem.groupFunction (FormulaType.G_MULT, $3);
+					$$ = aSem.groupFunction (FormulaType.G_MULT, $3, getEvaluator());
 				}
 	| T_SUM '(' V_IDENT ')'				
 				{
-					$$ = aSem.groupFunction (FormulaType.G_SUM, $3);
+					$$ = aSem.groupFunction (FormulaType.G_SUM, $3, getEvaluator());
 				}
 	| T_SUMV '(' V_IDENT ')'			
 				{
-					$$ = aSem.groupFunction (FormulaType.G_SUMV, $3);
+					$$ = aSem.groupFunction (FormulaType.G_SUMV, $3, getEvaluator());
 				}
 	| T_MIN '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_MIN, $3);
+					$$ = aSem.standardFunction (FormulaType.F_MIN, $3, getEvaluator());
 				}
 	| T_MAX '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_MAX, $3);
+					$$ = aSem.standardFunction (FormulaType.F_MAX, $3, getEvaluator());
 				}
 	| T_SMIN '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_SMIN, $3);
+					$$ = aSem.standardFunction (FormulaType.F_SMIN, $3, getEvaluator());
 				}
 	| T_SMAX '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_SMAX, $3);
+					$$ = aSem.standardFunction (FormulaType.F_SMAX, $3, getEvaluator());
 				}
 	| T_DATE '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_DATE, $3);
+					$$ = aSem.standardFunction (FormulaType.F_DATE, $3, getEvaluator());
 				}
  	| T_MINUTES '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_MINUTES, $3);
+					$$ = aSem.standardFunction (FormulaType.F_MINUTES, $3, getEvaluator());
 				}
  	| T_HOURS '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_HOURS, $3);
+					$$ = aSem.standardFunction (FormulaType.F_HOURS, $3, getEvaluator());
 				}
 	| T_DAYS '(' expressionList ')'			
 				{
-					$$ = aSem.standardFunction (FormulaType.F_DAYS, $3);
+					$$ = aSem.standardFunction (FormulaType.F_DAYS, $3, getEvaluator());
 				}
 	| T_MONTHS '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_MONTHS, $3);
+					$$ = aSem.standardFunction (FormulaType.F_MONTHS, $3, getEvaluator());
 				}
 	| T_YEARS '(' expressionList ')'		
 				{
-					$$ = aSem.standardFunction (FormulaType.F_YEARS, $3);
+					$$ = aSem.standardFunction (FormulaType.F_YEARS, $3, getEvaluator());
 				}
 	| T_PUT_TEXT '(' expressionList ')'
 				{
-					$$ = aSem.standardFunction (FormulaType.F_PUT_TEXT, $3);
+					$$ = aSem.standardFunction (FormulaType.F_PUT_TEXT, $3, getEvaluator());
 				}
 	| T_STRINGLENGTH '(' expressionList ')'
 				{
-					$$ = aSem.standardFunction (FormulaType.F_STRING_LENGTH, $3);
+					$$ = aSem.standardFunction (FormulaType.F_STRING_LENGTH, $3, getEvaluator());
 				}
 	;
 
@@ -588,12 +589,12 @@ instruction:
 	T_IF expr T_THEN expr T_END
 				{
 					if (yydebug) debug("t_if expr t_then expr t_end yacc");
-					$$ = aSem.ifInstruction($2,$4,null);
+					$$ = aSem.ifInstruction($2,$4,null, getEvaluator());
 				}
 	| T_IF expr T_THEN expr else T_END
 				{
 					if (yydebug) debug("t_if expr t_then expr else t_end yacc");
-					$$ = aSem.ifInstruction($2,$4,$5);
+					$$ = aSem.ifInstruction($2,$4,$5, getEvaluator());
 				}
 	;
 	
@@ -601,12 +602,12 @@ else:
 	T_ELSEIF expr T_THEN expr else	
 				{
 					if (yydebug) debug("t_elseif expr t_then expr else yacc");
-					$$ = aSem.ifInstruction ($2, $4, $5);
+					$$ = aSem.ifInstruction ($2, $4, $5, getEvaluator());
 				}
 	| T_ELSEIF expr T_THEN expr
 				{
 					if (yydebug) debug("t_elseif expr t_then expr else yacc");
-					$$ = aSem.ifInstruction ($2, $4, null);
+					$$ = aSem.ifInstruction ($2, $4, null, getEvaluator());
 				}
 	| T_ELSE expr						
 				{
@@ -631,6 +632,9 @@ else:
 	/** Error flag */
 	private boolean error;
 
+	/** Plan evaluator */
+    private PlanEvaluator evaluator;
+
 	/**
 	 * Set anlyzer semantical actions set
 	 * 
@@ -647,6 +651,20 @@ else:
 	public void setFormulaString(String formulaString) {
 		this.formulaString = formulaString;
 	}
+
+    /**
+     * @return the evaluator
+     */
+    public PlanEvaluator getEvaluator() {
+        return evaluator;
+    }
+
+    /**
+     * @param evaluator the evaluator to set
+     */
+    public void setEvaluator(PlanEvaluator evaluator) {
+        this.evaluator = evaluator;
+    }
 
 	/**
 	 * Do grammatical analysis of the formulaString by calling inject(String) method 
@@ -735,4 +753,3 @@ else:
 	private void yyerror(String str){
 		logger.error("ER_GRAMMATICAL_ANALYSIS - " + scanner.yytext() + " - " + scanner.lineNumber + " \nError type : " + str);
 	}
-

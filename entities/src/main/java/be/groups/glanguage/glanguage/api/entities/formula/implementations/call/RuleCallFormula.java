@@ -24,8 +24,8 @@ public abstract class RuleCallFormula extends CallFormula {
         super();
     }
 
-    public RuleCallFormula(FormulaDescription description, String ruleId) throws GLanguageException {
-        super(description);
+    public RuleCallFormula(FormulaDescription description, String ruleId, Evaluator evaluator) throws GLanguageException {
+        super(description, evaluator);
 
         if (ruleId == null || ruleId.isEmpty()) {
             throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
@@ -177,6 +177,10 @@ public abstract class RuleCallFormula extends CallFormula {
             throw new GLanguageException(new RuleCallFormulaReferencedRuleUnavailableInnerError(this,
                                                                                                 evaluator,
                                                                                                 "doGetBooleanValue"));
+        } else {
+            // WARNING : SIDE EFFECT
+            // Set the constant value to the id of the referenced rule
+            setConstantValue(String.valueOf(referencedRule.getId()));
         }
         return referencedRule;
     }

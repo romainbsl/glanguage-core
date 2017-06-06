@@ -21,8 +21,10 @@ public abstract class ExtremumFormula extends AbstractNonTerminalFormula {
         super();
     }
 
-    public ExtremumFormula(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-		super(description, parameters);
+    public ExtremumFormula(FormulaDescription description,
+                           List<AbstractFormula> parameters,
+                           Evaluator evaluator) throws GLanguageException {
+		super(description, parameters, evaluator);
     }
 
     @JsonIgnore

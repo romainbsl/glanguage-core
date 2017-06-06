@@ -24,52 +24,58 @@ import java.time.LocalDate;
  * <li>an integer and a numeric - returning a numeric value</li>
  * <li>two numerics - returning a numeric value</li>
  * </ul>
- * 
+ *
  * @author michotte
  */
 @Entity
 @DiscriminatorValue(FormulaType.Values.OP_MINUS)
 public class FormulaMinus extends BinaryFormula {
-	
-	protected FormulaMinus() {
-		super();
-	}
-	
-	public FormulaMinus(FormulaDescription description, AbstractFormula child1, AbstractFormula child2) throws GLanguageException {
-		super(description, child1, child2);
-	}
-	
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
-		return getParameters().get(0).getIntegerValue(evaluator) - getParameters().get(1).getIntegerValue(evaluator);
-	}
-	
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
-		return getParameters().get(0).getNumericValue(evaluator) - getParameters().get(1).getNumericValue(evaluator);
-	}
-	
-	@JsonIgnore
-	@Transient
-	@Override
-	protected LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageException {
-		return getParameters().get(0).getDateValue(evaluator).minusDays(getParameters().get(1).getDurationValue(evaluator).toDays());
-	}
-	
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageException {
-		return getParameters().get(0).getDurationValue(evaluator).minusDays(getParameters().get(1).getDurationValue(evaluator).toDays());
-	}
-	
-	@Override
-	public String operationAsText() {
-		return "-";
-	}
-	
+
+    protected FormulaMinus() {
+        super();
+    }
+
+    public FormulaMinus(FormulaDescription description,
+                        AbstractFormula child1,
+                        AbstractFormula child2,
+                        Evaluator evaluator) throws GLanguageException {
+        super(description, child1, child2, evaluator);
+    }
+
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
+        return getParameters().get(0).getIntegerValue(evaluator) - getParameters().get(1).getIntegerValue(evaluator);
+    }
+
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
+        return getParameters().get(0).getNumericValue(evaluator) - getParameters().get(1).getNumericValue(evaluator);
+    }
+
+    @JsonIgnore
+    @Transient
+    @Override
+    protected LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageException {
+        return getParameters().get(0).getDateValue(evaluator).minusDays(getParameters().get(1)
+                                                                                .getDurationValue(evaluator).toDays());
+    }
+
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageException {
+        return getParameters().get(0).getDurationValue(evaluator).minusDays(getParameters().get(1)
+                                                                                    .getDurationValue(evaluator)
+                                                                                    .toDays());
+    }
+
+    @Override
+    public String operationAsText() {
+        return "-";
+    }
+
 }

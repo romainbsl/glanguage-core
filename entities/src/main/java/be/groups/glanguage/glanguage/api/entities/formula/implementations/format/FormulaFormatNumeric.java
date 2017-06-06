@@ -24,8 +24,10 @@ public class FormulaFormatNumeric extends FormatFormula {
         super();
     }
 
-    public FormulaFormatNumeric(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-        super(description, parameters);
+    public FormulaFormatNumeric(FormulaDescription description,
+                                List<AbstractFormula> parameters,
+                                Evaluator evaluator) throws GLanguageException {
+        super(description, parameters, evaluator);
 
         if (parameters == null) {
             throw new IllegalArgumentException("parameters must be non-null");

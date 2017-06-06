@@ -55,7 +55,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	public void testGetIntegerValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(null, ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId, null);
 
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getIntegerValue(null)).thenReturn(1);
@@ -81,7 +81,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	public void testGetNumericValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(null, ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId, null);
 
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getNumericValue(null)).thenReturn(1.5);
@@ -107,7 +107,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	public void testGetStringValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(null, ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId, null);
 
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getStringValue(null)).thenReturn("string");
@@ -133,7 +133,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	public void testGetBooleanValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(null, ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId, null);
 
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getBooleanValue(null)).thenReturn(true);
@@ -159,7 +159,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	public void testGetDateValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(null, ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId, null);
 
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
@@ -185,7 +185,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	public void testGetDurationValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(null, ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId, null);
 
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getDurationValue(null)).thenReturn(Duration.ofDays(2L));
@@ -211,7 +211,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	public void testAsText() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(null, ruleId);
+		FormulaFormula formula = new FormulaFormula(null, ruleId, null);
 		
 		assertEquals("some_rule.formula", formula.asText());
 	}

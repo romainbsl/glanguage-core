@@ -53,7 +53,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testGetIntegerValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
+		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -76,7 +76,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testGetIntegerValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
+		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
 		
 		formula.getIntegerValue(null);
 	}
@@ -88,7 +88,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testGetNumericValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
+		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -111,7 +111,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testGetNumericValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
+		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
 		
 		formula.getNumericValue(null);
 	}
@@ -123,7 +123,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testGetStringValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
+		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -146,7 +146,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testGetStringValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
+		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
 		
 		formula.getStringValue(null);
 	}
@@ -158,7 +158,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testGetBooleanValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
+		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -181,7 +181,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testGetBooleanValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
+		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
 
 		try {
 			formula.getBooleanValue(null);
@@ -197,7 +197,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testGetDateValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
+		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -231,7 +231,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testGetDurationValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
+		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -254,7 +254,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testGetDurationValueWithoutRuleRef() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
+		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
 		
 		formula.getDurationValue(null);
 	}
@@ -266,7 +266,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testAsText() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId);
+		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
 		
 		assertEquals("some_rule", formula.asText());
 	}

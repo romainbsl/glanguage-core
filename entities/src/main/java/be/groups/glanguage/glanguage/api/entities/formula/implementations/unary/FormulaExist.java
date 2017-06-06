@@ -15,23 +15,25 @@ import javax.persistence.Transient;
 @DiscriminatorValue(FormulaType.Values.OP_EXIST)
 public class FormulaExist extends UnaryFormula {
 
-	protected FormulaExist() {
-		super();
-	}
+    protected FormulaExist() {
+        super();
+    }
 
-	public FormulaExist(FormulaDescription description, AbstractFormula child) throws GLanguageException {
-		super(description, child);
-	}
+    public FormulaExist(FormulaDescription description,
+                        AbstractFormula child,
+                        Evaluator evaluator) throws GLanguageException {
+        super(description, child, evaluator);
+    }
 
-	@JsonIgnore
-	@Transient
-	@Override
-	public Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
-		return getParameters().get(0).getValue(evaluator) != null;
-	}
+    @JsonIgnore
+    @Transient
+    @Override
+    public Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
+        return getParameters().get(0).getValue(evaluator) != null;
+    }
 
-	@Override
-	public String operationAsText() {
-		return "?";
-	}
+    @Override
+    public String operationAsText() {
+        return "?";
+    }
 }

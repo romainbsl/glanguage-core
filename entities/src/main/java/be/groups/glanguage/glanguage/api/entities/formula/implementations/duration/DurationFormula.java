@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.duration;
 
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
@@ -18,8 +19,10 @@ public abstract class DurationFormula extends AbstractNonTerminalFormula {
 		super();
 	}
 	
-	public DurationFormula(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-		super(description, parameters);
+	public DurationFormula(FormulaDescription description,
+                           List<AbstractFormula> parameters,
+                           Evaluator evaluator) throws GLanguageException {
+		super(description, parameters, evaluator);
 		
 		if (parameters == null) {
 			throw new IllegalArgumentException("parameters must be non-null");

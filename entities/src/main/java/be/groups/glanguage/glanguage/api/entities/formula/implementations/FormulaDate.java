@@ -24,8 +24,10 @@ public class FormulaDate extends AbstractNonTerminalFormula {
         super();
     }
 
-    public FormulaDate(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-        super(description, parameters);
+    public FormulaDate(FormulaDescription description,
+                       List<AbstractFormula> parameters,
+                       Evaluator evaluator) throws GLanguageException {
+        super(description, parameters, evaluator);
 
         if (parameters == null) {
             throw new IllegalArgumentException("parameters must be non-null");
@@ -41,16 +43,17 @@ public class FormulaDate extends AbstractNonTerminalFormula {
         if (getParameters().size() == 1) {
             try {
                 date = LocalDate.parse(getParameters().get(0).getStringValue(evaluator),
-                        DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                                       DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             } catch (DateTimeParseException dtpe) {
                 throw new IllegalArgumentException("Parameter must reprensent a date formatted as \"dd/MM/yyyy\" : "
-                        + getParameters().get(0).asText());
+                                                           + getParameters()
+                        .get(0).asText());
             }
         } else if (getParameters().size() == 3) {
             try {
                 date = LocalDate.of(getParameters().get(2).getIntegerValue(evaluator),
-                        getParameters().get(1).getIntegerValue(evaluator),
-                        getParameters().get(0).getIntegerValue(evaluator));
+                                    getParameters().get(1).getIntegerValue(evaluator),
+                                    getParameters().get(0).getIntegerValue(evaluator));
             } catch (DateTimeParseException dtpe) {
                 throw new IllegalArgumentException("Parameters must reprensent a valid date : " + getParameters().get(0)
                         .asText() + "/" + getParameters().get(1).asText() + "/" + getParameters().get(2).asText());

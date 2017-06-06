@@ -1,5 +1,6 @@
 package be.groups.glanguage.glanguage.api.entities.formula.implementations.unary;
 
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
@@ -17,8 +18,10 @@ public abstract class UnaryFormula extends AbstractNonTerminalFormula {
 		super();
 	}
 
-	public UnaryFormula(FormulaDescription description, AbstractFormula child) throws GLanguageException {
-		super(description, Arrays.asList(child));
+	public UnaryFormula(FormulaDescription description,
+                        AbstractFormula child,
+                        Evaluator evaluator) throws GLanguageException {
+		super(description, Arrays.asList(child), evaluator);
 
 		if (child == null) {
 			throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));

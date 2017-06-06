@@ -17,42 +17,46 @@ import java.util.List;
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_MONTHS)
 public class FormulaDurationMonths extends DurationFormula {
-	
-	public FormulaDurationMonths() {
-		super();
-	}
-	
-	public FormulaDurationMonths(FormulaDescription description, List<AbstractFormula> parameters) throws GLanguageException {
-		super(description, parameters);
-	}
-	
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
-		switch (getParameters().get(0).getReturnType(evaluator)) {
-			case INTEGER:
-				return getParameters().get(0).getIntegerValue(evaluator);
-			case DATE:
-				return getParameters().get(0).getDateValue(evaluator).getMonthValue();
-			case DURATION:
-				return Math.toIntExact(getParameters().get(0).getDurationValue(evaluator).toDays()) / MONTH_AVG_DAYS_COUNT;
-			default:
-				throw new UnsupportedOperationException("Cannot invoke getIntegerValue() method on " + this.getClass().getName()
-						+ " object with a parameter of type " + getParameters().get(0).getReturnType(evaluator));
-		}
-	}
-	
-	@JsonIgnore
-	@Transient
-	@Override
-	protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageException {
-		return Duration.ofDays(Period.ofMonths(getIntegerValue(evaluator)).getMonths() * MONTH_AVG_DAYS_COUNT);
-	}
-	
-	@Override
-	public String operationAsText() {
-		return "months";
-	}
-	
+
+    public FormulaDurationMonths() {
+        super();
+    }
+
+    public FormulaDurationMonths(FormulaDescription description,
+                                 List<AbstractFormula> parameters,
+                                 Evaluator evaluator) throws GLanguageException {
+        super(description, parameters, evaluator);
+    }
+
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
+        switch (getParameters().get(0).getReturnType(evaluator)) {
+            case INTEGER:
+                return getParameters().get(0).getIntegerValue(evaluator);
+            case DATE:
+                return getParameters().get(0).getDateValue(evaluator).getMonthValue();
+            case DURATION:
+                return Math.toIntExact(getParameters().get(0).getDurationValue(evaluator)
+                                               .toDays()) / MONTH_AVG_DAYS_COUNT;
+            default:
+                throw new UnsupportedOperationException("Cannot invoke getIntegerValue() method on " + this.getClass()
+                        .getName() + " object with a parameter of type " + getParameters().get(0)
+                        .getReturnType(evaluator));
+        }
+    }
+
+    @JsonIgnore
+    @Transient
+    @Override
+    protected Duration doGetDurationValue(Evaluator evaluator) throws GLanguageException {
+        return Duration.ofDays(Period.ofMonths(getIntegerValue(evaluator)).getMonths() * MONTH_AVG_DAYS_COUNT);
+    }
+
+    @Override
+    public String operationAsText() {
+        return "months";
+    }
+
 }

@@ -7,8 +7,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaRet
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.evaluation.method
-        .FormulaCannotInvokeEvaluationMethodInnerErrorFactory;
+import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.evaluation.method.FormulaCannotInvokeEvaluationMethodInnerErrorFactory;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -19,68 +18,65 @@ import java.util.List;
 @Entity
 @DiscriminatorValue(value = FormulaType.Values.C_APPLICABILITY)
 public class FormulaApplicability extends RuleCallFormula {
-	
-	public FormulaApplicability() {
-		super();
-	}
 
-	public FormulaApplicability(FormulaDescription description, String ruleId) throws GLanguageException {
-		super(description, ruleId);
-	}
+    public FormulaApplicability() {
+        super();
+    }
 
-	@Override
-	public boolean isValid(Evaluator evaluator) {
-		return true;
-	}
+    public FormulaApplicability(FormulaDescription description,
+                                String ruleId,
+                                Evaluator evaluator) throws GLanguageException {
+        super(description, ruleId, evaluator);
+    }
 
-	@Override
-	public void validate(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
-		// do nothing
-	}
+    @Override
+    public boolean isValid(Evaluator evaluator) {
+        return true;
+    }
 
-	@Override
-	public FormulaReturnType getReturnType(Evaluator evaluator) {
-		return FormulaReturnType.BOOLEAN;
-	}
+    @Override
+    public void validate(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
+        // do nothing
+    }
 
-	@Override
-	public String operationAsText() {
-		return ".applicable";
-	}
+    @Override
+    public FormulaReturnType getReturnType(Evaluator evaluator) {
+        return FormulaReturnType.BOOLEAN;
+    }
 
-	@Override
-	protected Integer doGetIntegerValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory
-											 .getInteger(this, evaluator));
-	}
+    @Override
+    public String operationAsText() {
+        return ".applicable";
+    }
 
-	@Override
-	protected Double doGetNumericValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory
-											 .getNumeric(this, evaluator));
-	}
+    @Override
+    protected Integer doGetIntegerValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+        throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory.getInteger(this, evaluator));
+    }
 
-	@Override
-	protected String doGetStringValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory
-											 .getString(this, evaluator));
-	}
+    @Override
+    protected Double doGetNumericValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+        throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory.getNumeric(this, evaluator));
+    }
 
-	@Override
-	protected Boolean doGetBooleanValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		return ruleVersion.getApplicabilityCondition().getBooleanValue(evaluator);
-	}
+    @Override
+    protected String doGetStringValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+        throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory.getString(this, evaluator));
+    }
 
-	@Override
-	protected LocalDate doGetDateValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory
-											 .getDate(this, evaluator));
-	}
+    @Override
+    protected Boolean doGetBooleanValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+        return ruleVersion.getApplicabilityCondition().getBooleanValue(evaluator);
+    }
 
-	@Override
-	protected Duration doGetDurationValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
-		throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory
-											 .getDuration(this, evaluator));
-	}
-	
+    @Override
+    protected LocalDate doGetDateValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+        throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory.getDate(this, evaluator));
+    }
+
+    @Override
+    protected Duration doGetDurationValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
+        throw new GLanguageException(FormulaCannotInvokeEvaluationMethodInnerErrorFactory.getDuration(this, evaluator));
+    }
+
 }

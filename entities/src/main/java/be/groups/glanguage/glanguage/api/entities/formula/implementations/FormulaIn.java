@@ -27,8 +27,9 @@ public class FormulaIn extends AbstractNonTerminalFormula {
 
     public FormulaIn(FormulaDescription description,
                      AbstractFormula element,
-                     List<AbstractFormula> inList) throws GLanguageException {
-        super(description, getParametersAsList(element, inList));
+                     List<AbstractFormula> inList,
+                     Evaluator evaluator) throws GLanguageException {
+        super(description, getParametersAsList(element, inList), evaluator);
 
         if (element == null) {
             throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 0));

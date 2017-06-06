@@ -21,8 +21,8 @@ public class FormulaRuleReference extends RuleCallFormula {
         super();
     }
 
-    public FormulaRuleReference(FormulaDescription description, String ruleId) throws GLanguageException {
-        super(description, ruleId);
+    public FormulaRuleReference(FormulaDescription description, String ruleId, Evaluator evaluator) throws GLanguageException {
+        super(description, ruleId, evaluator);
     }
 
     @Override
