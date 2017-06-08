@@ -48,7 +48,7 @@ public class RuleSetVersionTest extends BaseDatabaseTest {
 		assertEquals("1.0.1", ruleSetVersion.getVersion());
 		assertNotNull(ruleSetVersion.getCreationDate());
 		assertEquals("dupirefr", ruleSetVersion.getCreationAuthor());
-		assertEquals("hotfix", ruleSetVersion.getLabel());
+		assertEquals("INTEGRATION_TEST", ruleSetVersion.getLabel());
 		assertEquals(RuleSetVersionStatus.PROD, ruleSetVersion.getStatus());
 		assertNull(ruleSetVersion.getModificationAuthor());
 		assertNull(ruleSetVersion.getModificationDate());
