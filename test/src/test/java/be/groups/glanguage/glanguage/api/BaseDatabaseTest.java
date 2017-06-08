@@ -25,7 +25,7 @@ public class BaseDatabaseTest {
 		Environment.setUp();
 		TNSNames.setUp();
 
-		JpaUtil.setCentralEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
+		JpaUtil.setCentralEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.PREPROD_BE));
 		em = JpaUtil.getCentralEntityManager();
 		
 		if (!TransactionHelper.isCentralActive()) {
