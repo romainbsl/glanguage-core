@@ -27,6 +27,7 @@
 
 		<!-- Binary operations formulas -->
 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaAnd</class>
+		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDifference</class>
 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaDivide</class>
 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaEqual</class>
 		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.FormulaGreater</class>

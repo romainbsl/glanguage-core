@@ -6,7 +6,6 @@ import be.groups.glanguage.glanguage.api.business.analysis.byaccj.SlangTab;
 import be.groups.glanguage.glanguage.api.business.evaluation.PlanEvaluator;
 import be.groups.glanguage.glanguage.api.business.plan.Plan;
 import be.groups.glanguage.glanguage.api.business.universe.Universe;
-import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.marmota.persistence.DatabaseIdentifier;
@@ -101,7 +100,7 @@ public class MainSampleResource {
         LOG.error("Enter Init Persistence : " + LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
 
-        JpaUtil.setCentralEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
+        JpaUtil.setCentralEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.CENTRAL_BE));
 
         LOG.error("Exit Init Persistence : " + LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
