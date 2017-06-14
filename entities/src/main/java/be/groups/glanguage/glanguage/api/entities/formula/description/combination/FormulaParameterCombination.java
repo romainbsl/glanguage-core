@@ -56,7 +56,7 @@ public class FormulaParameterCombination {
         return description;
     }
 
-    @OneToMany(mappedBy = "combination")
+    @OneToMany(mappedBy = "combination", fetch = FetchType.EAGER)
     @OrderBy("sequence_number")
     public SortedSet<FormulaParameterCombinationItem> getParameters() {
         return parameters;
