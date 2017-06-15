@@ -15,7 +15,7 @@ public class BaseJerseyResourceTest extends JerseyTest {
 
     @BeforeClass
     public static void setUpLyricsJersey() {
-        System.setProperty("env", "test");
+        System.setProperty("env", "junit");
     }
 
     protected void configureClient(ClientConfig config) {
