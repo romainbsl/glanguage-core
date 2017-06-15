@@ -32,7 +32,7 @@ public abstract class RuleCallFormula extends CallFormula {
         }
 
         if (evaluator != null) {
-            RuleVersion refRule = evaluator.getRuleVersion(ruleId); //getReferencedRule(evaluator);
+            RuleVersion refRule = evaluator.getRuleVersion(ruleId);
             setConstantValue(String.valueOf(refRule.getRuleDefinition().getRuleIdentity().getId()));
         }
     }
