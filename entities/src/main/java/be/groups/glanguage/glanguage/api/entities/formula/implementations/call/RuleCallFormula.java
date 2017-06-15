@@ -30,8 +30,11 @@ public abstract class RuleCallFormula extends CallFormula {
         if (ruleId == null || ruleId.isEmpty()) {
             throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
         }
-        RuleVersion refRule = getReferencedRule(evaluator);
-        setConstantValue(String.valueOf(refRule.getRuleDefinition().getRuleIdentity().getId()));
+
+        if (evaluator != null) {
+            RuleVersion refRule = evaluator.getRuleVersion(ruleId);
+            setConstantValue(String.valueOf(refRule.getRuleDefinition().getRuleIdentity().getId()));
+        }
     }
 
     @JsonIgnore
