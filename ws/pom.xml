@@ -19,7 +19,7 @@
 
 	<properties>
 		<!-- Port on which Jetty (Dev + Test) instance will run -->
-		<be.groups.jetty.port>9011</be.groups.jetty.port>
+		<be.groups.jetty.port>9037</be.groups.jetty.port>
 	</properties>
 
 	<!-- Dependencies needed to implement employer web service layer -->
