@@ -11,12 +11,14 @@ import java.io.IOException;
  * Created by boissero on 6/14/2017.
  */
 public class CentralConnectFilter implements ContainerRequestFilter {
+
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         String env = System.getProperty("env");
-        if (env != null && env.equals("test"))
-            JpaUtil.setCentralEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.PREPROD_BE));
-        else
-            JpaUtil.setCentralEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.CENTRAL_BE));
+        JpaUtil.setCentralEntityManager(JpaUtil.createDataSource(
+                (env != null && env.equals("dev")) ?
+                        DatabaseIdentifier.PREPROD_BE :
+                        DatabaseIdentifier.CENTRAL_BE)
+        );
     }
 }
