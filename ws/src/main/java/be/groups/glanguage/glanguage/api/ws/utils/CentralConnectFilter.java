@@ -16,7 +16,7 @@ public class CentralConnectFilter implements ContainerRequestFilter {
     public void filter(ContainerRequestContext requestContext) throws IOException {
         String env = System.getProperty("env");
         JpaUtil.setCentralEntityManager(JpaUtil.createDataSource(
-                (env != null && env.equals("dev")) ?
+                (env != null && env.equals("test")) ?
                         DatabaseIdentifier.PREPROD_BE :
                         DatabaseIdentifier.CENTRAL_BE)
         );

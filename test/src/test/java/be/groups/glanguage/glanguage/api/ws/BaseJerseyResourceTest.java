@@ -1,6 +1,5 @@
 package be.groups.glanguage.glanguage.api.ws;
 
-import be.groups.presta.backoffice.test.base.Environment;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.BeforeClass;
@@ -16,7 +15,7 @@ public class BaseJerseyResourceTest extends JerseyTest {
 
     @BeforeClass
     public static void setUpLyricsJersey() {
-        Environment.setUp();
+        System.setProperty("env", "test");
     }
 
     protected void configureClient(ClientConfig config) {
