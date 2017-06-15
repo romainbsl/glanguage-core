@@ -38,6 +38,7 @@ public class BaseDynamicBinding implements DynamicFeature {
 		result.add(ReadBodyFilter.class);
 		result.add(MDCFilter.class);
 		result.add(StopWatchFilter.class);
+		result.add(CentralConnectFilter.class);
 		return result;
 	}
 
