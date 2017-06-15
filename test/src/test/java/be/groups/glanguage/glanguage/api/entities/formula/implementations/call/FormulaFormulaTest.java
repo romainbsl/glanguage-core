@@ -15,8 +15,7 @@ import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link FormulaFormula}
@@ -55,7 +54,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	public void testGetIntegerValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(null, ruleId, null);
+		FormulaFormula formula = spy(FormulaFormula.class);
 
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getIntegerValue(null)).thenReturn(1);
@@ -69,7 +68,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
 		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
-		formula.setReferencedRule(ruleVersion);
+		doReturn(ruleVersion).when(formula).getReferencedRule(null);
 		
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue(null));
 	}
@@ -81,7 +80,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	public void testGetNumericValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(null, ruleId, null);
+		FormulaFormula formula = spy(FormulaFormula.class);
 
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getNumericValue(null)).thenReturn(1.5);
@@ -95,8 +94,8 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
 		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
-		formula.setReferencedRule(ruleVersion);
-		
+		doReturn(ruleVersion).when(formula).getReferencedRule(null);
+
 		assertEquals(Double.valueOf(1.5), formula.getNumericValue(null));
 	}
 
@@ -107,7 +106,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	public void testGetStringValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(null, ruleId, null);
+		FormulaFormula formula = spy(FormulaFormula.class);
 
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getStringValue(null)).thenReturn("string");
@@ -121,7 +120,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
 		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
-		formula.setReferencedRule(ruleVersion);
+		doReturn(ruleVersion).when(formula).getReferencedRule(null);
 		
 		assertEquals("string", formula.getStringValue(null));
 	}
@@ -133,7 +132,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	public void testGetBooleanValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(null, ruleId, null);
+		FormulaFormula formula = spy(FormulaFormula.class);
 
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getBooleanValue(null)).thenReturn(true);
@@ -147,8 +146,8 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
 		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
-		formula.setReferencedRule(ruleVersion);
-		
+		doReturn(ruleVersion).when(formula).getReferencedRule(null);
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue(null));
 	}
 
@@ -159,7 +158,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	public void testGetDateValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaFormula formula = new FormulaFormula(null, ruleId, null);
+		FormulaFormula formula = spy(FormulaFormula.class);
 
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
@@ -173,8 +172,8 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
 		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
-		formula.setReferencedRule(ruleVersion);
-		
+		doReturn(ruleVersion).when(formula).getReferencedRule(null);
+
 		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue(null));
 	}
 
@@ -183,9 +182,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	 */
 	@Test
 	public void testGetDurationValue() throws GLanguageException {
-		String ruleId = "some_rule";
-		
-		FormulaFormula formula = new FormulaFormula(null, ruleId, null);
+		FormulaFormula formula = spy(FormulaFormula.class);
 
 		AbstractFormula ruleVersionFormula = mock(AbstractFormula.class);
 		when(ruleVersionFormula.getDurationValue(null)).thenReturn(Duration.ofDays(2L));
@@ -199,7 +196,7 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 		when(ruleVersion.getFormula()).thenReturn(ruleVersionFormula);
 		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
-		formula.setReferencedRule(ruleVersion);
+		doReturn(ruleVersion).when(formula).getReferencedRule(null);
 		
 		assertEquals(Duration.ofDays(2L), formula.getDurationValue(null));
 	}
@@ -209,10 +206,14 @@ public class FormulaFormulaTest extends GLanguageEvaluationExceptionTest {
 	 */
 	@Test
 	public void testAsText() throws GLanguageException {
+
+		FormulaFormula formula = spy(FormulaFormula.class);
+
 		String ruleId = "some_rule";
-		
-		FormulaFormula formula = new FormulaFormula(null, ruleId, null);
-		
+		RuleVersion ruleVersion = mock(RuleVersion.class);
+		when(ruleVersion.getCode()).thenReturn(ruleId);
+		doReturn(ruleVersion).when(formula).doGetReferencedRule(null);
+
 		assertEquals("some_rule.formula", formula.asText());
 	}
 	

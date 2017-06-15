@@ -87,7 +87,7 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 	public void testGetBooleanValueCondTrue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaApplicability formula = new FormulaApplicability(null, ruleId, null);
+		FormulaApplicability formulaApplicability = spy(FormulaApplicability.class);
 		
 		AbstractFormula applicabilityCondition = mock(AbstractFormula.class);
 		when(applicabilityCondition.getBooleanValue(null)).thenReturn(true);
@@ -101,9 +101,9 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 		when(ruleVersion.getApplicabilityCondition()).thenReturn(applicabilityCondition);
 		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
-		formula.setReferencedRule(ruleVersion);
-		
-		assertEquals(Boolean.TRUE, formula.getBooleanValue(null));
+		doReturn(ruleVersion).when(formulaApplicability).getReferencedRule(null);
+
+		assertEquals(Boolean.TRUE, formulaApplicability.getBooleanValue(null));
 	}
 	
 	/**
@@ -111,9 +111,7 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 	 */
 	@Test
 	public void testGetBooleanValueCondFalse() throws GLanguageException {
-		String ruleId = "some_rule";
-		
-		FormulaApplicability formula = new FormulaApplicability(null, ruleId, null);
+		FormulaApplicability formulaApplicability = spy(FormulaApplicability.class);
 
 		AbstractFormula applicabilityCondition = mock(AbstractFormula.class);
 		when(applicabilityCondition.getBooleanValue(null)).thenReturn(false);
@@ -127,9 +125,9 @@ public class FormulaApplicabilityTest extends GLanguageEvaluationExceptionTest {
 		when(ruleVersion.getApplicabilityCondition()).thenReturn(applicabilityCondition);
 		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
-		formula.setReferencedRule(ruleVersion);
+		doReturn(ruleVersion).when(formulaApplicability).getReferencedRule(null);
 		
-		assertEquals(Boolean.FALSE, formula.getBooleanValue(null));
+		assertEquals(Boolean.FALSE, formulaApplicability.getBooleanValue(null));
 	}
 
 	/**
