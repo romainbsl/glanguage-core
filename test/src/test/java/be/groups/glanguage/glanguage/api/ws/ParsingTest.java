@@ -8,8 +8,6 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.termin
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalString;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.WsTestCategory;
-import be.groups.marmota.test.TNSNames;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -19,16 +17,7 @@ import javax.ws.rs.core.Response;
 import static org.junit.Assert.*;
 
 public class ParsingTest extends BaseJerseyResourceTest {
-	
-	/*
-	 * Setups
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() {
-		System.setProperty("env", "test");
-		TNSNames.setUp();
-	}
-	
+
 	@Category(WsTestCategory.class)
 	@Test
 	public void testParseInteger() throws GLanguageException {
