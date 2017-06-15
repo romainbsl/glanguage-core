@@ -105,7 +105,7 @@ public class FormulaParameterCombinationItem implements Comparable<FormulaParame
         return repeatable;
     }
 
-    @OneToMany(mappedBy = "parameter")
+    @OneToMany(mappedBy = "parameter", fetch = FetchType.EAGER)
     public Set<FormulaParameterCombinationItemType> getTypes() {
         return types;
     }
@@ -115,7 +115,7 @@ public class FormulaParameterCombinationItem implements Comparable<FormulaParame
         return getTypes().stream().map(FormulaParameterCombinationItemType::getReturnType).collect(Collectors.toList());
     }
 
-    @OneToMany(mappedBy = "parameter")
+    @OneToMany(mappedBy = "parameter", fetch = FetchType.EAGER)
     public Set<FormulaParameterCombinationItemValue> getValues() {
         return values;
     }

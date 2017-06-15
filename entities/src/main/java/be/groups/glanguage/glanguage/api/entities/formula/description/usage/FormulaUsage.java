@@ -78,7 +78,7 @@ public class FormulaUsage {
         return description;
     }
 
-    @OneToMany(mappedBy = "usage")
+    @OneToMany(mappedBy = "usage", fetch = FetchType.EAGER)
     public Set<FormulaUsageReturnType> getTypes() {
         return types;
     }
@@ -88,7 +88,7 @@ public class FormulaUsage {
         return getTypes().stream().map(FormulaUsageReturnType::getReturnType).collect(Collectors.toList());
     }
 
-    @OneToMany(mappedBy = "usage")
+    @OneToMany(mappedBy = "usage", fetch = FetchType.EAGER)
     public List<FormulaUsageParameterCombinationItem> getOverriddenParameters() {
         return overriddenParameters;
     }
