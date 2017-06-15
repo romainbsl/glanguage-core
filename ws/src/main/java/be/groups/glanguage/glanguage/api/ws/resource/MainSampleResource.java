@@ -8,8 +8,6 @@ import be.groups.glanguage.glanguage.api.business.plan.Plan;
 import be.groups.glanguage.glanguage.api.business.universe.Universe;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.marmota.persistence.DatabaseIdentifier;
-import be.groups.marmota.persistence.JpaUtil;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
@@ -44,13 +42,15 @@ public class MainSampleResource {
     @ApiOperation(value = "parse formula string", response = Response.class)
     public Response getFormulaFromString(@Context ContainerRequestContext request,
                                          @ApiParam(value = "formulaString", required = true, defaultValue = "")
-                                                 String formulaString,
+                                         String formulaString,
                                          @ApiParam(value = "ruleSetVersionId", required = true) @PathParam
-                                                 ("ruleSetVersionId") Integer ruleSetVersionId) throws
+                                         ("ruleSetVersionId") Integer ruleSetVersionId) throws
                                                                                                 GLanguageException {
-        initializePersistence();
-        return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).entity(parse(formulaString,
-                                                                                                 ruleSetVersionId))
+
+        return Response
+                .status(Response.Status.OK)
+                .type(MediaType.APPLICATION_JSON)
+                .entity(parse(formulaString, ruleSetVersionId))
                 .build();
     }
 
@@ -75,17 +75,13 @@ public class MainSampleResource {
                                          @QueryParam("effectivityDate") LocalDate effectivityDate) {
 
         LOG.error("Enter : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
-        initializePersistence();
+
         try {
-            return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).entity(asText(formulaId,
-                                                                                                      ruleSetVersionId,
-                                                                                                      effectivityDate
-                                                                                                              == null
-                                                                                                              ?
-                                                                                                              LocalDate
-                                                                                                              .now()
-                                                                                                              :
-                                                                                                              effectivityDate))
+            return Response
+                    .status(Response.Status.OK)
+                    .type(MediaType.APPLICATION_JSON)
+                    .entity(asText(formulaId, ruleSetVersionId,
+                            effectivityDate == null ? LocalDate.now() : effectivityDate))
                     .build();
         } catch (Exception e) {
             LOG.error("Exception : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
@@ -96,16 +92,6 @@ public class MainSampleResource {
         }
     }
 
-    private void initializePersistence() {
-        LOG.error("Enter Init Persistence : " + LocalDateTime.now()
-                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
-
-        JpaUtil.setCentralEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.CENTRAL_BE));
-
-        LOG.error("Exit Init Persistence : " + LocalDateTime.now()
-                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
-    }
-
     private String asText(Integer formulaId, Integer ruleSetVersionId, LocalDate effectivityDate) {
         AbstractFormula formula = Universe.getFormula(formulaId);
         if (formula != null) {
@@ -113,9 +99,6 @@ public class MainSampleResource {
                     .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
 
             Plan plan = Universe.getPlan(ruleSetVersionId, effectivityDate);
-
-//            plan.setRuleVersions(RuleVersionFactory
-//                    .getRuleVersions(ruleSetVersionId, effectivityDate != null ? effectivityDate : LocalDate.now()));
 
             LOG.error("Exit Plan : " + LocalDateTime.now()
                     .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
