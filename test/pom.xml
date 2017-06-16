@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>be.groups.glanguage</groupId>
 		<artifactId>glanguage-api</artifactId>
-		<version>0.0.3-SNAPSHOT</version>
+		<version>0.0.3</version>
 	</parent>
 
 	<artifactId>glanguage-api-test</artifactId>
@@ -56,9 +56,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<systemPropertyVariables>
-						<env>test</env>
-					</systemPropertyVariables>
 					<includes>
 						<include>${runSuite}</include>
 					</includes>
