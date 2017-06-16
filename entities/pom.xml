@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<project
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+		xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>be.groups.glanguage</groupId>
+		<artifactId>glanguage-api</artifactId>
+		<version>0.0.3</version>
+	</parent>
+
+	<artifactId>glanguage-api-entities</artifactId>
+
+	<name>Glanguage Core Entities</name>
+
+	<properties>
+		<hibernate.jpamodelgen.version>5.1.0.Final</hibernate.jpamodelgen.version>
+		<jpametamodel.source>${project.build.directory}/generated-sources/java/jpametamodel</jpametamodel.source>
+	</properties>
+	<!-- Dependencies needed to implement demand workflow model layer -->
+	<dependencies>
+		<!-- ============================== GROUP S PROJECTS Dependencies ============================== -->
+		<!-- Base for model projects -->
+		<dependency>
+			<groupId>be.groups.presta</groupId>
+			<artifactId>backoffice-entities</artifactId>
+			<version>0.1.1</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.bsc.maven</groupId>
+				<artifactId>maven-processor-plugin</artifactId>
+				<version>2.0.5</version>
+				<executions>
+					<execution>
+						<id>process</id>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<outputDirectory>${jpametamodel.source}</outputDirectory>
+							<processors>
+								<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+							</processors>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate-jpamodelgen</artifactId>
+						<version>${hibernate.jpamodelgen.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.10</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${jpametamodel.source}</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
