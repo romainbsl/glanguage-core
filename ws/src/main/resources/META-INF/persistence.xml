@@ -69,6 +69,7 @@
  		<!-- Group formulas -->
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.group.FormulaGroupMultiply</class>
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.group.FormulaGroupSum</class>
+		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.group.FormulaGroupSumV</class>
  		
  		<!-- Instructions formulas -->
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaIfInstruction</class>
@@ -87,6 +88,7 @@
  		<!-- String formulas -->
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaStringItem</class>
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaStringLength</class>
+		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaSubString</class>
  		
  		<!-- Terminal formulas --> 
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalBoolean</class>
@@ -104,6 +106,8 @@
  		<!-- Other formulas -->
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaAnomaly</class>
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracket</class>
+		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaDate</class>
+		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaIn</class>
  		<class>be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaUndefined</class>
  		
  		<!-- Rule -->
