@@ -13,7 +13,7 @@ public class DaoTest {
 		Environment.setUp();
 		TNSNames.setUp();
 
-		JpaUtil.setCentralEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.DEVELOPMENT_DB));
+		JpaUtil.setCentralEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.PREPROD_BE));
 	}
 
 }

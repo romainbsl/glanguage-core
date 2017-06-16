@@ -53,7 +53,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testGetIntegerValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
+		FormulaRuleReference formula = spy(FormulaRuleReference.class);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -64,8 +64,8 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		when(ruleVersion.getIntegerValue(null)).thenReturn(1);
 		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
-		formula.setReferencedRule(ruleVersion);
-		
+		doReturn(ruleVersion).when(formula).getReferencedRule(null);
+
 		assertEquals(Integer.valueOf(1), formula.getIntegerValue(null));
 	}
 	
@@ -88,7 +88,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testGetNumericValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
+		FormulaRuleReference formula = spy(FormulaRuleReference.class);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -99,8 +99,8 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		when(ruleVersion.getNumericValue(null)).thenReturn(1.5);
 		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.NUMERIC);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
-		formula.setReferencedRule(ruleVersion);
-		
+		doReturn(ruleVersion).when(formula).getReferencedRule(null);
+
 		assertEquals(Double.valueOf(1.5), formula.getNumericValue(null));
 	}
 	
@@ -123,7 +123,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testGetStringValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
+		FormulaRuleReference formula = spy(FormulaRuleReference.class);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -134,8 +134,8 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		when(ruleVersion.getStringValue(null)).thenReturn("string");
 		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
-		formula.setReferencedRule(ruleVersion);
-		
+		doReturn(ruleVersion).when(formula).getReferencedRule(null);
+
 		assertEquals("string", formula.getStringValue(null));
 	}
 	
@@ -158,7 +158,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testGetBooleanValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
+		FormulaRuleReference formula = spy(FormulaRuleReference.class);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -169,8 +169,8 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		when(ruleVersion.getBooleanValue(null)).thenReturn(true);
 		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.BOOLEAN);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
-		formula.setReferencedRule(ruleVersion);
-		
+		doReturn(ruleVersion).when(formula).getReferencedRule(null);
+
 		assertEquals(Boolean.TRUE, formula.getBooleanValue(null));
 	}
 	
@@ -197,7 +197,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	public void testGetDateValue() throws GLanguageException {
 		String ruleId = "some_rule";
 		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
+		FormulaRuleReference formula = spy(FormulaRuleReference.class);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -208,8 +208,8 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		when(ruleVersion.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
 		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.DATE);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
-		formula.setReferencedRule(ruleVersion);
-		
+		doReturn(ruleVersion).when(formula).getReferencedRule(null);
+
 		assertEquals(LocalDate.of(2015, 1, 1), formula.getDateValue(null));
 	}
 	
@@ -229,9 +229,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	 */
 	@Test
 	public void testGetDurationValue() throws GLanguageException {
-		String ruleId = "some_rule";
-		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
+		FormulaRuleReference formula = spy(FormulaRuleReference.class);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
 		ruleIdentity.setId(0);
@@ -242,8 +240,8 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		when(ruleVersion.getDurationValue(null)).thenReturn(Duration.ofDays(2L));
 		when(ruleVersion.getReturnType(null)).thenReturn(FormulaReturnType.DURATION);
 		when(ruleVersion.getRuleDefinition()).thenReturn(ruleDefinition);
-		formula.setReferencedRule(ruleVersion);
-		
+		doReturn(ruleVersion).when(formula).getReferencedRule(null);
+
 		assertEquals(Duration.ofDays(2L), formula.getDurationValue(null));
 	}
 	
@@ -264,10 +262,13 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 	 */
 	@Test
 	public void testAsText() throws GLanguageException {
+		FormulaRuleReference formula = spy(FormulaRuleReference.class);
+
 		String ruleId = "some_rule";
-		
-		FormulaRuleReference formula = new FormulaRuleReference(null, ruleId, null);
-		
+		RuleVersion ruleVersion = mock(RuleVersion.class);
+		when(ruleVersion.getCode()).thenReturn(ruleId);
+		doReturn(ruleVersion).when(formula).doGetReferencedRule(null);
+
 		assertEquals("some_rule", formula.asText());
 	}
 	

@@ -4,10 +4,9 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
                                  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 	version="2.1">
-
-	<persistence-unit name="lyrics" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="lyrics">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		
+
 		<!-- Formula -->
  		<class>be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula</class>
  		<class>be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula</class>
@@ -128,8 +127,9 @@
 			<!--<property name="javax.persistence.schema-generation.scripts.action"	value="drop-and-create" />-->
 			<!--<property name="javax.persistence.schema-generation.scripts.create-target" value="sampleTestCreate.ddl" />-->
 			<!--<property name="javax.persistence.schema-generation.scripts.drop-target" value="sampleTestDrop.ddl" />-->
-			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+			<property name="hibernate.jdbc.use_get_generated_keys" value="true" />
+
 <!-- 			<property name="hibernate.archive.autodetection" value="class" /> -->
 			<!--<property name="hibernate.show_sql" value="true" />-->
 			<!--<property name="hibernate.format_sql" value="true" />-->

@@ -30,7 +30,11 @@ public abstract class RuleCallFormula extends CallFormula {
         if (ruleId == null || ruleId.isEmpty()) {
             throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
         }
-        setConstantValue(ruleId);
+
+        if (evaluator != null) {
+            RuleVersion refRule = evaluator.getRuleVersion(ruleId);
+            setConstantValue(String.valueOf(refRule.getRuleDefinition().getRuleIdentity().getId()));
+        }
     }
 
     @JsonIgnore
@@ -38,8 +42,8 @@ public abstract class RuleCallFormula extends CallFormula {
     @Override
     public FormulaReturnType getReturnType(Evaluator evaluator) {
         try {
-            getReferencedRule(evaluator);
-            return referencedRule.getReturnType(evaluator);
+            return getReferencedRule(evaluator)
+                    .getReturnType(evaluator);
         } catch (GLanguageException e) {
             return FormulaReturnType.UNDEFINED;
         }
@@ -49,7 +53,7 @@ public abstract class RuleCallFormula extends CallFormula {
     @Transient
     @Override
     protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
-        getReferencedRule(evaluator);
+        RuleVersion refRule = getReferencedRule(evaluator);
         FormulaReturnType formulaReturnType = getReturnType(evaluator);
         if (!formulaReturnType.equals(FormulaReturnType.INTEGER) || formulaReturnType
                 .equals(FormulaReturnType.NUMERIC)) {
@@ -63,7 +67,7 @@ public abstract class RuleCallFormula extends CallFormula {
                                                                                                             FormulaReturnType.INTEGER,
                                                                                                             FormulaReturnType.NUMERIC));
         }
-        return doGetIntegerValue(referencedRule, evaluator);
+        return doGetIntegerValue(refRule, evaluator);
     }
 
     abstract Integer doGetIntegerValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException;
@@ -72,7 +76,7 @@ public abstract class RuleCallFormula extends CallFormula {
     @Transient
     @Override
     protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
-        getReferencedRule(evaluator);
+        RuleVersion refRule = getReferencedRule(evaluator);
         FormulaReturnType formulaReturnType = getReturnType(evaluator);
         if (!(formulaReturnType.equals(FormulaReturnType.INTEGER) || formulaReturnType
                 .equals(FormulaReturnType.NUMERIC))) {
@@ -86,7 +90,7 @@ public abstract class RuleCallFormula extends CallFormula {
                                                                                                             FormulaReturnType.INTEGER,
                                                                                                             FormulaReturnType.NUMERIC));
         }
-        return doGetNumericValue(referencedRule, evaluator);
+        return doGetNumericValue(refRule, evaluator);
     }
 
     abstract Double doGetNumericValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException;
@@ -95,7 +99,7 @@ public abstract class RuleCallFormula extends CallFormula {
     @Transient
     @Override
     protected String doGetStringValue(Evaluator evaluator) throws GLanguageException {
-        getReferencedRule(evaluator);
+        RuleVersion refRule = getReferencedRule(evaluator);
         if (!getReturnType(evaluator).equals(FormulaReturnType.STRING)) {
             throw new GLanguageException(new RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError(this,
                                                                                                             evaluator,
@@ -106,7 +110,7 @@ public abstract class RuleCallFormula extends CallFormula {
                                                                                                                             evaluator),
                                                                                                             FormulaReturnType.STRING));
         }
-        return doGetStringValue(referencedRule, evaluator);
+        return doGetStringValue(refRule, evaluator);
     }
 
     abstract String doGetStringValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException;
@@ -115,7 +119,7 @@ public abstract class RuleCallFormula extends CallFormula {
     @Transient
     @Override
     protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
-        getReferencedRule(evaluator);
+        RuleVersion refRule = getReferencedRule(evaluator);
         if (!getReturnType(evaluator).equals(FormulaReturnType.BOOLEAN)) {
             throw new GLanguageException(new RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError(this,
                                                                                                             evaluator,
@@ -126,7 +130,7 @@ public abstract class RuleCallFormula extends CallFormula {
                                                                                                                             evaluator),
                                                                                                             FormulaReturnType.BOOLEAN));
         }
-        return doGetBooleanValue(referencedRule, evaluator);
+        return doGetBooleanValue(refRule, evaluator);
     }
 
     abstract Boolean doGetBooleanValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException;
@@ -135,7 +139,7 @@ public abstract class RuleCallFormula extends CallFormula {
     @Transient
     @Override
     public LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageException {
-        getReferencedRule(evaluator);
+        RuleVersion refRule = getReferencedRule(evaluator);
         if (!getReturnType(evaluator).equals(FormulaReturnType.DATE)) {
             throw new GLanguageException(new RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError(this,
                                                                                                             evaluator,
@@ -146,7 +150,7 @@ public abstract class RuleCallFormula extends CallFormula {
                                                                                                                             evaluator),
                                                                                                             FormulaReturnType.DATE));
         }
-        return doGetDateValue(referencedRule, evaluator);
+        return doGetDateValue(refRule, evaluator);
     }
 
     abstract LocalDate doGetDateValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException;
@@ -155,7 +159,7 @@ public abstract class RuleCallFormula extends CallFormula {
     @Transient
     @Override
     public Duration doGetDurationValue(Evaluator evaluator) throws GLanguageException {
-        getReferencedRule(evaluator);
+        RuleVersion refRule = getReferencedRule(evaluator);
         if (!getReturnType(evaluator).equals(FormulaReturnType.DURATION)) {
             throw new GLanguageException(new RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError(this,
                                                                                                             evaluator,
@@ -166,23 +170,19 @@ public abstract class RuleCallFormula extends CallFormula {
                                                                                                                             evaluator),
                                                                                                             FormulaReturnType.DURATION));
         }
-        return doGetDurationValue(referencedRule, evaluator);
+        return doGetDurationValue(refRule, evaluator);
     }
 
     abstract Duration doGetDurationValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException;
 
     RuleVersion getReferencedRule(Evaluator evaluator) throws GLanguageException {
-        doGetReferencedRule(evaluator);
-        if (referencedRule == null) {
+        RuleVersion refRule = doGetReferencedRule(evaluator);
+        if (refRule == null) {
             throw new GLanguageException(new RuleCallFormulaReferencedRuleUnavailableInnerError(this,
                                                                                                 evaluator,
                                                                                                 "doGetBooleanValue"));
-        } else {
-            // WARNING : SIDE EFFECT
-            // Set the constant value to the id of the referenced rule
-            setConstantValue(String.valueOf(referencedRule.getId()));
         }
-        return referencedRule;
+        return refRule;
     }
 
     /**

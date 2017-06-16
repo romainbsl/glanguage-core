@@ -8,9 +8,6 @@ import be.groups.glanguage.glanguage.api.entities.formula.implementations.termin
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.FormulaTerminalString;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.WsTestCategory;
-import be.groups.marmota.test.TNSNames;
-import be.groups.presta.backoffice.test.base.Environment;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -20,21 +17,12 @@ import javax.ws.rs.core.Response;
 import static org.junit.Assert.*;
 
 public class ParsingTest extends BaseJerseyResourceTest {
-	
-	/*
-	 * Setups
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() {
-		Environment.setUp();
-		TNSNames.setUp();
-	}
-	
+
 	@Category(WsTestCategory.class)
 	@Test
 	public void testParseInteger() throws GLanguageException {
 		String formulaString = "0";
-		Response response = target("/glanguage/parse").request().post(Entity.json(formulaString));
+		Response response = target("/glanguage/parse/-900000").request().post(Entity.json(formulaString));
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 		AbstractFormula formula = response.readEntity(FormulaTerminalInteger.class);
 		assertNotNull(formula);
@@ -46,7 +34,7 @@ public class ParsingTest extends BaseJerseyResourceTest {
 	@Test
 	public void testParseDouble() throws GLanguageException {
 		String formulaString = "0.0";
-		Response response = target("/glanguage/parse").request().post(Entity.json(formulaString));
+		Response response = target("/glanguage/parse/-900000").request().post(Entity.json(formulaString));
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 		AbstractFormula formula = response.readEntity(FormulaTerminalNumeric.class);
 		assertNotNull(formula);
@@ -58,7 +46,7 @@ public class ParsingTest extends BaseJerseyResourceTest {
 	@Test
 	public void testParseString() throws GLanguageException {
 		String formulaString = "\"\"";
-		Response response = target("/glanguage/parse").request().post(Entity.json(formulaString));
+		Response response = target("/glanguage/parse/-900000").request().post(Entity.json(formulaString));
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 		AbstractFormula formula = response.readEntity(FormulaTerminalString.class);
 		assertNotNull(formula);
@@ -70,7 +58,7 @@ public class ParsingTest extends BaseJerseyResourceTest {
 	@Test
 	public void testParseGet() {
 		String formulaString = "get string contrat.nature()";
-		Response response = target("/glanguage/parse").request().post(Entity.json(formulaString));
+		Response response = target("/glanguage/parse/-900000").request().post(Entity.json(formulaString));
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 		FormulaGet formula = response.readEntity(FormulaGet.class);
 		assertNotNull(formula);
@@ -81,7 +69,7 @@ public class ParsingTest extends BaseJerseyResourceTest {
 	@Test
 	public void testParseIn() throws GLanguageException {
 		String formulaString = "1 in (2 ; 3)";
-		Response response = target("/glanguage/parse").request().post(Entity.json(formulaString));
+		Response response = target("/glanguage/parse/-900000").request().post(Entity.json(formulaString));
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 		FormulaIn formula = response.readEntity(FormulaIn.class);
 		assertNotNull(formula);
