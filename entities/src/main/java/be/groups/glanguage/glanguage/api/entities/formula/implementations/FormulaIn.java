@@ -103,22 +103,6 @@ public class FormulaIn extends AbstractNonTerminalFormula {
     }
 
     @Transient
-    public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
-        FormulaReturnType elementReturnType = parameters.get(0).getReturnType(evaluator);
-        List<FormulaReturnType> listReturnTypes = parameters.subList(1, parameters.size()).stream().map(p -> p
-                .getReturnType(evaluator)).distinct().collect(Collectors.toList());
-
-        if (listReturnTypes.size() == 1) {
-            return elementReturnType.equals(listReturnTypes.get(0));
-        } else {
-            List<FormulaReturnType> authorizedParametersTypes = Arrays.asList(FormulaReturnType.INTEGER,
-                                                                              FormulaReturnType.NUMERIC);
-            return listReturnTypes.stream().allMatch(authorizedParametersTypes::contains) && authorizedParametersTypes
-                    .contains(elementReturnType);
-        }
-    }
-
-    @Transient
     @Override
     public FormulaReturnType getReturnType(Evaluator evaluator) {
         return FormulaReturnType.BOOLEAN;
@@ -154,7 +138,7 @@ public class FormulaIn extends AbstractNonTerminalFormula {
             sb.append(itInList.next().asText());
 
             if (itInList.hasNext()) {
-                sb.append(", ");
+                sb.append("; ");
             }
         }
         sb.append(")");
