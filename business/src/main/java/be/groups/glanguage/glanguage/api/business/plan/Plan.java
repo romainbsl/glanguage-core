@@ -259,8 +259,8 @@ public class Plan {
             branch(rv, context);
         } else {
             throw new RuntimeException("There is no rule version in the plan corresponding to the rule identity id "
-                    + "\"" + ruleGroupItem
-                    .getItemRule().getId() + "\" in the group of rule \"" + fromRuleVersion.getCode() + "\"");
+                                               + "\"" + ruleGroupItem.getItemRule().getId() + "\" in the group of " +
+                                               "rule \"" + fromRuleVersion.getCode() + "\"");
         }
     }
 
@@ -309,11 +309,11 @@ public class Plan {
             LOG.debug("Rule version not found");
             if (fromRuleVersion == null) {
                 throw new RuntimeException("There is no rule version in the plan corresponding to the rule reference " +
-                        "\"" + formula.getConstantValue() + "\"");
+                                                   "\"" + formula.getConstantValue() + "\"");
             } else {
                 throw new RuntimeException("There is no rule version in the plan corresponding to the rule reference " +
-                        "\"" + formula.getConstantValue() + "\" in the formula of rule \"" + fromRuleVersion.getCode() +
-                        "\"");
+                                                   "\"" + formula.getConstantValue() + "\" in the formula of rule \"" +
+                                                   fromRuleVersion.getCode() + "\"");
             }
         }
     }
@@ -377,8 +377,9 @@ public class Plan {
         if (ruleVersion != null) {
             evaluate(ruleVersion, recursive, evaluator);
         } else {
-            throw new RuntimeException("Unable to evaluateWithContext the rule identified by " + ruleIdentifier + " "
-                    + "because " + "there is no rule corresponding to this identifier in this plan");
+            throw new RuntimeException("Unable to evaluateWithContext the rule identified by " + ruleIdentifier + " " +
+                                               "because there is no rule corresponding to this identifier in this " +
+                                               "plan");
         }
     }
 
@@ -406,8 +407,9 @@ public class Plan {
      * @param ruleIdentifier The identifier of the {@link RuleVersion} to evaluate
      * @param recursive      Flag indicating whether to evaluate recursively or not
      */
-    public Map<RuleVersion, Object> evaluateWithContext(Object context, String ruleIdentifier, boolean recursive)
-            throws GLanguageException {
+    public Map<RuleVersion, Object> evaluateWithContext(Object context,
+                                                        String ruleIdentifier,
+                                                        boolean recursive) throws GLanguageException {
         RuleVersion ruleVersion = getEffectiveRuleVersionByIdenitifier(ruleIdentifier);
         if (ruleVersion != null) {
             if (!isBranched(ruleVersion)) {
@@ -415,11 +417,13 @@ public class Plan {
             }
             evaluate(ruleVersion, recursive, null);
         } else {
-            throw new RuntimeException("Unable to evaluateWithContext the rule identified by " + ruleIdentifier + " "
-                    + "because " + "there is no rule corresponding to this identifier in this plan");
+            throw new RuntimeException("Unable to evaluateWithContext the rule identified by " + ruleIdentifier + " " +
+                                               "because there is no rule corresponding to this identifier in this " +
+                                               "plan");
         }
 
-//        return getRuleVersions().stream().filter(RuleVersion::isEvaluated).collect(Collectors.toMap(r -> r, r -> r.getValue()));
+//        return getRuleVersions().stream().filter(RuleVersion::isEvaluated).collect(Collectors.toMap(r -> r, r -> r
+// .getValue()));
         Map<RuleVersion, Object> result = new HashMap<>();
         for (RuleVersion rv : getRuleVersions()) {
             if (rv.isEvaluated()) {
@@ -448,7 +452,8 @@ public class Plan {
                 getCurrentCache().put(ruleVersion, value);
             }
         }
-        if (recursive && ruleVersion.getGroupItems() != null && !ruleVersion.getGroupItems().isEmpty()) {
+        if (recursive && ruleVersion.isApplicable(evaluator) && ruleVersion.getGroupItems() != null && !ruleVersion
+                .getGroupItems().isEmpty()) {
 //            ruleVersion.getGroupItems().stream().map(i -> i.getReferencedRule(evaluator))
 //                    .forEach(rv -> evaluate(rv, recursive, evaluator));
             for (RuleGroupItem i : ruleVersion.getGroupItems()) {
@@ -473,9 +478,8 @@ public class Plan {
     }
 
     public RuleVersion getEffectiveRuleVersionByRuleIdentityId(String ruleId) {
-        return getRuleVersions().stream()
-                .filter(rv -> String.valueOf(rv.getRuleDefinition().getRuleIdentity().getId()).equals(ruleId))
-                .findFirst().orElse(null);
+        return getRuleVersions().stream().filter(rv -> String.valueOf(rv.getRuleDefinition().getRuleIdentity().getId())
+                .equals(ruleId)).findFirst().orElse(null);
     }
 
     public RuleVersion getEffectiveRuleVersionByCode(String code) {
@@ -483,27 +487,24 @@ public class Plan {
     }
 
     public RuleVersion getEffectiveRuleVersionByAlias(String alias) {
-        Optional<RuleVersion> ruleVersion = getRuleVersions().stream()
-                .filter(rv -> rv.getRuleDescription() != null && rv.getRuleDescription().getAliasFr() != null && rv
-                        .getRuleDescription().getAliasFr().equals(alias)).findFirst();
+        Optional<RuleVersion> ruleVersion = getRuleVersions().stream().filter(rv -> rv
+                .getRuleDescription() != null && rv.getRuleDescription().getAliasFr() != null && rv.getRuleDescription()
+                .getAliasFr().equals(alias)).findFirst();
         if (ruleVersion.isPresent()) {
             return ruleVersion.get();
         }
-        ruleVersion = getRuleVersions().stream()
-                .filter(rv -> rv.getRuleDescription() != null && rv.getRuleDescription().getAliasNl() != null && rv
-                        .getRuleDescription().getAliasNl().equals(alias)).findFirst();
+        ruleVersion = getRuleVersions().stream().filter(rv -> rv.getRuleDescription() != null && rv.getRuleDescription()
+                .getAliasNl() != null && rv.getRuleDescription().getAliasNl().equals(alias)).findFirst();
         if (ruleVersion.isPresent()) {
             return ruleVersion.get();
         }
-        ruleVersion = getRuleVersions().stream()
-                .filter(rv -> rv.getRuleDescription() != null && rv.getRuleDescription().getAliasDe() != null && rv
-                        .getRuleDescription().getAliasDe().equals(alias)).findFirst();
+        ruleVersion = getRuleVersions().stream().filter(rv -> rv.getRuleDescription() != null && rv.getRuleDescription()
+                .getAliasDe() != null && rv.getRuleDescription().getAliasDe().equals(alias)).findFirst();
         if (ruleVersion.isPresent()) {
             return ruleVersion.get();
         }
-        ruleVersion = getRuleVersions().stream()
-                .filter(rv -> rv.getRuleDescription() != null && rv.getRuleDescription().getAliasX() != null && rv
-                        .getRuleDescription().getAliasX().equals(alias)).findFirst();
+        ruleVersion = getRuleVersions().stream().filter(rv -> rv.getRuleDescription() != null && rv.getRuleDescription()
+                .getAliasX() != null && rv.getRuleDescription().getAliasX().equals(alias)).findFirst();
         if (ruleVersion.isPresent()) {
             return ruleVersion.get();
         }
