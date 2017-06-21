@@ -490,7 +490,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
 
     @Transient
     public FormulaReturnType getReturnType(Evaluator evaluator) {
-            return getFormula().getReturnType(evaluator);
+        return getFormula() != null ? getFormula().getReturnType(evaluator) : FormulaReturnType.UNDEFINED;
     }
 
     @Transient
