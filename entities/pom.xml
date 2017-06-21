@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>be.groups.glanguage</groupId>
 		<artifactId>glanguage-api</artifactId>
-		<version>0.0.3</version>
+		<version>0.0.3-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>glanguage-api-entities</artifactId>
