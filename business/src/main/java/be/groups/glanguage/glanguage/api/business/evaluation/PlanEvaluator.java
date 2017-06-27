@@ -16,14 +16,14 @@ public class PlanEvaluator implements Evaluator {
     private Plan plan;
     private Object context;
 
-    private Map<String, RuleVersion> ruleVersionsByRuleIdentityId;
+    private Map<String, RuleVersion> ruleVersionsByIdentifier;
     private Map<RuleVersion, Object> cache;
 
     public PlanEvaluator(Plan plan, Object context) {
         this.plan = plan;
         this.context = context;
 
-        this.ruleVersionsByRuleIdentityId = new HashMap<>();
+        this.ruleVersionsByIdentifier = new HashMap<>();
         this.cache = new HashMap<>();
     }
 
@@ -34,12 +34,10 @@ public class PlanEvaluator implements Evaluator {
 
     @Override
     public RuleVersion getRuleVersion(String ruleIdentifier) {
-//        if (!ruleVersionsByRuleIdentityId.containsKey(ruleIdentityId)) {
-//            ruleVersionsByRuleIdentityId.put(ruleIdentityId, plan.getEffectiveRuleVersionByRuleIdentityId(ruleIdentityId));
-//        }
-//        return ruleVersionsByRuleIdentityId.get(ruleIdentityId);
-
-        return plan.getEffectiveRuleVersionByIdenitifier(ruleIdentifier);
+        if (!ruleVersionsByIdentifier.containsKey(ruleIdentifier)) {
+            ruleVersionsByIdentifier.put(ruleIdentifier, plan.getEffectiveRuleVersionByIdenitifier(ruleIdentifier));
+        }
+        return ruleVersionsByIdentifier.get(ruleIdentifier);
     }
 
     @Override

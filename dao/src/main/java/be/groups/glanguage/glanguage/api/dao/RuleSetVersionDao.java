@@ -80,53 +80,53 @@ public class RuleSetVersionDao extends BaseDao<Integer, RuleSetVersion> {
 	}
 
 	/**
-	 * Find a {@link RuleSetVersion} by rule set id and exploitation date
+	 * Find a {@link RuleSetVersion} by rule set id and production date
 	 *
 	 * @param ruleSetId
-	 * @param exploitationDate
-	 * @return The {@link RuleSetVersion} of the {@link RuleSet} identified by {@code rulSetId} corresponding to the {@code exploitationDate}
+	 * @param productionDate
+	 * @return The {@link RuleSetVersion} of the {@link RuleSet} identified by {@code rulSetId} corresponding to the {@code productionDate}
 	 */
-	public RuleSetVersion findByRuleSetIdAndExploitationDate(Integer ruleSetId, LocalDateTime exploitationDate) {
+	public RuleSetVersion findByRuleSetIdAndProductionDate(Integer ruleSetId, LocalDateTime productionDate) {
 		// @formatter:off
 		String query = "select rsv from RuleSetVersion rsv"
 				+ " where rsv.ruleSet.id = :ruleSetId "
-				+ " and rsv.exploitationStartDate = ("
-				+ " select max(rsv2.exploitationStartDate) from RuleSetVersion rsv2"
+				+ " and rsv.productionStartDate = ("
+				+ " select max(rsv2.productionStartDate) from RuleSetVersion rsv2"
 				+ " where rsv2.ruleSet.id = rsv.ruleSet.id"
-				+ " and rsv2.exploitationStartDate < :exploitationDate "
+				+ " and rsv2.productionStartDate < :productionDate "
 				+ ")";
 		// @formatter:on
 		return (RuleSetVersion) getEntityManager()
 				.createQuery(query)
 				.setParameter("ruleSetId", ruleSetId)
-				.setParameter("exploitationDate", exploitationDate)
+				.setParameter("productionDate", productionDate)
 				.getSingleResult();
 	}
 
 	/**
-	 * Find a {@link RuleSetVersion} by rule set alias and exploitation date
+	 * Find a {@link RuleSetVersion} by rule set alias and production date
 	 *
 	 * @param ruleSetAlias
-	 * @param exploitationDate
-	 * @return The {@link RuleSetVersion} of the {@link RuleSet} identified by {@code ruleSetAlias} corresponding to the {@code exploitationDate}
+	 * @param productionDate
+	 * @return The {@link RuleSetVersion} of the {@link RuleSet} identified by {@code ruleSetAlias} corresponding to the {@code productionDate}
 	 */
-	public RuleSetVersion findByRuleSetAliasAndExploitationDate(String ruleSetAlias, LocalDateTime exploitationDate) {
+	public RuleSetVersion findByRuleSetAliasAndProductionDate(String ruleSetAlias, LocalDateTime productionDate) {
 		// @formatter:off
 		String query = "select rsv from RuleSetVersion rsv"
 				+ " where (rsv.ruleSet.aliasFr = :ruleSetAlias "
 				+ " or rsv.ruleSet.aliasNl = :ruleSetAlias "
 				+ " or rsv.ruleSet.aliasDe = :ruleSetAlias "
 				+ " or rsv.ruleSet.aliasX = :ruleSetAlias) "
-				+ " and rsv.exploitationStartDate = ("
-				+ " select max(rsv2.exploitationStartDate) from RuleSetVersion rsv2"
+				+ " and rsv.productionStartDate = ("
+				+ " select max(rsv2.productionStartDate) from RuleSetVersion rsv2"
 				+ " where rsv2.ruleSet.id = rsv.ruleSet.id"
-				+ " and rsv2.exploitationStartDate < :exploitationDate "
+				+ " and rsv2.productionStartDate < :productionDate "
 				+ ")";
 		// @formatter:on
 		return (RuleSetVersion) getEntityManager()
 				.createQuery(query)
 				.setParameter("ruleSetAlias", ruleSetAlias)
-				.setParameter("exploitationDate", exploitationDate)
+				.setParameter("productionDate", productionDate)
 				.getSingleResult();
 	}
 

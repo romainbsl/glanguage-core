@@ -84,15 +84,15 @@ public class RuleDefinition {
 	}
 	
 	/**
-	 * Get the version effective at specified effective date and in exploitation
+	 * Get the version effective at specified effective date and in production
 	 * at specified observe date
 	 * 
 	 * @param effective
 	 *        the date on which the version returned is effective
 	 * @param observe
-	 *        the date on which the version returned is in exploitation
+	 *        the date on which the version returned is in production
 	 * @return the version that is effective at the specified effective date and
-	 *         in exploitation at specified observe date if it exists, null
+	 *         in production at specified observe date if it exists, null
 	 *         otherwise
 	 */
 	@Transient
@@ -101,7 +101,7 @@ public class RuleDefinition {
 		while (itRuleVersions.hasNext()) {
 			RuleVersion ruleVersion = itRuleVersions.next();
 			if (ruleVersion.isEffective(effective)
-					&& ruleVersion.getRuleSetVersions().stream().anyMatch(rv -> rv.isInExploitation(observe))) {
+					&& ruleVersion.getRuleSetVersions().stream().anyMatch(rv -> rv.isInProduction(observe))) {
 				return ruleVersion;
 			}
 		}

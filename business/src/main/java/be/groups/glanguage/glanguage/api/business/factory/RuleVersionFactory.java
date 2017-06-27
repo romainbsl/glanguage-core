@@ -16,11 +16,11 @@ public class RuleVersionFactory {
     private static HashMap<PlanIdentification, List<RuleVersion>> ruleVersionsLists =
             new HashMap<>();
 
-    public static List<RuleVersion> getRuleVersions(Integer ruleSetVersionId, LocalDate effectivityDate) {
-        PlanIdentification key = new PlanIdentification(ruleSetVersionId, effectivityDate);
+    public static List<RuleVersion> getRuleVersions(Integer ruleSetVersionId, LocalDate effectiveDate) {
+        PlanIdentification key = new PlanIdentification(ruleSetVersionId, effectiveDate);
         if (!ruleVersionsLists.containsKey(key)) {
             ruleVersionsLists.put(key, Universe.getDefaultRuleVersions(Universe.getRuleSetVersion(ruleSetVersionId),
-                    effectivityDate));
+                    effectiveDate));
         }
         return ruleVersionsLists.get(key);
     }

@@ -29,7 +29,7 @@ public class RuleSetVersion {
 	/**
 	 * Date from which this is in production inclusively
 	 */
-	private LocalDateTime exploitationStartDate;
+	private LocalDateTime productionStartDate;
 	
 	/**
 	 * Version
@@ -110,12 +110,12 @@ public class RuleSetVersion {
 	}
 	
 	/**
-	 * @return the exploitationStartDate
+	 * @return the productionStartDate
 	 */
 	@Column(name = "EXPLOITATION_START_DATE")
 	@Convert(converter = LocalDateTimeConverter.class)
-	public LocalDateTime getExploitationStartDate() {
-		return exploitationStartDate;
+	public LocalDateTime getProductionStartDate() {
+		return productionStartDate;
 	}
 	
 	/**
@@ -367,29 +367,29 @@ public class RuleSetVersion {
 	}
 	
 	/**
-	 * Get all {@link RuleVersion}'s that are effective at {@code effectivityDate}
+	 * Get all {@link RuleVersion}'s that are effective at {@code effectiveDate}
 	 * 
-	 * @param effectivityDate
-	 * @return The list of all {@link RuleVersion}'s that are effective at {@code effectivityDate}
+	 * @param effectiveDate
+	 * @return The list of all {@link RuleVersion}'s that are effective at {@code effectiveDate}
 	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
-	public List<RuleVersion> getRuleVersions(LocalDate effectivityDate) {
-		return getRuleVersions().stream().filter(rv -> rv.isEffective(effectivityDate)).collect(Collectors.toList());
+	public List<RuleVersion> getRuleVersions(LocalDate effectiveDate) {
+		return getRuleVersions().stream().filter(rv -> rv.isEffective(effectiveDate)).collect(Collectors.toList());
 	}
 	
 	/**
-	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at {@code effectivityDate}
+	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at {@code effectiveDate}
 	 * 
-	 * @param effectivityDate
+	 * @param effectiveDate
 	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at
-	 *         {@code effectivityDate}
+	 *         {@code effectiveDate}
 	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
-	public List<RuleVersion> getRuleVersions(String code, LocalDate effectivityDate) {
+	public List<RuleVersion> getRuleVersions(String code, LocalDate effectiveDate) {
 		return getRuleVersions().stream()
-				.filter(rv -> rv.getRuleDescription().getCode().equals(code) && rv.isEffective(effectivityDate))
+				.filter(rv -> rv.getRuleDescription().getCode().equals(code) && rv.isEffective(effectiveDate))
 				.collect(Collectors.toList());
 	}
 	
@@ -419,33 +419,33 @@ public class RuleSetVersion {
 	
 	/**
 	 * Get all {@link RuleVersion}'s that have a default {@link RuleDefinition} (those that have no definition parameters) and that are
-	 * effective at {@code effectivityDate}
+	 * effective at {@code effectiveDate}
 	 * 
-	 * @param effectivityDate
-	 * @return The list of all default defined {@link RuleVersion}'s effective at {@code effectivityDate}
+	 * @param effectiveDate
+	 * @return The list of all default defined {@link RuleVersion}'s effective at {@code effectiveDate}
 	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
-	public List<RuleVersion> getDefaultRuleVersions(LocalDate effectivityDate) {
+	public List<RuleVersion> getDefaultRuleVersions(LocalDate effectiveDate) {
 		return getRuleVersions().stream()
-				.filter(rv -> rv.isEffective(effectivityDate) && rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT))
+				.filter(rv -> rv.isEffective(effectiveDate) && rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT))
 				.collect(Collectors.toList());
 	}
 	
 	/**
 	 * Get the {@link RuleVersion} that have a code equal to {@code code} and that have a default {@link RuleDefinition} (those that
-	 * have no definition parameters) and that are effective at {@code effectivityDate}
+	 * have no definition parameters) and that are effective at {@code effectiveDate}
 	 * 
 	 * @param code
-	 * @param effectivityDate
+	 * @param effectiveDate
 	 * @return The list of all default defined {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at
-	 *         {@code effectivityDate}
+	 *         {@code effectiveDate}
 	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
-	public RuleVersion getDefaultRuleVersion(String code, LocalDate effectivityDate) {
+	public RuleVersion getDefaultRuleVersion(String code, LocalDate effectiveDate) {
 		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code)
-				&& rv.isEffective(effectivityDate) && rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT)).findFirst()
+				&& rv.isEffective(effectiveDate) && rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT)).findFirst()
 				.orElse(null);
 	}
 	
@@ -495,42 +495,42 @@ public class RuleSetVersion {
 	
 	/**
 	 * Get all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches at least {@code definitionParameters}
-	 * parameters and that are effective at {@code effectivityDate}
+	 * parameters and that are effective at {@code effectiveDate}
 	 * 
 	 * @param definitionParameters
-	 * @param effectivityDate
+	 * @param effectiveDate
 	 * @return The list of all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches at least
-	 *         {@code definitionParameters} parameters and that are effective at {@code effectivityDate}
+	 *         {@code definitionParameters} parameters and that are effective at {@code effectiveDate}
 	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
 	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
 	public List<RuleVersion> getDefinedRuleVersions(Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDate effectivityDate) {
+			LocalDate effectiveDate) {
 		return getRuleVersions().stream()
-				.filter(rv -> rv.isEffective(effectivityDate)
+				.filter(rv -> rv.isEffective(effectiveDate)
 						&& rv.getRuleDefinition().matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
 				.collect(Collectors.toList());
 	}
 	
 	/**
 	 * Get all {@link RuleVersion}'s that have the {@link RuleDefinition} that best matches {@code definitionParameters} parameters and
-	 * that are effective at {@code effectivityDate}
+	 * that are effective at {@code effectiveDate}
 	 * 
 	 * @param definitionParameters
-	 * @param effectivityDate
+	 * @param effectiveDate
 	 * @return The list of all {@link RuleVersion}'s that have the {@link RuleDefinition} that best matches
-	 *         {@code definitionParameters} and that are effective at {@code effectivityDate}
+	 *         {@code definitionParameters} and that are effective at {@code effectiveDate}
 	 * @see DefinitionMatcher#getBestMatch(Collection, Collection)
 	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
 	public List<RuleVersion> getBestDefinedRuleVersions(Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDate effectivityDate) {
+			LocalDate effectiveDate) {
 		List<RuleVersion> result = new ArrayList<>();
 		/* Filter */
 		List<RuleVersion> effectiveVersions =
-				getRuleVersions().stream().filter(rv -> rv.isEffective(effectivityDate)).collect(Collectors.toList());
+				getRuleVersions().stream().filter(rv -> rv.isEffective(effectiveDate)).collect(Collectors.toList());
 				
 		/*
 		 * In a rule set version, there can be only one rule version that is effective at a specified date by rule definition, in other
@@ -562,7 +562,7 @@ public class RuleSetVersion {
 	 * @param code
 	 * @param definitionParameters
 	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have a {@link RuleDefinition} that
-	 *         matches at least {@code definitionParameters} that are effective at {@code effectivityDate}
+	 *         matches at least {@code definitionParameters} that are effective at {@code effectiveDate}
 	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
 	 */
 	@Transient
@@ -603,43 +603,43 @@ public class RuleSetVersion {
 	
 	/**
 	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that have a {@link RuleDefinition} that matches at
-	 * least {@code definitionParameters} parameters and that are effective at {@code effectivityDate}
+	 * least {@code definitionParameters} parameters and that are effective at {@code effectiveDate}
 	 * 
 	 * @param code
 	 * @param definitionParameters
-	 * @param effectivityDate
+	 * @param effectiveDate
 	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have a {@link RuleDefinition} that
-	 *         matches at least {@code definitionParameters} and that are effective at {@code effectivityDate}
+	 *         matches at least {@code definitionParameters} and that are effective at {@code effectiveDate}
 	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
 	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
 	public List<RuleVersion> getDefinedRuleVersions(String code, Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDate effectivityDate) {
+			LocalDate effectiveDate) {
 		return getRuleVersions().stream()
-				.filter(rv -> rv.getRuleDescription().getCode().equals(code) && rv.isEffective(effectivityDate)
+				.filter(rv -> rv.getRuleDescription().getCode().equals(code) && rv.isEffective(effectiveDate)
 						&& rv.getRuleDefinition().matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
 				.collect(Collectors.toList());
 	}
 	
 	/**
 	 * Get the {@link RuleVersion} that have a code equal to {@code code} and that have the {@link RuleDefinition} that best matches
-	 * {@code definitionParameters} parameters and that is effective at {@code effectivityDate}
+	 * {@code definitionParameters} parameters and that is effective at {@code effectiveDate}
 	 * 
 	 * @param code
 	 * @param definitionParameters
-	 * @param effectivityDate
+	 * @param effectiveDate
 	 * @return The {@link RuleVersion}'s that have a code equal to {@code code} and that have the {@link RuleDefinition} that best
-	 *         matches {@code definitionParameters} and that is effective at {@code effectivityDate}
+	 *         matches {@code definitionParameters} and that is effective at {@code effectiveDate}
 	 * @see DefinitionMatcher#getBestMatch(Collection, Collection)
 	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
 	public RuleVersion getBestDefinedRuleVersion(String code, Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDate effectivityDate) {
+			LocalDate effectiveDate) {
 		/* Filter */
 		List<RuleVersion> effectiveVersionsForCode = getRuleVersions().stream()
-				.filter(rv -> rv.getRuleDescription().getCode().equals(code) && rv.isEffective(effectivityDate))
+				.filter(rv -> rv.getRuleDescription().getCode().equals(code) && rv.isEffective(effectiveDate))
 				.collect(Collectors.toList());
 				
 		/*
@@ -656,17 +656,17 @@ public class RuleSetVersion {
 	}
 	
 	/**
-	 * Is this in exploitation at a specified date ? <br>
-	 * This is in exploitation at a specified date if the specified date is
+	 * Is this in production at a specified date ? <br>
+	 * This is in production at a specified date if the specified date is
 	 * between this start date and this end date inclusively
 	 * 
 	 * @param date
-	 *        The date at which this is in exploitation or not
-	 * @return true If this is in exploitation at the specified date, false
+	 *        The date at which this is in production or not
+	 * @return true If this is in production at the specified date, false
 	 *         otherwise
 	 */
-	public boolean isInExploitation(LocalDateTime date) {
-		return !date.isBefore(getExploitationStartDate());
+	public boolean isInProduction(LocalDateTime date) {
+		return !date.isBefore(getProductionStartDate());
 	}
 	
 	/**
@@ -678,11 +678,11 @@ public class RuleSetVersion {
 	}
 	
 	/**
-	 * @param exploitationStartDate
-	 *        the exploitationStartDate to set
+	 * @param productionStartDate
+	 *        the productionStartDate to set
 	 */
-	public void setExploitationStartDate(LocalDateTime exploitationStartDate) {
-		this.exploitationStartDate = exploitationStartDate;
+	public void setProductionStartDate(LocalDateTime productionStartDate) {
+		this.productionStartDate = productionStartDate;
 	}
 	
 	/**

@@ -166,15 +166,15 @@ public class RuleSet {
 	}
 	
 	/**
-	 * Get the {@link RuleSetVersion} of this in exploitation at {@code exploitationDate} date
+	 * Get the {@link RuleSetVersion} of this in production at {@code productionDate} date
 	 * 
-	 * @param exploitationDate
-	 * @return The {@link RuleSetVersion} of this in exploitation at {@code exploitationDate} date if it exists, null otherwise
+	 * @param productionDate
+	 * @return The {@link RuleSetVersion} of this in production at {@code productionDate} date if it exists, null otherwise
 	 */
 	@Transient
-	public RuleSetVersion getVersion(LocalDateTime exploitationDate) {
-		return getVersions().stream().filter(rsv -> !rsv.getExploitationStartDate().isAfter(exploitationDate))
-				.max((rv1, rv2) -> rv1.getExploitationStartDate().compareTo(rv2.getExploitationStartDate())).orElse(null);
+	public RuleSetVersion getVersion(LocalDateTime productionDate) {
+		return getVersions().stream().filter(rsv -> !rsv.getProductionStartDate().isAfter(productionDate))
+				.max((rv1, rv2) -> rv1.getProductionStartDate().compareTo(rv2.getProductionStartDate())).orElse(null);
 	}
 	
 	/**
@@ -319,28 +319,28 @@ public class RuleSet {
 	}
 	
 	/**
-	 * Get all {@link RuleVersion}'s effective at {@code effectivityDate}
+	 * Get all {@link RuleVersion}'s effective at {@code effectiveDate}
 	 * 
-	 * @param effectivityDate
-	 * @return The list of all {@link RuleVersion}'s effective at {@code effectivityDate}
+	 * @param effectiveDate
+	 * @return The list of all {@link RuleVersion}'s effective at {@code effectiveDate}
 	 */
 	@Transient
-	public List<RuleVersion> getRuleVersions(LocalDate effectivityDate) {
-		return getVersions().stream().flatMap(rsv -> rsv.getRuleVersions(effectivityDate).stream()).distinct()
+	public List<RuleVersion> getRuleVersions(LocalDate effectiveDate) {
+		return getVersions().stream().flatMap(rsv -> rsv.getRuleVersions(effectiveDate).stream()).distinct()
 				.collect(Collectors.toList());
 	}
 	
 	/**
-	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and are effective at {@code effectivityDate}
+	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and are effective at {@code effectiveDate}
 	 * 
 	 * @param code
-	 * @param effectivityDate
+	 * @param effectiveDate
 	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code} and are effective at
-	 *         {@code effectivityDate}
+	 *         {@code effectiveDate}
 	 */
 	@Transient
-	public List<RuleVersion> getRuleVersions(String code, LocalDate effectivityDate) {
-		return getVersions().stream().flatMap(rsv -> rsv.getRuleVersions(code, effectivityDate).stream()).distinct()
+	public List<RuleVersion> getRuleVersions(String code, LocalDate effectiveDate) {
+		return getVersions().stream().flatMap(rsv -> rsv.getRuleVersions(code, effectiveDate).stream()).distinct()
 				.collect(Collectors.toList());
 	}
 	
@@ -369,29 +369,29 @@ public class RuleSet {
 	
 	/**
 	 * Get all {@link RuleVersion}'s that have a default {@link RuleDefinition} (those that have no definition parameters) and that are
-	 * effective at {@code effectivityDate}
+	 * effective at {@code effectiveDate}
 	 *
-	 * @param effectivityDate
-	 * @return The list of all default defined {@link RuleVersion}'s that are effective at {@code effectivityDate}
+	 * @param effectiveDate
+	 * @return The list of all default defined {@link RuleVersion}'s that are effective at {@code effectiveDate}
 	 */
 	@Transient
-	public List<RuleVersion> getDefaultRuleVersions(LocalDate effectivityDate) {
-		return getVersions().stream().flatMap(rsv -> rsv.getDefaultRuleVersions(effectivityDate).stream()).distinct()
+	public List<RuleVersion> getDefaultRuleVersions(LocalDate effectiveDate) {
+		return getVersions().stream().flatMap(rsv -> rsv.getDefaultRuleVersions(effectiveDate).stream()).distinct()
 				.collect(Collectors.toList());
 	}
 	
 	/**
 	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that have a default {@link RuleDefinition} (those that
-	 * have no definition parameters) and that are effective at {@code effectivityDate}
+	 * have no definition parameters) and that are effective at {@code effectiveDate}
 	 * 
 	 * @param code
-	 * @param effectivityDate
+	 * @param effectiveDate
 	 * @return The list of all default defined {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at
-	 *         {@code effectivityDate}
+	 *         {@code effectiveDate}
 	 */
 	@Transient
-	public List<RuleVersion> getDefaultRuleVersions(String code, LocalDate effectivityDate) {
-		return getVersions().stream().map(rsv -> rsv.getDefaultRuleVersion(code, effectivityDate)).filter(Objects::nonNull).distinct()
+	public List<RuleVersion> getDefaultRuleVersions(String code, LocalDate effectiveDate) {
+		return getVersions().stream().map(rsv -> rsv.getDefaultRuleVersion(code, effectiveDate)).filter(Objects::nonNull).distinct()
 				.collect(Collectors.toList());
 	}
 	
@@ -453,68 +453,68 @@ public class RuleSet {
 	
 	/**
 	 * Get all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches at least {@code definitionParameters} parameters
-	 * and that are effective at {@code effectivityDate}
+	 * and that are effective at {@code effectiveDate}
 	 * 
 	 * @param definitionParameters
-	 * @param effectivityDate
+	 * @param effectiveDate
 	 * @return The list of all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches at least
-	 *         {@code definitionParameters} parameters and that are effective at {@code effectivityDate}
+	 *         {@code definitionParameters} parameters and that are effective at {@code effectiveDate}
 	 */
 	@Transient
 	public List<RuleVersion> getDefinedRuleVersions(Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDate effectivityDate) {
-		return getVersions().stream().flatMap(rsv -> rsv.getDefinedRuleVersions(definitionParameters, effectivityDate).stream())
+			LocalDate effectiveDate) {
+		return getVersions().stream().flatMap(rsv -> rsv.getDefinedRuleVersions(definitionParameters, effectiveDate).stream())
 				.distinct().collect(Collectors.toList());
 	}
 	
 	/**
 	 * Get all {@link RuleVersion}'s that have the {@link RuleDefinition} that best matches {@code definitionParameters} parameters and
-	 * that are effective at {@code effectivityDate}
+	 * that are effective at {@code effectiveDate}
 	 * 
 	 * @param definitionParameters
-	 * @param effectivityDate
+	 * @param effectiveDate
 	 * @return The list of all {@link RuleVersion}'s that have a {@link RuleDefinition} that best matches {@code definitionParameters}
-	 *         parameters and that are effective at {@code effectivityDate}
+	 *         parameters and that are effective at {@code effectiveDate}
 	 */
 	@Transient
 	public List<RuleVersion> getBestDefinedRuleVersions(Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDate effectivityDate) {
-		return getVersions().stream().flatMap(rsv -> rsv.getBestDefinedRuleVersions(definitionParameters, effectivityDate).stream())
+			LocalDate effectiveDate) {
+		return getVersions().stream().flatMap(rsv -> rsv.getBestDefinedRuleVersions(definitionParameters, effectiveDate).stream())
 				.distinct().collect(Collectors.toList());
 	}
 	
 	/**
 	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that have a {@link RuleDefinition} that matches at
-	 * least {@code definitionParameters} parameters and that are effective at {@code effectivityDate}
+	 * least {@code definitionParameters} parameters and that are effective at {@code effectiveDate}
 	 * 
 	 * @param code
 	 * @param definitionParameters
-	 * @param effectivityDate
+	 * @param effectiveDate
 	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have a {@link RuleDefinition} that
-	 *         matches at least {@code definitionParameters} parameters and that are effective at {@code effectivityDate}
+	 *         matches at least {@code definitionParameters} parameters and that are effective at {@code effectiveDate}
 	 */
 	@Transient
 	public List<RuleVersion> getDefinedRuleVersions(String code, Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDate effectivityDate) {
-		return getVersions().stream().flatMap(rsv -> rsv.getDefinedRuleVersions(code, definitionParameters, effectivityDate).stream())
+			LocalDate effectiveDate) {
+		return getVersions().stream().flatMap(rsv -> rsv.getDefinedRuleVersions(code, definitionParameters, effectiveDate).stream())
 				.distinct().collect(Collectors.toList());
 	}
 	
 	/**
 	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that have the {@link RuleDefinition} that best matches
-	 * {@code definitionParameters} parameters and that are effective at {@code effectivityDate}
+	 * {@code definitionParameters} parameters and that are effective at {@code effectiveDate}
 	 * 
 	 * @param code
 	 * @param definitionParameters
-	 * @param effectivityDate
+	 * @param effectiveDate
 	 * @return The list of all default defined {@link RuleVersion}'s that have a code equal to {@code code} and that have a
 	 *         {@link RuleDefinition} that best matches {@code definitionParameters} parameters and that are effective at
-	 *         {@code effectivityDate}
+	 *         {@code effectiveDate}
 	 */
 	@Transient
 	public List<RuleVersion> getBestDefinedRuleVersions(String code, Collection<RuleDefinitionParameter> definitionParameters,
-			LocalDate effectivityDate) {
-		return getVersions().stream().map(rsv -> rsv.getBestDefinedRuleVersion(code, definitionParameters, effectivityDate)).distinct()
+			LocalDate effectiveDate) {
+		return getVersions().stream().map(rsv -> rsv.getBestDefinedRuleVersion(code, definitionParameters, effectiveDate)).distinct()
 				.collect(Collectors.toList());
 	}
 	

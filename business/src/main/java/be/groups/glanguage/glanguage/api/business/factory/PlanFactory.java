@@ -14,10 +14,10 @@ public class PlanFactory {
 
     private static final Map<PlanIdentification, Plan> plans = new HashMap<>();
 
-    public static Plan getPlan(Integer ruleSetVersionId, LocalDate effectivityDate) {
-        PlanIdentification key = new PlanIdentification(ruleSetVersionId, effectivityDate);
+    public static Plan getPlan(Integer ruleSetVersionId, LocalDate effectiveDate) {
+        PlanIdentification key = new PlanIdentification(ruleSetVersionId, effectiveDate);
         if (!plans.containsKey(key)) {
-            plans.put(key, Universe.getPlan(ruleSetVersionId, effectivityDate));
+            plans.put(key, Universe.getPlan(ruleSetVersionId, effectiveDate));
         }
         return plans.get(key);
     }

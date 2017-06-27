@@ -35,12 +35,12 @@ public class RuleVersion implements Comparable<RuleVersion> {
     /**
      * Date until which this is effective inclusively
      */
-    private LocalDate effectivityEndDate;
+    private LocalDate effectiveEndDate;
 
     /**
      * Date from which this is effective inclusively
      */
-    private LocalDate effectivityStartDate;
+    private LocalDate effectiveStartDate;
 
     /**
      * Applicability condition
@@ -122,14 +122,14 @@ public class RuleVersion implements Comparable<RuleVersion> {
 
     @Column(name = "EFFECTIVITY_START_DATE")
     @Convert(converter = LocalDateConverter.class)
-    public LocalDate getEffectivityStartDate() {
-        return effectivityStartDate;
+    public LocalDate getEffectiveStartDate() {
+        return effectiveStartDate;
     }
 
     @Column(name = "EFFECTIVITY_END_DATE")
     @Convert(converter = LocalDateConverter.class)
-    public LocalDate getEffectivityEndDate() {
-        return effectivityEndDate;
+    public LocalDate getEffectiveEndDate() {
+        return effectiveEndDate;
     }
 
     /**
@@ -561,8 +561,8 @@ public class RuleVersion implements Comparable<RuleVersion> {
      */
     @Transient
     public boolean isEffective(LocalDate date) {
-        return !date.isBefore(getEffectivityStartDate()) && (getEffectivityEndDate() == null || !date
-                .isAfter(getEffectivityEndDate()));
+        return !date.isBefore(getEffectiveStartDate()) && (getEffectiveEndDate() == null || !date
+                .isAfter(getEffectiveEndDate()));
     }
 
     @Transient
@@ -580,17 +580,17 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     /**
-     * @param effectivityEndDate the endDate to set
+     * @param effectiveEndDate the endDate to set
      */
-    public void setEffectivityEndDate(LocalDate effectivityEndDate) {
-        this.effectivityEndDate = effectivityEndDate;
+    public void setEffectiveEndDate(LocalDate effectiveEndDate) {
+        this.effectiveEndDate = effectiveEndDate;
     }
 
     /**
      * @param effectitvityStartDate the effectitvityStartDate to set
      */
-    public void setEffectivityStartDate(LocalDate effectitvityStartDate) {
-        this.effectivityStartDate = effectitvityStartDate;
+    public void setEffectiveStartDate(LocalDate effectitvityStartDate) {
+        this.effectiveStartDate = effectitvityStartDate;
     }
 
     /**
@@ -778,6 +778,6 @@ public class RuleVersion implements Comparable<RuleVersion> {
 
     @Override
     public int compareTo(RuleVersion o) {
-        return o.effectivityStartDate.compareTo(this.effectivityStartDate);
+        return o.effectiveStartDate.compareTo(this.effectiveStartDate);
     }
 }

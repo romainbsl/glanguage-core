@@ -1,15 +1,12 @@
 package be.groups.glanguage.glanguage.api.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+import org.junit.Test;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.junit.Test;
-
-import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+import static org.junit.Assert.*;
 
 public class RuleSetVersionDaoTest extends DaoTest {
 	
@@ -58,31 +55,31 @@ public class RuleSetVersionDaoTest extends DaoTest {
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersionDao#findByRuleSetIdAndExploitationDate(Integer, LocalDateTime)} when rule set id is 900000 and
-	 * exploitation date is now
+	 * Tests {@link RuleSetVersionDao#findByRuleSetIdAndProductionDate(Integer, LocalDateTime)} when rule set id is 900000 and
+	 * production date is now
 	 */
 	@Test
-	public void testFindByRuleSetIdAndExploitationDate() {
-		LocalDateTime exploitationDate = LocalDateTime.now();
-		RuleSetVersion ruleSetVersion = new RuleSetVersionDao().findByRuleSetIdAndExploitationDate(-900000, exploitationDate);
+	public void testFindByRuleSetIdAndProductionDate() {
+		LocalDateTime productionDate = LocalDateTime.now();
+		RuleSetVersion ruleSetVersion = new RuleSetVersionDao().findByRuleSetIdAndProductionDate(-900000, productionDate);
 		assertNotNull(ruleSetVersion);
 		assertEquals(-900000, ruleSetVersion.getRuleSet().getId());
-		assertFalse("exploitation start date after exploitation date",
-				ruleSetVersion.getExploitationStartDate().isAfter(exploitationDate));
+		assertFalse("production start date after production date",
+				ruleSetVersion.getProductionStartDate().isAfter(productionDate));
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersionDao#findByRuleSetAliasAndExploitationDate(String, LocalDateTime)} when rule set alias is "rs1_fr" and
-	 * exploitation date is now
+	 * Tests {@link RuleSetVersionDao#findByRuleSetAliasAndProductionDate(String, LocalDateTime)} when rule set alias is "rs1_fr" and
+	 * production date is now
 	 */
 	@Test
-	public void testFindByRuleSetAliasAndExploitationDate() {
-		LocalDateTime exploitationDate = LocalDateTime.now();
-		RuleSetVersion ruleSetVersion = new RuleSetVersionDao().findByRuleSetAliasAndExploitationDate("rs1_fr", exploitationDate);
+	public void testFindByRuleSetAliasAndProductionDate() {
+		LocalDateTime productionDate = LocalDateTime.now();
+		RuleSetVersion ruleSetVersion = new RuleSetVersionDao().findByRuleSetAliasAndProductionDate("rs1_fr", productionDate);
 		assertNotNull(ruleSetVersion);
 		assertEquals("rs1_fr", ruleSetVersion.getRuleSet().getAliasFr());
-		assertFalse("exploitation start date after exploitation date",
-				ruleSetVersion.getExploitationStartDate().isAfter(exploitationDate));
+		assertFalse("production start date after production date",
+				ruleSetVersion.getProductionStartDate().isAfter(productionDate));
 	}
 	
 }

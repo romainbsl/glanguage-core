@@ -72,7 +72,7 @@ public class MainSampleResource {
                                                  Integer formulaId,
                                          @ApiParam(value = "ruleSetVersionId", required = true) @PathParam
                                                  ("ruleSetVersionId") Integer ruleSetVersionId,
-                                         @QueryParam("effectivityDate") LocalDate effectivityDate) {
+                                         @QueryParam("effectiveDate") LocalDate effectiveDate) {
 
         LOG.error("Enter : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
 
@@ -81,7 +81,7 @@ public class MainSampleResource {
                     .status(Response.Status.OK)
                     .type(MediaType.APPLICATION_JSON)
                     .entity(asText(formulaId, ruleSetVersionId,
-                            effectivityDate == null ? LocalDate.now() : effectivityDate))
+                            effectiveDate == null ? LocalDate.now() : effectiveDate))
                     .build();
         } catch (Exception e) {
             LOG.error("Exception : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
@@ -92,13 +92,13 @@ public class MainSampleResource {
         }
     }
 
-    private String asText(Integer formulaId, Integer ruleSetVersionId, LocalDate effectivityDate) {
+    private String asText(Integer formulaId, Integer ruleSetVersionId, LocalDate effectiveDate) {
         AbstractFormula formula = Universe.getFormula(formulaId);
         if (formula != null) {
             LOG.error("Enter Plan : " + LocalDateTime.now()
                     .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
 
-            Plan plan = Universe.getPlan(ruleSetVersionId, effectivityDate);
+            Plan plan = Universe.getPlan(ruleSetVersionId, effectiveDate);
 
             LOG.error("Exit Plan : " + LocalDateTime.now()
                     .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS")));
