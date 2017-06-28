@@ -24,6 +24,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
+ * Web service entry points
+ * <p>
  * Created by boissero on 3/24/2016.
  */
 @Path(value = "/glanguage")
@@ -37,20 +39,31 @@ public class MainSampleResource {
         LOG = LoggerFactory.getLogger(MainSampleResource.class);
     }
 
+    /**
+     * Parse a {@link String} representing a {@link AbstractFormula formula} in the context of the
+     * {@link be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion RuleSetVersion} identified by {@code
+     * ruleSetVerionId}
+     *
+     * @param request          the request
+     * @param formulaString    the {@link String} representing the {@link AbstractFormula formula} to be parsed
+     * @param ruleSetVersionId {@link PathParam} the identifier of the
+     *                         {@link be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion RuleSetVersion}
+     *                         to be used to resolve rule references
+     * @return a {@link Response} with the parsed {@link AbstractFormula} in the body of the message
+     * @throws GLanguageException if there is a problem during parsing process
+     */
     @POST
     @Path("/parse/{ruleSetVersionId}")
     @ApiOperation(value = "parse formula string", response = Response.class)
     public Response getFormulaFromString(@Context ContainerRequestContext request,
                                          @ApiParam(value = "formulaString", required = true, defaultValue = "")
-                                         String formulaString,
+                                                 String formulaString,
                                          @ApiParam(value = "ruleSetVersionId", required = true) @PathParam
-                                         ("ruleSetVersionId") Integer ruleSetVersionId) throws
+                                                 ("ruleSetVersionId") Integer ruleSetVersionId) throws
                                                                                                 GLanguageException {
 
-        return Response
-                .status(Response.Status.OK)
-                .type(MediaType.APPLICATION_JSON)
-                .entity(parse(formulaString, ruleSetVersionId))
+        return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).entity(parse(formulaString,
+                                                                                                 ruleSetVersionId))
                 .build();
     }
 
@@ -64,6 +77,19 @@ public class MainSampleResource {
         return semanticalAction.getFormula();
     }
 
+    /**
+     * Get the string representation of a {@link AbstractFormula formula} identified by {@code formulaId} in the
+     * context of the {@link be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion RuleSetVersion}
+     * identified by {@code ruleSetVerionId}
+     *
+     * @param request          the request
+     * @param formulaId        {@link PathParam} the identifier of the the {@link AbstractFormula formula} for which
+     *                         the string representation has to be returned
+     * @param ruleSetVersionId {@link PathParam} the identifier of the
+     *                         {@link be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion RuleSetVersion}
+     *                         to be used to resolve rule references
+     * @return a {@link Response} with the string representation of the {@link AbstractFormula formula}
+     */
     @GET
     @Path("/formulaString/{formulaId}/{ruleSetVersionId}")
     @ApiOperation(value = "get the string representation of a formula identified by its id", response = Response.class)
@@ -77,11 +103,15 @@ public class MainSampleResource {
         LOG.error("Enter : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
 
         try {
-            return Response
-                    .status(Response.Status.OK)
-                    .type(MediaType.APPLICATION_JSON)
-                    .entity(asText(formulaId, ruleSetVersionId,
-                            effectiveDate == null ? LocalDate.now() : effectiveDate))
+            return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).entity(asText(formulaId,
+                                                                                                      ruleSetVersionId,
+                                                                                                      effectiveDate
+                                                                                                              == null
+                                                                                                              ?
+                                                                                                              LocalDate
+                                                                                                              .now()
+                                                                                                              :
+                                                                                                              effectiveDate))
                     .build();
         } catch (Exception e) {
             LOG.error("Exception : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
