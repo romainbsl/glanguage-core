@@ -2,7 +2,7 @@ package be.groups.glanguage.glanguage.api.entities.utils.format;
 
 /**
  * Copied from be.groups.kernel.utils.format.Alignement<br>
- * Enumeration for text alignment types
+ * Enum representing the text alignment types
  * 
  * @author Agustin BERROCAL MENA
  * @author michotte

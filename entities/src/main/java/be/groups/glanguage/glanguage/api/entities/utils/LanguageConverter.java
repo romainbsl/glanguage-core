@@ -3,6 +3,12 @@ package be.groups.glanguage.glanguage.api.entities.utils;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
+/**
+ * Converter class for {@link Language} enum
+ *
+ * @author michotte
+ * @see Language
+ */
 @Converter
 public class LanguageConverter implements AttributeConverter<Language, String> {
 
