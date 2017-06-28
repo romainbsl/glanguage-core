@@ -13,10 +13,16 @@ maven-build:
   stage: build
   script:
     - 'mvn clean compile'
-  only:
-    - develop
 
 maven-test:
   stage: test
   script:
     - 'mvn test'
+
+maven-deploy:
+  stage: deploy
+  script:
+    - "cd /ws"
+    - "mvn tomcat7:redeploy"
+  only:
+    - develop
