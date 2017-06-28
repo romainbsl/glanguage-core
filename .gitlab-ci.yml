@@ -22,7 +22,7 @@ maven-test:
 maven-deploy:
   stage: deploy
   script:
-    - "cd /ws"
+    - "cd ws/"
     - "mvn tomcat7:redeploy"
   only:
     - develop
