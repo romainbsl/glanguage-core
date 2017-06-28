@@ -266,8 +266,8 @@ public class Universe {
      * @param ruleSetId      the identifier of the {@link RuleSet} of the {@link RuleSetVersion} to be used to create
      *                       the
      *                       {@link Plan} to be returned
-     * @param productionDate the version identifying the {@RuleSetVersion}, of the {@link RuleSet} identified by {@code
-     *                       ruleSetId}, to be used to create the {@link Plan} to be returned
+     * @param productionDate the maximum {@link RuleSetVersion#productionStartDate} of the {@link RuleSetVersion} to be
+     *                       returned
      * @param effectiveDate  the date at which the {@link RuleVersion RuleVersions}, to be added to the {@link Plan},
      *                       have to be effective
      * @return a {@link Plan} with a list of {@link RuleVersion} resulting of the filtering of all
@@ -286,8 +286,8 @@ public class Universe {
      *
      * @param ruleSetId            the identifier of the {@link RuleSet} of the {@link RuleSetVersion} to be used to
      *                             create the {@link Plan} to be returned
-     * @param productionDate       the version identifying the {@RuleSetVersion}, of the {@link RuleSet} identified
-     *                             by {@code ruleSetId}, to be used to create the {@link Plan} to be returned
+     * @param productionDate       the maximum {@link RuleSetVersion#productionStartDate} of the
+     *                             {@link RuleSetVersion} to be returned
      * @param effectiveDate        the date at which the {@link RuleVersion RuleVersions}, to be added to the
      *                             {@link Plan}, have to be effective
      * @param definitionParameters the definition parameters for which the {@link RuleVersion#ruleDefinition} of the
@@ -311,8 +311,8 @@ public class Universe {
      *
      * @param ruleSetAlias   the alias of the {@link RuleSet} of the {@link RuleSetVersion} to be used to create
      *                       the {@link Plan} to be returned
-     * @param productionDate the version identifying the {@RuleSetVersion}, of the {@link RuleSet} identified by {@code
-     *                       ruleSetId}, to be used to create the {@link Plan} to be returned
+     * @param productionDate the maximum {@link RuleSetVersion#productionStartDate} of the {@link RuleSetVersion} to be
+     *                       returned
      * @param effectiveDate  the date at which the {@link RuleVersion RuleVersions}, to be added to the {@link Plan},
      *                       have to be effective
      * @return a {@link Plan} with a list of {@link RuleVersion} resulting of the filtering of all
@@ -331,8 +331,8 @@ public class Universe {
      *
      * @param ruleSetAlias         the alias of the {@link RuleSet} of the {@link RuleSetVersion} to be used to create
      *                             the {@link Plan} to be returned
-     * @param productionDate       the version identifying the {@RuleSetVersion}, of the {@link RuleSet} identified
-     *                             by {@code ruleSetId}, to be used to create the {@link Plan} to be returned
+     * @param productionDate       the maximum {@link RuleSetVersion#productionStartDate} of the
+     *                             {@link RuleSetVersion} to be returned
      * @param effectiveDate        the date at which the {@link RuleVersion RuleVersions}, to be added to the
      *                             {@link Plan}, have to be effective
      * @param definitionParameters the definition parameters for which the {@link RuleVersion#ruleDefinition} of the
@@ -408,12 +408,12 @@ public class Universe {
      * {@code effectiveDate} and whose {@link RuleVersion#ruleDefinition} best matches the collection of
      * {@link RuleDefinitionParameter definitionParameters}
      *
-     * @param ruleSetVersion the {@link RuleSetVersion} from which the list of "default" {@link RuleVersion} to be
-     *                       returned, has to be extracted
+     * @param ruleSetVersion       the {@link RuleSetVersion} from which the list of "default" {@link RuleVersion} to be
+     *                             returned, has to be extracted
      * @param definitionParameters the definition parameters for which the {@link RuleVersion#ruleDefinition} of the
      *                             {@link RuleVersion}, to be added to the {@link Plan} to be returned, best matches
-     * @param effectiveDate  the date at which the {@link RuleVersion RuleVersions}, to be added to the
-     *                       list, have to be effective
+     * @param effectiveDate        the date at which the {@link RuleVersion RuleVersions}, to be added to the
+     *                             list, have to be effective
      * @return a list of all "default" {@link RuleVersion}, from the {@code ruleSetVersion}, that are effective at
      * {@code effectiveDate} and whose {@link RuleVersion#ruleDefinition} best matches the collection of
      * {@link RuleDefinitionParameter definitionParameters}

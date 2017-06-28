@@ -10,6 +10,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+/**
+ * DAO for {@link RuleSet}
+ * <p>
+ * Created by michotte
+ */
 public class RuleSetDao extends BaseDao<Integer, RuleSet> {
 	
 	public RuleSetDao() {
@@ -24,8 +29,8 @@ public class RuleSetDao extends BaseDao<Integer, RuleSet> {
 	/**
 	 * Find a {@link RuleSet} by id
 	 * 
-	 * @param id
-	 * @return The {@link RuleSet} identified by {@code id}
+	 * @param id the identifier of the {@link RuleSet} to be returned
+	 * @return The {@link RuleSet} identified by {@code id}, or null if it doesn't exists
 	 */
 	public RuleSet findById(Integer id) {
 		RuleSet ruleSet = new RuleSet();
@@ -36,8 +41,8 @@ public class RuleSetDao extends BaseDao<Integer, RuleSet> {
 	/**
 	 * Find a {@link RuleSet} by alias
 	 * 
-	 * @param alias
-	 * @return The {@link RuleSet} identified by {@code alias}
+	 * @param alias the alias of the {@link RuleSet} to be returned
+	 * @return The {@link RuleSet} identified by {@code alias}, or null if it doesn't exists
 	 */
 	public RuleSet findByAlias(String alias) {
 		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
