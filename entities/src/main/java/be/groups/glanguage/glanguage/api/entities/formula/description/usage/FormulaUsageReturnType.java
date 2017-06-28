@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 /**
- * Created by michotte on 17/05/2017.
+ * @author michotte
  */
 @Entity
 @Table(name = "FORMULA_USAGE_RETURN_TYPE")

@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
- * Created by michotte on 22/05/2017.
+ * @author michotte
  */
 public class FormulaUsageTest extends BaseDatabaseTest {
 

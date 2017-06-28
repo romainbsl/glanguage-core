@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  * This factory allows to get {@link FormulaDescription formula descriptions}<br>
  * It has a cache in order to read {@link FormulaDescription formula descriptions} only once
  *
- * Created by michotte on 5/12/2016.
+ * @author michotte
  */
 public class FormulaDescriptionFactory {
 	

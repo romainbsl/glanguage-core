@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 /**
  * DAO for {@link AbstractFormula}
  * <p>
- * Created by michotte
+ * @author michotte
  */
 public class FormulaDao extends BaseDao<Integer, AbstractFormula> {
 

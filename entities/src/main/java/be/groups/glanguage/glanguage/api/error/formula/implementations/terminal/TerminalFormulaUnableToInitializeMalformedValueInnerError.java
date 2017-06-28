@@ -7,7 +7,7 @@ import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
 
 /**
- * Created by michotte on 21/12/2016.
+ * @author michotte
  */
 public class TerminalFormulaUnableToInitializeMalformedValueInnerError extends FormulaInnerError {
 

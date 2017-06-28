@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 /**
- * Created by michotte on 30/01/2017.
+ * @author michotte
  */
 @Entity
 @Table(name = "FORMULA_PARAM_COMB_ITEM_TYPE")

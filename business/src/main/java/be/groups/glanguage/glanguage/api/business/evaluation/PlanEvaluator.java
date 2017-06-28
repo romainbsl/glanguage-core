@@ -18,7 +18,7 @@ import java.util.Map;
  * {@link be.groups.glanguage.glanguage.api.entities.formula.implementations.call.RuleCallFormula rule call formulas}
  * in order to get the corresponding {@link RuleVersion} from that {@link Plan}
  *
- * Created by michotte on 14/12/2016.
+ * @author michotte
  */
 public class PlanEvaluator implements Evaluator {
 

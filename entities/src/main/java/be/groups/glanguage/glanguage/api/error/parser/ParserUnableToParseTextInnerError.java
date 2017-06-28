@@ -3,7 +3,7 @@ package be.groups.glanguage.glanguage.api.error.parser;
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 
 /**
- * Created by michotte on 6/01/2017.
+ * @author michotte
  */
 public class ParserUnableToParseTextInnerError extends ParserInnerError {
 

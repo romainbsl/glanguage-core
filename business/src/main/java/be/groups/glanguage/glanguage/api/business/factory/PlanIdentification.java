@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * Identification of a {@link be.groups.glanguage.glanguage.api.business.plan.Plan}
  *
- * Created by michotte on 8/12/2016.
+ * @author michotte
  */
 public class PlanIdentification {
 

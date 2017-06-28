@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 /**
  * DAO for {@link RuleSetVersion}
  * <p>
- * Created by michotte
+ * @author michotte
  */
 public class RuleSetVersionDao extends BaseDao<Integer, RuleSetVersion> {
 

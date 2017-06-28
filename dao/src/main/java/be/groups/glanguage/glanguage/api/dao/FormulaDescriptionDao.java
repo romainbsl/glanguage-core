@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 /**
  * DAO for {@link FormulaDescription}
  * <p>
- * Created by michotte
+ * @author michotte
  */
 public class FormulaDescriptionDao extends BaseDao<Integer, FormulaDescription> {
 

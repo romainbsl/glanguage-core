@@ -12,7 +12,7 @@ import java.util.Map;
  * {@link be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet get formulas} in order
  * to have access to the methods by reflection on that context object
  *
- * Created by michotte on 14/12/2016.
+ * @author michotte
  */
 public interface Evaluator {
 

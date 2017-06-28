@@ -12,7 +12,7 @@ import java.util.List;
  * This factory allows to get {@link RuleVersion rule versions}<br>
  * It has a cache to keep all already asked {@link RuleVersion rule versions} available
  * <p>
- * Created by michotte on 8/12/2016.
+ * @author michotte
  */
 public class RuleVersionFactory {
 

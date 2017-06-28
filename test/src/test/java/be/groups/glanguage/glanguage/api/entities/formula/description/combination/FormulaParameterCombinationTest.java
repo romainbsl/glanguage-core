@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
- * Created by michotte on 9/05/2017.
+ * @author michotte
  */
 public class FormulaParameterCombinationTest extends BaseDatabaseTest {
 

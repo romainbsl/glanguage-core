@@ -12,7 +12,7 @@ import java.util.Map;
  * This factory allows to get {@link Plan plans}<br>
  * It has a cache to keep all already asked {@link Plan plans} available
  *
- * Created by michotte on 8/12/2016.
+ * @author michotte
  */
 public class PlanFactory {
 

@@ -16,7 +16,7 @@ import java.util.SortedSet;
 
 /**
  * This class represent a combination of parameters
- * Created by michotte on 4/05/2017.
+ * @author michotte
  */
 @Entity
 @Table(name = "FORMULA_PARAM_COMB")

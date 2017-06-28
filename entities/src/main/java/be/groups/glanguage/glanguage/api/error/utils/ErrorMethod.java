@@ -1,7 +1,7 @@
 package be.groups.glanguage.glanguage.api.error.utils;
 
 /**
- * Created by michotte on 25/01/2017.
+ * @author michotte
  */
 public enum ErrorMethod {
     VALIDATE("validate"),

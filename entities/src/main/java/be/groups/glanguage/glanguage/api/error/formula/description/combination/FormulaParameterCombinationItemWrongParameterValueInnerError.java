@@ -13,7 +13,7 @@ import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 import java.util.Iterator;
 
 /**
- * Created by michotte on 11/05/2017.
+ * @author michotte
  */
 public class FormulaParameterCombinationItemWrongParameterValueInnerError extends FormulaDescriptionInnerError {
 

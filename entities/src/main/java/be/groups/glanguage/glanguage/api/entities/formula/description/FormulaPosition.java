@@ -1,7 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.formula.description;
 
 /**
- * Created by michotte on 5/05/2017.
+ * @author michotte
  */
 public enum FormulaPosition {
 

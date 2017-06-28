@@ -5,7 +5,7 @@ import be.groups.errorframework.core.error.RootError;
 import be.groups.errorframework.core.exception.GroupSException;
 
 /**
- * Created by michotte on 20/12/2016.
+ * @author michotte
  */
 public class GLanguageException extends GroupSException {
 

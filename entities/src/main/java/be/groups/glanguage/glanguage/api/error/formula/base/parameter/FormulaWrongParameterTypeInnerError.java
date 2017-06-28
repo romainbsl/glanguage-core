@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by michotte on 6/01/2017.
+ * @author michotte
  */
 public class FormulaWrongParameterTypeInnerError extends FormulaInnerError {
 

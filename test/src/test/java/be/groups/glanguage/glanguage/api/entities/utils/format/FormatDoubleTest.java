@@ -3,7 +3,7 @@ package be.groups.glanguage.glanguage.api.entities.utils.format;
 import org.junit.Test;
 
 /**
- * Created by michotte on 17/05/2017.
+ * @author michotte
  */
 public class FormatDoubleTest {
 

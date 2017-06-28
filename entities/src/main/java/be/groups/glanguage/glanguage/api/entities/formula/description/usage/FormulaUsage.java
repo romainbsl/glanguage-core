@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * {@link FormulaDescription}.<br>
  * It also has a name and a {@link MultilingualString} description.<br>
  * <p>
- * Created by michotte on 4/05/2017.
+ * @author michotte
  */
 @Entity
 @Table(name = "FORMULA_USAGE")

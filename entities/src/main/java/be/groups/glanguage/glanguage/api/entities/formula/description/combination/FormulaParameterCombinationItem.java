@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 /**
  * This class represent an item of a combination of parameters
- * Created by michotte on 4/05/2017.
+ * @author michotte
  */
 @Entity
 @Table(name = "FORMULA_PARAM_COMB_ITEM")

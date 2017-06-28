@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 /**
  * DAO for {@link RuleSet}
  * <p>
- * Created by michotte
+ * @author michotte
  */
 public class RuleSetDao extends BaseDao<Integer, RuleSet> {
 	

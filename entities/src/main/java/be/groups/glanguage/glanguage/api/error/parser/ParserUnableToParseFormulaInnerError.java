@@ -7,7 +7,7 @@ import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import java.util.LinkedList;
 
 /**
- * Created by michotte on 6/01/2017.
+ * @author michotte
  */
 public class ParserUnableToParseFormulaInnerError extends ParserInnerError {
 

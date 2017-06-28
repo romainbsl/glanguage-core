@@ -8,7 +8,7 @@ import javax.persistence.*;
 /**
  * This class represent a possible value for a {@link FormulaParameterCombinationItem} and a description of the
  * meaning of that value
- * Created by michotte on 4/05/2017.
+ * @author michotte
  */
 @Entity
 @Table(name = "FORMULA_PARAM_COMB_ITEM_VALUE")

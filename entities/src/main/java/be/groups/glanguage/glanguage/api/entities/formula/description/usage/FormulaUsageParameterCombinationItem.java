@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 /**
  * This class represent an item of a combination of parameters overridden by a usage
- * Created by michotte on 4/05/2017.
+ * @author michotte
  */
 @Entity
 @Table(name = "FORMULA_USAGE_PARAM_COMB_ITEM")
