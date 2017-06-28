@@ -4,9 +4,19 @@ cache:
   paths:
     - .m2/repository
     
+stages
+  - build
+  - test
+  - deploy
+    
 maven-build:
   stage: build
   script:
     - 'mvn clean compile'
   only:
     - develop
+
+maven-test:
+  stage: test
+  script:
+    - 'mvn test'
