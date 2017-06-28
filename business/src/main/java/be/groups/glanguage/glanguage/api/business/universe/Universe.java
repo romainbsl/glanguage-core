@@ -436,7 +436,7 @@ public class Universe {
      * Get the {@link AbstractFormula} identified by {@code id}
      *
      * @param id the id of the {@link AbstractFormula} to be returned
-     * @return the {@link AbstractFormula} identified by {@code id} or null if it doesn't exists
+     * @return the {@link AbstractFormula} identified by {@code id}, or null if it doesn't exists
      */
     public static AbstractFormula getFormula(Integer id) {
         return new FormulaDao().findById(id);

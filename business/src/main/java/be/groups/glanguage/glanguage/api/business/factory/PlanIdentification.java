@@ -3,6 +3,8 @@ package be.groups.glanguage.glanguage.api.business.factory;
 import java.time.LocalDate;
 
 /**
+ * Identification of a {@link be.groups.glanguage.glanguage.api.business.plan.Plan}
+ *
  * Created by michotte on 8/12/2016.
  */
 public class PlanIdentification {

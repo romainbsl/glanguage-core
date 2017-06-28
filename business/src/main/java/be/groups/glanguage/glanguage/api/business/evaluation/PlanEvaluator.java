@@ -9,6 +9,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * This class provides the ability of evaluating a {@link Plan} and to cache the values of its
+ * {@link RuleVersion rule versions}<br>
+ * It also provides a method to get access to a context needed by
+ * {@link be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet get formulas} in order
+ * to have access to the methods by reflection on that context object<br>
+ * It also provides a method to get access to a {@link Plan} needed by
+ * {@link be.groups.glanguage.glanguage.api.entities.formula.implementations.call.RuleCallFormula rule call formulas}
+ * in order to get the corresponding {@link RuleVersion} from that {@link Plan}
+ *
  * Created by michotte on 14/12/2016.
  */
 public class PlanEvaluator implements Evaluator {
