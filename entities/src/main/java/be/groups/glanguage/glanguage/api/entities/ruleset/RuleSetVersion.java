@@ -72,12 +72,12 @@ public class RuleSetVersion {
 	private RuleSet ruleSet;
 	
 	/**
-	 * Parent RuleSetVersion of this
+	 * Parent RuleSetVersion of this (the one from which this was created)
 	 */
 	private RuleSetVersion parent;
 	
 	/**
-	 * Set of children RuleSetVersion's
+	 * Set of children RuleSetVersion's (the ones that were created from this)
 	 */
 	private Set<RuleSetVersion> children;
 	
@@ -101,6 +101,8 @@ public class RuleSetVersion {
 	}
 	
 	/**
+	 * Get the technical id
+	 *
 	 * @return the id
 	 */
 	@Id
@@ -110,7 +112,9 @@ public class RuleSetVersion {
 	}
 	
 	/**
-	 * @return the productionStartDate
+	 * Get the production start date
+	 *
+	 * @return the production start date
 	 */
 	@Column(name = "EXPLOITATION_START_DATE")
 	@Convert(converter = LocalDateTimeConverter.class)
@@ -119,6 +123,8 @@ public class RuleSetVersion {
 	}
 	
 	/**
+	 * Get the version
+	 *
 	 * @return the version
 	 */
 	@Column(name = "VERSION")
@@ -127,6 +133,8 @@ public class RuleSetVersion {
 	}
 	
 	/**
+	 * Get the creation author
+	 *
 	 * @return the creation author
 	 */
 	@Column(name = "AUTHOR_CREATION")
@@ -135,6 +143,7 @@ public class RuleSetVersion {
 	}
 	
 	/**
+	 * Get the creation date
 	 * @return the creation date
 	 */
 	@Column(name = "DATE_CREATION")
@@ -144,14 +153,18 @@ public class RuleSetVersion {
 	}
 	
 	/**
+	 * Get the modification author
+	 *
 	 * @return the modification author
 	 */
 	@Column(name = "AUTHOR_MODIFICATION")
 	public String getModificationAuthor() {
 		return modificationAuthor;
 	}
-	
+
 	/**
+	 * Get the modification date
+	 *
 	 * @return the modification date
 	 */
 	@Column(name = "DATE_MODIFICATION")
@@ -161,6 +174,8 @@ public class RuleSetVersion {
 	}
 	
 	/**
+	 * Get the status
+	 *
 	 * @return the status
 	 */
 	@Column(name = "STATUS", insertable = false, updatable = false)
@@ -170,6 +185,8 @@ public class RuleSetVersion {
 	}
 	
 	/**
+	 * Get the label
+	 *
 	 * @return the label
 	 */
 	@Column(name = "LABEL")
@@ -178,7 +195,9 @@ public class RuleSetVersion {
 	}
 	
 	/**
-	 * @return the parent
+	 * Get the parent {@link RuleSetVersion} (the one form which this was created)
+	 *
+	 * @return the parent {@link RuleSetVersion}
 	 */
 	@ManyToOne
 	@JoinColumn(name = "PARENT_ID")
@@ -187,7 +206,9 @@ public class RuleSetVersion {
 	}
 	
 	/**
-	 * @return the children
+	 * Get the set of children {@link RuleSetVersion} (the ones that were created from this)
+	 *
+	 * @return the set of children {@link RuleSetVersion} (the ones that were created from this)
 	 */
 	@OneToMany(mappedBy = "parent")
 	public Set<RuleSetVersion> getChildren() {
@@ -195,7 +216,9 @@ public class RuleSetVersion {
 	}
 	
 	/**
-	 * @return the ruleSet
+	 * Get the {@link RuleSet} of which this is a version
+	 *
+	 * @return the the {@link RuleSet} of which this is a version
 	 */
 	@ManyToOne
 	@JoinColumn(name = "RULE_SET_ID")
@@ -204,7 +227,9 @@ public class RuleSetVersion {
 	}
 	
 	/**
-	 * @return the includes
+	 * Get the list of all included {@link RuleSetVersion}
+	 *
+	 * @return the list of all included {@link RuleSetVersion}
 	 */
 	@ManyToMany
 	@JoinTable(name = "RULE_SET_VERSION_GROUP_ITEM",
@@ -213,9 +238,11 @@ public class RuleSetVersion {
 	public Set<RuleSetVersion> getIncludes() {
 		return includes;
 	}
-	
+
 	/**
-	 * @return the includedIn
+	 * Get the list of all {@link RuleSetVersion} this is included in
+	 *
+	 * @return the list of all {@link RuleSetVersion} this is included in
 	 */
 	@ManyToMany(mappedBy = "includes")
 	public Set<RuleSetVersion> getIncludedIn() {
@@ -223,7 +250,9 @@ public class RuleSetVersion {
 	}
 	
 	/**
-	 * @return the ruleVersions
+	 * Get the set of all {@link RuleVersion} ordered by {@link RuleVersion#effectiveStartDate}
+	 *
+	 * @return the set of all {@link RuleVersion} ordered by {@link RuleVersion#effectiveStartDate}
 	 */
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "RULE_SET_VERSION_RULE_VERSION",
@@ -235,9 +264,9 @@ public class RuleSetVersion {
 	}
 	
 	/**
-	 * Get all {@link RuleIdentity}'s, corresponding to the {@link RuleVersion}'s of this {@link RuleSetVersion}
+	 * Get the list of all {@link RuleIdentity}'s, corresponding to the {@link RuleVersion}'s
 	 * 
-	 * @return The list of all {@link RuleIdentity}'s, corresponding to the {@link RuleVersion}'s of this {@link RuleSetVersion}
+	 * @return the list of all {@link RuleIdentity}'s, corresponding to the {@link RuleVersion}'s
 	 */
 	@Transient
 	public List<RuleIdentity> getRuleIdentities() {
@@ -245,35 +274,39 @@ public class RuleSetVersion {
 	}
 	
 	/**
-	 * Get all {@link RuleDefinition}'s, corresponding to the {@link RuleVersion}'s of this {@link RuleSetVersion}
+	 * Get the list of all {@link RuleDefinition}'s, corresponding to the {@link RuleVersion}'s
 	 * 
-	 * @return The list of all {@link RuleDefinition}'s, corresponding to the {@link RuleVersion}'s of this {@link RuleSetVersion}
+	 * @return the list of all {@link RuleDefinition}'s, corresponding to the {@link RuleVersion}'s
 	 */
 	@Transient
 	public List<RuleDefinition> getRuleDefinitions() {
 		return getRuleVersions().stream().map(rv -> rv.getRuleDefinition()).distinct().collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Get all default {@link RuleDefinition}'s (those that have no definition parameters), corresponding to the
-	 * {@link RuleVersion}'s of this {@link RuleSetVersion}
-	 * 
-	 * @return The list of all default {@link RuleDefinition}'s, corresponding to the {@link RuleVersion}'s of this
-	 *         {@link RuleSetVersion}
+	 * Get the list of all {@link RuleDefinition}'s that have a {@link DefinitionLevel#DEFAULT} definition level,
+	 * corresponding to the {@link RuleVersion}'s
+	 *
+	 * @return the list of all {@link RuleDefinition}'s that have a {@link DefinitionLevel#DEFAULT} definition level,
+	 * corresponding to the {@link RuleVersion}'s
+	 * @see RuleDefinition
+	 * @see DefinitionLevel
 	 */
 	@Transient
 	public List<RuleDefinition> getDefaultRuleDefinitions() {
 		return getRuleVersions().stream().map(rv -> rv.getRuleDefinition()).distinct()
 				.filter(rd -> rd.getLevel().equals(DefinitionLevel.DEFAULT)).collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Get all default {@link RuleDefinition}'s (those that have no definition parameters) that have a code equal to {@code code},
-	 * corresponding to the {@link RuleVersion}'s of this {@link RuleSetVersion}
-	 * 
-	 * @param code
-	 * @return The list of all default {@link RuleDefinition}'s (those that have no definition parameters) that have a code equal to
-	 *         {@code code}, corresponding to the {@link RuleVersion}'s of this {@link RuleSetVersion}
+	 * Get the list of all {@link RuleDefinition}'s that have a {@link DefinitionLevel#DEFAULT} definition level,
+	 * corresponding to the {@link RuleVersion}'s that have a code equal to {@code code}
+	 *
+	 * @param code the code identifying the rules to be returned
+	 * @return the list of all {@link RuleDefinition}'s that have a {@link DefinitionLevel#DEFAULT} definition level,
+	 * corresponding to the {@link RuleVersion}'s that have a code equal to {@code code}
+	 * @see RuleDefinition
+	 * @see DefinitionLevel
 	 */
 	@Transient
 	public List<RuleDefinition> getDefaultRuleDefinitions(String code) {
@@ -281,32 +314,40 @@ public class RuleSetVersion {
 				.map(rv -> rv.getRuleDefinition()).distinct().filter(rd -> rd.getLevel().equals(DefinitionLevel.DEFAULT))
 				.collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Get all {@link RuleDefinition}'s that match at least {@code definitionParameters} parameters
-	 * 
-	 * @param definitionParameters
-	 * @return The list of all {@link RuleDefinition}'s that match at least {@code definitionParameters} parameters
+	 * Get the list of all {@link RuleDefinition}'s that matches the collection of {@link RuleDefinitionParameter}
+	 * {@code definitionParameters}, corresponding to the {@link RuleVersion}'s
+	 *
+	 * @param definitionParameters the collection of {@link RuleDefinitionParameter} to match
+	 * @return the list of all {@link RuleDefinition}'s that matches the collection of {@link RuleDefinitionParameter}
+	 * {@code definitionParameters}, corresponding to the {@link RuleVersion}'s
+	 * @see RuleDefinition
 	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
+	 * @see RuleDefinitionParameter
 	 */
 	@Transient
 	public List<RuleDefinition> getDefinedRuleDefinitions(Collection<RuleDefinitionParameter> definitionParameters) {
 		return getRuleVersions().stream().map(rv -> rv.getRuleDefinition()).distinct()
 				.filter(rd -> rd.matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST)).collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Get all {@link RuleVersion}'s that have the {@link RuleDefinition} that best matches {@code definitionParameters} parameters
-	 * 
-	 * @param definitionParameters
-	 * @return The list of all {@link RuleVersion}'s that have the {@link RuleDefinition} that best matches
-	 *         {@code definitionParameters}
+	 * Get the list of all {@link RuleDefinition}'s that best matches the collection of {@link RuleDefinitionParameter}
+	 * {@code definitionParameters}, corresponding to the {@link RuleVersion}'s
+	 *
+	 * @param definitionParameters the collection of {@link RuleDefinitionParameter} to match
+	 * @return the list of all {@link RuleDefinition}'s that best matches the collection of
+	 * {@link RuleDefinitionParameter} {@code definitionParameters}, corresponding to the {@link RuleVersion}'s
+	 * @see RuleDefinition
+	 * @see RuleDefinitionParameter
 	 * @see DefinitionMatcher#getBestMatch(Collection, Collection)
 	 */
 	@Transient
 	public List<RuleDefinition> getBestDefinedRuleDefinitions(Collection<RuleDefinitionParameter> definitionParameters) {
 		List<RuleDefinition> result = new ArrayList<>();
-		/* In a rule set version, there can be multiple rule version by rule identity so we have to group then by rule identity */
+		/* In a rule set version, there can be multiple rule version by rule identity so we have to group them by
+		rule identity */
 		Map<RuleIdentity, List<RuleVersion>> ruleVersionsByRuleIdentity =
 				getRuleVersions().stream().collect(Collectors.groupingBy(rv -> rv.getRuleDefinition().getRuleIdentity()));
 				
@@ -319,15 +360,18 @@ public class RuleSetVersion {
 		}
 		return result;
 	}
-	
+
 	/**
-	 * Get all {@link RuleDefinition}'s that have a code equal to {@code code} and that matches at least {@code definitionParameters}
-	 * parameters
-	 * 
-	 * @param definitionParameters
-	 * @return The list of all {@link RuleDefinition}'s that have a code equal to {@code code} and that matches at least
-	 *         {@code definitionParameters} parameters
+	 * Get the list of all {@link RuleDefinition}'s that matches the collection of {@link RuleDefinitionParameter}
+	 * {@code definitionParameters}, corresponding to the {@link RuleVersion}'s that have a code equal to {@code code}
+	 *
+	 * @param code the code identifying the rules to be returned
+	 * @param definitionParameters the collection of {@link RuleDefinitionParameter} to match
+	 * @return the list of all {@link RuleDefinition}'s that matches the collection of {@link RuleDefinitionParameter}
+	 * {@code definitionParameters}, corresponding to the {@link RuleVersion}'s that have a code equal to {@code code}
+	 * @see RuleDefinition
 	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
+	 * @see RuleDefinitionParameter
 	 */
 	@Transient
 	public List<RuleDefinition> getDefinedRuleDefinitions(String code, Collection<RuleDefinitionParameter> definitionParameters) {
@@ -335,14 +379,18 @@ public class RuleSetVersion {
 				.map(rv -> rv.getRuleDefinition()).distinct()
 				.filter(rd -> rd.matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST)).collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Get the {@link RuleDefinition} that have a code equal to {@code code} and that best matches {@code definitionParameters}
-	 * parameters
-	 * 
-	 * @param definitionParameters
-	 * @return The {@link RuleDefinition} that have a code equal to {@code code} and that best matches {@code definitionParameters}
-	 *         parameters
+	 * Get the list of all {@link RuleDefinition}'s that best matches the collection of {@link RuleDefinitionParameter}
+	 * {@code definitionParameters}, corresponding to the {@link RuleVersion}'s that have a code equal to {@code code}
+	 *
+	 * @param code the code identifying the rules to be returned
+	 * @param definitionParameters the collection of {@link RuleDefinitionParameter} to match
+	 * @return the list of all {@link RuleDefinition}'s that best matches the collection of
+	 * {@link RuleDefinitionParameter} {@code definitionParameters}, corresponding to the {@link RuleVersion}'s that
+	 * have a code equal to {@code code}
+	 * @see RuleDefinition
+	 * @see RuleDefinitionParameter
 	 * @see DefinitionMatcher#getBestMatch(Collection, Collection)
 	 */
 	@Transient
@@ -356,34 +404,36 @@ public class RuleSetVersion {
 	}
 	
 	/**
-	 * Get all {@link RuleVersion}'s that have a code equal to {@code code}
+	 * Get the list of all {@link RuleVersion}'s that have a code equal to {@code code}
 	 * 
-	 * @param code
-	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code}
+	 * @param code the code identifying the rules to be returned
+	 * @return the list of all {@link RuleVersion}'s that have a code equal to {@code code}
 	 */
 	@Transient
 	public List<RuleVersion> getRuleVersions(String code) {
 		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code)).collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Get all {@link RuleVersion}'s that are effective at {@code effectiveDate}
-	 * 
-	 * @param effectiveDate
-	 * @return The list of all {@link RuleVersion}'s that are effective at {@code effectiveDate}
+	 * Get the list of all {@link RuleVersion}'s that are effective at {@link LocalDate effectiveDate}
+	 *
+	 * @param effectiveDate the {@link LocalDate} at which the returned rules have to be effective
+	 * @return the list of all {@link RuleVersion}'s that are effective at {@link LocalDate effectiveDate}
 	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
 	public List<RuleVersion> getRuleVersions(LocalDate effectiveDate) {
 		return getRuleVersions().stream().filter(rv -> rv.isEffective(effectiveDate)).collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at {@code effectiveDate}
-	 * 
-	 * @param effectiveDate
-	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at
-	 *         {@code effectiveDate}
+	 * Get the list of all {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at
+	 * {@link LocalDate effectiveDate}
+	 *
+	 * @param code the code identifying the rules to be returned
+	 * @param effectiveDate the {@link LocalDate} at which the returned rules have to be effective
+	 * @return the list of all {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at
+	 * {@link LocalDate effectiveDate}
 	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
@@ -392,38 +442,47 @@ public class RuleSetVersion {
 				.filter(rv -> rv.getRuleDescription().getCode().equals(code) && rv.isEffective(effectiveDate))
 				.collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Get all {@link RuleVersion}'s that have a default {@link RuleDefinition} (those that have no definition parameters)
-	 * 
-	 * @return The list of all default defined {@link RuleVersion}'s
+	 * Get the list of all {@link RuleVersion}'s that have a {@link RuleDefinition} that have a
+	 * {@link DefinitionLevel#DEFAULT} definition level
+	 *
+	 * @return the list of all {@link RuleVersion}'s that have a {@link RuleDefinition} that have a
+	 * {@link DefinitionLevel#DEFAULT} definition level
+	 * @see RuleVersion
+	 * @see DefinitionLevel
 	 */
 	@Transient
 	public List<RuleVersion> getDefaultRuleVersions() {
 		return getRuleVersions().stream().filter(rv -> rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT))
 				.collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that have a default {@link RuleDefinition} (those that
-	 * have no definition parameters)
-	 * 
-	 * @param code
-	 * @return The list of all default defined {@link RuleVersion}'s
+	 * Get the list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have a
+	 * {@link RuleDefinition} that have a {@link DefinitionLevel#DEFAULT} definition level
+	 *
+	 * @param code the code identifying the rules to be returned
+	 * @return the list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have a
+	 * {@link RuleDefinition} that have a {@link DefinitionLevel#DEFAULT} definition level
+	 * @see RuleVersion
+	 * @see DefinitionLevel
 	 */
 	@Transient
 	public List<RuleVersion> getDefaultRuleVersions(String code) {
 		return getRuleVersions().stream().filter(rv -> rv.getRuleDescription().getCode().equals(code)
 				&& rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT)).collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Get all {@link RuleVersion}'s that have a default {@link RuleDefinition} (those that have no definition parameters) and that are
-	 * effective at {@code effectiveDate}
-	 * 
-	 * @param effectiveDate
-	 * @return The list of all default defined {@link RuleVersion}'s effective at {@code effectiveDate}
+	 * Get the list of all {@link RuleVersion}'s that are effective at {@link LocalDate effectiveDate} and that have a
+	 * {@link RuleDefinition} that have a {@link DefinitionLevel#DEFAULT} definition level
+	 *
+	 * @param effectiveDate the {@link LocalDate} at which the returned rules have to be effective
+	 * @return the list of all {@link RuleVersion}'s that are effective at {@link LocalDate effectiveDate} and that
+	 * have a {@link RuleDefinition} that have a {@link DefinitionLevel#DEFAULT} definition level
 	 * @see RuleVersion#isEffective(LocalDate)
+	 * @see DefinitionLevel
 	 */
 	@Transient
 	public List<RuleVersion> getDefaultRuleVersions(LocalDate effectiveDate) {
@@ -431,16 +490,19 @@ public class RuleSetVersion {
 				.filter(rv -> rv.isEffective(effectiveDate) && rv.getRuleDefinition().getLevel().equals(DefinitionLevel.DEFAULT))
 				.collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Get the {@link RuleVersion} that have a code equal to {@code code} and that have a default {@link RuleDefinition} (those that
-	 * have no definition parameters) and that are effective at {@code effectiveDate}
-	 * 
-	 * @param code
-	 * @param effectiveDate
-	 * @return The list of all default defined {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at
-	 *         {@code effectiveDate}
+	 * Get the list of all {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at
+	 * {@link LocalDate effectiveDate} and that have a {@link RuleDefinition} that have a
+	 * {@link DefinitionLevel#DEFAULT} definition level
+	 *
+	 * @param code the code identifying the rules to be returned
+	 * @param effectiveDate the {@link LocalDate} at which the returned rules have to be effective
+	 * @return the list of all {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at
+	 * {@link LocalDate effectiveDate} and that have a {@link RuleDefinition} that have a
+	 * {@link DefinitionLevel#DEFAULT} definition level
 	 * @see RuleVersion#isEffective(LocalDate)
+	 * @see DefinitionLevel
 	 */
 	@Transient
 	public RuleVersion getDefaultRuleVersion(String code, LocalDate effectiveDate) {
@@ -450,12 +512,12 @@ public class RuleSetVersion {
 	}
 	
 	/**
-	 * Get all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches at least {@code definitionParameters}
-	 * parameters
+	 * Get the list of all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches at least the
+	 * collection of {@link RuleDefinitionParameter} {@code definitionParameters}
 	 * 
-	 * @param definitionParameters
-	 * @return The list of all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches at least
-	 *         {@code definitionParameters} parameters
+	 * @param definitionParameters the collection of {@link RuleDefinitionParameter} to match
+	 * @return the list of all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches at least the
+	 * collection of {@link RuleDefinitionParameter} {@code definitionParameters}
 	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
 	 */
 	@Transient
@@ -464,13 +526,14 @@ public class RuleSetVersion {
 				.filter(rv -> rv.getRuleDefinition().matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
 				.collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Get all {@link RuleVersion}'s that have the {@link RuleDefinition} that best matches {@code definitionParameters} parameters
-	 * 
-	 * @param definitionParameters
-	 * @return The list of all {@link RuleVersion}'s that have the {@link RuleDefinition} that best matches
-	 *         {@code definitionParameters}
+	 * Get the list of all {@link RuleVersion}'s that have a {@link RuleDefinition} that best matches the
+	 * collection of {@link RuleDefinitionParameter} {@code definitionParameters}
+	 *
+	 * @param definitionParameters the collection of {@link RuleDefinitionParameter} to match
+	 * @return the list of all {@link RuleVersion}'s that have a {@link RuleDefinition} that best matches the
+	 * collection of {@link RuleDefinitionParameter} {@code definitionParameters}
 	 * @see DefinitionMatcher#getBestMatch(Collection, Collection)
 	 */
 	@Transient
@@ -492,17 +555,18 @@ public class RuleSetVersion {
 		}
 		return result;
 	}
-	
+
 	/**
-	 * Get all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches at least {@code definitionParameters}
-	 * parameters and that are effective at {@code effectiveDate}
-	 * 
-	 * @param definitionParameters
-	 * @param effectiveDate
-	 * @return The list of all {@link RuleVersion}'s that have a {@link RuleDefinition} that matches at least
-	 *         {@code definitionParameters} parameters and that are effective at {@code effectiveDate}
+	 * Get the list of all {@link RuleVersion}'s that are effective at {@link LocalDate effectiveDate} and that have
+	 * a {@link RuleDefinition} that matches at least the collection of {@link RuleDefinitionParameter} {@code
+	 * definitionParameters}
+	 *
+	 * @param definitionParameters the collection of {@link RuleDefinitionParameter} to match
+	 * @param effectiveDate the {@link LocalDate} at which the returned rules have to be effective
+	 * @return the list of all {@link RuleVersion}'s that are effective at {@link LocalDate effectiveDate} and that have
+	 * a {@link RuleDefinition} that matches at least the collection of {@link RuleDefinitionParameter} {@code
+	 * definitionParameters}
 	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
-	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
 	public List<RuleVersion> getDefinedRuleVersions(Collection<RuleDefinitionParameter> definitionParameters,
@@ -512,17 +576,18 @@ public class RuleSetVersion {
 						&& rv.getRuleDefinition().matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
 				.collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Get all {@link RuleVersion}'s that have the {@link RuleDefinition} that best matches {@code definitionParameters} parameters and
-	 * that are effective at {@code effectiveDate}
-	 * 
-	 * @param definitionParameters
-	 * @param effectiveDate
-	 * @return The list of all {@link RuleVersion}'s that have the {@link RuleDefinition} that best matches
-	 *         {@code definitionParameters} and that are effective at {@code effectiveDate}
+	 * Get the list of all {@link RuleVersion}'s that are effective at {@link LocalDate effectiveDate} and that have
+	 * a {@link RuleDefinition} that best matches the collection of {@link RuleDefinitionParameter} {@code
+	 * definitionParameters}
+	 *
+	 * @param definitionParameters the collection of {@link RuleDefinitionParameter} to match
+	 * @param effectiveDate the {@link LocalDate} at which the returned rules have to be effective
+	 * @return the list of all {@link RuleVersion}'s that are effective at {@link LocalDate effectiveDate} and that have
+	 * a {@link RuleDefinition} that best matches the collection of {@link RuleDefinitionParameter} {@code
+	 * definitionParameters}
 	 * @see DefinitionMatcher#getBestMatch(Collection, Collection)
-	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
 	public List<RuleVersion> getBestDefinedRuleVersions(Collection<RuleDefinitionParameter> definitionParameters,
@@ -554,15 +619,17 @@ public class RuleSetVersion {
 		}
 		return result;
 	}
-	
+
 	/**
-	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that have a {@link RuleDefinition} that matches at
-	 * least {@code definitionParameters} parameters
-	 * 
-	 * @param code
-	 * @param definitionParameters
-	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have a {@link RuleDefinition} that
-	 *         matches at least {@code definitionParameters} that are effective at {@code effectiveDate}
+	 * Get the list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have a
+	 * {@link RuleDefinition} that matches at least the collection of {@link RuleDefinitionParameter} {@code
+	 * definitionParameters}
+	 *
+	 * @param code the code identifying the rules to be returned
+	 * @param definitionParameters the collection of {@link RuleDefinitionParameter} to match
+	 * @return the list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have a
+	 * {@link RuleDefinition} that matches at least the collection of {@link RuleDefinitionParameter} {@code
+	 * definitionParameters}
 	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
 	 */
 	@Transient
@@ -572,15 +639,17 @@ public class RuleSetVersion {
 						&& rv.getRuleDefinition().matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
 				.collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that have the {@link RuleDefinition} that best matches
-	 * {@code definitionParameters} parameters
-	 * 
-	 * @param code
-	 * @param definitionParameters
-	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have the {@link RuleDefinition}
-	 *         that best matches {@code definitionParameters}
+	 * Get the list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have a
+	 * {@link RuleDefinition} that best matches the collection of {@link RuleDefinitionParameter} {@code
+	 * definitionParameters}
+	 *
+	 * @param code the code identifying the rules to be returned
+	 * @param definitionParameters the collection of {@link RuleDefinitionParameter} to match
+	 * @return the list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have a
+	 * {@link RuleDefinition} that best matches the collection of {@link RuleDefinitionParameter} {@code
+	 * definitionParameters}
 	 * @see DefinitionMatcher#getBestMatch(Collection, Collection)
 	 */
 	@Transient
@@ -600,18 +669,19 @@ public class RuleSetVersion {
 		return ruleVersionsByRuleDefinition.get(DefinitionMatcher.getBestMatch(
 				versionsForCode.stream().map(rv -> rv.getRuleDefinition()).collect(Collectors.toList()), definitionParameters));
 	}
-	
+
 	/**
-	 * Get all {@link RuleVersion}'s that have a code equal to {@code code} and that have a {@link RuleDefinition} that matches at
-	 * least {@code definitionParameters} parameters and that are effective at {@code effectiveDate}
-	 * 
-	 * @param code
-	 * @param definitionParameters
-	 * @param effectiveDate
-	 * @return The list of all {@link RuleVersion}'s that have a code equal to {@code code} and that have a {@link RuleDefinition} that
-	 *         matches at least {@code definitionParameters} and that are effective at {@code effectiveDate}
+	 * Get the list of all {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at
+	 * {@link LocalDate effectiveDate} and that have a {@link RuleDefinition} that matches at least the collection of
+	 * {@link RuleDefinitionParameter} {@code definitionParameters}
+	 *
+	 * @param code the code identifying the rules to be returned
+	 * @param definitionParameters the collection of {@link RuleDefinitionParameter} to match
+	 * @param effectiveDate the {@link LocalDate} at which the returned rules have to be effective
+	 * @return the list of all {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at
+	 * {@link LocalDate effectiveDate} and that have a {@link RuleDefinition} that matches at least the collection of
+	 * {@link RuleDefinitionParameter} {@code definitionParameters}
 	 * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
-	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
 	public List<RuleVersion> getDefinedRuleVersions(String code, Collection<RuleDefinitionParameter> definitionParameters,
@@ -621,18 +691,19 @@ public class RuleSetVersion {
 						&& rv.getRuleDefinition().matches(definitionParameters, DefinitionMatcherStrategy.AT_LEAST))
 				.collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Get the {@link RuleVersion} that have a code equal to {@code code} and that have the {@link RuleDefinition} that best matches
-	 * {@code definitionParameters} parameters and that is effective at {@code effectiveDate}
-	 * 
-	 * @param code
-	 * @param definitionParameters
-	 * @param effectiveDate
-	 * @return The {@link RuleVersion}'s that have a code equal to {@code code} and that have the {@link RuleDefinition} that best
-	 *         matches {@code definitionParameters} and that is effective at {@code effectiveDate}
+	 * Get the list of all {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at
+	 * {@link LocalDate effectiveDate} and that have a {@link RuleDefinition} that best matches the collection of
+	 * {@link RuleDefinitionParameter} {@code definitionParameters}
+	 *
+	 * @param code the code identifying the rules to be returned
+	 * @param definitionParameters the collection of {@link RuleDefinitionParameter} to match
+	 * @param effectiveDate the {@link LocalDate} at which the returned rules have to be effective
+	 * @return the list of all {@link RuleVersion}'s that have a code equal to {@code code} and that are effective at
+	 * {@link LocalDate effectiveDate} and that have a {@link RuleDefinition} that best matches the collection of
+	 * {@link RuleDefinitionParameter} {@code definitionParameters}
 	 * @see DefinitionMatcher#getBestMatch(Collection, Collection)
-	 * @see RuleVersion#isEffective(LocalDate)
 	 */
 	@Transient
 	public RuleVersion getBestDefinedRuleVersion(String code, Collection<RuleDefinitionParameter> definitionParameters,
@@ -670,118 +741,105 @@ public class RuleSetVersion {
 	}
 	
 	/**
-	 * @param id
-	 *        the id to set
+	 * @param id the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 	
 	/**
-	 * @param productionStartDate
-	 *        the productionStartDate to set
+	 * @param productionStartDate  the production start date to set
 	 */
 	public void setProductionStartDate(LocalDateTime productionStartDate) {
 		this.productionStartDate = productionStartDate;
 	}
 	
 	/**
-	 * @param version
-	 *        the version to set
+	 * @param version the version to set
 	 */
 	public void setVersion(String version) {
 		this.version = version;
 	}
 	
 	/**
-	 * @param creationAuthor
-	 *        the creationAuthor to set
+	 * @param creationAuthor the creation author to set
 	 */
 	public void setCreationAuthor(String creationAuthor) {
 		this.creationAuthor = creationAuthor;
 	}
 	
 	/**
-	 * @param creationDate the creationDate to set
+	 * @param creationDate the creation date to set
 	 */
 	public void setCreationDate(LocalDateTime creationDate) {
 		this.creationDate = creationDate;
 	}
 	
 	/**
-	 * @param modificationAuthor
-	 *        the modificationAuthor to set
+	 * @param modificationAuthor the modification author to set
 	 */
 	public void setModificationAuthor(String modificationAuthor) {
 		this.modificationAuthor = modificationAuthor;
 	}
 	
 	/**
-	 * @param modificationDate the modificationDate to set
+	 * @param modificationDate the modification date to set
 	 */
 	public void setModificationDate(LocalDateTime modificationDate) {
 		this.modificationDate = modificationDate;
 	}
 	
 	/**
-	 * @param status
-	 *        the status to set
+	 * @param status the status to set
 	 */
 	public void setStatus(RuleSetVersionStatus status) {
 		this.status = status;
 	}
 	
 	/**
-	 * @param label
-	 *        the label to set
+	 * @param label the label to set
 	 */
 	public void setLabel(String label) {
 		this.label = label;
 	}
 	
 	/**
-	 * @param parent
-	 *        the parent to set
+	 * @param parent the parent to set (the one from which this was created)
 	 */
 	public void setParent(RuleSetVersion parent) {
 		this.parent = parent;
 	}
 	
 	/**
-	 * @param children
-	 *        the children to set
+	 * @param children the children to set (the ones created from this)
 	 */
 	public void setChildren(Set<RuleSetVersion> children) {
 		this.children = children;
 	}
 	
 	/**
-	 * @param ruleSet
-	 *        the ruleSet to set
+	 * @param ruleSet the ruleSet to set
 	 */
 	public void setRuleSet(RuleSet ruleSet) {
 		this.ruleSet = ruleSet;
 	}
 	
 	/**
-	 * @param includes
-	 *        the includes to set
+	 * @param includes the set of included {@link RuleSetVersion} to set
 	 */
 	public void setIncludes(Set<RuleSetVersion> includes) {
 		this.includes = includes;
 	}
 	
 	/**
-	 * @param includedIn
-	 *        the includedIn to set
+	 * @param includedIn the set of including {@link RuleSetVersion} to set
 	 */
 	public void setIncludedIn(Set<RuleSetVersion> includedIn) {
 		this.includedIn = includedIn;
 	}
 	
 	/**
-	 * @param ruleVersions
-	 *        the ruleVersions to set
+	 * @param ruleVersions the set of {@link RuleVersion} to set
 	 */
 	public void setRuleVersions(Set<RuleVersion> ruleVersions) {
 		this.ruleVersions = ruleVersions;

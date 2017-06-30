@@ -175,15 +175,6 @@ public abstract class AbstractFormula {
     @Transient
     public abstract FormulaReturnType getReturnType(Evaluator evaluator);
 
-    /**
-     * @return Default true
-     */
-    @JsonIgnore
-    @Transient
-    public boolean isValuable() {
-        return true;
-    }
-
     @JsonIgnore
     @Transient
     public Object getValue() throws GLanguageException {

@@ -2,7 +2,11 @@ package be.groups.glanguage.glanguage.api.entities.ruleset;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-
+/**
+ * Converter enum class for {@link RuleSetVersionStatus}
+ *
+ * @author michotte
+ */
 @Converter
 public class RuleSetVersionStatusConverter implements AttributeConverter<RuleSetVersionStatus, Integer> {
 

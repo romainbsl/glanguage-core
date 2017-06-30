@@ -4,7 +4,7 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 /**
- * Converter class for {@link RoundingType} enum
+ * Converter enum class for {@link RoundingType}
  *
  * @author michotte
  * @see RoundingType
