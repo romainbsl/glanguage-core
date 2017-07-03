@@ -1,12 +1,9 @@
 package be.groups.glanguage.glanguage.api.entities.formula.description;
 
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-
 /**
- * Priorities of {@link AbstractFormula}'s
- * 
- * @author michotte
+ * Enum representing the priorities of a formula in evaluation process
  *
+ * @author michotte
  */
 public enum FormulaPriority {
 

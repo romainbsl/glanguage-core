@@ -1,6 +1,8 @@
 package be.groups.glanguage.glanguage.api.entities.formula.description;
 
 /**
+ * Enum representing the positions of a formula in textual representation
+ *
  * @author michotte
  */
 public enum FormulaPosition {
