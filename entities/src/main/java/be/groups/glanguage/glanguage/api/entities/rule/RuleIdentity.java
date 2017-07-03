@@ -1,6 +1,5 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
-import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionException;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.DefinitionMatcherStrategy;
@@ -11,10 +10,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * A RuleIdentity is the unique identity of a rule A RuleIdentity has a unique
- * code identifying it
+ * A RuleIdentity is the unique identity of a rule<br>
+ * A RuleIdentity has a set of {@link RuleDefinition} each corresponding to a {@link DefinitionLevel} with 1 of
+ * {@link DefinitionLevel#DEFAULT} and 1 or more of other {@link DefinitionLevel}<br>
+ * A RuleIdentity has a collection of {@link RuleGroupItem parent rules}
  *
  * @author michotte
+ * @see RuleDefinition
+ * @see DefinitionLevel
+ * @see RuleGroupItem
  */
 @Table(name = "RULE_IDENTITY")
 @Entity
@@ -73,6 +77,8 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
     }
 
     /**
+     * Get the technical id
+     *
      * @return the id
      */
     @Id
@@ -81,7 +87,12 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
     }
 
     /**
-     * @return the ruleDefinitions
+     * Get the set of {@link RuleDefinition}<br>
+     * Each {@link RuleIdentity} has 1 {@link DefinitionLevel#DEFAULT} rule definition and 1 or more other definition
+     *
+     * @return the set of {@link RuleDefinition}
+     * @see RuleDefinition
+     * @see DefinitionLevel
      */
     @OneToMany(mappedBy = "ruleIdentity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Set<RuleDefinition> getRuleDefinitions() {
@@ -89,7 +100,10 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
     }
 
     /**
-     * @return the groupItems
+     * Get the collection of {@link RuleGroupItem} (parent rules)
+     *
+     * @return the collection of {@link RuleGroupItem} (parent rules)
+     * @see RuleGroupItem
      */
     @OneToMany(mappedBy = "itemRule")
     public Collection<RuleGroupItem> getGroupItems() {
@@ -97,7 +111,11 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
     }
 
     /**
-     * @return the defaultRuleDefinition
+     * Get the {@link RuleDefinition} of {@link DefinitionLevel#DEFAULT} definition level
+     *
+     * @return the {@link RuleDefinition} of {@link DefinitionLevel#DEFAULT} definition level
+     * @see RuleDefinition
+     * @see DefinitionLevel
      */
     @Transient
     public RuleDefinition getDefaultRuleDefinition() {
@@ -108,7 +126,12 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
     }
 
     /**
-     * @return the socialSecretaryRuleDefintions
+     * Get the collection of {@link RuleDefinition} of {@link DefinitionLevel#SOCIAL_SECRETARY} definition level
+     *
+     * @return the collection of {@link RuleDefinition} of {@link DefinitionLevel#SOCIAL_SECRETARY} definition level,
+     * may be empty
+     * @see RuleDefinition
+     * @see DefinitionLevel
      */
     @Transient
     public Collection<RuleDefinition> getSocialSecretaryRuleDefinitions() {
@@ -119,7 +142,12 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
     }
 
     /**
-     * @return the employerRuleDefintions
+     * Get the collection of {@link RuleDefinition} of {@link DefinitionLevel#EMPLOYER} definition level
+     *
+     * @return the collection of {@link RuleDefinition} of {@link DefinitionLevel#EMPLOYER} definition level,
+     * may be empty
+     * @see RuleDefinition
+     * @see DefinitionLevel
      */
     @Transient
     public Collection<RuleDefinition> getEmployerRuleDefinitions() {
@@ -130,7 +158,12 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
     }
 
     /**
-     * @return the jointCommitteRuleDefintions
+     * Get the collection of {@link RuleDefinition} of {@link DefinitionLevel#JOINT_COMMITTEE} definition level
+     *
+     * @return the collection of {@link RuleDefinition} of {@link DefinitionLevel#JOINT_COMMITTEE} definition level,
+     * may be empty
+     * @see RuleDefinition
+     * @see DefinitionLevel
      */
     @Transient
     public Collection<RuleDefinition> getJointCommitteeRuleDefinitions() {
@@ -141,7 +174,13 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
     }
 
     /**
-     * @return the collectiveLaborAgreementRuleDefintions
+     * Get the collection of {@link RuleDefinition} of {@link DefinitionLevel#COLLECTIVE_LABOR_AGREEMENT} definition
+     * level
+     *
+     * @return the collection of {@link RuleDefinition} of {@link DefinitionLevel#COLLECTIVE_LABOR_AGREEMENT}
+     * definition level, may be empty
+     * @see RuleDefinition
+     * @see DefinitionLevel
      */
     @Transient
     public Collection<RuleDefinition> getCollectiveLaborAgreementRuleDefinitions() {
@@ -152,7 +191,12 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
     }
 
     /**
-     * @return the customRuleDefintions
+     * Get the collection of {@link RuleDefinition} of {@link DefinitionLevel#CUSTOM} definition level
+     *
+     * @return the collection of {@link RuleDefinition} of {@link DefinitionLevel#CUSTOM} definition level,
+     * may be empty
+     * @see RuleDefinition
+     * @see DefinitionLevel
      */
     @Transient
     public Collection<RuleDefinition> getCustomRuleDefinitions() {
@@ -166,44 +210,32 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
      * Get all {@link RuleDefinition}'s that match at least the collection of {@link RuleDefinitionParameter} {@code
      * parameters}
      *
-     * @param parameters The parameters to match
-     * @return The list of all {@link RuleDefinition}'s that match at least the collection of
+     * @param parameters the parameters to match
+     * @return the list of all {@link RuleDefinition}'s that match at least the collection of
      * {@link RuleDefinitionParameter} {@code parameters}
      * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
      * @see DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)
+     * @see DefinitionMatcherStrategy
      */
     @Transient
     public List<RuleDefinition> getRuleDefinitions(Collection<RuleDefinitionParameter> parameters) {
-        try {
-            return getRuleDefinitions().stream()
-                    .filter(rd -> rd.matches(parameters, DefinitionMatcherStrategy.AT_LEAST))
-                    .collect(Collectors.toList());
-        } catch (DefinitionException de) {
-            throw new RuntimeException("Unable to find the best rule definition for rule " + getId() + " - " +
-                    "parameters" + " not precise enough",
-                    de);
-        }
+        return getRuleDefinitions().stream().filter(rd -> rd.matches(parameters, DefinitionMatcherStrategy.AT_LEAST))
+                .collect(Collectors.toList());
     }
 
     /**
      * Get the {@link RuleDefinition} that matches the best the collection of {@link RuleDefinitionParameter}
      * {@code parameters}
      *
-     * @param parameters The parameters to match
-     * @return The list of all {@link RuleDefinition}'s that match at least the collection of
-     * {@link RuleDefinitionParameter} {@code parameters}
+     * @param parameters the parameters to match
+     * @return the {@link RuleDefinition} that best matches the collection of {@link RuleDefinitionParameter} {@code
+     * parameters}
      * @see RuleDefinition#matches(Collection, DefinitionMatcherStrategy)
      * @see DefinitionMatcher#matches(Collection, Collection, DefinitionMatcherStrategy)
      */
     @Transient
     public RuleDefinition getRuleDefinition(Collection<RuleDefinitionParameter> parameters) {
-        try {
-            return DefinitionMatcher.getBestMatch(getRuleDefinitions(), parameters);
-        } catch (DefinitionException de) {
-            throw new RuntimeException("Unable to find the best rule definition for rule " + getId() + " - " +
-                    "parameters" + " not precise enough",
-                    de);
-        }
+        return DefinitionMatcher.getBestMatch(getRuleDefinitions(), parameters);
     }
 
     /**

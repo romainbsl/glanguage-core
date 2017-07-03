@@ -3,9 +3,14 @@ package be.groups.glanguage.glanguage.api.entities.rule;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
- * 
+ * A RuleGroupItem represents an item of the hierarchy of rules<br>
+ * A RuleGroupItem links a parent {@link RuleVersion} to a child {@link RuleIdentity}<br>
+ * A RuleGroupItem has a sequence number to determine the order of the child rules in the hierarchy of the parent
+ * one<br>
+ *
  * @author michotte
  */
 @Entity
@@ -24,6 +29,8 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	}
 
 	/**
+	 * Get the id
+	 *
 	 * @return the id
 	 */
 	@EmbeddedId
@@ -32,7 +39,9 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	}
 
 	/**
-	 * @return the ruleVersion
+	 * Get the group rule (parent rule)
+	 *
+	 * @return the group rule
 	 */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "RULE_VERSION_ID", referencedColumnName = "ID", insertable = false, updatable = false)
@@ -41,7 +50,9 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	}
 
 	/**
-	 * @return the ruleIdentity
+	 * Get the item rule (child rule)
+	 *
+	 * @return the item rule
 	 */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "RULE_IDENTITY_ID", referencedColumnName = "ID", insertable = false, updatable = false)
@@ -50,7 +61,9 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	}
 	
 	/**
-	 * @return the sequenceNumber
+	 * Get the sequence number
+	 *
+	 * @return the sequence number
 	 */
 	@Column(name = "SEQUENCE_NUMBER")
 	public int getSequenceNumber() {
@@ -58,9 +71,16 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	}
 
 	/**
+	 * Get the rule version referenced by {@link RuleGroupItem#getItemRule()} with an evaluator (can be null)
+	 * Evaluation process :
+	 * <ol>
+	 *     <li>If {@link RuleGroupItem#referencedRule} is null and {@code evaluator} is not null, delegate to
+	 *     		{@link Evaluator#getRuleVersion(String)} and assign the returned object to {@link RuleGroupItem#referencedRule}</li>
+	 *     <li>Return the {@link RuleGroupItem#referencedRule}</li>
+	 * </ol>
 	 * @param evaluator nullable, if present it is used to retrieve the {@link RuleVersion} corresponding to the
 	 * {@link RuleIdentity} {@code itemRule}
-	 * @return the referencedRule
+	 * @return the referenced rule if it exists or if it exists in {@code evaluator}, null otherwise
 	 */
 	@Transient
 	public RuleVersion getReferencedRule(Evaluator evaluator) {
@@ -68,14 +88,6 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 			referencedRule = evaluator.getRuleVersion(String.valueOf(getItemRule().getId()));
 		}
 		return referencedRule;
-	}
-
-	/**
-	 * @return true if {@code referencedRule} is not null, false otherwise
-	 */
-	@Transient
-	public boolean isBranched() {
-		return referencedRule != null;
 	}
 
 	/**
@@ -114,7 +126,7 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 	}
 
 	@Override
-	public int compareTo(RuleGroupItem o) {
+	public int compareTo(@NotNull RuleGroupItem o) {
 		int i = groupRule.getId() - o.getGroupRule().getId();
 		if (i == 0) {
 			i = sequenceNumber - o.getSequenceNumber();
