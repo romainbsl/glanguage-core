@@ -48,9 +48,9 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         assertEquals(Integer.valueOf(9), parameterCombination.getId());
 
 		/* Checking relationships */
-        assertNotNull(parameterCombination.getParameters());
-        assertEquals(2, parameterCombination.getParameters().size());
-        assertEquals(2, parameterCombination.getParameters().stream().map(d -> d.getId()).distinct().count());
+        assertNotNull(parameterCombination.getCombinationParameters());
+        assertEquals(2, parameterCombination.getCombinationParameters().size());
+        assertEquals(2, parameterCombination.getCombinationParameters().stream().map(d -> d.getId()).distinct().count());
     }
 
     /**
@@ -237,7 +237,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#isValidParameters(List, Evaluator)}
      * when parameter list is not null and count 1 element {@code [parameter]} <br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 1 element {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 1 element {@code
      * [combinationParmater]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater]
      * .isValid
@@ -256,7 +256,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
 
         assertTrue(combination.isValidParameters(parameters, null));
     }
@@ -264,7 +264,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#isValidParameters(List, Evaluator)}
      * when parameter list is not null and count 1 element {@code [parameter]} <br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 1 element {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 1 element {@code
      * [combinationParmater]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater]
      * .isValid
@@ -285,7 +285,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
 
         assertFalse(combination.isValidParameters(parameters, null));
     }
@@ -293,7 +293,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#isValidParameters(List, Evaluator)}
      * when parameter list is not null and count 1 element {@code [parameter]} <br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 1 element {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 1 element {@code
      * [combinationParmater]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater]
      * .isValid
@@ -314,7 +314,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
 
         assertFalse(combination.isValidParameters(parameters, null));
     }
@@ -322,7 +322,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#isValidParameters(List, Evaluator)}
      * when parameter list is not null and count 1 element {@code [parameter]} <br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 elements {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 elements {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is true <br/>
@@ -346,7 +346,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
 
         assertTrue(combination.isValidParameters(parameters, null));
     }
@@ -354,7 +354,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#isValidParameters(List, Evaluator)}
      * when parameter list is not null and count 1 element {@code [parameter]} <br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 elements {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 elements {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is false <br/>
@@ -381,7 +381,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
 
         assertTrue(combination.isValidParameters(parameters, null));
     }
@@ -389,7 +389,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#isValidParameters(List, Evaluator)}
      * when parameter list is not null and count 1 element {@code [parameter]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 elements {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 elements {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is true <br/>
@@ -413,7 +413,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
 
         assertFalse(combination.isValidParameters(parameters, null));
     }
@@ -421,7 +421,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#isValidParameters(List, Evaluator)}
      * when parameter list is not null and count 2 element {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 element {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 element {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is true <br/>
@@ -450,7 +450,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
 
         assertFalse(combination.isValidParameters(parameters, null));
     }
@@ -458,7 +458,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#isValidParameters(List, Evaluator)}
      * when parameter list is not null and count 2 element {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 element {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 element {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is true <br/>
@@ -487,7 +487,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
 
         assertFalse(combination.isValidParameters(parameters, null));
     }
@@ -495,7 +495,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#isValidParameters(List, Evaluator)}
      * when parameter list is not null and count 2 element {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 1 element {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 1 element {@code
      * [combinationParmater]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater]
      * .isValid([parameter1], null)} is true <br/>
@@ -517,7 +517,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
 
         assertFalse(combination.isValidParameters(parameters, null));
     }
@@ -525,7 +525,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#isValidParameters(List, Evaluator)}
      * when parameter list is not null and count 2 element {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 1 element {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 1 element {@code
      * [combinationParmater]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater]
      * .isValid([parameter1], null)} is true <br/>
@@ -550,7 +550,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
 
         assertTrue(combination.isValidParameters(parameters, null));
     }
@@ -558,7 +558,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#isValidParameters(List, Evaluator)}
      * when parameter list is not null and count 2 element {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 1 element {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 1 element {@code
      * [combinationParmater]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater]
      * .isValid([parameter1], null)} is true <br/>
@@ -583,7 +583,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
 
         assertFalse(combination.isValidParameters(parameters, null));
     }
@@ -591,7 +591,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#isValidParameters(List, Evaluator)}
      * when parameter list is not null and count 2 elements {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 elements {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 elements {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is true <br/>
@@ -622,7 +622,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
 
         assertTrue(combination.isValidParameters(parameters, null));
     }
@@ -630,7 +630,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#isValidParameters(List, Evaluator)}
      * when parameter list is not null and count 2 elements {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 elements {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 elements {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is true <br/>
@@ -664,7 +664,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
 
         assertTrue(combination.isValidParameters(parameters, null));
     }
@@ -672,7 +672,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#isValidParameters(List, Evaluator)}
      * when parameter list is not null and count 2 elements {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 elements {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 elements {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is true <br/>
@@ -706,7 +706,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
 
         assertFalse(combination.isValidParameters(parameters, null));
     }
@@ -715,7 +715,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#isValidParameters(List, Evaluator)}
      * when parameter list is not null and count 2 elements {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 elements {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 elements {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is true <br/>
@@ -747,7 +747,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
 
         assertTrue(combination.isValidParameters(parameters, null));
     }
@@ -846,7 +846,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
      * when parameter list is not null and count 1 element {@code [parameter]} <br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 1 element {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 1 element {@code
      * [combinationParmater]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater]
      * .isValid
@@ -867,7 +867,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         try {
             combination.validateParameters(formula, usage, parameters, null);
         } catch (GLanguageException e) {
@@ -878,7 +878,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
      * when parameter list is not null and count 1 element {@code [parameter]} <br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 1 element {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 1 element {@code
      * [combinationParmater]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater]
      * .isValid
@@ -915,7 +915,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         try {
             combination.validateParameters(formula, usage, parameters, null);
         } catch (GLanguageException e) {
@@ -929,7 +929,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
      * when parameter list is not null and count 1 element {@code [parameter]} <br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 1 element {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 1 element {@code
      * [combinationParmater]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater]
      * .isValid
@@ -966,7 +966,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         try {
             combination.validateParameters(formula, usage, parameters, null);
         } catch (GLanguageException e) {
@@ -980,7 +980,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
      * when parameter list is not null and count 1 element {@code [parameter]} <br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 elements {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 elements {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is true <br/>
@@ -1006,7 +1006,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         try {
             combination.validateParameters(formula, usage, parameters, null);
         } catch (GLanguageException e) {
@@ -1017,7 +1017,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
      * when parameter list is not null and count 1 element {@code [parameter]} <br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 elements {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 elements {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is false <br/>
@@ -1046,7 +1046,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         try {
             combination.validateParameters(formula, usage, parameters, null);
         } catch (GLanguageException e) {
@@ -1057,7 +1057,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
      * when parameter list is not null and count 1 element {@code [parameter]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 elements {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 elements {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is true <br/>
@@ -1098,7 +1098,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         try {
             combination.validateParameters(formula, usage, parameters, null);
         } catch (GLanguageException e) {
@@ -1112,7 +1112,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
      * when parameter list is not null and count 2 element {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 element {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 element {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is true <br/>
@@ -1144,7 +1144,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         try {
             combination.validateParameters(formula, usage, parameters, null);
         } catch (GLanguageException e) {
@@ -1158,7 +1158,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
      * when parameter list is not null and count 2 element {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 element {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 element {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is true <br/>
@@ -1204,7 +1204,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         try {
             combination.validateParameters(formula, usage, parameters, null);
         } catch (GLanguageException e) {
@@ -1218,7 +1218,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
      * when parameter list is not null and count 2 element {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 1 element {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 1 element {@code
      * [combinationParmater]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater]
      * .isValid([parameter1], null)} is true <br/>
@@ -1242,7 +1242,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         try {
             combination.validateParameters(formula, usage, parameters, null);
         } catch (GLanguageException e) {
@@ -1256,7 +1256,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
      * when parameter list is not null and count 2 element {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 1 element {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 1 element {@code
      * [combinationParmater]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater]
      * .isValid([parameter1], null)} is true <br/>
@@ -1283,7 +1283,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         try {
             combination.validateParameters(formula, usage, parameters, null);
         } catch (GLanguageException e) {
@@ -1294,7 +1294,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
      * when parameter list is not null and count 2 element {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 1 element {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 1 element {@code
      * [combinationParmater]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater]
      * .isValid([parameter1], null)} is true <br/>
@@ -1336,7 +1336,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         try {
             combination.validateParameters(formula, usage, parameters, null);
         } catch (GLanguageException e) {
@@ -1350,7 +1350,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
      * when parameter list is not null and count 2 elements {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 elements {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 elements {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is true <br/>
@@ -1383,7 +1383,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         try {
             combination.validateParameters(formula, usage, parameters, null);
         } catch (GLanguageException e) {
@@ -1394,7 +1394,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
      * when parameter list is not null and count 2 elements {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 elements {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 elements {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is true <br/>
@@ -1430,7 +1430,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         try {
             combination.validateParameters(formula, usage, parameters, null);
         } catch (GLanguageException e) {
@@ -1441,7 +1441,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
      * when parameter list is not null and count 2 elements {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 elements {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 elements {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is true <br/>
@@ -1495,7 +1495,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         try {
             combination.validateParameters(formula, usage, parameters, null);
         } catch (GLanguageException e) {
@@ -1509,7 +1509,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
     /**
      * Test {@link FormulaParameterCombination#validateParameters(AbstractFormula, FormulaUsage, List, Evaluator)}
      * when parameter list is not null and count 2 elements {@code [parameter1]} and {@code [parameter2]}<br/>
-     * and {@link FormulaParameterCombination#getParameters()} returns a list of 2 elements {@code
+     * and {@link FormulaParameterCombination#getCombinationParameters()} returns a list of 2 elements {@code
      * [combinationParmater1]} and {@code [combinationParameter2]} <br/>
      * and {@link FormulaParameterCombinationItem#isValid(AbstractFormula, Evaluator)} {@code [combinationParmater1]
      * .isValid([parameter1], null)} is true <br/>
@@ -1543,7 +1543,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         combinationParameters.add(combinationParamater2);
 
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         try {
             combination.validateParameters(formula, usage, parameters, null);
         } catch (GLanguageException e) {
@@ -1560,7 +1560,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         SortedSet<FormulaParameterCombinationItem> combinationParameters = new TreeSet<>(Comparator.comparing(
                 FormulaParameterCombinationItem::getSequenceNumber));
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         assertEquals(Integer.valueOf(0), combination.getParametersMinimumNumber());
     }
 
@@ -1576,7 +1576,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         SortedSet<FormulaParameterCombinationItem> combinationParameters = new TreeSet<>(Comparator.comparing(
                 FormulaParameterCombinationItem::getSequenceNumber));
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         combinationParameters.add(combinationParamater);
         assertEquals(Integer.valueOf(0), combination.getParametersMinimumNumber());
     }
@@ -1594,7 +1594,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
                 FormulaParameterCombinationItem::getSequenceNumber));
         combinationParameters.add(combinationParamater);
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         assertEquals(Integer.valueOf(1), combination.getParametersMinimumNumber());
     }
 
@@ -1607,7 +1607,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
         SortedSet<FormulaParameterCombinationItem> combinationParameters = new TreeSet<>(Comparator.comparing(
                 FormulaParameterCombinationItem::getSequenceNumber));
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         assertEquals(Integer.valueOf(0), combination.getParametersMaximumNumber());
     }
 
@@ -1624,7 +1624,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
                 FormulaParameterCombinationItem::getSequenceNumber));
         combinationParameters.add(combinationParamater);
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         assertEquals(Integer.valueOf(Integer.MAX_VALUE), combination.getParametersMaximumNumber());
     }
 
@@ -1641,7 +1641,7 @@ public class FormulaParameterCombinationTest extends BaseDatabaseTest {
                 FormulaParameterCombinationItem::getSequenceNumber));
         combinationParameters.add(combinationParamater);
         FormulaParameterCombination combination = spy(FormulaParameterCombination.class);
-        doReturn(combinationParameters).when(combination).getParameters();
+        doReturn(combinationParameters).when(combination).getCombinationParameters();
         assertEquals(Integer.valueOf(1), combination.getParametersMaximumNumber());
     }
 

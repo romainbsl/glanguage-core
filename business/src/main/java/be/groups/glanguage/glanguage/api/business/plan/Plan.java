@@ -287,7 +287,7 @@ public class Plan {
                         for (int i = 0; i < formula.getParameters().size(); i++) {
                             branch(fromRuleVersion, formula.getParameters().get(i), context);
                         }
-                        //formula.getParameters().stream().forEach(p -> branch(fromRuleVersion, p, context));
+                        //formula.getCombinationParameters().stream().forEach(p -> branch(fromRuleVersion, p, context));
                     }
             }
         }

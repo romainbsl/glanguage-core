@@ -154,7 +154,7 @@ public class FormulaUsageTest extends BaseDatabaseTest {
         SortedSet<FormulaParameterCombinationItem> combinationItems = new TreeSet<>(Comparator.comparing(
                 FormulaParameterCombinationItem::getSequenceNumber));
         combinationItems.add(combinationItem);
-        doReturn(combinationItems).when(combination).getParameters();
+        doReturn(combinationItems).when(combination).getCombinationParameters();
 
         FormulaUsage usage = spy(FormulaUsage.class);
         doReturn(null).when(usage).getOverriddenParameters();
@@ -185,7 +185,7 @@ public class FormulaUsageTest extends BaseDatabaseTest {
         SortedSet<FormulaParameterCombinationItem> combinationItems = new TreeSet<>(Comparator.comparing(
                 FormulaParameterCombinationItem::getSequenceNumber));
         combinationItems.add(combinationItem);
-        doReturn(combinationItems).when(combination).getParameters();
+        doReturn(combinationItems).when(combination).getCombinationParameters();
 
         FormulaUsage usage = spy(FormulaUsage.class);
         List<FormulaUsageParameterCombinationItem> overriddenParameters = new ArrayList<>();

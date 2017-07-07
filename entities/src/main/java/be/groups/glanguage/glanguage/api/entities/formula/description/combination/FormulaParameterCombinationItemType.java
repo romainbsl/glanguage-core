@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 /**
+ * This class represents a {@link FormulaParameterCombinationItem} return type<br>
+ * Each {@link FormulaParameterCombinationItem} can have multiple return types, this class represent one of them
+ *
  * @author michotte
  */
 @Entity
@@ -16,8 +19,20 @@ public class FormulaParameterCombinationItemType {
     /*
      * Fields
      */
+
+    /**
+     * Technical unique ID
+     */
     private Integer id;
+
+    /**
+     * Parameter for which this is a return type
+     */
     private FormulaParameterCombinationItem parameter;
+
+    /**
+     * Return type
+     */
     private FormulaReturnType returnType;
 
     /*
@@ -30,12 +45,22 @@ public class FormulaParameterCombinationItemType {
     /*
      * Getters
      */
+    /**
+     * Get the technical id
+     *
+     * @return the id
+     */
     @Id
     @Column(name = "ID", nullable = false)
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Get the parameter for which this is a return type
+     *
+     * @return the parameter for which this is a return type
+     */
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "FORMULA_PARAM_COMB_ITEM_ID", referencedColumnName = "ID")
@@ -43,6 +68,11 @@ public class FormulaParameterCombinationItemType {
         return parameter;
     }
 
+    /**
+     * Get the return type
+     *
+     * @return the return type
+     */
     @Column(name = "FORMULA_RETURN_TYPE_ID", nullable = false)
     @Convert(converter = FormulaReturnTypeConverter.class)
     public FormulaReturnType getReturnType() {
@@ -52,14 +82,24 @@ public class FormulaParameterCombinationItemType {
     /*
      * Setters
      */
+
+    /**
+     * @param id the id to set
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * @param parameter the the parameter for which this is a return type to set
+     */
     public void setParameter(FormulaParameterCombinationItem parameter) {
         this.parameter = parameter;
     }
 
+    /**
+     * @param returnType the return type to set
+     */
     public void setReturnType(FormulaReturnType returnType) {
         this.returnType = returnType;
     }

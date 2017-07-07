@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 /**
  * This class represent an item of a combination of parameters overridden by a usage
+ *
  * @author michotte
  */
 @Entity
@@ -17,10 +18,30 @@ public class FormulaUsageParameterCombinationItem {
     /*
      * Fields
      */
+
+    /**
+     * Technical unique ID
+     */
     private Integer id;
+
+    /**
+     * Usage for which this is an overriding parameter
+     */
     private FormulaUsage usage;
+
+    /**
+     * Combination parameter for which this is an overriding parameter
+     */
     private FormulaParameterCombinationItem combinationParameter;
+
+    /**
+     * Name
+     */
     private MultilingualString name;
+
+    /**
+     * Description
+     */
     private MultilingualString description;
 
     /*
@@ -33,17 +54,33 @@ public class FormulaUsageParameterCombinationItem {
     /*
      * Getters
      */
+
+    /**
+     * Get the technical id
+     *
+     * @return the id
+     */
     @Id
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Get the combination parameter for which this is an overriding parameter
+     *
+     * @return the combination parameter for which this is an overriding parameter
+     */
     @ManyToOne
     @JoinColumn(name = "FORMULA_PARAM_COMB_ITEM_ID", referencedColumnName = "ID")
     public FormulaParameterCombinationItem getCombinationParameter() {
         return combinationParameter;
     }
 
+    /**
+     * Get the usage for which this is an overriding parameter
+     *
+     * @return the usage for which this is an overriding parameter
+     */
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "FORMULA_USAGE_ID", referencedColumnName = "ID")
@@ -51,12 +88,22 @@ public class FormulaUsageParameterCombinationItem {
         return usage;
     }
 
+    /**
+     * Get the name
+     *
+     * @return the name
+     */
     @ManyToOne
     @JoinColumn(name = "NAME_ID", referencedColumnName = "ID")
     public MultilingualString getName() {
         return name;
     }
 
+    /**
+     * Get the description
+     *
+     * @return the description
+     */
     @ManyToOne
     @JoinColumn(name = "DESC_ID", referencedColumnName = "ID")
     public MultilingualString getDescription() {
@@ -66,22 +113,38 @@ public class FormulaUsageParameterCombinationItem {
     /*
      * Setters
      */
+
+    /**
+     * @param id the id to set
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * @param usage the usage to set
+     */
     public void setUsage(FormulaUsage usage) {
         this.usage = usage;
     }
 
+    /**
+     * @param combinationParameter the combination parameter to set
+     */
     public void setCombinationParameter(FormulaParameterCombinationItem combinationParameter) {
         this.combinationParameter = combinationParameter;
     }
 
+    /**
+     * @param name the name to set
+     */
     public void setName(MultilingualString name) {
         this.name = name;
     }
 
+    /**
+     * @param description the description to set
+     */
     public void setDescription(MultilingualString description) {
         this.description = description;
     }

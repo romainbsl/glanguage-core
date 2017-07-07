@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  *     <li>a position (in textual representation)</li>
  *     <li>a set of usages</li>
  * </ul>
- * Each formula type as a defined set of usages, each mapping a {@link FormulaReturnType return type} to a
+ * Each formula type as a defined set of usages, each mapping a (set of) {@link FormulaReturnType return type} to a
  * {@link be.groups.glanguage.glanguage.api.entities.formula.description.combination.FormulaParameterCombination}
  * which defines the order and the types of the parameters and whether they are, optional or not and repeatable or not
  *
@@ -37,6 +37,7 @@ public class FormulaDescription {
     /*
      * Fields
      */
+
     /**
      * Technical unique ID
      */
@@ -246,8 +247,8 @@ public class FormulaDescription {
      */
 
     /**
-     * Validate a {@link AbstractFormula formula} for a list of {@link AbstractFormula parameters} with an evaluator
-     * (can be null)
+     * Validate a list of {@link AbstractFormula parameters} of a {@link AbstractFormula formula} with an
+     * {@link Evaluator evaluator} (can be null)
      * Validation process :
      * <ol>
      *     <li>Check if it is valid by delegating to {@link FormulaDescription#isValid(List, Evaluator)}</li>
@@ -261,7 +262,7 @@ public class FormulaDescription {
      *
      * @param formula the {@link AbstractFormula formula} to be validated
      * @param parameters the list of {@link AbstractFormula parameters} to be validated
-     * @param evaluator the evaluator to be used during the validation process, can be null
+     * @param evaluator the {@link Evaluator evaluator} to be used during the validation process, can be null
      * @throws GLanguageException if an error occurs during the validation process or if the list of
      * {@link AbstractFormula parameters} are not valid
      */
@@ -393,7 +394,7 @@ public class FormulaDescription {
                     FormulaUsage usage = null;
                     for (FormulaUsage currentUsage : validUsages) {
                         Integer currentUsageParametersReturnTypesNumber = currentUsage.getParameterCombination()
-                                .getParameters().stream().map(p -> p.getTypes().size()).reduce((i1, i2) -> i1 + i2)
+                                .getCombinationParameters().stream().map(p -> p.getTypes().size()).reduce((i1, i2) -> i1 + i2)
                                 .orElse(0);
                         if (currentUsageParametersReturnTypesNumber < minimumParametersReturnTypesNumber) {
                             minimumParametersReturnTypesNumber = currentUsageParametersReturnTypesNumber;
@@ -504,7 +505,7 @@ public class FormulaDescription {
                             FormulaUsage matchingUsage = null;
                             for (FormulaUsage currentMatchingUsage : matchingMaximumParameterNumberUsages) {
                                 List<FormulaParameterCombinationItem> usageParameters = currentMatchingUsage
-                                        .getParameterCombination().getParameters().stream().collect(Collectors
+                                        .getParameterCombination().getCombinationParameters().stream().collect(Collectors
                                                                                                             .toList());
                                 int numberOfMatchingParameterTypes = 0;
                                 for (int i = 0; i < parameters.size(); i++) {
