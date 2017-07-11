@@ -6,23 +6,43 @@ cache:
     
 stages:
   - build
-  - test
+  - install
   - deploy
-    
+
+# ---------- [ALL BRANCHES] ----------
 maven-build:
   stage: build
   script:
     - 'mvn clean compile'
 
-maven-test:
-  stage: test
+# ---------- [BRANCH DEVELOP] ----------
+maven-install-develop:
+  stage: install
   script:
-    - 'mvn test'
-
-maven-deploy:
+    - 'mvn install -DskipTests'
+  only:
+    - develop
+maven-deploy-tomcat:
   stage: deploy
   script:
     - "cd ws/"
     - "mvn tomcat7:redeploy"
   only:
     - develop
+
+# ---------- [BRANCH INTEGRATION / RELEASE/*] ----------
+maven-install-release:
+  stage: install
+  script:
+    - 'mvn install'
+  only:
+    - integration
+    - /^release.*$/
+
+# ---------- [BRANCHES PRODUCTION] ----------
+maven-deploy-production:
+  stage: deploy
+  script:
+    - "mvn deploy"
+  only:
+    - master
