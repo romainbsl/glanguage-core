@@ -163,12 +163,18 @@ public class RuleSet {
 		return descriptionX;
 	}
 
+	/**
+	 * @return the alias
+	 */
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ALIAS_ID", referencedColumnName = "ID")
 	public MultilingualString getAlias() {
 		return alias;
 	}
 
+	/**
+	 * @return the description
+	 */
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "DESC_ID", referencedColumnName = "ID")
 	public MultilingualString getDescription() {
@@ -628,10 +634,18 @@ public class RuleSet {
 		this.versions = versions;
 	}
 
+	/**
+	 * @param alias
+	 * 			the alias to set
+	 */
 	public void setAlias(MultilingualString alias) {
 		this.alias = alias;
 	}
 
+	/**
+	 * @param description
+	 * 			the description to set
+	 */
 	public void setDescription(MultilingualString description) {
 		this.description = description;
 	}
