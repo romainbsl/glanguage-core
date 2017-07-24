@@ -6,8 +6,10 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaRet
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.implementations.call.RuleCallFormulaReferencedRuleUnavailableInnerError;
-import be.groups.glanguage.glanguage.api.error.formula.implementations.call.RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.implementations.call
+        .RuleCallFormulaReferencedRuleUnavailableInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.implementations.call
+        .RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
@@ -15,6 +17,11 @@ import javax.persistence.Transient;
 import java.time.Duration;
 import java.time.LocalDate;
 
+/**
+ * Abstract formula implementing a reference to a rule
+ *
+ * @author michotte
+ */
 @Entity
 public abstract class RuleCallFormula extends CallFormula {
 
@@ -24,7 +31,9 @@ public abstract class RuleCallFormula extends CallFormula {
         super();
     }
 
-    public RuleCallFormula(FormulaDescription description, String ruleId, Evaluator evaluator) throws GLanguageException {
+    public RuleCallFormula(FormulaDescription description,
+                           String ruleId,
+                           Evaluator evaluator) throws GLanguageException {
         super(description, evaluator);
 
         if (ruleId == null || ruleId.isEmpty()) {
@@ -37,18 +46,37 @@ public abstract class RuleCallFormula extends CallFormula {
         }
     }
 
+    /**
+     * Get the return type<br>
+     * The return type of this type of formula is determined by the type of the referenced rule
+     * {@link FormulaRuleReference#getReferencedRule(Evaluator)}
+     *
+     * @param evaluator the evaluator to be used during the validation process, can be null
+     * @return the return type of the {@link FormulaRuleReference#getReferencedRule(Evaluator)}, or
+     * {@link FormulaReturnType#UNDEFINED} if it does not exist or if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override
     public FormulaReturnType getReturnType(Evaluator evaluator) {
         try {
-            return getReferencedRule(evaluator)
-                    .getReturnType(evaluator);
+            return getReferencedRule(evaluator).getReturnType(evaluator);
         } catch (GLanguageException e) {
             return FormulaReturnType.UNDEFINED;
         }
     }
 
+    /**
+     * Get the value of the referenced rule {@link FormulaRuleReference#getReferencedRule(Evaluator)} as {@link Integer}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the the value of the referenced rule {@link FormulaRuleReference#getReferencedRule(Evaluator)} as
+     * {@link Integer}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the referenced rule
+     *                            {@link FormulaRuleReference#getReferencedRule(Evaluator)} is not of type
+     *                            {@link FormulaReturnType#INTEGER} or
+     *                            {@link FormulaReturnType#NUMERIC}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -72,6 +100,17 @@ public abstract class RuleCallFormula extends CallFormula {
 
     abstract Integer doGetIntegerValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException;
 
+    /**
+     * Get the value of the referenced rule {@link FormulaRuleReference#getReferencedRule(Evaluator)} as {@link Double}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the the value of the referenced rule {@link FormulaRuleReference#getReferencedRule(Evaluator)} as
+     * {@link Double}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the referenced rule
+     *                            {@link FormulaRuleReference#getReferencedRule(Evaluator)} is not of type
+     *                            {@link FormulaReturnType#INTEGER} or
+     *                            {@link FormulaReturnType#NUMERIC}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -95,6 +134,16 @@ public abstract class RuleCallFormula extends CallFormula {
 
     abstract Double doGetNumericValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException;
 
+    /**
+     * Get the value of the referenced rule {@link FormulaRuleReference#getReferencedRule(Evaluator)} as {@link String}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the the value of the referenced rule {@link FormulaRuleReference#getReferencedRule(Evaluator)} as
+     * {@link String}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the referenced rule
+     *                            {@link FormulaRuleReference#getReferencedRule(Evaluator)} is not of type
+     *                            {@link FormulaReturnType#STRING}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -115,6 +164,16 @@ public abstract class RuleCallFormula extends CallFormula {
 
     abstract String doGetStringValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException;
 
+    /**
+     * Get the value of the referenced rule {@link FormulaRuleReference#getReferencedRule(Evaluator)} as {@link Boolean}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the the value of the referenced rule {@link FormulaRuleReference#getReferencedRule(Evaluator)} as
+     * {@link Boolean}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the referenced rule
+     *                            {@link FormulaRuleReference#getReferencedRule(Evaluator)} is not of type
+     *                            {@link FormulaReturnType#BOOLEAN}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -135,6 +194,17 @@ public abstract class RuleCallFormula extends CallFormula {
 
     abstract Boolean doGetBooleanValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException;
 
+    /**
+     * Get the value of the referenced rule {@link FormulaRuleReference#getReferencedRule(Evaluator)} as
+     * {@link LocalDate}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the the value of the referenced rule {@link FormulaRuleReference#getReferencedRule(Evaluator)} as
+     * {@link LocalDate}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the referenced rule
+     *                            {@link FormulaRuleReference#getReferencedRule(Evaluator)} is not of type
+     *                            {@link FormulaReturnType#DATE}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -155,6 +225,17 @@ public abstract class RuleCallFormula extends CallFormula {
 
     abstract LocalDate doGetDateValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException;
 
+    /**
+     * Get the value of the referenced rule {@link FormulaRuleReference#getReferencedRule(Evaluator)} as
+     * {@link Duration}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the the value of the referenced rule {@link FormulaRuleReference#getReferencedRule(Evaluator)} as
+     * {@link Duration}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the referenced rule
+     *                            {@link FormulaRuleReference#getReferencedRule(Evaluator)} is not of type
+     *                            {@link FormulaReturnType#DURATION}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -175,6 +256,13 @@ public abstract class RuleCallFormula extends CallFormula {
 
     abstract Duration doGetDurationValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException;
 
+    /**
+     * Get the referenced rule
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the referenced rule
+     * @throws GLanguageException
+     */
     RuleVersion getReferencedRule(Evaluator evaluator) throws GLanguageException {
         RuleVersion refRule = doGetReferencedRule(evaluator);
         if (refRule == null) {
@@ -186,8 +274,10 @@ public abstract class RuleCallFormula extends CallFormula {
     }
 
     /**
-     * @param evaluator evaluator
-     * @return the referencedRule
+     * Get the referenced rule
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the referenced rule
      */
     @JsonIgnore
     @Transient
@@ -196,12 +286,6 @@ public abstract class RuleCallFormula extends CallFormula {
             referencedRule = evaluator.getRuleVersion(getConstantValue());
         }
         return referencedRule;
-    }
-
-    @JsonIgnore
-    @Transient
-    public boolean isBranched() {
-        return referencedRule != null;
     }
 
     /**

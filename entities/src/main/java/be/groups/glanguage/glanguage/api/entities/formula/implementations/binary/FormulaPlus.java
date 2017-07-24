@@ -36,8 +36,7 @@ public class FormulaPlus extends BinaryFormula {
     }
 
     /**
-     * Get the result of applying an "addition" operation on the integer value of the parameters :<br>
-     * the result of the addition of the integer value of the parameters
+     * Get the result of applying an "addition" operation on the integer value of the parameters
      *
      * @param evaluator the evaluator to be used in the evaluation process, can be null
      * @return the result of applying an "addition" operation on the integer value of the parameters

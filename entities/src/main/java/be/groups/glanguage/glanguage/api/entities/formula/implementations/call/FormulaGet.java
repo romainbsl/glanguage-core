@@ -21,6 +21,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Formula implementing a call to a facade method<br>
+ * This formula is of type {@link FormulaType#C_GET}
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(value = FormulaType.Values.C_GET)
 public class FormulaGet extends CallFormula {
@@ -81,12 +87,27 @@ public class FormulaGet extends CallFormula {
         // do nothing
     }
 
+    /**
+     * Get the return type<br>
+     * The return type of this type of formula is determined its constant value
+     *
+     * @param evaluator the evaluator to be used during the validation process, can be null
+     * @return the return type corresponding to its constant value
+     */
     @Transient
     @Override
     public FormulaReturnType getReturnType(Evaluator evaluator) {
         return new FormulaReturnTypeConverter().convertToEntityAttribute(Integer.valueOf(getConstantValue()));
     }
 
+    /**
+     * Get the result of calling a facade method of type {@link Boolean}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of calling a facade method of type {@link Boolean}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the method is not of type
+     *                            {@link Boolean}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -102,6 +123,14 @@ public class FormulaGet extends CallFormula {
         }
     }
 
+    /**
+     * Get the result of calling a facade method of type {@link LocalDate}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of calling a facade method of type {@link LocalDate}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the method is not of type
+     *                            {@link LocalDate}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -117,6 +146,14 @@ public class FormulaGet extends CallFormula {
         }
     }
 
+    /**
+     * Get the result of calling a facade method of type {@link Duration}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of calling a facade method of type {@link Duration}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the method is not of type
+     *                            {@link Duration}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -132,6 +169,14 @@ public class FormulaGet extends CallFormula {
         }
     }
 
+    /**
+     * Get the result of calling a facade method of type {@link Integer}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of calling a facade method of type {@link Integer}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the method is not of type
+     *                            {@link Integer}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -147,6 +192,14 @@ public class FormulaGet extends CallFormula {
         }
     }
 
+    /**
+     * Get the result of calling a facade method of type {@link Double}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of calling a facade method of type {@link Double}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the method is not of type
+     *                            {@link Double}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -162,6 +215,14 @@ public class FormulaGet extends CallFormula {
         }
     }
 
+    /**
+     * Get the result of calling a facade method of type {@link String}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of calling a facade method of type {@link String}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the method is not of type
+     *                            {@link String}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -195,6 +256,13 @@ public class FormulaGet extends CallFormula {
         return sb.toString();
     }
 
+    /**
+     * Get the object resulting of the call to a facade method
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the object resulting of the call to the facade method
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the context is not known
+     */
     @JsonIgnore
     @Transient
     private Object getTargetedObject(Evaluator evaluator) throws GLanguageException {
