@@ -22,7 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Formula representing a constant integer value
+ * Formula representing a constant date value
  *
  * @author michotte
  */
@@ -42,6 +42,18 @@ public class FormulaTerminalDate extends AbstractTerminalFormula {
         this(description, constantValue.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 
+    /**
+     * Is this valid ?<br>
+     * This is valid if :
+     * <ol>
+     * <li>the {@link FormulaTerminalDate#getConstantValue()} is not null</li>
+     * <li>the {@link LocalDate#parse(CharSequence, DateTimeFormatter)} with a formatter of pattern "dd/MM/yyyy" does
+     * not throw an exception</li>
+     * </ol>
+     *
+     * @param evaluator the evaluator to be used during the validation process, can be null
+     * @return true if this is valid, false otherwise
+     */
     @Override
     public boolean isValid(Evaluator evaluator) {
         if (getConstantValue() != null) {
@@ -56,6 +68,20 @@ public class FormulaTerminalDate extends AbstractTerminalFormula {
         return true;
     }
 
+    /**
+     * Validate this with a {@code constantValue}<br>
+     * This is valid if :
+     * <ol>
+     * <li>the {@link FormulaTerminalDate#getConstantValue()} is not null</li>
+     * <li>the {@link LocalDate#parse(CharSequence, DateTimeFormatter)} with a formatter of pattern "dd/MM/yyyy" does
+     * not throw an exception</li>
+     * </ol>
+     *
+     * @param constantValue the value to be validated
+     * @throws GLanguageException if the {@code constantValue} is null or if the
+     * {@link LocalDate#parse(CharSequence, DateTimeFormatter)} with a formatter of pattern "dd/MM/yyyy" throws an
+     * exception
+     */
     @Override
     public void validate(String constantValue) throws GLanguageException {
         if (constantValue != null) {
@@ -77,11 +103,25 @@ public class FormulaTerminalDate extends AbstractTerminalFormula {
         }
     }
 
+    /**
+     * Get the return type<br>
+     * The return type of this type of formula is always {@link FormulaReturnType#DATE}
+     *
+     * @param evaluator the evaluator to be used during the validation process, can be null
+     * @return always {@link FormulaReturnType#DATE}
+     */
     @Override
     public FormulaReturnType getReturnType(Evaluator evaluator) {
         return FormulaReturnType.DATE;
     }
 
+    /**
+     * Get the value as {@link LocalDate}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the date corresponding to the parameter formatted with the pattern "dd/MM/yyyy"
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override

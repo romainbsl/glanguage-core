@@ -17,7 +17,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 /**
- * Formula representing a constant integer value
+ * Formula representing a constant string value
  * 
  * @author michotte
  */
@@ -33,11 +33,31 @@ public class FormulaTerminalString extends AbstractTerminalFormula {
 		super(description, constantValue);
 	}
 
+	/**
+	 * Is this valid ?<br>
+	 * This is valid if :
+	 * <ol>
+	 * <li>the {@link FormulaTerminalString#getConstantValue()} is not null</li>
+	 * </ol>
+	 *
+	 * @param evaluator the evaluator to be used during the validation process, can be null
+	 * @return true if this is valid, false otherwise
+	 */
 	@Override
 	public boolean isValid(Evaluator evaluator) {
 		return getConstantValue() != null;
 	}
 
+	/**
+	 * Validate this with a {@code constantValue}<br>
+	 * This is valid if :
+	 * <ol>
+	 * <li>the {@link FormulaTerminalString#getConstantValue()} is not null</li>
+	 * </ol>
+	 *
+	 * @param constantValue the value to be validated
+	 * @throws GLanguageException if the {@code constantValue} is null
+	 */
 	@Override
 	public void validate(String constantValue) throws GLanguageException {
 		if (constantValue == null) {
@@ -48,6 +68,13 @@ public class FormulaTerminalString extends AbstractTerminalFormula {
 		}
 	}
 
+	/**
+	 * Get the return type<br>
+	 * The return type of this type of formula is always {@link FormulaReturnType#STRING}
+	 *
+	 * @param evaluator the evaluator to be used during the validation process, can be null
+	 * @return always {@link FormulaReturnType#STRING}
+	 */
 	@Override
 	public FormulaReturnType getReturnType(Evaluator evaluator) {
 		return FormulaReturnType.STRING;
