@@ -12,6 +12,11 @@ import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Abstract formula implementing mathematical operations on a number
+ *
+ * @author michotte
+ */
 @Entity
 public abstract class MathFormula extends AbstractNonTerminalFormula {
 	
@@ -31,7 +36,16 @@ public abstract class MathFormula extends AbstractNonTerminalFormula {
 		this.parameters = new ArrayList<>();
 		this.parameters.addAll(parameters);
 	}
-	
+
+	/**
+	 * Get the value as {@link Integer}<br>
+	 * Calling this method is equivalent to calling {@link MathFormula#doGetNumericValue(Evaluator)} method and
+	 * applying {@link Double#intValue()} on the result
+	 *
+	 * @param evaluator the evaluator to be used in the evaluation process, can be null
+	 * @return the value as {@link Integer} - the integer part of the value as {@link Double}
+	 * @throws GLanguageException if an error occurs during the evaluation process
+	 */
 	@JsonIgnore
 	@Transient
 	@Override
