@@ -48,10 +48,12 @@ public class FormulaGroupMultiply extends GroupFormula {
     @Override
     protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
         if (getGroupRule() == null) {
+            // TODO replace by a GLanguageException
             throw new IllegalAccessError("Cannot invoke getRulesInGroup() method on " + this.getClass()
                     .getName() + " object while referenced rule (version id : " + getConstantValue() + ") is not set " + "- while branching is not done");
         } else if (!(getReturnType(evaluator).equals(FormulaReturnType.INTEGER) || getReturnType(evaluator).equals(
                 FormulaReturnType.NUMERIC))) {
+            // TODO replace by a GLanguageException
             throw new IllegalAccessError("Cannot invoke getIntegerValue() method on " + this.getClass()
                     .getName() + " object if referenced rule group  (version id : " + getConstantValue() + ") has " +
 												 "rules that are not of type INTEGER or NUMERIC");
