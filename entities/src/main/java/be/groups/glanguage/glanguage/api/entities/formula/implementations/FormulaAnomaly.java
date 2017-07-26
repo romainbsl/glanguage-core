@@ -16,6 +16,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Formula implementing the ability to report an anomaly
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_PUT_TEXT)
 public class FormulaAnomaly extends AbstractNonTerminalFormula {
@@ -33,6 +38,12 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
         this.parameters.addAll(parameters);
     }
 
+    /**
+     * Get the value as {@link Integer} and report the anomaly
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return always 0
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -41,6 +52,12 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
         return 0;
     }
 
+    /**
+     * Get the value as {@link Integer} and report the anomaly
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return always 0.0
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -49,6 +66,12 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
         return 0.0;
     }
 
+    /**
+     * Get the value as {@link Integer} and report the anomaly
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return always "" (empty string)
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -57,6 +80,12 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
         return "";
     }
 
+    /**
+     * Get the value as {@link Integer} and report the anomaly
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return always {@link LocalDate#MIN}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -65,6 +94,12 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
         return LocalDate.MIN;
     }
 
+    /**
+     * Get the value as {@link Integer} and report the anomaly
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return always {@link Duration#ZERO}
+     */
     @JsonIgnore
     @Transient
     @Override
