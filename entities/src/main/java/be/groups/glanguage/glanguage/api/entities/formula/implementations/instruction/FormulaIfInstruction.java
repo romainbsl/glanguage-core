@@ -18,6 +18,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Formula implementing the "if-then-else" instruction
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.I_IF)
 public class FormulaIfInstruction extends AbstractNonTerminalFormula {
@@ -38,6 +43,15 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
         parameters.add(elseStatement);
     }
 
+    /**
+     * Get the value of the expression in the branch which condition is true as {@link Integer}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value of the expression in the branch which condition is true as {@link Integer}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the formula of the
+     *                            expression to be evaluated doesn't implement the
+     *                            {@link AbstractFormula#getIntegerValue(Evaluator)}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -53,6 +67,15 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
         }
     }
 
+    /**
+     * Get the value of the expression in the branch which condition is true as {@link Double}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value of the expression in the branch which condition is true as {@link Double}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the formula of the
+     *                            expression to be evaluated doesn't implement the
+     *                            {@link AbstractFormula#getNumericValue(Evaluator)}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -68,6 +91,15 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
         }
     }
 
+    /**
+     * Get the value of the expression in the branch which condition is true as {@link String}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value of the expression in the branch which condition is true as {@link String}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the formula of the
+     *                            expression to be evaluated doesn't implement the
+     *                            {@link AbstractFormula#getStringValue(Evaluator)}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -83,6 +115,15 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
         }
     }
 
+    /**
+     * Get the value of the expression in the branch which condition is true as {@link Boolean}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value of the expression in the branch which condition is true as {@link Boolean}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the formula of the
+     *                            expression to be evaluated doesn't implement the
+     *                            {@link AbstractFormula#getBooleanValue(Evaluator)}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -98,6 +139,15 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
         }
     }
 
+    /**
+     * Get the value of the expression in the branch which condition is true as {@link LocalDate}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value of the expression in the branch which condition is true as {@link LocalDate}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the formula of the
+     *                            expression to be evaluated doesn't implement the
+     *                            {@link AbstractFormula#getDateValue(Evaluator)}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -117,6 +167,15 @@ public class FormulaIfInstruction extends AbstractNonTerminalFormula {
         }
     }
 
+    /**
+     * Get the value of the expression in the branch which condition is true as {@link Duration}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value of the expression in the branch which condition is true as {@link Duration}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the formula of the
+     *                            expression to be evaluated doesn't implement the
+     *                            {@link AbstractFormula#getDurationValue(Evaluator)}
+     */
     @JsonIgnore
     @Transient
     @Override
