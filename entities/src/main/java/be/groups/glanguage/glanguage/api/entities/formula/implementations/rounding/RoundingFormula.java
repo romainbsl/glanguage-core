@@ -133,6 +133,7 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
      *
      * @return the rounding type
      */
+    @Transient
     public abstract RoundingType getRoundingType();
 
     /**
