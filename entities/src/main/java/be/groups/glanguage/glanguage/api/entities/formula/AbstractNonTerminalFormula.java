@@ -37,7 +37,7 @@ public abstract class AbstractNonTerminalFormula extends AbstractFormula {
 	 * Validate this with a list of {@link AbstractFormula parameters} (by delegating to
 	 * {@link FormulaDescription#validate(AbstractFormula, List, Evaluator)} with {@code this} as first parameter)
 	 *
-	 * @param parameters
+	 * @param parameters the list of parameters to be validated
 	 * @param evaluator the evaluator to be used during the validation process, can be null
 	 * @throws GLanguageException if this is not valid
 	 * @see FormulaDescription#validate(AbstractFormula, List, Evaluator)

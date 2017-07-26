@@ -13,6 +13,11 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 import java.util.Iterator;
 
+/**
+ * Formula implementing sum operation on a group of possibly rounded rules propagating rounding precision losses
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.G_SUMV)
 public class FormulaGroupSumV extends GroupFormula {
@@ -27,6 +32,17 @@ public class FormulaGroupSumV extends GroupFormula {
         super(description, groupId, evaluator);
     }
 
+    /**
+     * Get the sum of {@link RuleVersion#getIntegerValue(Evaluator)} of all sub-rules of the rule group as
+     * {@link Integer} propagating rounding precision losses
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the sum of {@link RuleVersion#getIntegerValue(Evaluator)} of all sub-rules of the rule group as
+     * {@link Integer} propagating rounding precision losses
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the group rule doesn't
+     * exist or if the type of at least one sub-rule is not {@link FormulaReturnType#INTEGER} or
+     * {@link FormulaReturnType#NUMERIC}
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -46,8 +62,12 @@ public class FormulaGroupSumV extends GroupFormula {
         while (itGroupItems.hasNext()) {
             RuleVersion item = itGroupItems.next();
             if (!item.isEvaluated() && item.isApplicable(evaluator)) {
+                // Get the value of the formula of the rule (without rounding)
                 int value = item.getFormula().getIntegerValue(evaluator) + delta;
+                // Set the value of the formula to the rule (applying rounding)
                 item.setIntegerValue(value, evaluator);
+                // Get the difference between the value of the formula (without rounding) and the value of the rule
+                // (after applying rounding)
                 delta = value - item.getIntegerValue(evaluator);
             }
             result += item.getIntegerValue(evaluator);
@@ -55,6 +75,17 @@ public class FormulaGroupSumV extends GroupFormula {
         return result;
     }
 
+    /**
+     * Get the sum of {@link RuleVersion#getNumericValue(Evaluator)} of all sub-rules of the rule group as
+     * {@link Double} propagating rounding precision losses
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the sum of {@link RuleVersion#getNumericValue(Evaluator)} of all sub-rules of the rule group as
+     * {@link Double} propagating rounding precision losses
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the group rule doesn't
+     * exist or if the type of at least one sub-rule is not {@link FormulaReturnType#INTEGER} or
+     * {@link FormulaReturnType#NUMERIC}
+     */
     @JsonIgnore
     @Transient
     @Override

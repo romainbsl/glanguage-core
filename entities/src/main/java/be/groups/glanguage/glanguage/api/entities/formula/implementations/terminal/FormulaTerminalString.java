@@ -25,7 +25,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue(FormulaType.Values.TERMINAL_STRING)
 public class FormulaTerminalString extends AbstractTerminalFormula {
 
-	protected FormulaTerminalString() {
+	public FormulaTerminalString() {
 		super();
 	}
 
