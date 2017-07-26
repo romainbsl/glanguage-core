@@ -15,9 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 /**
- * Formula representing a logical not operation<br>
- * This Formula has exactly one (1) parameter<br>
- * The type of the parameter must be boolean
+ * Formula implementing the logical not operation
  *
  * @author michotte
  */
@@ -35,6 +33,15 @@ public class FormulaNot extends UnaryFormula {
         super(description, child, evaluator);
     }
 
+    /**
+     * Get the value as {@link Boolean}<br>
+     * The value depends on the {@link AbstractFormula#getBooleanValue(Evaluator)} of the parameter<br>
+     * If the value of the parameter is true, return false. Else, return true.
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return false if the boolean value of the parameter is true, false otherwise
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override
