@@ -44,6 +44,14 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
         setConstantValue(groupId);
     }
 
+    /**
+     * Get the parameters as list<br>
+     * Helper method for constructor to pass the parameters as a list to the super constructor of
+     * {@link AbstractNonTerminalFormula}
+     *
+     * @param groupId the parameter representing the id of the group rule, to be added to the list
+     * @return a list with 1 item which is a {@link FormulaTerminalString} with {@code groupId} as value
+     */
     @JsonIgnore
     @Transient
     private static List<AbstractFormula> getParametersAsList(String groupId) {
