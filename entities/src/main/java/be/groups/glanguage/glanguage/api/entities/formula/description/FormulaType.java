@@ -1,5 +1,10 @@
 package be.groups.glanguage.glanguage.api.entities.formula.description;
 
+/**
+ * Enum representing the types of a formula
+ *
+ * @author michotte
+ */
 public enum FormulaType {
 	/*
 	 * Enum constants

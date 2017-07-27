@@ -1,7 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.rule.definition;
 
 /**
- * Definition level's of RuleDefinition's
+ * Enum representing the levels of definition
  * 
  * @author michotte
  */
@@ -9,12 +9,13 @@ public enum DefinitionLevel {
 	
 	DEFAULT(0, "DEFAULT", "definition with no parameters", 0),
 	SOCIAL_SECRETARY(1, "SOCIAL_SECRETARY",
-			"social secretary level parameter / defintion with social secretary level parameter(s) only", 1),
-	EMPLOYER(2, "EMPLOYER", "employer level parameter / defintion with employer level parameter(s) only", 2),
-	JOINT_COMMITTEE(3, "JOINT_COMMITTEE", "joint committee level parameter / defintion with joint committee level parameter(s) only",
-			3),
+			"social secretary level parameter / definition with social secretary level parameter(s) only", 1),
+	EMPLOYER(2, "EMPLOYER", "employer level parameter / definition with employer level parameter(s) only", 2),
+	JOINT_COMMITTEE(3, "JOINT_COMMITTEE", "joint committee level parameter / definition with joint committee level " +
+			"parameter(s) only", 3),
 	COLLECTIVE_LABOR_AGREEMENT(4, "COLLECTIVE_LABOR_AGREEMENT",
-			"collective labor agreement level parameter / defintion with collective labor agreement level parameter(s) only", 4),
+			"collective labor agreement level parameter / definition with collective labor agreement level parameter" +
+					"(s) only", 4),
 	CUSTOM(999, "CUSTOM", "definition with parameters of distinct level", 0);
 	
 	private int id;

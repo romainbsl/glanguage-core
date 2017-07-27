@@ -37,8 +37,8 @@ public class RuleVersionTest extends BaseDatabaseTest {
 
 		assertEquals(RuleType.OR, ruleVersion.getRuleType());
 
-		assertEquals(LocalDate.of(2014, 1, 1), ruleVersion.getEffectivityStartDate());
-		assertEquals(LocalDate.of(2014, 12, 31), ruleVersion.getEffectivityEndDate());
+		assertEquals(LocalDate.of(2014, 1, 1), ruleVersion.getEffectiveStartDate());
+		assertEquals(LocalDate.of(2014, 12, 31), ruleVersion.getEffectiveEndDate());
 
 		assertEquals(Double.valueOf(0.01), ruleVersion.getRoundingPrecision());
 		assertEquals(RoundingType.ARITHMETIC, ruleVersion.getRoundingType());
@@ -66,64 +66,64 @@ public class RuleVersionTest extends BaseDatabaseTest {
 	}
 
 	/**
-	 * Tests {@link RuleVersion#isEffective(LocalDate)} when effectivity
-	 * period is opened and effectivity date falls after start date
+	 * Tests {@link RuleVersion#isEffective(LocalDate)} when effective
+	 * period is opened and effective date falls after start date
 	 */
 	@Test
 	public void testIsEffectiveOpenedPeriodEffective() {
 		RuleVersion ruleVersion = new RuleVersion();
-		ruleVersion.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
+		ruleVersion.setEffectiveStartDate(LocalDate.of(2015, 1, 1));
 
 		assertTrue(ruleVersion.isEffective(LocalDate.of(2015, 1, 1)));
 	}
 
 	/**
-	 * Tests {@link RuleVersion#isEffective(LocalDate)} when effectivity
-	 * period is opened and effectivity date falls before start date
+	 * Tests {@link RuleVersion#isEffective(LocalDate)} when effective
+	 * period is opened and effective date falls before start date
 	 */
 	@Test
 	public void testIsEffectiveOpenedPeriodNotEffective() {
 		RuleVersion ruleVersion = new RuleVersion();
-		ruleVersion.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
+		ruleVersion.setEffectiveStartDate(LocalDate.of(2015, 1, 1));
 
 		assertFalse(ruleVersion.isEffective(LocalDate.of(2014, 12, 31)));
 	}
 
 	/**
-	 * Tests {@link RuleVersion#isEffective(LocalDate)} when effectivity
-	 * period is closed and effectivity date falls between start and end date
+	 * Tests {@link RuleVersion#isEffective(LocalDate)} when effective
+	 * period is closed and effective date falls between start and end date
 	 */
 	@Test
 	public void testIsEffectiveClosedPeriodEffective() {
 		RuleVersion ruleVersion = new RuleVersion();
-		ruleVersion.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
-		ruleVersion.setEffectivityEndDate(LocalDate.of(2015, 12, 31));
+		ruleVersion.setEffectiveStartDate(LocalDate.of(2015, 1, 1));
+		ruleVersion.setEffectiveEndDate(LocalDate.of(2015, 12, 31));
 
 		assertTrue(ruleVersion.isEffective(LocalDate.of(2015, 2, 1)));
 	}
 
 	/**
-	 * Tests {@link RuleVersion#isEffective(LocalDate)} when effectivity
-	 * period is closed and effectivity date falls before start date
+	 * Tests {@link RuleVersion#isEffective(LocalDate)} when effective
+	 * period is closed and effective date falls before start date
 	 */
 	@Test
 	public void testIsEffectiveClosedPeriodNotEffectiveBefore() {
 		RuleVersion ruleVersion = new RuleVersion();
-		ruleVersion.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
-		ruleVersion.setEffectivityEndDate(LocalDate.of(2015, 12, 31));
+		ruleVersion.setEffectiveStartDate(LocalDate.of(2015, 1, 1));
+		ruleVersion.setEffectiveEndDate(LocalDate.of(2015, 12, 31));
 
 		assertFalse(ruleVersion.isEffective(LocalDate.of(2014, 12, 31)));
 	}
 
 	/**
-	 * Tests {@link RuleVersion#isEffective(LocalDate)} when effectivity
-	 * period is closed and effectivity date falls after end date
+	 * Tests {@link RuleVersion#isEffective(LocalDate)} when effective
+	 * period is closed and effective date falls after end date
 	 */
 	@Test
 	public void testIsEffectiveClosedPeriodNotEffectiveAfter() {
 		RuleVersion ruleVersion = new RuleVersion();
-		ruleVersion.setEffectivityStartDate(LocalDate.of(2015, 1, 1));
-		ruleVersion.setEffectivityEndDate(LocalDate.of(2015, 12, 31));
+		ruleVersion.setEffectiveStartDate(LocalDate.of(2015, 1, 1));
+		ruleVersion.setEffectiveEndDate(LocalDate.of(2015, 12, 31));
 
 		assertFalse(ruleVersion.isEffective(LocalDate.of(2016, 1, 1)));
 	}

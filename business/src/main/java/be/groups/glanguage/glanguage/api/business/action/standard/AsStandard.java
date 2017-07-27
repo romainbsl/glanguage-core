@@ -467,18 +467,20 @@ public class AsStandard implements SemanticalAction {
                                             LinkedList<AbstractFormula> parameters,
                                             PlanEvaluator evaluator) {
         FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
+        FormulaDescription roundingPrecisionFormulasDescription = FormulaDescriptionFactory.getDescription(FormulaType
+                                                                                                        .TERMINAL_INTEGER);
         try {
             switch (formulaDescriptionId) {
                 case F_CEIL:
-                    return new FormulaRoundingCeil(formulaDescription, parameters, evaluator);
+                    return new FormulaRoundingCeil(formulaDescription, roundingPrecisionFormulasDescription, parameters, evaluator);
                 case F_FLOOR:
-                    return new FormulaRoundingFloor(formulaDescription, parameters, evaluator);
+                    return new FormulaRoundingFloor(formulaDescription, roundingPrecisionFormulasDescription, parameters, evaluator);
                 case F_ROUNDED:
-                    return new FormulaRoundingArithmetic(formulaDescription, parameters, evaluator);
+                    return new FormulaRoundingArithmetic(formulaDescription, roundingPrecisionFormulasDescription, parameters, evaluator);
                 case F_TRUNC:
-                    return new FormulaRoundingTrunc(formulaDescription, parameters, evaluator);
+                    return new FormulaRoundingTrunc(formulaDescription, roundingPrecisionFormulasDescription, parameters, evaluator);
                 case F_BANKERS_ROUNDED:
-                    return new FormulaRoundingBankers(formulaDescription, parameters, evaluator);
+                    return new FormulaRoundingBankers(formulaDescription, roundingPrecisionFormulasDescription, parameters, evaluator);
                 case F_FORMAT_DATE:
                     return new FormulaFormatDate(formulaDescription, parameters, evaluator);
                 case F_FORMAT_INTEGER:

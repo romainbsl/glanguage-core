@@ -3,6 +3,12 @@ package be.groups.glanguage.glanguage.api.entities.formula.description;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
+/**
+ * Converter class for {@link FormulaPriority} enum
+ *
+ * @author michotte
+ * @see FormulaPriority
+ */
 @Converter
 public class FormulaPriorityConverter implements AttributeConverter<FormulaPriority, Integer> {
 

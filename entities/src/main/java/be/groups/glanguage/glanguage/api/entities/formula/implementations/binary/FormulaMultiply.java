@@ -11,6 +11,12 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+/**
+ * Formula implementing a "multiplication" operation<br>
+ * This formula is of type {@link FormulaType#OP_MULTIPLY}
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.OP_MULTIPLY)
 public class FormulaMultiply extends BinaryFormula {
@@ -26,6 +32,15 @@ public class FormulaMultiply extends BinaryFormula {
         super(description, child1, child2, evaluator);
     }
 
+    /**
+     * Get the truncated result of applying a "multiplication" operation on the numeric value of the parameters<br>
+     * A call to this this method is equivalent to a call to {@link Double#intValue()} on the result of the method
+     * {@link FormulaMultiply#doGetNumericValue(Evaluator)}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the truncated result of applying a "multiplication" operation on the numeric value of the parameters
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -33,6 +48,13 @@ public class FormulaMultiply extends BinaryFormula {
         return getNumericValue(evaluator).intValue();
     }
 
+    /**
+     * Get the result of applying a "multiplication" operation on the numeric value of the parameters
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of applying a "multiplication" operation on the numeric value of the parameters
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override

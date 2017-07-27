@@ -14,16 +14,8 @@ import java.time.Duration;
 import java.time.LocalDate;
 
 /**
- * Formula representing a mathematical subtraction<br>
- * This Formula has exactly two (2) parameters<br>
- * This Formula subtracts its second parameter value from its first parameter value and return the
- * resulting value<br>
- * This Formula can subtract :
- * <ul>
- * <li>two integers - returning an integer value</li>
- * <li>an integer and a numeric - returning a numeric value</li>
- * <li>two numerics - returning a numeric value</li>
- * </ul>
+ * Formula implementing a "subtraction" operation<br>
+ * This formula is of type {@link FormulaType#OP_MINUS}
  *
  * @author michotte
  */
@@ -42,6 +34,16 @@ public class FormulaMinus extends BinaryFormula {
         super(description, child1, child2, evaluator);
     }
 
+    /**
+     * Get the result of applying a "subtraction" operation on the integer values of the parameters :<br>
+     * the result of the subtraction of the integer value of the second parameter from the integer value of the first
+     * one
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of applying a "subtraction" operation on the integer values of the parameters
+     * one
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -49,6 +51,15 @@ public class FormulaMinus extends BinaryFormula {
         return getParameters().get(0).getIntegerValue(evaluator) - getParameters().get(1).getIntegerValue(evaluator);
     }
 
+    /**
+     * Get the result of applying a "subtraction" operation on the numeric values of the parameters :<br>
+     * the result of the subtraction of the numeric value of the second parameter from the numeric value of the first
+     * one
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of applying a "subtraction" operation on the numeric values of the parameters
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -56,6 +67,15 @@ public class FormulaMinus extends BinaryFormula {
         return getParameters().get(0).getNumericValue(evaluator) - getParameters().get(1).getNumericValue(evaluator);
     }
 
+    /**
+     * Get the result of applying a "subtraction" operation on the date value of the first parameter and the duration
+     * value of the second parameter :<br>
+     * the result of the subtraction of the duration value of the second parameter from the date value of the first one
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of applying a "subtraction" operation on the duration values of the parameters
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -64,6 +84,15 @@ public class FormulaMinus extends BinaryFormula {
                                                                                 .getDurationValue(evaluator).toDays());
     }
 
+    /**
+     * Get the result of applying a "subtraction" operation on the duration values of the parameters :<br>
+     * the result of the subtraction of the duration value of the second parameter from the duration value of the
+     * first one
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of applying a "subtraction" operation on the duration values of the parameters
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override

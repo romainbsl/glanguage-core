@@ -17,8 +17,8 @@ import java.util.stream.Stream;
  * Object that represent an agent for dynamic and deferred execution of a method on an object<br>
  * <p>
  * Limitations : <br>
- * To dynamically execute a method that takes a parameter of the basic types of Java (boolean, int, double, ...), the signature of the
- * method has to be converted using the corresponding wrapper types (Boolean , Integer, Double, ...)
+ * To dynamically execute a method that takes a parameter of the basic types of Java (boolean, int, double, ...), the
+ * signature of the method has to be converted using the corresponding wrapper types (Boolean , Integer, Double, ...)
  *
  * @author Agustin BERROCAL MENA
  * @author michotte
@@ -34,8 +34,8 @@ public class Agent {
     private boolean isError;
 
     /**
-     * Creation of an agent with a target object {@code object} a method name {@code methodName} and a list of types of the parameters
-     * {@code methodParameterTypes} of the method to be executed
+     * Creation of an agent with a target object {@code object} a method name {@code methodName} and a list of types
+     * of the parameters {@code methodParameterTypes} of the method to be executed
      *
      * @param object               Target object
      * @param methodName           Method name
@@ -56,53 +56,42 @@ public class Agent {
         // Define stream with all public method of the target
         Stream<Method> methodStream = Arrays.stream(object.getClass().getMethods());
 
-        Predicate<Method> methodPredicate =
-                it -> it.getName().equals(methodName) &&
-                        it.getParameterTypes().length == methodParameterTypes.length;
+        Predicate<Method> methodPredicate = it -> it.getName().equals(methodName) && it
+                .getParameterTypes().length == methodParameterTypes.length;
 
         // Filter the stream to retrieve methods with the right method name and the right number of parameters
-        List<Method> matchMethods =
-                methodStream
-                        .filter(methodPredicate)
-                        .collect(Collectors.toList());
+        List<Method> matchMethods = methodStream.filter(methodPredicate).collect(Collectors.toList());
 
         Optional<Method> methodOptional;
 
         // If there is only one result, seems obvious
-        if (matchMethods.size() == 1)
+        if (matchMethods.size() == 1) {
             methodOptional = matchMethods.stream().findFirst();
-        else {
+        } else {
             // otherwise we filter on the parameter type, to find the one that match exactly
-            methodOptional =
-                    matchMethods.stream()
-                            .filter(
-                                    it -> Arrays.equals(it.getParameterTypes(), methodParameterTypes)
-                            )
-                            .findFirst();
+            methodOptional = matchMethods.stream().filter(it -> Arrays
+                    .equals(it.getParameterTypes(), methodParameterTypes)).findFirst();
         }
 
-        if (methodOptional.isPresent())
+        if (methodOptional.isPresent()) {
             method = methodOptional.get();
-        else {
+        } else {
             // If we didn't find a method, that means it could be a field
-            Optional<Field> fieldOptional =
-                    Arrays.stream(object.getClass().getFields())
-                            .filter(it -> it.getName().equals(fieldName))
-                            .findFirst();
+            Optional<Field> fieldOptional = Arrays.stream(object.getClass().getFields()).filter(it -> it.getName()
+                    .equals(fieldName)).findFirst();
 
-            if (fieldOptional.isPresent())
-                field = fieldOptional.get();
+            if (fieldOptional.isPresent()) field = fieldOptional.get();
         }
 
-//        If it isn't a method or a field we throw a proper GLanguageException
-        if (!isMethod() && !isField())
-            throw new GLanguageException(
-                    new AgentNotCallableInnerError(methodName, methodParameterTypes)
-            );
+        // If it isn't a method or a field we throw a proper GLanguageException
+        if (!isMethod() && !isField()) {
+            throw new GLanguageException(new AgentNotCallableInnerError(methodName, methodParameterTypes));
+        }
     }
 
     /**
      * Check if the Agent represents a public Method to be called
+     *
      * @return True or False
      */
     public boolean isMethod() {
@@ -111,6 +100,7 @@ public class Agent {
 
     /**
      * Check if the Agent represents a public Field to be called
+     *
      * @return True or False
      */
     public boolean isField() {
@@ -129,7 +119,8 @@ public class Agent {
      * Like: object.field
      *
      * @param methodParameters Parameters of the method to be executed
-     * @return Result of the dynamic execution of this method on this target object with parameters {@code methodParameters} OR dynamic
+     * @return Result of the dynamic execution of this method on this target object with parameters {@code
+     * methodParameters} OR dynamic
      * access to this field on this target object
      */
     public Object call(Object... methodParameters) {
@@ -139,10 +130,11 @@ public class Agent {
         resetError();
         try {
             if (isField())
-                // Dynamic call of Object's Field ...
-                // --------> like object.field <-----------
+            // Dynamic call of Object's Field ...
+            // --------> like object.field <-----------
+            {
                 return field.get(object);
-            else {
+            } else {
                 if (methodParameters == null || methodParameters.length == 0) {
                     // Dynamic call of Object's Method without methodParameters...
                     // --------> like object.method () <-----------
@@ -192,7 +184,9 @@ public class Agent {
      * @return Résultat de l'exécution dynamique de la méthode {@code method}
      * portant sur l'objet {@code object} avec comme paramètres {@code methodParameters}
      */
-    public static Object call(Object object, String methodName, Class<?>[] methodParametersType,
+    public static Object call(Object object,
+                              String methodName,
+                              Class<?>[] methodParametersType,
                               Object[] methodParameters) throws GLanguageException {
         if (object == null) {
             throw new IllegalArgumentException("object must be non-null");
@@ -212,17 +206,18 @@ public class Agent {
     private String FormatErrorMsg(String message, Exception ex) {
         String errorMsg = "";
         if (isField()) {
-            errorMsg = message +
-                    " of " + object.getClass().getName() + "'s Field " + fieldName + "\n" +
-                    " => Message " + ex.getClass() + " " + ex.getMessage();
+            errorMsg = message + " of " + object.getClass()
+                    .getName() + "'s Field " + fieldName + "\n" + " => Message " + ex.getClass() + " " + ex
+                    .getMessage();
         } else {
-            errorMsg = message +
-                    " of " + object.getClass().getName() + "'s Method " + methodName + "\n" +
-                    " => Message: " + ex.getClass() + " " + ex.getMessage();
+            errorMsg = message + " of " + object.getClass()
+                    .getName() + "'s Method " + methodName + "\n" + " => Message: " + ex.getClass() + " " + ex
+                    .getMessage();
         }
-        if (ex.getCause() != null)
-            errorMsg = errorMsg + "\n" +
-                    "    Caused by: " + ex.getCause().getClass() + " " + ex.getCause().getMessage();
+        if (ex.getCause() != null) {
+            errorMsg = errorMsg + "\n" + "    Caused by: " + ex.getCause().getClass() + " " + ex.getCause()
+                    .getMessage();
+        }
         return errorMsg;
     }
 

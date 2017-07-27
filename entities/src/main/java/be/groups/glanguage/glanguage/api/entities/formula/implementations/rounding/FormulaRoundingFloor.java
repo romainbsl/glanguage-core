@@ -21,11 +21,18 @@ public class FormulaRoundingFloor extends RoundingFormula {
     }
 
     public FormulaRoundingFloor(FormulaDescription description,
+                                FormulaDescription precisionDescription,
                                 List<AbstractFormula> parameters,
                                 Evaluator evaluator) throws GLanguageException {
-        super(description, parameters, evaluator);
+        super(description, precisionDescription, parameters, evaluator);
     }
 
+    /**
+     * Get the rounding type<br>
+     * The rounding type of this type of formula is always {@link RoundingType#FLOOR}
+     *
+     * @return always {@link RoundingType#FLOOR}
+     */
     @Override
     @Transient
     public RoundingType getRoundingType() {

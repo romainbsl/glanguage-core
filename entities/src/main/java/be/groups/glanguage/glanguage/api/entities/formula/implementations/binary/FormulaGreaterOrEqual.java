@@ -16,8 +16,8 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 /**
- * Formula representing a logical greater or equal operation<br>
- * This Formula has exactly two (2) parameters
+ * Formula implementing a logical "greater than or equal to" operation<br>
+ * This formula is of type {@link FormulaType#OP_GREATER_OR_EQUAL}
  *
  * @author michotte
  */
@@ -36,6 +36,14 @@ public class FormulaGreaterOrEqual extends BinaryFormula {
         super(description, child1, child2, evaluator);
     }
 
+    /**
+     * Get the result of applying a logical "greater than or equal to" operation on the values of the parameters :<br>
+     * true if first parameter is greater than or equal to the second one, false otherwise
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of applying a logical "greater than or equal to" operation on the values of the parameters
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override

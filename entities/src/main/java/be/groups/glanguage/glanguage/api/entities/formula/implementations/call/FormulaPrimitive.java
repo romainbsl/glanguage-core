@@ -5,7 +5,8 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.targets.FormulaCannotInvokeTargetObjectInnerError;
+import be.groups.glanguage.glanguage.api.error.formula.base.cannot.invoke.targets
+        .FormulaCannotInvokeTargetObjectInnerError;
 import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
 
 import javax.persistence.DiscriminatorValue;
@@ -14,6 +15,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Formula implementing a part of a call to a facade method<br>
+ * Each part of a call chain implemented by {@link FormulaGet} results in one {@link FormulaPrimitive} :<br>
+ * A call chain like this one : "a().b(c).d" will result in 3 {@link FormulaPrimitive} :
+ * <ol>
+ * <li>1 for "a()"</li>
+ * <li>1 for "b(c)"</li>
+ * <li>1 for "d()"</li>
+ * </ol>
+ * This formula is of type {@link FormulaType#C_PRIMITIVE}
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(value = FormulaType.Values.C_PRIMITIVE)
 public class FormulaPrimitive extends CallFormula {
@@ -48,6 +62,14 @@ public class FormulaPrimitive extends CallFormula {
         // do nothing
     }
 
+    /**
+     * Get the object resulting of the call to a method
+     *
+     * @param object    the object on which to call the method
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the object resulting of the call to the method
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the method does not exist
+     */
     protected Object getTargetedObject(Object object, Evaluator evaluator) throws GLanguageException {
         AbstractFormula[] parameters = null;
         if (getParameters() != null) {

@@ -13,6 +13,11 @@ import javax.persistence.Transient;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Abstract formula implementing the formatting of a value
+ *
+ * @author michotte
+ */
 @Entity
 public abstract class FormatFormula extends AbstractNonTerminalFormula {
 	
@@ -25,7 +30,14 @@ public abstract class FormatFormula extends AbstractNonTerminalFormula {
                             Evaluator evaluator) throws GLanguageException {
 		super(description, parameters, evaluator);
 	}
-	
+
+	/**
+	 * Get the return type<br>
+	 * The return type of this type of formula is always {@link FormulaReturnType#STRING}
+	 *
+	 * @param evaluator the evaluator to be used during the validation process, can be null
+	 * @return {@link FormulaReturnType#STRING}
+	 */
 	@JsonIgnore
 	@Transient
 	@Override

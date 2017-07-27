@@ -4,7 +4,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaTyp
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 
 /**
- * Created by michotte on 6/01/2017.
+ * @author michotte
  */
 public class ParserUnknownFormulaTypeInnerError extends ParserInnerError {
 

@@ -1,8 +1,8 @@
 package be.groups.glanguage.glanguage.api.entities.formula.description;
 
 /**
- * Return types of Formula's
- * 
+ * Enum representing the return types of a formula
+ *
  * @author michotte
  */
 public enum FormulaReturnType {

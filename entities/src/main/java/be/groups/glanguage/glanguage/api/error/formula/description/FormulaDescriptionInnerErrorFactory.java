@@ -6,7 +6,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import java.util.List;
 
 /**
- * Created by michotte on 26/01/2017.
+ * @author michotte
  */
 public class FormulaDescriptionInnerErrorFactory {
 

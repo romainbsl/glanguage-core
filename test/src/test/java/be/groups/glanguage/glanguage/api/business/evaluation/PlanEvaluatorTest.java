@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 import static org.junit.Assert.*;
 /**
- * Created by michotte on 16/12/2016.
+ * @author michotte
  */
 public class PlanEvaluatorTest extends BaseDatabaseTest {
 

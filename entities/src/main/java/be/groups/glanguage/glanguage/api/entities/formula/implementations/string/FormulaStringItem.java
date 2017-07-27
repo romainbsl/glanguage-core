@@ -14,6 +14,11 @@ import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Formula implementing the operation to get an item of a string specifying a separator character and an index
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_STRING_ITEM)
 public class FormulaStringItem extends AbstractNonTerminalFormula {
@@ -35,6 +40,13 @@ public class FormulaStringItem extends AbstractNonTerminalFormula {
         this.parameters.addAll(parameters);
     }
 
+    /**
+     * Get the item of the parameter as {@link String}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the item of the parameter as {@link String}
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override

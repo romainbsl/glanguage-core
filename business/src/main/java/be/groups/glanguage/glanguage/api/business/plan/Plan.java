@@ -259,8 +259,8 @@ public class Plan {
             branch(rv, context);
         } else {
             throw new RuntimeException("There is no rule version in the plan corresponding to the rule identity id "
-                                               + "\"" + ruleGroupItem.getItemRule().getId() + "\" in the group of " +
-                                               "rule \"" + fromRuleVersion.getCode() + "\"");
+                                               + "\"" + ruleGroupItem
+                    .getItemRule().getId() + "\" in the group of " + "rule \"" + fromRuleVersion.getCode() + "\"");
         }
     }
 
@@ -287,7 +287,7 @@ public class Plan {
                         for (int i = 0; i < formula.getParameters().size(); i++) {
                             branch(fromRuleVersion, formula.getParameters().get(i), context);
                         }
-                        //formula.getParameters().stream().forEach(p -> branch(fromRuleVersion, p, context));
+                        //formula.getCombinationParameters().stream().forEach(p -> branch(fromRuleVersion, p, context));
                     }
             }
         }
@@ -309,11 +309,12 @@ public class Plan {
             LOG.debug("Rule version not found");
             if (fromRuleVersion == null) {
                 throw new RuntimeException("There is no rule version in the plan corresponding to the rule reference " +
-                                                   "\"" + formula.getConstantValue() + "\"");
+                                                   "" + "" + "" + "" + "\"" + formula
+                        .getConstantValue() + "\"");
             } else {
                 throw new RuntimeException("There is no rule version in the plan corresponding to the rule reference " +
-                                                   "\"" + formula.getConstantValue() + "\" in the formula of rule \"" +
-                                                   fromRuleVersion.getCode() + "\"");
+                                                   "" + "" + "" + "" + "\"" + formula
+                        .getConstantValue() + "\" in the formula of rule \"" + fromRuleVersion.getCode() + "\"");
             }
         }
     }
@@ -377,9 +378,9 @@ public class Plan {
         if (ruleVersion != null) {
             evaluate(ruleVersion, recursive, evaluator);
         } else {
-            throw new RuntimeException("Unable to evaluateWithContext the rule identified by " + ruleIdentifier + " " +
-                                               "because there is no rule corresponding to this identifier in this " +
-                                               "plan");
+            throw new RuntimeException("Unable to evaluateWithContext the rule identified by " + ruleIdentifier + " "
+                                               + "because there is no rule corresponding to this identifier in this "
+                                               + "plan");
         }
     }
 
@@ -417,9 +418,9 @@ public class Plan {
             }
             evaluate(ruleVersion, recursive, null);
         } else {
-            throw new RuntimeException("Unable to evaluateWithContext the rule identified by " + ruleIdentifier + " " +
-                                               "because there is no rule corresponding to this identifier in this " +
-                                               "plan");
+            throw new RuntimeException("Unable to evaluateWithContext the rule identified by " + ruleIdentifier + " "
+                                               + "because there is no rule corresponding to this identifier in this "
+                                               + "plan");
         }
 
 //        return getRuleVersions().stream().filter(RuleVersion::isEvaluated).collect(Collectors.toMap(r -> r, r -> r
@@ -466,6 +467,17 @@ public class Plan {
 
     //region Getting RuleVersion
 
+    /**
+     * Get the {@link RuleVersion} corresponding to a {@code ruleIdentifier}
+     * <ol>
+     * <li>First try to find it using {@link Plan#getEffectiveRuleVersionByRuleIdentityId(String)}</li>
+     * <li>If not found, try to find it using {@link Plan#getEffectiveRuleVersionByCode(String)}</li>
+     * <li>If not found, try to find it  using {@link Plan#getEffectiveRuleVersionByAlias(String)}</li>
+     * </ol>
+     *
+     * @param ruleIdentifier the identifier of the {@link RuleVersion} to return
+     * @return the {@link RuleVersion} corresponding to {@code ruleIdentifier}, or null if it doesn't exists
+     */
     public RuleVersion getEffectiveRuleVersionByIdenitifier(String ruleIdentifier) {
         RuleVersion ruleVersion = getEffectiveRuleVersionByRuleIdentityId(ruleIdentifier);
         if (ruleVersion == null) {
@@ -477,38 +489,61 @@ public class Plan {
         return ruleVersion;
     }
 
+    /**
+     * Get the {@link RuleVersion} corresponding to a {@code ruleId} by matching the
+     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity#id}
+     *
+     * @param ruleId the {@link be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity#id} of the
+     *               {@link RuleVersion} to be returned
+     * @return the {@link RuleVersion} with the
+     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity#id} corresponding to {@code ruleIdentifier},
+     * or null if it doesn't exists
+     */
     public RuleVersion getEffectiveRuleVersionByRuleIdentityId(String ruleId) {
         return getRuleVersions().stream().filter(rv -> String.valueOf(rv.getRuleDefinition().getRuleIdentity().getId())
                 .equals(ruleId)).findFirst().orElse(null);
     }
 
+    /**
+     * Get the {@link RuleVersion} corresponding to a {@code code} by matching the
+     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#code}
+     *
+     * @param code the {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#code} of the
+     *             {@link RuleVersion} to be returned
+     * @return the {@link RuleVersion} with the
+     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#code} corresponding to {@code code},
+     * or null if it doesn't exists
+     */
     public RuleVersion getEffectiveRuleVersionByCode(String code) {
         return getRuleVersions().stream().filter(rv -> rv.getCode().equals(code)).findFirst().orElse(null);
     }
 
+    /**
+     * Get the {@link RuleVersion} corresponding to an {@code elias} by matching the
+     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasFr} or
+     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasNl} or
+     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasDe} or
+     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasX}
+     *
+     * @param alias the {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasFr} or
+     *              {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasNl} or
+     *              {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasDe} or
+     *              {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasX} of the
+     *              {@link RuleVersion} to be returned
+     * @return the {@link RuleVersion} with the
+     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasFr} or
+     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasNl} or
+     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasDe} or
+     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasX} corresponding to {@code alias},
+     * or null if it doesn't exists
+     */
     public RuleVersion getEffectiveRuleVersionByAlias(String alias) {
-        Optional<RuleVersion> ruleVersion = getRuleVersions().stream().filter(rv -> rv
-                .getRuleDescription() != null && rv.getRuleDescription().getAliasFr() != null && rv.getRuleDescription()
-                .getAliasFr().equals(alias)).findFirst();
-        if (ruleVersion.isPresent()) {
-            return ruleVersion.get();
-        }
-        ruleVersion = getRuleVersions().stream().filter(rv -> rv.getRuleDescription() != null && rv.getRuleDescription()
-                .getAliasNl() != null && rv.getRuleDescription().getAliasNl().equals(alias)).findFirst();
-        if (ruleVersion.isPresent()) {
-            return ruleVersion.get();
-        }
-        ruleVersion = getRuleVersions().stream().filter(rv -> rv.getRuleDescription() != null && rv.getRuleDescription()
-                .getAliasDe() != null && rv.getRuleDescription().getAliasDe().equals(alias)).findFirst();
-        if (ruleVersion.isPresent()) {
-            return ruleVersion.get();
-        }
-        ruleVersion = getRuleVersions().stream().filter(rv -> rv.getRuleDescription() != null && rv.getRuleDescription()
-                .getAliasX() != null && rv.getRuleDescription().getAliasX().equals(alias)).findFirst();
-        if (ruleVersion.isPresent()) {
-            return ruleVersion.get();
-        }
-        return null;
+        return getRuleVersions().stream().filter(rv -> rv
+                .getRuleDescription() != null && ((rv.getRuleDescription().getAliasFr() != null && rv
+                .getRuleDescription().getAliasFr().equals(alias)) || (rv.getRuleDescription().getAliasNl() != null && rv
+                .getRuleDescription().getAliasNl().equals(alias)) || (rv.getRuleDescription().getAliasDe() != null && rv
+                .getRuleDescription().getAliasDe().equals(alias)) || (rv.getRuleDescription().getAliasX() != null && rv
+                .getRuleDescription().getAliasX().equals(alias)))).findFirst().orElse(null);
     }
 
     //endregion

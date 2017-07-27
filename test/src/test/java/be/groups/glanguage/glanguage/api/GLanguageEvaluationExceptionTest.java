@@ -4,7 +4,7 @@ import be.groups.errorframework.core.error.InnerError;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 
 /**
- * Created by michotte on 23/12/2016.
+ * @author michotte
  */
 public class GLanguageEvaluationExceptionTest extends BaseDatabaseTest {
 

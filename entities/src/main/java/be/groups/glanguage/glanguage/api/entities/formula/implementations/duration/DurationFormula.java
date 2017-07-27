@@ -10,6 +10,12 @@ import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Abstract formula implementing an operation on a duration or a date to extract a part (year, month, day, hours,
+ * minutes) from it, or to create a duration of a part
+ *
+ * @author michotte
+ */
 @Entity
 public abstract class DurationFormula extends AbstractNonTerminalFormula {
 	public static final int YEAR_AVG_DAYS_COUNT = 365;

@@ -6,7 +6,7 @@ import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.GLanguageInnerError;
 
 /**
- * Created by michotte on 23/12/2016.
+ * @author michotte
  */
 public abstract class RuleInnerError extends GLanguageInnerError {
 

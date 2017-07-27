@@ -14,6 +14,11 @@ import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Formula implementing the operation to get the length of a string
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_STRING_LENGTH)
 public class FormulaStringLength extends AbstractNonTerminalFormula {
@@ -35,6 +40,15 @@ public class FormulaStringLength extends AbstractNonTerminalFormula {
         this.parameters.addAll(parameters);
     }
 
+    /**
+     * Get the length - the number of characters - of the parameter as {@link String}<br>
+     * Calling this method is equivalent to calling {@link FormulaStringLength#doGetIntegerValue(Evaluator)} method and
+     * applying {@link String#valueOf(int)} on the result
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the length - the number of characters - of the parameter as {@link String}
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -42,6 +56,13 @@ public class FormulaStringLength extends AbstractNonTerminalFormula {
         return String.valueOf(getIntegerValue(evaluator));
     }
 
+    /**
+     * Get the length - the number of characters - of the parameter as {@link Integer}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the length - the number of characters - of the parameter as {@link Integer}
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override

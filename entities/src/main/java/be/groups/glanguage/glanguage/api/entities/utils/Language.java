@@ -1,7 +1,9 @@
 package be.groups.glanguage.glanguage.api.entities.utils;
 
 /**
- * Created by michotte on 4/05/2017.
+ * Enum representing the languages
+ *
+ * @author michotte
  */
 public enum Language {
 
@@ -30,10 +32,21 @@ public enum Language {
     /*
      * Getters
      */
+
+    /**
+     * Get the code
+     *
+     * @return the code
+     */
     public String getCode() {
         return code;
     }
 
+    /**
+     * Get the name
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
@@ -41,10 +54,21 @@ public enum Language {
     /*
      * Setters
      */
+
+    /**
+     * Set the code
+     *
+     * @param code the code to set
+     */
     public void setCode(String code) {
         this.code = code;
     }
 
+    /**
+     * Set the name
+     *
+     * @param name the name to set
+     */
     public void setName(String name) {
         this.name = name;
     }
