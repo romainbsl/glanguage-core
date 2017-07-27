@@ -15,6 +15,11 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Formula implementing a call to the {@link RuleVersion#getFormula()} of a rule
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.C_FORMULA)
 public class FormulaFormula extends RuleCallFormula {
@@ -39,6 +44,16 @@ public class FormulaFormula extends RuleCallFormula {
         // do nothing
     }
 
+    /**
+     * Get the value of the formula of a {@link RuleVersion ruleVersion} as {@link Integer}
+     *
+     * @param ruleVersion the rule of which the value of the formula is to be returned
+     * @param evaluator   the evaluator to be used in the evaluation process, can be null
+     * @return the value of the formula of the {@link RuleVersion ruleVersion}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the formula of the
+     *                            {@link RuleVersion ruleVersion} doesn't implement the
+     *                            {@link AbstractFormula#getIntegerValue(Evaluator)}
+     */
     @Override
     protected Integer doGetIntegerValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
         try {
@@ -49,6 +64,16 @@ public class FormulaFormula extends RuleCallFormula {
         }
     }
 
+    /**
+     * Get the value of the formula of a {@link RuleVersion ruleVersion} as {@link Double}
+     *
+     * @param ruleVersion the rule of which the value of the formula is to be returned
+     * @param evaluator   the evaluator to be used in the evaluation process, can be null
+     * @return the value of the formula of the {@link RuleVersion ruleVersion}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the formula of the
+     *                            {@link RuleVersion ruleVersion} doesn't implement the
+     *                            {@link AbstractFormula#getNumericValue(Evaluator)}
+     */
     @Override
     protected Double doGetNumericValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
         try {
@@ -59,6 +84,16 @@ public class FormulaFormula extends RuleCallFormula {
         }
     }
 
+    /**
+     * Get the value of the formula of a {@link RuleVersion ruleVersion} as {@link String}
+     *
+     * @param ruleVersion the rule of which the value of the formula is to be returned
+     * @param evaluator   the evaluator to be used in the evaluation process, can be null
+     * @return the value of the formula of the {@link RuleVersion ruleVersion}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the formula of the
+     *                            {@link RuleVersion ruleVersion} doesn't implement the
+     *                            {@link AbstractFormula#getStringValue(Evaluator)}
+     */
     @Override
     protected String doGetStringValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
         try {
@@ -69,6 +104,16 @@ public class FormulaFormula extends RuleCallFormula {
         }
     }
 
+    /**
+     * Get the value of the formula of a {@link RuleVersion ruleVersion} as {@link Boolean}
+     *
+     * @param ruleVersion the rule of which the value of the formula is to be returned
+     * @param evaluator   the evaluator to be used in the evaluation process, can be null
+     * @return the value of the formula of the {@link RuleVersion ruleVersion}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the formula of the
+     *                            {@link RuleVersion ruleVersion} doesn't implement the
+     *                            {@link AbstractFormula#getBooleanValue(Evaluator)}
+     */
     @Override
     protected Boolean doGetBooleanValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
         try {
@@ -79,6 +124,16 @@ public class FormulaFormula extends RuleCallFormula {
         }
     }
 
+    /**
+     * Get the value of the formula of a {@link RuleVersion ruleVersion} as {@link LocalDate}
+     *
+     * @param ruleVersion the rule of which the value of the formula is to be returned
+     * @param evaluator   the evaluator to be used in the evaluation process, can be null
+     * @return the value of the formula of the {@link RuleVersion ruleVersion}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the formula of the
+     *                            {@link RuleVersion ruleVersion} doesn't implement the
+     *                            {@link AbstractFormula#getDateValue(Evaluator)}
+     */
     @Override
     protected LocalDate doGetDateValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
         try {
@@ -89,6 +144,16 @@ public class FormulaFormula extends RuleCallFormula {
         }
     }
 
+    /**
+     * Get the value of the formula of a {@link RuleVersion ruleVersion} as {@link Duration}
+     *
+     * @param ruleVersion the rule of which the value of the formula is to be returned
+     * @param evaluator   the evaluator to be used in the evaluation process, can be null
+     * @return the value of the formula of the {@link RuleVersion ruleVersion}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the formula of the
+     *                            {@link RuleVersion ruleVersion} doesn't implement the
+     *                            {@link AbstractFormula#getDurationValue(Evaluator)}
+     */
     @Override
     protected Duration doGetDurationValue(RuleVersion ruleVersion, Evaluator evaluator) throws GLanguageException {
         try {

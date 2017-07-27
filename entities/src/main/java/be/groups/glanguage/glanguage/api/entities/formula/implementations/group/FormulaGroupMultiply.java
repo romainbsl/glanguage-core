@@ -13,6 +13,11 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 import java.util.Iterator;
 
+/**
+ * Formula implementing multiply operation on a group of rules
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.G_MULT)
 public class FormulaGroupMultiply extends GroupFormula {
@@ -27,15 +32,28 @@ public class FormulaGroupMultiply extends GroupFormula {
         super(description, groupId, evaluator);
     }
 
+    /**
+     * Get the result of the multiplication of {@link RuleVersion#getNumericValue(Evaluator)} of all sub-rules of the
+     * rule group as {@link Double}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of the multiplication of {@link RuleVersion#getNumericValue(Evaluator)} of all sub-rules of
+     * the rule group as {@link Double}
+     * @throws GLanguageException if an error occurs during the evaluation process, e.g. if the group rule doesn't
+     * exist or if the type of at least one sub-rule is not {@link FormulaReturnType#INTEGER} or
+     * {@link FormulaReturnType#NUMERIC}
+     */
     @JsonIgnore
     @Transient
     @Override
     protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
         if (getGroupRule() == null) {
+            // TODO replace by a GLanguageException
             throw new IllegalAccessError("Cannot invoke getRulesInGroup() method on " + this.getClass()
                     .getName() + " object while referenced rule (version id : " + getConstantValue() + ") is not set " + "- while branching is not done");
         } else if (!(getReturnType(evaluator).equals(FormulaReturnType.INTEGER) || getReturnType(evaluator).equals(
                 FormulaReturnType.NUMERIC))) {
+            // TODO replace by a GLanguageException
             throw new IllegalAccessError("Cannot invoke getIntegerValue() method on " + this.getClass()
                     .getName() + " object if referenced rule group  (version id : " + getConstantValue() + ") has " +
 												 "rules that are not of type INTEGER or NUMERIC");

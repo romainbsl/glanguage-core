@@ -3,16 +3,18 @@ package be.groups.glanguage.glanguage.api.business.factory;
 import java.time.LocalDate;
 
 /**
- * Created by michotte on 8/12/2016.
+ * Identification of a {@link be.groups.glanguage.glanguage.api.business.plan.Plan}
+ *
+ * @author michotte
  */
 public class PlanIdentification {
 
     private Integer ruleSetVersionId;
-    private LocalDate effectivityDate;
+    private LocalDate effectiveDate;
 
-    public PlanIdentification(Integer ruleSetVersionId, LocalDate effectivityDate) {
+    public PlanIdentification(Integer ruleSetVersionId, LocalDate effectiveDate) {
         this.ruleSetVersionId = ruleSetVersionId;
-        this.effectivityDate = effectivityDate;
+        this.effectiveDate = effectiveDate;
     }
 
     @Override
@@ -23,13 +25,13 @@ public class PlanIdentification {
         PlanIdentification that = (PlanIdentification) o;
 
         if (!ruleSetVersionId.equals(that.ruleSetVersionId)) return false;
-        return effectivityDate.equals(that.effectivityDate);
+        return effectiveDate.equals(that.effectiveDate);
     }
 
     @Override
     public int hashCode() {
         int result = ruleSetVersionId.hashCode();
-        result = 31 * result + effectivityDate.hashCode();
+        result = 31 * result + effectiveDate.hashCode();
         return result;
     }
 }

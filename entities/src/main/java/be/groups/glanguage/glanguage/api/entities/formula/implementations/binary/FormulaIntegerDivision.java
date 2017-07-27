@@ -11,6 +11,12 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+/**
+ * Formula implementing an "integer division" operation<br>
+ * This formula is of type {@link FormulaType#OP_INTEGER_DIVISION}
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.OP_INTEGER_DIVISION)
 public class FormulaIntegerDivision extends BinaryFormula {
@@ -26,6 +32,14 @@ public class FormulaIntegerDivision extends BinaryFormula {
         super(description, child1, child2, evaluator);
     }
 
+    /**
+     * Get the result of applying an "integer division" operation on the integer values of the parameters :<br>
+     * the result of the division of the first parameter by the second one discarding the remainder (fractional part)
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of applying a an "integer division" operation on the integer values of the parameters
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override

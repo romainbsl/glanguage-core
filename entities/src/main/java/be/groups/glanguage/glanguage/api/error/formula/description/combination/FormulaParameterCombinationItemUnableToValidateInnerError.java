@@ -10,7 +10,7 @@ import be.groups.glanguage.glanguage.api.error.formula.description.FormulaDescri
 import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 
 /**
- * Created by michotte on 11/05/2017.
+ * @author michotte
  */
 public class FormulaParameterCombinationItemUnableToValidateInnerError extends FormulaDescriptionInnerError {
 

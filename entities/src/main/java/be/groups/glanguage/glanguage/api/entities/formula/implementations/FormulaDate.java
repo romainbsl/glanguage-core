@@ -16,6 +16,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Formula implementing the ability to construct a date from a string or from integers representing the day, the
+ * month and the year
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_DATE)
 public class FormulaDate extends AbstractNonTerminalFormula {
@@ -37,6 +43,13 @@ public class FormulaDate extends AbstractNonTerminalFormula {
         this.parameters.addAll(parameters);
     }
 
+    /**
+     * Get the value as {@link LocalDate}<br>
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value as {@link LocalDate}
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @Override
     protected LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageException {
         LocalDate date = null;

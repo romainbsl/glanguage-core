@@ -11,6 +11,11 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+/**
+ * Formula implementing the mathematical minus operation
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.OP_UNARY_MINUS)
 public class FormulaUnaryMinus extends UnaryFormula {
@@ -25,6 +30,14 @@ public class FormulaUnaryMinus extends UnaryFormula {
         super(description, child, evaluator);
     }
 
+    /**
+     * Get the opposite value as {@link Integer}<br>
+     * The value is the opposite of the {@link AbstractFormula#getIntegerValue(Evaluator)} of the parameter
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the opposite value as {@link Integer}
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -32,6 +45,14 @@ public class FormulaUnaryMinus extends UnaryFormula {
         return -getParameters().get(0).getIntegerValue(evaluator);
     }
 
+    /**
+     * Get the opposite value as {@link Double}<br>
+     * The value is the opposite of the {@link AbstractFormula#getNumericValue(Evaluator)} of the parameter
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the opposite value as {@link Double}
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override

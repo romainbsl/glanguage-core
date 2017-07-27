@@ -3,7 +3,7 @@ package be.groups.glanguage.glanguage.api.error;
 import be.groups.errorframework.core.error.InnerError;
 
 /**
- * Created by michotte on 23/12/2016.
+ * @author michotte
  */
 public abstract class GLanguageInnerError extends InnerError {
 

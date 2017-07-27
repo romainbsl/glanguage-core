@@ -15,17 +15,8 @@ import java.time.Duration;
 import java.time.LocalDate;
 
 /**
- * Formula representing a mathematical addition<br>
- * This formula has exactly two (2) parameters<br>
- * This formula adds its second parameter value to its first parameter value and return the value
- * <br>
- * This formula can add :
- * <ul>
- * <li>two integers - returning an integer value</li>
- * <li>two numerics - returning a numeric value</li>
- * <li>an integer and a numeric - returning a numeric value</li>
- * <li>two strings - returning a string value</li>
- * </ul>
+ * Formula implementing a "addition/concatenation" operation<br>
+ * This formula is of type {@link FormulaType#OP_PLUS}
  *
  * @author michotte
  */
@@ -44,6 +35,13 @@ public class FormulaPlus extends BinaryFormula {
         super(description, child1, child2, evaluator);
     }
 
+    /**
+     * Get the result of applying an "addition" operation on the integer value of the parameters
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of applying an "addition" operation on the integer value of the parameters
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -51,6 +49,13 @@ public class FormulaPlus extends BinaryFormula {
         return getParameters().get(0).getIntegerValue(evaluator) + getParameters().get(1).getIntegerValue(evaluator);
     }
 
+    /**
+     * Get the result of applying an "addition" operation on the numeric value of the parameters
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of applying an "addition" operation on the numeric value of the parameters
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -58,6 +63,13 @@ public class FormulaPlus extends BinaryFormula {
         return getParameters().get(0).getNumericValue(evaluator) + getParameters().get(1).getNumericValue(evaluator);
     }
 
+    /**
+     * Get the result of applying an "concatenation" operation on the string value of the parameters
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of applying an "concatenation" operation on the string value of the parameters
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -68,6 +80,15 @@ public class FormulaPlus extends BinaryFormula {
         return leftParameter.getStringValue(evaluator) + rightParameter.getStringValue(evaluator);
     }
 
+    /**
+     * Get the result of applying an "addition" operation on the date value of one of the parameters and the duration
+     * value of the other one
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of applying an "addition" operation on the date value of one of the parameters and the
+     * duration value of the other one
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -98,6 +119,13 @@ public class FormulaPlus extends BinaryFormula {
         return dateParameter.getDateValue(evaluator).plusDays(durationParameter.getDurationValue(evaluator).toDays());
     }
 
+    /**
+     * Get the result of applying an "addition" operation on the duration value of the parameters
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of applying an "addition" operation on the duration value of the parameters
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override

@@ -3,6 +3,12 @@ package be.groups.glanguage.glanguage.api.entities.formula.description;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
+/**
+ * Converter class for {@link FormulaReturnType} enum
+ *
+ * @author michotte
+ * @see FormulaReturnType
+ */
 @Converter
 public class FormulaReturnTypeConverter implements AttributeConverter<FormulaReturnType, Integer> {
 

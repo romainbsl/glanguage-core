@@ -5,7 +5,7 @@ import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.GLanguageInnerError;
 
 /**
- * Created by michotte on 18/01/2017.
+ * @author michotte
  */
 public class RoundingTypeInnerError extends GLanguageInnerError {
 

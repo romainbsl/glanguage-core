@@ -23,7 +23,7 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 /**
- * Formula representing a constant integer value
+ * Formula representing a constant boolean value
  *
  * @author michotte
  */
@@ -43,6 +43,19 @@ public class FormulaTerminalBoolean extends AbstractTerminalFormula {
         this(description, constantValue.toString());
     }
 
+    /**
+     * Is this valid ?<br>
+     * This is valid if :
+     * <ol>
+     * <li>the {@link FormulaTerminalBoolean#getConstantValue()} is not null</li>
+     * <li>the {@link FormulaTerminalBoolean#getConstantValue()} is a string equal to "true" or "false"
+     * ignoring the case</li>
+     * <li>the {@link Boolean#valueOf(String)} does not throw an exception</li>
+     * </ol>
+     *
+     * @param evaluator the evaluator to be used during the validation process, can be null
+     * @return true if this is valid, false otherwise
+     */
     @Override
     public boolean isValid(Evaluator evaluator) {
         if (getConstantValue() != null) {
@@ -61,6 +74,20 @@ public class FormulaTerminalBoolean extends AbstractTerminalFormula {
         return true;
     }
 
+    /**
+     * Validate this with a {@code constantValue}<br>
+     * This is valid if :
+     * <ol>
+     * <li>the {@link FormulaTerminalBoolean#getConstantValue()} is not null</li>
+     * <li>the {@link FormulaTerminalBoolean#getConstantValue()} is a string equal to "true" or "false"
+     * ignoring the case</li>
+     * <li>the {@link Boolean#valueOf(String)} does not throw an exception</li>
+     * </ol>
+     *
+     * @param constantValue the value to be validated
+     * @throws GLanguageException if the {@code constantValue} is null or not equal to "true" or "false" ignoring the
+     *                            case or if the {@link Boolean#valueOf(String)} throws an exception
+     */
     @Override
     public void validate(String constantValue) throws GLanguageException {
         if (constantValue != null) {
@@ -96,11 +123,25 @@ public class FormulaTerminalBoolean extends AbstractTerminalFormula {
         }
     }
 
+    /**
+     * Get the return type<br>
+     * The return type of this type of formula is always {@link FormulaReturnType#BOOLEAN}
+     *
+     * @param evaluator the evaluator to be used during the validation process, can be null
+     * @return always {@link FormulaReturnType#BOOLEAN}
+     */
     @Override
     public FormulaReturnType getReturnType(Evaluator evaluator) {
         return FormulaReturnType.BOOLEAN;
     }
 
+    /**
+     * Get the value as {@link Boolean}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return true or false corresponding to the parameter value
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override

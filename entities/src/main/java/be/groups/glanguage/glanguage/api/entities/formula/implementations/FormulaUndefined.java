@@ -18,9 +18,9 @@ import java.time.Duration;
 import java.time.LocalDate;
 
 /**
- * Formula representing a constant integer value
+ * Formula representing an undefined formula
  * 
- * @author dupirefr
+ * @author michotte
  */
 @Entity
 @DiscriminatorValue(FormulaType.Values.UNDEFINED)
@@ -44,18 +44,37 @@ public class FormulaUndefined extends AbstractTerminalFormula {
 		// do nothing
 	}
 
+	/**
+	 * Get the return type<br>
+	 * The return type of this type of formula is always {@link FormulaReturnType#UNDEFINED}
+	 *
+	 * @param evaluator the evaluator to be used during the validation process, can be null
+	 * @return always {@link FormulaReturnType#UNDEFINED}
+	 */
 	@Override
 	public FormulaReturnType getReturnType(Evaluator evaluator) {
 		return FormulaReturnType.UNDEFINED;
 	}
 
+	/**
+	 * Get the value as {@link Integer} - always null
+	 *
+	 * @param evaluator the evaluator to be used in the evaluation process, can be null
+	 * @return always null
+	 */
 	@JsonIgnore
 	@Transient
 	@Override
 	protected Integer doGetIntegerValue(Evaluator evaluator) {
 		return null;
 	}
-	
+
+	/**
+	 * Get the value as {@link Double} - always null
+	 *
+	 * @param evaluator the evaluator to be used in the evaluation process, can be null
+	 * @return always null
+	 */
 	@JsonIgnore
 	@Transient
 	@Override
@@ -63,20 +82,38 @@ public class FormulaUndefined extends AbstractTerminalFormula {
 		return null;
 	}
 
+	/**
+	 * Get the value as {@link Boolean} - always null
+	 *
+	 * @param evaluator the evaluator to be used in the evaluation process, can be null
+	 * @return always null
+	 */
 	@JsonIgnore
 	@Transient
 	@Override
 	protected Boolean doGetBooleanValue(Evaluator evaluator) {
 		return null;
 	}
-	
+
+	/**
+	 * Get the value as {@link LocalDate} - always null
+	 *
+	 * @param evaluator the evaluator to be used in the evaluation process, can be null
+	 * @return always null
+	 */
 	@JsonIgnore
 	@Transient
 	@Override
 	protected LocalDate doGetDateValue(Evaluator evaluator) {
 		return null;
 	}
-	
+
+	/**
+	 * Get the value as {@link Duration} - always null
+	 *
+	 * @param evaluator the evaluator to be used in the evaluation process, can be null
+	 * @return always null
+	 */
 	@JsonIgnore
 	@Transient
 	@Override

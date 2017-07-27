@@ -8,8 +8,10 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
- * 
+ * Id class for {@link RuleDefinitionParameter}
+ *
  * @author michotte
+ * @see RuleDefinitionParameter
  */
 @Embeddable
 public class RuleDefinitionParameterId implements Serializable {

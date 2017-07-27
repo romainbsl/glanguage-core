@@ -5,7 +5,7 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 
 /**
- * Created by michotte on 23/12/2016.
+ * @author michotte
  */
 public class RuleReturnTypeInnerError extends RuleInnerError {
 

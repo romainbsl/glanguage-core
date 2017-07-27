@@ -4,7 +4,7 @@ import be.groups.errorframework.core.validation.AbstractValidationErrorFactory;
 import javafx.util.Pair;
 
 /**
- * Created by michotte on 20/12/2016.
+ * @author michotte
  */
 public class GLanguageErrorFactory extends AbstractValidationErrorFactory {
 

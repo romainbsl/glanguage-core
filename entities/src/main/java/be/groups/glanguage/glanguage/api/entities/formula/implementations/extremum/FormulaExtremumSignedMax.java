@@ -13,6 +13,11 @@ import javax.persistence.Transient;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Formula implementing a mathematical max operation on absolute values of a list of number
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_SMAX)
 public class FormulaExtremumSignedMax extends ExtremumFormula {
@@ -27,6 +32,14 @@ public class FormulaExtremumSignedMax extends ExtremumFormula {
         super(description, parameters, evaluator);
     }
 
+    /**
+     * Get the greatest absolute value of the parameters as {@link Double} signed with the sign of the first parameter
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the greatest absolute value of the parameters as {@link Double} signed with the sign of the first
+     * parameter
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override

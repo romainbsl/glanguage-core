@@ -23,7 +23,7 @@ import java.time.Period;
 import java.time.format.DateTimeParseException;
 
 /**
- * Formula representing a constant integer value
+ * Formula representing a constant duration value
  *
  * @author michotte
  */
@@ -39,6 +39,17 @@ public class FormulaTerminalDuration extends AbstractTerminalFormula {
         super(description, constantValue);
     }
 
+    /**
+     * Is this valid ?<br>
+     * This is valid if :
+     * <ol>
+     * <li>the {@link FormulaTerminalDuration#getConstantValue()} is not null</li>
+     * <li>no exception is thrown during the parsing of the value</li>
+     * </ol>
+     *
+     * @param evaluator the evaluator to be used during the validation process, can be null
+     * @return true if this is valid, false otherwise
+     */
     @Override
     public boolean isValid(Evaluator evaluator) {
         if (getConstantValue() != null) {
@@ -53,6 +64,18 @@ public class FormulaTerminalDuration extends AbstractTerminalFormula {
         return true;
     }
 
+    /**
+     * Validate this with a {@code constantValue}<br>
+     * This is valid if :
+     * <ol>
+     * <li>the {@link FormulaTerminalDuration#getConstantValue()} is not null</li>
+     * <li>no exception is thrown during the parsing of the parameter</li>
+     * </ol>
+     *
+     * @param constantValue the value to be validated
+     * @throws GLanguageException if the {@code constantValue} is null or if an exception is thrown during the
+     * parsing of the parameter
+     */
     @Override
     public void validate(String constantValue) throws GLanguageException {
         if (constantValue != null) {
@@ -74,11 +97,25 @@ public class FormulaTerminalDuration extends AbstractTerminalFormula {
         }
     }
 
+    /**
+     * Get the return type<br>
+     * The return type of this type of formula is always {@link FormulaReturnType#DURATION}
+     *
+     * @param evaluator the evaluator to be used during the validation process, can be null
+     * @return always {@link FormulaReturnType#DURATION}
+     */
     @Override
     public FormulaReturnType getReturnType(Evaluator evaluator) {
         return FormulaReturnType.DURATION;
     }
 
+    /**
+     * Get the value as {@link Duration}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the duration corresponding to the parameter formatted with the pattern "P[nY][nM][nD][T[nH][nM][n][.nS]]"
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override

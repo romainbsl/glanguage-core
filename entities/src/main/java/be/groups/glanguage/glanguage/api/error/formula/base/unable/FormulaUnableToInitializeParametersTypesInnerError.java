@@ -6,7 +6,7 @@ import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
 
 /**
- * Created by michotte on 5/01/2017.
+ * @author michotte
  */
 public class FormulaUnableToInitializeParametersTypesInnerError extends FormulaInnerError {
 

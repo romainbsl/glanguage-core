@@ -4,7 +4,7 @@ import be.groups.glanguage.glanguage.api.error.GLanguageErrorRegistry;
 import be.groups.glanguage.glanguage.api.error.GLanguageInnerError;
 
 /**
- * Created by michotte on 6/01/2017.
+ * @author michotte
  */
 public class ParserInnerError extends GLanguageInnerError {
 

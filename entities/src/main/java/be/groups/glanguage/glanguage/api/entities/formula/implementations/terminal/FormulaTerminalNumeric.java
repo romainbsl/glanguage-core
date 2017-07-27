@@ -21,7 +21,7 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 /**
- * Formula representing a constant integer value
+ * Formula representing a constant double value
  *
  * @author michotte
  */
@@ -37,6 +37,17 @@ public class FormulaTerminalNumeric extends AbstractTerminalFormula {
         super(description, constantValue);
     }
 
+    /**
+     * Is this valid ?<br>
+     * This is valid if :
+     * <ol>
+     * <li>the {@link FormulaTerminalNumeric#getConstantValue()} is not null</li>
+     * <li>the {@link Double#valueOf(String)} does not throw an exception</li>
+     * </ol>
+     *
+     * @param evaluator the evaluator to be used during the validation process, can be null
+     * @return true if this is valid, false otherwise
+     */
     @Override
     public boolean isValid(Evaluator evaluator) {
         if (getConstantValue() != null) {
@@ -51,6 +62,18 @@ public class FormulaTerminalNumeric extends AbstractTerminalFormula {
         return true;
     }
 
+    /**
+     * Validate this with a {@code constantValue}<br>
+     * This is valid if :
+     * <ol>
+     * <li>the {@link FormulaTerminalNumeric#getConstantValue()} is not null</li>
+     * <li>the {@link Double#valueOf(String)} does not throw an exception</li>
+     * </ol>
+     *
+     * @param constantValue the value to be validated
+     * @throws GLanguageException if the {@code constantValue} is null or if an exception is thrown during the
+     * parsing of the parameter
+     */
     @Override
     public void validate(String constantValue) throws GLanguageException {
         if (constantValue != null) {
@@ -74,11 +97,27 @@ public class FormulaTerminalNumeric extends AbstractTerminalFormula {
         }
     }
 
+    /**
+     * Get the return type<br>
+     * The return type of this type of formula is always {@link FormulaReturnType#NUMERIC}
+     *
+     * @param evaluator the evaluator to be used during the validation process, can be null
+     * @return always {@link FormulaReturnType#NUMERIC}
+     */
     @Override
     public FormulaReturnType getReturnType(Evaluator evaluator) {
         return FormulaReturnType.NUMERIC;
     }
 
+    /**
+     * Get the value as {@link Integer}<br>
+     * Calling this method is equivalent to calling {@link FormulaTerminalNumeric#doGetNumericValue(Evaluator)} method and
+     * applying {@link Double#intValue()} on the result
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value as {@link Integer} - the integer part of the value as {@link Double}
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -86,6 +125,14 @@ public class FormulaTerminalNumeric extends AbstractTerminalFormula {
         return getNumericValue(evaluator).intValue();
     }
 
+    /**
+     * Get the value as {@link Double}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the number (with decimals) corresponding to the parameter formatted with the pattern "(-)?[0-9]*(.)
+     * ?[0-9]*"
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override

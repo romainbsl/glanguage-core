@@ -3,6 +3,12 @@ package be.groups.glanguage.glanguage.api.entities.utils.rounding;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
+/**
+ * Converter enum class for {@link RoundingType}
+ *
+ * @author michotte
+ * @see RoundingType
+ */
 @Converter
 public class RoundingTypeConverter implements AttributeConverter<RoundingType, Integer> {
 

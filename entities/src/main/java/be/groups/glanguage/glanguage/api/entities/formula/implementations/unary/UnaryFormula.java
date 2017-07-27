@@ -11,6 +11,11 @@ import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Abstract formula implementing an operation on exactly 1 (1) parameter
+ *
+ * @author michotte
+ */
 @Entity
 public abstract class UnaryFormula extends AbstractNonTerminalFormula {
 

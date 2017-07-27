@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * Created by michotte on 18/05/2017.
+ * @author michotte
  */
 public class FormulaDescriptionNoMatchingUsageInnerError extends FormulaDescriptionInnerError {
 

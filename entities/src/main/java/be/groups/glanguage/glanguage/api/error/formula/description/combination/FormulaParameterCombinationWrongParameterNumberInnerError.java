@@ -7,7 +7,7 @@ import be.groups.glanguage.glanguage.api.error.formula.description.FormulaDescri
 import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 
 /**
- * Created by michotte on 20/12/2016.
+ * @author michotte
  */
 public class FormulaParameterCombinationWrongParameterNumberInnerError extends FormulaDescriptionInnerError {
 

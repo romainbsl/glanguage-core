@@ -15,9 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 /**
- * Formula representing a logical or operation<br>
- * This Formula has exactly two (2) parameters<br>
- * The type of the parameters must be boolean
+ * Formula implementing a logical "and" operation<br>
+ * This formula is of type {@link FormulaType#OP_OR}
  *
  * @author michotte
  */
@@ -35,7 +34,15 @@ public class FormulaOr extends BinaryFormula {
                      Evaluator evaluator) throws GLanguageException {
         super(description, child1, child2, evaluator);
     }
-    
+
+    /**
+     * Get the result of applying a logical "or" operation on the boolean values of the parameters : <br>
+     * true if at least one of the parameters is true, false otherwise
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of applying a logical "or" operation on the boolean values of the parameters
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override
