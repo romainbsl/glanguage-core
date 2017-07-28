@@ -11,6 +11,12 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+/**
+ * Formula implementing a "modulo" operation<br>
+ * This formula is of type {@link FormulaType#OP_MODULO}
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.OP_MODULO)
 public class FormulaModulo extends BinaryFormula {
@@ -26,6 +32,14 @@ public class FormulaModulo extends BinaryFormula {
         super(description, child1, child2, evaluator);
     }
 
+    /**
+     * Get the result of applying a "modulo" operation on the integer values of the parameters :<br>
+     * the result is the remainder of the division of the first parameter by the second one
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the result of applying a a "modulo" operation on the integer values of the parameters
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override

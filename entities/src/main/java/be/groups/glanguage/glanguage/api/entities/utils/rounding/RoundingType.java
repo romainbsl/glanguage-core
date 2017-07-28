@@ -1,8 +1,8 @@
 package be.groups.glanguage.glanguage.api.entities.utils.rounding;
 
 /**
- * Rounding type's
- * 
+ * Enum representing the rounding types
+ *
  * @author michotte
  */
 public enum RoundingType {

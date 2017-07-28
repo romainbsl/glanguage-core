@@ -1,7 +1,7 @@
 package be.groups.glanguage.glanguage.api.error;
 
 /**
- * Created by michotte on 20/12/2016.
+ * @author michotte
  */
 public enum GLanguageErrorRegistry {
 

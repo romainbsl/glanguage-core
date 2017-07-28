@@ -18,10 +18,21 @@ import java.util.Set;
 import java.util.SortedSet;
 
 /**
- * A RuleVersion is a version of a RuleDefintion that is effective between two
- * dates inclusively
+ * A RuleVersion is a version of a {@link RuleDefinition} that is effective between two dates inclusively<br>
+ * A RuleVersion has
+ * <ul>
+ * <li>a {@link RuleDescription} with code and labels identifying it</li>
+ * <li>a version string identifying it uniquely</li>
+ * <li>effective start and end {@link LocalDate dates} defining the period within this is effective, by default end
+ * date is {@link LocalDate#MAX}</li>
+ * <li>a {@link AbstractFormula formula} that can be evaluated to obtain the value of this</li>
+ * <li>a boolean {@link AbstractFormula applicability condition} that defines in which cases this is
+ * applicable or not, true by default. When applicable, the formula can be evaluated safely</li>
+ * <li>a sorted set of {@link RuleGroupItem sub-rules} sorted by a sequence number</li>
+ * </ul>
  *
  * @author michotte
+ * @see RuleDefinition
  */
 @Table(name = "RULE_VERSION")
 @Entity
@@ -35,12 +46,12 @@ public class RuleVersion implements Comparable<RuleVersion> {
     /**
      * Date until which this is effective inclusively
      */
-    private LocalDate effectivityEndDate;
+    private LocalDate effectiveEndDate;
 
     /**
      * Date from which this is effective inclusively
      */
-    private LocalDate effectivityStartDate;
+    private LocalDate effectiveStartDate;
 
     /**
      * Applicability condition
@@ -102,7 +113,9 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     /**
-     * @return the ruleDescription
+     * Get the rule description
+     *
+     * @return the rule description
      */
     @ManyToOne
     @JoinColumn(name = "RULE_DESCRIPTION_ID")
@@ -120,20 +133,32 @@ public class RuleVersion implements Comparable<RuleVersion> {
         return ruleDescription.getCode();
     }
 
+    /**
+     * Get the effective start date
+     *
+     * @return the effective start date
+     */
     @Column(name = "EFFECTIVITY_START_DATE")
     @Convert(converter = LocalDateConverter.class)
-    public LocalDate getEffectivityStartDate() {
-        return effectivityStartDate;
-    }
-
-    @Column(name = "EFFECTIVITY_END_DATE")
-    @Convert(converter = LocalDateConverter.class)
-    public LocalDate getEffectivityEndDate() {
-        return effectivityEndDate;
+    public LocalDate getEffectiveStartDate() {
+        return effectiveStartDate;
     }
 
     /**
-     * @return the applicabilityCondition
+     * Get the effective end date
+     *
+     * @return the effective end date
+     */
+    @Column(name = "EFFECTIVITY_END_DATE")
+    @Convert(converter = LocalDateConverter.class)
+    public LocalDate getEffectiveEndDate() {
+        return effectiveEndDate;
+    }
+
+    /**
+     * Get the applicability condition
+     *
+     * @return the applicability condition
      */
     @ManyToOne
     @JoinColumn(name = "APPLICABILITY_CONDITION_ID")
@@ -142,9 +167,9 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     /**
-     * Get the Formula of this Rule
+     * Get the formula
      *
-     * @return the Formula of this rule
+     * @return the formula
      */
     @ManyToOne
     @JoinColumn(name = "FORMULA_ID")
@@ -153,6 +178,8 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     /**
+     * Get the technical id
+     *
      * @return the id
      */
     @Id
@@ -183,6 +210,8 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     /**
+     * Get the definition
+     *
      * @return the definition
      */
     @ManyToOne
@@ -192,7 +221,9 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     /**
-     * @return the ruleType
+     * Get the rule type
+     *
+     * @return the rule type
      */
     @Column(name = "RULE_TYPE")
     @Enumerated(EnumType.ORDINAL)
@@ -201,15 +232,19 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     /**
-     * @return the groupItems
+     * Get the set of {@link RuleGroupItem} (sub-rules) sorted by {@link RuleGroupItem#sequenceNumber}
+     *
+     * @return the set of {@link RuleGroupItem} (sub-rules) sorted by {@link RuleGroupItem#sequenceNumber}
      */
     @OneToMany(mappedBy = "groupRule", fetch = FetchType.EAGER)
-    @OrderBy(value = "SEQUENCE_NUMBER ASC\n")
+    @OrderBy(value = "SEQUENCE_NUMBER ASC")
     public SortedSet<RuleGroupItem> getGroupItems() {
         return groupItems;
     }
 
     /**
+     * Get the version
+     *
      * @return the version
      */
     @Column(name = "VERSION")
@@ -218,23 +253,64 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     /**
-     * @return the ruleSetVersions
+     * Get the set of {@link RuleSetVersion} in which this is part of it
+     *
+     * @return the set of {@link RuleSetVersion} in which this is part of it
      */
     @ManyToMany(mappedBy = "ruleVersions")
     public Set<RuleSetVersion> getRuleSetVersions() {
         return ruleSetVersions;
     }
 
+    /**
+     * Get the value by evaluating the {@link AbstractFormula formula}<br>
+     * A call to this method is equivalent to a call to {@link RuleVersion#getValue(Evaluator)} with null evaluator
+     *
+     * @return the evaluated value, may be null
+     * @throws GLanguageException if an error occurs during the evaluation process
+     * @see RuleVersion#getValue(Evaluator)
+     */
     @Transient
     public Object getValue() throws GLanguageException {
         return getValue(null);
     }
 
+    /**
+     * Get the value by evaluating the {@link AbstractFormula formula} with an {@code evaluator} (can be null)<br>
+     * Evaluation process :
+     * <ol>
+     *      <li>Check if this {@link RuleVersion#isApplicable(Evaluator)}, if not return null.</li>
+     *      <li>Else check the {@link RuleVersion#getReturnType(Evaluator)} and delegate to the corresponding typed
+     *          evaluation method only for {@link FormulaReturnType#BOOLEAN}, {@link FormulaReturnType#DATE},
+     *          {@link FormulaReturnType#DURATION}, {@link FormulaReturnType#INTEGER},
+     *          {@link FormulaReturnType#NUMERIC} and {@link FormulaReturnType#STRING}. Otherwise, return null.</li>
+     * </ol>
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the evaluated value, may be null if
+     * <ul>
+     *     <li>{@link RuleVersion#isApplicable(Evaluator)} is false</li>
+     *     <li>{@link RuleVersion#getReturnType(Evaluator)} is not in {@link FormulaReturnType#BOOLEAN},
+     *          {@link FormulaReturnType#DATE}, {@link FormulaReturnType#DURATION}, {@link FormulaReturnType#INTEGER},
+     *          {@link FormulaReturnType#NUMERIC} and {@link FormulaReturnType#STRING}</li>
+     *     <li>the result of the evaluation of the {@link AbstractFormula formula} is null</li>
+     * </ul>
+     * @throws GLanguageException if an error occurs during the evaluation process
+     * @see RuleVersion#isApplicable(Evaluator)
+     * @see RuleVersion#getReturnType(Evaluator)
+     * @see RuleVersion#getBooleanValue(Evaluator)
+     * @see RuleVersion#getDateValue(Evaluator)
+     * @see RuleVersion#getDurationValue(Evaluator)
+     * @see RuleVersion#getIntegerValue(Evaluator)
+     * @see RuleVersion#getNumericValue(Evaluator)
+     * @see RuleVersion#getStringValue(Evaluator)
+     */
     @Transient
     public Object getValue(Evaluator evaluator) throws GLanguageException {
-        if(!isApplicable(evaluator)) return null;
+        // If not applicable, return null
+        if (!isApplicable(evaluator)) return null;
 
         try {
+            // Switch on type
             switch (getReturnType(evaluator)) {
                 case BOOLEAN:
                     return getBooleanValue(evaluator);
@@ -249,6 +325,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
                 case STRING:
                     return getStringValue(evaluator);
                 default:
+                    // Type not handled, return null
                     return null;
             }
         } catch (GLanguageException e) {
@@ -257,11 +334,43 @@ public class RuleVersion implements Comparable<RuleVersion> {
         }
     }
 
+    /**
+     * Get the value as {@link Boolean}<br>
+     * A call to this method is equivalent to a call to {@link RuleVersion#getBooleanValue(Evaluator)} with null
+     * evaluator
+     *
+     * @return the value as {@link Boolean}, may be null
+     * @throws GLanguageException if an error occurs during the evaluation process
+     * @see RuleVersion#getBooleanValue(Evaluator)
+     */
     @Transient
     public Boolean getBooleanValue() throws GLanguageException {
         return getBooleanValue(null);
     }
 
+    /**
+     * Get the value as {@link Boolean} with an {@code evaluator} (can be null)<br>
+     * Evaluation process :
+     * <ol>
+     *     <li>If {@code evaluator} is not null and {@link Evaluator#isRuleVersionEvaluated(RuleVersion)} with {@code
+     *          this} as parameter is true, select the value returned by
+     *          {@link Evaluator#getRuleVersionValue(RuleVersion)} with {@code this} as parameter</li>
+     *     <li>Else, if {@link RuleVersion#value} is not null, select it</li>
+     *     <li>Else, evaluate the {@link AbstractFormula formula} by delegating to
+     *          {@link AbstractFormula#getBooleanValue(Evaluator)} and select the returned value</li>
+     *     <li>Set the selected value by delegating to {@link RuleVersion#setValue(Object, Evaluator)}</li>
+     *     <li>Return the selected value</li>
+     * </ol>
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value as {@link Boolean}, may be null if the result of the evaluation of the
+     * {@link AbstractFormula formula} is null
+     * @throws GLanguageException if an error occurs during the evaluation process
+     * @see Evaluator#isRuleVersionEvaluated(RuleVersion)
+     * @see Evaluator#getRuleVersionValue(RuleVersion)
+     * @see AbstractFormula#getBooleanValue(Evaluator)
+     * @see RuleVersion#setValue(Object, Evaluator)
+     */
     @Transient
     public Boolean getBooleanValue(Evaluator evaluator) throws GLanguageException {
         Boolean val;
@@ -273,8 +382,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
             try {
                 val = formula.getBooleanValue(evaluator);
             } catch (GLanguageException e) {
-                e.getError().setOuterError(new RuleUnableToEvaluateBooleanInnerError(this,
-                                                                                     evaluator) {
+                e.getError().setOuterError(new RuleUnableToEvaluateBooleanInnerError(this, evaluator) {
                 });
                 throw e;
             }
@@ -286,11 +394,43 @@ public class RuleVersion implements Comparable<RuleVersion> {
         return val;
     }
 
+    /**
+     * Get the value as {@link LocalDate}<br>
+     * A call to this method is equivalent to a call to {@link RuleVersion#getBooleanValue(Evaluator)} with null
+     * evaluator
+     *
+     * @return the value as {@link LocalDate}, may be null
+     * @throws GLanguageException if an error occurs during the evaluation process
+     * @see RuleVersion#getDateValue(Evaluator)
+     */
     @Transient
     public LocalDate getDateValue() throws GLanguageException {
         return getDateValue(null);
     }
 
+    /**
+     * Get the value as {@link LocalDate} with an {@code evaluator} (can be null)<br>
+     * Evaluation process :
+     * <ol>
+     *     <li>If {@code evaluator} is not null and {@link Evaluator#isRuleVersionEvaluated(RuleVersion)} with {@code
+     *          this} as parameter is true, select the value returned by
+     *          {@link Evaluator#getRuleVersionValue(RuleVersion)} with {@code this} as parameter</li>
+     *     <li>Else, if {@link RuleVersion#value} is not null, select it</li>
+     *     <li>Else, evaluate the {@link AbstractFormula formula} by delegating to
+     *          {@link AbstractFormula#getDateValue(Evaluator)} and select the returned value</li>
+     *     <li>Set the selected value by delegating to {@link RuleVersion#setValue(Object, Evaluator)}</li>
+     *     <li>Return the selected value</li>
+     * </ol>
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value as {@link LocalDate}, may be null if the result of the evaluation of the
+     * {@link AbstractFormula formula} is null
+     * @throws GLanguageException if an error occurs during the evaluation process
+     * @see Evaluator#isRuleVersionEvaluated(RuleVersion)
+     * @see Evaluator#getRuleVersionValue(RuleVersion)
+     * @see AbstractFormula#getDateValue(Evaluator)
+     * @see RuleVersion#setValue(Object, Evaluator)
+     */
     @Transient
     public LocalDate getDateValue(Evaluator evaluator) throws GLanguageException {
         LocalDate val;
@@ -302,8 +442,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
             try {
                 val = formula.getDateValue(evaluator);
             } catch (GLanguageException e) {
-                e.getError().setOuterError(new RuleUnableToEvaluateDateInnerError(this,
-                                                                                  evaluator) {
+                e.getError().setOuterError(new RuleUnableToEvaluateDateInnerError(this, evaluator) {
                 });
                 throw e;
             }
@@ -315,11 +454,43 @@ public class RuleVersion implements Comparable<RuleVersion> {
         return val;
     }
 
+    /**
+     * Get the value as {@link Duration}<br>
+     * A call to this method is equivalent to a call to {@link RuleVersion#getBooleanValue(Evaluator)} with null
+     * evaluator
+     *
+     * @return the value as {@link Duration}, may be null
+     * @throws GLanguageException if an error occurs during the evaluation process
+     * @see RuleVersion#getDurationValue(Evaluator)
+     */
     @Transient
     public Duration getDurationValue() throws GLanguageException {
         return getDurationValue(null);
     }
 
+    /**
+     * Get the value as {@link Duration} with an {@code evaluator} (can be null)<br>
+     * Evaluation process :
+     * <ol>
+     *     <li>If {@code evaluator} is not null and {@link Evaluator#isRuleVersionEvaluated(RuleVersion)} with {@code
+     *          this} as parameter is true, select the value returned by
+     *          {@link Evaluator#getRuleVersionValue(RuleVersion)} with {@code this} as parameter</li>
+     *     <li>Else, if {@link RuleVersion#value} is not null, select it</li>
+     *     <li>Else, evaluate the {@link AbstractFormula formula} by delegating to
+     *          {@link AbstractFormula#getDurationValue(Evaluator)} and select the returned value</li>
+     *     <li>Set the selected value by delegating to {@link RuleVersion#setValue(Object, Evaluator)}</li>
+     *     <li>Return the selected value</li>
+     * </ol>
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value as {@link Duration}, may be null if the result of the evaluation of the
+     * {@link AbstractFormula formula} is null
+     * @throws GLanguageException if an error occurs during the evaluation process
+     * @see Evaluator#isRuleVersionEvaluated(RuleVersion)
+     * @see Evaluator#getRuleVersionValue(RuleVersion)
+     * @see AbstractFormula#getDurationValue(Evaluator)
+     * @see RuleVersion#setValue(Object, Evaluator)
+     */
     @Transient
     public Duration getDurationValue(Evaluator evaluator) throws GLanguageException {
         Duration val;
@@ -331,8 +502,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
             try {
                 val = formula.getDurationValue(evaluator);
             } catch (GLanguageException e) {
-                e.getError().setOuterError(new RuleUnableToEvaluateDurationInnerError(this,
-                                                                                      evaluator) {
+                e.getError().setOuterError(new RuleUnableToEvaluateDurationInnerError(this, evaluator) {
                 });
                 throw e;
             }
@@ -344,11 +514,43 @@ public class RuleVersion implements Comparable<RuleVersion> {
         return val;
     }
 
+    /**
+     * Get the value as {@link String}<br>
+     * A call to this method is equivalent to a call to {@link RuleVersion#getBooleanValue(Evaluator)} with null
+     * evaluator
+     *
+     * @return the value as {@link String}, may be null
+     * @throws GLanguageException if an error occurs during the evaluation process
+     * @see RuleVersion#getStringValue(Evaluator)
+     */
     @Transient
     public String getStringValue() throws GLanguageException {
         return getStringValue(null);
     }
 
+    /**
+     * Get the value as {@link String} with an {@code evaluator} (can be null)<br>
+     * Evaluation process :
+     * <ol>
+     *     <li>If {@code evaluator} is not null and {@link Evaluator#isRuleVersionEvaluated(RuleVersion)} with {@code
+     *          this} as parameter is true, select the value returned by
+     *          {@link Evaluator#getRuleVersionValue(RuleVersion)} with {@code this} as parameter</li>
+     *     <li>Else, if {@link RuleVersion#value} is not null, select it</li>
+     *     <li>Else, evaluate the {@link AbstractFormula formula} by delegating to
+     *          {@link AbstractFormula#doGetStringValue(Evaluator)} and select the returned value</li>
+     *     <li>Set the selected value by delegating to {@link RuleVersion#setValue(Object, Evaluator)}</li>
+     *     <li>Return the selected value</li>
+     * </ol>
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value as {@link String}, may be null if the result of the evaluation of the
+     * {@link AbstractFormula formula} is null
+     * @throws GLanguageException if an error occurs during the evaluation process
+     * @see Evaluator#isRuleVersionEvaluated(RuleVersion)
+     * @see Evaluator#getRuleVersionValue(RuleVersion)
+     * @see AbstractFormula#getStringValue(Evaluator)
+     * @see RuleVersion#setValue(Object, Evaluator)
+     */
     @Transient
     public String getStringValue(Evaluator evaluator) throws GLanguageException {
         String val;
@@ -360,8 +562,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
             try {
                 val = formula.getStringValue(evaluator);
             } catch (GLanguageException e) {
-                e.getError().setOuterError(new RuleUnableToEvaluateStringInnerError(this,
-                                                                                    evaluator) {
+                e.getError().setOuterError(new RuleUnableToEvaluateStringInnerError(this, evaluator) {
                 });
                 throw e;
             }
@@ -373,11 +574,43 @@ public class RuleVersion implements Comparable<RuleVersion> {
         return val;
     }
 
+    /**
+     * Get the value as {@link Integer}<br>
+     * A call to this method is equivalent to a call to {@link RuleVersion#getBooleanValue(Evaluator)} with null
+     * evaluator
+     *
+     * @return the value as {@link Integer}, may be null
+     * @throws GLanguageException if an error occurs during the evaluation process
+     * @see RuleVersion#getIntegerValue(Evaluator)
+     */
     @Transient
     public Integer getIntegerValue() throws GLanguageException {
         return getIntegerValue(null);
     }
 
+    /**
+     * Get the value as {@link Integer} with an {@code evaluator} (can be null)<br>
+     * Evaluation process :
+     * <ol>
+     *     <li>If {@code evaluator} is not null and {@link Evaluator#isRuleVersionEvaluated(RuleVersion)} with {@code
+     *          this} as parameter is true, select the value returned by
+     *          {@link Evaluator#getRuleVersionValue(RuleVersion)} with {@code this} as parameter</li>
+     *     <li>Else, if {@link RuleVersion#value} is not null, select it</li>
+     *     <li>Else, evaluate the {@link AbstractFormula formula} by delegating to
+     *          {@link RuleVersion#doGetIntegerValue(Evaluator)} and select the returned value</li>
+     *     <li>Set the selected value by delegating to {@link RuleVersion#setValue(Object, Evaluator)}</li>
+     *     <li>Return the selected value</li>
+     * </ol>
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value as {@link Integer}, may be null if the result of the evaluation of the
+     * {@link AbstractFormula formula} is null
+     * @throws GLanguageException if an error occurs during the evaluation process
+     * @see Evaluator#isRuleVersionEvaluated(RuleVersion)
+     * @see Evaluator#getRuleVersionValue(RuleVersion)
+     * @see AbstractFormula#getIntegerValue(Evaluator)
+     * @see RuleVersion#setValue(Object, Evaluator)
+     */
     @Transient
     public Integer getIntegerValue(Evaluator evaluator) throws GLanguageException {
         Integer val;
@@ -389,8 +622,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
             try {
                 val = doGetIntegerValue(evaluator);
             } catch (GLanguageException e) {
-                e.getError().setOuterError(new RuleUnableToEvaluateIntegerInnerError(this,
-                                                                                     evaluator) {
+                e.getError().setOuterError(new RuleUnableToEvaluateIntegerInnerError(this, evaluator) {
                     @Override
                     public String getMainMessage() {
                         return super.getMainMessage();
@@ -406,11 +638,43 @@ public class RuleVersion implements Comparable<RuleVersion> {
         return val;
     }
 
+    /**
+     * Get the value as {@link Double}<br>
+     * A call to this method is equivalent to a call to {@link RuleVersion#getBooleanValue(Evaluator)} with null
+     * evaluator
+     *
+     * @return the value as {@link Double}, may be null
+     * @throws GLanguageException if an error occurs during the evaluation process
+     * @see RuleVersion#getNumericValue(Evaluator)
+     */
     @Transient
     public Double getNumericValue() throws GLanguageException {
         return getNumericValue(null);
     }
 
+    /**
+     * Get the value as {@link Double} with an {@code evaluator} (can be null)<br>
+     * Evaluation process :
+     * <ol>
+     *     <li>If {@code evaluator} is not null and {@link Evaluator#isRuleVersionEvaluated(RuleVersion)} with {@code
+     *          this} as parameter is true, select the value returned by
+     *          {@link Evaluator#getRuleVersionValue(RuleVersion)} with {@code this} as parameter</li>
+     *     <li>Else, if {@link RuleVersion#value} is not null, select it</li>
+     *     <li>Else, evaluate the {@link AbstractFormula formula} by delegating to
+     *          {@link RuleVersion#doGetNumericValue(Evaluator)} and select the returned value</li>
+     *     <li>Set the selected value by delegating to {@link RuleVersion#setValue(Object, Evaluator)}</li>
+     *     <li>Return the selected value</li>
+     * </ol>
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value as {@link Double}, may be null if the result of the evaluation of the
+     * {@link AbstractFormula formula} is null
+     * @throws GLanguageException if an error occurs during the evaluation process
+     * @see Evaluator#isRuleVersionEvaluated(RuleVersion)
+     * @see Evaluator#getRuleVersionValue(RuleVersion)
+     * @see AbstractFormula#getNumericValue(Evaluator)
+     * @see RuleVersion#setValue(Object, Evaluator)
+     */
     @Transient
     public Double getNumericValue(Evaluator evaluator) throws GLanguageException {
         Double val;
@@ -422,8 +686,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
             try {
                 val = doGetNumericValue(evaluator);
             } catch (GLanguageException e) {
-                e.getError().setOuterError(new RuleUnableToEvaluateNumericInnerError(this,
-                                                                                     evaluator) {
+                e.getError().setOuterError(new RuleUnableToEvaluateNumericInnerError(this, evaluator) {
                 });
                 throw e;
             }
@@ -435,6 +698,22 @@ public class RuleVersion implements Comparable<RuleVersion> {
         return val;
     }
 
+    /**
+     * Get the value as {@link Integer}, eventually rounded<br>
+     * Evaluation process :
+     * <ol>
+     *     <li>Get the value as {@link Double} by delegating to {@link RuleVersion#getDoubleValue(Evaluator)}</li>
+     *     <li>Apply rounding if needed</li>
+     *     <li>Convert to {@link Integer}</li>
+     *     <li>Return the value</li>
+     * </ol>
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value as {@link Integer}, eventually rounded
+     * @throws GLanguageException if an error occurs during the evaluation process or if the
+     * {@link RuleVersion#getReturnType(Evaluator)} is not {@link FormulaReturnType#INTEGER} or
+     * {@link FormulaReturnType#NUMERIC}
+     */
     @Transient
     private Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
         Double formulaValue = getDoubleValue(evaluator);
@@ -451,6 +730,21 @@ public class RuleVersion implements Comparable<RuleVersion> {
         return result;
     }
 
+    /**
+     * Get the value as {@link Double}, eventually rounded<br>
+     * Evaluation process :
+     * <ol>
+     *     <li>Get the value as {@link Double} by delegating to {@link RuleVersion#getDoubleValue(Evaluator)}</li>
+     *     <li>Apply rounding if needed</li>
+     *     <li>Return the value</li>
+     * </ol>
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value as {@link Double}, eventually rounded
+     * @throws GLanguageException if an error occurs during the evaluation process or if the
+     * {@link RuleVersion#getReturnType(Evaluator)} is not {@link FormulaReturnType#NUMERIC} or
+     * {@link FormulaReturnType#INTEGER}
+     */
     @Transient
     private Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
         Double formulaValue = getDoubleValue(evaluator);
@@ -467,15 +761,39 @@ public class RuleVersion implements Comparable<RuleVersion> {
         return result;
     }
 
+    /**
+     * Get the value as {@link Double}, eventually rounded<br>
+     * Evaluation process :
+     * <ol>
+     *     <li>Check the {@link AbstractFormula#getReturnType(Evaluator)}
+     *          <ul>
+     *              <li>If {@link FormulaReturnType#INTEGER}, delegate to
+     *              {@link AbstractFormula#getIntegerValue(Evaluator)} and transform the returned value to a
+     *              {@link Double} if not null</li>
+     *              <li>If {@link FormulaReturnType#NUMERIC}, delegate to
+     *              {@link AbstractFormula#getIntegerValue(Evaluator)} and select the returned value</li>
+     *          </ul>
+     *     </li>
+     *     <li>Apply rounding if needed</li>
+     *     <li>Return the value</li>
+     * </ol>
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the value as {@link Double}, eventually rounded
+     * @throws GLanguageException if an error occurs during the evaluation process or if the
+     * {@link RuleVersion#getReturnType(Evaluator)} is not {@link FormulaReturnType#NUMERIC} or
+     * {@link FormulaReturnType#INTEGER}
+     */
     @Transient
     private Double getDoubleValue(Evaluator evaluator) throws GLanguageException {
         switch (formula.getReturnType(evaluator)) {
             case INTEGER:
                 Integer result = formula.getIntegerValue(evaluator);
-                if (result != null)
+                if (result != null) {
                     return formula.getIntegerValue(evaluator).doubleValue();
-                else
+                } else {
                     return null;
+                }
             case NUMERIC:
                 return formula.getNumericValue(evaluator);
             default:
@@ -483,29 +801,34 @@ public class RuleVersion implements Comparable<RuleVersion> {
         }
     }
 
+    /**
+     * Get the return type
+     * A call to this method is equivalent to a call to {@link RuleVersion#getReturnType(Evaluator)} with null
+     * evaluator
+     *
+     * @return the return type
+     * @see RuleVersion#getReturnType(Evaluator)
+     */
     @Transient
     public FormulaReturnType getReturnType() {
         return getReturnType(null);
     }
 
+    /**
+     * Get the return type with an evaluator<br>
+     * The return type of a {@link RuleVersion} is the return type of its {@link AbstractFormula formula}<br>
+     * Ir there is no formula, the return type is {@link FormulaReturnType#UNDEFINED}
+     *
+     * @return the return type
+     */
     @Transient
     public FormulaReturnType getReturnType(Evaluator evaluator) {
-            return getFormula().getReturnType(evaluator);
-    }
-
-    @Transient
-    public boolean isCachable() {
-        return true;
-    }
-
-    @Transient
-    public boolean isCached() {
-        return value != null;
+        return getFormula() != null ? getFormula().getReturnType(evaluator) : FormulaReturnType.UNDEFINED;
     }
 
     /**
-     * Is this roundable ? This is roundable if its rounding type and its
-     * precision are not null
+     * Is this roundable ?<br>
+     * This is roundable if its rounding type and its precision are not null
      *
      * @return true if this is roundable, false otherwise
      */
@@ -516,9 +839,11 @@ public class RuleVersion implements Comparable<RuleVersion> {
 
     /**
      * Is this applicable ?<br>
-     * This is applicable if it hasn't an applicability condition or if its applicability condition is true
+     * A call to this method is equivalent to a call to {@link RuleVersion#isApplicable(Evaluator)} with null
+     * evaluator
      *
      * @return true if this is applicable, false otherwise
+     * @see RuleVersion#isApplicable(Evaluator)
      */
     @Transient
     public boolean isApplicable() throws GLanguageException {
@@ -541,35 +866,29 @@ public class RuleVersion implements Comparable<RuleVersion> {
         }
     }
 
-    @Transient
-    public boolean isValuable() {
-        return getFormula().isValuable();
-    }
-
+    /**
+     * Is this evaluated ?<br>
+     * This is evaluated if it's {@link RuleVersion#value} is not null
+     *
+     * @return true if this is evaluated, false otherwise
+     */
     @Transient
     public boolean isEvaluated() {
         return value != null;
     }
 
     /**
-     * Is this effective at a specified date ? <br>
-     * This is effective at a specified date if the specified date is between
-     * this start date and this end date inclusively
+     * Is this effective at a {@code date} ? <br>
+     * This is effective at a {@code date} if the {@code date} is between {@link RuleVersion#effectiveStartDate} and
+     * {@link RuleVersion#effectiveEndDate} inclusively
      *
-     * @param date The date at which this is effective or not
-     * @return true If this is effective at the specified date, false otherwise
+     * @param date the date at which this is effective or not
+     * @return true if this is effective at the specified {@code date}, false otherwise
      */
     @Transient
     public boolean isEffective(LocalDate date) {
-        return !date.isBefore(getEffectivityStartDate()) && (getEffectivityEndDate() == null || !date
-                .isAfter(getEffectivityEndDate()));
-    }
-
-    @Transient
-    public boolean isBranched() {
-        return (formula != null && formula.isBranched()) && (applicabilityCondition != null && applicabilityCondition
-                .isBranched()) && (groupItems != null && !groupItems.isEmpty() && groupItems.stream()
-                .allMatch(RuleGroupItem::isBranched));
+        return !date.isBefore(getEffectiveStartDate()) && (getEffectiveEndDate() == null || !date.isAfter(
+                getEffectiveEndDate()));
     }
 
     /**
@@ -580,17 +899,17 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     /**
-     * @param effectivityEndDate the endDate to set
+     * @param effectiveEndDate the endDate to set
      */
-    public void setEffectivityEndDate(LocalDate effectivityEndDate) {
-        this.effectivityEndDate = effectivityEndDate;
+    public void setEffectiveEndDate(LocalDate effectiveEndDate) {
+        this.effectiveEndDate = effectiveEndDate;
     }
 
     /**
-     * @param effectitvityStartDate the effectitvityStartDate to set
+     * @param effectiveStartDate the effectiveStartDate to set
      */
-    public void setEffectivityStartDate(LocalDate effectitvityStartDate) {
-        this.effectivityStartDate = effectitvityStartDate;
+    public void setEffectiveStartDate(LocalDate effectiveStartDate) {
+        this.effectiveStartDate = effectiveStartDate;
     }
 
     /**
@@ -663,18 +982,22 @@ public class RuleVersion implements Comparable<RuleVersion> {
         this.ruleSetVersions = ruleSetVersions;
     }
 
-    public void resetCache() {
-        value = null;
-    }
-
     public void resetValue() {
         value = null;
     }
 
     /**
-     * Set the value in the cache
+     * Set the value with an evaluator (can be null)
+     * Evaluation process :
+     * <ul>
+     *     <li>If {@code evaluator} is not null, make {@code evaluator} store the {@code value} by delegating to
+     *          {@link Evaluator#addEvaluatedRuleVersion(RuleVersion, Object)} with {@code this} and {@code value}
+     *          has parameters</li>
+     *     <li>If {@code evaluator} is null, set {@code this} {@link RuleVersion#value}</li>
+     * </ul>
      *
      * @param value the value to set
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
      */
     private void setValue(Object value, Evaluator evaluator) {
         if (evaluator != null) {
@@ -685,45 +1008,15 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     /**
-     * Set the value with a Boolean value
+     * Set the value as {@link Integer} with an evaluator (can be null)
+     * Evaluation process :
+     * <ul>
+     *     <li>Apply rounding if needed and convert result to {@link Integer}</li>
+     *     <li>Set by delegating to {@link RuleVersion#setValue(Object, Evaluator)}</li>
+     * </ul>
      *
      * @param value the value to set
-     */
-    public void setBooleanValue(Boolean value, Evaluator evaluator) {
-        setValue(value, evaluator);
-    }
-
-    /**
-     * Set the value with a LocalDate value
-     *
-     * @param value the value to set
-     */
-    public void setDateValue(LocalDate value, Evaluator evaluator) {
-        setValue(value, evaluator);
-    }
-
-    /**
-     * Set the value with a Duration value
-     *
-     * @param value the value to set
-     */
-    public void setDurationValue(Duration value, Evaluator evaluator) {
-        setValue(value, evaluator);
-    }
-
-    /**
-     * Set the value with a String value
-     *
-     * @param value the value to set
-     */
-    public void setStringValue(String value, Evaluator evaluator) {
-        setValue(value, evaluator);
-    }
-
-    /**
-     * Set the value with a Integer value
-     *
-     * @param value the value to set
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
      */
     public void setIntegerValue(Integer value, Evaluator evaluator) {
         Integer result = null;
@@ -742,7 +1035,12 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     /**
-     * Set the value with a Numeric value
+     * Set the value as {@link Double} with an evaluator (can be null)
+     * Evaluation process :
+     * <ul>
+     *     <li>Apply rounding if needed</li>
+     *     <li>Set by delegating to {@link RuleVersion#setValue(Object, Evaluator)}</li>
+     * </ul>
      *
      * @param value the value to set
      */
@@ -778,6 +1076,6 @@ public class RuleVersion implements Comparable<RuleVersion> {
 
     @Override
     public int compareTo(RuleVersion o) {
-        return o.effectivityStartDate.compareTo(this.effectivityStartDate);
+        return o.effectiveStartDate.compareTo(this.effectiveStartDate);
     }
 }

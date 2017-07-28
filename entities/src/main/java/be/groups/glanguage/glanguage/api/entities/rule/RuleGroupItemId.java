@@ -5,8 +5,10 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
- * 
+ * Id class for {@link RuleGroupItem}
+ *
  * @author michotte
+ * @see RuleGroupItem
  */
 @Embeddable
 public class RuleGroupItemId implements Serializable {
@@ -21,7 +23,9 @@ public class RuleGroupItemId implements Serializable {
 	}
 
 	/**
-	 * @return the ruleVersionId
+	 * Get the rule version id
+	 *
+	 * @return the rule version id
 	 */
 	@Column(name = "RULE_VERSION_ID")
 	public int getRuleVersionId() {
@@ -29,7 +33,9 @@ public class RuleGroupItemId implements Serializable {
 	}
 
 	/**
-	 * @return the ruleCode
+	 * Get the rule id
+	 *
+	 * @return the rule id
 	 */
 	@Column(name = "RULE_IDENTITY_ID")
 	public int getRuleId() {
@@ -37,16 +43,14 @@ public class RuleGroupItemId implements Serializable {
 	}
 
 	/**
-	 * @param ruleVersionId
-	 *            the ruleVersionId to set
+	 * @param ruleVersionId the rule version id to set
 	 */
 	public void setRuleVersionId(int ruleVersionId) {
 		this.ruleVersionId = ruleVersionId;
 	}
 
 	/**
-	 * @param ruleCode
-	 *            the ruleCode to set
+	 * @param ruleId the rule id to set
 	 */
 	public void setRuleId(int ruleId) {
 		this.ruleId = ruleId;

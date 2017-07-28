@@ -1,7 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.utils.format;
 
 /**
- * Enumeration for sign formats
+ * Enum representing the sign formats
  * 
  * @author michotte
  */

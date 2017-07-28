@@ -6,6 +6,11 @@ import be.groups.presta.backoffice.persistence.base.BaseDao;
 
 import javax.persistence.EntityManager;
 
+/**
+ * DAO for {@link FormulaDescription}
+ * <p>
+ * @author michotte
+ */
 public class FormulaDescriptionDao extends BaseDao<Integer, FormulaDescription> {
 
 	public FormulaDescriptionDao() {

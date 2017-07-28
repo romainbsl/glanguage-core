@@ -1,5 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
+import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -24,49 +26,69 @@ public class RuleDescription {
 
 	/**
 	 * Alias in French language
+	 * TODO to be deleted
 	 */
 	private String aliasFr;
 
 	/**
 	 * Alias in Dutch language
+	 * TODO to be deleted
 	 */
 	private String aliasNl;
 
 	/**
 	 * Alias in German language
+	 * TODO to be deleted
 	 */
 	private String aliasDe;
 
 	/**
 	 * Alias in other language
+	 * TODO to be deleted
 	 */
 	private String aliasX;
 
 	/**
 	 * Description in French language
+	 * TODO to be deleted
 	 */
 	private String descriptionFr;
 
 	/**
 	 * Description in Dutch language
+	 * TODO to be deleted
 	 */
 	private String descriptionNl;
 
 	/**
 	 * Description in German language
+	 * TODO to be deleted
 	 */
 	private String descriptionDe;
 
 	/**
 	 * Description in other language
+	 * TODO to be deleted
 	 */
 	private String descriptionX;
+
+	/**
+	 * Alias in multiple languages
+	 */
+	private MultilingualString alias;
+
+	/**
+	 * Description in multiple languages
+	 */
+	private MultilingualString description;
 
 	public RuleDescription() {
 		super();
 	}
 
 	/**
+	 * Get the technical id
+	 *
 	 * @return the id
 	 */
 	@Id
@@ -76,7 +98,9 @@ public class RuleDescription {
 	}
 
 	/**
-	 * @return the ruleVersion
+	 * Get the rule version of which {@code this} is the description
+	 *
+	 * @return the rule version of which {@code this} is the description
 	 */
 	@OneToMany(mappedBy = "ruleDescription")
 	public List<RuleVersion> getRuleVersions() {
@@ -84,6 +108,8 @@ public class RuleDescription {
 	}
 
 	/**
+	 * Get the code
+	 *
 	 * @return the code
 	 */
 	@Column(name = "CODE")
@@ -92,7 +118,9 @@ public class RuleDescription {
 	}
 
 	/**
-	 * @return the aliasFr
+	 * Get the French alias
+	 *
+	 * @return the French alias
 	 */
 	@Column(name = "ALIAS_FR")
 	public String getAliasFr() {
@@ -100,7 +128,9 @@ public class RuleDescription {
 	}
 
 	/**
-	 * @return the aliasNl
+	 * Get the Dutch alias
+	 *
+	 * @return the Dutch alias
 	 */
 	@Column(name = "ALIAS_NL")
 	public String getAliasNl() {
@@ -108,7 +138,9 @@ public class RuleDescription {
 	}
 
 	/**
-	 * @return the aliasDe
+	 * Get the German alias
+	 *
+	 * @return the German alias
 	 */
 	@Column(name = "ALIAS_DE")
 	public String getAliasDe() {
@@ -116,7 +148,9 @@ public class RuleDescription {
 	}
 
 	/**
-	 * @return the aliasX
+	 * Get the other alias
+	 *
+	 * @return the other alias
 	 */
 	@Column(name = "ALIAS_X")
 	public String getAliasX() {
@@ -124,7 +158,9 @@ public class RuleDescription {
 	}
 
 	/**
-	 * @return the descriptionFr
+	 * Get the French description
+	 *
+	 * @return the French description
 	 */
 	@Column(name = "DESCRIPTION_FR")
 	public String getDescriptionFr() {
@@ -132,7 +168,9 @@ public class RuleDescription {
 	}
 
 	/**
-	 * @return the descriptionNl
+	 * Get the Dutch description
+	 *
+	 * @return the Dutch description
 	 */
 	@Column(name = "DESCRIPTION_NL")
 	public String getDescriptionNl() {
@@ -140,7 +178,9 @@ public class RuleDescription {
 	}
 
 	/**
-	 * @return the descriptionDe
+	 * Get the German description
+	 *
+	 * @return the German description
 	 */
 	@Column(name = "DESCRIPTION_DE")
 	public String getDescriptionDe() {
@@ -148,7 +188,9 @@ public class RuleDescription {
 	}
 
 	/**
-	 * @return the descriptionX
+	 * Get the other description
+	 *
+	 * @return the other description
 	 */
 	@Column(name = "DESCRIPTION_X")
 	public String getDescriptionX() {
@@ -156,91 +198,114 @@ public class RuleDescription {
 	}
 
 	/**
-	 * @param id
-	 *            the id to set
+	 * @return the alias
+	 */
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ALIAS_ID", referencedColumnName = "ID")
+	public MultilingualString getAlias() {
+		return alias;
+	}
+
+	/**
+	 * @return the description
+	 */
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "DESC_ID", referencedColumnName = "ID")
+	public MultilingualString getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param id the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
 	/**
-	 * @param ruleVersions
-	 *            the ruleVersions to set
+	 * @param ruleVersions the ruleVersions to set
 	 */
 	public void setRuleVersions(List<RuleVersion> ruleVersions) {
 		this.ruleVersions = ruleVersions;
 	}
 
 	/**
-	 * @param code
-	 *            the code to set
+	 * @param code the code to set
 	 */
 	public void setCode(String code) {
 		this.code = code;
 	}
 
 	/**
-	 * @param aliasFr
-	 *            the aliasFr to set
+	 * @param aliasFr the French alias to set
 	 */
 	public void setAliasFr(String aliasFr) {
 		this.aliasFr = aliasFr;
 	}
 
 	/**
-	 * @param aliasNl
-	 *            the aliasNl to set
+	 * @param aliasNl the Dutch alias to set
 	 */
 	public void setAliasNl(String aliasNl) {
 		this.aliasNl = aliasNl;
 	}
 
 	/**
-	 * @param aliasDe
-	 *            the aliasDe to set
+	 * @param aliasDe the German alias to set
 	 */
 	public void setAliasDe(String aliasDe) {
 		this.aliasDe = aliasDe;
 	}
 
 	/**
-	 * @param aliasX
-	 *            the aliasX to set
+	 * @param aliasX the other alias to set
 	 */
 	public void setAliasX(String aliasX) {
 		this.aliasX = aliasX;
 	}
 
 	/**
-	 * @param descriptionFr
-	 *            the descriptionFr to set
+	 * @param descriptionFr the French description to set
 	 */
 	public void setDescriptionFr(String descriptionFr) {
 		this.descriptionFr = descriptionFr;
 	}
 
 	/**
-	 * @param descriptionNl
-	 *            the descriptionNl to set
+	 * @param descriptionNl the Dutch description to set
 	 */
 	public void setDescriptionNl(String descriptionNl) {
 		this.descriptionNl = descriptionNl;
 	}
 
 	/**
-	 * @param descriptionDe
-	 *            the descriptionDe to set
+	 * @param descriptionDe the German description to set
 	 */
 	public void setDescriptionDe(String descriptionDe) {
 		this.descriptionDe = descriptionDe;
 	}
 
 	/**
-	 * @param descriptionX
-	 *            the descriptionX to set
+	 * @param descriptionX the other description to set
 	 */
 	public void setDescriptionX(String descriptionX) {
 		this.descriptionX = descriptionX;
+	}
+
+	/**
+	 * @param alias
+	 * 			the alias to set
+	 */
+	public void setAlias(MultilingualString alias) {
+		this.alias = alias;
+	}
+
+	/**
+	 * @param description
+	 * 			the description to et
+	 */
+	public void setDescription(MultilingualString description) {
+		this.description = description;
 	}
 
 	@Override

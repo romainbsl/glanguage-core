@@ -7,7 +7,7 @@ import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
 import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 
 /**
- * Created by michotte on 20/12/2016.
+ * @author michotte
  */
 public class FormulaEvaluateTypeInnerError extends FormulaInnerError {
 

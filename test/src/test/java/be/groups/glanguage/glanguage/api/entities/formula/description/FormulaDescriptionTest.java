@@ -540,7 +540,7 @@ public class FormulaDescriptionTest extends BaseDatabaseTest {
         when(parameterCombinationItem1.getId()).thenReturn(1);
         when(parameterCombinationItem1.isValidType(parameters.get(0), null)).thenReturn(true);
         parameterCombinationItems1.add(parameterCombinationItem1);
-        when(parameterCombination1.getParameters()).thenReturn(parameterCombinationItems1);
+        when(parameterCombination1.getCombinationParameters()).thenReturn(parameterCombinationItems1);
         when(usage1.getParameterCombination()).thenReturn(parameterCombination1);
         usages.add(usage1);
         FormulaUsage usage2 = mock(FormulaUsage.class);
@@ -553,7 +553,7 @@ public class FormulaDescriptionTest extends BaseDatabaseTest {
         when(parameterCombinationItem2.getId()).thenReturn(1);
         when(parameterCombinationItem2.isValidType(parameters.get(0), null)).thenReturn(false);
         parameterCombinationItems2.add(parameterCombinationItem2);
-        when(parameterCombination2.getParameters()).thenReturn(parameterCombinationItems2);
+        when(parameterCombination2.getCombinationParameters()).thenReturn(parameterCombinationItems2);
         when(usage2.getParameterCombination()).thenReturn(parameterCombination2);
         usages.add(usage2);
         when(description.getUsages()).thenReturn(usages);

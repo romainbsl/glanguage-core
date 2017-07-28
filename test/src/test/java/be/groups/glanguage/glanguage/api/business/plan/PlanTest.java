@@ -18,8 +18,8 @@ public class PlanTest extends BaseDatabaseTest {
      */
     @Test
     public void testEvaluate() throws GLanguageException {
-        LocalDate effectivityDate = LocalDate.now();
-        Plan plan = Universe.getPlan(-900003, effectivityDate);
+        LocalDate effectiveDate = LocalDate.now();
+        Plan plan = Universe.getPlan(-900003, effectiveDate);
         plan.initEvaluation();
         assertNotNull(plan);
         assertNotNull(plan.getRuleVersions());
@@ -56,8 +56,8 @@ public class PlanTest extends BaseDatabaseTest {
      */
     @Test
     public void testEvaluateRule900002() throws GLanguageException {
-        LocalDate effectivityDate = LocalDate.now();
-        Plan plan = Universe.getPlan(-900003, effectivityDate);
+        LocalDate effectiveDate = LocalDate.now();
+        Plan plan = Universe.getPlan(-900003, effectiveDate);
         plan.initEvaluation();
         assertNotNull(plan);
         assertNotNull(plan.getRuleVersions());
@@ -84,8 +84,8 @@ public class PlanTest extends BaseDatabaseTest {
      */
     @Test
     public void testEvaluateRule900003() throws GLanguageException {
-        LocalDate effectivityDate = LocalDate.now();
-        Plan plan = Universe.getPlan(-900003, effectivityDate);
+        LocalDate effectiveDate = LocalDate.now();
+        Plan plan = Universe.getPlan(-900003, effectiveDate);
         plan.initEvaluation();
         assertNotNull(plan);
         assertNotNull(plan.getRuleVersions());

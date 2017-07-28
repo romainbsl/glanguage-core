@@ -7,7 +7,7 @@ import be.groups.glanguage.glanguage.api.error.formula.FormulaInnerError;
 import be.groups.glanguage.glanguage.api.error.utils.ErrorMethod;
 
 /**
- * Created by michotte on 25/01/2017.
+ * @author michotte
  */
 public class FormulaCannotInvokeEvaluationMethodInnerErrorFactory {
 

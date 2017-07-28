@@ -3,6 +3,11 @@ package be.groups.glanguage.glanguage.api.entities.rule.definition;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
+/**
+ * Converter class for {@link DefinitionLevel} enum
+ *
+ * @author michotte
+ */
 @Converter
 public class DefinitionLevelConverter implements AttributeConverter<DefinitionLevel, Integer> {
 

@@ -82,29 +82,29 @@ public class UniverseTest extends BaseDatabaseTest {
 	}
 	
 	/**
-	 * Test {@link Universe#getRuleSetVersion(Integer, LocalDateTime)} when rule set id is 900000 and exploitation date is now
+	 * Test {@link Universe#getRuleSetVersion(Integer, LocalDateTime)} when rule set id is 900000 and production date is now
 	 */
 	@Test
-	public void testGetRuleSetVersionByRuleSetIdAndExploitationDate() {
-		LocalDateTime exploitationDate = LocalDateTime.now();
-		RuleSetVersion ruleSetVersion = Universe.getRuleSetVersion(-900000, exploitationDate);
+	public void testGetRuleSetVersionByRuleSetIdAndProductionDate() {
+		LocalDateTime productionDate = LocalDateTime.now();
+		RuleSetVersion ruleSetVersion = Universe.getRuleSetVersion(-900000, productionDate);
 		assertNotNull(ruleSetVersion);
 		assertEquals(-900000, ruleSetVersion.getRuleSet().getId());
-		assertFalse("exploitation start date after exploitation date",
-				ruleSetVersion.getExploitationStartDate().isAfter(exploitationDate));
+		assertFalse("production start date after production date",
+				ruleSetVersion.getProductionStartDate().isAfter(productionDate));
 	}
 	
 	/**
-	 * Test {@link Universe#getRuleSetVersion(String, LocalDateTime)} when rule set id is "rs1_fr" and exploitation date is now
+	 * Test {@link Universe#getRuleSetVersion(String, LocalDateTime)} when rule set id is "rs1_fr" and production date is now
 	 */
 	@Test
-	public void testGetRuleSetVersionByRuleSetAliasAndExploitationDate() {
-		LocalDateTime exploitationDate = LocalDateTime.now();
-		RuleSetVersion ruleSetVersion = Universe.getRuleSetVersion("rs1_fr", exploitationDate);
+	public void testGetRuleSetVersionByRuleSetAliasAndProductionDate() {
+		LocalDateTime productionDate = LocalDateTime.now();
+		RuleSetVersion ruleSetVersion = Universe.getRuleSetVersion("rs1_fr", productionDate);
 		assertNotNull(ruleSetVersion);
 		assertEquals("rs1_fr", ruleSetVersion.getRuleSet().getAliasFr());
-		assertFalse("exploitation start date after exploitation date",
-				ruleSetVersion.getExploitationStartDate().isAfter(exploitationDate));
+		assertFalse("production start date after production date",
+				ruleSetVersion.getProductionStartDate().isAfter(productionDate));
 	}
 	
 	/**
@@ -112,8 +112,8 @@ public class UniverseTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetPlan() {
-		LocalDate effectivityDate = LocalDate.now();
-		Plan plan = Universe.getPlan(-900000, effectivityDate);
+		LocalDate effectiveDate = LocalDate.now();
+		Plan plan = Universe.getPlan(-900000, effectiveDate);
 		assertNotNull(plan);
 		assertNotNull(plan.getRuleVersions());
 		assertFalse(plan.getRuleVersions().isEmpty());

@@ -12,6 +12,11 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 import java.util.List;
 
+/**
+ * Formula implementing the operation to determine the sign of a number
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_SIGN)
 public class FormulaMathSign extends MathFormula {
@@ -26,6 +31,15 @@ public class FormulaMathSign extends MathFormula {
         super(description, parameters, evaluator);
     }
 
+    /**
+     * Get the sign of the value of the parameter as {@link Double}<br>
+     * The value will be negative, zero or positive if the value of the parameter is negative, zero or positive
+     * respectively
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the sign of the value of the parameter as {@link Double}
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override

@@ -16,6 +16,11 @@ import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Formula implementing the formatting of an integer value
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_FORMAT_INTEGER)
 public class FormulaFormatInteger extends FormatFormula {
@@ -37,6 +42,13 @@ public class FormulaFormatInteger extends FormatFormula {
         this.parameters.addAll(parameters);
     }
 
+    /**
+     * Get the formatted value as {@link String} according to format parameters
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the formatted value as {@link String} according to a format parameters
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override

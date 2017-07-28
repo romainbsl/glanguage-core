@@ -7,7 +7,12 @@ import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import java.util.Map;
 
 /**
- * Created by michotte on 14/12/2016.
+ * This class provides the ability of evaluating {@link RuleVersion rule versions} and to cache their values.<br>
+ * It also provides a method to get access to a context needed by
+ * {@link be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet get formulas} in order
+ * to have access to the methods by reflection on that context object
+ *
+ * @author michotte
  */
 public interface Evaluator {
 

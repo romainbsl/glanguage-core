@@ -7,7 +7,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 /**
- * Created by michotte on 17/05/2017.
+ * This class represents a {@link FormulaUsage} return type<br>
+ * Each {@link FormulaUsage} can have multiple return types, this class represent one of them
+ *
+ * @author michotte
  */
 @Entity
 @Table(name = "FORMULA_USAGE_RETURN_TYPE")
@@ -16,8 +19,20 @@ public class FormulaUsageReturnType {
     /*
      * Fields
      */
+
+    /**
+     * Technical unique ID
+     */
     private Integer id;
+
+    /**
+     * Usage for which this is a return type
+     */
     private FormulaUsage usage;
+
+    /**
+     * Return type
+     */
     private FormulaReturnType returnType;
 
     /*
@@ -30,12 +45,23 @@ public class FormulaUsageReturnType {
     /*
      * Getters
      */
+
+    /**
+     * Get the technical id
+     *
+     * @return the id
+     */
     @Id
     @Column(name = "ID", nullable = false)
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Get the usage for which this is a return type
+     *
+     * @return the usage for which this is a return type
+     */
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "FORMULA_USAGE_ID", referencedColumnName = "ID")
@@ -43,6 +69,11 @@ public class FormulaUsageReturnType {
         return usage;
     }
 
+    /**
+     * Get the return type
+     *
+     * @return the return type
+     */
     @Column(name = "FORMULA_RETURN_TYPE_ID", nullable = false)
     @Convert(converter = FormulaReturnTypeConverter.class)
     public FormulaReturnType getReturnType() {
@@ -52,14 +83,24 @@ public class FormulaUsageReturnType {
     /*
      * Setters
      */
+
+    /**
+     * @param id the id to set
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * @param usage the usage for which this is a return type to set
+     */
     public void setUsage(FormulaUsage usage) {
         this.usage = usage;
     }
 
+    /**
+     * @param returnType the return types to set
+     */
     public void setReturnType(FormulaReturnType returnType) {
         this.returnType = returnType;
     }

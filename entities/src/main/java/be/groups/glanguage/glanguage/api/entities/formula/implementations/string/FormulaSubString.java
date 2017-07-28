@@ -14,6 +14,11 @@ import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Formula implementing substring operation on a string
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_SUBSTRING)
 public class FormulaSubString extends AbstractNonTerminalFormula {
@@ -35,6 +40,15 @@ public class FormulaSubString extends AbstractNonTerminalFormula {
         this.parameters.addAll(parameters);
     }
 
+    /**
+     * Get the substring of the first parameter beginning at the second parameter index and ending at the third
+     * parameter index, or at the end if the third parameter does not exist, as {@link String}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return the substring of the first parameter beginning at the second parameter index and ending at the third
+     * parameter index, or at the end if the third parameter does not exist, as {@link String}
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -50,6 +64,7 @@ public class FormulaSubString extends AbstractNonTerminalFormula {
         if ((0 <= beginIndex) && (beginIndex <= endIndex) && (endIndex < str.length())) {
             return str.substring(beginIndex, endIndex + 1);
         } else {
+            // TODO replace by GLanguageException
             throw new IllegalArgumentException("Bounds not valid in " + this.getClass()
                     .getName() + " object : string = " + str + " (length = " + str
                     .length() + ") , beginIndex = " + beginIndex + ", endIndex = " + endIndex);

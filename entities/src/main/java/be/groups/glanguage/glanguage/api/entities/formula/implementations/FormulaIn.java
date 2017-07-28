@@ -14,9 +14,17 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Formula implementing the logical in operation - check if an element is part of a list of elements
+ *
+ * @author michotte
+ */
 @Entity
 @DiscriminatorValue(FormulaType.Values.F_IN)
 public class FormulaIn extends AbstractNonTerminalFormula {
@@ -42,6 +50,19 @@ public class FormulaIn extends AbstractNonTerminalFormula {
         this.parameters.addAll(inList);
     }
 
+    /**
+     * Get the parameters as list<br>
+     * Helper method for constructor to pass the parameters as a list to the super constructor of
+     * {@link AbstractNonTerminalFormula}
+     *
+     * @param element the first parameter to be added to the list
+     * @param inList the other parameters to be added to the list after {@code element}
+     * @return a list with at least 2 items which are
+     * <ol>
+     *     <li>the value to be checked if it is present in the list</li>
+     *     <li>the elements of the list (1 or more)</li>
+     * </ol>
+     */
     @Transient
     @JsonIgnore
     private static List<AbstractFormula> getParametersAsList(AbstractFormula element, List<AbstractFormula> inList) {
@@ -51,6 +72,13 @@ public class FormulaIn extends AbstractNonTerminalFormula {
         return list;
     }
 
+    /**
+     * Get the value as {@link Boolean}
+     *
+     * @param evaluator the evaluator to be used in the evaluation process, can be null
+     * @return true if the first parameter is part of the list of the second parameter, false otherwise
+     * @throws GLanguageException if an error occurs during the evaluation process
+     */
     @JsonIgnore
     @Transient
     @Override
@@ -102,22 +130,13 @@ public class FormulaIn extends AbstractNonTerminalFormula {
         }
     }
 
-    @Transient
-    public boolean isValid(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
-        FormulaReturnType elementReturnType = parameters.get(0).getReturnType(evaluator);
-        List<FormulaReturnType> listReturnTypes = parameters.subList(1, parameters.size()).stream().map(p -> p
-                .getReturnType(evaluator)).distinct().collect(Collectors.toList());
-
-        if (listReturnTypes.size() == 1) {
-            return elementReturnType.equals(listReturnTypes.get(0));
-        } else {
-            List<FormulaReturnType> authorizedParametersTypes = Arrays.asList(FormulaReturnType.INTEGER,
-                                                                              FormulaReturnType.NUMERIC);
-            return listReturnTypes.stream().allMatch(authorizedParametersTypes::contains) && authorizedParametersTypes
-                    .contains(elementReturnType);
-        }
-    }
-
+    /**
+     * Get the return type<br>
+     * The return type of this type of formula is always {@link FormulaReturnType#BOOLEAN}
+     *
+     * @param evaluator the evaluator to be used during the validation process, can be null
+     * @return always {@link FormulaReturnType#BOOLEAN}
+     */
     @Transient
     @Override
     public FormulaReturnType getReturnType(Evaluator evaluator) {
@@ -154,7 +173,7 @@ public class FormulaIn extends AbstractNonTerminalFormula {
             sb.append(itInList.next().asText());
 
             if (itInList.hasNext()) {
-                sb.append(", ");
+                sb.append("; ");
             }
         }
         sb.append(")");

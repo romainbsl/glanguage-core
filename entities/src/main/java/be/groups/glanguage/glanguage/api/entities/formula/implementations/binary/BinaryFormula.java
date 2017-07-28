@@ -5,12 +5,16 @@ import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.glanguage.glanguage.api.error.formula.base.parameter.FormulaNullParameterInnerError;
 
 import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Abstract formula implementing an operation on exactly two (2) parameters
+ *
+ * @author michotte
+ */
 @Entity
 public abstract class BinaryFormula extends AbstractNonTerminalFormula {
 	
@@ -22,14 +26,7 @@ public abstract class BinaryFormula extends AbstractNonTerminalFormula {
 			throws
 																										  GLanguageException {
 		super(description, Arrays.asList(child1, child2), evaluator);
-
-		if (child1 == null) {
-			throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
-		}
-		if (child2 == null) {
-			throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 2));
-		}
-		this.parameters = new ArrayList<>();
+		this.parameters = new ArrayList<>(2);
 		parameters.add(child1);
 		parameters.add(child2);
 	}

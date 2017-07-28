@@ -44,7 +44,7 @@ public class RuleSetVersionTest extends BaseDatabaseTest {
 		
 		assertEquals(-900001, ruleSetVersion.getId());
 
-		assertEquals(LocalDateTime.of(2016, 9, 7, 9, 0), ruleSetVersion.getExploitationStartDate());
+		assertEquals(LocalDateTime.of(2016, 9, 7, 9, 0), ruleSetVersion.getProductionStartDate());
 		assertEquals("1.0.1", ruleSetVersion.getVersion());
 		assertNotNull(ruleSetVersion.getCreationDate());
 		assertEquals("dupirefr", ruleSetVersion.getCreationAuthor());
@@ -87,7 +87,7 @@ public class RuleSetVersionTest extends BaseDatabaseTest {
 	@Test
 	public void testGetDefaultRuleVersionFound() {
 		String code = "r1";
-		LocalDate effectivity = LocalDate.of(2015, 1,  1);
+		LocalDate effective = LocalDate.of(2015, 1,  1);
 		
 		RuleDefinition defaultRuleDefinition = mock(RuleDefinition.class);
 		when(defaultRuleDefinition.getLevel()).thenReturn(DefinitionLevel.DEFAULT);
@@ -98,31 +98,31 @@ public class RuleSetVersionTest extends BaseDatabaseTest {
 		RuleDescription ruleDescription = mock(RuleDescription.class);
 		when(ruleDescription.getCode()).thenReturn("r1");
 		
-		RuleVersion defaultRuleVersionRightEffectivity = mock(RuleVersion.class);
-		when(defaultRuleVersionRightEffectivity.getRuleDescription()).thenReturn(ruleDescription);
-		when(defaultRuleVersionRightEffectivity.getRuleDefinition()).thenReturn(defaultRuleDefinition);
-		when(defaultRuleVersionRightEffectivity.isEffective(effectivity)).thenReturn(true);
+		RuleVersion defaultRuleVersionRightEffective = mock(RuleVersion.class);
+		when(defaultRuleVersionRightEffective.getRuleDescription()).thenReturn(ruleDescription);
+		when(defaultRuleVersionRightEffective.getRuleDefinition()).thenReturn(defaultRuleDefinition);
+		when(defaultRuleVersionRightEffective.isEffective(effective)).thenReturn(true);
 		
-		RuleVersion defaultRuleVersionWrongEffectivity = mock(RuleVersion.class);
-		when(defaultRuleVersionWrongEffectivity.getRuleDescription()).thenReturn(ruleDescription);
-		when(defaultRuleVersionWrongEffectivity.getRuleDefinition()).thenReturn(defaultRuleDefinition);
-		when(defaultRuleVersionWrongEffectivity.isEffective(effectivity)).thenReturn(false);
+		RuleVersion defaultRuleVersionWrongEffective = mock(RuleVersion.class);
+		when(defaultRuleVersionWrongEffective.getRuleDescription()).thenReturn(ruleDescription);
+		when(defaultRuleVersionWrongEffective.getRuleDefinition()).thenReturn(defaultRuleDefinition);
+		when(defaultRuleVersionWrongEffective.isEffective(effective)).thenReturn(false);
 		
 		RuleVersion employerRuleVersion = mock(RuleVersion.class);
 		when(employerRuleVersion.getRuleDescription()).thenReturn(ruleDescription);
 		when(employerRuleVersion.getRuleDefinition()).thenReturn(employerRuleDefinition);
-		when(employerRuleVersion.isEffective(effectivity)).thenReturn(true);
+		when(employerRuleVersion.isEffective(effective)).thenReturn(true);
 		
 		RuleSetVersion ruleSetVersion = new RuleSetVersion();
 		ruleSetVersion.setRuleVersions(new HashSet<>());
-		ruleSetVersion.getRuleVersions().add(defaultRuleVersionRightEffectivity);
-		ruleSetVersion.getRuleVersions().add(defaultRuleVersionWrongEffectivity);
+		ruleSetVersion.getRuleVersions().add(defaultRuleVersionRightEffective);
+		ruleSetVersion.getRuleVersions().add(defaultRuleVersionWrongEffective);
 		ruleSetVersion.getRuleVersions().add(employerRuleVersion);
 		
-		RuleVersion foundRuleVersion = ruleSetVersion.getDefaultRuleVersion(code, effectivity);
+		RuleVersion foundRuleVersion = ruleSetVersion.getDefaultRuleVersion(code, effective);
 		
 		assertNotNull(foundRuleVersion);
-		assertEquals(defaultRuleVersionRightEffectivity, foundRuleVersion);
+		assertEquals(defaultRuleVersionRightEffective, foundRuleVersion);
 	}
 	
 	/**
@@ -133,7 +133,7 @@ public class RuleSetVersionTest extends BaseDatabaseTest {
 	@Test
 	public void testGetDefaultRuleVersionNoEffectiveRuleVersion() {
 		String code = "r1";
-		LocalDate effectivity = LocalDate.of(2015, 1,  1);
+		LocalDate effective = LocalDate.of(2015, 1,  1);
 		
 		RuleDefinition defaultRuleDefinition = mock(RuleDefinition.class);
 		when(defaultRuleDefinition.getLevel()).thenReturn(DefinitionLevel.DEFAULT);
@@ -147,19 +147,19 @@ public class RuleSetVersionTest extends BaseDatabaseTest {
 		RuleVersion defaultRuleVersion = mock(RuleVersion.class);
 		when(defaultRuleVersion.getRuleDescription()).thenReturn(ruleDescription);
 		when(defaultRuleVersion.getRuleDefinition()).thenReturn(defaultRuleDefinition);
-		when(defaultRuleVersion.isEffective(effectivity)).thenReturn(false);
+		when(defaultRuleVersion.isEffective(effective)).thenReturn(false);
 		
 		RuleVersion employerRuleVersion = mock(RuleVersion.class);
 		when(employerRuleVersion.getRuleDescription()).thenReturn(ruleDescription);
 		when(employerRuleVersion.getRuleDefinition()).thenReturn(employerRuleDefinition);
-		when(employerRuleVersion.isEffective(effectivity)).thenReturn(true);
+		when(employerRuleVersion.isEffective(effective)).thenReturn(true);
 		
 		RuleSetVersion ruleSetVersion = new RuleSetVersion();
 		ruleSetVersion.setRuleVersions(new HashSet<>());
 		ruleSetVersion.getRuleVersions().add(defaultRuleVersion);
 		ruleSetVersion.getRuleVersions().add(employerRuleVersion);
 		
-		RuleVersion foundRuleVersion = ruleSetVersion.getDefaultRuleVersion(code, effectivity);
+		RuleVersion foundRuleVersion = ruleSetVersion.getDefaultRuleVersion(code, effective);
 		
 		assertNull(foundRuleVersion);
 	}
@@ -172,7 +172,7 @@ public class RuleSetVersionTest extends BaseDatabaseTest {
 	@Test
 	public void testGetDefaultRuleVersionNoDefaultRuleVersion() {
 		String code = "r1";
-		LocalDate effectivity = LocalDate.of(2015, 1,  1);
+		LocalDate effective = LocalDate.of(2015, 1,  1);
 		
 		RuleDefinition employerRuleDefinition = mock(RuleDefinition.class);
 		when(employerRuleDefinition.getLevel()).thenReturn(DefinitionLevel.EMPLOYER);
@@ -183,13 +183,13 @@ public class RuleSetVersionTest extends BaseDatabaseTest {
 		RuleVersion employerRuleVersion = mock(RuleVersion.class);
 		when(employerRuleVersion.getRuleDescription()).thenReturn(ruleDescription);
 		when(employerRuleVersion.getRuleDefinition()).thenReturn(employerRuleDefinition);
-		when(employerRuleVersion.isEffective(effectivity)).thenReturn(true);
+		when(employerRuleVersion.isEffective(effective)).thenReturn(true);
 		
 		RuleSetVersion ruleSetVersion = new RuleSetVersion();
 		ruleSetVersion.setRuleVersions(new HashSet<>());
 		ruleSetVersion.getRuleVersions().add(employerRuleVersion);
 		
-		RuleVersion foundRuleVersion = ruleSetVersion.getDefaultRuleVersion(code, effectivity);
+		RuleVersion foundRuleVersion = ruleSetVersion.getDefaultRuleVersion(code, effective);
 		
 		assertNull(foundRuleVersion);
 	}
@@ -201,7 +201,7 @@ public class RuleSetVersionTest extends BaseDatabaseTest {
 	@Test
 	public void testGetDefaultRuleVersionNoRuleVersionForCode() {
 		String code = "r1";
-		LocalDate effectivity = LocalDate.of(2015, 1,  1);
+		LocalDate effective = LocalDate.of(2015, 1,  1);
 		
 		RuleDefinition defaultRuleDefinition = mock(RuleDefinition.class);
 		when(defaultRuleDefinition.getLevel()).thenReturn(DefinitionLevel.DEFAULT);
@@ -212,13 +212,13 @@ public class RuleSetVersionTest extends BaseDatabaseTest {
 		RuleVersion defaultRuleVersion = mock(RuleVersion.class);
 		when(defaultRuleVersion.getRuleDescription()).thenReturn(ruleDescription);
 		when(defaultRuleVersion.getRuleDefinition()).thenReturn(defaultRuleDefinition);
-		when(defaultRuleVersion.isEffective(effectivity)).thenReturn(true);
+		when(defaultRuleVersion.isEffective(effective)).thenReturn(true);
 		
 		RuleSetVersion ruleSetVersion = new RuleSetVersion();
 		ruleSetVersion.setRuleVersions(new HashSet<>());
 		ruleSetVersion.getRuleVersions().add(defaultRuleVersion);
 		
-		RuleVersion foundRuleVersion = ruleSetVersion.getDefaultRuleVersion(code, effectivity);
+		RuleVersion foundRuleVersion = ruleSetVersion.getDefaultRuleVersion(code, effective);
 		
 		assertNull(foundRuleVersion);
 	}
@@ -231,7 +231,7 @@ public class RuleSetVersionTest extends BaseDatabaseTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testGetDefinedRuleVersionFound() {
-		LocalDate effectivity = LocalDate.of(2015, 1,  1);
+		LocalDate effective = LocalDate.of(2015, 1,  1);
 		List<RuleDefinitionParameter> ruleDefinitionParameters = (List<RuleDefinitionParameter>) mock(List.class);
 		
 		RuleDefinition defaultRuleDefinition = mock(RuleDefinition.class);
@@ -242,28 +242,28 @@ public class RuleSetVersionTest extends BaseDatabaseTest {
 		
 		RuleVersion defaultRuleVersion = mock(RuleVersion.class);
 		when(defaultRuleVersion.getRuleDefinition()).thenReturn(defaultRuleDefinition);
-		when(defaultRuleVersion.isEffective(effectivity)).thenReturn(false);
+		when(defaultRuleVersion.isEffective(effective)).thenReturn(false);
 		
-		RuleVersion customRuleVersionRightEffectivity = mock(RuleVersion.class);
-		when(customRuleVersionRightEffectivity.getRuleDefinition()).thenReturn(customRuleDefinition);
-		when(customRuleVersionRightEffectivity.isEffective(effectivity)).thenReturn(true);
+		RuleVersion customRuleVersionRightEffective = mock(RuleVersion.class);
+		when(customRuleVersionRightEffective.getRuleDefinition()).thenReturn(customRuleDefinition);
+		when(customRuleVersionRightEffective.isEffective(effective)).thenReturn(true);
 		
-		RuleVersion customRuleVersionWrongEffectivity = mock(RuleVersion.class);
-		when(customRuleVersionWrongEffectivity.getRuleDefinition()).thenReturn(customRuleDefinition);
-		when(customRuleVersionWrongEffectivity.isEffective(effectivity)).thenReturn(false);
+		RuleVersion customRuleVersionWrongEffective = mock(RuleVersion.class);
+		when(customRuleVersionWrongEffective.getRuleDefinition()).thenReturn(customRuleDefinition);
+		when(customRuleVersionWrongEffective.isEffective(effective)).thenReturn(false);
 		
 		RuleSetVersion ruleSetVersion = new RuleSetVersion();
 		ruleSetVersion.setRuleVersions(new HashSet<>());
 		ruleSetVersion.getRuleVersions().add(defaultRuleVersion);
-		ruleSetVersion.getRuleVersions().add(customRuleVersionRightEffectivity);
-		ruleSetVersion.getRuleVersions().add(customRuleVersionWrongEffectivity);
+		ruleSetVersion.getRuleVersions().add(customRuleVersionRightEffective);
+		ruleSetVersion.getRuleVersions().add(customRuleVersionWrongEffective);
 		
-		List<RuleVersion> foundRuleVersions = ruleSetVersion.getDefinedRuleVersions(ruleDefinitionParameters, effectivity);
+		List<RuleVersion> foundRuleVersions = ruleSetVersion.getDefinedRuleVersions(ruleDefinitionParameters, effective);
 		
 		assertNotNull(foundRuleVersions);
 		assertFalse(foundRuleVersions.isEmpty());
 		assertEquals(1, foundRuleVersions.size());
-		assertEquals(customRuleVersionRightEffectivity, foundRuleVersions.get(0));
+		assertEquals(customRuleVersionRightEffective, foundRuleVersions.get(0));
 	}
 	
 	/**
@@ -274,7 +274,7 @@ public class RuleSetVersionTest extends BaseDatabaseTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testGetDefinedRuleVersionNoEffectiveRuleVersion() {
-		LocalDate effectivity = LocalDate.of(2015, 1,  1);
+		LocalDate effective = LocalDate.of(2015, 1,  1);
 		List<RuleDefinitionParameter> ruleDefinitionParameters = (List<RuleDefinitionParameter>) mock(List.class);
 		
 		RuleDefinition defaultRuleDefinition = mock(RuleDefinition.class);
@@ -285,18 +285,18 @@ public class RuleSetVersionTest extends BaseDatabaseTest {
 		
 		RuleVersion defaultRuleVersion = mock(RuleVersion.class);
 		when(defaultRuleVersion.getRuleDefinition()).thenReturn(defaultRuleDefinition);
-		when(defaultRuleVersion.isEffective(effectivity)).thenReturn(false);
+		when(defaultRuleVersion.isEffective(effective)).thenReturn(false);
 		
 		RuleVersion customRuleVersion = mock(RuleVersion.class);
 		when(customRuleVersion.getRuleDefinition()).thenReturn(customRuleDefinition);
-		when(customRuleVersion.isEffective(effectivity)).thenReturn(false);
+		when(customRuleVersion.isEffective(effective)).thenReturn(false);
 		
 		RuleSetVersion ruleSetVersion = new RuleSetVersion();
 		ruleSetVersion.setRuleVersions(new HashSet<>());
 		ruleSetVersion.getRuleVersions().add(defaultRuleVersion);
 		ruleSetVersion.getRuleVersions().add(customRuleVersion);
 		
-		List<RuleVersion> foundRuleVersions = ruleSetVersion.getDefinedRuleVersions(ruleDefinitionParameters, effectivity);
+		List<RuleVersion> foundRuleVersions = ruleSetVersion.getDefinedRuleVersions(ruleDefinitionParameters, effective);
 		
 		assertNotNull(foundRuleVersions);
 		assertTrue(foundRuleVersions.isEmpty());
@@ -310,7 +310,7 @@ public class RuleSetVersionTest extends BaseDatabaseTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testGetDefinedRuleVersionNoMatchingDefinition() {
-		LocalDate effectivity = LocalDate.of(2015, 1,  1);
+		LocalDate effective = LocalDate.of(2015, 1,  1);
 		List<RuleDefinitionParameter> ruleDefinitionParameters = (List<RuleDefinitionParameter>) mock(List.class);
 		
 		RuleDefinition defaultRuleDefinition = mock(RuleDefinition.class);
@@ -321,47 +321,47 @@ public class RuleSetVersionTest extends BaseDatabaseTest {
 		
 		RuleVersion defaultRuleVersion = mock(RuleVersion.class);
 		when(defaultRuleVersion.getRuleDefinition()).thenReturn(defaultRuleDefinition);
-		when(defaultRuleVersion.isEffective(effectivity)).thenReturn(false);
+		when(defaultRuleVersion.isEffective(effective)).thenReturn(false);
 		
 		RuleVersion customRuleVersion = mock(RuleVersion.class);
 		when(customRuleVersion.getRuleDefinition()).thenReturn(customRuleDefinition);
-		when(customRuleVersion.isEffective(effectivity)).thenReturn(true);
+		when(customRuleVersion.isEffective(effective)).thenReturn(true);
 		
 		RuleSetVersion ruleSetVersion = new RuleSetVersion();
 		ruleSetVersion.setRuleVersions(new HashSet<>());
 		ruleSetVersion.getRuleVersions().add(defaultRuleVersion);
 		ruleSetVersion.getRuleVersions().add(customRuleVersion);
 		
-		List<RuleVersion> foundRuleVersions = ruleSetVersion.getDefinedRuleVersions(ruleDefinitionParameters, effectivity);
+		List<RuleVersion> foundRuleVersions = ruleSetVersion.getDefinedRuleVersions(ruleDefinitionParameters, effective);
 		
 		assertNotNull(foundRuleVersions);
 		assertTrue(foundRuleVersions.isEmpty());
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#isInExploitation(LocalDateTime)} when true
+	 * Tests {@link RuleSetVersion#isInProduction(LocalDateTime)} when true
 	 */
 	@Test
-	public void testIsInExploitationTrue() {
-		LocalDateTime exploitationDate = LocalDateTime.of(2015, 1,  1, 0, 0);
+	public void testIsInProductionTrue() {
+		LocalDateTime productionDate = LocalDateTime.of(2015, 1,  1, 0, 0);
 		
 		RuleSetVersion ruleSetVersion = new RuleSetVersion();
-		ruleSetVersion.setExploitationStartDate(exploitationDate);
+		ruleSetVersion.setProductionStartDate(productionDate);
 		
-		assertTrue(ruleSetVersion.isInExploitation(exploitationDate));
+		assertTrue(ruleSetVersion.isInProduction(productionDate));
 	}
 	
 	/**
-	 * Tests {@link RuleSetVersion#isInExploitation(LocalDateTime)} when false
+	 * Tests {@link RuleSetVersion#isInProduction(LocalDateTime)} when false
 	 */
 	@Test
-	public void testIsInExploitationFalse() {
-		LocalDateTime exploitationDate = LocalDateTime.of(2015, 1,  1, 0, 0);
+	public void testIsInProductionFalse() {
+		LocalDateTime productionDate = LocalDateTime.of(2015, 1,  1, 0, 0);
 		
 		RuleSetVersion ruleSetVersion = new RuleSetVersion();
-		ruleSetVersion.setExploitationStartDate(exploitationDate);
+		ruleSetVersion.setProductionStartDate(productionDate);
 		
-		assertFalse(ruleSetVersion.isInExploitation(LocalDateTime.of(2014, 12,  31, 0, 0)));
+		assertFalse(ruleSetVersion.isInProduction(LocalDateTime.of(2014, 12,  31, 0, 0)));
 	}
 	
 	/**

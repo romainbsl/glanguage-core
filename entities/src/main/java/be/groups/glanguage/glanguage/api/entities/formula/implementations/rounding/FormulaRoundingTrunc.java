@@ -21,11 +21,18 @@ public class FormulaRoundingTrunc extends RoundingFormula {
     }
 
     public FormulaRoundingTrunc(FormulaDescription description,
+                                FormulaDescription precisionDescription,
                                 List<AbstractFormula> parameters,
                                 Evaluator evaluator) throws GLanguageException {
-        super(description, parameters, evaluator);
+        super(description, precisionDescription, parameters, evaluator);
     }
 
+    /**
+     * Get the rounding type<br>
+     * The rounding type of this type of formula is always {@link RoundingType#TRUNC}
+     *
+     * @return always {@link RoundingType#TRUNC}
+     */
     @Override
     @Transient
     public RoundingType getRoundingType() {

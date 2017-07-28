@@ -10,6 +10,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+/**
+ * DAO for {@link AbstractFormula}
+ * <p>
+ * @author michotte
+ */
 public class FormulaDao extends BaseDao<Integer, AbstractFormula> {
 
 	public FormulaDao() {
@@ -21,6 +26,12 @@ public class FormulaDao extends BaseDao<Integer, AbstractFormula> {
 		return JpaUtil.getCentralEntityManager();
 	}
 
+	/**
+	 * Find an {@link AbstractFormula} by {@code id}
+	 *
+	 * @param id the identifier of the {@link AbstractFormula} to be returned
+	 * @return the {@link AbstractFormula} identified by the {@code id}, or null if it doesn't exists
+	 */
 	public AbstractFormula findById(int id) {
 		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<AbstractFormula> criteria = (CriteriaQuery<AbstractFormula>) builder.createQuery(AbstractFormula.class);

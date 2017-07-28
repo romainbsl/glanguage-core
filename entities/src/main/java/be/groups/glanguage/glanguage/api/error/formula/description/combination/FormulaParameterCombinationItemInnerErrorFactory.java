@@ -9,7 +9,7 @@ import be.groups.glanguage.glanguage.api.entities.formula.description.usage.Form
 import be.groups.glanguage.glanguage.api.error.formula.description.FormulaDescriptionInnerError;
 
 /**
- * Created by michotte on 26/01/2017.
+ * @author michotte
  */
 public class FormulaParameterCombinationItemInnerErrorFactory {
 

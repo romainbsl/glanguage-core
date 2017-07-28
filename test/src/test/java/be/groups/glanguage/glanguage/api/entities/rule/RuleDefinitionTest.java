@@ -77,27 +77,27 @@ public class RuleDefinitionTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetVersionNoMatching() {
-		LocalDate effectivity = LocalDate.of(2015, 1, 1);
+		LocalDate effective = LocalDate.of(2015, 1, 1);
 		LocalDateTime observation = LocalDateTime.of(2016, 2, 20, 0, 0);
 
 		RuleDefinition ruleDefinition = new RuleDefinition();
 
 		Set<RuleSetVersion> ruleSetVersions = new HashSet<>();
 		RuleSetVersion ruleSetVersion = mock(RuleSetVersion.class);
-		when(ruleSetVersion.isInExploitation(observation)).thenReturn(false);
+		when(ruleSetVersion.isInProduction(observation)).thenReturn(false);
 		ruleSetVersions.add(ruleSetVersion);
 
 		RuleVersion firstRuleVersion = mock(RuleVersion.class);
-		when(firstRuleVersion.isEffective(effectivity)).thenReturn(false);
+		when(firstRuleVersion.isEffective(effective)).thenReturn(false);
 		when(firstRuleVersion.getRuleSetVersions()).thenReturn(ruleSetVersions);
 		ruleDefinition.getVersions().add(firstRuleVersion);
 
 		RuleVersion secondRuleVersion = mock(RuleVersion.class);
-		when(secondRuleVersion.isEffective(effectivity)).thenReturn(false);
+		when(secondRuleVersion.isEffective(effective)).thenReturn(false);
 		when(secondRuleVersion.getRuleSetVersions()).thenReturn(ruleSetVersions);
 		ruleDefinition.getVersions().add(secondRuleVersion);
 
-		assertNull(ruleDefinition.getVersion(effectivity, observation));
+		assertNull(ruleDefinition.getVersion(effective, observation));
 	}
 
 	/**
@@ -106,27 +106,27 @@ public class RuleDefinitionTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetVersionMatchingRuleVersionNoMatchingRuleSetVersion() {
-		LocalDate effectivity = LocalDate.of(2015, 1, 1);
+		LocalDate effective = LocalDate.of(2015, 1, 1);
 		LocalDateTime observation = LocalDateTime.of(2016, 2, 20, 0, 0);
 
 		RuleDefinition ruleDefinition = new RuleDefinition();
 
 		Set<RuleSetVersion> ruleSetVersions = new HashSet<>();
 		RuleSetVersion ruleSetVersion = mock(RuleSetVersion.class);
-		when(ruleSetVersion.isInExploitation(observation)).thenReturn(false);
+		when(ruleSetVersion.isInProduction(observation)).thenReturn(false);
 		ruleSetVersions.add(ruleSetVersion);
 
 		RuleVersion firstRuleVersion = mock(RuleVersion.class);
-		when(firstRuleVersion.isEffective(effectivity)).thenReturn(false);
+		when(firstRuleVersion.isEffective(effective)).thenReturn(false);
 		when(firstRuleVersion.getRuleSetVersions()).thenReturn(ruleSetVersions);
 		ruleDefinition.getVersions().add(firstRuleVersion);
 
 		RuleVersion secondRuleVersion = mock(RuleVersion.class);
-		when(secondRuleVersion.isEffective(effectivity)).thenReturn(true);
+		when(secondRuleVersion.isEffective(effective)).thenReturn(true);
 		when(secondRuleVersion.getRuleSetVersions()).thenReturn(ruleSetVersions);
 		ruleDefinition.getVersions().add(secondRuleVersion);
 
-		assertNull(ruleDefinition.getVersion(effectivity, observation));
+		assertNull(ruleDefinition.getVersion(effective, observation));
 	}
 
 	/**
@@ -135,27 +135,27 @@ public class RuleDefinitionTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetVersionMatchingRuleSetVersionNoMatchingRuleVersion() {
-		LocalDate effectivity = LocalDate.of(2015, 1, 1);
+		LocalDate effective = LocalDate.of(2015, 1, 1);
 		LocalDateTime observation = LocalDateTime.of(2016, 2, 20, 0, 0);
 
 		RuleDefinition ruleDefinition = new RuleDefinition();
 
 		Set<RuleSetVersion> ruleSetVersions = new HashSet<>();
 		RuleSetVersion ruleSetVersion = mock(RuleSetVersion.class);
-		when(ruleSetVersion.isInExploitation(observation)).thenReturn(true);
+		when(ruleSetVersion.isInProduction(observation)).thenReturn(true);
 		ruleSetVersions.add(ruleSetVersion);
 
 		RuleVersion firstRuleVersion = mock(RuleVersion.class);
-		when(firstRuleVersion.isEffective(effectivity)).thenReturn(false);
+		when(firstRuleVersion.isEffective(effective)).thenReturn(false);
 		when(firstRuleVersion.getRuleSetVersions()).thenReturn(ruleSetVersions);
 		ruleDefinition.getVersions().add(firstRuleVersion);
 
 		RuleVersion secondRuleVersion = mock(RuleVersion.class);
-		when(secondRuleVersion.isEffective(effectivity)).thenReturn(false);
+		when(secondRuleVersion.isEffective(effective)).thenReturn(false);
 		when(secondRuleVersion.getRuleSetVersions()).thenReturn(ruleSetVersions);
 		ruleDefinition.getVersions().add(secondRuleVersion);
 
-		assertNull(ruleDefinition.getVersion(effectivity, observation));
+		assertNull(ruleDefinition.getVersion(effective, observation));
 	}
 
 	/**
@@ -164,28 +164,28 @@ public class RuleDefinitionTest extends BaseDatabaseTest {
 	 */
 	@Test
 	public void testGetVersionMatching() {
-		LocalDate effectivity = LocalDate.of(2015, 1, 1);
+		LocalDate effective = LocalDate.of(2015, 1, 1);
 		LocalDateTime observation = LocalDateTime.of(2016, 2, 20, 0, 0);
 
 		RuleDefinition ruleDefinition = new RuleDefinition();
 
 		Set<RuleSetVersion> ruleSetVersions = new HashSet<>();
 		RuleSetVersion ruleSetVersion = mock(RuleSetVersion.class);
-		when(ruleSetVersion.isInExploitation(observation)).thenReturn(true);
+		when(ruleSetVersion.isInProduction(observation)).thenReturn(true);
 		ruleSetVersions.add(ruleSetVersion);
 
 		RuleVersion firstRuleVersion = mock(RuleVersion.class);
-		when(firstRuleVersion.isEffective(effectivity)).thenReturn(false);
+		when(firstRuleVersion.isEffective(effective)).thenReturn(false);
 		when(firstRuleVersion.getRuleSetVersions()).thenReturn(ruleSetVersions);
 		ruleDefinition.getVersions().add(firstRuleVersion);
 
 		RuleVersion secondRuleVersion = mock(RuleVersion.class);
-		when(secondRuleVersion.isEffective(effectivity)).thenReturn(true);
+		when(secondRuleVersion.isEffective(effective)).thenReturn(true);
 		when(secondRuleVersion.getRuleSetVersions()).thenReturn(ruleSetVersions);
 		ruleDefinition.getVersions().add(secondRuleVersion);
 
-		assertNotNull(ruleDefinition.getVersion(effectivity, observation));
-		assertEquals(secondRuleVersion, ruleDefinition.getVersion(effectivity, observation));
+		assertNotNull(ruleDefinition.getVersion(effective, observation));
+		assertEquals(secondRuleVersion, ruleDefinition.getVersion(effective, observation));
 	}
 
 	/**
