@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.Optional;
 import java.util.Set;
 
+import static javax.persistence.GenerationType.SEQUENCE;
+
 /**
  * This class represents a multilingual string.
  * It has a set of {@link MultilingualStringItem}'s
@@ -38,6 +40,8 @@ public class MultilingualString {
      */
     @Id
     @Column(name = "ID", nullable = false)
+    @SequenceGenerator(name = "Perform", sequenceName = "SQ_TB_MULTILINGUAL_STRING_ID", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = "Perform")
     public Integer getId() {
         return id;
     }
@@ -57,7 +61,7 @@ public class MultilingualString {
      *
      * @return the set of items
      */
-    @OneToMany(mappedBy = "multilingualString", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "multilingualString", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Set<MultilingualStringItem> getItems() {
         return items;
     }
@@ -154,11 +158,16 @@ public class MultilingualString {
 
         MultilingualString that = (MultilingualString) o;
 
-        return id.equals(that.id);
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        return items != null ? items.equals(that.items) : that.items == null;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (items != null ? items.hashCode() : 0);
+        return result;
     }
 }

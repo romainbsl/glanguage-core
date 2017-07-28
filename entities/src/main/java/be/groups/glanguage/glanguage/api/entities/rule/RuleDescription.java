@@ -1,5 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
+import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -24,43 +26,61 @@ public class RuleDescription {
 
 	/**
 	 * Alias in French language
+	 * TODO to be deleted
 	 */
 	private String aliasFr;
 
 	/**
 	 * Alias in Dutch language
+	 * TODO to be deleted
 	 */
 	private String aliasNl;
 
 	/**
 	 * Alias in German language
+	 * TODO to be deleted
 	 */
 	private String aliasDe;
 
 	/**
 	 * Alias in other language
+	 * TODO to be deleted
 	 */
 	private String aliasX;
 
 	/**
 	 * Description in French language
+	 * TODO to be deleted
 	 */
 	private String descriptionFr;
 
 	/**
 	 * Description in Dutch language
+	 * TODO to be deleted
 	 */
 	private String descriptionNl;
 
 	/**
 	 * Description in German language
+	 * TODO to be deleted
 	 */
 	private String descriptionDe;
 
 	/**
 	 * Description in other language
+	 * TODO to be deleted
 	 */
 	private String descriptionX;
+
+	/**
+	 * Alias in multiple languages
+	 */
+	private MultilingualString alias;
+
+	/**
+	 * Description in multiple languages
+	 */
+	private MultilingualString description;
 
 	public RuleDescription() {
 		super();
@@ -178,6 +198,24 @@ public class RuleDescription {
 	}
 
 	/**
+	 * @return the alias
+	 */
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ALIAS_ID", referencedColumnName = "ID")
+	public MultilingualString getAlias() {
+		return alias;
+	}
+
+	/**
+	 * @return the description
+	 */
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "DESC_ID", referencedColumnName = "ID")
+	public MultilingualString getDescription() {
+		return description;
+	}
+
+	/**
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
@@ -252,6 +290,22 @@ public class RuleDescription {
 	 */
 	public void setDescriptionX(String descriptionX) {
 		this.descriptionX = descriptionX;
+	}
+
+	/**
+	 * @param alias
+	 * 			the alias to set
+	 */
+	public void setAlias(MultilingualString alias) {
+		this.alias = alias;
+	}
+
+	/**
+	 * @param description
+	 * 			the description to et
+	 */
+	public void setDescription(MultilingualString description) {
+		this.description = description;
 	}
 
 	@Override

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
+import static javax.persistence.GenerationType.SEQUENCE;
+
 /**
  * This class represents an item of a {@link MultilingualString} <br>
  * It has a {@link Language} and a text representing the translation in that language
@@ -41,6 +43,8 @@ public class MultilingualStringItem {
      * @return the technical id
      */
     @Id
+    @SequenceGenerator(name = "Perform", sequenceName = "SQ_TB_MULTILINGUAL_STR_ITEM_ID", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = "Perform")
     public Integer getId() {
         return id;
     }
@@ -135,11 +139,16 @@ public class MultilingualStringItem {
 
         MultilingualStringItem that = (MultilingualStringItem) o;
 
-        return id.equals(that.id);
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (language != that.language) return false;
+        return text != null ? text.equals(that.text) : that.text == null;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (language != null ? language.hashCode() : 0);
+        result = 31 * result + (text != null ? text.hashCode() : 0);
+        return result;
     }
 }
