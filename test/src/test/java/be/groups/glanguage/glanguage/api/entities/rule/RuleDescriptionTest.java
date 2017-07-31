@@ -1,6 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
+import be.groups.glanguage.glanguage.api.entities.utils.Language;
 import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -35,15 +36,27 @@ public class RuleDescriptionTest extends BaseDatabaseTest {
 
 		assertEquals("r1", ruleDescription.getCode());
 
-		assertEquals("r1_fr", ruleDescription.getAliasFr());
-		assertEquals("r1_nl", ruleDescription.getAliasNl());
-		assertEquals("r1_de", ruleDescription.getAliasDe());
-		assertEquals("r1_x", ruleDescription.getAliasX());
+		assertNotNull(ruleDescription.getAlias());
+		assertNotNull(ruleDescription.getAlias().getItem(Language.FR));
+		assertNotNull(ruleDescription.getAlias().getItem(Language.FR).getText());
+		assertEquals("r1_fr", ruleDescription.getAlias().getItem(Language.FR).getText());
+		assertNotNull(ruleDescription.getAlias().getItem(Language.NL));
+		assertNotNull(ruleDescription.getAlias().getItem(Language.NL).getText());
+		assertEquals("r1_nl", ruleDescription.getAlias().getItem(Language.NL).getText());
+		assertNotNull(ruleDescription.getAlias().getItem(Language.EN));
+		assertNotNull(ruleDescription.getAlias().getItem(Language.EN).getText());
+		assertEquals("r1_x", ruleDescription.getAlias().getItem(Language.EN).getText());
 
-		assertEquals("descr_r1_fr", ruleDescription.getDescriptionFr());
-		assertEquals("descr_r1_nl", ruleDescription.getDescriptionNl());
-		assertEquals("descr_r1_de", ruleDescription.getDescriptionDe());
-		assertEquals("descr_r1_x", ruleDescription.getDescriptionX());
+		assertNotNull(ruleDescription.getDescription());
+		assertNotNull(ruleDescription.getDescription().getItem(Language.FR));
+		assertNotNull(ruleDescription.getDescription().getItem(Language.FR).getText());
+		assertEquals("descr_r1_fr", ruleDescription.getDescription().getItem(Language.FR).getText());
+		assertNotNull(ruleDescription.getDescription().getItem(Language.NL));
+		assertNotNull(ruleDescription.getDescription().getItem(Language.NL).getText());
+		assertEquals("descr_r1_nl", ruleDescription.getDescription().getItem(Language.NL).getText());
+		assertNotNull(ruleDescription.getDescription().getItem(Language.EN));
+		assertNotNull(ruleDescription.getDescription().getItem(Language.EN).getText());
+		assertEquals("descr_r1_x", ruleDescription.getDescription().getItem(Language.EN).getText());
 
 		/* Checking relationships */
 		assertNotNull(ruleDescription.getRuleVersions());
