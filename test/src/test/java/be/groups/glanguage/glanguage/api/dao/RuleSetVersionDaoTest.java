@@ -1,6 +1,7 @@
 package be.groups.glanguage.glanguage.api.dao;
 
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+import be.groups.glanguage.glanguage.api.entities.utils.Language;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -50,7 +51,7 @@ public class RuleSetVersionDaoTest extends DaoTest {
 	public void testFindByRuleSetAliasAndVersion() {
 		RuleSetVersion ruleSetVersion = new RuleSetVersionDao().findByRuleSetAliasAndVersion("rs1_fr", "1.0.0");
 		assertNotNull(ruleSetVersion);
-		assertEquals("rs1_fr", ruleSetVersion.getRuleSet().getAliasFr());
+		assertEquals("rs1_fr", ruleSetVersion.getRuleSet().getAlias().getItem(Language.FR).getText());
 		assertEquals("1.0.0", ruleSetVersion.getVersion());
 	}
 	
@@ -77,7 +78,7 @@ public class RuleSetVersionDaoTest extends DaoTest {
 		LocalDateTime productionDate = LocalDateTime.now();
 		RuleSetVersion ruleSetVersion = new RuleSetVersionDao().findByRuleSetAliasAndProductionDate("rs1_fr", productionDate);
 		assertNotNull(ruleSetVersion);
-		assertEquals("rs1_fr", ruleSetVersion.getRuleSet().getAliasFr());
+		assertEquals("rs1_fr", ruleSetVersion.getRuleSet().getAlias().getItem(Language.FR).getText());
 		assertFalse("production start date after production date",
 				ruleSetVersion.getProductionStartDate().isAfter(productionDate));
 	}

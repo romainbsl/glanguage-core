@@ -5,6 +5,7 @@ import be.groups.glanguage.glanguage.api.business.plan.Plan;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+import be.groups.glanguage.glanguage.api.entities.utils.Language;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -44,7 +45,7 @@ public class UniverseTest extends BaseDatabaseTest {
 	public void testGetRuleSetByAlias() {
 		RuleSet ruleSet = Universe.getRuleSet("rs1_fr");
 		assertNotNull(ruleSet);
-		assertEquals("rs1_fr", ruleSet.getAliasFr());
+		assertEquals("rs1_fr", ruleSet.getAlias().getItem(Language.FR).getText());
 		assertNotNull(ruleSet.getVersions());
 		assertFalse(ruleSet.getVersions().isEmpty());
 	}
@@ -77,7 +78,7 @@ public class UniverseTest extends BaseDatabaseTest {
 	public void testGetRuleSetVersionByRuleSetAliasAndVersion() {
 		RuleSetVersion ruleSetVersion = Universe.getRuleSetVersion("rs1_fr", "1.0.0");
 		assertNotNull(ruleSetVersion);
-		assertEquals("rs1_fr", ruleSetVersion.getRuleSet().getAliasFr());
+		assertEquals("rs1_fr", ruleSetVersion.getRuleSet().getAlias().getItem(Language.FR).getText());
 		assertEquals("1.0.0", ruleSetVersion.getVersion());
 	}
 	
@@ -102,7 +103,7 @@ public class UniverseTest extends BaseDatabaseTest {
 		LocalDateTime productionDate = LocalDateTime.now();
 		RuleSetVersion ruleSetVersion = Universe.getRuleSetVersion("rs1_fr", productionDate);
 		assertNotNull(ruleSetVersion);
-		assertEquals("rs1_fr", ruleSetVersion.getRuleSet().getAliasFr());
+		assertEquals("rs1_fr", ruleSetVersion.getRuleSet().getAlias().getItem(Language.FR).getText());
 		assertFalse("production start date after production date",
 				ruleSetVersion.getProductionStartDate().isAfter(productionDate));
 	}

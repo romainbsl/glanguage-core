@@ -6,6 +6,7 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
+import be.groups.glanguage.glanguage.api.entities.utils.Language;
 import be.groups.glanguage.glanguage.api.test.categories.JpaMappingTestsCategory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -41,16 +42,28 @@ public class RuleSetTest extends BaseDatabaseTest {
 		assertNotNull(ruleSet);
 		
 		assertEquals(-900000, ruleSet.getId());
-		
-		assertEquals("rs1_fr", ruleSet.getAliasFr());
-		assertEquals("rs1_nl", ruleSet.getAliasNl());
-		assertEquals("rs1_de", ruleSet.getAliasDe());
-		assertEquals("rs1_x", ruleSet.getAliasX());
-		
-		assertEquals("rs1_descr_fr", ruleSet.getDescriptionFr());
-		assertEquals("rs1_descr_nl", ruleSet.getDescriptionNl());
-		assertEquals("rs1_descr_de", ruleSet.getDescriptionDe());
-		assertEquals("rs1_descr_x", ruleSet.getDescriptionX());
+
+		assertNotNull(ruleSet.getAlias());
+		assertNotNull(ruleSet.getAlias().getItem(Language.FR));
+		assertNotNull(ruleSet.getAlias().getItem(Language.FR).getText());
+		assertEquals("rs1_fr", ruleSet.getAlias().getItem(Language.FR).getText());
+		assertNotNull(ruleSet.getAlias().getItem(Language.NL));
+		assertNotNull(ruleSet.getAlias().getItem(Language.NL).getText());
+		assertEquals("rs1_nl", ruleSet.getAlias().getItem(Language.NL).getText());
+		assertNotNull(ruleSet.getAlias().getItem(Language.EN));
+		assertNotNull(ruleSet.getAlias().getItem(Language.EN).getText());
+		assertEquals("rs1_x", ruleSet.getAlias().getItem(Language.EN).getText());
+
+		assertNotNull(ruleSet.getDescription());
+		assertNotNull(ruleSet.getDescription().getItem(Language.FR));
+		assertNotNull(ruleSet.getDescription().getItem(Language.FR).getText());
+		assertEquals("rs1_descr_fr", ruleSet.getDescription().getItem(Language.FR).getText());
+		assertNotNull(ruleSet.getDescription().getItem(Language.NL));
+		assertNotNull(ruleSet.getDescription().getItem(Language.NL).getText());
+		assertEquals("rs1_descr_nl", ruleSet.getDescription().getItem(Language.NL).getText());
+		assertNotNull(ruleSet.getDescription().getItem(Language.EN));
+		assertNotNull(ruleSet.getDescription().getItem(Language.EN).getText());
+		assertEquals("rs1_descr_x", ruleSet.getDescription().getItem(Language.EN).getText());
 		
 		/* Checking relationships */
 		assertNotNull(ruleSet.getVersions());

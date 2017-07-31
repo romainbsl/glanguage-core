@@ -1,12 +1,12 @@
 package be.groups.glanguage.glanguage.api.dao;
 
-import static org.junit.Assert.*;
+import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
+import be.groups.glanguage.glanguage.api.entities.utils.Language;
+import org.junit.Test;
 
 import java.util.List;
 
-import org.junit.Test;
-
-import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
+import static org.junit.Assert.*;
 
 public class RuleSetDaoTest extends DaoTest {
 	
@@ -38,7 +38,7 @@ public class RuleSetDaoTest extends DaoTest {
 	public void testFindByAliasFr() {
 		RuleSet ruleSet = new RuleSetDao().findByAlias("rs1_fr");
 		assertNotNull(ruleSet);
-		assertEquals("rs1_fr", ruleSet.getAliasFr());
+		assertEquals("rs1_fr", ruleSet.getAlias().getItem(Language.FR).getText());
 	}
 	
 	/**
@@ -48,7 +48,7 @@ public class RuleSetDaoTest extends DaoTest {
 	public void testFindByAliasX() {
 		RuleSet ruleSet = new RuleSetDao().findByAlias("rs1_x");
 		assertNotNull(ruleSet);
-		assertEquals("rs1_x", ruleSet.getAliasX());
+		assertEquals("rs1_x", ruleSet.getAlias().getItem(Language.EN).getText());
 	}
 		
 }
