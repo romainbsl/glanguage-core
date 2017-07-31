@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 /**
  * DAO for {@link RuleSetVersion}
  * <p>
+ *
  * @author michotte
  */
 public class RuleSetVersionDao extends BaseDao<Integer, RuleSetVersion> {
@@ -73,20 +74,18 @@ public class RuleSetVersionDao extends BaseDao<Integer, RuleSetVersion> {
      * the {@code version}, or null if it doesn't exists
      */
     public RuleSetVersion findByRuleSetAliasAndVersion(String ruleSetAlias, String version) {
-        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<RuleSetVersion> criteria = (CriteriaQuery<RuleSetVersion>) builder
-                .createQuery(RuleSetVersion.class);
-        Root<RuleSetVersion> entityRoot = (Root<RuleSetVersion>) criteria.from(RuleSetVersion.class);
-        criteria.select(entityRoot);
-        // join with rule set
-        Join<RuleSetVersion, RuleSet> ruleSet = entityRoot.join(RuleSetVersion_.ruleSet);
-
-        criteria.where(builder.or(builder.equal(ruleSet.get(RuleSet_.aliasFr), ruleSetAlias),
-                                  builder.equal(ruleSet.get(RuleSet_.aliasNl), ruleSetAlias),
-                                  builder.equal(ruleSet.get(RuleSet_.aliasDe), ruleSetAlias),
-                                  builder.equal(ruleSet.get(RuleSet_.aliasX), ruleSetAlias)),
-                       builder.equal(entityRoot.get(RuleSetVersion_.version), version));
-        return getEntityManager().createQuery(criteria).getSingleResult();
+        //@formatter:off
+        String query = "select rsv from RuleSetVersion rsv join rsv.ruleSet rs "
+                    + " where exists ("
+                        + " select msi from MultilingualString ms, MultilingualStringItem msi "
+                        + " where ms.id = rs.alias.id and msi.multilingualString.id = ms.id "
+                        + " and dbms_lob.compare(msi.text, :alias) = 0"
+                    + ")"
+                    + " and rsv.version = :version";
+        //@formatter:on
+        Object result = getEntityManager().createQuery(query).setParameter("alias", ruleSetAlias)
+                .setParameter("version", version).getSingleResult();
+        return (RuleSetVersion) result;
     }
 
     /**
@@ -101,12 +100,12 @@ public class RuleSetVersionDao extends BaseDao<Integer, RuleSetVersion> {
     public RuleSetVersion findByRuleSetIdAndProductionDate(Integer ruleSetId, LocalDateTime productionDate) {
         // @formatter:off
 		String query = "select rsv from RuleSetVersion rsv"
-				+ " where rsv.ruleSet.id = :ruleSetId "
-				+ " and rsv.productionStartDate = ("
-				+ " select max(rsv2.productionStartDate) from RuleSetVersion rsv2"
-				+ " where rsv2.ruleSet.id = rsv.ruleSet.id"
-				+ " and rsv2.productionStartDate < :productionDate "
-				+ ")";
+                    + " where rsv.ruleSet.id = :ruleSetId "
+                    + " and rsv.productionStartDate = ("
+                        + " select max(rsv2.productionStartDate) from RuleSetVersion rsv2"
+                        + " where rsv2.ruleSet.id = rsv.ruleSet.id"
+                        + " and rsv2.productionStartDate < :productionDate "
+                    + ")";
 		// @formatter:on
         return (RuleSetVersion) getEntityManager().createQuery(query).setParameter("ruleSetId", ruleSetId).setParameter(
                 "productionDate",
@@ -124,19 +123,21 @@ public class RuleSetVersionDao extends BaseDao<Integer, RuleSetVersion> {
      */
     public RuleSetVersion findByRuleSetAliasAndProductionDate(String ruleSetAlias, LocalDateTime productionDate) {
         // @formatter:off
-		String query = "select rsv from RuleSetVersion rsv"
-				+ " where (rsv.ruleSet.aliasFr = :ruleSetAlias "
-				+ " or rsv.ruleSet.aliasNl = :ruleSetAlias "
-				+ " or rsv.ruleSet.aliasDe = :ruleSetAlias "
-				+ " or rsv.ruleSet.aliasX = :ruleSetAlias) "
-				+ " and rsv.productionStartDate = ("
-				+ " select max(rsv2.productionStartDate) from RuleSetVersion rsv2"
-				+ " where rsv2.ruleSet.id = rsv.ruleSet.id"
-				+ " and rsv2.productionStartDate < :productionDate "
-				+ ")";
+		String query = "select rsv from RuleSetVersion rsv join rsv.ruleSet rs "
+                    + " where exists ("
+                        + " select msi from MultilingualString ms, MultilingualStringItem msi"
+                        + " where ms.id = rs.alias.id and msi.multilingualString.id = ms.id "
+                        + " and dbms_lob.compare(msi.text, :alias) = 0"
+                    + ")"
+                    + " and rsv.productionStartDate = ("
+                        + " select max(rsv2.productionStartDate) from RuleSetVersion rsv2"
+                        + " where rsv2.ruleSet.id = rsv.ruleSet.id"
+                        + " and rsv2.productionStartDate < :productionDate "
+                    + ")";
 		// @formatter:on
-        return (RuleSetVersion) getEntityManager().createQuery(query).setParameter("ruleSetAlias", ruleSetAlias)
-                .setParameter("productionDate", productionDate).getSingleResult();
+        return (RuleSetVersion) getEntityManager().createQuery(query).setParameter("alias", ruleSetAlias).setParameter(
+                "productionDate",
+                productionDate).getSingleResult();
     }
 
 }

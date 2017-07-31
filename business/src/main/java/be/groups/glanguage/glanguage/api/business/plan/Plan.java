@@ -4,8 +4,11 @@ import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
 import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.RuleCallFormula;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleDescription;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleGroupItem;
 import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
+import be.groups.glanguage.glanguage.api.entities.utils.MultilingualStringItem;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -308,13 +311,12 @@ public class Plan {
         } else {
             LOG.debug("Rule version not found");
             if (fromRuleVersion == null) {
-                throw new RuntimeException("There is no rule version in the plan corresponding to the rule reference " +
-                                                   "" + "" + "" + "" + "\"" + formula
-                        .getConstantValue() + "\"");
+                throw new RuntimeException("There is no rule version in the plan corresponding to the rule reference "
+                                                   + "\"" + formula.getConstantValue() + "\"");
             } else {
-                throw new RuntimeException("There is no rule version in the plan corresponding to the rule reference " +
-                                                   "" + "" + "" + "" + "\"" + formula
-                        .getConstantValue() + "\" in the formula of rule \"" + fromRuleVersion.getCode() + "\"");
+                throw new RuntimeException("There is no rule version in the plan corresponding to the rule reference "
+                                                   + "\"" + formula.getConstantValue() + "\" in the formula of rule \""
+                                                   + fromRuleVersion.getCode() + "\"");
             }
         }
     }
@@ -519,31 +521,23 @@ public class Plan {
     }
 
     /**
-     * Get the {@link RuleVersion} corresponding to an {@code elias} by matching the
-     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasFr} or
-     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasNl} or
-     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasDe} or
-     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasX}
+     * Get the {@link RuleVersion} corresponding to an {@code alias} by matching the one of the
+     * {@link MultilingualStringItem#getText()} of the {@link MultilingualString} representing the
+     * {@link RuleDescription#getAlias()} of its {@link RuleVersion#getRuleDescription()}
      *
-     * @param alias the {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasFr} or
-     *              {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasNl} or
-     *              {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasDe} or
-     *              {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasX} of the
+     * @param alias one of the
+     *              {@link MultilingualStringItem#getText()} of the {@link MultilingualString} representing the
+     *              {@link RuleDescription#getAlias()} of the {@link RuleVersion#getRuleDescription()} of the
      *              {@link RuleVersion} to be returned
-     * @return the {@link RuleVersion} with the
-     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasFr} or
-     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasNl} or
-     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasDe} or
-     * {@link be.groups.glanguage.glanguage.api.entities.rule.RuleDescription#aliasX} corresponding to {@code alias},
-     * or null if it doesn't exists
+     * @return the {@link RuleVersion} with one of the
+     * {@link MultilingualStringItem#getText()} of the {@link MultilingualString} representing the
+     * {@link RuleDescription#getAlias()} of its {@link RuleVersion#getRuleDescription()} corresponding to {@code
+     * alias}, or null if it doesn't exists
      */
     public RuleVersion getEffectiveRuleVersionByAlias(String alias) {
-        return getRuleVersions().stream().filter(rv -> rv
-                .getRuleDescription() != null && ((rv.getRuleDescription().getAliasFr() != null && rv
-                .getRuleDescription().getAliasFr().equals(alias)) || (rv.getRuleDescription().getAliasNl() != null && rv
-                .getRuleDescription().getAliasNl().equals(alias)) || (rv.getRuleDescription().getAliasDe() != null && rv
-                .getRuleDescription().getAliasDe().equals(alias)) || (rv.getRuleDescription().getAliasX() != null && rv
-                .getRuleDescription().getAliasX().equals(alias)))).findFirst().orElse(null);
+        return getRuleVersions().stream().filter(rv -> rv.getRuleDescription() != null && rv.getRuleDescription()
+                .getAlias() != null && rv.getRuleDescription().getAlias().getItems().stream()
+                .anyMatch(i -> i.getText().equals(alias))).findFirst().orElse(null);
     }
 
     //endregion
