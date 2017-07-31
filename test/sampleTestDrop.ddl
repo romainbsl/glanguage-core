@@ -19,3 +19,5 @@ drop table RULE_SET_VERSION cascade constraints
 drop table RULE_SET_VERSION_GROUP_ITEM cascade constraints
 drop table RULE_SET_VERSION_RULE_VERSION cascade constraints
 drop table RULE_VERSION cascade constraints
+drop sequence SQ_TB_MULTILINGUAL_STRING_ID
+drop sequence SQ_TB_MULTILINGUAL_STR_ITEM_ID
