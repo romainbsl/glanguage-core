@@ -90,6 +90,7 @@ public abstract class RoundingFormula extends AbstractNonTerminalFormula {
         }
     }
 
+    @Transient
     public abstract RoundingType getRoundingType();
 
     public static AbstractFormula getDefaultPrecision(FormulaDescription description) throws GLanguageException {
