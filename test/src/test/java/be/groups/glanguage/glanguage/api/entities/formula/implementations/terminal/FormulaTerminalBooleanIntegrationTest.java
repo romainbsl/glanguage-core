@@ -3,7 +3,6 @@ package be.groups.glanguage.glanguage.api.entities.formula.implementations.termi
 import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
 import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
 import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.test.categories.DatabaseTestCategory;
@@ -24,24 +23,6 @@ public class FormulaTerminalBooleanIntegrationTest extends BaseDatabaseTest {
 	/*
 	 * Tests
 	 */
-	/**
-	 * Tests {@link FormulaTerminalBoolean#getDiscriminatorValue()}
-	 */
-	@Test
-	public void testGetDiscriminatorValue() {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean();
-		
-		assertEquals(Integer.valueOf(FormulaType.Values.TERMINAL_BOOLEAN), formula.getDiscriminatorValue());
-	}
-	
-	/**
-	 * Tests {@link FormulaTerminalBoolean#isTerminal()}
-	 */
-	@Test
-	public void testIsTerminal() {
-		FormulaTerminalBoolean formula = new FormulaTerminalBoolean();
-		assertTrue(formula.isTerminal());
-	}
 
 	/**
 	 * Tests {@link FormulaTerminalBoolean#isValid(Evaluator)}
@@ -85,75 +66,6 @@ public class FormulaTerminalBooleanIntegrationTest extends BaseDatabaseTest {
 		assertFalse(formula.isValid(null));
 	}
 
-	/**
-	 * Tests {@link FormulaTerminalBoolean#getReturnType()} when no parameters
-	 */
-	@Test
-	@Category({DatabaseTestCategory.class})
-	public void testGetReturnType() throws GLanguageException {
-		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
-
-		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
-	}
-
-	/**
-	 * Tests {@link FormulaTerminalBoolean#getIntegerValue()}
-	 */
-	@Test(expected = GLanguageException.class)
-	public void testGetIntegerValue() throws GLanguageException {
-		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
-		formula.getIntegerValue();
-	}
-	
-	/**
-	 * Tests {@link FormulaTerminalBoolean#getNumericValue()}
-	 */
-	@Test(expected = GLanguageException.class)
-	public void testGetNumericValue() throws GLanguageException {
-		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
-		formula.getNumericValue();
-	}
-	
-	/**
-	 * Tests {@link FormulaTerminalBoolean#getStringValue()}
-	 */
-	@Test
-	public void testGetStringValue() throws GLanguageException {
-		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
-		doReturn("true").when(formula).getConstantValue();
-
-		assertEquals("true", formula.getStringValue());
-	}
-	
-	/**
-	 * Tests {@link FormulaTerminalBoolean#getBooleanValue()}
-	 */
-	@Test
-	public void testGetBooleanValue() throws GLanguageException {
-		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
-		doReturn("true").when(formula).getConstantValue();
-
-		assertEquals(Boolean.TRUE, formula.getBooleanValue());
-	}
-	
-	/**
-	 * Tests {@link FormulaTerminalBoolean#getDateValue()}
-	 */
-	@Test(expected = GLanguageException.class)
-	public void testGetDateValue() throws GLanguageException {
-		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
-		formula.getDateValue();
-	}
-	
-	/**
-	 * Tests {@link FormulaTerminalDuration#getDurationValue()}
-	 */
-	@Test(expected = GLanguageException.class)
-	public void testGetDurationValue() throws GLanguageException {
-		FormulaTerminalBoolean formula = spy(FormulaTerminalBoolean.class);
-		formula.getDurationValue();
-	}
-	
 	/**
 	 * Tests {@link FormulaTerminalBoolean#asText()}
 	 */

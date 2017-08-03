@@ -13,7 +13,8 @@ import org.junit.experimental.categories.Category;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 /**
@@ -29,23 +30,7 @@ public class FormulaExistIntegrationTest extends BaseDatabaseTest {
 	/**
 	 * Tests {@link FormulaExist#getDiscriminatorValue()}
 	 */
-	@Test
-	public void testGetDiscriminatorValue() {
-		FormulaExist formula = new FormulaExist();
-		
-		assertEquals(Integer.valueOf(FormulaType.Values.OP_EXIST), formula.getDiscriminatorValue());
-	}
-	
-	/**
-	 * Tests {@link FormulaExist#isTerminal()}
-	 */
-	@Test
-	public void testIsTerminal() {
-		FormulaExist formula = new FormulaExist();
-		
-		assertFalse(formula.isTerminal());
-	}
-	
+
 	/**
 	 * Tests {@link FormulaExist#isValid(Evaluator)} when operand is integer
 	 */
@@ -237,122 +222,7 @@ public class FormulaExistIntegrationTest extends BaseDatabaseTest {
 
 		assertEquals(FormulaReturnType.BOOLEAN, formula.getReturnType());
 	}
-	
-	/**
-	 * Tests {@link FormulaExist#getIntegerValue()}
-	 */
-	@Test(expected = GLanguageException.class)
-	public void testGetIntegerValue() throws GLanguageException {
-		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		when(operand.getValue(null)).thenReturn("some_value");
 
-		FormulaExist formula = spy(FormulaExist.class);
-		doReturn(Arrays.asList(operand)).when(formula).getParameters();
-
-		formula.getIntegerValue();
-	}
-	
-	/**
-	 * Tests {@link FormulaExist#getNumericValue()}
-	 */
-	@Test(expected = GLanguageException.class)
-	public void testGetNumericValue() throws GLanguageException {
-		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		when(operand.getValue(null)).thenReturn("some_value");
-
-		FormulaExist formula = spy(FormulaExist.class);
-		doReturn(Arrays.asList(operand)).when(formula).getParameters();
-
-		formula.getNumericValue();
-	}
-	
-	/**
-	 * Tests {@link FormulaExist#getStringValue()}
-	 */
-	@Test(expected = GLanguageException.class)
-	public void testGetStringValue() throws GLanguageException {
-		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		when(operand.getValue(null)).thenReturn("some_value");
-
-		FormulaExist formula = spy(FormulaExist.class);
-		doReturn(Arrays.asList(operand)).when(formula).getParameters();
-
-		formula.getStringValue();
-	}
-	
-	/**
-	 * Tests {@link FormulaExist#getBooleanValue()} when parameter exists
-	 */
-	@Test
-	public void testGetBooleanValueParameterExists() throws GLanguageException {
-		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		when(operand.getValue(null)).thenReturn("some_value");
-
-		FormulaExist formula = spy(FormulaExist.class);
-		doReturn(Arrays.asList(operand)).when(formula).getParameters();
-
-		assertEquals(Boolean.TRUE, formula.getBooleanValue());
-	}
-	
-	/**
-	 * Tests {@link FormulaExist#getBooleanValue()} when parameter doesn't exist
-	 */
-	@Test
-	public void testGetBooleanValueParameterNotExist() throws GLanguageException {
-		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		when(operand.getValue(null)).thenReturn(null);
-
-		FormulaExist formula = spy(FormulaExist.class);
-		doReturn(Arrays.asList(operand)).when(formula).getParameters();
-
-		assertEquals(Boolean.FALSE, formula.getBooleanValue());
-	}
-	
-	/**
-	 * Tests {@link FormulaExist#getDateValue()}
-	 */
-	@Test(expected = GLanguageException.class)
-	public void testGetDateValue() throws GLanguageException {
-		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		when(operand.getValue(null)).thenReturn("some_value");
-
-		FormulaExist formula = spy(FormulaExist.class);
-		doReturn(Arrays.asList(operand)).when(formula).getParameters();
-
-		formula.getDateValue();
-	}
-	
-	/**
-	 * Tests {@link FormulaExist#getDurationValue()}
-	 */
-	@Test(expected = GLanguageException.class)
-	public void testGetDurationValue() throws GLanguageException {
-		AbstractFormula operand = mock(AbstractFormula.class);
-		when(operand.getReturnType(null)).thenReturn(FormulaReturnType.STRING);
-		when(operand.getValue(null)).thenReturn("some_value");
-
-		FormulaExist formula = spy(FormulaExist.class);
-		doReturn(Arrays.asList(operand)).when(formula).getParameters();
-
-		formula.getDurationValue();
-	}
-	
-	/**
-	 * Tests {@link FormulaExist#operationAsText()}
-	 */
-	@Test
-	public void testOperationAsText() {
-		FormulaExist formula = new FormulaExist();
-		
-		assertEquals("?", formula.operationAsText());
-	}
-	
 	/**
 	 * Tests {@link FormulaExist#asText()}
 	 */

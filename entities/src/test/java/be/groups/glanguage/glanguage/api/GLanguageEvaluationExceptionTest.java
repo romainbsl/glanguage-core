@@ -6,7 +6,7 @@ import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 /**
  * @author michotte
  */
-public class GLanguageEvaluationExceptionTest extends BaseDatabaseTest {
+public class GLanguageEvaluationExceptionTest {
 
     public void handleException(Exception e) throws GLanguageException {
         if (e instanceof GLanguageException) {
