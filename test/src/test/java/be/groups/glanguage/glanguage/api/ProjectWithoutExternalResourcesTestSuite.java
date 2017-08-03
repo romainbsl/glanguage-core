@@ -8,7 +8,7 @@ import be.groups.glanguage.glanguage.api.test.categories.IntegrationTestCategory
 
 @RunWith(Categories.class)
 @Categories.ExcludeCategory({IntegrationTestCategory.class})
-@SuiteClasses({ProjectTestSuite.class})
+@SuiteClasses({ProjectIntegrationTestSuite.class})
 public class ProjectWithoutExternalResourcesTestSuite {
 
 }
