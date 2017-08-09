@@ -40,47 +40,4 @@ public class RuleDefinitionParameterIntegrationTest extends BaseDatabaseTest {
 		assertNotNull(ruleDefinitionParameter.getRuleDefinition());
 		assertEquals(-900001, ruleDefinitionParameter.getRuleDefinition().getId());
 	}
-
-	/**
-	 * Tests {@link RuleDefinitionParameter#matches(RuleDefinitionParameter)} when
-	 * levels are not matching
-	 */
-	@Test
-	public void testMatchLevelsNotMatching() {
-		RuleDefinitionParameter firstRuleDefinitionParameter = new RuleDefinitionParameter(DefinitionLevel.EMPLOYER,
-				"100000");
-		RuleDefinitionParameter secondRuleDefinitionParameter = new RuleDefinitionParameter(
-				DefinitionLevel.JOINT_COMMITTEE, "355");
-
-		assertFalse(firstRuleDefinitionParameter.matches(secondRuleDefinitionParameter));
-	}
-
-	/**
-	 * Tests {@link RuleDefinitionParameter#matches(RuleDefinitionParameter)} when
-	 * levels are matching, but not values
-	 */
-	@Test
-	public void testMatchLevelsMatchingValuesNotMatching() {
-		RuleDefinitionParameter firstRuleDefinitionParameter = new RuleDefinitionParameter(DefinitionLevel.EMPLOYER,
-				"100000");
-		RuleDefinitionParameter secondRuleDefinitionParameter = new RuleDefinitionParameter(DefinitionLevel.EMPLOYER,
-				"120000");
-
-		assertFalse(firstRuleDefinitionParameter.matches(secondRuleDefinitionParameter));
-	}
-
-	/**
-	 * Tests {@link RuleDefinitionParameter#matches(RuleDefinitionParameter)} when
-	 * levels and values are matching
-	 */
-	@Test
-	public void testMatchMatching() {
-		RuleDefinitionParameter firstRuleDefinitionParameter = new RuleDefinitionParameter(DefinitionLevel.EMPLOYER,
-				"100000");
-		RuleDefinitionParameter secondRuleDefinitionParameter = new RuleDefinitionParameter(DefinitionLevel.EMPLOYER,
-				"100000");
-
-		assertTrue(firstRuleDefinitionParameter.matches(secondRuleDefinitionParameter));
-	}
-
 }
