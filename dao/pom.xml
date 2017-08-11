@@ -1,34 +1,29 @@
 <?xml version="1.0"?>
 <project
-		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-		xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<modelVersion>4.0.0</modelVersion>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
 
-	<!-- Master Project -->
-	<parent>
-		<groupId>be.groups.glanguage</groupId>
-		<artifactId>glanguage-api</artifactId>
-		<version>0.0.4</version>
-	</parent>
+  <!-- Master Project -->
+  <parent>
+    <groupId>be.groups.glanguage</groupId>
+    <artifactId>glanguage-api</artifactId>
+    <version>0.0.4</version>
+  </parent>
 
-	<artifactId>glanguage-api-dao</artifactId>
+  <artifactId>glanguage-api-dao</artifactId>
 
-	<name>Glanguage Core Persistence</name>
+  <name>Glanguage Core Persistence</name>
 
-	<!-- Dependencies needed to implement employer persistence layer -->
-	<dependencies>
-		<!-- ============================== GROUP S PROJECTS Dependencies ============================== -->
-		<!-- Import PrestaNew dependencies for persistence layer -->
-		<dependency>
-			<groupId>be.groups.presta</groupId>
-			<artifactId>backoffice-dao</artifactId>
-			<version>0.1.1</version>
-		</dependency>
-		<!-- Employer model layer (entities to be persisted) -->
-		<dependency>
-			<groupId>be.groups.glanguage</groupId>
-			<artifactId>glanguage-api-entities</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-	</dependencies>
+  <!-- Dependencies needed to implement employer persistence layer -->
+  <dependencies>
+    <!-- ============================== GROUP S PROJECTS Dependencies ============================== -->
+    <!-- Employer model layer (entities to be persisted) -->
+    <dependency>
+      <groupId>be.groups.glanguage</groupId>
+      <artifactId>glanguage-api-entities</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
+  </dependencies>
 </project>
