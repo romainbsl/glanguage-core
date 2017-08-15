@@ -1,21 +1,23 @@
 package be.groups.glanguage.glanguage.api.business.universe;
 
-import be.groups.glanguage.glanguage.api.business.plan.Plan;
-import be.groups.glanguage.glanguage.api.dao.FormulaDao;
-import be.groups.glanguage.glanguage.api.dao.RuleSetDao;
-import be.groups.glanguage.glanguage.api.dao.RuleSetVersionDao;
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
-import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
-import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
+import be.groups.glanguage.glanguage.api.business.plan.*;
+import be.groups.glanguage.glanguage.api.dao.*;
+import be.groups.glanguage.glanguage.api.entities.formula.*;
+import be.groups.glanguage.glanguage.api.entities.rule.*;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.*;
+import be.groups.glanguage.glanguage.api.entities.ruleset.*;
+import java.time.*;
+import java.util.*;
+import org.springframework.beans.factory.annotation.*;
 
 public class Universe {
+
+  @Autowired
+  private static RuleSetDao ruleSetDao;
+  @Autowired
+  private static RuleSetVersionDao ruleSetVersionDao;
+  @Autowired
+  private static FormulaDao formulaDao;
 
     /**
      * Get all {@link RuleSet RuleSets} defined in the system
@@ -23,7 +25,7 @@ public class Universe {
      * @return the {@link List} of all {@link RuleSet RuleSets} defined in the system
      */
     public static List<RuleSet> getAllRuleSets() {
-        return new RuleSetDao().findAll();
+      return ruleSetDao.findAll();
     }
 
     /**
@@ -34,21 +36,21 @@ public class Universe {
      * @return the {@link RuleSet} whose {@link RuleSet#id} is equal to {@code ruleSetId}, or null if it doesn't exists
      */
     public static RuleSet getRuleSet(Integer ruleSetId) {
-        return new RuleSetDao().findById(ruleSetId);
+      return ruleSetDao.findById(ruleSetId)
+                       .orElse(null);
     }
 
     /**
      * Get a {@link RuleSet} corresponding to a {@code ruleSetAlias} by selecting the one whose
-     * {@link RuleSet#aliasFr} or {@link RuleSet#aliasNl} or {@link RuleSet#aliasDe} or {@link RuleSet#aliasX} is
-     * equal to {@code ruleSetAlias}
+     * {@link RuleSet#alias#items} containing {@code ruleSetAlias}
      *
-     * @param ruleSetAlias the {@link RuleSet#aliasFr} or the {@link RuleSet#aliasNl} or the {@link RuleSet#aliasDe}
-     *                     or the {@link RuleSet#aliasX} of the {@link RuleSet} to be returned
-     * @return the {@link RuleSet} whose {@link RuleSet#aliasFr} or {@link RuleSet#aliasNl} or
-     * {@link RuleSet#aliasDe} or {@link RuleSet#aliasX} is equal to {@code ruleSetAlias}, or null if it doesn't exists
+     * @param ruleSetAlias the {@link RuleSet#alias#items} to be returned
+     * @return the {@link RuleSet} whose {@link RuleSet#alias#items} is containing {@code
+     * ruleSetAlias},
+     * or null if it doesn't exists
      */
     public static RuleSet getRuleSet(String ruleSetAlias) {
-        return new RuleSetDao().findByAlias(ruleSetAlias);
+      return ruleSetDao.findByAlias(ruleSetAlias);
     }
 
     /**
@@ -60,7 +62,8 @@ public class Universe {
      * null if it doesn't exists
      */
     public static RuleSetVersion getRuleSetVersion(Integer ruleSetVersionId) {
-        return new RuleSetVersionDao().findById(ruleSetVersionId);
+      return ruleSetVersionDao.findById(ruleSetVersionId)
+                              .orElse(null);
     }
 
     /**
@@ -74,24 +77,23 @@ public class Universe {
      * {@link RuleSetVersion#version} is equal to {@code version}, or null if it doesn't exists
      */
     public static RuleSetVersion getRuleSetVersion(Integer ruleSetId, String version) {
-        return new RuleSetVersionDao().findByRuleSetIdAndVersion(ruleSetId, version);
+      return ruleSetVersionDao.findByRuleSetIdAndVersion(ruleSetId, version);
     }
 
     /**
      * Get a {@link RuleSet} corresponding to a {@code ruleSetAlias} and a {@code
-     * version} by selecting the one whose {@link RuleSet#aliasFr} or {@link RuleSet#aliasNl} or
-     * {@link RuleSet#aliasDe} or {@link RuleSet#aliasX} is equal to {@code ruleSetAlias} and
+     * version} by selecting the one whose {@link RuleSet#alias#items} is containing {@code
+     * ruleSetAlias} and
      * {@link RuleSetVersion#version} is equal to {@code version}
      *
-     * @param ruleSetAlias the {@link RuleSet#aliasFr} or the {@link RuleSet#aliasNl} or the {@link RuleSet#aliasDe}
-     *                     or the {@link RuleSet#aliasX} of the {@link RuleSet} to be returned
+     * @param ruleSetAlias the {@link RuleSet#alias#items} of the {@link RuleSet} to be returned
      * @param version      the {@link RuleSetVersion#version} of the {@link RuleSetVersion} to be returned
-     * @return the {@link RuleSet} whose {@link RuleSet#aliasFr} or {@link RuleSet#aliasNl} or
-     * {@link RuleSet#aliasDe} or {@link RuleSet#aliasX} is equal to {@code ruleSetAlias} and
+     * @return the {@link RuleSet} whose {@link RuleSet#alias} is containing {@code ruleSetAlias}
+     * and
      * {@link RuleSetVersion#version} is equal to {@code version}, or null if it doesn't exists
      */
     public static RuleSetVersion getRuleSetVersion(String ruleSetAlias, String version) {
-        return new RuleSetVersionDao().findByRuleSetAliasAndVersion(ruleSetAlias, version);
+      return ruleSetVersionDao.findByRuleSetAliasAndVersion(ruleSetAlias, version);
     }
 
     /**
@@ -107,25 +109,24 @@ public class Universe {
      * it doesn't exists
      */
     public static RuleSetVersion getRuleSetVersion(Integer ruleSetId, LocalDateTime productionDate) {
-        return new RuleSetVersionDao().findByRuleSetIdAndProductionDate(ruleSetId, productionDate);
+      return ruleSetVersionDao.findByRuleSetIdAndProductionDate(ruleSetId, productionDate);
     }
 
     /**
-     * Get a {@link RuleSetVersion} corresponding to a {@code ruleSetAlias} and a {@code productionDate} by selecting
-     * the one whose {@link RuleSet#aliasFr} or {@link RuleSet#aliasNl} or {@link RuleSet#aliasDe} or
-     * {@link RuleSet#aliasX} is equal to {@code ruleSetAlias} and {@link RuleSetVersion#productionStartDate} is the
-     * greatest known not after {@code productionDate}
+     * Get a {@link RuleSetVersion} corresponding to a {@code ruleSetAlias} and a {@code
+     * productionDate} by selecting the one whose {@link RuleSet#alias#items} is containing {@code
+     * ruleSetAlias} and {@link RuleSetVersion#productionStartDate} is the greatest known not after
+     * {@code productionDate}
      *
-     * @param ruleSetAlias   the {@link RuleSet#id} of the {@link RuleSetVersion} to be returned
-     * @param productionDate the maximum {@link RuleSetVersion#productionStartDate} of the {@link RuleSetVersion} to be
-     *                       returned
-     * @return the {@link RuleSetVersion} whose {@link RuleSet#aliasFr} or {@link RuleSet#aliasNl} or
-     * {@link RuleSet#aliasDe} or {@link RuleSet#aliasX} is equal to {@code ruleSetAlias} and
-     * {@link RuleSetVersion#productionStartDate} is the greatest known not after {@code productionDate}, or null if
-     * it doesn't exists
+     * @param ruleSetAlias the {@link RuleSet#id} of the {@link RuleSetVersion} to be returned
+     * @param productionDate the maximum {@link RuleSetVersion#productionStartDate} of the {@link
+     * RuleSetVersion} to be returned
+     * @return the {@link RuleSetVersion} whose {@link RuleSet#alias#items} is containing {@code
+     * ruleSetAlias} and {@link RuleSetVersion#productionStartDate} is the greatest known not after
+     * {@code productionDate}, or null if it doesn't exists
      */
     public static RuleSetVersion getRuleSetVersion(String ruleSetAlias, LocalDateTime productionDate) {
-        return new RuleSetVersionDao().findByRuleSetAliasAndProductionDate(ruleSetAlias, productionDate);
+      return ruleSetVersionDao.findByRuleSetAliasAndProductionDate(ruleSetAlias, productionDate);
     }
 
     /**
@@ -439,6 +440,7 @@ public class Universe {
      * @return the {@link AbstractFormula} identified by {@code id}, or null if it doesn't exists
      */
     public static AbstractFormula getFormula(Integer id) {
-        return new FormulaDao().findById(id);
+      return formulaDao.findById(id)
+                       .orElse(null);
     }
 }

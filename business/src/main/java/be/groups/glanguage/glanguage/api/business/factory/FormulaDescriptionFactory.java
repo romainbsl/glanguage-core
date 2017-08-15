@@ -1,12 +1,11 @@
 package be.groups.glanguage.glanguage.api.business.factory;
 
-import be.groups.glanguage.glanguage.api.dao.FormulaDescriptionDao;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import be.groups.glanguage.glanguage.api.dao.*;
+import be.groups.glanguage.glanguage.api.entities.formula.description.*;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+import org.springframework.beans.factory.annotation.*;
 
 /**
  * This factory allows to get {@link FormulaDescription formula descriptions}<br>
@@ -15,7 +14,10 @@ import java.util.stream.Collectors;
  * @author michotte
  */
 public class FormulaDescriptionFactory {
-	
+
+  @Autowired
+  private static FormulaDescriptionDao formulaDescriptionDao;
+
 	private static Map<FormulaType, FormulaDescription> formulaDescriptionByType;
 
 	/**
@@ -36,8 +38,8 @@ public class FormulaDescriptionFactory {
 	 */
 	private static Map<FormulaType, FormulaDescription> getFormulaDescriptionByType() {
 		if (formulaDescriptionByType == null) {
-			formulaDescriptionByType = new FormulaDescriptionDao().findAll().stream()
-					.collect(Collectors.toMap(FormulaDescription::getType, Function.identity()));
+      formulaDescriptionByType = formulaDescriptionDao.findAll().stream()
+                                                      .collect(Collectors.toMap(FormulaDescription::getType, Function.identity()));
 		}
 		
 		return formulaDescriptionByType;
