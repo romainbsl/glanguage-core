@@ -1,54 +1,30 @@
 package be.groups.glanguage.glanguage.api.business.action.standard;
 
-import be.groups.glanguage.glanguage.api.business.action.SemanticalAction;
-import be.groups.glanguage.glanguage.api.business.analysis.IdentifierParameterList;
-import be.groups.glanguage.glanguage.api.business.evaluation.PlanEvaluator;
-import be.groups.glanguage.glanguage.api.business.factory.FormulaDescriptionFactory;
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaAnomaly;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaBracket;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaDate;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.FormulaIn;
+import be.groups.glanguage.glanguage.api.business.action.*;
+import be.groups.glanguage.glanguage.api.business.analysis.*;
+import be.groups.glanguage.glanguage.api.business.evaluation.*;
+import be.groups.glanguage.glanguage.api.business.factory.*;
+import be.groups.glanguage.glanguage.api.entities.formula.*;
+import be.groups.glanguage.glanguage.api.entities.formula.description.*;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.*;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.binary.*;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaApplicability;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaGet;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.FormulaRuleReference;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.*;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.duration.*;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMax;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumMin;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumSignedMax;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.FormulaExtremumSignedMin;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatDate;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatInteger;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatNumeric;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.FormulaFormatString;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.group.FormulaGroupMultiply;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.group.FormulaGroupSum;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.group.FormulaGroupSumV;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.FormulaIfInstruction;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathAbs;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.FormulaMathSign;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.extremum.*;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.format.*;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.group.*;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.instruction.*;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.math.*;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.rounding.*;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaStringItem;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaStringLength;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.FormulaSubString;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.string.*;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.terminal.*;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaExist;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaNot;
-import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.FormulaUnaryMinus;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import be.groups.glanguage.glanguage.api.error.parser.ParserUnableToParseFormulaInnerError;
-import be.groups.glanguage.glanguage.api.error.parser.ParserUnableToParseTextInnerError;
-import be.groups.glanguage.glanguage.api.error.parser.ParserUnknownFormulaTypeInnerError;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.time.LocalDate;
-import java.util.LinkedList;
+import be.groups.glanguage.glanguage.api.entities.formula.implementations.unary.*;
+import be.groups.glanguage.glanguage.api.error.exception.*;
+import be.groups.glanguage.glanguage.api.error.parser.*;
+import java.time.*;
+import java.util.*;
+import org.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
 
 /**
  * Set of semantical actions applicable during analysis
@@ -56,6 +32,9 @@ import java.util.LinkedList;
 public class AsStandard implements SemanticalAction {
 
     static Logger logger = LoggerFactory.getLogger(Class.class);
+
+  @Autowired
+  private FormulaDescriptionFactory formulaDescriptionFactory;
 
     /**
      * Result of the analysis
@@ -101,7 +80,8 @@ public class AsStandard implements SemanticalAction {
     public AbstractFormula unaryOperation(FormulaType formulaDescriptionId,
                                           AbstractFormula formula,
                                           PlanEvaluator evaluator) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(formulaDescriptionId);
         try {
             switch (formulaDescription.getType()) {
                 case OP_NOT:
@@ -146,7 +126,8 @@ public class AsStandard implements SemanticalAction {
                                            AbstractFormula formula1,
                                            AbstractFormula formula2,
                                            PlanEvaluator evaluator) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(formulaDescriptionId);
         try {
             switch (formulaDescriptionId) {
                 case OP_MULTIPLY:
@@ -209,7 +190,8 @@ public class AsStandard implements SemanticalAction {
 
     @Override
     public AbstractFormula bracketFormula(AbstractFormula formula) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS);
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(FormulaType.F_BRACKETS);
         try {
             return new FormulaBracket(formulaDescription, formula);
         } catch (GLanguageException e) {
@@ -240,7 +222,8 @@ public class AsStandard implements SemanticalAction {
     public AbstractFormula inOperation(AbstractFormula element,
                                        LinkedList<AbstractFormula> inList,
                                        PlanEvaluator evaluator) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.F_IN);
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(FormulaType.F_IN);
         try {
             return new FormulaIn(formulaDescription, element, inList, evaluator);
         } catch (GLanguageException e) {
@@ -270,7 +253,8 @@ public class AsStandard implements SemanticalAction {
 
     @Override
     public AbstractFormula referenceFormula(String ruleId, PlanEvaluator evaluator) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_RULE_REFERENCE);
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(FormulaType.C_RULE_REFERENCE);
         try {
             return new FormulaRuleReference(formulaDescription, ruleId, evaluator);
         } catch (GLanguageException e) {
@@ -297,7 +281,8 @@ public class AsStandard implements SemanticalAction {
 
     @Override
     public AbstractFormula terminalIntegerFormula(String s) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER);
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER);
         try {
             return new FormulaTerminalInteger(formulaDescription, s);
         } catch (GLanguageException e) {
@@ -324,7 +309,8 @@ public class AsStandard implements SemanticalAction {
 
     @Override
     public AbstractFormula terminalNumericFormula(String s) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_NUMERIC);
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(FormulaType.TERMINAL_NUMERIC);
         try {
             return new FormulaTerminalNumeric(formulaDescription, s);
         } catch (GLanguageException e) {
@@ -351,7 +337,8 @@ public class AsStandard implements SemanticalAction {
 
     @Override
     public AbstractFormula terminalDateFormula(LocalDate d) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DATE);
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DATE);
         try {
             return new FormulaTerminalDate(formulaDescription, d);
         } catch (GLanguageException e) {
@@ -378,7 +365,8 @@ public class AsStandard implements SemanticalAction {
 
     @Override
     public AbstractFormula terminalDurationFormula(String duration) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DURATION);
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(FormulaType.TERMINAL_DURATION);
         try {
             return new FormulaTerminalDuration(formulaDescription, duration);
         } catch (GLanguageException e) {
@@ -405,7 +393,8 @@ public class AsStandard implements SemanticalAction {
 
     @Override
     public AbstractFormula terminalBooleanFormula(boolean b) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_BOOLEAN);
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(FormulaType.TERMINAL_BOOLEAN);
         try {
             return new FormulaTerminalBoolean(formulaDescription, b);
         } catch (GLanguageException e) {
@@ -432,7 +421,8 @@ public class AsStandard implements SemanticalAction {
 
     @Override
     public AbstractFormula terminalStringFormula(String s) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_STRING);
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(FormulaType.TERMINAL_STRING);
         try {
             return new FormulaTerminalString(formulaDescription, s);
         } catch (GLanguageException e) {
@@ -466,8 +456,10 @@ public class AsStandard implements SemanticalAction {
     public AbstractFormula standardFunction(FormulaType formulaDescriptionId,
                                             LinkedList<AbstractFormula> parameters,
                                             PlanEvaluator evaluator) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
-        FormulaDescription roundingPrecisionFormulasDescription = FormulaDescriptionFactory.getDescription(FormulaType
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(formulaDescriptionId);
+      FormulaDescription roundingPrecisionFormulasDescription =
+          formulaDescriptionFactory.getDescription(FormulaType
                                                                                                         .TERMINAL_INTEGER);
         try {
             switch (formulaDescriptionId) {
@@ -547,7 +539,8 @@ public class AsStandard implements SemanticalAction {
 
     @Override
     public AbstractFormula groupFunction(FormulaType formulaDescriptionId, String groupName, PlanEvaluator evaluator) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(formulaDescriptionId);
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(formulaDescriptionId);
         try {
             switch (formulaDescriptionId) {
                 case G_MULT:
@@ -583,8 +576,10 @@ public class AsStandard implements SemanticalAction {
     public AbstractFormula getFunction(FormulaReturnType returnType,
                                        IdentifierParameterList identifierParameterlist,
                                        PlanEvaluator evaluator) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_GET);
-        FormulaDescription subFormulasDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE);
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(FormulaType.C_GET);
+      FormulaDescription subFormulasDescription =
+          formulaDescriptionFactory.getDescription(FormulaType.C_PRIMITIVE);
         try {
             return new FormulaGet(formulaDescription,
                                   subFormulasDescription,
@@ -613,7 +608,8 @@ public class AsStandard implements SemanticalAction {
 
     @Override
     public AbstractFormula applicabiltyCall(String code, PlanEvaluator evaluator) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_APPLICABILITY);
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(FormulaType.C_APPLICABILITY);
         try {
             return new FormulaApplicability(formulaDescription, code, evaluator);
         } catch (GLanguageException e) {
@@ -637,7 +633,8 @@ public class AsStandard implements SemanticalAction {
 
     @Override
     public AbstractFormula formulaCall(String code, PlanEvaluator evaluator) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.C_FORMULA);
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(FormulaType.C_FORMULA);
         try {
             return new FormulaFormula(formulaDescription, code, evaluator);
         } catch (GLanguageException e) {
@@ -664,7 +661,8 @@ public class AsStandard implements SemanticalAction {
                                          AbstractFormula ifStatement,
                                          AbstractFormula elseStatement,
                                          PlanEvaluator evaluator) {
-        FormulaDescription formulaDescription = FormulaDescriptionFactory.getDescription(FormulaType.I_IF);
+      FormulaDescription formulaDescription =
+          formulaDescriptionFactory.getDescription(FormulaType.I_IF);
         try {
             return new FormulaIfInstruction(formulaDescription, condition, ifStatement, elseStatement, evaluator);
         } catch (GLanguageException e) {

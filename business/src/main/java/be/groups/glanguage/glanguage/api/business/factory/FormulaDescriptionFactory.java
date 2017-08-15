@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
 
 /**
  * This factory allows to get {@link FormulaDescription formula descriptions}<br>
@@ -13,12 +14,13 @@ import org.springframework.beans.factory.annotation.*;
  *
  * @author michotte
  */
+@Component
 public class FormulaDescriptionFactory {
 
   @Autowired
-  private static FormulaDescriptionDao formulaDescriptionDao;
+  private FormulaDescriptionDao formulaDescriptionDao;
 
-	private static Map<FormulaType, FormulaDescription> formulaDescriptionByType;
+  private Map<FormulaType, FormulaDescription> formulaDescriptionByType;
 
 	/**
 	 * Get the {@link FormulaDescription} corresponding to a {@link FormulaType}
@@ -26,8 +28,8 @@ public class FormulaDescriptionFactory {
 	 * @param formulaType the {@link FormulaType} corresponding to the {@link FormulaDescription} to be returned
 	 * @return the {@link FormulaDescription} corresponding to {@code formulaType}, or null if it doesn't exists
 	 */
-	public static FormulaDescription getDescription(FormulaType formulaType) {
-		return getFormulaDescriptionByType().get(formulaType);
+  public FormulaDescription getDescription(FormulaType formulaType) {
+    return getFormulaDescriptionByType().get(formulaType);
 	}
 
 	/**
@@ -36,13 +38,14 @@ public class FormulaDescriptionFactory {
 	 *
 	 * @return the map of all known {@link FormulaDescription} (value) associated to its {@link FormulaType} (key)
 	 */
-	private static Map<FormulaType, FormulaDescription> getFormulaDescriptionByType() {
-		if (formulaDescriptionByType == null) {
+  private Map<FormulaType, FormulaDescription> getFormulaDescriptionByType() {
+    if (formulaDescriptionByType == null) {
       formulaDescriptionByType = formulaDescriptionDao.findAll().stream()
-                                                      .collect(Collectors.toMap(FormulaDescription::getType, Function.identity()));
-		}
+                                                      .collect(Collectors.toMap(
+                                                          FormulaDescription::getType,
+                                                          Function.identity()));
+    }
 		
 		return formulaDescriptionByType;
 	}
-	
 }
