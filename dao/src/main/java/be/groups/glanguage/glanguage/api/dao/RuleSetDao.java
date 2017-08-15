@@ -2,6 +2,7 @@ package be.groups.glanguage.glanguage.api.dao;
 
 import be.groups.glanguage.glanguage.api.entities.ruleset.*;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.*;
 
 /**
  * DAO for {@link RuleSet} <p>
@@ -16,7 +17,8 @@ public interface RuleSetDao extends JpaRepository<RuleSet, Integer> {
    * @param id the identifier of the {@link RuleSet} to be returned
    * @return The {@link RuleSet} identified by {@code id}, or null if it doesn't exists
    */
-  RuleSet findById(Integer id);
+  // TODO Use super.findById(id): Optional
+  @Deprecated RuleSet findById(int id);
 
   /**
    * Find a {@link RuleSet} by alias
@@ -30,5 +32,5 @@ public interface RuleSetDao extends JpaRepository<RuleSet, Integer> {
       + " where ms.id = rs.alias.id and msi.multilingualString.id = ms.id"
       + " and dbms_lob.compare(msi.text, :alias) = 0"
       + ")")
-  RuleSet findByAlias(String alias);
+  RuleSet findByAlias(@Param("alias") String alias);
 }

@@ -17,5 +17,6 @@ public interface FormulaDao extends JpaRepository<AbstractFormula, Integer> {
    * @param id the identifier of the {@link AbstractFormula} to be returned
    * @return the {@link AbstractFormula} identified by the {@code id}, or null if it doesn't exists
    */
-  AbstractFormula findById(int id);
+  // TODO Use super.findById(id): Optional
+  @Deprecated AbstractFormula findById(int id);
 }
