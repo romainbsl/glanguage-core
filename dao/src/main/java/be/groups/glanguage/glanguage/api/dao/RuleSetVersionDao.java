@@ -34,7 +34,7 @@ public interface RuleSetVersionDao extends JpaRepository<RuleSetVersion, Integer
   @Query("select rsv from RuleSetVersion rsv "
       + " where rsv.ruleSet.id = :ruleSetId "
       + " and rsv.version = :version")
-  RuleSetVersion findByRuleSetIdAndVersion(@Param(":ruleSetId") Integer ruleSetId,
+  RuleSetVersion findByRuleSetIdAndVersion(@Param("ruleSetId") Integer ruleSetId,
                                            @Param("version") String version);
 
   /**
