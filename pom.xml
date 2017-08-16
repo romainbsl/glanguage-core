@@ -34,7 +34,6 @@
     <module>entities</module>
     <module>dao</module>
     <module>business</module>
-    <module>ws</module>
     <module>test</module>
   </modules>
 
