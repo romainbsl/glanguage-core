@@ -1,13 +1,11 @@
 package be.groups.glanguage.glanguage.api;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
-
-import be.groups.glanguage.glanguage.api.business.BusinessIntegrationTestSuite;
-import be.groups.glanguage.glanguage.api.dao.DaoIntegrationTestSuite;
-import be.groups.glanguage.glanguage.api.entities.EntitiesIntegrationTestSuite;
-import be.groups.glanguage.glanguage.api.ws.WsIntegrationTestSuite;
+import be.groups.glanguage.glanguage.api.business.*;
+import be.groups.glanguage.glanguage.api.dao.*;
+import be.groups.glanguage.glanguage.api.entities.*;
+import org.junit.runner.*;
+import org.junit.runners.*;
+import org.junit.runners.Suite.*;
 
 /**
  * Test suite for the whole project
@@ -15,7 +13,8 @@ import be.groups.glanguage.glanguage.api.ws.WsIntegrationTestSuite;
  * @author DUPIREFR
  */
 @RunWith(Suite.class)
-@SuiteClasses({EntitiesIntegrationTestSuite.class, DaoIntegrationTestSuite.class, BusinessIntegrationTestSuite.class, WsIntegrationTestSuite.class})
+@SuiteClasses({EntitiesIntegrationTestSuite.class, DaoIntegrationTestSuite.class,
+    BusinessIntegrationTestSuite.class})
 public class ProjectIntegrationTestSuite {
 
 }
