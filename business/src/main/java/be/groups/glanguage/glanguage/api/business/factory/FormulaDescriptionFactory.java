@@ -20,6 +20,7 @@ public class FormulaDescriptionFactory {
   @Autowired
   private FormulaDescriptionDao formulaDescriptionDao;
 
+  // TODO see for Cache or FactoryBean
   private Map<FormulaType, FormulaDescription> formulaDescriptionByType;
 
 	/**
