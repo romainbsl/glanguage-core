@@ -19,7 +19,13 @@
   <!-- Dependencies needed to implement employer persistence layer -->
   <dependencies>
     <!-- ============================== GROUP S PROJECTS Dependencies ============================== -->
-    <!-- Employer model layer (entities to be persisted) -->
+    <!-- Group S persistence dependencies -->
+    <dependency>
+      <groupId>be.groups.pom</groupId>
+      <artifactId>groups-persist-dependencies</artifactId>
+      <version>0.4.0-SNAPSHOT</version>
+    </dependency>
+    <!-- Glanguage model layer (entities to be persisted) -->
     <dependency>
       <groupId>be.groups.glanguage</groupId>
       <artifactId>glanguage-api-entities</artifactId>
