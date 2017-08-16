@@ -1,6 +1,6 @@
 package be.groups.glanguage.glanguage.api.business.factory;
 
-import be.groups.glanguage.glanguage.api.dao.*;
+import be.groups.glanguage.glanguage.api.dao.formula.*;
 import be.groups.glanguage.glanguage.api.entities.formula.description.*;
 import java.util.*;
 import java.util.function.*;

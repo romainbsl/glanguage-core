@@ -1,7 +1,8 @@
 package be.groups.glanguage.glanguage.api.business.universe;
 
 import be.groups.glanguage.glanguage.api.business.plan.*;
-import be.groups.glanguage.glanguage.api.dao.*;
+import be.groups.glanguage.glanguage.api.dao.formula.*;
+import be.groups.glanguage.glanguage.api.dao.ruleset.*;
 import be.groups.glanguage.glanguage.api.entities.formula.*;
 import be.groups.glanguage.glanguage.api.entities.rule.*;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.*;

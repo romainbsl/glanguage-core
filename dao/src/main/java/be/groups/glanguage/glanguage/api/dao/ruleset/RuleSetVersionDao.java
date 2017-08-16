@@ -1,4 +1,4 @@
-package be.groups.glanguage.glanguage.api.dao;
+package be.groups.glanguage.glanguage.api.dao.ruleset;
 
 import be.groups.glanguage.glanguage.api.entities.ruleset.*;
 import java.time.*;

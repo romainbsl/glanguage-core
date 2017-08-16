@@ -1,4 +1,4 @@
-package be.groups.glanguage.glanguage.api.dao;
+package be.groups.glanguage.glanguage.api.dao.formula;
 
 import be.groups.glanguage.glanguage.api.entities.formula.description.*;
 import org.springframework.data.jpa.repository.*;
