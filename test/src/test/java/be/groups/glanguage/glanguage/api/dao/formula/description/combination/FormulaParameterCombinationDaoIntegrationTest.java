@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  * @author michotte
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class FormulaParameterCombinationIntegrationTest extends DaoIntegrationTest {
+public class FormulaParameterCombinationDaoIntegrationTest extends DaoIntegrationTest {
 
   @Autowired
   private FormulaParameterCombinationDao formulaParameterCombinationDao;

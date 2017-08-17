@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
  * @author DUPIREFR
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class FormulaParameterCombinationItemIntegrationTest extends DaoIntegrationTest {
+public class FormulaParameterCombinationDaoItemIntegrationTest extends DaoIntegrationTest {
 
   @Autowired
   private FormulaParameterCombinationItemDao formulaParameterCombinationItemDao;
