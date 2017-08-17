@@ -14,13 +14,16 @@ import org.springframework.stereotype.*;
 public interface RuleSetDao extends JpaRepository<RuleSet, Integer> {
 
   /**
-   * Find a {@link RuleSet} by id
+   * Find a {@link RuleSet} by id with all his children {@Link RuleSet#versions}
    *
    * @param id the identifier of the {@link RuleSet} to be returned
-   * @return The {@link RuleSet} identified by {@code id}, or null if it doesn't exists
+   * @return The {@link RuleSet} identified by {@code id} with all his children,
+   * or null if it doesn't exists
    */
-  // TODO Use super.findById(id): Optional
-  @Deprecated RuleSet findById(int id);
+  @Query("Select rs from RuleSet rs "
+      + "join fetch rs.versions rsv "
+      + "where rs.id = :id and rsv.ruleSet = rs ")
+  RuleSet findEagerById(@Param("id") Integer id);
 
   /**
    * Find a {@link RuleSet} by alias

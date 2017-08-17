@@ -31,12 +31,12 @@ public class RuleSetDaoIntegrationTest extends DaoIntegrationTest {
 	}
 
 	/**
-	 * Tests {@link RuleSetDao#findById(Integer)} when is is 900000
-	 */
+   * Tests {@link RuleSetDao#findEagerById(Integer)} when is is 900000
+   */
 	@Test
 	public void testFindById() {
-		RuleSet ruleSet = ruleSetDao.findById(-900000);
-		assertNotNull(ruleSet);
+    RuleSet ruleSet = ruleSetDao.findEagerById(-900000);
+    assertNotNull(ruleSet);
 		assertEquals(-900000, ruleSet.getId());
 	}
 
@@ -66,7 +66,7 @@ public class RuleSetDaoIntegrationTest extends DaoIntegrationTest {
 	@Test
 	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
-		RuleSet ruleSet = ruleSetDao.findById(-900000);
+    RuleSet ruleSet = ruleSetDao.findEagerById(-900000);
 
 		/* Checking entity */
 		assertNotNull(ruleSet);
