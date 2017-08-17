@@ -4,12 +4,14 @@ import be.groups.glanguage.glanguage.api.entities.ruleset.*;
 import java.time.*;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.*;
+import org.springframework.stereotype.*;
 
 /**
  * DAO for {@link RuleSetVersion} <p>
  *
  * @author michotte
  */
+@Repository
 public interface RuleSetVersionDao extends JpaRepository<RuleSetVersion, Integer> {
 
   /**

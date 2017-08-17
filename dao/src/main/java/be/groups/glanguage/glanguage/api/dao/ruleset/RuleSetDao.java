@@ -3,12 +3,14 @@ package be.groups.glanguage.glanguage.api.dao.ruleset;
 import be.groups.glanguage.glanguage.api.entities.ruleset.*;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.*;
+import org.springframework.stereotype.*;
 
 /**
  * DAO for {@link RuleSet} <p>
  *
  * @author michotte
  */
+@Repository
 public interface RuleSetDao extends JpaRepository<RuleSet, Integer> {
 
   /**
