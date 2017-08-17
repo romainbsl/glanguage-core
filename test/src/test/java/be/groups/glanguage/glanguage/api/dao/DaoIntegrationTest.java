@@ -1,19 +1,27 @@
 package be.groups.glanguage.glanguage.api.dao;
 
-import be.groups.marmota.persistence.DatabaseIdentifier;
-import be.groups.marmota.persistence.JpaUtil;
-import be.groups.marmota.test.TNSNames;
-import be.groups.presta.backoffice.test.base.Environment;
-import org.junit.BeforeClass;
+import be.groups.common.database.*;
+import be.groups.common.database.configuration.*;
+import be.groups.common.database.sharding.*;
+import org.junit.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.boot.autoconfigure.domain.*;
+import org.springframework.boot.test.context.*;
+import org.springframework.context.annotation.*;
+import org.springframework.data.jpa.repository.config.*;
 
+@ComponentScan("be.groups")
+@EntityScan("be.groups")
+@EnableJpaRepositories(basePackages = "be.groups")
+@SpringBootTest(classes = {DatabaseComponent.class})
 public class DaoIntegrationTest {
-	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		Environment.setUp();
-		TNSNames.setUp();
 
-		JpaUtil.setCentralEntityManager(JpaUtil.createDataSource(DatabaseIdentifier.PREPROD_BE));
-	}
+  @Autowired
+  private GroupSDataSourceHandler sourceHandler;
 
+  @Before
+  public void setUpBefore() throws Exception {
+    sourceHandler.findById((99))
+                 .ifPresent(DbContextHolder.INSTANCE::setOracleDb);
+  }
 }
