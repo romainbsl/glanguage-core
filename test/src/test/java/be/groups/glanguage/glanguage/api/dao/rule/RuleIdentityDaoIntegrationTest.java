@@ -33,14 +33,10 @@ public class RuleIdentityDaoIntegrationTest extends DaoIntegrationTest {
   @Test
   @Category(JpaMappingTestsCategory.class)
   public void testJpaMapping() {
-    Optional<RuleIdentity> OptRuleIdentity = ruleIdentityDao.findById(-900000);
+    RuleIdentity ruleIdentity = ruleIdentityDao.findEagerById(-900000);
 
 		/* Checking entity */
-    assertNotNull(OptRuleIdentity);
-    assertTrue(OptRuleIdentity.isPresent());
-
-    RuleIdentity ruleIdentity = OptRuleIdentity.get();
-
+    assertNotNull(ruleIdentity);
     assertEquals(-900000, ruleIdentity.getId());
 
 		/* Checking relationships */
