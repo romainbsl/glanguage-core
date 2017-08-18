@@ -15,14 +15,21 @@ import org.springframework.stereotype.*;
 public interface RuleSetVersionDao extends JpaRepository<RuleSetVersion, Integer> {
 
   /**
-   * Find a {@link RuleSetVersion} by {@code ruleSetVersionId}
+   * Find a {@link RuleSetVersion} by {@code ruleSetVersionId} with all his children
    *
    * @param ruleSetVersionId the identifier of the {@link RuleSetVersion} to be returned
-   * @return The {@link RuleSetVersion} identified by {@code ruleSetVersionId}, or null if it
-   * doesn't exists
+   * @return The {@link RuleSetVersion} identified by {@code ruleSetVersionId} with all his children,
+   * {@link RuleSetVersion#children} + {@link RuleSetVersion#includedIn} +
+   * {@link RuleSetVersion#includes},
+   * or null if it doesn't exists
    */
-  // TODO Use super.findById(id): Optional
-  @Deprecated RuleSetVersion findById(int ruleSetVersionId);
+  @Query(" select rsv from RuleSetVersion rsv "
+      + " join fetch rsv.children ch "
+      + " left join fetch rsv.includes "
+      + " left join fetch rsv.includedIn "
+      + " where rsv.id = :ruleSetVersionId "
+      + " and ch.parent = rsv ")
+  RuleSetVersion findEagerById(@Param("ruleSetVersionId") Integer ruleSetVersionId);
 
   /**
    * Find a {@link RuleSetVersion} by {@code ruleSetId} and {@code version}

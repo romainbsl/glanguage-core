@@ -36,9 +36,13 @@ public class RuleSetVersionDaoIntegrationTest extends DaoIntegrationTest {
 	 */
 	@Test
 	public void testFindById() {
-		RuleSetVersion ruleSetVersion = ruleSetVersionDao.findById(-900000);
-		assertNotNull(ruleSetVersion);
-		assertEquals(-900000, ruleSetVersion.getId());
+    Optional<RuleSetVersion> optRuleSetVersion = ruleSetVersionDao.findById(-900000);
+
+    assertNotNull(optRuleSetVersion);
+    assertTrue(optRuleSetVersion.isPresent());
+
+    RuleSetVersion ruleSetVersion = optRuleSetVersion.get();
+    assertEquals(-900000, ruleSetVersion.getId());
 	}
 
 	/**
@@ -101,7 +105,7 @@ public class RuleSetVersionDaoIntegrationTest extends DaoIntegrationTest {
 	@Test
 	@Category(JpaMappingTestsCategory.class)
 	public void testJpaMapping() {
-		RuleSetVersion ruleSetVersion = ruleSetVersionDao.findById(-900001);
+    RuleSetVersion ruleSetVersion = ruleSetVersionDao.findEagerById(-900001);
 
 		/* Checking entity */
 		assertNotNull(ruleSetVersion);
