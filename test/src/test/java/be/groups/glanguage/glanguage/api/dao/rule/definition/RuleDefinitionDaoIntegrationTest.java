@@ -34,13 +34,10 @@ public class RuleDefinitionDaoIntegrationTest extends DaoIntegrationTest {
   @Test
   @Category(JpaMappingTestsCategory.class)
   public void testJpaMapping() {
-    Optional<RuleDefinition> optRuleDefinition = ruleDefinitionDao.findById(-900001);
+    RuleDefinition ruleDefinition = ruleDefinitionDao.findEagerById(-900001);
 
 		/* Checking entity */
-    assertNotNull(optRuleDefinition);
-    assertTrue(optRuleDefinition.isPresent());
-
-    RuleDefinition ruleDefinition = optRuleDefinition.get();
+    assertNotNull(ruleDefinition);
 
     assertEquals(-900001, ruleDefinition.getId());
 
@@ -71,6 +68,6 @@ public class RuleDefinitionDaoIntegrationTest extends DaoIntegrationTest {
 
     assertNotNull(ruleDefinition.getVersions());
     assertEquals(1, ruleDefinition.getVersions().size());
-    assertEquals(-900003, ruleDefinition.getVersions().get(0).getId());
+    assertEquals(-900003, ruleDefinition.getVersions().iterator().next().getId());
   }
 }
