@@ -1,7 +1,9 @@
 package be.groups.glanguage.glanguage.api.dao.ruleset;
 
 import be.groups.glanguage.glanguage.api.entities.ruleset.*;
+import org.hibernate.*;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.*;
 import org.springframework.stereotype.*;
 
@@ -31,11 +33,18 @@ public interface RuleSetDao extends JpaRepository<RuleSet, Integer> {
    * @param alias the alias of the {@link RuleSet} to be returned
    * @return The {@link RuleSet} identified by {@code alias}, or null if it doesn't exists
    */
-  @Query("select rs from RuleSet rs"
+  @Query("select rs from RuleSet rs "
+      + "join fetch rs.versions rsv "
       + " where exists ("
       + " select msi from MultilingualString ms, MultilingualStringItem msi"
       + " where ms.id = rs.alias.id and msi.multilingualString.id = ms.id"
       + " and dbms_lob.compare(msi.text, :alias) = 0"
-      + ")")
+      + ") and rsv.ruleSet = rs ")
   RuleSet findByAlias(@Param("alias") String alias);
+
+  default RuleSet findByAlias2(String alias) {
+    RuleSet parent = findByAlias(alias);
+    Hibernate.initialize(parent.getVersions());
+    return parent;
+  }
 }
