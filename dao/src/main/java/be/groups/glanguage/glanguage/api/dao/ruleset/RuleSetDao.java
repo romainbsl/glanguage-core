@@ -22,6 +22,7 @@ public interface RuleSetDao extends JpaRepository<RuleSet, Integer> {
    * @return The {@link RuleSet} identified by {@code id} with all his children,
    * or null if it doesn't exists
    */
+  @Deprecated // TODO must use super.findById() in a @Transactional state
   @Query("Select rs from RuleSet rs "
       + "join fetch rs.versions rsv "
       + "where rs.id = :id and rsv.ruleSet = rs ")
@@ -34,12 +35,11 @@ public interface RuleSetDao extends JpaRepository<RuleSet, Integer> {
    * @return The {@link RuleSet} identified by {@code alias}, or null if it doesn't exists
    */
   @Query("select rs from RuleSet rs "
-      + "join fetch rs.versions rsv "
       + " where exists ("
       + " select msi from MultilingualString ms, MultilingualStringItem msi"
       + " where ms.id = rs.alias.id and msi.multilingualString.id = ms.id"
       + " and dbms_lob.compare(msi.text, :alias) = 0"
-      + ") and rsv.ruleSet = rs ")
+      + ") ")
   RuleSet findByAlias(@Param("alias") String alias);
 
   default RuleSet findByAlias2(String alias) {

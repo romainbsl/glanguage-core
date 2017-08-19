@@ -18,6 +18,7 @@ public interface RuleDefinitionDao extends JpaRepository<RuleDefinition, Integer
    * RuleDefinition#definitionParameters} + {@Link RuleDefinition#versions}, or null if it doesn't
    * exists
    */
+  @Deprecated // TODO must use super.findById() in a @Transactional state
   @Query("select rd from RuleDefinition rd "
       + " join fetch rd.versions rv "
       + " join fetch rd.definitionParameters dp "

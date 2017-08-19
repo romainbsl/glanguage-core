@@ -23,12 +23,12 @@ public interface RuleSetVersionDao extends JpaRepository<RuleSetVersion, Integer
    * {@link RuleSetVersion#includes},
    * or null if it doesn't exists
    */
+  @Deprecated // TODO must use super.findById() in a @Transactional state
   @Query(" select rsv from RuleSetVersion rsv "
-      + " join fetch rsv.children ch "
+      + " left join fetch rsv.children ch "
       + " left join fetch rsv.includes "
       + " left join fetch rsv.includedIn "
-      + " where rsv.id = :ruleSetVersionId "
-      + " and ch.parent = rsv ")
+      + " where rsv.id = :ruleSetVersionId ")
   RuleSetVersion findEagerById(@Param("ruleSetVersionId") Integer ruleSetVersionId);
 
   /**

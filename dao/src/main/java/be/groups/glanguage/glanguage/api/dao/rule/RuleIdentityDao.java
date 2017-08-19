@@ -18,6 +18,7 @@ public interface RuleIdentityDao extends JpaRepository<RuleIdentity, Integer> {
    * @return The {@link RuleIdentity} identified by {@code id} with all his children, {@Link
    * RuleIdentity#ruleDefinitions}, or null if it doesn't exists
    */
+  @Deprecated // TODO must use super.findById() in a @Transactional state
   @Query("Select ri from RuleIdentity ri "
       + " join fetch ri.ruleDefinitions rd "
       + " where ri.id = :ruleIdentityId "

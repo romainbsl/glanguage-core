@@ -18,6 +18,7 @@ public interface RuleDescriptionDao extends JpaRepository<RuleDescription, Integ
    * @return The {@link RuleDescription} identified by {@code id} with all his children, {@Link
    * RuleDescription#ruleVersions}, or null if it doesn't exists
    */
+  @Deprecated // TODO must use super.findById() in a @Transactional state
   @Query("select rd from RuleDescription rd "
       + " join fetch rd.ruleVersions rv "
       + " where rd.id = :ruleDescriptionId "
