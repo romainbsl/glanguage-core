@@ -12,6 +12,7 @@ import org.junit.experimental.categories.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.test.context.junit4.*;
+import org.springframework.transaction.annotation.*;
 
 import static org.junit.Assert.*;
 
@@ -104,8 +105,14 @@ public class RuleSetVersionDaoIntegrationTest extends IntegrationTest {
 	 */
 	@Test
 	@Category(JpaMappingTestsCategory.class)
+	@Transactional
 	public void testJpaMapping() {
-    RuleSetVersion ruleSetVersion = ruleSetVersionDao.findEagerById(-900001);
+		Optional<RuleSetVersion> optRuleSetVersion = ruleSetVersionDao.findById(-900001);
+
+		assertNotNull(optRuleSetVersion);
+		assertTrue(optRuleSetVersion.isPresent());
+
+		RuleSetVersion ruleSetVersion = optRuleSetVersion.get();
 
 		/* Checking entity */
 		assertNotNull(ruleSetVersion);
