@@ -1,9 +1,7 @@
 package be.groups.glanguage.glanguage.api.dao.ruleset;
 
 import be.groups.glanguage.glanguage.api.entities.ruleset.*;
-import org.hibernate.*;
 import org.springframework.data.jpa.repository.*;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.*;
 import org.springframework.stereotype.*;
 
@@ -14,19 +12,6 @@ import org.springframework.stereotype.*;
  */
 @Repository
 public interface RuleSetDao extends JpaRepository<RuleSet, Integer> {
-
-  /**
-   * Find a {@link RuleSet} by id with all his children {@Link RuleSet#versions}
-   *
-   * @param id the identifier of the {@link RuleSet} to be returned
-   * @return The {@link RuleSet} identified by {@code id} with all his children,
-   * or null if it doesn't exists
-   */
-  @Deprecated // TODO must use super.findById() in a @Transactional state
-  @Query("Select rs from RuleSet rs "
-      + "join fetch rs.versions rsv "
-      + "where rs.id = :id and rsv.ruleSet = rs ")
-  RuleSet findEagerById(@Param("id") Integer id);
 
   /**
    * Find a {@link RuleSet} by alias
@@ -41,10 +26,4 @@ public interface RuleSetDao extends JpaRepository<RuleSet, Integer> {
       + " and dbms_lob.compare(msi.text, :alias) = 0"
       + ") ")
   RuleSet findByAlias(@Param("alias") String alias);
-
-  default RuleSet findByAlias2(String alias) {
-    RuleSet parent = findByAlias(alias);
-    Hibernate.initialize(parent.getVersions());
-    return parent;
-  }
 }

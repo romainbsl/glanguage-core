@@ -10,6 +10,7 @@ import org.junit.experimental.categories.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.test.context.junit4.*;
+import org.springframework.transaction.annotation.*;
 
 import static org.junit.Assert.*;
 
@@ -35,7 +36,13 @@ public class RuleSetDaoIntegrationTest extends IntegrationTest {
    */
 	@Test
 	public void testFindById() {
-    RuleSet ruleSet = ruleSetDao.findEagerById(-900000);
+    Optional<RuleSet> optRuleSet = ruleSetDao.findById(-900000);
+
+    assertNotNull(optRuleSet);
+    assertTrue(optRuleSet.isPresent());
+
+    RuleSet ruleSet = optRuleSet.get();
+
     assertNotNull(ruleSet);
 		assertEquals(-900000, ruleSet.getId());
 	}
@@ -65,8 +72,14 @@ public class RuleSetDaoIntegrationTest extends IntegrationTest {
 	 */
 	@Test
 	@Category(JpaMappingTestsCategory.class)
-	public void testJpaMapping() {
-    RuleSet ruleSet = ruleSetDao.findEagerById(-900000);
+  @Transactional
+  public void testJpaMapping() {
+    Optional<RuleSet> optRuleSet = ruleSetDao.findById(-900000);
+
+    assertNotNull(optRuleSet);
+    assertTrue(optRuleSet.isPresent());
+
+    RuleSet ruleSet = optRuleSet.get();
 
 		/* Checking entity */
 		assertNotNull(ruleSet);
