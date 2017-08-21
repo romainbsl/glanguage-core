@@ -11,6 +11,7 @@ import org.junit.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.test.context.junit4.*;
+import org.springframework.transaction.annotation.*;
 
 import static org.junit.Assert.*;
 
@@ -34,8 +35,7 @@ public class UniverseIntegrationTest extends IntegrationTest {
 	 * Test {@link Universe#getRuleSet(Integer)} when id is 900000
 	 */
 	@Test
-  @Ignore
-  // TODO Lazy-init Exception : must find a way to use @Transactional without losing sharding
+  @Transactional
   public void testGetRuleSetById() {
     RuleSet ruleSet = universe.getRuleSet(-900000);
     assertNotNull(ruleSet);
@@ -48,8 +48,7 @@ public class UniverseIntegrationTest extends IntegrationTest {
 	 * Test {@link Universe#getRuleSet(String)} when alias is "rs1_fr"
 	 */
 	@Test
-  @Ignore
-  // TODO Lazy-init Exception : must find a way to use @Transactional without losing sharding
+  @Transactional
   public void testGetRuleSetByAlias() {
     RuleSet ruleSet = universe.getRuleSet("rs1_fr");
     assertNotNull(ruleSet);
@@ -120,8 +119,7 @@ public class UniverseIntegrationTest extends IntegrationTest {
 	 * Tests {@link Universe#getPlan(Integer, LocalDate)}
 	 */
 	@Test
-  @Ignore
-  // TODO Lazy-init Exception : must find a way to use @Transactional without losing sharding
+  @Transactional
   public void testGetPlan() {
 		LocalDate effectiveDate = LocalDate.now();
     Plan plan = universe.getPlan(-900000, effectiveDate);
