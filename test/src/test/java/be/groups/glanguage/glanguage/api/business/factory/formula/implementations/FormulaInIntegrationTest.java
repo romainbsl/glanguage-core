@@ -1,7 +1,7 @@
 package be.groups.glanguage.glanguage.api.business.factory.formula.implementations;
 
+import be.groups.glanguage.glanguage.api.*;
 import be.groups.glanguage.glanguage.api.business.factory.*;
-import be.groups.glanguage.glanguage.api.dao.*;
 import be.groups.glanguage.glanguage.api.entities.formula.*;
 import be.groups.glanguage.glanguage.api.entities.formula.description.*;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.*;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
  * @author DUPIREFR
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class FormulaInIntegrationTest extends DaoIntegrationTest {
+public class FormulaInIntegrationTest extends IntegrationTest {
 
   @Autowired
   private FormulaDescriptionFactory formulaDescriptionFactory;

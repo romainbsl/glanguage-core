@@ -1,6 +1,6 @@
 package be.groups.glanguage.glanguage.api.dao.formula;
 
-import be.groups.glanguage.glanguage.api.dao.*;
+import be.groups.glanguage.glanguage.api.*;
 import be.groups.glanguage.glanguage.api.entities.formula.*;
 import be.groups.glanguage.glanguage.api.test.categories.*;
 import org.junit.*;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.*;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class FormulaDaoIntegrationTest extends DaoIntegrationTest {
+public class FormulaDaoIntegrationTest extends IntegrationTest {
 
   @Autowired
   private FormulaDao formulaDao;

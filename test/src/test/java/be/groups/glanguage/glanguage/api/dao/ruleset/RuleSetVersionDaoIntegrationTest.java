@@ -1,6 +1,6 @@
 package be.groups.glanguage.glanguage.api.dao.ruleset;
 
-import be.groups.glanguage.glanguage.api.dao.*;
+import be.groups.glanguage.glanguage.api.*;
 import be.groups.glanguage.glanguage.api.entities.rule.*;
 import be.groups.glanguage.glanguage.api.entities.ruleset.*;
 import be.groups.glanguage.glanguage.api.entities.utils.*;
@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.*;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class RuleSetVersionDaoIntegrationTest extends DaoIntegrationTest {
+public class RuleSetVersionDaoIntegrationTest extends IntegrationTest {
 	@Autowired
 	private RuleSetVersionDao ruleSetVersionDao;
 

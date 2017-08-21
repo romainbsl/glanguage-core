@@ -1,6 +1,6 @@
 package be.groups.glanguage.glanguage.api.dao.formula.description.combination;
 
-import be.groups.glanguage.glanguage.api.dao.*;
+import be.groups.glanguage.glanguage.api.*;
 import be.groups.glanguage.glanguage.api.entities.formula.description.*;
 import be.groups.glanguage.glanguage.api.entities.formula.description.combination.*;
 import be.groups.glanguage.glanguage.api.entities.utils.*;
@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
  * @author DUPIREFR
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class FormulaParameterCombinationDaoItemIntegrationTest extends DaoIntegrationTest {
+public class FormulaParameterCombinationDaoItemIntegrationTest extends IntegrationTest {
 
   @Autowired
   private FormulaParameterCombinationItemDao formulaParameterCombinationItemDao;

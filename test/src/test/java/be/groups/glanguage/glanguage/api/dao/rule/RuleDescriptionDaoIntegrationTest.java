@@ -1,6 +1,6 @@
 package be.groups.glanguage.glanguage.api.dao.rule;
 
-import be.groups.glanguage.glanguage.api.dao.*;
+import be.groups.glanguage.glanguage.api.*;
 import be.groups.glanguage.glanguage.api.entities.rule.*;
 import be.groups.glanguage.glanguage.api.entities.utils.*;
 import be.groups.glanguage.glanguage.api.test.categories.*;
@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  * @author DUPIREFR
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class RuleDescriptionDaoIntegrationTest extends DaoIntegrationTest {
+public class RuleDescriptionDaoIntegrationTest extends IntegrationTest {
 
   @Autowired
   private RuleDescriptionDao ruleDescriptionDao;

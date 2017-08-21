@@ -1,4 +1,4 @@
-package be.groups.glanguage.glanguage.api.dao;
+package be.groups.glanguage.glanguage.api;
 
 import be.groups.common.database.*;
 import org.springframework.boot.autoconfigure.domain.*;
@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.*;
 @EntityScan("be.groups")
 @EnableJpaRepositories(basePackages = "be.groups")
 @SpringBootTest(classes = {DatabaseComponent.class})
-public class DaoIntegrationTest {
+public class IntegrationTest {
   //@Autowired
   //private GroupSDataSourceHandler sourceHandler;
 

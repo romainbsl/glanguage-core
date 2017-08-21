@@ -1,7 +1,7 @@
 package be.groups.glanguage.glanguage.api.business.factory.formula.implementations.call;
 
+import be.groups.glanguage.glanguage.api.*;
 import be.groups.glanguage.glanguage.api.business.factory.*;
-import be.groups.glanguage.glanguage.api.dao.*;
 import be.groups.glanguage.glanguage.api.entities.formula.description.*;
 import be.groups.glanguage.glanguage.api.entities.formula.implementations.call.*;
 import be.groups.glanguage.glanguage.api.error.exception.*;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
  * @author DUPIREFR
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class FormulaApplicabilityIntegrationTest extends DaoIntegrationTest {
+public class FormulaApplicabilityIntegrationTest extends IntegrationTest {
 
   @Autowired
   private FormulaDescriptionFactory formulaDescriptionFactory;
@@ -29,7 +29,7 @@ public class FormulaApplicabilityIntegrationTest extends DaoIntegrationTest {
    * Tests {@link FormulaApplicability#asText()}
    */
   @Test
-  @Category(DaoIntegrationTest.class)
+  @Category(IntegrationTest.class)
   public void testAsText() throws GLanguageException {
     FormulaApplicability formula = spy(FormulaApplicability.class);
     doReturn(formulaDescriptionFactory.getDescription(FormulaType.C_APPLICABILITY)).when(formula)

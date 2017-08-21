@@ -1,7 +1,7 @@
 package be.groups.glanguage.glanguage.api.business.plan;
 
+import be.groups.glanguage.glanguage.api.*;
 import be.groups.glanguage.glanguage.api.business.universe.*;
-import be.groups.glanguage.glanguage.api.dao.*;
 import be.groups.glanguage.glanguage.api.entities.rule.*;
 import be.groups.glanguage.glanguage.api.error.exception.*;
 import java.time.*;
@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.*;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class PlanIntegrationTest extends DaoIntegrationTest {
+public class PlanIntegrationTest extends IntegrationTest {
 
   @Autowired
   private Universe universe;
