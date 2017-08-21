@@ -34,32 +34,6 @@ public class FormulaModuloIntegrationTest extends IntegrationTest {
 	 */
 
   /**
-   * Tests {@link FormulaModulo#getDiscriminatorValue()}
-   */
-  @Test
-  @Ignore
-  public void testGetDiscriminatorValue() {
-    /*TODO -> Unit Test ?
-    FormulaModulo formula = new FormulaModulo();
-
-    assertEquals(Integer.valueOf(FormulaType.Values.OP_MODULO), formula.getDiscriminatorValue());
-    */
-  }
-
-  /**
-   * Tests {@link FormulaModulo#isTerminal()}
-   */
-  @Test
-  @Ignore
-  public void testIsTerminal() {
-    /*TODO -> Unit Test ?
-    FormulaModulo formula = new FormulaModulo();
-
-    assertFalse(formula.isTerminal());
-    */
-  }
-
-  /**
    * Tests {@link FormulaModulo#isValid(Evaluator)} when operands are integers
    */
   @Test
@@ -137,19 +111,6 @@ public class FormulaModuloIntegrationTest extends IntegrationTest {
     doReturn(Arrays.asList(numerator, denominator)).when(formula).getParameters();
 
     assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType());
-  }
-
-  /**
-   * Tests {@link FormulaModulo#operationAsText()}
-   */
-  @Test
-  @Ignore
-  public void testOperationAsText() {
-    /*TODO -> Unit Test ?
-    FormulaModulo formula = new FormulaModulo();
-
-    assertEquals("\\", formula.operationAsText());
-    */
   }
 
   /**

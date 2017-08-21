@@ -33,31 +33,6 @@ public class FormulaOrIntegrationTest extends IntegrationTest {
    * Tests
 	 */
 
-  /**
-   * Tests {@link FormulaOr#getDiscriminatorValue()}
-   */
-  @Test
-  @Ignore
-  public void testGetDiscriminatorValue() {
-    /*TODO -> Unit Test ?
-    FormulaOr formula = new FormulaOr();
-
-    assertEquals(Integer.valueOf(FormulaType.Values.OP_OR), formula.getDiscriminatorValue());
-    */
-  }
-
-  /**
-   * Tests {@link FormulaOr#isTerminal()}
-   */
-  @Test
-  @Ignore
-  public void testIsTerminal() {
-    /*TODO -> Unit Test ?
-    FormulaOr formula = new FormulaOr();
-
-    assertFalse(formula.isTerminal());
-    */
-  }
 
   /**
    * Tests {@link FormulaOr#isValid(Evaluator)} when both operands are boolean
@@ -217,19 +192,6 @@ public class FormulaOrIntegrationTest extends IntegrationTest {
     doReturn(Arrays.asList(operand1, operand2)).when(formula).getParameters();
 
     assertEquals(FormulaReturnType.UNDEFINED, formula.getReturnType());
-  }
-
-  /**
-   * Tests {@link FormulaOr#operationAsText()}
-   */
-  @Test
-  @Ignore
-  public void testOperationAsText() {
-    /*TODO -> Unit Test ?
-    FormulaOr formula = new FormulaOr();
-
-    assertEquals("or", formula.operationAsText());
-    */
   }
 
   /**

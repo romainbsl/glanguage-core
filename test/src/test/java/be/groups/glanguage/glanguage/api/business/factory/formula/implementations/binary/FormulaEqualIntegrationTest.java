@@ -32,31 +32,6 @@ public class FormulaEqualIntegrationTest extends IntegrationTest {
    * Tests
 	 */
 
-  /**
-   * Tests {@link FormulaEqual#getDiscriminatorValue()}
-   */
-  @Test
-  @Ignore
-  public void testGetDiscriminatorValue() {
-    /*TODO -> Unit Test ?
-    FormulaEqual formula = new FormulaEqual();
-
-    assertEquals(Integer.valueOf(FormulaType.Values.OP_EQUAL), formula.getDiscriminatorValue());
-    */
-  }
-
-  /**
-   * Tests {@link FormulaEqual#isTerminal()}
-   */
-  @Test
-  @Ignore
-  public void testIsTerminal() {
-    /*TODO -> Unit Test ?
-    FormulaEqual formula = new FormulaEqual();
-
-    assertFalse(formula.isTerminal());
-    */
-  }
 
   /**
    * Tests {@link FormulaEqual#isValid(Evaluator)} when both operands are integers

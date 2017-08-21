@@ -33,32 +33,6 @@ public class FormulaSmallerOrEqualIntegrationTest extends IntegrationTest {
    * Tests
 	 */
 
-  /**
-   * Tests {@link FormulaSmallerOrEqual#getDiscriminatorValue()}
-   */
-  @Test
-  @Ignore
-  public void testGetDiscriminatorValue() {
-    /*TODO -> Unit Test ?
-    FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual();
-
-    assertEquals(Integer.valueOf(FormulaType.Values.OP_SMALLER_OR_EQUAL),
-        formula.getDiscriminatorValue());
-    */
-  }
-
-  /**
-   * Tests {@link FormulaSmallerOrEqual#isTerminal()}
-   */
-  @Test
-  @Ignore
-  public void testIsTerminal() {
-    /*TODO -> Unit Test ?
-    FormulaSmallerOrEqual formula = new FormulaSmallerOrEqual();
-
-    assertFalse(formula.isTerminal());
-    */
-  }
 
   /**
    * Tests {@link FormulaSmallerOrEqual#isValid(Evaluator)} when both operands are integers

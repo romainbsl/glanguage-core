@@ -38,32 +38,6 @@ public class FormulaPlusIntegrationTest extends IntegrationTest {
 	 */
 
   /**
-   * Tests {@link FormulaPlus#getDiscriminatorValue()}
-   */
-  @Test
-  @Ignore
-  public void testGetDiscriminatorValue() {
-    /*TODO -> Unit Test ?
-    FormulaPlus formula = new FormulaPlus();
-
-    assertEquals(Integer.valueOf(FormulaType.Values.OP_PLUS), formula.getDiscriminatorValue());
-    */
-  }
-
-  /**
-   * Tests {@link FormulaPlus#isTerminal()}
-   */
-  @Test
-  @Ignore
-  public void testIsTerminal() {
-    /*TODO -> Unit Test ?
-    FormulaPlus formula = new FormulaPlus();
-
-    assertFalse(formula.isTerminal());
-    */
-  }
-
-  /**
    * Tests {@link FormulaPlus#isValid(Evaluator)} when both operands are integers
    */
   @Test
