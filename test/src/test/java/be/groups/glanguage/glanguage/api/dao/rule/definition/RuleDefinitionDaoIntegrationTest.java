@@ -10,6 +10,7 @@ import org.junit.experimental.categories.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.test.context.junit4.*;
+import org.springframework.transaction.annotation.*;
 
 import static org.junit.Assert.*;
 
@@ -33,8 +34,14 @@ public class RuleDefinitionDaoIntegrationTest extends IntegrationTest {
    */
   @Test
   @Category(JpaMappingTestsCategory.class)
+  @Transactional
   public void testJpaMapping() {
-    RuleDefinition ruleDefinition = ruleDefinitionDao.findEagerById(-900001);
+    Optional<RuleDefinition> optRuleDefinition = ruleDefinitionDao.findById(-900001);
+
+    assertNotNull(optRuleDefinition);
+    assertTrue(optRuleDefinition.isPresent());
+
+    RuleDefinition ruleDefinition = optRuleDefinition.get();
 
 		/* Checking entity */
     assertNotNull(ruleDefinition);
@@ -47,7 +54,11 @@ public class RuleDefinitionDaoIntegrationTest extends IntegrationTest {
     assertNotNull(ruleDefinition.getDefinitionParameters());
     assertEquals(2, ruleDefinition.getDefinitionParameters().size());
     assertEquals(2,
-        ruleDefinition.getDefinitionParameters().stream().map(p -> p.getId()).distinct().count());
+        ruleDefinition.getDefinitionParameters()
+                      .stream()
+                      .map(RuleDefinitionParameter::getId)
+                      .distinct()
+                      .count());
 
     RuleDefinitionParameterId firstRuleDefinitionParameterId = new RuleDefinitionParameterId();
     firstRuleDefinitionParameterId.setLevelId(2);
