@@ -33,7 +33,12 @@ public class RuleDescriptionDaoIntegrationTest extends IntegrationTest {
   @Test
   @Category(JpaMappingTestsCategory.class)
   public void testJpaMapping() {
-    RuleDescription ruleDescription = ruleDescriptionDao.findEagerById(-900000);
+    Optional<RuleDescription> optRuleDescription = ruleDescriptionDao.findById(-900000);
+
+    assertNotNull(optRuleDescription);
+    assertTrue(optRuleDescription.isPresent());
+
+    RuleDescription ruleDescription = optRuleDescription.get();
 
 		/* Checking entity */
     assertNotNull(ruleDescription);
