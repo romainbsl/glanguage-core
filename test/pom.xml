@@ -30,7 +30,6 @@
 			<groupId>be.groups.glanguage</groupId>
 			<artifactId>glanguage-api-business</artifactId>
 			<version>${project.parent.version}</version>
-			<classifier>classes</classifier>
 			<scope>test</scope>
 		</dependency>
 
@@ -38,6 +37,7 @@
 			<groupId>be.groups.pom</groupId>
 			<artifactId>groups-test-dependencies</artifactId>
 			<version>0.4.0-SNAPSHOT</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
