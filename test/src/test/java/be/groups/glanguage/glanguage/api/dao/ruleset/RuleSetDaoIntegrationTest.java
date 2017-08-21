@@ -32,7 +32,7 @@ public class RuleSetDaoIntegrationTest extends IntegrationTest {
 	}
 
 	/**
-   * Tests {@link RuleSetDao#findEagerById(Integer)} when is is 900000
+   * Tests {@link RuleSetDao#findById(Integer)} when is is 900000
    */
 	@Test
 	public void testFindById() {
