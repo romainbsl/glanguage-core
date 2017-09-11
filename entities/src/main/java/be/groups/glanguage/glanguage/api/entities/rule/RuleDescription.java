@@ -25,54 +25,6 @@ public class RuleDescription {
 	private String code;
 
 	/**
-	 * Alias in French language
-	 * TODO to be deleted
-	 */
-	private String aliasFr;
-
-	/**
-	 * Alias in Dutch language
-	 * TODO to be deleted
-	 */
-	private String aliasNl;
-
-	/**
-	 * Alias in German language
-	 * TODO to be deleted
-	 */
-	private String aliasDe;
-
-	/**
-	 * Alias in other language
-	 * TODO to be deleted
-	 */
-	private String aliasX;
-
-	/**
-	 * Description in French language
-	 * TODO to be deleted
-	 */
-	private String descriptionFr;
-
-	/**
-	 * Description in Dutch language
-	 * TODO to be deleted
-	 */
-	private String descriptionNl;
-
-	/**
-	 * Description in German language
-	 * TODO to be deleted
-	 */
-	private String descriptionDe;
-
-	/**
-	 * Description in other language
-	 * TODO to be deleted
-	 */
-	private String descriptionX;
-
-	/**
 	 * Alias in multiple languages
 	 */
 	private MultilingualString alias;
@@ -118,86 +70,6 @@ public class RuleDescription {
 	}
 
 	/**
-	 * Get the French alias
-	 *
-	 * @return the French alias
-	 */
-	@Column(name = "ALIAS_FR")
-	public String getAliasFr() {
-		return aliasFr;
-	}
-
-	/**
-	 * Get the Dutch alias
-	 *
-	 * @return the Dutch alias
-	 */
-	@Column(name = "ALIAS_NL")
-	public String getAliasNl() {
-		return aliasNl;
-	}
-
-	/**
-	 * Get the German alias
-	 *
-	 * @return the German alias
-	 */
-	@Column(name = "ALIAS_DE")
-	public String getAliasDe() {
-		return aliasDe;
-	}
-
-	/**
-	 * Get the other alias
-	 *
-	 * @return the other alias
-	 */
-	@Column(name = "ALIAS_X")
-	public String getAliasX() {
-		return aliasX;
-	}
-
-	/**
-	 * Get the French description
-	 *
-	 * @return the French description
-	 */
-	@Column(name = "DESCRIPTION_FR")
-	public String getDescriptionFr() {
-		return descriptionFr;
-	}
-
-	/**
-	 * Get the Dutch description
-	 *
-	 * @return the Dutch description
-	 */
-	@Column(name = "DESCRIPTION_NL")
-	public String getDescriptionNl() {
-		return descriptionNl;
-	}
-
-	/**
-	 * Get the German description
-	 *
-	 * @return the German description
-	 */
-	@Column(name = "DESCRIPTION_DE")
-	public String getDescriptionDe() {
-		return descriptionDe;
-	}
-
-	/**
-	 * Get the other description
-	 *
-	 * @return the other description
-	 */
-	@Column(name = "DESCRIPTION_X")
-	public String getDescriptionX() {
-		return descriptionX;
-	}
-
-	/**
 	 * @return the alias
 	 */
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -234,62 +106,6 @@ public class RuleDescription {
 	 */
 	public void setCode(String code) {
 		this.code = code;
-	}
-
-	/**
-	 * @param aliasFr the French alias to set
-	 */
-	public void setAliasFr(String aliasFr) {
-		this.aliasFr = aliasFr;
-	}
-
-	/**
-	 * @param aliasNl the Dutch alias to set
-	 */
-	public void setAliasNl(String aliasNl) {
-		this.aliasNl = aliasNl;
-	}
-
-	/**
-	 * @param aliasDe the German alias to set
-	 */
-	public void setAliasDe(String aliasDe) {
-		this.aliasDe = aliasDe;
-	}
-
-	/**
-	 * @param aliasX the other alias to set
-	 */
-	public void setAliasX(String aliasX) {
-		this.aliasX = aliasX;
-	}
-
-	/**
-	 * @param descriptionFr the French description to set
-	 */
-	public void setDescriptionFr(String descriptionFr) {
-		this.descriptionFr = descriptionFr;
-	}
-
-	/**
-	 * @param descriptionNl the Dutch description to set
-	 */
-	public void setDescriptionNl(String descriptionNl) {
-		this.descriptionNl = descriptionNl;
-	}
-
-	/**
-	 * @param descriptionDe the German description to set
-	 */
-	public void setDescriptionDe(String descriptionDe) {
-		this.descriptionDe = descriptionDe;
-	}
-
-	/**
-	 * @param descriptionX the other description to set
-	 */
-	public void setDescriptionX(String descriptionX) {
-		this.descriptionX = descriptionX;
 	}
 
 	/**

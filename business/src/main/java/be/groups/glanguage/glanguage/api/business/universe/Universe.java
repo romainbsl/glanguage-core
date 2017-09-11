@@ -9,6 +9,7 @@ import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
 import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+import be.groups.glanguage.glanguage.api.entities.utils.MultilingualStringItem;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -38,14 +39,13 @@ public class Universe {
     }
 
     /**
-     * Get a {@link RuleSet} corresponding to a {@code ruleSetAlias} by selecting the one whose
-     * {@link RuleSet#aliasFr} or {@link RuleSet#aliasNl} or {@link RuleSet#aliasDe} or {@link RuleSet#aliasX} is
-     * equal to {@code ruleSetAlias}
+     * Get a {@link RuleSet} corresponding to a {@code ruleSetAlias} by selecting the one whose one of the
+     * {@link MultilingualStringItem#getText()} of {@link RuleSet#getAlias()} is equal to {@code ruleSetAlias}
      *
-     * @param ruleSetAlias the {@link RuleSet#aliasFr} or the {@link RuleSet#aliasNl} or the {@link RuleSet#aliasDe}
-     *                     or the {@link RuleSet#aliasX} of the {@link RuleSet} to be returned
-     * @return the {@link RuleSet} whose {@link RuleSet#aliasFr} or {@link RuleSet#aliasNl} or
-     * {@link RuleSet#aliasDe} or {@link RuleSet#aliasX} is equal to {@code ruleSetAlias}, or null if it doesn't exists
+     * @param ruleSetAlias one of the {@link MultilingualStringItem#getText()} of {@link RuleSet#getAlias()}
+     *                     {@link RuleSet} to be returned
+     * @return the {@link RuleSet} whose one of the {@link MultilingualStringItem#getText()} is equal to {@code
+     * ruleSetAlias}, or null if it doesn't exists
      */
     public static RuleSet getRuleSet(String ruleSetAlias) {
         return new RuleSetDao().findByAlias(ruleSetAlias);
@@ -79,16 +79,15 @@ public class Universe {
 
     /**
      * Get a {@link RuleSet} corresponding to a {@code ruleSetAlias} and a {@code
-     * version} by selecting the one whose {@link RuleSet#aliasFr} or {@link RuleSet#aliasNl} or
-     * {@link RuleSet#aliasDe} or {@link RuleSet#aliasX} is equal to {@code ruleSetAlias} and
-     * {@link RuleSetVersion#version} is equal to {@code version}
+     * version} by selecting the one whose one of the {@link MultilingualStringItem#getText()} of
+     * {@link RuleSet#getAlias()} is equal to {@code ruleSetAlias} and {@link RuleSetVersion#version} is equal to
+     * {@code version}
      *
-     * @param ruleSetAlias the {@link RuleSet#aliasFr} or the {@link RuleSet#aliasNl} or the {@link RuleSet#aliasDe}
-     *                     or the {@link RuleSet#aliasX} of the {@link RuleSet} to be returned
+     * @param ruleSetAlias one of the {@link MultilingualStringItem#getText()} of {@link RuleSet#getAlias()}
+     *                     {@link RuleSet} to be returned
      * @param version      the {@link RuleSetVersion#version} of the {@link RuleSetVersion} to be returned
-     * @return the {@link RuleSet} whose {@link RuleSet#aliasFr} or {@link RuleSet#aliasNl} or
-     * {@link RuleSet#aliasDe} or {@link RuleSet#aliasX} is equal to {@code ruleSetAlias} and
-     * {@link RuleSetVersion#version} is equal to {@code version}, or null if it doesn't exists
+     * @return the {@link RuleSet} whose one of the {@link MultilingualStringItem#getText()} is equal to {@code
+     * ruleSetAlias} and {@link RuleSetVersion#version} is equal to {@code version}, or null if it doesn't exists
      */
     public static RuleSetVersion getRuleSetVersion(String ruleSetAlias, String version) {
         return new RuleSetVersionDao().findByRuleSetAliasAndVersion(ruleSetAlias, version);
@@ -112,17 +111,17 @@ public class Universe {
 
     /**
      * Get a {@link RuleSetVersion} corresponding to a {@code ruleSetAlias} and a {@code productionDate} by selecting
-     * the one whose {@link RuleSet#aliasFr} or {@link RuleSet#aliasNl} or {@link RuleSet#aliasDe} or
-     * {@link RuleSet#aliasX} is equal to {@code ruleSetAlias} and {@link RuleSetVersion#productionStartDate} is the
-     * greatest known not after {@code productionDate}
+     * the one whose one of the {@link MultilingualStringItem#getText()} of {@link RuleSet#getAlias()} is equal to
+     * {@code ruleSetAlias} and {@link RuleSetVersion#productionStartDate} is the greatest known not after {@code
+     * productionDate}
      *
-     * @param ruleSetAlias   the {@link RuleSet#id} of the {@link RuleSetVersion} to be returned
+     * @param ruleSetAlias   one of the {@link MultilingualStringItem#getText()} of {@link RuleSet#getAlias()}
+     *                       {@link RuleSet} to be returned
      * @param productionDate the maximum {@link RuleSetVersion#productionStartDate} of the {@link RuleSetVersion} to be
      *                       returned
-     * @return the {@link RuleSetVersion} whose {@link RuleSet#aliasFr} or {@link RuleSet#aliasNl} or
-     * {@link RuleSet#aliasDe} or {@link RuleSet#aliasX} is equal to {@code ruleSetAlias} and
-     * {@link RuleSetVersion#productionStartDate} is the greatest known not after {@code productionDate}, or null if
-     * it doesn't exists
+     * @return the {@link RuleSetVersion} whose one of the {@link MultilingualStringItem#getText()} is equal to {@code
+     * ruleSetAlias} and {@link RuleSetVersion#productionStartDate} is the greatest known not after {@code
+     * productionDate}, or null if it doesn't exists
      */
     public static RuleSetVersion getRuleSetVersion(String ruleSetAlias, LocalDateTime productionDate) {
         return new RuleSetVersionDao().findByRuleSetAliasAndProductionDate(ruleSetAlias, productionDate);

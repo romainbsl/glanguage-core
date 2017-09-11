@@ -66,6 +66,19 @@ public class MultilingualString {
         return items;
     }
 
+    /**
+     * Get the item for which the {@link MultilingualStringItem#getLanguage()} equals the {@code language} passed if
+     * it exists, null otherwise
+     *
+     * @param language the language of the item to be returned
+     * @return the item for which the {@link MultilingualStringItem#getLanguage()} equals the {@code language} passed if
+     * it exists, null otherwise
+     */
+    @Transient
+    public MultilingualStringItem getItem(Language language) {
+        return items.stream().filter(i -> i.getLanguage().equals(language)).findFirst().orElse(null);
+    }
+
     /*
      * Setters
      */

@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>be.groups.glanguage</groupId>
 		<artifactId>glanguage-api</artifactId>
-		<version>0.0.4</version>
+		<version>0.0.5</version>
 	</parent>
 
 	<artifactId>glanguage-api-test</artifactId>
@@ -18,7 +18,7 @@
 		<!-- Test dependencies -->
 		<!--<junit.version>4.12</junit.version>-->
 		<mockito.version>2.1.0-beta.120</mockito.version>
-		<runSuite>**/ProjectTestSuite.class</runSuite>
+		<runSuite>**/ProjectIntegrationTestSuite.class</runSuite>
 	</properties>
 
 
