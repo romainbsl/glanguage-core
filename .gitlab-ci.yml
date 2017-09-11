@@ -15,27 +15,13 @@ maven-build:
   script:
     - 'mvn clean compile'
 
-# ---------- [BRANCH DEVELOP] ----------
-maven-install-develop:
-  stage: install
-  script:
-    - 'mvn install -DskipTests'
-  only:
-    - develop
-maven-deploy-tomcat:
-  stage: deploy
-  script:
-    - "cd ws/"
-    - "mvn tomcat7:redeploy"
-  only:
-    - develop
-
-# ---------- [BRANCH INTEGRATION / RELEASE/*] ----------
+# ---------- [BRANCH DEVELOP / INTEGRATION / RELEASE/*] ----------
 maven-install-release:
   stage: install
   script:
     - 'mvn install'
   only:
+    - develop
     - integration
     - /^release.*$/
 
