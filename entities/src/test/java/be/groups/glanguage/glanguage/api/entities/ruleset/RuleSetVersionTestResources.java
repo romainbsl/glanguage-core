@@ -1,18 +1,9 @@
 package be.groups.glanguage.glanguage.api.entities.ruleset;
 
-import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleDescription;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import be.groups.glanguage.glanguage.api.entities.rule.*;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.*;
+import java.time.*;
+import java.util.*;
 
 public class RuleSetVersionTestResources {
 
@@ -127,7 +118,7 @@ public class RuleSetVersionTestResources {
 		r1d0v3_0.setRuleDefinition(r1d0);
 		r1d0v3_0.setRuleDescription(r1Description);
 		/* R1 D0 versions */
-		List<RuleVersion> r1d0Versions = new ArrayList<>();
+		Set<RuleVersion> r1d0Versions = new TreeSet<>();
 		r1d0Versions.add(r1d0v1_0);
 		r1d0Versions.add(r1d0v1_1);
 		r1d0Versions.add(r1d0v2_0);
@@ -151,7 +142,7 @@ public class RuleSetVersionTestResources {
 		r2d0v1_0.setRuleDefinition(r2d0);
 		r2d0v1_0.setRuleDescription(r2Description);
 		/* R2 D0 versions */
-		List<RuleVersion> r2d0Versions = new ArrayList<>();
+		Set<RuleVersion> r2d0Versions = new TreeSet<>();
 		r2d0Versions.add(r2d0v1_0);
 		r2d0.setVersions(r2d0Versions);
 		

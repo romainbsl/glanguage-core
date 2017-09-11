@@ -5,9 +5,9 @@
   <!-- Parent BackOffice dependencies
          contains build / dependencies needed for Presta New -->
   <parent>
-    <groupId>be.groups.presta</groupId>
-    <artifactId>backoffice</artifactId>
-    <version>0.1.1</version>
+    <groupId>be.groups.pom</groupId>
+    <artifactId>groups-build-pom</artifactId>
+    <version>0.4.0-SNAPSHOT</version>
   </parent>
 
   <!-- Header -->
@@ -34,7 +34,6 @@
     <module>entities</module>
     <module>dao</module>
     <module>business</module>
-    <module>ws</module>
     <module>test</module>
   </modules>
 

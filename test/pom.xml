@@ -28,24 +28,15 @@
 		<!-- GroupS dependencies -->
 		<dependency>
 			<groupId>be.groups.glanguage</groupId>
-			<artifactId>glanguage-api-ws</artifactId>
+			<artifactId>glanguage-api-business</artifactId>
 			<version>${project.parent.version}</version>
-			<classifier>classes</classifier>
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Import PrestaNew dependencies for test layer -->
 		<dependency>
-			<groupId>be.groups.presta</groupId>
-			<artifactId>backoffice-test</artifactId>
-			<version>0.1.1</version>
-		</dependency>
-
-		<!-- Test dependencies -->
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>${mockito.version}</version>
+			<groupId>be.groups.pom</groupId>
+			<artifactId>groups-test-dependencies</artifactId>
+			<version>0.4.0-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

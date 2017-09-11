@@ -1,12 +1,12 @@
 package be.groups.glanguage.glanguage.api.business.factory;
 
-import be.groups.glanguage.glanguage.api.business.universe.Universe;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
-import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
-
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
+import be.groups.glanguage.glanguage.api.business.universe.*;
+import be.groups.glanguage.glanguage.api.entities.rule.*;
+import be.groups.glanguage.glanguage.api.entities.ruleset.*;
+import java.time.*;
+import java.util.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
 
 /**
  * This factory allows to get {@link RuleVersion rule versions}<br>
@@ -14,9 +14,14 @@ import java.util.List;
  * <p>
  * @author michotte
  */
+@Component
 public class RuleVersionFactory {
 
-    private static HashMap<PlanIdentification, List<RuleVersion>> ruleVersionsLists = new HashMap<>();
+    @Autowired
+    private Universe universe;
+
+    // TODO see for Cache or FactoryBean
+    private HashMap<PlanIdentification, List<RuleVersion>> ruleVersionsLists = new HashMap<>();
 
     /**
      * Get the list of {@link RuleVersion rule versions} corresponding to a {@code ruleSetVersionId} and a {@code
@@ -33,12 +38,12 @@ public class RuleVersionFactory {
      * @see Universe#getDefaultRuleVersions(RuleSetVersion, LocalDate)
      * @see Universe#getRuleSetVersion(Integer)
      */
-    public static List<RuleVersion> getRuleVersions(Integer ruleSetVersionId, LocalDate effectiveDate) {
+    public List<RuleVersion> getRuleVersions(Integer ruleSetVersionId, LocalDate effectiveDate) {
         PlanIdentification key = new PlanIdentification(ruleSetVersionId, effectiveDate);
         if (!ruleVersionsLists.containsKey(key)) {
             ruleVersionsLists.put(key,
-                                  Universe.getDefaultRuleVersions(Universe.getRuleSetVersion(ruleSetVersionId),
-                                                                  effectiveDate));
+                universe.getDefaultRuleVersions(universe.getRuleSetVersion
+                    (ruleSetVersionId), effectiveDate));
         }
         return ruleVersionsLists.get(key);
     }

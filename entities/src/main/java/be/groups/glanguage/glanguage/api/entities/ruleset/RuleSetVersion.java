@@ -1,21 +1,13 @@
 package be.groups.glanguage.glanguage.api.entities.ruleset;
 
-import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.DefinitionMatcherStrategy;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
-import be.groups.presta.backoffice.domains.util.date.LocalDateTimeConverter;
-
-import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import be.groups.glanguage.glanguage.api.entities.rule.*;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.*;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.*;
+import java.time.*;
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.function.*;
+import java.util.stream.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "RULE_SET_VERSION")
@@ -117,7 +109,6 @@ public class RuleSetVersion {
 	 * @return the production start date
 	 */
 	@Column(name = "EXPLOITATION_START_DATE")
-	@Convert(converter = LocalDateTimeConverter.class)
 	public LocalDateTime getProductionStartDate() {
 		return productionStartDate;
 	}
@@ -147,7 +138,6 @@ public class RuleSetVersion {
 	 * @return the creation date
 	 */
 	@Column(name = "DATE_CREATION")
-	@Convert(converter = LocalDateTimeConverter.class)
 	public LocalDateTime getCreationDate() {
 		return creationDate;
 	}
@@ -168,7 +158,6 @@ public class RuleSetVersion {
 	 * @return the modification date
 	 */
 	@Column(name = "DATE_MODIFICATION")
-	@Convert(converter = LocalDateTimeConverter.class)
 	public LocalDateTime getModificationDate() {
 		return modificationDate;
 	}

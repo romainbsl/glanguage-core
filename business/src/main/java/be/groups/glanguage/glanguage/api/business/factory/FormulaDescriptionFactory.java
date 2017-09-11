@@ -1,12 +1,12 @@
 package be.groups.glanguage.glanguage.api.business.factory;
 
-import be.groups.glanguage.glanguage.api.dao.FormulaDescriptionDao;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import be.groups.glanguage.glanguage.api.dao.formula.*;
+import be.groups.glanguage.glanguage.api.entities.formula.description.*;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
 
 /**
  * This factory allows to get {@link FormulaDescription formula descriptions}<br>
@@ -14,9 +14,14 @@ import java.util.stream.Collectors;
  *
  * @author michotte
  */
+@Component
 public class FormulaDescriptionFactory {
-	
-	private static Map<FormulaType, FormulaDescription> formulaDescriptionByType;
+
+  @Autowired
+  private FormulaDescriptionDao formulaDescriptionDao;
+
+  // TODO see for Cache or FactoryBean
+  private Map<FormulaType, FormulaDescription> formulaDescriptionByType;
 
 	/**
 	 * Get the {@link FormulaDescription} corresponding to a {@link FormulaType}
@@ -24,8 +29,8 @@ public class FormulaDescriptionFactory {
 	 * @param formulaType the {@link FormulaType} corresponding to the {@link FormulaDescription} to be returned
 	 * @return the {@link FormulaDescription} corresponding to {@code formulaType}, or null if it doesn't exists
 	 */
-	public static FormulaDescription getDescription(FormulaType formulaType) {
-		return getFormulaDescriptionByType().get(formulaType);
+  public FormulaDescription getDescription(FormulaType formulaType) {
+    return getFormulaDescriptionByType().get(formulaType);
 	}
 
 	/**
@@ -34,13 +39,14 @@ public class FormulaDescriptionFactory {
 	 *
 	 * @return the map of all known {@link FormulaDescription} (value) associated to its {@link FormulaType} (key)
 	 */
-	private static Map<FormulaType, FormulaDescription> getFormulaDescriptionByType() {
-		if (formulaDescriptionByType == null) {
-			formulaDescriptionByType = new FormulaDescriptionDao().findAll().stream()
-					.collect(Collectors.toMap(FormulaDescription::getType, Function.identity()));
-		}
+  private Map<FormulaType, FormulaDescription> getFormulaDescriptionByType() {
+    if (formulaDescriptionByType == null) {
+      formulaDescriptionByType = formulaDescriptionDao.findAll().stream()
+                                                      .collect(Collectors.toMap(
+                                                          FormulaDescription::getType,
+                                                          Function.identity()));
+    }
 		
 		return formulaDescriptionByType;
 	}
-	
 }
