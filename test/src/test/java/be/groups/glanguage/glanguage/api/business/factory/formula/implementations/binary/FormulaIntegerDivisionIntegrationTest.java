@@ -34,33 +34,6 @@ public class FormulaIntegerDivisionIntegrationTest extends IntegrationTest {
 	 */
 
   /**
-   * Tests {@link FormulaIntegerDivision#getDiscriminatorValue()}
-   */
-  @Test
-  @Ignore
-  public void testGetDiscriminatorValue() {
-    /*TODO -> Unit Test ?
-    FormulaIntegerDivision formula = new FormulaIntegerDivision();
-
-    assertEquals(Integer.valueOf(FormulaType.Values.OP_INTEGER_DIVISION),
-        formula.getDiscriminatorValue());
-    */
-  }
-
-  /**
-   * Tests {@link FormulaIntegerDivision#isTerminal()}
-   */
-  @Test
-  @Ignore
-  public void testIsTerminal() {
-    /*TODO -> Unit Test ?
-    FormulaIntegerDivision formula = new FormulaIntegerDivision();
-
-    assertFalse(formula.isTerminal());
-    */
-  }
-
-  /**
    * Tests {@link FormulaIntegerDivision#isValid(Evaluator)} when operands are integers
    */
   @Test

@@ -36,33 +36,6 @@ public class FormulaMultiplyIntegrationTest extends IntegrationTest {
 	/*
    * Tests
 	 */
-
-  /**
-   * Tests {@link FormulaMultiply#getDiscriminatorValue()}
-   */
-  @Test
-  @Ignore
-  public void testGetDiscriminatorValue() {
-    /*TODO -> Unit Test ?
-    FormulaMultiply formula = new FormulaMultiply();
-
-    assertEquals(Integer.valueOf(FormulaType.Values.OP_MULTIPLY), formula.getDiscriminatorValue());
-    */
-  }
-
-  /**
-   * Tests {@link FormulaMultiply#isTerminal()}
-   */
-  @Test
-  @Ignore
-  public void testIsTerminal() {
-    /*TODO -> Unit Test ?
-    FormulaMultiply formula = new FormulaMultiply();
-
-    assertFalse(formula.isTerminal());
-    */
-  }
-
   /**
    * Tests {@link FormulaMultiply#isValid(Evaluator)} when both operands are integers
    */

@@ -60,8 +60,7 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
      * Tests {@link PlanEvaluator#evaluatePlan()}
      */
     @Test
-    @Ignore
-    // TODO Lazy-init Exception : must find a way to use @Transactional without losing sharding
+    @Transactional
     public void evaluateEvaluatedPlanTest() throws GLanguageException {
       Plan plan = universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
@@ -96,8 +95,7 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
      * Tests {@link PlanEvaluator#evaluateRuleVersion(RuleVersion)}
      */
     @Test
-    @Ignore
-    // TODO Lazy-init Exception : must find a way to use @Transactional without losing sharding
+    @Transactional
     public void evaluateRuleVersionTest() throws GLanguageException {
       Plan plan = universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
@@ -127,9 +125,8 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
     /**
      * Tests {@link PlanEvaluator#evaluateRuleVersion(RuleVersion)}
      */
-    @Ignore
-    // TODO Lazy-init Exception : must find a way to use @Transactional without losing sharding
     @Test
+    @Transactional
     public void evaluateEvaluatedRuleVersionTest() throws GLanguageException {
       Plan plan = universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
@@ -160,8 +157,7 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
      * Tests {@link PlanEvaluator#evaluateRuleVersion(String, boolean)}
      */
     @Test
-    @Ignore
-    // TODO Lazy-init Exception : must find a way to use @Transactional without losing sharding
+    @Transactional
     public void evaluateRuleVersionByRuleIdentifierTest() throws GLanguageException {
       Plan plan = universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
@@ -191,9 +187,8 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
     /**
      * Tests {@link PlanEvaluator#evaluateRuleVersion(String, boolean)}
      */
-    @Ignore
-    // TODO Lazy-init Exception : must find a way to use @Transactional without losing sharding
     @Test
+    @Transactional
     public void evaluateEvaluatedRuleVersionByRuleIdentifierTest() throws GLanguageException {
       Plan plan = universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();

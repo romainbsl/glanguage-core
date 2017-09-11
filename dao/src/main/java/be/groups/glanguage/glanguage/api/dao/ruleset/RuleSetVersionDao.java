@@ -15,23 +15,6 @@ import org.springframework.stereotype.*;
 public interface RuleSetVersionDao extends JpaRepository<RuleSetVersion, Integer> {
 
   /**
-   * Find a {@link RuleSetVersion} by {@code ruleSetVersionId} with all his children
-   *
-   * @param ruleSetVersionId the identifier of the {@link RuleSetVersion} to be returned
-   * @return The {@link RuleSetVersion} identified by {@code ruleSetVersionId} with all his children,
-   * {@link RuleSetVersion#children} + {@link RuleSetVersion#includedIn} +
-   * {@link RuleSetVersion#includes},
-   * or null if it doesn't exists
-   */
-  @Deprecated // TODO must use super.findById() in a @Transactional state
-  @Query(" select rsv from RuleSetVersion rsv "
-      + " left join fetch rsv.children ch "
-      + " left join fetch rsv.includes "
-      + " left join fetch rsv.includedIn "
-      + " where rsv.id = :ruleSetVersionId ")
-  RuleSetVersion findEagerById(@Param("ruleSetVersionId") Integer ruleSetVersionId);
-
-  /**
    * Find a {@link RuleSetVersion} by {@code ruleSetId} and {@code version}
    *
    * @param ruleSetId the identifier of the {@link RuleSet} of the {@link RuleSetVersion} to be

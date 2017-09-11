@@ -38,32 +38,6 @@ public class FormulaDivideIntegrationTest extends IntegrationTest {
 	 */
 
   /**
-   * Tests {@link FormulaDivide#getDiscriminatorValue()}
-   */
-  @Test
-  @Ignore
-  public void testGetDiscriminatorValue() {
-    /*TODO -> Unit Test ?
-    FormulaDivide formula = new FormulaDivide();
-
-    assertEquals(Integer.valueOf(FormulaType.Values.OP_DIVIDE), formula.getDiscriminatorValue());
-    */
-  }
-
-  /**
-   * Tests {@link FormulaDivide#isTerminal()}
-   */
-  @Test
-  @Ignore
-  public void testIsTerminal() {
-    /*TODO -> Unit Test ?
-    FormulaDivide formula = new FormulaDivide();
-
-    assertFalse(formula.isTerminal());
-    */
-  }
-
-  /**
    * Tests {@link FormulaDivide#isValid(Evaluator)} when operands are numerics
    */
   @Test

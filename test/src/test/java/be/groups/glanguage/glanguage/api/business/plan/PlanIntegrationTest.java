@@ -10,6 +10,7 @@ import org.junit.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.test.context.junit4.*;
+import org.springframework.transaction.annotation.*;
 
 import static org.junit.Assert.*;
 
@@ -23,8 +24,7 @@ public class PlanIntegrationTest extends IntegrationTest {
      * Tests {@link Plan#evaluate()}}
      */
     @Test
-    @Ignore
-    // TODO Lazy-init Exception : must find a way to use @Transactional without losing sharding
+    @Transactional
     public void testEvaluate() throws GLanguageException {
         LocalDate effectiveDate = LocalDate.now();
       Plan plan = universe.getPlan(-900003, effectiveDate);
@@ -63,8 +63,7 @@ public class PlanIntegrationTest extends IntegrationTest {
      * Tests {@link Plan#evaluateWithContext(Object, String, boolean)}
      */
     @Test
-    @Ignore
-    // TODO Lazy-init Exception : must find a way to use @Transactional without losing sharding
+    @Transactional
     public void testEvaluateRule900002() throws GLanguageException {
         LocalDate effectiveDate = LocalDate.now();
       Plan plan = universe.getPlan(-900003, effectiveDate);
@@ -93,8 +92,7 @@ public class PlanIntegrationTest extends IntegrationTest {
      * Tests {@link Plan#evaluateWithContext(Object, String, boolean)}
      */
     @Test
-    @Ignore
-    // TODO Lazy-init Exception : must find a way to use @Transactional without losing sharding
+    @Transactional
     public void testEvaluateRule900003() throws GLanguageException {
         LocalDate effectiveDate = LocalDate.now();
       Plan plan = universe.getPlan(-900003, effectiveDate);

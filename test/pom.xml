@@ -25,6 +25,12 @@
 	<!-- Dependencies needed to implement employer tests layer -->
 	<dependencies>
 		<!-- ============================== GROUP S PROJECTS Dependencies ============================== -->
+		<!-- Database dependencies -->
+		<dependency>
+			<groupId>be.groups.common</groupId>
+			<artifactId>database-sharding</artifactId>
+			<version>0.0.6-SNAPSHOT</version>
+		</dependency>
 		<!-- GroupS dependencies -->
 		<dependency>
 			<groupId>be.groups.glanguage</groupId>
@@ -32,7 +38,6 @@
 			<version>${project.parent.version}</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>be.groups.pom</groupId>
 			<artifactId>groups-test-dependencies</artifactId>

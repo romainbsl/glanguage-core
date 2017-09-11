@@ -101,19 +101,6 @@ public class FormulaNotIntegrationTest extends IntegrationTest {
   }
 
   /**
-   * Tests {@link FormulaNot#operationAsText()}
-   */
-  @Test
-  @Ignore
-  public void testOperationAsText() {
-    /* TODO -> Unit Test ?
-    FormulaNot formula = new FormulaNot();
-
-    assertEquals("not", formula.operationAsText());
-    */
-  }
-
-  /**
    * Tests {@link FormulaNot#asText()}
    */
   @Test

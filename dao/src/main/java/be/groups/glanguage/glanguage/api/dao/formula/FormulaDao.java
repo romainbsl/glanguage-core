@@ -10,13 +10,4 @@ import org.springframework.stereotype.*;
  * @author michotte
  */
 @Repository
-public interface FormulaDao extends JpaRepository<AbstractFormula, Integer> {
-  /**
-   * Find an {@link AbstractFormula} by {@code id}
-   *
-   * @param id the identifier of the {@link AbstractFormula} to be returned
-   * @return the {@link AbstractFormula} identified by the {@code id}, or null if it doesn't exists
-   */
-  // TODO Use super.findById(id): Optional
-  @Deprecated AbstractFormula findById(int id);
-}
+public interface FormulaDao extends JpaRepository<AbstractFormula, Integer> {}

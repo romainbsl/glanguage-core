@@ -38,32 +38,6 @@ public class FormulaMinusIntegrationTest extends IntegrationTest {
 	 */
 
   /**
-   * Tests {@link FormulaMinus#getDiscriminatorValue()}
-   */
-  @Test
-  @Ignore
-  public void testGetDiscriminatorValue() {
-    /* TODO -> Unit Test ?
-    FormulaMinus formula = new FormulaMinus();
-
-    assertEquals(Integer.valueOf(FormulaType.Values.OP_MINUS), formula.getDiscriminatorValue());
-    */
-  }
-
-  /**
-   * Tests {@link FormulaMinus#isTerminal()}
-   */
-  @Test
-  @Ignore
-  public void testIsTerminal() {
-    /* TODO -> Unit Test ?
-    FormulaMinus formula = new FormulaMinus();
-
-    assertFalse(formula.isTerminal());
-    */
-  }
-
-  /**
    * Tests {@link FormulaMinus#isValid(Evaluator)} when both operands are integers
    */
   @Test

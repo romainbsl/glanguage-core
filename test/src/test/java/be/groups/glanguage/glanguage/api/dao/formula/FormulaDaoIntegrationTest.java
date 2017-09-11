@@ -3,6 +3,7 @@ package be.groups.glanguage.glanguage.api.dao.formula;
 import be.groups.glanguage.glanguage.api.*;
 import be.groups.glanguage.glanguage.api.entities.formula.*;
 import be.groups.glanguage.glanguage.api.test.categories.*;
+import java.util.*;
 import org.junit.*;
 import org.junit.experimental.categories.*;
 import org.junit.runner.*;
@@ -19,8 +20,12 @@ public class FormulaDaoIntegrationTest extends IntegrationTest {
 
   @Test
   public void testFindById() {
-    AbstractFormula formula = formulaDao.findById(-900000);
-    assertNotNull(formula);
+    Optional<AbstractFormula> optFormula = formulaDao.findById(-900000);
+
+    assertNotNull(optFormula);
+    assertTrue(optFormula.isPresent());
+
+    AbstractFormula formula = optFormula.get();
     assertEquals(-900000, formula.getId());
   }
 
@@ -30,7 +35,12 @@ public class FormulaDaoIntegrationTest extends IntegrationTest {
   @Test
   @Category(JpaMappingTestsCategory.class)
   public void testJpaMapping() {
-    AbstractFormula formula = formulaDao.findById(-900003);
+    Optional<AbstractFormula> optFormula = formulaDao.findById(-900003);
+
+    assertNotNull(optFormula);
+    assertTrue(optFormula.isPresent());
+
+    AbstractFormula formula = optFormula.get();
 
 		/* Checking entity */
     assertNotNull(formula);

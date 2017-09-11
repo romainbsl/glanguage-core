@@ -526,18 +526,6 @@ public class FormulaSmallerIntegrationTest extends IntegrationTest {
     formula.getIntegerValue();
   }
 
-  /**
-   * Tests {@link FormulaSmaller#operationAsText()}
-   */
-  @Test
-  @Ignore
-  public void testOperationAsText() {
-    /*TODO -> Unit Test ?
-    FormulaSmaller formula = new FormulaSmaller();
-
-    assertEquals("<", formula.operationAsText());
-    */
-  }
 
   /**
    * Tests {@link FormulaSmaller#asText()}
