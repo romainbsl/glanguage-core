@@ -1,26 +1,34 @@
 package be.groups.glanguage.glanguage.api.business.evaluation;
 
-import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
-import be.groups.glanguage.glanguage.api.business.plan.Plan;
-import be.groups.glanguage.glanguage.api.business.universe.Universe;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import org.junit.Test;
-
-import java.time.LocalDate;
+import be.groups.glanguage.glanguage.api.*;
+import be.groups.glanguage.glanguage.api.business.plan.*;
+import be.groups.glanguage.glanguage.api.business.universe.*;
+import be.groups.glanguage.glanguage.api.entities.rule.*;
+import be.groups.glanguage.glanguage.api.error.exception.*;
+import java.time.*;
+import javax.transaction.*;
+import org.junit.*;
+import org.junit.runner.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.test.context.junit4.*;
 
 import static org.junit.Assert.*;
 /**
  * @author michotte
  */
-public class PlanEvaluatorIntegrationTest extends BaseDatabaseTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+public class PlanEvaluatorIntegrationTest extends IntegrationTest {
 
+  @Autowired
+  private Universe universe;
+    
     /**
      * Tests {@link PlanEvaluator#evaluatePlan()}
      */
     @Test
+    @Transactional
     public void evaluatePlanTest() throws GLanguageException {
-        Plan plan = Universe.getPlan(-900003, LocalDate.now());
+      Plan plan = universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
         PlanEvaluator evaluator = new PlanEvaluator(plan, context);
         evaluator.evaluatePlan();
@@ -52,8 +60,9 @@ public class PlanEvaluatorIntegrationTest extends BaseDatabaseTest {
      * Tests {@link PlanEvaluator#evaluatePlan()}
      */
     @Test
+    @Transactional
     public void evaluateEvaluatedPlanTest() throws GLanguageException {
-        Plan plan = Universe.getPlan(-900003, LocalDate.now());
+      Plan plan = universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
         plan.evaluateWithContext(context);
         assertTrue(plan.isBranched());
@@ -86,8 +95,9 @@ public class PlanEvaluatorIntegrationTest extends BaseDatabaseTest {
      * Tests {@link PlanEvaluator#evaluateRuleVersion(RuleVersion)}
      */
     @Test
+    @Transactional
     public void evaluateRuleVersionTest() throws GLanguageException {
-        Plan plan = Universe.getPlan(-900003, LocalDate.now());
+      Plan plan = universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
         PlanEvaluator evaluator = new PlanEvaluator(plan, context);
         evaluator.evaluateRuleVersion(plan.getEffectiveRuleVersionByRuleIdentityId("-900003"));
@@ -116,8 +126,9 @@ public class PlanEvaluatorIntegrationTest extends BaseDatabaseTest {
      * Tests {@link PlanEvaluator#evaluateRuleVersion(RuleVersion)}
      */
     @Test
+    @Transactional
     public void evaluateEvaluatedRuleVersionTest() throws GLanguageException {
-        Plan plan = Universe.getPlan(-900003, LocalDate.now());
+      Plan plan = universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
         plan.evaluateWithContext(context, "-900003", false);
         PlanEvaluator evaluator = new PlanEvaluator(plan, context);
@@ -146,8 +157,9 @@ public class PlanEvaluatorIntegrationTest extends BaseDatabaseTest {
      * Tests {@link PlanEvaluator#evaluateRuleVersion(String, boolean)}
      */
     @Test
+    @Transactional
     public void evaluateRuleVersionByRuleIdentifierTest() throws GLanguageException {
-        Plan plan = Universe.getPlan(-900003, LocalDate.now());
+      Plan plan = universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
         PlanEvaluator evaluator = new PlanEvaluator(plan, context);
         evaluator.evaluateRuleVersion("-900003", false);
@@ -176,8 +188,9 @@ public class PlanEvaluatorIntegrationTest extends BaseDatabaseTest {
      * Tests {@link PlanEvaluator#evaluateRuleVersion(String, boolean)}
      */
     @Test
+    @Transactional
     public void evaluateEvaluatedRuleVersionByRuleIdentifierTest() throws GLanguageException {
-        Plan plan = Universe.getPlan(-900003, LocalDate.now());
+      Plan plan = universe.getPlan(-900003, LocalDate.now());
         Object context = new Object();
         plan.evaluateWithContext(context, "-900003", false);
         PlanEvaluator evaluator = new PlanEvaluator(plan, context);

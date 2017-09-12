@@ -1,14 +1,10 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
-import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.DefinitionMatcherStrategy;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
-
-import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.*;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.*;
+import java.time.*;
 import java.util.*;
+import javax.persistence.*;
 
 /**
  * A RuleDefintion is a definition of a {@link RuleIdentity} for a {@link DefinitionLevel} and a set of
@@ -43,13 +39,13 @@ public class RuleDefinition {
     /**
      * Versions
      */
-    private List<RuleVersion> versions;
+    private Set<RuleVersion> versions;
 
     public RuleDefinition() {
         super();
 
         this.definitionParameters = new TreeSet<>();
-        this.versions = new ArrayList<>();
+      this.versions = new TreeSet<>();
     }
 
     /**
@@ -92,7 +88,7 @@ public class RuleDefinition {
      */
     @OneToMany(mappedBy = "ruleDefinition")
     @OrderBy("VERSION DESC")
-    public List<RuleVersion> getVersions() {
+    public Set<RuleVersion> getVersions() {
         return versions;
     }
 
@@ -194,7 +190,7 @@ public class RuleDefinition {
     /**
      * @param versions the versions to set
      */
-    public void setVersions(List<RuleVersion> versions) {
+    public void setVersions(Set<RuleVersion> versions) {
         this.versions = versions;
     }
 

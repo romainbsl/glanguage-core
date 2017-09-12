@@ -1,23 +1,29 @@
 package be.groups.glanguage.glanguage.api.business.factory;
 
-import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaDescription;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaType;
-import org.junit.Test;
+import be.groups.glanguage.glanguage.api.*;
+import be.groups.glanguage.glanguage.api.entities.formula.description.*;
+import org.junit.*;
+import org.junit.runner.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.test.context.junit4.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
-public class FormulaDescriptionFactoryIntegrationTest extends BaseDatabaseTest {
-	
+@RunWith(SpringJUnit4ClassRunner.class)
+public class FormulaDescriptionFactoryIntegrationTest extends IntegrationTest {
+
+  @Autowired
+  private FormulaDescriptionFactory formulaDescriptionFactory;
+
 	@Test
 	public void test() {
-		FormulaDescription undefined = FormulaDescriptionFactory.getDescription(FormulaType.UNDEFINED);
-		assertNotNull(undefined);
+    FormulaDescription undefined = formulaDescriptionFactory.getDescription(FormulaType.UNDEFINED);
+    assertNotNull(undefined);
 		assertEquals(FormulaType.UNDEFINED, undefined.getType());
-		
-		FormulaDescription terminalInteger = FormulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER);
-		assertNotNull(terminalInteger);
+
+    FormulaDescription terminalInteger =
+        formulaDescriptionFactory.getDescription(FormulaType.TERMINAL_INTEGER);
+    assertNotNull(terminalInteger);
 		assertEquals(FormulaType.TERMINAL_INTEGER, terminalInteger.getType());
 	}
 	

@@ -1,25 +1,33 @@
 package be.groups.glanguage.glanguage.api.business.plan;
 
-import be.groups.glanguage.glanguage.api.BaseDatabaseTest;
-import be.groups.glanguage.glanguage.api.business.universe.Universe;
-import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
-import org.junit.Test;
-
-import java.time.LocalDate;
-import java.util.Map;
+import be.groups.glanguage.glanguage.api.*;
+import be.groups.glanguage.glanguage.api.business.universe.*;
+import be.groups.glanguage.glanguage.api.entities.rule.*;
+import be.groups.glanguage.glanguage.api.error.exception.*;
+import java.time.*;
+import java.util.*;
+import org.junit.*;
+import org.junit.runner.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.test.context.junit4.*;
+import org.springframework.transaction.annotation.*;
 
 import static org.junit.Assert.*;
 
-public class PlanIntegrationTest extends BaseDatabaseTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+public class PlanIntegrationTest extends IntegrationTest {
 
+  @Autowired
+  private Universe universe;
+    
     /**
      * Tests {@link Plan#evaluate()}}
      */
     @Test
+    @Transactional
     public void testEvaluate() throws GLanguageException {
         LocalDate effectiveDate = LocalDate.now();
-        Plan plan = Universe.getPlan(-900003, effectiveDate);
+      Plan plan = universe.getPlan(-900003, effectiveDate);
         plan.initEvaluation();
         assertNotNull(plan);
         assertNotNull(plan.getRuleVersions());
@@ -55,9 +63,10 @@ public class PlanIntegrationTest extends BaseDatabaseTest {
      * Tests {@link Plan#evaluateWithContext(Object, String, boolean)}
      */
     @Test
+    @Transactional
     public void testEvaluateRule900002() throws GLanguageException {
         LocalDate effectiveDate = LocalDate.now();
-        Plan plan = Universe.getPlan(-900003, effectiveDate);
+      Plan plan = universe.getPlan(-900003, effectiveDate);
         plan.initEvaluation();
         assertNotNull(plan);
         assertNotNull(plan.getRuleVersions());
@@ -83,9 +92,10 @@ public class PlanIntegrationTest extends BaseDatabaseTest {
      * Tests {@link Plan#evaluateWithContext(Object, String, boolean)}
      */
     @Test
+    @Transactional
     public void testEvaluateRule900003() throws GLanguageException {
         LocalDate effectiveDate = LocalDate.now();
-        Plan plan = Universe.getPlan(-900003, effectiveDate);
+      Plan plan = universe.getPlan(-900003, effectiveDate);
         plan.initEvaluation();
         assertNotNull(plan);
         assertNotNull(plan.getRuleVersions());

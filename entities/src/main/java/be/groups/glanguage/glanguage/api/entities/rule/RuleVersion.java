@@ -1,21 +1,15 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
-import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
-import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
-import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
-import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
-import be.groups.glanguage.glanguage.api.entities.utils.rounding.Rounder;
-import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingType;
-import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingTypeConverter;
-import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
+import be.groups.glanguage.glanguage.api.entities.evaluation.*;
+import be.groups.glanguage.glanguage.api.entities.formula.*;
+import be.groups.glanguage.glanguage.api.entities.formula.description.*;
+import be.groups.glanguage.glanguage.api.entities.ruleset.*;
+import be.groups.glanguage.glanguage.api.entities.utils.rounding.*;
+import be.groups.glanguage.glanguage.api.error.exception.*;
 import be.groups.glanguage.glanguage.api.error.rule.*;
-import be.groups.presta.backoffice.domains.util.date.LocalDateConverter;
-
+import java.time.*;
+import java.util.*;
 import javax.persistence.*;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.util.Set;
-import java.util.SortedSet;
 
 /**
  * A RuleVersion is a version of a {@link RuleDefinition} that is effective between two dates inclusively<br>
@@ -139,7 +133,6 @@ public class RuleVersion implements Comparable<RuleVersion> {
      * @return the effective start date
      */
     @Column(name = "EFFECTIVITY_START_DATE")
-    @Convert(converter = LocalDateConverter.class)
     public LocalDate getEffectiveStartDate() {
         return effectiveStartDate;
     }
@@ -150,7 +143,6 @@ public class RuleVersion implements Comparable<RuleVersion> {
      * @return the effective end date
      */
     @Column(name = "EFFECTIVITY_END_DATE")
-    @Convert(converter = LocalDateConverter.class)
     public LocalDate getEffectiveEndDate() {
         return effectiveEndDate;
     }

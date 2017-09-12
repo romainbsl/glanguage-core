@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>be.groups.glanguage</groupId>
 		<artifactId>glanguage-api</artifactId>
-		<version>0.0.5</version>
+    <version>0.1.0</version>
 	</parent>
 
 	<artifactId>glanguage-api-business</artifactId>
@@ -16,13 +16,6 @@
 	<!-- Dependencies needed to implement employer business layer -->
 	<dependencies>
 		<!-- ============================== GROUP S PROJECTS Dependencies ============================== -->
-		<!-- Import PrestaNew dependencies for business layer -->
-		<dependency>
-			<groupId>be.groups.presta</groupId>
-			<artifactId>backoffice-business</artifactId>
-			<version>0.1.1</version>
-		</dependency>
-		<!--  -->
 		<dependency>
 			<groupId>be.groups.glanguage</groupId>
 			<artifactId>glanguage-api-dao</artifactId>
