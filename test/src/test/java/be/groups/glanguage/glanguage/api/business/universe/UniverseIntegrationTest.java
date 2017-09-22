@@ -32,14 +32,14 @@ public class UniverseIntegrationTest extends IntegrationTest {
 	}
 
 	/**
-	 * Test {@link Universe#getRuleSet(Integer)} when id is 900000
+	 * Test {@link Universe#getRuleSet(Long)} when id is 900000
 	 */
 	@Test
   @Transactional
   public void testGetRuleSetById() {
-    RuleSet ruleSet = universe.getRuleSet(-900000);
+    RuleSet ruleSet = universe.getRuleSet(-900000L);
     assertNotNull(ruleSet);
-		assertEquals(-900000, ruleSet.getId());
+		assertEquals(Long.valueOf(-900000L), ruleSet.getId());
 		assertNotNull(ruleSet.getVersions());
 		assertFalse(ruleSet.getVersions().isEmpty());
 	}
@@ -58,23 +58,23 @@ public class UniverseIntegrationTest extends IntegrationTest {
 	}
 
 	/**
-	 * Test {@link Universe#getRuleSetVersion(Integer)} when id is 900000
+	 * Test {@link Universe#getRuleSetVersion(Long)} when id is 900000
 	 */
 	@Test
 	public void testGetRuleSetVersionById() {
-    RuleSetVersion ruleSetVersion = universe.getRuleSetVersion(-900000);
+    RuleSetVersion ruleSetVersion = universe.getRuleSetVersion(-900000L);
     assertNotNull(ruleSetVersion);
-		assertEquals(-900000, ruleSetVersion.getId());
+		assertEquals(Long.valueOf(-900000), ruleSetVersion.getId());
 	}
 
 	/**
-	 * Test {@link Universe#getRuleSetVersion(Integer, String)} when rule set id is 900000 and version is "1.0.0"
+	 * Test {@link Universe#getRuleSetVersion(Long, String)} when rule set id is 900000 and version is "1.0.0"
 	 */
 	@Test
 	public void testGetRuleSetVersionByRuleSetIdAndVersion() {
-    RuleSetVersion ruleSetVersion = universe.getRuleSetVersion(-900000, "1.0.0");
+    RuleSetVersion ruleSetVersion = universe.getRuleSetVersion(-900000L, "1.0.0");
     assertNotNull(ruleSetVersion);
-		assertEquals(-900000, ruleSetVersion.getRuleSet().getId());
+		assertEquals(Long.valueOf(-900000L), ruleSetVersion.getRuleSet().getId());
 		assertEquals("1.0.0", ruleSetVersion.getVersion());
 	}
 
@@ -90,14 +90,15 @@ public class UniverseIntegrationTest extends IntegrationTest {
 	}
 
   /**
-	 * Test {@link Universe#getRuleSetVersion(Integer, LocalDateTime)} when rule set id is 900000 and production date is now
+	 * Test {@link Universe#getRuleSetVersion(Long, LocalDateTime)} when rule set id is 900000 and production date is
+   * now
 	 */
 	@Test
 	public void testGetRuleSetVersionByRuleSetIdAndProductionDate() {
 		LocalDateTime productionDate = LocalDateTime.now();
-    RuleSetVersion ruleSetVersion = universe.getRuleSetVersion(-900000, productionDate);
+    RuleSetVersion ruleSetVersion = universe.getRuleSetVersion(-900000L, productionDate);
     assertNotNull(ruleSetVersion);
-		assertEquals(-900000, ruleSetVersion.getRuleSet().getId());
+		assertEquals(Long.valueOf(-900000L), ruleSetVersion.getRuleSet().getId());
 		assertFalse("production start date after production date",
 				ruleSetVersion.getProductionStartDate().isAfter(productionDate));
 	}
@@ -116,13 +117,13 @@ public class UniverseIntegrationTest extends IntegrationTest {
 	}
 
   /**
-	 * Tests {@link Universe#getPlan(Integer, LocalDate)}
+	 * Tests {@link Universe#getPlan(Long, LocalDate)}
 	 */
 	@Test
   @Transactional
   public void testGetPlan() {
 		LocalDate effectiveDate = LocalDate.now();
-    Plan plan = universe.getPlan(-900000, effectiveDate);
+    Plan plan = universe.getPlan(-900000L, effectiveDate);
     assertNotNull(plan);
 		assertNotNull(plan.getRuleVersions());
 		assertFalse(plan.getRuleVersions().isEmpty());
@@ -130,12 +131,12 @@ public class UniverseIntegrationTest extends IntegrationTest {
 	}
 
   /**
-	 * Test {@link Universe#getFormula(Integer)}
+	 * Test {@link Universe#getFormula(Long)}
 	 */
 	@Test
 	public void testGetFormula() {
-    AbstractFormula formula = universe.getFormula(-900000);
+    AbstractFormula formula = universe.getFormula(-900000L);
     assertNotNull(formula);
-		assertEquals(-900000, formula.getId());
+		assertEquals(Long.valueOf(-900000L), formula.getId());
 	}
 }

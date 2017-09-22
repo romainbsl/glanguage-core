@@ -27,7 +27,7 @@ public class PlanIntegrationTest extends IntegrationTest {
     @Transactional
     public void testEvaluate() throws GLanguageException {
         LocalDate effectiveDate = LocalDate.now();
-      Plan plan = universe.getPlan(-900003, effectiveDate);
+      Plan plan = universe.getPlan(-900003L, effectiveDate);
         plan.initEvaluation();
         assertNotNull(plan);
         assertNotNull(plan.getRuleVersions());
@@ -40,20 +40,19 @@ public class PlanIntegrationTest extends IntegrationTest {
         assertFalse(evaluatedRuleVersions.isEmpty());
         assertEquals(4, evaluatedRuleVersions.size());
         for (RuleVersion ruleVersion : evaluatedRuleVersions.keySet()) {
-            switch (ruleVersion.getId()) {
-                case -900005:
-                    assertEquals(1500, ruleVersion.getValue());
-                    break;
-                case -900006:
-                    assertEquals(2500, ruleVersion.getValue());
-                    break;
-                case -900007:
-                    assertEquals(1000, ruleVersion.getValue());
-                    break;
-                case -900008:
-                    assertEquals(1500, ruleVersion.getValue());
-                    break;
-                default:
+            if (ruleVersion.getId() ==  -900005L) {
+                assertEquals(1500, ruleVersion.getValue());
+                break;
+            } else if (ruleVersion.getId() ==  -900006L) {
+                assertEquals(2500, ruleVersion.getValue());
+                break;
+            } else if (ruleVersion.getId() ==  -900007L) {
+                assertEquals(1000, ruleVersion.getValue());
+                break;
+            } else if (ruleVersion.getId() ==  -900008L) {
+                assertEquals(1500, ruleVersion.getValue());
+                break;
+            } else {
                     fail("Unexepected evaluated rule version : " + ruleVersion.getId());
             }
         }
@@ -66,7 +65,7 @@ public class PlanIntegrationTest extends IntegrationTest {
     @Transactional
     public void testEvaluateRule900002() throws GLanguageException {
         LocalDate effectiveDate = LocalDate.now();
-      Plan plan = universe.getPlan(-900003, effectiveDate);
+      Plan plan = universe.getPlan(-900003L, effectiveDate);
         plan.initEvaluation();
         assertNotNull(plan);
         assertNotNull(plan.getRuleVersions());
@@ -78,12 +77,11 @@ public class PlanIntegrationTest extends IntegrationTest {
         assertFalse(evaluatedRuleVersions.isEmpty());
         assertEquals(1, evaluatedRuleVersions.size());
         for (RuleVersion ruleVersion : evaluatedRuleVersions.keySet()) {
-            switch (ruleVersion.getId()) {
-                case -900005:
-                    assertEquals(1500, ruleVersion.getValue());
-                    break;
-                default:
-                    fail("Unexepected evaluated rule version : " + ruleVersion.getId());
+            if (ruleVersion.getId() ==  -900005L) {
+                assertEquals(1500, ruleVersion.getValue());
+                break;
+            } else {
+                fail("Unexepected evaluated rule version : " + ruleVersion.getId());
             }
         }
     }
@@ -95,7 +93,7 @@ public class PlanIntegrationTest extends IntegrationTest {
     @Transactional
     public void testEvaluateRule900003() throws GLanguageException {
         LocalDate effectiveDate = LocalDate.now();
-      Plan plan = universe.getPlan(-900003, effectiveDate);
+      Plan plan = universe.getPlan(-900003L, effectiveDate);
         plan.initEvaluation();
         assertNotNull(plan);
         assertNotNull(plan.getRuleVersions());
@@ -107,18 +105,17 @@ public class PlanIntegrationTest extends IntegrationTest {
         assertFalse(evaluatedRuleVersions.isEmpty());
         assertEquals(3, evaluatedRuleVersions.size());
         for (RuleVersion ruleVersion : evaluatedRuleVersions.keySet()) {
-            switch (ruleVersion.getId()) {
-                case -900006:
-                    assertEquals(2500, ruleVersion.getValue());
-                    break;
-                case -900007:
-                    assertEquals(1000, ruleVersion.getValue());
-                    break;
-                case -900008:
-                    assertEquals(1500, ruleVersion.getValue());
-                    break;
-                default:
-                    fail("Unexepected evaluated rule version : " + ruleVersion.getId());
+            if (ruleVersion.getId() ==  -900006L) {
+                assertEquals(2500, ruleVersion.getValue());
+                break;
+            } else if (ruleVersion.getId() ==  -900007L) {
+                assertEquals(1000, ruleVersion.getValue());
+                break;
+            } else if (ruleVersion.getId() ==  -900008L) {
+                assertEquals(1500, ruleVersion.getValue());
+                break;
+            } else {
+                fail("Unexepected evaluated rule version : " + ruleVersion.getId());
             }
         }
     }

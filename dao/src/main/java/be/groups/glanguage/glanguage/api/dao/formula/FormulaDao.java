@@ -10,4 +10,4 @@ import org.springframework.stereotype.*;
  * @author michotte
  */
 @Repository
-public interface FormulaDao extends JpaRepository<AbstractFormula, Integer> {}
+public interface FormulaDao extends JpaRepository<AbstractFormula, Long> {}

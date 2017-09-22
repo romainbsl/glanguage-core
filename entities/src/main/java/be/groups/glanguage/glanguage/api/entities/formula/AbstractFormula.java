@@ -50,7 +50,7 @@ public abstract class AbstractFormula {
     /**
      * Technical unique ID
      */
-    private int id;
+    private Long id;
 
     /**
      * Set of {@link RuleVersion} of which this is the formula
@@ -98,7 +98,7 @@ public abstract class AbstractFormula {
      */
     @Id
     @Column(name = "ID")
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -600,7 +600,7 @@ public abstract class AbstractFormula {
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -646,21 +646,6 @@ public abstract class AbstractFormula {
         this.constantValue = constantValue;
     }
 
-    @Override
-    public int hashCode() {
-        return id;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        AbstractFormula other = (AbstractFormula) obj;
-        if (id != other.id) return false;
-        return true;
-    }
-
     /**
      * Get the textual representation
      *
@@ -668,4 +653,18 @@ public abstract class AbstractFormula {
      */
     public abstract String asText();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractFormula)) return false;
+
+        AbstractFormula formula = (AbstractFormula) o;
+
+        return id.equals(formula.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

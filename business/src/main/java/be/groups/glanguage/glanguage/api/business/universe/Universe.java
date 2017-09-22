@@ -1,16 +1,21 @@
 package be.groups.glanguage.glanguage.api.business.universe;
 
-import be.groups.glanguage.glanguage.api.business.plan.*;
-import be.groups.glanguage.glanguage.api.dao.formula.*;
-import be.groups.glanguage.glanguage.api.dao.ruleset.*;
-import be.groups.glanguage.glanguage.api.entities.formula.*;
-import be.groups.glanguage.glanguage.api.entities.rule.*;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.*;
-import be.groups.glanguage.glanguage.api.entities.ruleset.*;
-import java.time.*;
-import java.util.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.stereotype.*;
+import be.groups.glanguage.glanguage.api.business.plan.Plan;
+import be.groups.glanguage.glanguage.api.dao.formula.FormulaDao;
+import be.groups.glanguage.glanguage.api.dao.ruleset.RuleSetDao;
+import be.groups.glanguage.glanguage.api.dao.ruleset.RuleSetVersionDao;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
+import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSet;
+import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 @Component
 public class Universe {
@@ -38,7 +43,7 @@ public class Universe {
    * @param ruleSetId the {@link RuleSet#id} of the {@link RuleSet} to be returned
    * @return the {@link RuleSet} whose {@link RuleSet#id} is equal to {@code ruleSetId}, or null if it doesn't exists
    */
-  public RuleSet getRuleSet(Integer ruleSetId) {
+  public RuleSet getRuleSet(Long ruleSetId) {
     return ruleSetDao.findById(ruleSetId)
                      .orElse(null);
   }
@@ -64,7 +69,7 @@ public class Universe {
    * @return the {@link RuleSetVersion} whose {@link RuleSetVersion#id} is equal to {@code ruleSetVersionId}, or
    * null if it doesn't exists
    */
-  public RuleSetVersion getRuleSetVersion(Integer ruleSetVersionId) {
+  public RuleSetVersion getRuleSetVersion(Long ruleSetVersionId) {
     return ruleSetVersionDao.findById(ruleSetVersionId)
                             .orElse(null);
   }
@@ -79,7 +84,7 @@ public class Universe {
    * @return the {@link RuleSetVersion} whose {@link RuleSet#id} is equal to {@code ruleSetId} and
    * {@link RuleSetVersion#version} is equal to {@code version}, or null if it doesn't exists
    */
-  public RuleSetVersion getRuleSetVersion(Integer ruleSetId, String version) {
+  public RuleSetVersion getRuleSetVersion(Long ruleSetId, String version) {
     return ruleSetVersionDao.findByRuleSetIdAndVersion(ruleSetId, version);
   }
 
@@ -111,7 +116,7 @@ public class Universe {
    * {@link RuleSetVersion#productionStartDate} is the greatest known not after {@code productionDate}, or null if
    * it doesn't exists
    */
-  public RuleSetVersion getRuleSetVersion(Integer ruleSetId, LocalDateTime productionDate) {
+  public RuleSetVersion getRuleSetVersion(Long ruleSetId, LocalDateTime productionDate) {
     return ruleSetVersionDao.findByRuleSetIdAndProductionDate(ruleSetId, productionDate);
   }
 
@@ -145,7 +150,7 @@ public class Universe {
    * {@link RuleVersion RuleVersions}, of the {@link RuleSetVersion} identified by {@code ruleSetVersionId}, that are
    * effective at {@code effectiveDate}
    */
-  public Plan getPlan(Integer ruleSetVersionId, LocalDate effectiveDate) {
+  public Plan getPlan(Long ruleSetVersionId, LocalDate effectiveDate) {
     return createPlan(getRuleSetVersion(ruleSetVersionId), null, effectiveDate);
   }
 
@@ -166,7 +171,7 @@ public class Universe {
    * effective at {@code effectiveDate} and whose {@link RuleVersion#ruleDefinition} best matches the collection of
    * {@link RuleDefinitionParameter definitionParameters}
    */
-  public Plan getPlan(Integer ruleSetVersionId,
+  public Plan getPlan(Long ruleSetVersionId,
                       LocalDate effectiveDate,
                       Collection<RuleDefinitionParameter> definitionParameters) {
     return createPlan(getRuleSetVersion(ruleSetVersionId), definitionParameters, effectiveDate);
@@ -187,7 +192,7 @@ public class Universe {
    * {@link RuleVersion RuleVersions}, of the {@link RuleSetVersion} identified by {@code ruleSetId} and {@code
    * version}, that are effective at {@code effectiveDate}
    */
-  public Plan getPlan(Integer ruleSetId, String version, LocalDate effectiveDate) {
+  public Plan getPlan(Long ruleSetId, String version, LocalDate effectiveDate) {
     return createPlan(getRuleSetVersion(ruleSetId, version), null, effectiveDate);
   }
 
@@ -210,7 +215,7 @@ public class Universe {
    * version}, that are effective at {@code effectiveDate} and whose {@link RuleVersion#ruleDefinition} best
    * matches the collection of {@link RuleDefinitionParameter definitionParameters}
    */
-  public Plan getPlan(Integer ruleSetId,
+  public Plan getPlan(Long ruleSetId,
                       String version,
                       LocalDate effectiveDate,
                       Collection<RuleDefinitionParameter> definitionParameters) {
@@ -278,7 +283,7 @@ public class Universe {
    * {@link RuleVersion RuleVersions}, of the {@link RuleSetVersion} identified by {@code ruleSetId} and {@code
    * productionDate}, that are effective at {@code effectiveDate}
    */
-  public Plan getPlan(Integer ruleSetId, LocalDateTime productionDate, LocalDate effectiveDate) {
+  public Plan getPlan(Long ruleSetId, LocalDateTime productionDate, LocalDate effectiveDate) {
     return createPlan(getRuleSetVersion(ruleSetId, productionDate), null, effectiveDate);
   }
 
@@ -301,7 +306,7 @@ public class Universe {
    * productionDate}, that are effective at {@code effectiveDate} and whose {@link RuleVersion#ruleDefinition} best
    * matches the collection of {@link RuleDefinitionParameter definitionParameters}
    */
-  public Plan getPlan(Integer ruleSetId,
+  public Plan getPlan(Long ruleSetId,
                       LocalDateTime productionDate,
                       LocalDate effectiveDate,
                       Collection<RuleDefinitionParameter> definitionParameters) {
@@ -444,7 +449,7 @@ public class Universe {
    * @param id the id of the {@link AbstractFormula} to be returned
    * @return the {@link AbstractFormula} identified by {@code id}, or null if it doesn't exists
    */
-  public AbstractFormula getFormula(Integer id) {
+  public AbstractFormula getFormula(Long id) {
     return formulaDao.findById(id)
                      .orElse(null);
   }

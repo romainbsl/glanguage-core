@@ -35,7 +35,7 @@ public class RuleIdentityDaoIntegrationTest extends IntegrationTest {
   @Category(JpaMappingTestsCategory.class)
   @Transactional
   public void testJpaMapping() {
-    Optional<RuleIdentity> optRuleIdentity = ruleIdentityDao.findById(-900000);
+    Optional<RuleIdentity> optRuleIdentity = ruleIdentityDao.findById(-900000L);
 
     assertNotNull(optRuleIdentity);
     assertTrue(optRuleIdentity.isPresent());
@@ -44,7 +44,7 @@ public class RuleIdentityDaoIntegrationTest extends IntegrationTest {
 
 		/* Checking entity */
     assertNotNull(ruleIdentity);
-    assertEquals(-900000, ruleIdentity.getId());
+    assertEquals(Long.valueOf(-900000L), ruleIdentity.getId());
 
 		/* Checking relationships */
     assertNotNull(ruleIdentity.getRuleDefinitions());
@@ -52,7 +52,7 @@ public class RuleIdentityDaoIntegrationTest extends IntegrationTest {
     assertEquals(2,
         ruleIdentity.getRuleDefinitions().stream().map(RuleDefinition::getId).distinct().count());
 
-    List<Integer> ruleDefinitionIds = Arrays.asList(-900000, -900001);
+    List<Long> ruleDefinitionIds = Arrays.asList(-900000L, -900001L);
     ruleIdentity.getRuleDefinitions()
                 .forEach(d -> assertTrue(ruleDefinitionIds.contains(d.getId())));
   }

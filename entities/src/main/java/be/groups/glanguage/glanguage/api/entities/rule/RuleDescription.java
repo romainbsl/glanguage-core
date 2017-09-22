@@ -12,7 +12,7 @@ public class RuleDescription {
 	/**
 	 * Technical unique Id
 	 */
-	private int id;
+	private Long id;
 
 	/**
 	 * RuleVersion's of which this is the description
@@ -45,7 +45,7 @@ public class RuleDescription {
 	 */
 	@Id
 	@Column(name = "ID")
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -90,7 +90,7 @@ public class RuleDescription {
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -125,22 +125,17 @@ public class RuleDescription {
 	}
 
 	@Override
-	public int hashCode() {
-		return id;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof RuleDescription)) return false;
+
+		RuleDescription that = (RuleDescription) o;
+
+		return id.equals(that.id);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RuleDescription other = (RuleDescription) obj;
-		if (id != other.id)
-			return false;
-		return true;
+	public int hashCode() {
+		return id.hashCode();
 	}
-
 }

@@ -127,11 +127,25 @@ public class RuleGroupItem implements Comparable<RuleGroupItem> {
 
 	@Override
 	public int compareTo(@NotNull RuleGroupItem o) {
-		int i = groupRule.getId() - o.getGroupRule().getId();
+		int i = groupRule.getId().compareTo(o.getGroupRule().getId());
 		if (i == 0) {
 			i = sequenceNumber - o.getSequenceNumber();
 		}
 		return i;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof RuleGroupItem)) return false;
+
+		RuleGroupItem that = (RuleGroupItem) o;
+
+		return id.equals(that.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return id.hashCode();
+	}
 }

@@ -41,7 +41,7 @@ public class FormulaDescription {
     /**
      * Technical unique ID
      */
-    private Integer id;
+    private Long id;
 
     /**
      * Formula type for which this is the description
@@ -97,7 +97,7 @@ public class FormulaDescription {
      */
     @Id
     @Column(name = "ID", nullable = false)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -189,7 +189,7 @@ public class FormulaDescription {
     /**
      * @param id the id to set
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

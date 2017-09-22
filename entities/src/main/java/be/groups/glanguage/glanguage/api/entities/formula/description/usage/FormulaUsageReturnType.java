@@ -23,7 +23,7 @@ public class FormulaUsageReturnType {
     /**
      * Technical unique ID
      */
-    private Integer id;
+    private Long id;
 
     /**
      * Usage for which this is a return type
@@ -53,7 +53,7 @@ public class FormulaUsageReturnType {
      */
     @Id
     @Column(name = "ID", nullable = false)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -87,7 +87,7 @@ public class FormulaUsageReturnType {
     /**
      * @param id the id to set
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

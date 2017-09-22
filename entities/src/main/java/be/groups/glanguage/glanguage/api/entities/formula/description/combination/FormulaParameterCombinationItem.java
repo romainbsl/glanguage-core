@@ -43,7 +43,7 @@ public class FormulaParameterCombinationItem implements Comparable<FormulaParame
     /**
      * Technical unique ID
      */
-    private Integer id;
+    private Long id;
 
     /**
      * The {@link FormulaParameterCombination} of which this is an item
@@ -108,7 +108,7 @@ public class FormulaParameterCombinationItem implements Comparable<FormulaParame
      */
     @Id
     @Column(name = "ID", nullable = false)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -242,7 +242,7 @@ public class FormulaParameterCombinationItem implements Comparable<FormulaParame
     /**
      * @param id the id to set
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

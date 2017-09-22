@@ -22,7 +22,7 @@ public class RuleSet {
 	/**
 	 * Technical unique ID
 	 */
-	private int id;
+	private Long id;
 
 	/**
 	 * Aliases in multiple languages
@@ -50,7 +50,7 @@ public class RuleSet {
 	 */
 	@Id
 	@Column(name = "ID")
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -561,7 +561,7 @@ public class RuleSet {
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -586,5 +586,20 @@ public class RuleSet {
 	 */
 	public void setDescription(MultilingualString description) {
 		this.description = description;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof RuleSet)) return false;
+
+		RuleSet ruleSet = (RuleSet) o;
+
+		return id.equals(ruleSet.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return id.hashCode();
 	}
 }

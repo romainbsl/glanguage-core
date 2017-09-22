@@ -9,10 +9,10 @@ import java.time.LocalDate;
  */
 public class PlanIdentification {
 
-    private Integer ruleSetVersionId;
+    private Long ruleSetVersionId;
     private LocalDate effectiveDate;
 
-    public PlanIdentification(Integer ruleSetVersionId, LocalDate effectiveDate) {
+    public PlanIdentification(Long ruleSetVersionId, LocalDate effectiveDate) {
         this.ruleSetVersionId = ruleSetVersionId;
         this.effectiveDate = effectiveDate;
     }

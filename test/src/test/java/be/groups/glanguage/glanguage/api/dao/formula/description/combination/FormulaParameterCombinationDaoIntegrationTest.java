@@ -32,7 +32,7 @@ public class FormulaParameterCombinationDaoIntegrationTest extends IntegrationTe
   @Category(JpaMappingTestsCategory.class)
   public void testJpaMapping() {
     Optional<FormulaParameterCombination> optParameterCombination =
-        formulaParameterCombinationDao.findById(9);
+        formulaParameterCombinationDao.findById(9L);
 
 		/* Checking entity */
     assertNotNull(optParameterCombination);
@@ -40,7 +40,7 @@ public class FormulaParameterCombinationDaoIntegrationTest extends IntegrationTe
 
     FormulaParameterCombination parameterCombination = optParameterCombination.get();
 
-    assertEquals(Integer.valueOf(9), parameterCombination.getId());
+    assertEquals(Long.valueOf(9L), parameterCombination.getId());
 
 		/* Checking relationships */
     assertNotNull(parameterCombination.getCombinationParameters());

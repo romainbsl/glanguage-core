@@ -1,12 +1,14 @@
 package be.groups.glanguage.glanguage.api.business.factory;
 
-import be.groups.glanguage.glanguage.api.business.plan.*;
-import be.groups.glanguage.glanguage.api.business.universe.*;
-import be.groups.glanguage.glanguage.api.entities.ruleset.*;
-import java.time.*;
-import java.util.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.stereotype.*;
+import be.groups.glanguage.glanguage.api.business.plan.Plan;
+import be.groups.glanguage.glanguage.api.business.universe.Universe;
+import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This factory allows to get {@link Plan plans}<br>
@@ -24,16 +26,16 @@ public class PlanFactory {
 
     /**
      * Get the {@link Plan} corresponding to a {@code ruleSetVersionId} and a {@code effectiveDate}<br>
-     * Get it from the cache if it exists or delegate to {@link Universe#getPlan(Integer, LocalDate)} and add it to
+     * Get it from the cache if it exists or delegate to {@link Universe#getPlan(Long, LocalDate)} and add it to
      * the cache
      *
      * @param ruleSetVersionId the identifier of the {@link RuleSetVersion} to be used to create the {@link Plan} to
      *                         be returned
      * @param effectiveDate    the {@link LocalDate} to be used to create {@link Plan} to be returned
      * @return the {@link Plan} corresponding to a {@code ruleSetVersionId} and a {@code effectiveDate}
-     * @see Universe#getPlan(Integer, LocalDate)
+     * @see Universe#getPlan(Long, LocalDate)
      */
-    public Plan getPlan(Integer ruleSetVersionId, LocalDate effectiveDate) {
+    public Plan getPlan(Long ruleSetVersionId, LocalDate effectiveDate) {
         PlanIdentification key = new PlanIdentification(ruleSetVersionId, effectiveDate);
         if (!plans.containsKey(key)) {
             plans.put(key, universe.getPlan(ruleSetVersionId, effectiveDate));

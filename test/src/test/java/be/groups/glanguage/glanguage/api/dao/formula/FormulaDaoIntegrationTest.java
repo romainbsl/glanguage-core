@@ -20,13 +20,13 @@ public class FormulaDaoIntegrationTest extends IntegrationTest {
 
   @Test
   public void testFindById() {
-    Optional<AbstractFormula> optFormula = formulaDao.findById(-900000);
+    Optional<AbstractFormula> optFormula = formulaDao.findById(-900000L);
 
     assertNotNull(optFormula);
     assertTrue(optFormula.isPresent());
 
     AbstractFormula formula = optFormula.get();
-    assertEquals(-900000, formula.getId());
+    assertEquals(Long.valueOf(-900000L), formula.getId());
   }
 
   /**
@@ -35,7 +35,7 @@ public class FormulaDaoIntegrationTest extends IntegrationTest {
   @Test
   @Category(JpaMappingTestsCategory.class)
   public void testJpaMapping() {
-    Optional<AbstractFormula> optFormula = formulaDao.findById(-900003);
+    Optional<AbstractFormula> optFormula = formulaDao.findById(-900003L);
 
     assertNotNull(optFormula);
     assertTrue(optFormula.isPresent());
@@ -45,13 +45,13 @@ public class FormulaDaoIntegrationTest extends IntegrationTest {
 		/* Checking entity */
     assertNotNull(formula);
 
-    assertEquals(-900003, formula.getId());
+    assertEquals(Long.valueOf(-900003L), formula.getId());
 
     assertEquals("TRUE", formula.getConstantValue());
     assertEquals(Integer.valueOf(4), formula.getSequenceNumber());
 
 		/* Checking relationships */
     assertNotNull(formula.getDescription());
-    assertEquals(Integer.valueOf(1004), formula.getDescription().getId());
+    assertEquals(Long.valueOf(1004L), formula.getDescription().getId());
   }
 }

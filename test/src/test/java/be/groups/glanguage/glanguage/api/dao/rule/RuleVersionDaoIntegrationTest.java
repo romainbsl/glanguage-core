@@ -34,7 +34,7 @@ public class RuleVersionDaoIntegrationTest extends IntegrationTest {
   @Test
   @Category(JpaMappingTestsCategory.class)
   public void testJpaMapping() {
-    Optional<RuleVersion> optRuleVersion = ruleVersionDao.findById(-900003);
+    Optional<RuleVersion> optRuleVersion = ruleVersionDao.findById(-900003L);
 
 		/* Checking entity */
     assertNotNull(optRuleVersion);
@@ -42,7 +42,7 @@ public class RuleVersionDaoIntegrationTest extends IntegrationTest {
 
     RuleVersion ruleVersion = optRuleVersion.get();
 
-    assertEquals(-900003, ruleVersion.getId());
+    assertEquals(Long.valueOf(-900003L), ruleVersion.getId());
 
     assertEquals("1.0.0", ruleVersion.getVersion());
 
@@ -56,23 +56,23 @@ public class RuleVersionDaoIntegrationTest extends IntegrationTest {
 
 		/* Checking relationships */
     assertNotNull(ruleVersion.getRuleDefinition());
-    assertEquals(-900001, ruleVersion.getRuleDefinition().getId());
+    assertEquals(Long.valueOf(-900001L), ruleVersion.getRuleDefinition().getId());
 
     assertNotNull(ruleVersion.getRuleDescription());
-    assertEquals(-900000, ruleVersion.getRuleDescription().getId());
+    assertEquals(Long.valueOf(-900000L), ruleVersion.getRuleDescription().getId());
 
     assertNotNull(ruleVersion.getGroupItems());
     assertEquals(1, ruleVersion.getGroupItems().size());
 
     RuleGroupItemId ruleGroupItemId = new RuleGroupItemId();
-    ruleGroupItemId.setRuleId(-900001);
-    ruleGroupItemId.setRuleVersionId(-900003);
+    ruleGroupItemId.setRuleId(-900001L);
+    ruleGroupItemId.setRuleVersionId(-900003L);
     assertEquals(ruleGroupItemId, ruleVersion.getGroupItems().first().getId());
 
     assertNotNull(ruleVersion.getApplicabilityCondition());
-    assertEquals(-900003, ruleVersion.getApplicabilityCondition().getId());
+    assertEquals(Long.valueOf(-900003L), ruleVersion.getApplicabilityCondition().getId());
 
     assertNotNull(ruleVersion.getFormula());
-    assertEquals(-900004, ruleVersion.getFormula().getId());
+    assertEquals(Long.valueOf(-900004L), ruleVersion.getFormula().getId());
   }
 }

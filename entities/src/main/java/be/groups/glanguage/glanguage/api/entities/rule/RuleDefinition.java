@@ -1,10 +1,14 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
-import be.groups.glanguage.glanguage.api.entities.rule.definition.*;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.*;
-import java.time.*;
-import java.util.*;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.DefinitionMatcherStrategy;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
+
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 /**
  * A RuleDefintion is a definition of a {@link RuleIdentity} for a {@link DefinitionLevel} and a set of
@@ -24,7 +28,7 @@ public class RuleDefinition {
     /**
      * Technical unique ID
      */
-    private int id;
+    private Long id;
 
     /**
      * The RuleIdentity of which this is a definition
@@ -55,7 +59,7 @@ public class RuleDefinition {
      */
     @Id
     @Column(name = "ID")
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -169,7 +173,7 @@ public class RuleDefinition {
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -195,23 +199,22 @@ public class RuleDefinition {
     }
 
     @Override
-    public int hashCode() {
-        return id;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        RuleDefinition other = (RuleDefinition) obj;
-        if (id != other.id) return false;
-        return true;
-    }
-
-    @Override
     public String toString() {
         return "RuleDefinition [id=" + id + ", definitionParameters=" + definitionParameters + "]";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RuleDefinition)) return false;
+
+        RuleDefinition that = (RuleDefinition) o;
+
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

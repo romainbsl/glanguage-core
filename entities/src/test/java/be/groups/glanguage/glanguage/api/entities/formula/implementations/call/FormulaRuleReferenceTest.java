@@ -56,7 +56,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		FormulaRuleReference formula = spy(FormulaRuleReference.class);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
-		ruleIdentity.setId(0);
+		ruleIdentity.setId(0L);
 		RuleDefinition ruleDefinition = new RuleDefinition();
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
@@ -91,7 +91,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		FormulaRuleReference formula = spy(FormulaRuleReference.class);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
-		ruleIdentity.setId(0);
+		ruleIdentity.setId(0L);
 		RuleDefinition ruleDefinition = new RuleDefinition();
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
@@ -126,7 +126,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		FormulaRuleReference formula = spy(FormulaRuleReference.class);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
-		ruleIdentity.setId(0);
+		ruleIdentity.setId(0L);
 		RuleDefinition ruleDefinition = new RuleDefinition();
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
@@ -161,7 +161,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		FormulaRuleReference formula = spy(FormulaRuleReference.class);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
-		ruleIdentity.setId(0);
+		ruleIdentity.setId(0L);
 		RuleDefinition ruleDefinition = new RuleDefinition();
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
@@ -200,7 +200,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		FormulaRuleReference formula = spy(FormulaRuleReference.class);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
-		ruleIdentity.setId(0);
+		ruleIdentity.setId(0L);
 		RuleDefinition ruleDefinition = new RuleDefinition();
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
@@ -232,7 +232,7 @@ public class FormulaRuleReferenceTest extends GLanguageEvaluationExceptionTest {
 		FormulaRuleReference formula = spy(FormulaRuleReference.class);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
-		ruleIdentity.setId(0);
+		ruleIdentity.setId(0L);
 		RuleDefinition ruleDefinition = new RuleDefinition();
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 

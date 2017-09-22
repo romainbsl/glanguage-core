@@ -36,7 +36,7 @@ public class FormulaParameterCombinationDaoItemIntegrationTest extends Integrati
   @Category(JpaMappingTestsCategory.class)
   public void testJpaMapping() {
     Optional<FormulaParameterCombinationItem> optParameter =
-        formulaParameterCombinationItemDao.findById(1);
+        formulaParameterCombinationItemDao.findById(1L);
 
 		/* Checking entity */
     assertNotNull(optParameter);
@@ -44,7 +44,7 @@ public class FormulaParameterCombinationDaoItemIntegrationTest extends Integrati
 
     FormulaParameterCombinationItem parameter = optParameter.get();
 
-    assertEquals(Integer.valueOf(1), parameter.getId());
+    assertEquals(Long.valueOf(1L), parameter.getId());
 
     assertEquals("integer", parameter.getName(Language.EN));
     assertEquals("expression de type INTEGER", parameter.getDescription(Language.FR));
@@ -57,6 +57,6 @@ public class FormulaParameterCombinationDaoItemIntegrationTest extends Integrati
 
 		/* Checking relationships */
     assertNotNull(parameter.getCombination());
-    assertEquals(Integer.valueOf(1), parameter.getCombination().getId());
+    assertEquals(Long.valueOf(1L), parameter.getCombination().getId());
   }
 }

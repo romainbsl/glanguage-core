@@ -18,7 +18,7 @@ public class MultilingualString {
      /*
      * Fields
      */
-    private Integer id;
+    private Long id;
     private String name;
     private Set<MultilingualStringItem> items;
 
@@ -42,7 +42,7 @@ public class MultilingualString {
     @Column(name = "ID", nullable = false)
     @SequenceGenerator(name = "Perform", sequenceName = "SQ_TB_MULTILINGUAL_STRING_ID", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = SEQUENCE, generator = "Perform")
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -90,7 +90,7 @@ public class MultilingualString {
      *
      * @param id the technical id to set
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -171,16 +171,11 @@ public class MultilingualString {
 
         MultilingualString that = (MultilingualString) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        return items != null ? items.equals(that.items) : that.items == null;
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (items != null ? items.hashCode() : 0);
-        return result;
+        return id.hashCode();
     }
 }

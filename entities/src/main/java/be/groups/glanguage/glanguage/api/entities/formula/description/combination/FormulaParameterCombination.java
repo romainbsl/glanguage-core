@@ -33,7 +33,7 @@ public class FormulaParameterCombination {
     /**
      * Technical unique ID
      */
-    private Integer id;
+    private Long id;
 
     /**
      * Name
@@ -68,7 +68,7 @@ public class FormulaParameterCombination {
      */
     @Id
     @Column(name = "ID", nullable = false)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -110,7 +110,7 @@ public class FormulaParameterCombination {
     /**
      * @param id the id to set
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

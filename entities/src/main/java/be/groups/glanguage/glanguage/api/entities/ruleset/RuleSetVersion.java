@@ -1,13 +1,20 @@
 package be.groups.glanguage.glanguage.api.entities.ruleset;
 
-import be.groups.glanguage.glanguage.api.entities.rule.*;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.*;
-import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.*;
-import java.time.*;
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleDefinition;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleIdentity;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.DefinitionMatcherStrategy;
+import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
+
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "RULE_SET_VERSION")
@@ -16,7 +23,7 @@ public class RuleSetVersion {
 	/**
 	 * Technical unique ID
 	 */
-	private int id;
+	private Long id;
 	
 	/**
 	 * Date from which this is in production inclusively
@@ -99,7 +106,7 @@ public class RuleSetVersion {
 	 */
 	@Id
 	@Column(name = "ID")
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 	
@@ -732,7 +739,7 @@ public class RuleSetVersion {
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
@@ -833,5 +840,19 @@ public class RuleSetVersion {
 	public void setRuleVersions(Set<RuleVersion> ruleVersions) {
 		this.ruleVersions = ruleVersions;
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof RuleSetVersion)) return false;
+
+		RuleSetVersion that = (RuleSetVersion) o;
+
+		return id.equals(that.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return id.hashCode();
+	}
 }

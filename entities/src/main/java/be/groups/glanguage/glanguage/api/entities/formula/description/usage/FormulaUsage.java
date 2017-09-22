@@ -37,7 +37,7 @@ public class FormulaUsage {
     /**
      * Technical unique ID
      */
-    private Integer id;
+    private Long id;
 
     /**
      * Formula description for which this is a usage
@@ -86,7 +86,7 @@ public class FormulaUsage {
      * @return the id
      */
     @Id
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -171,7 +171,7 @@ public class FormulaUsage {
     /**
      * @param id the id to set
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
