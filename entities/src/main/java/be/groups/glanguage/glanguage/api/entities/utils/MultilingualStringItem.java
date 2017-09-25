@@ -1,8 +1,15 @@
 package be.groups.glanguage.glanguage.api.entities.utils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -56,7 +63,7 @@ public class MultilingualStringItem {
      */
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "MULTILINGUAL_STRING_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "MULTILINGUAL_STRING_ID", referencedColumnName = "ID", nullable=false)
     public MultilingualString getMultilingualString() {
         return multilingualString;
     }
@@ -144,6 +151,8 @@ public class MultilingualStringItem {
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        int result = 31;
+        if(id != null) result += id.hashCode();
+        return result;
     }
 }

@@ -1,8 +1,18 @@
 package be.groups.glanguage.glanguage.api.entities.utils;
 
-import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -151,6 +161,26 @@ public class MultilingualString {
         return "";
     }
 
+    /**
+     * Add a {@link MultilingualStringItem} in {@link MultilingualString#items} and add the
+     * reference {@link MultilingualString} as parent into
+     * {@link MultilingualStringItem#multilingualString}
+     *
+     * @param language the language of the item to be inserted
+     * @param text the test of the item to be inserted
+     */
+    @Transient
+    public void addItem(Language language, String text) {
+        MultilingualStringItem item = new MultilingualStringItem();
+        item.setLanguage(language);
+        item.setText(text);
+        item.setMultilingualString(this);
+
+        if (items == null) items = new HashSet<>();
+
+        items.add(item);
+    }
+
     /*
      * Utils
      */
@@ -174,8 +204,9 @@ public class MultilingualString {
         return id.equals(that.id);
     }
 
-    @Override
-    public int hashCode() {
-        return id.hashCode();
-    }
+  @Override public int hashCode() {
+    int result = 31;
+    if(id != null) result += id.hashCode();
+    return result;
+  }
 }
