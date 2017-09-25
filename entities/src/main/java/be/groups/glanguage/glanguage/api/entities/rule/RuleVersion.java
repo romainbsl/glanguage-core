@@ -9,6 +9,8 @@ import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingType;
 import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingTypeConverter;
 import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.rule.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.time.Duration;
@@ -40,6 +42,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
     /**
      * RuleDescription
      */
+    @JsonManagedReference
     private RuleDescription ruleDescription;
 
     /**
@@ -80,6 +83,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
     /**
      * The RuleDefintion of which this is a version of
      */
+    @JsonManagedReference
     private RuleDefinition ruleDefinition;
 
     /**
@@ -90,6 +94,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
     /**
      * Group items
      */
+    @JsonIgnore
     private SortedSet<RuleGroupItem> groupItems;
 
     /**
@@ -105,6 +110,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
     /**
      * Set of RuleSetVersion this is included in
      */
+    @JsonIgnore
     private Set<RuleSetVersion> ruleSetVersions;
 
     public RuleVersion() {

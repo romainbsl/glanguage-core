@@ -1,6 +1,7 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
 import be.groups.glanguage.glanguage.api.entities.utils.MultilingualString;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,6 +18,7 @@ public class RuleDescription {
 	/**
 	 * RuleVersion's of which this is the description
 	 */
+	@JsonBackReference
 	private List<RuleVersion> ruleVersions;
 
 	/**

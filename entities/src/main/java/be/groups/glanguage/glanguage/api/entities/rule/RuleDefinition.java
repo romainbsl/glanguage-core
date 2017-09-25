@@ -4,6 +4,8 @@ import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLeve
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.DefinitionMatcherStrategy;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -33,6 +35,7 @@ public class RuleDefinition {
     /**
      * The RuleIdentity of which this is a definition
      */
+    @JsonManagedReference
     private RuleIdentity ruleIdentity;
 
     /**
@@ -43,6 +46,7 @@ public class RuleDefinition {
     /**
      * Versions
      */
+    @JsonBackReference
     private Set<RuleVersion> versions;
 
     public RuleDefinition() {

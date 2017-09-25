@@ -4,6 +4,8 @@ import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLeve
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionMatcher.DefinitionMatcherStrategy;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.*;
@@ -33,41 +35,49 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
     /**
      * Set of RuleDefinition
      */
+    @JsonBackReference
     private Set<RuleDefinition> ruleDefinitions;
 
     /**
      * Group items
      */
+    @JsonIgnore
     private Collection<RuleGroupItem> groupItems;
 
     /**
      * Default RuleDefintion
      */
+    @JsonIgnore
     private RuleDefinition defaultRuleDefinition;
 
     /**
      * Collection of {@link RuleDefinition}'s of {@link DefinitionLevel#SOCIAL_SECRETARY} level
      */
+    @JsonIgnore
     private Collection<RuleDefinition> socialSecretaryRuleDefinitions;
 
     /**
      * Collection of {@link RuleDefinition}'s of {@link DefinitionLevel#EMPLOYER} level
      */
+    @JsonIgnore
     private Collection<RuleDefinition> employerRuleDefinitions;
 
     /**
      * Collection of {@link RuleDefinition}'s of {@link DefinitionLevel#JOINT_COMMITTEE} level
      */
+    @JsonIgnore
     private Collection<RuleDefinition> jointCommitteeRuleDefinitions;
 
     /**
      * Collection of {@link RuleDefinition}'s of {@link DefinitionLevel#COLLECTIVE_LABOR_AGREEMENT} level
      */
+    @JsonIgnore
     private Collection<RuleDefinition> collectiveLaborAgreementRuleDefinitions;
 
     /**
      * Collection of {@link RuleDefinition}'s of {@link DefinitionLevel#CUSTOM} level
      */
+    @JsonIgnore
     private Collection<RuleDefinition> customRuleDefinitions;
 
     public RuleIdentity() {
