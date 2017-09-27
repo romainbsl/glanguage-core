@@ -188,7 +188,8 @@ public class MultilingualString {
     public String toString() {
         StringBuilder sb = new StringBuilder("MultilingualString{" + "name='" + name + '\'' + ", items=");
         for (MultilingualStringItem item : items) {
-            sb.append("\n\t" + item.toString());
+            sb.append("\n\t")
+              .append(item.toString());
         }
         sb.append('}');
         return sb.toString();
@@ -204,7 +205,8 @@ public class MultilingualString {
         return id.equals(that.id);
     }
 
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     int result = 31;
     if(id != null) result += id.hashCode();
     return result;
