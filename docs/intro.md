@@ -56,8 +56,6 @@ L'utilisation de la base de données nous offre, également, la possiblité de t
     - Quel `Plan` ?
 - Qui à l'autorisation de mettre en production une nouvelle version ?
 
-> TODO more advantages ?
-
 #### La technologie [Java][java]
 
 Technologie déjà utilisée dans le cadre du projet `SLangage`, en remplacement du langage [Eiffel][eiffel], le [Java][java] est un langage très utilisé au `Group S`, et certaines notions existantes pouvant être réutilisées. De plus, le `Java` est une technologie qui offre l'opportunité de s'exécuter dans de multiples contextes (web, batch, desktop, etc.). Il est donc apparu évident que nous devions continuer avec cette technologie.
