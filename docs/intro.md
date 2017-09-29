@@ -6,7 +6,7 @@ Le projet `GLanguage` est un projet technique regroupant différents concepts re
 
 Ce projet est un ensemble de concepts qui permettent de définir des instructions pouvant être exécutées, individuellement ou successivement, afin d'en extraire un résultat particulier (donnée brute, calcul, validation de données, etc.). Ces notions s'imbriquent les unes dans les autres afin de définir un tout, les `Plans`.
 
-- [Ensemble de règles](/ruleset.md)
+- [Ensemble de règles](ruleset.md)
 - [Règle](rule.md)
 - [Formules](formula.md)
 - GLanguage
