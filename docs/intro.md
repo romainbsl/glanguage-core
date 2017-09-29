@@ -23,7 +23,8 @@ Le second objectif, est de permettre à des personnes n'ayant pas de compétence
 
 ### Un peu d'historique
 
-Ce projet s'appuie sur un projet existant au _**Group S**_, le [`SLangage`][doc_slangage].
+Ce projet s'appuie sur un projet existant au _**Group S**_, le `SLangage` (c.f. K:\43 DEVELOPPEMENT\43 0780 BNCL\070 TRANSITION\MANUELS\bncl_livr_19971113a_manuel_S_langage.doc).
+
 le `SLangage` est utilisé depuis de nombreuses années, pour le calcul des paies. Cependant, nous avons le désir d'évoluer, et d'élargir le scope de nos plans. C'est pourquoi nous avons entrepris la refonte du projet `SLangage` au travers du projet `GLanguage`.
 
 Le `SLangage`utilise des fichiers plats, stockés sous [`SNV`](https://fr.wikipedia.org/wiki/Apache_Subversion)/[`Git`](https://fr.wikipedia.org/wiki/Git), pour encoder les `Plans`. Ceux-ci sont interprétés par des programmes [Eiffel][eiffel], et plus récemment [Java][java].
@@ -63,4 +64,3 @@ Technologie déjà utilisée dans le cadre du projet `SLangage`, en remplacement
 
 [java]: https://fr.wikipedia.org/wiki/Java_(technique)
 [eiffel]: https://fr.wikipedia.org/wiki/Eiffel_(langage)
-[doc_slangage]: K:\43%20DEVELOPPEMENT\43%200780%20BNCL\070%20TRANSITION\MANUELS\bncl_livr_19971113a_manuel_S_langage.doc
