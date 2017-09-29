@@ -4,6 +4,7 @@ L'évaluation est l'action d'interpréter un objet et de lui assigner une valeur
 Il existe 2 types d'objet évaluable :
 - les formules
 - les règles
+
 ## Valeur
 Il existe 6 types de valeur :
 - entier
