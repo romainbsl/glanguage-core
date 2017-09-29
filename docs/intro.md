@@ -6,9 +6,9 @@ Le projet `GLanguage` est un projet technique regroupant différents concepts re
 
 Ce projet est un ensemble de concepts qui permettent de définir des instructions pouvant être exécutées, individuellement ou successivement, afin d'en extraire un résultat particulier (donnée brute, calcul, validation de données, etc.). Ces notions s'imbriquent les unes dans les autres afin de définir un tout, les `Plans`.
 
-- [Ensemble de règles](http://)
-- [Règle](http://)
-- [Formules](http://)
+- [Ensemble de règles](/ruleset.md)
+- [Règle](rule.md)
+- [Formules](formula.md)
 - GLanguage
 
 Le nom de `GLanguage` vient du fait que ce projet s'appuie sur un pseudo langage de programmation, spécifique au _**Group S**_, pouvant être catégorisé de [DSL (Domain Specific Language)](https://fr.wikipedia.org/wiki/Langage_d%C3%A9di%C3%A9).
