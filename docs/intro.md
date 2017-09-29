@@ -63,4 +63,4 @@ Technologie déjà utilisée dans le cadre du projet `SLangage`, en remplacement
 
 [java]: https://fr.wikipedia.org/wiki/Java_(technique)
 [eiffel]: https://fr.wikipedia.org/wiki/Eiffel_(langage)
-[doc_slangage]: file://K:\43%20DEVELOPPEMENT\43%200780%20BNCL\070%20TRANSITION\MANUELS\bncl_livr_19971113a_manuel_S_langage.doc
+[doc_slangage]: K:\43%20DEVELOPPEMENT\43%200780%20BNCL\070%20TRANSITION\MANUELS\bncl_livr_19971113a_manuel_S_langage.doc
