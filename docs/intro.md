@@ -27,7 +27,7 @@ Ce projet s'appuie sur un projet existant au _**Group S**_, le `SLangage` (c.f. 
 
 le `SLangage` est utilisé depuis de nombreuses années, pour le calcul des paies. Cependant, nous avons le désir d'évoluer, et d'élargir le scope de nos plans. C'est pourquoi nous avons entrepris la refonte du projet `SLangage` au travers du projet `GLanguage`.
 
-Le `SLangage`utilise des fichiers plats, stockés sous [`SNV`](https://fr.wikipedia.org/wiki/Apache_Subversion)/[`Git`](https://fr.wikipedia.org/wiki/Git), pour encoder les `Plans`. Ceux-ci sont interprétés par des programmes [Eiffel][eiffel], et plus récemment [Java][java].
+Le `SLangage`utilise des fichiers plats, stockés sous [SNV][]/[Git][], pour encoder les `Plans`. Ceux-ci sont interprétés par des programmes [Eiffel][], et plus récemment [Java][].
 
 ### Ce qui change
 
@@ -49,16 +49,18 @@ Cela permet de dissocier au maximum les notions métiers, et de les faire évolu
 
 L'utilisation de la base de données nous offre, également, la possiblité de tracer et maitriser les actions concernant les `Plans`:
 
-- Qu'est ce qui a été modifié ? 
+- Qu'est ce qui a été modifié ?
     - Par qui ?
     - Quand ?
 - Qui à l'autorisation de modifier ?
     - Quel `Plan` ?
 - Qui à l'autorisation de mettre en production une nouvelle version ?
 
-#### La technologie [Java][java]
+#### La technologie [Java][]
 
-Technologie déjà utilisée dans le cadre du projet `SLangage`, en remplacement du langage [Eiffel][eiffel], le [Java][java] est un langage très utilisé au `Group S`, et certaines notions existantes pouvant être réutilisées. De plus, le `Java` est une technologie qui offre l'opportunité de s'exécuter dans de multiples contextes (web, batch, desktop, etc.). Il est donc apparu évident que nous devions continuer avec cette technologie.
+Technologie déjà utilisée dans le cadre du projet `SLangage`, en remplacement du langage [Eiffel][], le [Java][] est un langage très utilisé au `Group S`, et certaines notions existantes pouvant être réutilisées. De plus, le `Java` est une technologie qui offre l'opportunité de s'exécuter dans de multiples contextes (web, batch, desktop, etc.). Il est donc apparu évident que nous devions continuer avec cette technologie.
 
-[java]: https://fr.wikipedia.org/wiki/Java_(technique)
-[eiffel]: https://fr.wikipedia.org/wiki/Eiffel_(langage)
+[SVN]: https://fr.wikipedia.org/wiki/Apache_Subversion
+[Git]: https://fr.wikipedia.org/wiki/Git
+[Java]: https://fr.wikipedia.org/wiki/Java_(technique)
+[Eiffel]: https://fr.wikipedia.org/wiki/Eiffel_(langage)
