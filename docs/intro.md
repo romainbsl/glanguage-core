@@ -15,7 +15,7 @@ Le nom de `GLanguage` vient du fait que ce projet s'appuie sur un pseudo langage
 
 ## Objectifs
 
-Le premier objectif de ce projet est d'externaliser des concepts métiers, au delà des seuls `plans`de calculs d'aujourd'hui, pouvant être invoqués depuis n'importe quel applicatif au sein du _**Group S**_ (et éventuellement au delà). Cette externalisation à un but de centralisation, afin d'éviter la répétition de ces notions métiers (calculs, contrôles, etc.) au travers de toutes nos applications.
+Le premier objectif de ce projet est d'externaliser des concepts métiers, au delà des seuls `plans`de calculs d'aujourd'hui, pouvant être invoqués depuis n'importe quel applicatif au sein du _**Group S**_ (et éventuellement au delà). Cette externalisation à un but de centralisation, afin d'éviter la répétition de ces notions métiers (calculs, contrôles, etc.) au travers de toutes nos applications, mais également d'offrir plus de flexibilité quant à la modification ou correction d'une instruction, sans devoir modifier et relivrer de nouvelles versions de programmes.
 
 Le second objectif, est de permettre à des personnes n'ayant pas de compétences techniques, des _Business Analyst_ principalement, d'implémenter ses concepts métiers sous la forme d'instructions 'non-informatiques' pouvant être interprétées par nos programmes. En effet, la législation étant au coeur de notre métier, cela parait plus efficient que les personnes suivant cette législation implémentent directement ses concepts.
 
