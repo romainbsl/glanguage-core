@@ -65,12 +65,12 @@ Ces formules n'ont pas d'"usage"
 
 Ces formules sont dites "terminales" car leur valeur est connue directement contrairement aux autres formules qui doivent être évaluées et sont dites "non-terminales"
 
-##### [Entier (TERMINAL_INTEGER)](./formulas/terminal_integer.md)
-##### [Numérique (TERMINAL_NUMERIC)](./formulas/terminal_numeric.md)
-##### [Chaîne de caractères (TERMINAL_STRING)](./formulas/terminal_string.md)
-##### [Booléen (TERMINAL_BOOLEAN)](./formulas/terminal_boolean.md)
-##### [Date (TERMINAL_DATE)](./formulas/terminal_date.md)
-##### [Durée (TERMINAL_DURATION)](./formulas/terminal_durantion.md)
+##### [Entier (TERMINAL_INTEGER)](./formulas/terminal/terminal_integer.md)
+##### [Numérique (TERMINAL_NUMERIC)](./formulas/terminal/terminal_numeric.md)
+##### [Chaîne de caractères (TERMINAL_STRING)](./formulas/terminal/terminal_string.md)
+##### [Booléen (TERMINAL_BOOLEAN)](./formulas/terminal/terminal_boolean.md)
+##### [Date (TERMINAL_DATE)](./formulas/terminal/terminal_date.md)
+##### [Durée (TERMINAL_DURATION)](./formulas/terminal/terminal_durantion.md)
 
 ### 2. Fonctions définies par le GLanguage
 Pour plus de clareté, les formules ci-dessous sous regroupées en fonction du nombre de paramètre ou du domaine d'application
@@ -78,15 +78,15 @@ Pour plus de clareté, les formules ci-dessous sous regroupées en fonction du n
 #### 2.1. Formules unaires booléennes
 Ces formules acceptent 1 et 1 seul paramètre et retournent une valeur de type [`booléen`][valeur-de-retour]
 
-##### [Test d'existence (EXIST)](./formulas/exist.md)
+##### [Test d'existence (EXIST)](./formulas/unary/exist.md)
 ##### [Négation (NOT)](./formulas/not.md)
 
 #### Formules unaires mathématiques
 Ces formules acceptent 1 et 1 seul paramètre et retournent une valeur de type [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour]
 
-##### [Moins unaire (UNARY_MINUS)](./formulas/unary_minus.md)
-##### [Valeur absolue (ABS)](./formulas/abs.md)
-##### [Signe (SIGN)](./formulas/sign.md)
+##### [Moins unaire (UNARY_MINUS)](./formulas/unary/unary_minus.md)
+##### [Valeur absolue (ABS)](./formulas/unary/abs.md)
+##### [Signe (SIGN)](./formulas/unary/sign.md)
 
 #### 2.2. Formules binaires booléennes
 Ces formules acceptent 2 paramètres et retournent une valeur de type [`booléen`][valeur-de-retour]
