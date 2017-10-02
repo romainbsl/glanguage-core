@@ -12,7 +12,7 @@ Il existe 1 "usage" pour ce type de formule :
 
 |Type Paramètre|Type Retour|
 |--------------|-----------|
-|<ul><li>[`entier`][valeur-de-retour]</li><li>[`numérique`][valeur-de-retour]</li></ul>|[`entier`][valeur-de-retour]|
+|<ul><li>[`entier`][valeur-de-retour]</li><li>[`numérique`][valeur-de-retour]</li></ul>|[`numérique`][valeur-de-retour]|
 
 ## Syntaxe
 Le signe s'écrit avec le mot clé `sign` suivi ou non d'un espace et, entre parenthèse "( )" d'une expression de type [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour] à laquelle il faut appliquer la formule
