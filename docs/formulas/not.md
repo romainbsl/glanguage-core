@@ -6,7 +6,7 @@ Cette formule retourne une valeur de type [`booléen`][valeur-de-retour] corresp
 - si la valeur est `false`, la formule retourne la valeur `true`
 - i la valeur est `true`, la formule retourne la valeur `false`
 
-## Usages :
+## Usages
 Il existe un seul "usage" pour ce type de formule :
 
 |Type Paramètre|Type Retour|
@@ -14,7 +14,7 @@ Il existe un seul "usage" pour ce type de formule :
 |[`booléen`][valeur-de-retour]|[`booléen`][valeur-de-retour]|
 
 ## Syntaxe
-Le négation s'écrit avec le mot clé "not" suivi d'un espace et d'une expression à laquelle il faut appliquer le test
+Le négation s'écrit avec le mot clé `not` suivi d'un espace et d'une expression à laquelle il faut appliquer le test
 
     ! <expression_de_type_booléen>
 
@@ -25,6 +25,6 @@ Le négation s'écrit avec le mot clé "not" suivi d'un espace et d'une expressi
 
 regle_de_type_booléen (voir [formule de référence à une règle][formule-reference-regle])
     
-    
+
 [valeur-de-retour]: ../lexique.md#valeur-de-retour
 [formule-reference-regle]: rule_reference.md 
