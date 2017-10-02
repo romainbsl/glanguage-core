@@ -48,4 +48,4 @@ Par définition, le type de retour d'une _règle_ est le même que celui de sa [
 [plan]: ruleset.md#plan
 [formula]: formula.md
 [ruleset]: ruleset.md
-[evaluation]: formula.md#evaluation
+[evaluation]: lexique.md#evaluation

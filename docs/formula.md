@@ -207,3 +207,5 @@ Cette formule représente une absence de formule
 Ces formules représentent de instructions 
 
 #### ["if ... then ... [{else if ...}] [else ...] end (IF)"](./formulas/if.md)
+
+[evaluation]: lexique.md#evaluation
