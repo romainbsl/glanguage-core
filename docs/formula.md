@@ -1,7 +1,7 @@
 # Documentation des formules
 
 ## Description
-Une formule représente une expression [`évaluable`](#evaluation) qui, lors de son évaluation, retourne une valeur
+Une formule représente une expression [`évaluable`][evaluation] qui, lors de son évaluation, retourne une valeur
 
 Les formules peuvent être classifiées en 6 catégories :
 - [constante](#constantes)
@@ -21,11 +21,11 @@ Un "usage" consiste en la description des paramètres qu'une formule peut accepe
 Le type d'une formule dépend donc de l'"usage" qui en est fait
 
 ### Exemple
-La formule "MULTIPLY", qui représente la multiplication mathématique, acceptent exactement 2 paramètres dont les types peuvent uniquement être [`entier`](#valeur-de-retour) ou [`numérique`](#valeur-de-retour) et le type de de valeur retrourné par la formule dépend des types de ces paramètres
+La formule "MULTIPLY", qui représente la multiplication mathématique, acceptent exactement 2 paramètres dont les types peuvent uniquement être [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour] et le type de de valeur retrourné par la formule dépend des types de ces paramètres
 
 Il existe 2 "usages" pour cette formule :
-1. 2 paramètres de type [`entier`](#valeur-de-retour) : la valeur de retour est de type [`entier`](#valeur-de-retour)
-2. au moins 1 paramètre de type [`numérique`](#valeur-de-retour) et l'autre de type [`entier`](#valeur-de-retour) ou [`numérique`](#valeur-de-retour) : la valeur de retour est de type [`numérique`](#valeur-de-retour)
+1. 2 paramètres de type [`entier`][valeur-de-retour] : la valeur de retour est de type [`entier`][valeur-de-retour]
+2. au moins 1 paramètre de type [`numérique`][valeur-de-retour] et l'autre de type [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour] : la valeur de retour est de type [`numérique`][valeur-de-retour]
 
 ## Priorité et précédence
 Chaque formule a une priorité qui indique sa précédence dans l'évaluation de la formule plus complexe dont elle fait partie
@@ -74,20 +74,20 @@ Ces formules sont dites "terminales" car leur valeur est connue directement cont
 
 ### Fonctions définies par le GLanguage
 #### Formules unaires booléennes
-Ces formules acceptent 1 et 1 seul paramètre et retournent une valeur de type [`booléen`](#valeur-de-retour)
+Ces formules acceptent 1 et 1 seul paramètre et retournent une valeur de type [`booléen`][valeur-de-retour]
 
 ##### [Test d'existance (EXIST)](./formulas/exist.md)
 ##### [Négation (NOT)](./formulas/not.md)
 
 #### Formules unaires mathématiques
-Ces formules acceptent 1 et 1 seul paramètre et retournent une valeur de type [`entier`](#valeur-de-retour) ou [`numérique`](#valeur-de-retour)
+Ces formules acceptent 1 et 1 seul paramètre et retournent une valeur de type [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour]
 
 ##### [Moins unaire (UNARY_MINUS)](./formulas/unary_minus.md)
 ##### [Valeur absolue (ABS)](./formulas/abs.md)
 ##### [Signe (SIGN)](./formulas/sign.md)
 
 #### Formules binaires booléennes
-Ces formules acceptent 2 paramètres et retournent une valeur de type [`booléen`](#valeur-de-retour)
+Ces formules acceptent 2 paramètres et retournent une valeur de type [`booléen`][valeur-de-retour]
 
 ##### ["ET" logique (AND)](./formulas/and.md)
 ##### ["OU" logique (OR)](./formulas/or.md)
@@ -99,7 +99,7 @@ Ces formules acceptent 2 paramètres et retournent une valeur de type [`booléen
 ##### [Test plus petit ou égal (SMALLER_OR_EQUAL)](./formulas/smaller_or_equal.md)
 
 #### Formules binaires non-booléenne
-Ces formules acceptent 2 paramètres et retournent une valeur de type [`entier`](#valeur-de-retour), [`numérique`](#valeur-de-retour), [`chaîne de caractères`](#valeur-de-retour), [`date`](#valeur-de-retour) ou [`durée`](#valeur-de-retour)
+Ces formules acceptent 2 paramètres et retournent une valeur de type [`entier`][valeur-de-retour], [`numérique`][valeur-de-retour], [`chaîne de caractères`][valeur-de-retour], [`date`][valeur-de-retour] ou [`durée`][valeur-de-retour]
 
 ##### [Plus (PLUS)](./formulas/plus.md)
 ##### [Moins (MINUS)](./formulas/minus.md)
@@ -128,7 +128,7 @@ Ces formules acceptent un nombre indéfini de paramètres et retrounent la valeu
 #### Formules d'arrondis
 Ces formules acceptent 2 paramètres
 
-Le premier paramètre est toujours une valeur de type [`entier`](#valeur-de-retour) ou [`numérique`](#valeur-de-retour) représentant la valeur à arrondir 
+Le premier paramètre est toujours une valeur de type [`entier`](./lexique.md#valeur-de-retour) ou [`numérique`][valeur-de-retour] représentant la valeur à arrondir 
 
 Le deuxième paramètre est la précision (ou le nombre de décimales) à appliquer pour arrondir la valeur du premier paramètre (ce paramètre est optionnel; une valeur par défaut est définie pour chaque type d'arrondi dans le cas ou le paramètre n'est pas fourni)
 
@@ -141,7 +141,7 @@ Le deuxième paramètre est la précision (ou le nombre de décimales) à appliq
 #### Formules de manipulation de chaîne de caractères
 Ces formules acceptent un nombre variables de paramètres
 
-Le premier paramètre est toujours une valeur de type [`chaîne de caractères`](#valeur-de-retour) représentant la chaîne de caractère à manipuler
+Le premier paramètre est toujours une valeur de type [`chaîne de caractères`][valeur-de-retour] représentant la chaîne de caractère à manipuler
 
 ##### [Elément de chaîne de caractères (STRING_ITEM)](./formulas/string_item.md)
 ##### [Longueur de chaîne de caractères (STRING_LENGTH)](./formulas/string_length.md)
@@ -152,7 +152,7 @@ Ces formules acceptent un certain nombre de paramètre dont certains sont option
 
 Le premier paramètre est toujours la valeur à formatter
 
-Ces formules formatte la valeur du premier paramètre en fonction des autres paramètres (ou de valeurs par défaut, si absent) et retourne le résultat sous forme d'une valeur de type [`chaîne de caractères`](#valeur-de-retour)
+Ces formules formatte la valeur du premier paramètre en fonction des autres paramètres (ou de valeurs par défaut, si absent) et retourne le résultat sous forme d'une valeur de type [`chaîne de caractères`][valeur-de-retour]
 
 ##### [Format date (FORMAT_DATE)](./formulas/format_date.md)
 ##### [Format entier (FORMAT_INTEGER)](./formulas/format_integer.md)
@@ -160,12 +160,12 @@ Ces formules formatte la valeur du premier paramètre en fonction des autres par
 ##### [Format chaîne de caractères (FORMAT_STRING)](./formulas/format_string.md)
 
 #### Formules date
-Ces formules retorunent une valeur de type [`date`](#valeur-de-retour)
+Ces formules retorunent une valeur de type [`date`][valeur-de-retour]
 
 ##### [Date (DATE)](./formulas/date.md)
 
 #### Formules durée
-Ces formules retorunent une valeur de type [`durée`](#valeur-de-retour)
+Ces formules retorunent une valeur de type [`durée`][valeur-de-retour]
 
 ##### [Minutes (MINUTES)](./formulas/minutes.md)
 ##### [Heures (HOURS)](./formulas/hours.md)
@@ -213,6 +213,7 @@ Ces formules sont applicables à une règle
 
 ##### [Formule d'une règle (FORMULA)](./formulas/formula.md)
 ##### [Applicabilité d'une règle (APPLICABILITY)](./formulas/applicability.md)
+
 
 [evaluation]: lexique.md#evaluation
 [valeur-de-retour]: lexique.md#valeur-de-retour
