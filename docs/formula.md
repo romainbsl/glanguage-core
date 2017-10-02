@@ -76,7 +76,7 @@ Ces formules sont dites "terminales" car leur valeur est connue directement cont
 #### Formules unaires booléennes
 Ces formules acceptent 1 et 1 seul paramètre et retournent une valeur de type [`booléen`][valeur-de-retour]
 
-##### [Test d'existance (EXIST)](./formulas/exist.md)
+##### [Test d'existence (EXIST)](./formulas/exist.md)
 ##### [Négation (NOT)](./formulas/not.md)
 
 #### Formules unaires mathématiques
