@@ -18,7 +18,7 @@ Il existe 6 types de valeur :
 # Formule
 
 ## Description
-Une formule représente une expression "évaluable" qui, lors de son évaluation, retourne une valeur.
+Une formule représente une expression "évaluable" qui, lors de son évaluation, retourne une valeur
 
 Les formules peuvent être classifiées en 5 catégories :
 - constante
@@ -44,11 +44,11 @@ Il existe 2 "usages" pour cette formule :
 2. au moins 1 paramètre de type __numérique__ et l'autre de type __entier__ ou __numérique__ : la valeur de retour est de type __numérique__
 
 ## Priorité et précédence
-Chaque formule a une priorité qui indique sa précédence dans l'évaluation de la formule
+Chaque formule a une priorité qui indique sa précédence dans l'évaluation de la formule plus complexe dont elle fait partie
 
 Plus la priorité est haute, plus la précédence est haute 
 
-Les parenthèses permettent d'assurer l'évaluation dans un autre ordre que celui de la précédence car la formule à laquelle les parenthèses correspondent a la priorité la plus haute
+Les parenthèses "()" permettent d'assurer l'évaluation dans un autre ordre que celui de la précédence car la formule à laquelle les parenthèses correspondent a la priorité la plus haute
 
 ### Exemple
 - La formule "SUM" à une priorité égale à 5
@@ -60,7 +60,7 @@ Les parenthèses permettent d'assurer l'évaluation dans un autre ordre que celu
     
     La priorité plus élevé de la formule "MULTIPLY" force l'évaluation de l'expression `2 * 5` en premier lieu
 
-    Le résultat final de cette formule sera donc équaivalent à celui de la formule `1 + 10 (= 11)`
+    Le résultat final de cette formule sera donc équivalent à celui de la formule `1 + 10 [= 11]`
 
 2. Considérons la formule suivante :
 
@@ -68,7 +68,7 @@ Les parenthèses permettent d'assurer l'évaluation dans un autre ordre que celu
 
     Cette fois, l'expression entre parenthèse `(1 + 2)` est évaluée en premier lieu
 
-    Le résultat final de cette formule sera donc équaivalent à celui de la formule `3 * 5 (= 15)`
+    Le résultat final de cette formule sera donc équivalent à celui de la formule `3 * 5 [= 15]`
 
 ## Liste des formules ## 
 <a name = "liste_des_formules"></a>
@@ -76,7 +76,9 @@ Il existe 61 formules définies par le GLanguage qui sont classifiées en foncti
 
 ### Constantes
 Ces formules n'ont pas de paramètre, elles retournes simplement la valeur de la constante qu'elles définissent
+
 Ces formules n'ont pas d'"usage"
+
 Ces formules sont dites "terminales" car leur valeur est connue directement contrairement aux autres formules qui doivent être évaluées et sont dites "non-terminales"
 
 #### [Entier (TERMINAL_INTEGER)](./formulas/terminal_integer.md)
@@ -111,8 +113,8 @@ Ces formules acceptent 2 paramètres et retournent une valeur de type __booléen
 #### [Test plus petit (SMALLER)](./formulas/smaller.md)
 #### [Test plus petit ou égal (SMALLER_OR_EQUAL)](./formulas/smaller_or_equal.md)
 
-### Formules binaires mathématiques
-Ces formules acceptent 2 paramètres et retournent une valeur de type __entier__ ou __numérique__
+### Formules binaires non-booléenne
+Ces formules acceptent 2 paramètres et retournent une valeur de type __entier__, __numérique__, __chaîne de caractères__, __date__ ou __durée__
 
 #### [Plus (PLUS)](./formulas/plus.md)
 #### [Moins (MINUS)](./formulas/minus.md)
@@ -126,8 +128,8 @@ Ces formules acceptent 1 et 1 seul paramètre qui doit être une référence à 
 
 Ces formules appliquent une fonction mathématique (addition ou multiplication) à l'ensemble des règles "enfants" de la règle dont la référence est en paramètre
 
-#### [Somme groupe (SUM)]()./formulas/sum.md
-#### [Somme groupe avec correction d'erreur d'arrondi (SUMV)]()./formulas/sumv.md
+#### [Somme groupe (SUM)](./formulas/sum.md)
+#### [Somme groupe avec correction d'erreur d'arrondi (SUMV)](./formulas/sumv.md)
 #### [Multiplication groupe (MULT)](./formulas/mult.md)
 
 ### Formules "extremum"
@@ -183,7 +185,7 @@ Ces formules retorunent une valeur de type __durée__
 #### [Minutes (MINUTES)](./formulas/minutes.md)
 #### [Heures (HOURS)](./formulas/hours.md)
 #### [Jours (DAYS)](./formulas/days.md)
-#### [Mois (MONTH)](./formulas/month.md)
+#### [Mois (MONTHS)](./formulas/month.md)
 #### [Années (YEARS)](./formulas/years.md)
 
 ### Formules de référence
@@ -201,11 +203,24 @@ Ces formules sont applicables à une règle
 ### Formule parenthèses
 
 #### [Formule parenthèses (BRACKETS)](./formulas/brackets.md)
+Cette formule permet d'isoler une formule faisant partie d'une formule complexe afin de forcer son évaluation telle quelle avant de la combiner avec les autres parties de la formule complexe
 
 ### Formule de test d'appertenance à une liste
+Cette formule permet de tester l'appartenance d'une valeur à une liste de valeur
 
 #### [Formule de test d'appertenance à une liste (IN)](./formulas/in.md)
 
 ### Formule "anomalie"
+Cette formule permet de déclencher une "anomalie"
 
-#### [Formule "anomalie" (anomaly)](./formulas/anomaly.md)
+#### [Formule "anomalie" (ANOMALY)](./formulas/anomaly.md)
+
+### Formule indéfinie
+Cette formule représente une absence de formule
+
+#### [Formule indéfinie (UNDEFINED)](./formulas/undefined)
+
+### Instructions
+Ces formules représentent de instructions 
+
+#### ["if ... then ... [{else if ...}] [else ...] end (IF)"](./formulas/if.md)
