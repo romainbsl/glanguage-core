@@ -1,8 +1,8 @@
 # Formule test d'existence (EXIST)
 ## Description
-Cette formule représente un test d'existence de la valeur d'une règle
+Cette formule représente un test d'existence d'une valeur
 
-Cette formule retourne une valeur de type [`booléen`][valeur-de-retour] en fonction de l'existence ou non de la valeur de la règle à tester :
+Cette formule retourne une valeur de type [`booléen`][valeur-de-retour] en fonction de l'existence ou non de la valeur à tester :
 - si la valeur "existe", la formule retourne la valeur `true`
 - si la valeur n' "existe" pas, la formule retourne la valeur `false`
 
@@ -21,7 +21,7 @@ Il existe un seul "usage" pour ce type de formule :
 ## Syntaxe
 Le test d'existence s'écrit avec un point d'intérogation "?" suivi d'un espace et d'une expression à laquelle il faut appliquer le test
 
-Dans la plupart des cas, l'expression est en fait une [formule de référence à une règle][formule-reference-regle], ce qui permet de tester, par exemple, la possibilité d'utiliser la valeur de cette règle dans une autre formule
+Dans la plupart des cas, l'expression est en fait une [formule de référence à une règle][formule-reference-regle], ce qui permet de tester, par exemple, la possibilité d'utiliser la valeur de cette règle dans une autre formule (utiliser une valeur nulle dans une formule peut mener à une erreur rendant l'évaluation impossible)
 
     ? <expression>
 
