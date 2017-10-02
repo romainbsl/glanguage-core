@@ -2,7 +2,7 @@
 ## Description
 Cette formule représente le signe, au sens mathématique, d'une valeur de type [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour]
 
-Cette formule retourne une valeur de type [`numérique`][valeur-de-retour] correspondant au signe de la valeur absolue de la valeur fournie en paramètre :
+Cette formule retourne une valeur de type [`numérique`][valeur-de-retour] correspondant au signe de la valeur fournie en paramètre :
 - si la valeur est négative, la formule retourne une valeur négative
 - si la valeur est positive, la formule retourne une valeur positive
 - si la valeur est 0, la formule retourne la valeur 0
