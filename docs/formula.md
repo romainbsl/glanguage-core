@@ -1,24 +1,7 @@
-# Evaluation
-L'évaluation est l'action d'interpréter un objet et de lui assigner une valeur
-
-## Objet évaluable
-Il existe 2 types d'objet évaluable :
-- les formules
-- les règles
-
-## Valeur
-Il existe 6 types de valeur :
-- entier
-- numérique
-- chaîne de caractères
-- booléen
-- date
-- durée
-
-# Formule
+# Documentation des formules
 
 ## Description
-Une formule représente une expression "évaluable" qui, lors de son évaluation, retourne une valeur
+Une formule représente une expression [`évaluable`](#evaluation) qui, lors de son évaluation, retourne une valeur
 
 Les formules peuvent être classifiées en 5 catégories :
 - constante
