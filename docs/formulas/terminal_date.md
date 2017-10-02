@@ -1,8 +1,10 @@
 # Formule constante date (TERMINAL_DATE)
 ## Description
-Cette formule représente une valeur constante de type __date__
+Cette formule représente une valeur constante de type [`date`][valeur-de-retour]
+
 ## Type
-__date__
+[`date`][valeur-de-retour]
+
 ## Syntaxe
 Ces formules :
 - sont toujours définies en encadrant la valeur souhaitée par des apostrophes ' '
@@ -34,3 +36,6 @@ Les noms des mois reconnus par la grammaire sont :
     '01/01/2000' ou '01-01-2000'
     '1/jan/2000' ou '1-jan-2000'
     '01/january/2000' ou '01-january-2000'
+
+    
+[valeur-de-retour]: lexique.md#valeur-de-retour

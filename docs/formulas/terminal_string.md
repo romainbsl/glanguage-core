@@ -1,8 +1,10 @@
 # Formule constante chaîne de caractères (TERMINAL_STRING)
 ## Description
-Cette formule représente une valeur constante de type __chaîne de caractères__
+Cette formule représente une valeur constante de type [`chaîne de caractères`][valeur-de-retour]
+
 ## Type
-__chaîne de caractères__
+[`chaîne de caractères`][valeur-de-retour]
+
 ## Syntaxe
 Ces formules sont toujours définies en encadrant la valeur souhaitée de guillemets " "
 
@@ -13,3 +15,6 @@ Ces formules sont toujours définies en encadrant la valeur souhaitée de guille
     "0.001"
     "true"
     "1/1/2000"
+
+    
+[valeur-de-retour]: lexique.md#valeur-de-retour

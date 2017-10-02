@@ -1,8 +1,10 @@
 # Formule constante durée (TERMINAL_DURATION)
 ## Description
-Cette formule représente une valeur constante de type __durée__
+Cette formule représente une valeur constante de type [`durée`][valeur-de-retour]
+
 ## Type
-__durée__
+[`durée`][valeur-de-retour]
+
 ## Syntaxe
 Ces formules :
 - sont toujours définies en encadrant la valeur souhaitée par des apostrophes ' '
@@ -17,3 +19,6 @@ Ces formules :
         'P5M4D'             [= 5 mois et 4 jours]
         'P6Y5M4D'           [= 6 années 5 mois et 4 jours]
         'P6Y5M4DT3H2M1.1S'  [= 6 années 5 mois 4 jours 3 heures 2 minutes 1 seconde et 1 nanoseconde]
+
+        
+[valeur-de-retour]: lexique.md#valeur-de-retour
