@@ -14,7 +14,7 @@ Il existe 1 seul "usage" pour ce type de formule :
 ## Syntaxe
 Le modulo ou reste [division entière][divison-entiere] s'écrit avec des expressions séparées par deux barres obliques inversées `\\`
 
-    <expression_de_type_entier_1> // <expression_de_type_entier_2>
+    <expression_de_type_entier_1> \\ <expression_de_type_entier_2>
 
 ## Exemples
     3 \\ 2               [= 1 (3 = (1 * 2) + 1)]
