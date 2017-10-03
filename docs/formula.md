@@ -134,11 +134,11 @@ Le premier paramètre est toujours une valeur de type [`entier`](./lexique.md#va
 
 Le deuxième paramètre est la précision (ou le nombre de décimales) à appliquer pour arrondir la valeur du premier paramètre (ce paramètre est optionnel; une valeur par défaut est définie pour chaque type d'arrondi dans le cas ou le paramètre n'est pas fourni)
 
-##### [Arrondi arithmétique (ROUNDED)](./formulas/rounded.md)
-##### [Arrondi par défaut (CEIL)](./formulas/ceil.md)
-##### [Arrondi par excès (FLOOR)](./formulas/floor.md)
-##### [Arrondi bancaire (BANKERS_ROUNDED)](./formulas/bankers_rounded.md)
-##### [Troncature (TRUNC)](./formulas/trunc.md)
+##### [Arrondi arithmétique (ROUNDED)](./formulas/rounding/rounded.md)
+##### [Arrondi par défaut (CEIL)](./formulas/rounding/ceil.md)
+##### [Arrondi par excès (FLOOR)](./formulas/rounding/floor.md)
+##### [Arrondi bancaire (BANKERS_ROUNDED)](./formulas/rounding/bankers_rounded.md)
+##### [Troncature (TRUNC)](./formulas/rounding/trunc.md)
 
 #### 2.8. Formules de manipulation de chaîne de caractères
 Ces formules acceptent un nombre variables de paramètres
