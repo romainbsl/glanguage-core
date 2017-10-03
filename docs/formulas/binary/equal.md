@@ -1,4 +1,4 @@
-# Formule d'`EGALITE` (EQUAL)
+# Formule de test d'`EGALITE` (EQUAL)
 
 ## Description
 
