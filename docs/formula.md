@@ -55,7 +55,7 @@ Les parenthèses "( )" permettent d'assurer l'évaluation dans un autre ordre qu
     Le résultat final de cette formule sera donc équivalent à celui de la formule `3 * 5 [= 15]`
 
 ## Liste des formules
-Il existe 58 formules définies par le GLanguage
+Il existe 60 formules définies par le GLanguage
 Dans la liste ci-dessous, elles sont classifiées en fonction des 6 catégories : 
 
 ### 1. Constantes
@@ -81,14 +81,14 @@ Ces formules acceptent 1 et 1 seul paramètre et retournent une valeur de type [
 ##### [Test d'existence (EXIST)](./formulas/unary/exist.md)
 ##### [Négation (NOT)](./formulas/not.md)
 
-#### Formules unaires mathématiques
+#### 2.2 Formules unaires mathématiques
 Ces formules acceptent 1 et 1 seul paramètre et retournent une valeur de type [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour]
 
 ##### [Moins unaire (UNARY_MINUS)](./formulas/unary/unary_minus.md)
 ##### [Valeur absolue (ABS)](./formulas/unary/abs.md)
 ##### [Signe (SIGN)](./formulas/unary/sign.md)
 
-#### 2.2. Formules binaires booléennes
+#### 2.3. Formules binaires booléennes
 Ces formules acceptent 2 paramètres et retournent une valeur de type [`booléen`][valeur-de-retour]
 
 ##### ["ET" logique (AND)](./formulas/binary/and.md)
@@ -100,26 +100,26 @@ Ces formules acceptent 2 paramètres et retournent une valeur de type [`booléen
 ##### [Test plus petit (SMALLER)](./formulas/binary/smaller.md)
 ##### [Test plus petit ou égal (SMALLER_OR_EQUAL)](./formulas/binary/smaller_or_equal.md)
 
-#### 2.3. Formules binaires non-booléenne
+#### 2.4. Formules binaires non-booléenne
 Ces formules acceptent 2 paramètres et retournent une valeur de type [`entier`][valeur-de-retour], [`numérique`][valeur-de-retour], [`chaîne de caractères`][valeur-de-retour], [`date`][valeur-de-retour] ou [`durée`][valeur-de-retour]
 
-##### [Plus (PLUS)](./formulas/plus.md)
-##### [Moins (MINUS)](./formulas/minus.md)
-##### [Multiplication (MULTIPLY)](./formulas/multiply.md)
-##### [Division (DIVIDE)](./formulas/divide.md)
-##### [Division entière (INTEGER_DIVISION)](./formulas/integer_division.md)
-##### [Modulo (MODULO)](./formulas/modulo.md)
+##### [Plus (PLUS)](./formulas/binary/plus.md)
+##### [Moins (MINUS)](./formulas/binary/minus.md)
+##### [Multiplication (MULTIPLY)](./formulas/binary/multiply.md)
+##### [Division (DIVIDE)](./formulas/binary/divide.md)
+##### [Division entière (INTEGER_DIVISION)](./formulas/binary/integer_division.md)
+##### [Modulo (MODULO)](./formulas/binary/modulo.md)
 
-#### 2.4. Formules "groupe"
+#### 2.5. Formules "groupe"
 Ces formules acceptent 1 et 1 seul paramètre qui doit être une référence à une règle
 
 Ces formules appliquent une fonction mathématique (addition ou multiplication) à l'ensemble des règles "enfants" de la règle dont la référence est en paramètre
 
-##### [Somme groupe (SUM)](./formulas/sum.md)
-##### [Somme groupe avec correction d'erreur d'arrondi (SUMV)](./formulas/sumv.md)
-##### [Multiplication groupe (MULT)](./formulas/mult.md)
+##### [Somme groupe (SUM)](./formulas/group/sum.md)
+##### [Somme groupe avec correction d'erreur d'arrondi (SUMV)](./formulas/group/sumv.md)
+##### [Multiplication groupe (MULT)](./formulas/group/mult.md)
 
-#### 2.5. Formules "extremum"
+#### 2.6. Formules "extremum"
 Ces formules acceptent un nombre indéfini de paramètres et retrounent la valeur maximale ou minimale
 
 ##### [Maximum (MAX)](./formulas/max.md)
@@ -127,7 +127,7 @@ Ces formules acceptent un nombre indéfini de paramètres et retrounent la valeu
 ##### [Maximum signé (SIGNED_MAX)](./formulas/signed_max.md)
 ##### [Minimum signé (SIGNED_MIN)](./formulas/signed_min.md)
 
-#### 2.6. Formules d'arrondis
+#### 2.7. Formules d'arrondis
 Ces formules acceptent 2 paramètres
 
 Le premier paramètre est toujours une valeur de type [`entier`](./lexique.md#valeur-de-retour) ou [`numérique`][valeur-de-retour] représentant la valeur à arrondir 
@@ -140,7 +140,7 @@ Le deuxième paramètre est la précision (ou le nombre de décimales) à appliq
 ##### [Arrondi bancaire (BANKERS_ROUNDED)](./formulas/bankers_rounded.md)
 ##### [Troncature (TRUNC)](./formulas/trunc.md)
 
-#### 2.7. Formules de manipulation de chaîne de caractères
+#### 2.8. Formules de manipulation de chaîne de caractères
 Ces formules acceptent un nombre variables de paramètres
 
 Le premier paramètre est toujours une valeur de type [`chaîne de caractères`][valeur-de-retour] représentant la chaîne de caractère à manipuler
@@ -149,7 +149,7 @@ Le premier paramètre est toujours une valeur de type [`chaîne de caractères`]
 ##### [Longueur de chaîne de caractères (STRING_LENGTH)](./formulas/string_length.md)
 ##### [Sous-chaîne de caractères (SUBSTRING)](./formulas/substring.md)
 
-#### 2.8. Formules de formattage
+#### 2.9. Formules de formattage
 Ces formules acceptent un certain nombre de paramètre dont certains sont optionnels
 
 Le premier paramètre est toujours la valeur à formatter
@@ -161,12 +161,12 @@ Ces formules formatte la valeur du premier paramètre en fonction des autres par
 ##### [Format numérique (FORMAT_NUMERIC)](./formulas/format_numeric.md)
 ##### [Format chaîne de caractères (FORMAT_STRING)](./formulas/format_string.md)
 
-#### 2.9. Formules date
+#### 2.10. Formules date
 Ces formules retorunent une valeur de type [`date`][valeur-de-retour]
 
 ##### [Date (DATE)](./formulas/date.md)
 
-#### 2.10. Formules durée
+#### 2.11. Formules durée
 Ces formules retorunent une valeur de type [`durée`][valeur-de-retour]
 
 ##### [Minutes (MINUTES)](./formulas/minutes.md)
@@ -175,22 +175,22 @@ Ces formules retorunent une valeur de type [`durée`][valeur-de-retour]
 ##### [Mois (MONTHS)](./formulas/month.md)
 ##### [Années (YEARS)](./formulas/years.md)
 
-#### 2.11. Formule parenthèses
+#### 2.12. Formule parenthèses
 
 ##### [Formule parenthèses (BRACKETS)](./formulas/brackets.md)
 Ces formules permettent d'isoler une ou plusieurs formules faisant partie d'une formule complexe afin de forcer l'évaluation de celles-ci comme un tout, avant de  combiner le résultat obtenu avec les autres parties de la formule complexe
 
-#### 2.12. Formule de test d'appertenance à une liste
+#### 2.13. Formule de test d'appertenance à une liste
 Ces formules permettent de tester l'appartenance d'une valeur à une liste de valeur
 
 ##### [Formule de test d'appertenance à une liste (IN)](./formulas/in.md)
 
-#### 2.13. Formule "anomalie"
+#### 2.14. Formule "anomalie"
 Ces formules permettent de déclencher une "anomalie"
 
 ##### [Formule "anomalie" (ANOMALY)](./formulas/anomaly.md)
 
-#### 2.14. Formule indéfinie
+#### 2.15. Formule indéfinie
 Ces formules représentent une absence de formule
 
 ##### [Formule indéfinie (UNDEFINED)](./formulas/undefined)
