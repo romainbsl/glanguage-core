@@ -4,9 +4,11 @@
 
 Cette formule représente l'arrondi arithmétique d'un paramètre de type  [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour], en fonction d'une précision de type [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour].
 
-Cette formule retourne une valeur de type [`numérique`][valeur-de-retour] correspondant au premier paramètre (__A__) fourni, arrondi en fonction de la précision (optionelle) fournie en second paramètre (__B__). La formule:
+Cette formule retourne une valeur de type [`numérique`][valeur-de-retour] correspondant au premier paramètre (__A__) fourni, arrondi en fonction de la précision (optionelle) fournie en second paramètre (__B__). La formule.
 
 > Formule mathématique appliquée: __résultat = arrondi(A / B) * B__
+>
+> NB: Le résultat est un multiple de la précision (__B__)
 
 - Si le prmier paramètre est `1` et que le second est non renseigné, la formule retourne `1.0`
 
