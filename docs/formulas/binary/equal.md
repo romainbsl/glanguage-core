@@ -17,7 +17,7 @@ Cette formule retourne une valeur de type [`booléen`][valeur-de-retour] corresp
 
 Il existe deux "usages" pour ce type de formule :
 
-1. Paramètres de type [`entier`][valeur-de-retour], [`numérique`][valeur-de-retour]
+1. Egalité entre paramètres de type [`entier`][valeur-de-retour], [`numérique`][valeur-de-retour]
 
 |Numéro Paramètre|Type Paramètre|Présence|
 |--------------|--------------|--------------|
@@ -26,12 +26,14 @@ Il existe deux "usages" pour ce type de formule :
 
 > Type Retour: [`booléen`][valeur-de-retour]
 
-2. Paramètres de type [`chaîne de caractères`][valeur-de-retour]
+2. Egalité entre paramètres de type [`chaîne de caractères`][valeur-de-retour]
 
 |Numéro Paramètre|Type Paramètre|Présence|
 |--------------|--------------|--------------|
 |1|[`chaîne de caractères`][valeur-de-retour]|obligatoire|
 |2|[`chaîne de caractères`][valeur-de-retour]|obligatoire|
+
+> Type Retour: [`booléen`][valeur-de-retour]
 
 ## Syntaxe
 
