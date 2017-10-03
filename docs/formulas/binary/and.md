@@ -15,10 +15,10 @@ Cette formule retourne une valeur de type [`booléen`][valeur-de-retour] corresp
 
 Il existe un seul "usage" pour ce type de formule :
 
-|Type Paramètre|Présence|
-|--------------|--------------|
-|[`booléen`][valeur-de-retour]|obligatoire|
-|[`booléen`][valeur-de-retour]|obligatoire|
+|Numéro Paramètre|Type Paramètre|Présence|
+|--------------|--------------|--------------|
+|1|[`booléen`][valeur-de-retour]|obligatoire|
+|2|[`booléen`][valeur-de-retour]|obligatoire|
 
 > Type Retour: [`booléen`][valeur-de-retour]
 
