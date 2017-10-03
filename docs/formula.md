@@ -145,9 +145,9 @@ Ces formules acceptent un nombre variables de paramètres
 
 Le premier paramètre est toujours une valeur de type [`chaîne de caractères`][valeur-de-retour] représentant la chaîne de caractère à manipuler
 
-##### [Elément de chaîne de caractères (STRING_ITEM)](./formulas/string_item.md)
-##### [Longueur de chaîne de caractères (STRING_LENGTH)](./formulas/string_length.md)
-##### [Sous-chaîne de caractères (SUBSTRING)](./formulas/substring.md)
+##### [Elément de chaîne de caractères (STRING_ITEM)](./formulas/string/string_item.md)
+##### [Longueur de chaîne de caractères (STRING_LENGTH)](./formulas/string/string_length.md)
+##### [Sous-chaîne de caractères (SUBSTRING)](./formulas/string/substring.md)
 
 #### 2.9. Formules de formattage
 Ces formules acceptent un certain nombre de paramètre dont certains sont optionnels
