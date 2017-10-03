@@ -122,10 +122,10 @@ Ces formules appliquent une fonction mathématique (addition ou multiplication) 
 #### 2.6. Formules "extremum"
 Ces formules acceptent un nombre indéfini de paramètres et retrounent la valeur maximale ou minimale
 
-##### [Maximum (MAX)](./formulas/max.md)
-##### [Minimum (MIN)](./formulas/min.md)
-##### [Maximum signé (SIGNED_MAX)](./formulas/signed_max.md)
-##### [Minimum signé (SIGNED_MIN)](./formulas/signed_min.md)
+##### [Maximum (MAX)](./formulas/extremum/max.md)
+##### [Minimum (MIN)](./formulas/extremum/min.md)
+##### [Maximum signé (SIGNED_MAX)](./formulas/extremum/signed_max.md)
+##### [Minimum signé (SIGNED_MIN)](./formulas/extremum/signed_min.md)
 
 #### 2.7. Formules d'arrondis
 Ces formules acceptent 2 paramètres
