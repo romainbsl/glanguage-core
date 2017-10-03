@@ -11,7 +11,7 @@ Il existe 1 "usage" pour ce type de formule :
 
 |Type Paramètre 1|Type Paramètre 2|Type Retour|
 |----------------|----------------|-----------|
-|<ul><li>[`entier`][valeur-de-retour]</li><li>[`numérique`][valeur-de-retour]</li></ul>|<ul><li>[`entier`][valeur-de-retour]</li><li>[`numérique`][valeur-de-retour]</li></ul>|<ul><li>[`entier`][valeur-de-retour]</li><li>[`numérique`][valeur-de-retour]</li></ul>|
+|&nbsp;<ul><li>[`entier`][valeur-de-retour]</li><li>[`numérique`][valeur-de-retour]</li></ul>|[`optionel`][`répétable`]<ul><li>[`entier`][valeur-de-retour]</li><li>[`numérique`][valeur-de-retour]</li></ul>|&nbsp;<ul><li>[`entier`][valeur-de-retour]</li><li>[`numérique`][valeur-de-retour]</li></ul>|
 
 ### Paramètres
 - Le 1er paramètre est 
@@ -28,7 +28,7 @@ Le type de cette formule dépend du type des valeurs des règles "enfants" de la
 - si la valeur d'au moins une règle "enfant" est de type [`numérique`][valeur-de-retour], la formule retourne une valeur de type [`numérique`][valeur-de-retour]
 
 ## Syntaxe
-Le maximum signé s'écrit avec le mot clé `smax` suivi ou non d'un espace et, entre parenthèse "( )" d'une liste d'expressions représentant des valeurs de type [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour] 
+Le maximum signé s'écrit avec le mot clé `smax` suivi ou non d'un espace et, entre parenthèse `( )` d'une liste d'expressions représentant des valeurs de type [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour] séparées par un point-virgule `;`
 
     smax ( <expression_de_type_entier_ou_numerique_1> { ; <expression_de_type_entier_ou_numerique_n>} )
 
