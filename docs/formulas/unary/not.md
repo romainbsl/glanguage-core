@@ -23,8 +23,8 @@ Le négation s'écrit avec le mot clé `not` suivi d'un espace et d'une expressi
     ! (x >= 0)                  [= dépend de la valeur de x]
     ! true                      [= false]
 
-regle_de_type_booléen (voir [formule de référence à une règle][formule-reference-regle])
+`regle_de_type_booléen` (voir [formule de référence à une règle][formule-reference-regle])
     
 
 [valeur-de-retour]: ../lexique.md#valeur-de-retour
-[formule-reference-regle]: rule_reference.md 
+[formule-reference-regle]: ../call/rule_reference.md 
