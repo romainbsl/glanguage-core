@@ -37,10 +37,10 @@ Il existe un seul "usage" pour ce type de formule :
 
 ## Syntaxe
 
-L'arrondi bancaire d'un paramètre s'écrit avec le mot clé `bankers_rounded` suivi ou non d'un espace et, entre parenthèse "( )" d'une expression de type [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour] (, et de manière optionelle d'un séparateur ";" et d'une expression de type [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour]) à laquelle il faut appliquer la formule.
+L'arrondi bancaire d'un paramètre s'écrit avec le mot clé `bankers_rounded` suivi ou non d'un espace et, entre parenthèse "( )" d'une expression de type [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour] (, et de manière optionelle d'un séparateur ";" et d'une expression de type [`entier`][valeur-de-retour]) à laquelle il faut appliquer la formule.
 
     bankers_rounded (<expression_de_type_entier_ou_numerique>
-    [;<expression_de_type_entier_ou_numerique>] )
+    [;<expression_de_type_entier>] )
 
 ## Exemples
 
