@@ -67,7 +67,7 @@ Il existe quatre "usages" pour ce type de formule :
 
 ## Syntaxe
 
-Le test de supériorité stricte s'écrit avec le symbole `>` suivi et précédé de deux expressions de type [`entier`][valeur-de-retour], [`numérique`][valeur-de-retour], [`chaîne de caractères`][valeur-de-retour], [`date`][valeur-de-retour] ou [`durée`][valeur-de-retour] auxquelles il faut appliquer la formule.
+Le test de supériorité stricte s'écrit avec le symbole `>=` suivi et précédé de deux expressions de type [`entier`][valeur-de-retour], [`numérique`][valeur-de-retour], [`chaîne de caractères`][valeur-de-retour], [`date`][valeur-de-retour] ou [`durée`][valeur-de-retour] auxquelles il faut appliquer la formule.
 
     <expression_de_type_entier_numerique> >= <expression_de_type_entier_numerique>
     <expression_de_type_chaine_caractere> >= <expression_de_type_chaine_caractere>
