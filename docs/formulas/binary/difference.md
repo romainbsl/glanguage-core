@@ -20,7 +20,7 @@ Cette formule retourne une valeur de type [`booléen`][valeur-de-retour] corresp
 - Si le prmier paramètre est `true` et que le second est `false`, la formule retourne `true`
 
 __ATTENTION__ :
-Le test de différence ne peux se faire qu'entre certains type de données. Ce référer aux "usages" et à la syntaxe pour savoir ce quels types sont compatibles à la comparaison.
+Le test de différence ne peux se faire qu'entre certains type de données. Ce référer aux "usages" et à la syntaxe pour savoir quels types sont compatibles à la comparaison.
 
 ## Usages
 
