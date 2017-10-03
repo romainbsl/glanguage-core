@@ -89,14 +89,14 @@ Ces formules acceptent 1 et 1 seul paramètre et retournent une valeur de type [
 #### Formules binaires booléennes
 Ces formules acceptent 2 paramètres et retournent une valeur de type [`booléen`][valeur-de-retour]
 
-##### ["ET" logique (AND)](./formulas/and.md)
-##### ["OU" logique (OR)](./formulas/or.md)
-##### [Test d'égalité (EQUAL)](./formulas/equal.md)
-##### [Test d'inégalité (DIFFERENCE)](./formulas/difference.md)
-##### [Test plus grand (GREATER)](./formulas/greater.md)
-##### [Test plus grand ou égal (GREATER_OR_EQUAL)](./formulas/greater_or_equal.md)
-##### [Test plus petit (SMALLER)](./formulas/smaller.md)
-##### [Test plus petit ou égal (SMALLER_OR_EQUAL)](./formulas/smaller_or_equal.md)
+##### ["ET" logique (AND)](./formulas/binary/and.md)
+##### ["OU" logique (OR)](./formulas/binary/or.md)
+##### [Test d'égalité (EQUAL)](./formulas/binary/equal.md)
+##### [Test d'inégalité (DIFFERENCE)](./formulas/binary/difference.md)
+##### [Test plus grand (GREATER)](./formulas/binary/greater.md)
+##### [Test plus grand ou égal (GREATER_OR_EQUAL)](./formulas/binary/greater_or_equal.md)
+##### [Test plus petit (SMALLER)](./formulas/binary/smaller.md)
+##### [Test plus petit ou égal (SMALLER_OR_EQUAL)](./formulas/binary/smaller_or_equal.md)
 
 #### Formules binaires non-booléenne
 Ces formules acceptent 2 paramètres et retournent une valeur de type [`entier`][valeur-de-retour], [`numérique`][valeur-de-retour], [`chaîne de caractères`][valeur-de-retour], [`date`][valeur-de-retour] ou [`durée`][valeur-de-retour]
