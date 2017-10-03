@@ -164,7 +164,7 @@ Ces formules formatte la valeur du premier paramètre en fonction des autres par
 #### 2.10. Formules date
 Ces formules retorunent une valeur de type [`date`][valeur-de-retour]
 
-##### [Date (DATE)](./formulas/date.md)
+##### [Date (DATE)](./formulas/date/date.md)
 
 #### 2.11. Formules durée
 Ces formules retorunent une valeur de type [`durée`][valeur-de-retour]
