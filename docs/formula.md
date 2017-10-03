@@ -156,10 +156,10 @@ Le premier paramètre est toujours la valeur à formatter
 
 Ces formules formatte la valeur du premier paramètre en fonction des autres paramètres (ou de valeurs par défaut, si absent) et retourne le résultat sous forme d'une valeur de type [`chaîne de caractères`][valeur-de-retour]
 
-##### [Format date (FORMAT_DATE)](./formulas/format_date.md)
-##### [Format entier (FORMAT_INTEGER)](./formulas/format_integer.md)
-##### [Format numérique (FORMAT_NUMERIC)](./formulas/format_numeric.md)
-##### [Format chaîne de caractères (FORMAT_STRING)](./formulas/format_string.md)
+##### [Format date (FORMAT_DATE)](./formulas/format/format_date.md)
+##### [Format entier (FORMAT_INTEGER)](./formulas/format/format_integer.md)
+##### [Format numérique (FORMAT_NUMERIC)](./formulas/format/format_numeric.md)
+##### [Format chaîne de caractères (FORMAT_STRING)](./formulas/format/format_string.md)
 
 #### 2.10. Formules date
 Ces formules retorunent une valeur de type [`date`][valeur-de-retour]
