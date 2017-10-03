@@ -2,10 +2,9 @@
 
 ## Description
 
-Cette formule représente la [conjonction][] de deux propositions de type [`booléen`][valeur-de-retour].  
+Cette formule représente la [conjonction][] de deux propositions de type [`booléen`][valeur-de-retour].
 
-Cette formule retourne une valeur de type [`booléen`][valeur-de-retour] correspondant à la [conjonction][] de deux 
-paramètres (e.g. *A* et *B*):
+Cette formule retourne une valeur de type [`booléen`][valeur-de-retour] correspondant à la [conjonction][] de deux paramètres (e.g. *A* et *B*):
 
 - Si la proposition *A* est `true` et que la proposition *B* est `true`, la formule retourne `true`
 - Si la proposition *A* est `true` et que la proposition *B* est `false`, la formule retourne `false`
@@ -26,7 +25,7 @@ Il existe un seul "usage" pour ce type de formule :
 ## Syntaxe
 
 Le `ET` logique s'écrit avec le mot clé `and` suivi et précédé de deux expressions de type
-[`booléen`][valeur-de-retour] auxquelles il faut appliquer la conjonction.
+[`booléen`][valeur-de-retour] auxquelles il faut appliquer la [conjonction][].
 
     <expression_de_type_booleen> and <expression_de_type_booleen>
 
