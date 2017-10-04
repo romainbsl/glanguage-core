@@ -8,7 +8,43 @@ Cette formule retourne une valeur ayant le même type que la résultante de la f
 
 ## Usages
 
-Il n'existe pas d'usage particuliers pour la formule parenthèses, puisque celle-ci ne sert qu'a orchestrer les formules qui l'entoure, par isolation.
+Il existe six 'usages' pour ce type de formule formule.
+
+1. Encapsulation d'expression de type [`entier`][valeur-de-retour]
+
+|Type paramètre|Type de retour|
+|--|--|
+|[`entier`][valeur-de-retour]|[`entier`][valeur-de-retour]|
+
+2. Encapsulation d'expression de type [`numérique`][valeur-de-retour]
+
+|Type paramètre|Type de retour|
+|--|--|
+|[`numérique`][valeur-de-retour]|[`numérique`][valeur-de-retour]|
+
+2. Encapsulation d'expression de type [`chaîne de caractères`][valeur-de-retour]
+
+|Type paramètre|Type de retour|
+|--|--|
+|[`chaîne de caractères`][valeur-de-retour]|[`chaîne de caractères`][valeur-de-retour]|
+
+3. Encapsulation d'expression de type [`date`][valeur-de-retour]
+
+|Type paramètre|Type de retour|
+|--|--|
+|[`date`][valeur-de-retour]|[`date`][valeur-de-retour]|
+
+4. Encapsulation d'expression de type [`durée`][valeur-de-retour]
+
+|Type paramètre|Type de retour|
+|--|--|
+|[`durée`][valeur-de-retour]|[`durée`][valeur-de-retour]|
+
+5. Encapsulation d'expression de type [`booléen`][valeur-de-retour]
+
+|Type paramètre|Type de retour|
+|--|--|
+|[`booléen`][valeur-de-retour]|[`booléen`][valeur-de-retour]|
 
 ## Syntaxe
 
