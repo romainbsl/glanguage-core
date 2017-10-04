@@ -34,7 +34,7 @@ Les paramètres de cette formule peuvent être regroupés en 3 groupes :
             </table>
 
     - `caractère de remplissage` : paramètre de type [`chaine de caractères`][valeur-de-retour]
-        - __ATTENTION__ : le caractère de remplissage, bien que de type [`chaine de caractères`][valeur-de-retour], doit obligatoirement avoir une longueur (un nombre de caractères) égale à 1
+        - __ATTENTION__ : le `caractère de remplissage`, bien que de type [`chaine de caractères`][valeur-de-retour], doit obligatoirement avoir une longueur (un nombre de caractères) égale à 1
 
 - `Groupe 3` (optionel) : 
     - `affichage du signe` : paramètre de type [`chaine de caractères`][valeur-de-retour]
@@ -68,6 +68,8 @@ Le `groupe 1` est toujours présent
 
 Les `groupe 2` et `groupe 3` peuvent être présents ou non
 
+Les `groupes` et les paramètres des groupes doivent apparaître en suivant l'ordre de définition ci-dessus
+
 Si un paramètre d'un `groupe` est présent, tous les autres paramètres du `groupe` doivent obligatoirement être présents également
 
 Si le `groupe 2` est absent, aucun formatage ne sera effectué (longueure, alignement, caractère de remplissage)
@@ -79,24 +81,32 @@ Si le `groupe 3` est absent, la valeur par défaut (`"negativeonly"`) sera appli
 Il existe 4 "usages" pour ce type de formule en fonction des `groupes` de paramètres présents :
 
 ### 1. Avec seulement le `groupe 1`
-|Type Paramètre|Type retour|
-|--------------|-----------|
-|[`entier`][valeur-de-retour]|[`chaine de caractères`][valeur-de-retour]|
+|#|Signification|Type|
+|-------------------|-------------|----|
+|1|`valeur à formater`|[`entier`][valeur-de-retour]|
 
 ### 2. Avec les `groupe 1` et `groupe 2`
-|Type Paramètre 1|Type Paramètre 2|Type Paramètre 3|Type Paramètre 4|Type retour|
-|----------------|----------------|----------------|----------------|-----------|
-|[`entier`][valeur-de-retour]|[`entier`][valeur-de-retour]|[`chaine de caractères`][valeur-de-retour]|[`chaine de caractères`][valeur-de-retour]|[`chaine de caractères`][valeur-de-retour]|
+|#|Signification|Type|
+|-------------------|-------------|----|
+|1|`valeur à formater`|[`entier`][valeur-de-retour]|
+|2|`longueure minimum`|[`entier`][valeur-de-retour]|
+|3|`alignement`|[`chaine de caractères`][valeur-de-retour]|
+|4|`caractère de remplissage`|[`chaine de caractères`][valeur-de-retour]|
 
 ### 3. Avec (tous) les `groupe 1`, `groupe 2` et `groupe 3`
-|Type Paramètre 1|Type Paramètre 2|Type Paramètre 3|Type Paramètre 4|Type Paramètre 5|Type retour|
-|----------------|----------------|----------------|----------------|----------------|-----------|
-|[`entier`][valeur-de-retour]|[`entier`][valeur-de-retour]|[`chaine de caractères`][valeur-de-retour]|[`chaine de caractères`][valeur-de-retour]|[`chaine de caractères`][valeur-de-retour]|[`chaine de caractères`][valeur-de-retour]|
+|#|Signification|Type|
+|-------------------|-------------|----|
+|1|`valeur à formater`|[`entier`][valeur-de-retour]|
+|2|`longueure minimum`|[`entier`][valeur-de-retour]|
+|3|`alignement`|[`chaine de caractères`][valeur-de-retour]|
+|4|`caractère de remplissage`|[`chaine de caractères`][valeur-de-retour]|
+|5|`affichage du signe`|[`chaine de caractères`][valeur-de-retour]|
 
 ### 4. Avec les `groupe 1` et `groupe 3`
-|Type Paramètre 1|Type Paramètre 2|Type retour|
-|----------------|----------------|-----------|
-|[`entier`][valeur-de-retour]|[`chaine de caractères`][valeur-de-retour]|[`chaine de caractères`][valeur-de-retour]|
+|#|Signification|Type|
+|-------------------|-------------|----|
+|1|`valeur à formater`|[`entier`][valeur-de-retour]|
+|2|`affichage du signe`|[`chaine de caractères`][valeur-de-retour]|
 
 ## Type 
 Le type de cette formule est toujours [`chaine de caractères`][valeur-de-retour]
