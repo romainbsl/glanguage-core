@@ -169,11 +169,11 @@ Ces formules retorunent une valeur de type [`date`][valeur-de-retour]
 #### 2.11. Formules durée
 Ces formules retorunent une valeur de type [`durée`][valeur-de-retour]
 
-##### [Minutes (MINUTES)](./formulas/minutes.md)
-##### [Heures (HOURS)](./formulas/hours.md)
-##### [Jours (DAYS)](./formulas/days.md)
-##### [Mois (MONTHS)](./formulas/month.md)
-##### [Années (YEARS)](./formulas/years.md)
+##### [Minutes (MINUTES)](./formulas/duration/minutes.md)
+##### [Heures (HOURS)](./formulas/duration/hours.md)
+##### [Jours (DAYS)](./formulas/duration/days.md)
+##### [Mois (MONTHS)](./formulas/duration/month.md)
+##### [Années (YEARS)](./formulas/duration/years.md)
 
 #### 2.12. Formule parenthèses
 

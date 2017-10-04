@@ -2,7 +2,7 @@
 ## Description
 Cette formule représente une [`date`][valeur-de-retour] 
 
-Cette formule retourne une valeur de type [`date`][valeur-de-retour] correspondant à la date décrite un paramètre de type [`chaîne de caractères`][valeur-de-retour] ou par 3 paramètres de type [`entier`][valeur-de-retour] représentant le jour, le mois et l'année, forunis en paramètre
+Cette formule retourne une valeur de type [`date`][valeur-de-retour] correspondant à la date décrite un paramètre de type [`chaîne de caractères`][valeur-de-retour] ou par 3 paramètres de type [`entier`][valeur-de-retour] représentant le jour, le mois et l'année, fournis en paramètre
 
 ## Usages
 Il existe 2 "usage" pour ce type de formule :
