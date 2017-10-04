@@ -1,14 +1,14 @@
-# Formule parenthèses (BACKETS)
+# Formule parenthèses (BRACKETS)
 
 ## Description
 
-Cette formule représente l'encapsulation d'une formule, faisant partie d'une formule supérieure plus complexe.
+Cette formule représente l'encapsulation d'une formule, pouvant elle même encapsuler plusieurs formules.
 
 Cette formule retourne une valeur ayant le même type que la résultante de la formule qu'elle encapsule.
 
 ## Usages
 
-Il n'existe pas d'usage particuliers pour la formule parenthèses, puisque celle-ci ne sert qu'a orchestrer les formules qui l'entoure par isolation.
+Il n'existe pas d'usage particuliers pour la formule parenthèses, puisque celle-ci ne sert qu'a orchestrer les formules qui l'entoure, par isolation.
 
 ## Syntaxe
 
