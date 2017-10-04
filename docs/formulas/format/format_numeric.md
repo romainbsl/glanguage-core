@@ -92,7 +92,7 @@ Si le `groupe 5` est absent, la valeur par défaut `","`sera appliquée ; le ré
 
 ## Usages
 
-Il existe 6 "usages" pour ce type de formule en fonction des `groupes` de paramètres présents :
+Il existe 15 "usages" pour ce type de formule en fonction des `groupes` de paramètres présents :
 
 ### 1. Avec seulement le `groupe 1`
 |#|Signification|Type|
