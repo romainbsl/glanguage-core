@@ -198,7 +198,7 @@ Ces formules représentent une absence de formule
 ### 3. Instructions définies par le GLanguage
 Ces formules représentent des instructions 
 
-##### ["if ... then ... [{else if ...}] [else ...] end (IF)"](./formulas/if.md)
+##### ["if ... then ... [{else if ...}] [else ...] end (IF)"](./formulas/instruction/if.md)
 
 ### 4. Référence à une donnée fournie par un tiers
 Ces formules sont traduite par des références à une donnée fournie par un tiers (façades)
