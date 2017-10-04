@@ -193,7 +193,7 @@ Ces formules permettent de déclencher une "anomalie"
 #### 2.15. Formule indéfinie
 Ces formules représentent une absence de formule
 
-##### [Formule indéfinie (UNDEFINED)](./formulas/undefined)
+##### [Formule indéfinie (UNDEFINED)](./formulas/undefined.md)
 
 ### 3. Instructions définies par le GLanguage
 Ces formules représentent des instructions 

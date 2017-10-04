@@ -219,7 +219,7 @@ Le type de cette formule est toujours [`chaine de caractères`][valeur-de-retour
 
 Le formatage de valeur entière s'écrit avec le mot clé `formatNumeric` suivi ou non d'un espace et, entre parenthèse `( )` d'une expression de type [`entier`][valeur-de-retour] (, et de manière optionelle d'une ou plusieurs expressions de type [`entier`][valeur-de-retour] ou [`chaine de caractères`][valeur-de-retour] représentant les options de formatage séparées par un point-virgule `;`).
 
-    formatNumeric (<numerique_a_formater> [ ; <longueure> ; <alignement> ; <caractère_de_remplissage>] [ ; <signe> ] [ ; <nombre_de_decimales>] [ ; <caractere_decimal>] )
+    formatNumeric (<numerique_a_formater> [ ; <longueure> ; <alignement> ; <caractere_de_remplissage>] [ ; <signe> ] [ ; <nombre_de_decimales>] [ ; <caractere_decimal>] )
 
 ## Exemples
 
