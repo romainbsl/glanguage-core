@@ -105,7 +105,7 @@ public class FormulaAnomaly extends AbstractNonTerminalFormula {
     @Override
     protected Duration doGetDurationValue(Evaluator evaluator) {
         reportAnomaly();
-        return Duration.ZERO;   
+        return Duration.ZERO;
     }
 
     /**
