@@ -32,7 +32,7 @@ Chaque formule a une priorité qui indique sa précédence dans l'évaluation de
 
 Plus la priorité est haute, plus la précédence est haute 
 
-Les parenthèses "( )" permettent d'assurer l'évaluation dans un autre ordre que celui de la précédence car la formule à laquelle les parenthèses correspondent a la priorité la plus haute
+Les parenthèses `(` et `)` permettent d'assurer l'évaluation dans un autre ordre que celui de la précédence car la formule à laquelle les parenthèses correspondent a la priorité la plus haute
 
 ### Exemple
 - La formule "SUM" à une priorité égale à 5
@@ -178,7 +178,7 @@ Ces formules retorunent une valeur de type [`durée`][valeur-de-retour]
 #### 2.12. Formule parenthèses
 
 ##### [Formule parenthèses (BRACKETS)](./formulas/brackets.md)
-Ces formules permettent d'isoler une ou plusieurs formules faisant partie d'une formule complexe afin de forcer l'évaluation de celles-ci comme un tout, avant de  combiner le résultat obtenu avec les autres parties de la formule complexe
+Ces formules permettent d'isoler une formule faisant partie d'une formule plus complexe afin de forcer l'évaluation de celle-ci comme un tout, avant de combiner le résultat obtenu avec les autres parties de la formule complexe
 
 #### 2.13. Formule de test d'appertenance à une liste
 Ces formules permettent de tester l'appartenance d'une valeur à une liste de valeur
