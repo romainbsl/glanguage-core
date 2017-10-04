@@ -164,16 +164,16 @@ Ces formules formatte la valeur du premier paramètre en fonction des autres par
 #### 2.10. Formules date
 Ces formules retorunent une valeur de type [`date`][valeur-de-retour]
 
-##### [Date (DATE)](./formulas/date.md)
+##### [Date (DATE)](./formulas/date/date.md)
 
 #### 2.11. Formules durée
 Ces formules retorunent une valeur de type [`durée`][valeur-de-retour]
 
-##### [Minutes (MINUTES)](./formulas/minutes.md)
-##### [Heures (HOURS)](./formulas/hours.md)
-##### [Jours (DAYS)](./formulas/days.md)
-##### [Mois (MONTHS)](./formulas/month.md)
-##### [Années (YEARS)](./formulas/years.md)
+##### [Minutes (MINUTES)](./formulas/duration/minutes.md)
+##### [Heures (HOURS)](./formulas/duration/hours.md)
+##### [Jours (DAYS)](./formulas/duration/days.md)
+##### [Mois (MONTHS)](./formulas/duration/month.md)
+##### [Années (YEARS)](./formulas/duration/years.md)
 
 #### 2.12. Formule parenthèses
 
