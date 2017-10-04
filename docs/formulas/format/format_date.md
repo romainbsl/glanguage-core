@@ -32,7 +32,7 @@ Il existe un seul "usage" pour ce type de formule :
 |Numéro Paramètre|Type Paramètre|Présence|Valeur par défaut|
 |--------------|--------------|--------------|--------------|
 |1|[`date`][valeur-de-retour]|obligatoire|-|
-|1|[`chaine de caractères`][valeur-de-retour]|optionelle|'dd/MM/yyyy'|
+|2|[`chaine de caractères`][valeur-de-retour]|optionelle|'dd/MM/yyyy'|
 
 > Type Retour: [`chaine de caractères`][valeur-de-retour]
 
