@@ -4,6 +4,25 @@
 
 Cette formule représente l'instruction "if-then-else" qui permet de définir des branches conditionnelles et d'évaluer celle pour laquelle la condition est vérifiée
 
+Cette formule retourne une valeur de n'importe quel type correspondant à l'évaluation de l'expression de la branche pour laquelle la condition est vérifiée
+
+Toutes les branches dovent avoir une expression de type équivalent
+
+### Valeurs par défaut
+Si il n'y a aucune branche pour laquelle la condition est vérifiée, une valeur par défaut sera retourné en fonction du type des expressions, sauf pour le type [`date`][valeur-de-retour]
+
+__ATTENTION__ : 
+Si les expressions sont de type [`date`][valeur-de-retour], cela mène à une erreur rendant impossible l'évaluation impossible car il n'existe pas de valeur par défaut pour les valeurs de type [`date`][valeur-de-retour]
+
+|Type|Valeur par défaut|
+|----|-----------------|
+|[`entier`][valeur-de-retour]|`0`|
+|[`numérique`][valeur-de-retour]|`0.0`|
+|[`chaîne de caractères`][valeur-de-retour]|`""` (chaîne de caractères vide)|
+|[`booléen`][valeur-de-retour]|`false`|
+|[`date`][valeur-de-retour]|_erreur_|
+|[`durée`][valeur-de-retour]|`'PT0S'` (durée nulle)|
+
 ## Paramètres
 
 1. `condition`
@@ -95,6 +114,13 @@ __ASTUCE__ : Si l'expression de la branche `else` est également une `instructio
     [= 1]
 &nbsp;
 
+    if false then
+        1
+    end
+
+    [= 0]
+&nbsp;
+
     if x >= 0 then
         "positif"
     else
@@ -115,6 +141,24 @@ __ASTUCE__ : Si l'expression de la branche `else` est également une `instructio
 
     [= 0 si x == 0]
     [= 1,0 si x > 0]
+    [= -1,0 sinon]
+&nbsp;
+
+    if x == 0 then
+        0
+    elseif x > 0 then
+        if x > 10 then
+            10,0
+        else
+            1,0
+        end
+    else
+        -1,0
+    end
+
+    [= 0 si x == 0]
+    [= 10,0 si x > 0 et > 10]
+    [= 1,0 si 0 < x < 10]
     [= -1,0 sinon]
 
     
