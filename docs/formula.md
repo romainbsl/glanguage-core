@@ -203,18 +203,18 @@ Ces formules représentent des instructions
 ### 4. Référence à une donnée fournie par un tiers
 Ces formules sont traduite par des références à une donnée fournie par un tiers (façades)
 
-##### [Référence vers une donnée fournie par un tiers (GET)](./formulas/get.md)
+##### [Référence vers une donnée fournie par un tiers (GET)](./formulas/call/get.md)
 
 ### 5. Référence à une règle
 Ces formules sont traduite par des références à une règle
 
-##### [Référence vers une règle (RULE_REFERENCE)](./formulas/rule_reference.md)
+##### [Référence vers une règle (RULE_REFERENCE)](./formulas/call/rule_reference.md)
 
 ### 6. Applicable à une règle
 Ces formules sont applicables à une règle
 
-##### [Formule d'une règle (FORMULA)](./formulas/formula.md)
-##### [Applicabilité d'une règle (APPLICABILITY)](./formulas/applicability.md)
+##### [Formule d'une règle (FORMULA)](./formulas/call/formula.md)
+##### [Applicabilité d'une règle (APPLICABILITY)](./formulas/call/applicability.md)
 
 
 [evaluation]: lexique.md#evaluation
