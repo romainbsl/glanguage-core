@@ -35,7 +35,7 @@ public class FormulaDescriptionTest {
         doReturn(null).when(description).getBestMatchingUsage(null, null);
 
         AbstractFormula formula = mock(AbstractFormula.class);
-        when(formula.getId()).thenReturn(1);
+        when(formula.getId()).thenReturn(1L);
         try {
             description.validate(formula, null, null);
         } catch (GLanguageException e) {
@@ -59,7 +59,7 @@ public class FormulaDescriptionTest {
     @Test(expected = GLanguageException.class)
     public void testValidateBestUsageNotValid() throws GLanguageException {
         AbstractFormula formula = mock(AbstractFormula.class);
-        when(formula.getId()).thenReturn(1);
+        when(formula.getId()).thenReturn(1L);
 
         FormulaUsage usage = mock(FormulaUsage.class);
         doThrow(new GLanguageException(null)).when(usage).validate(formula, null, null);
@@ -143,7 +143,7 @@ public class FormulaDescriptionTest {
     public void testGetReturnTypeValidUsage1Type() {
         Set<FormulaUsageReturnType> usageReturnTypes = new HashSet<>();
         FormulaUsageReturnType returnType = new FormulaUsageReturnType();
-        returnType.setId(1);
+        returnType.setId(1L);
         returnType.setReturnType(FormulaReturnType.BOOLEAN);
         usageReturnTypes.add(returnType);
         FormulaUsage usage = mock(FormulaUsage.class);
@@ -164,11 +164,11 @@ public class FormulaDescriptionTest {
     public void testGetReturnTypeValidUsageMoreThan1Type() {
         Set<FormulaUsageReturnType> usageReturnTypes = new HashSet<>();
         FormulaUsageReturnType returnType1 = new FormulaUsageReturnType();
-        returnType1.setId(1);
+        returnType1.setId(1L);
         returnType1.setReturnType(FormulaReturnType.BOOLEAN);
         usageReturnTypes.add(returnType1);
         FormulaUsageReturnType returnType2 = new FormulaUsageReturnType();
-        returnType2.setId(2);
+        returnType2.setId(2L);
         returnType2.setReturnType(FormulaReturnType.BOOLEAN);
         usageReturnTypes.add(returnType2);
         FormulaUsage usage = mock(FormulaUsage.class);
@@ -496,7 +496,7 @@ public class FormulaDescriptionTest {
         SortedSet<FormulaParameterCombinationItem> parameterCombinationItems1 = new TreeSet<>(Comparator.comparing(
                 FormulaParameterCombinationItem::getId));
         FormulaParameterCombinationItem parameterCombinationItem1 = mock(FormulaParameterCombinationItem.class);
-        when(parameterCombinationItem1.getId()).thenReturn(1);
+        when(parameterCombinationItem1.getId()).thenReturn(1L);
         when(parameterCombinationItem1.isValidType(parameters.get(0), null)).thenReturn(true);
         parameterCombinationItems1.add(parameterCombinationItem1);
         when(parameterCombination1.getCombinationParameters()).thenReturn(parameterCombinationItems1);
@@ -509,7 +509,7 @@ public class FormulaDescriptionTest {
         SortedSet<FormulaParameterCombinationItem> parameterCombinationItems2 = new TreeSet<>(Comparator.comparing(
                 FormulaParameterCombinationItem::getId));
         FormulaParameterCombinationItem parameterCombinationItem2 = mock(FormulaParameterCombinationItem.class);
-        when(parameterCombinationItem2.getId()).thenReturn(1);
+        when(parameterCombinationItem2.getId()).thenReturn(1L);
         when(parameterCombinationItem2.isValidType(parameters.get(0), null)).thenReturn(false);
         parameterCombinationItems2.add(parameterCombinationItem2);
         when(parameterCombination2.getCombinationParameters()).thenReturn(parameterCombinationItems2);

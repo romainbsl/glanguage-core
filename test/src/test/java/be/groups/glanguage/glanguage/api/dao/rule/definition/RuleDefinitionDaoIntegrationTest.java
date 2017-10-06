@@ -36,7 +36,7 @@ public class RuleDefinitionDaoIntegrationTest extends IntegrationTest {
   @Category(JpaMappingTestsCategory.class)
   @Transactional
   public void testJpaMapping() {
-    Optional<RuleDefinition> optRuleDefinition = ruleDefinitionDao.findById(-900001);
+    Optional<RuleDefinition> optRuleDefinition = ruleDefinitionDao.findById(-900001L);
 
     assertNotNull(optRuleDefinition);
     assertTrue(optRuleDefinition.isPresent());
@@ -46,10 +46,10 @@ public class RuleDefinitionDaoIntegrationTest extends IntegrationTest {
 		/* Checking entity */
     assertNotNull(ruleDefinition);
 
-    assertEquals(-900001, ruleDefinition.getId());
+    assertEquals(Long.valueOf(-900001L), ruleDefinition.getId());
 
 		/* Checking relationships */
-    assertEquals(-900000, ruleDefinition.getRuleIdentity().getId());
+    assertEquals(Long.valueOf(-900000L), ruleDefinition.getRuleIdentity().getId());
 
     assertNotNull(ruleDefinition.getDefinitionParameters());
     assertEquals(2, ruleDefinition.getDefinitionParameters().size());
@@ -61,13 +61,13 @@ public class RuleDefinitionDaoIntegrationTest extends IntegrationTest {
                       .count());
 
     RuleDefinitionParameterId firstRuleDefinitionParameterId = new RuleDefinitionParameterId();
-    firstRuleDefinitionParameterId.setLevelId(2);
-    firstRuleDefinitionParameterId.setRuleDefinitionId(-900001);
+    firstRuleDefinitionParameterId.setLevelId(2L);
+    firstRuleDefinitionParameterId.setRuleDefinitionId(-900001L);
     firstRuleDefinitionParameterId.setValue("100000");
 
     RuleDefinitionParameterId secondtRuleDefinitionParameterId = new RuleDefinitionParameterId();
-    secondtRuleDefinitionParameterId.setLevelId(3);
-    secondtRuleDefinitionParameterId.setRuleDefinitionId(-900001);
+    secondtRuleDefinitionParameterId.setLevelId(3L);
+    secondtRuleDefinitionParameterId.setRuleDefinitionId(-900001L);
     secondtRuleDefinitionParameterId.setValue("355");
 
     List<RuleDefinitionParameterId> ruleDefinitionParameterIds =
@@ -79,6 +79,6 @@ public class RuleDefinitionDaoIntegrationTest extends IntegrationTest {
 
     assertNotNull(ruleDefinition.getVersions());
     assertEquals(1, ruleDefinition.getVersions().size());
-    assertEquals(-900003, ruleDefinition.getVersions().iterator().next().getId());
+    assertEquals(Long.valueOf(-900003L), ruleDefinition.getVersions().iterator().next().getId());
   }
 }

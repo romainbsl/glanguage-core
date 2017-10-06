@@ -34,8 +34,8 @@ public class RuleGroupItemDaoIntegrationTest extends IntegrationTest {
   @Category(JpaMappingTestsCategory.class)
   public void testJpaMapping() {
     RuleGroupItemId ruleGroupItemId = new RuleGroupItemId();
-    ruleGroupItemId.setRuleVersionId(-900003);
-    ruleGroupItemId.setRuleId(-900001);
+    ruleGroupItemId.setRuleVersionId(-900003L);
+    ruleGroupItemId.setRuleId(-900001L);
 
     Optional<RuleGroupItem> optRuleGroupItem = ruleGroupItemDao.findById(ruleGroupItemId);
 
@@ -51,9 +51,9 @@ public class RuleGroupItemDaoIntegrationTest extends IntegrationTest {
 
 		/* Checking relationships */
     assertNotNull(ruleGroupItem.getGroupRule());
-    assertEquals(-900003, ruleGroupItem.getGroupRule().getId());
+    assertEquals(Long.valueOf(-900003L), ruleGroupItem.getGroupRule().getId());
 
     assertNotNull(ruleGroupItem.getItemRule());
-    assertEquals(-900001, ruleGroupItem.getItemRule().getId());
+    assertEquals(Long.valueOf(-900001L), ruleGroupItem.getItemRule().getId());
   }
 }

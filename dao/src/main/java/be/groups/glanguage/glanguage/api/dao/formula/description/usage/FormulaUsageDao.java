@@ -8,4 +8,4 @@ import org.springframework.stereotype.*;
  * DAO for {@link FormulaUsage} <p>
  */
 @Repository
-public interface FormulaUsageDao extends JpaRepository<FormulaUsage, Integer> {}
+public interface FormulaUsageDao extends JpaRepository<FormulaUsage, Long> {}

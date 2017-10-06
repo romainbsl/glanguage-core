@@ -28,7 +28,7 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
     @Test
     @Transactional
     public void evaluatePlanTest() throws GLanguageException {
-      Plan plan = universe.getPlan(-900003, LocalDate.now());
+      Plan plan = universe.getPlan(-900003L, LocalDate.now());
         Object context = new Object();
         PlanEvaluator evaluator = new PlanEvaluator(plan, context);
         evaluator.evaluatePlan();
@@ -37,21 +37,20 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
         assertFalse(evaluator.getEvaluatedRuleVersions().isEmpty());
         assertEquals(4, evaluator.getEvaluatedRuleVersions().size());
         for (RuleVersion ruleVersion : evaluator.getEvaluatedRuleVersions().keySet()) {
-            switch (ruleVersion.getId()) {
-                case -900005:
-                    assertEquals(1500, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                case -900006:
-                    assertEquals(2500, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                case -900007:
-                    assertEquals(1000, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                case -900008:
-                    assertEquals(1500, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                default:
-                    fail("Unexepected evaluated rule version : " + ruleVersion.getId());
+            if (ruleVersion.getId() ==  -900005L) {
+                assertEquals(1500, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else if (ruleVersion.getId() ==  -900006L) {
+                assertEquals(2500, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else if (ruleVersion.getId() ==  -900007L) {
+                assertEquals(1000, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else if (ruleVersion.getId() ==  -900008L) {
+                assertEquals(1500, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else {
+                fail("Unexepected evaluated rule version : " + ruleVersion.getId());
             }
         }
     }
@@ -62,7 +61,7 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
     @Test
     @Transactional
     public void evaluateEvaluatedPlanTest() throws GLanguageException {
-      Plan plan = universe.getPlan(-900003, LocalDate.now());
+      Plan plan = universe.getPlan(-900003L, LocalDate.now());
         Object context = new Object();
         plan.evaluateWithContext(context);
         assertTrue(plan.isBranched());
@@ -72,21 +71,20 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
         assertFalse(evaluator.getEvaluatedRuleVersions().isEmpty());
         assertEquals(4, evaluator.getEvaluatedRuleVersions().size());
         for (RuleVersion ruleVersion : evaluator.getEvaluatedRuleVersions().keySet()) {
-            switch (ruleVersion.getId()) {
-                case -900005:
-                    assertEquals(1500, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                case -900006:
-                    assertEquals(2500, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                case -900007:
-                    assertEquals(1000, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                case -900008:
-                    assertEquals(1500, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                default:
-                    fail("Unexepected evaluated rule version : " + ruleVersion.getId());
+            if (ruleVersion.getId() ==  -900005L) {
+                assertEquals(1500, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else if (ruleVersion.getId() ==  -900006L) {
+                assertEquals(2500, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else if (ruleVersion.getId() ==  -900007L) {
+                assertEquals(1000, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else if (ruleVersion.getId() ==  -900008L) {
+                assertEquals(1500, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else {
+                fail("Unexepected evaluated rule version : " + ruleVersion.getId());
             }
         }
     }
@@ -97,7 +95,7 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
     @Test
     @Transactional
     public void evaluateRuleVersionTest() throws GLanguageException {
-      Plan plan = universe.getPlan(-900003, LocalDate.now());
+      Plan plan = universe.getPlan(-900003L, LocalDate.now());
         Object context = new Object();
         PlanEvaluator evaluator = new PlanEvaluator(plan, context);
         evaluator.evaluateRuleVersion(plan.getEffectiveRuleVersionByRuleIdentityId("-900003"));
@@ -106,18 +104,17 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
         assertFalse(evaluator.getEvaluatedRuleVersions().isEmpty());
         assertEquals(3, evaluator.getEvaluatedRuleVersions().size());
         for (RuleVersion ruleVersion : evaluator.getEvaluatedRuleVersions().keySet()) {
-            switch (ruleVersion.getId()) {
-                case -900006:
-                    assertEquals(2500, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                case -900007:
-                    assertEquals(1000, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                case -900008:
-                    assertEquals(1500, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                default:
-                    fail("Unexepected evaluated rule version : " + ruleVersion.getId());
+            if (ruleVersion.getId() ==  -900006L) {
+                assertEquals(2500, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else if (ruleVersion.getId() ==  -900007L) {
+                assertEquals(1000, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else if (ruleVersion.getId() ==  -900008L) {
+                assertEquals(1500, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else {
+                fail("Unexepected evaluated rule version : " + ruleVersion.getId());
             }
         }
     }
@@ -128,7 +125,7 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
     @Test
     @Transactional
     public void evaluateEvaluatedRuleVersionTest() throws GLanguageException {
-      Plan plan = universe.getPlan(-900003, LocalDate.now());
+      Plan plan = universe.getPlan(-900003L, LocalDate.now());
         Object context = new Object();
         plan.evaluateWithContext(context, "-900003", false);
         PlanEvaluator evaluator = new PlanEvaluator(plan, context);
@@ -137,18 +134,17 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
         assertFalse(evaluator.getEvaluatedRuleVersions().isEmpty());
         assertEquals(3, evaluator.getEvaluatedRuleVersions().size());
         for (RuleVersion ruleVersion : evaluator.getEvaluatedRuleVersions().keySet()) {
-            switch (ruleVersion.getId()) {
-                case -900006:
-                    assertEquals(2500, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                case -900007:
-                    assertEquals(1000, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                case -900008:
-                    assertEquals(1500, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                default:
-                    fail("Unexepected evaluated rule version : " + ruleVersion.getId());
+            if (ruleVersion.getId() ==  -900006L) {
+                assertEquals(2500, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else if (ruleVersion.getId() ==  -900007L) {
+                assertEquals(1000, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else if (ruleVersion.getId() ==  -900008L) {
+                assertEquals(1500, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else {
+                fail("Unexepected evaluated rule version : " + ruleVersion.getId());
             }
         }
     }
@@ -159,7 +155,7 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
     @Test
     @Transactional
     public void evaluateRuleVersionByRuleIdentifierTest() throws GLanguageException {
-      Plan plan = universe.getPlan(-900003, LocalDate.now());
+      Plan plan = universe.getPlan(-900003L, LocalDate.now());
         Object context = new Object();
         PlanEvaluator evaluator = new PlanEvaluator(plan, context);
         evaluator.evaluateRuleVersion("-900003", false);
@@ -168,18 +164,17 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
         assertFalse(evaluator.getEvaluatedRuleVersions().isEmpty());
         assertEquals(3, evaluator.getEvaluatedRuleVersions().size());
         for (RuleVersion ruleVersion : evaluator.getEvaluatedRuleVersions().keySet()) {
-            switch (ruleVersion.getId()) {
-                case -900006:
-                    assertEquals(2500, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                case -900007:
-                    assertEquals(1000, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                case -900008:
-                    assertEquals(1500, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                default:
-                    fail("Unexepected evaluated rule version : " + ruleVersion.getId());
+            if (ruleVersion.getId() ==  -900006L) {
+                assertEquals(2500, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else if (ruleVersion.getId() ==  -900007L) {
+                assertEquals(1000, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else if (ruleVersion.getId() ==  -900008L) {
+                assertEquals(1500, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else {
+                fail("Unexepected evaluated rule version : " + ruleVersion.getId());
             }
         }
     }
@@ -190,7 +185,7 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
     @Test
     @Transactional
     public void evaluateEvaluatedRuleVersionByRuleIdentifierTest() throws GLanguageException {
-      Plan plan = universe.getPlan(-900003, LocalDate.now());
+      Plan plan = universe.getPlan(-900003L, LocalDate.now());
         Object context = new Object();
         plan.evaluateWithContext(context, "-900003", false);
         PlanEvaluator evaluator = new PlanEvaluator(plan, context);
@@ -200,18 +195,17 @@ public class PlanEvaluatorIntegrationTest extends IntegrationTest {
         assertFalse(evaluator.getEvaluatedRuleVersions().isEmpty());
         assertEquals(3, evaluator.getEvaluatedRuleVersions().size());
         for (RuleVersion ruleVersion : evaluator.getEvaluatedRuleVersions().keySet()) {
-            switch (ruleVersion.getId()) {
-                case -900006:
-                    assertEquals(2500, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                case -900007:
-                    assertEquals(1000, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                case -900008:
-                    assertEquals(1500, evaluator.getRuleVersionValue(ruleVersion));
-                    break;
-                default:
-                    fail("Unexepected evaluated rule version : " + ruleVersion.getId());
+            if (ruleVersion.getId() ==  -900006L) {
+                assertEquals(2500, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else if (ruleVersion.getId() ==  -900007L) {
+                assertEquals(1000, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else if (ruleVersion.getId() ==  -900008L) {
+                assertEquals(1500, evaluator.getRuleVersionValue(ruleVersion));
+                break;
+            } else {
+                fail("Unexepected evaluated rule version : " + ruleVersion.getId());
             }
         }
     }

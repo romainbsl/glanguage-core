@@ -59,7 +59,7 @@ public class FormulaFormulaTest {
 		when(ruleVersionFormula.getIntegerValue(null)).thenReturn(1);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
-		ruleIdentity.setId(0);
+		ruleIdentity.setId(0L);
 		RuleDefinition ruleDefinition = new RuleDefinition();
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
@@ -85,7 +85,7 @@ public class FormulaFormulaTest {
 		when(ruleVersionFormula.getNumericValue(null)).thenReturn(1.5);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
-		ruleIdentity.setId(0);
+		ruleIdentity.setId(0L);
 		RuleDefinition ruleDefinition = new RuleDefinition();
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
@@ -111,7 +111,7 @@ public class FormulaFormulaTest {
 		when(ruleVersionFormula.getStringValue(null)).thenReturn("string");
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
-		ruleIdentity.setId(0);
+		ruleIdentity.setId(0L);
 		RuleDefinition ruleDefinition = new RuleDefinition();
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
@@ -137,7 +137,7 @@ public class FormulaFormulaTest {
 		when(ruleVersionFormula.getBooleanValue(null)).thenReturn(true);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
-		ruleIdentity.setId(0);
+		ruleIdentity.setId(0L);
 		RuleDefinition ruleDefinition = new RuleDefinition();
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
@@ -163,7 +163,7 @@ public class FormulaFormulaTest {
 		when(ruleVersionFormula.getDateValue(null)).thenReturn(LocalDate.of(2015, 1, 1));
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
-		ruleIdentity.setId(0);
+		ruleIdentity.setId(0L);
 		RuleDefinition ruleDefinition = new RuleDefinition();
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
@@ -187,7 +187,7 @@ public class FormulaFormulaTest {
 		when(ruleVersionFormula.getDurationValue(null)).thenReturn(Duration.ofDays(2L));
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
-		ruleIdentity.setId(0);
+		ruleIdentity.setId(0L);
 		RuleDefinition ruleDefinition = new RuleDefinition();
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 

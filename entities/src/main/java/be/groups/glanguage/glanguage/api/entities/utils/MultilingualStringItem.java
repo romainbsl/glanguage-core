@@ -1,8 +1,15 @@
 package be.groups.glanguage.glanguage.api.entities.utils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -21,7 +28,7 @@ public class MultilingualStringItem {
      /*
      * Fields
      */
-    private Integer id;
+    private Long id;
     private MultilingualString multilingualString;
     private Language language;
     private String text;
@@ -45,7 +52,7 @@ public class MultilingualStringItem {
     @Id
     @SequenceGenerator(name = "Perform", sequenceName = "SQ_TB_MULTILINGUAL_STR_ITEM_ID", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = SEQUENCE, generator = "Perform")
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -56,7 +63,7 @@ public class MultilingualStringItem {
      */
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "MULTILINGUAL_STRING_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "MULTILINGUAL_STRING_ID", referencedColumnName = "ID", nullable=false)
     public MultilingualString getMultilingualString() {
         return multilingualString;
     }
@@ -93,7 +100,7 @@ public class MultilingualStringItem {
      *
      * @param id the technical id to set
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -139,16 +146,13 @@ public class MultilingualStringItem {
 
         MultilingualStringItem that = (MultilingualStringItem) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (language != that.language) return false;
-        return text != null ? text.equals(that.text) : that.text == null;
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (language != null ? language.hashCode() : 0);
-        result = 31 * result + (text != null ? text.hashCode() : 0);
+        int result = 31;
+        if(id != null) result += id.hashCode();
         return result;
     }
 }

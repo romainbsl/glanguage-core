@@ -1,15 +1,20 @@
 package be.groups.glanguage.glanguage.api.entities.rule;
 
-import be.groups.glanguage.glanguage.api.entities.evaluation.*;
-import be.groups.glanguage.glanguage.api.entities.formula.*;
-import be.groups.glanguage.glanguage.api.entities.formula.description.*;
-import be.groups.glanguage.glanguage.api.entities.ruleset.*;
-import be.groups.glanguage.glanguage.api.entities.utils.rounding.*;
-import be.groups.glanguage.glanguage.api.error.exception.*;
+import be.groups.glanguage.glanguage.api.entities.evaluation.Evaluator;
+import be.groups.glanguage.glanguage.api.entities.formula.AbstractFormula;
+import be.groups.glanguage.glanguage.api.entities.formula.description.FormulaReturnType;
+import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+import be.groups.glanguage.glanguage.api.entities.utils.rounding.Rounder;
+import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingType;
+import be.groups.glanguage.glanguage.api.entities.utils.rounding.RoundingTypeConverter;
+import be.groups.glanguage.glanguage.api.error.exception.GLanguageException;
 import be.groups.glanguage.glanguage.api.error.rule.*;
-import java.time.*;
-import java.util.*;
+
 import javax.persistence.*;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.util.Set;
+import java.util.SortedSet;
 
 /**
  * A RuleVersion is a version of a {@link RuleDefinition} that is effective between two dates inclusively<br>
@@ -60,7 +65,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
     /**
      * Technical unique ID
      */
-    private int id;
+    private Long id;
 
     /**
      * Rounding precision
@@ -176,7 +181,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
      */
     @Id
     @Column(name = "ID")
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -921,7 +926,7 @@ public class RuleVersion implements Comparable<RuleVersion> {
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -1053,21 +1058,22 @@ public class RuleVersion implements Comparable<RuleVersion> {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        RuleVersion other = (RuleVersion) obj;
-        return id == other.id;
+    public int compareTo(RuleVersion o) {
+        return o.effectiveStartDate.compareTo(this.effectiveStartDate);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RuleVersion)) return false;
+
+        RuleVersion that = (RuleVersion) o;
+
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return id;
-    }
-
-    @Override
-    public int compareTo(RuleVersion o) {
-        return o.effectiveStartDate.compareTo(this.effectiveStartDate);
+        return id.hashCode();
     }
 }

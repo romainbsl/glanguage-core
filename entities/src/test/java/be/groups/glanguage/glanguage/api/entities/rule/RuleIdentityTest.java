@@ -2,10 +2,11 @@ package be.groups.glanguage.glanguage.api.entities.rule;
 
 import be.groups.glanguage.glanguage.api.entities.rule.definition.DefinitionLevel;
 import be.groups.glanguage.glanguage.api.entities.rule.definition.RuleDefinitionParameter;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -32,6 +33,7 @@ public class RuleIdentityTest {
 		ruleDefinitionParameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "100000"));
 
 		RuleDefinition ruleDefinition = new RuleDefinition();
+		ruleDefinition.setId(0L);
 
 		ruleIdentity.getRuleDefinitions().add(ruleDefinition);
 
@@ -51,10 +53,10 @@ public class RuleIdentityTest {
 		ruleDefinitionParameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "100000"));
 
 		RuleDefinition defaultRuleDefinition = new RuleDefinition();
-		defaultRuleDefinition.setId(0);
+		defaultRuleDefinition.setId(0L);
 
 		RuleDefinition employerRuleDefinition = new RuleDefinition();
-		employerRuleDefinition.setId(1);
+		employerRuleDefinition.setId(1L);
 		employerRuleDefinition.getDefinitionParameters().add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "200000"));
 
 		ruleIdentity.getRuleDefinitions().add(defaultRuleDefinition);
@@ -76,10 +78,10 @@ public class RuleIdentityTest {
 		ruleDefinitionParameters.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "100000"));
 
 		RuleDefinition defaultRuleDefinition = new RuleDefinition();
-		defaultRuleDefinition.setId(0);
+		defaultRuleDefinition.setId(0L);
 
 		RuleDefinition employerRuleDefinition = new RuleDefinition();
-		employerRuleDefinition.setId(1);
+		employerRuleDefinition.setId(1L);
 		employerRuleDefinition.getDefinitionParameters().add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "100000"));
 
 		ruleIdentity.getRuleDefinitions().add(defaultRuleDefinition);

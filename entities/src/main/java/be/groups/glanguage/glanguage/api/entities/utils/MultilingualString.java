@@ -1,8 +1,18 @@
 package be.groups.glanguage.glanguage.api.entities.utils;
 
-import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -18,7 +28,7 @@ public class MultilingualString {
      /*
      * Fields
      */
-    private Integer id;
+    private Long id;
     private String name;
     private Set<MultilingualStringItem> items;
 
@@ -42,7 +52,7 @@ public class MultilingualString {
     @Column(name = "ID", nullable = false)
     @SequenceGenerator(name = "Perform", sequenceName = "SQ_TB_MULTILINGUAL_STRING_ID", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = SEQUENCE, generator = "Perform")
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -90,7 +100,7 @@ public class MultilingualString {
      *
      * @param id the technical id to set
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -151,6 +161,26 @@ public class MultilingualString {
         return "";
     }
 
+    /**
+     * Add a {@link MultilingualStringItem} in {@link MultilingualString#items} and add the
+     * reference {@link MultilingualString} as parent into
+     * {@link MultilingualStringItem#multilingualString}
+     *
+     * @param language the language of the item to be inserted
+     * @param text the test of the item to be inserted
+     */
+    @Transient
+    public void addItem(Language language, String text) {
+        MultilingualStringItem item = new MultilingualStringItem();
+        item.setLanguage(language);
+        item.setText(text);
+        item.setMultilingualString(this);
+
+        if (items == null) items = new HashSet<>();
+
+        items.add(item);
+    }
+
     /*
      * Utils
      */
@@ -158,7 +188,8 @@ public class MultilingualString {
     public String toString() {
         StringBuilder sb = new StringBuilder("MultilingualString{" + "name='" + name + '\'' + ", items=");
         for (MultilingualStringItem item : items) {
-            sb.append("\n\t" + item.toString());
+            sb.append("\n\t")
+              .append(item.toString());
         }
         sb.append('}');
         return sb.toString();
@@ -171,16 +202,13 @@ public class MultilingualString {
 
         MultilingualString that = (MultilingualString) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        return items != null ? items.equals(that.items) : that.items == null;
+        return id.equals(that.id);
     }
 
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (items != null ? items.hashCode() : 0);
-        return result;
-    }
+  @Override
+  public int hashCode() {
+    int result = 31;
+    if(id != null) result += id.hashCode();
+    return result;
+  }
 }

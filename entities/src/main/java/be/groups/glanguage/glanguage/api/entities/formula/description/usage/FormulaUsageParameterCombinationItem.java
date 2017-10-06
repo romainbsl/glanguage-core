@@ -22,7 +22,7 @@ public class FormulaUsageParameterCombinationItem {
     /**
      * Technical unique ID
      */
-    private Integer id;
+    private Long id;
 
     /**
      * Usage for which this is an overriding parameter
@@ -61,7 +61,7 @@ public class FormulaUsageParameterCombinationItem {
      * @return the id
      */
     @Id
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -117,7 +117,7 @@ public class FormulaUsageParameterCombinationItem {
     /**
      * @param id the id to set
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

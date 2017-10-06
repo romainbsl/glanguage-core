@@ -32,7 +32,7 @@ public class FormulaUsageDaoIntegrationTest extends IntegrationTest {
   @Test
   @Category(JpaMappingTestsCategory.class)
   public void testJpaMapping() {
-    Optional<FormulaUsage> optFormulaUsage = formulaUsageDao.findById(1);
+    Optional<FormulaUsage> optFormulaUsage = formulaUsageDao.findById(1L);
 
 		/* Checking entity */
     assertNotNull(optFormulaUsage);
@@ -40,12 +40,12 @@ public class FormulaUsageDaoIntegrationTest extends IntegrationTest {
 
     FormulaUsage formulaUsage = optFormulaUsage.get();
 
-    assertEquals(Integer.valueOf(1), formulaUsage.getId());
+    assertEquals(Long.valueOf(1L), formulaUsage.getId());
 
 		/* Checking relationships */
     assertNotNull(formulaUsage.getFormulaDescription());
     assertNotNull(formulaUsage.getParameterCombination());
-    assertEquals(Integer.valueOf(1), formulaUsage.getFormulaDescription().getId());
-    assertEquals(Integer.valueOf(1), formulaUsage.getParameterCombination().getId());
+    assertEquals(Long.valueOf(1L), formulaUsage.getFormulaDescription().getId());
+    assertEquals(Long.valueOf(1L), formulaUsage.getParameterCombination().getId());
   }
 }

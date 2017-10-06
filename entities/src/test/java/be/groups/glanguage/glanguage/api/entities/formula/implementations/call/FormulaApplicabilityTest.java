@@ -89,7 +89,7 @@ public class FormulaApplicabilityTest {
 		when(applicabilityCondition.getBooleanValue(null)).thenReturn(true);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
-		ruleIdentity.setId(0);
+		ruleIdentity.setId(0L);
 		RuleDefinition ruleDefinition = new RuleDefinition();
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 
@@ -113,7 +113,7 @@ public class FormulaApplicabilityTest {
 		when(applicabilityCondition.getBooleanValue(null)).thenReturn(false);
 
 		RuleIdentity ruleIdentity = new RuleIdentity();
-		ruleIdentity.setId(0);
+		ruleIdentity.setId(0L);
 		RuleDefinition ruleDefinition = new RuleDefinition();
 		ruleDefinition.setRuleIdentity(ruleIdentity);
 

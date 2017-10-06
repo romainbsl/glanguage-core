@@ -15,8 +15,8 @@ public class RuleGroupItemId implements Serializable {
 
 	private static final long serialVersionUID = 6731852480663123776L;
 
-	private int ruleVersionId;
-	private int ruleId;
+	private Long ruleVersionId;
+	private Long ruleId;
 
 	public RuleGroupItemId() {
 		super();
@@ -28,7 +28,7 @@ public class RuleGroupItemId implements Serializable {
 	 * @return the rule version id
 	 */
 	@Column(name = "RULE_VERSION_ID")
-	public int getRuleVersionId() {
+	public Long getRuleVersionId() {
 		return ruleVersionId;
 	}
 
@@ -38,47 +38,39 @@ public class RuleGroupItemId implements Serializable {
 	 * @return the rule id
 	 */
 	@Column(name = "RULE_IDENTITY_ID")
-	public int getRuleId() {
+	public Long getRuleId() {
 		return ruleId;
 	}
 
 	/**
 	 * @param ruleVersionId the rule version id to set
 	 */
-	public void setRuleVersionId(int ruleVersionId) {
+	public void setRuleVersionId(Long ruleVersionId) {
 		this.ruleVersionId = ruleVersionId;
 	}
 
 	/**
 	 * @param ruleId the rule id to set
 	 */
-	public void setRuleId(int ruleId) {
+	public void setRuleId(Long ruleId) {
 		this.ruleId = ruleId;
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ruleId;
-		result = prime * result + ruleVersionId;
-		return result;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof RuleGroupItemId)) return false;
+
+		RuleGroupItemId that = (RuleGroupItemId) o;
+
+		if (!ruleVersionId.equals(that.ruleVersionId)) return false;
+		return ruleId.equals(that.ruleId);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RuleGroupItemId other = (RuleGroupItemId) obj;
-		if (ruleId != other.ruleId)
-			return false;
-		if (ruleVersionId != other.ruleVersionId)
-			return false;
-		return true;
+	public int hashCode() {
+		int result = ruleVersionId.hashCode();
+		result = 31 * result + ruleId.hashCode();
+		return result;
 	}
-
 }

@@ -87,7 +87,7 @@ public class FormulaParameterCombinationTest {
 
         Set<FormulaParameterCombinationItemValue> values = new HashSet<>();
         FormulaParameterCombinationItemValue value = new FormulaParameterCombinationItemValue();
-        value.setId(1);
+        value.setId(1L);
         value.setValue("1");
         values.add(value);
         doReturn(values).when(parameterCombinationItem).getValues();
@@ -116,7 +116,7 @@ public class FormulaParameterCombinationTest {
         doReturn(returnTypes).when(parameterCombinationItem).getReturnTypes();
         Set<FormulaParameterCombinationItemValue> values = new HashSet<>();
         FormulaParameterCombinationItemValue value = new FormulaParameterCombinationItemValue();
-        value.setId(1);
+        value.setId(1L);
         value.setValue("1");
         values.add(value);
         doReturn(values).when(parameterCombinationItem).getValues();
@@ -142,7 +142,7 @@ public class FormulaParameterCombinationTest {
         MultilingualString multilingualName = new MultilingualString();
         Set<MultilingualStringItem> names = new HashSet<>();
         MultilingualStringItem name = new MultilingualStringItem();
-        name.setId(1);
+        name.setId(1L);
         name.setLanguage(Language.EN);
         name.setText("parameterName");
         names.add(name);
@@ -154,7 +154,7 @@ public class FormulaParameterCombinationTest {
         doReturn(mock(MultilingualString.class)).when(usage).getParameterName(parameterCombinationItem);
 
         AbstractFormula formula = mock(AbstractFormula.class);
-        when(formula.getId()).thenReturn(1);
+        when(formula.getId()).thenReturn(1L);
 
         try {
             parameterCombinationItem.validate(formula, usage, null, null);
@@ -183,7 +183,7 @@ public class FormulaParameterCombinationTest {
         MultilingualString multilingualName = new MultilingualString();
         Set<MultilingualStringItem> names = new HashSet<>();
         MultilingualStringItem name = new MultilingualStringItem();
-        name.setId(1);
+        name.setId(1L);
         name.setLanguage(Language.EN);
         name.setText("parameterName");
         names.add(name);
@@ -195,7 +195,7 @@ public class FormulaParameterCombinationTest {
         doReturn(mock(MultilingualString.class)).when(usage).getParameterName(parameterCombinationItem);
 
         AbstractFormula formula = mock(AbstractFormula.class);
-        when(formula.getId()).thenReturn(1);
+        when(formula.getId()).thenReturn(1L);
         AbstractFormula parameter = mock(AbstractFormula.class);
 
         doReturn(false).when(parameterCombinationItem).isValid(parameter, null);
@@ -228,7 +228,7 @@ public class FormulaParameterCombinationTest {
         MultilingualString multilingualName = new MultilingualString();
         Set<MultilingualStringItem> names = new HashSet<>();
         MultilingualStringItem name = new MultilingualStringItem();
-        name.setId(1);
+        name.setId(1L);
         name.setLanguage(Language.EN);
         name.setText("parameterName");
         names.add(name);
@@ -240,7 +240,7 @@ public class FormulaParameterCombinationTest {
         doReturn(mock(MultilingualString.class)).when(usage).getParameterName(parameterCombinationItem);
 
         AbstractFormula formula = mock(AbstractFormula.class);
-        when(formula.getId()).thenReturn(1);
+        when(formula.getId()).thenReturn(1L);
         AbstractFormula parameter = mock(AbstractFormula.class);
 
         doReturn(false).when(parameterCombinationItem).isValid(parameter, null);

@@ -28,7 +28,7 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
     /**
      * Technical unique id
      */
-    private int id;
+    private Long id;
 
     /**
      * Set of RuleDefinition
@@ -82,7 +82,7 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
      * @return the id
      */
     @Id
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -280,7 +280,7 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -342,22 +342,22 @@ public class RuleIdentity implements Comparable<RuleIdentity> {
     }
 
     @Override
-    public int hashCode() {
-        return id;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        RuleIdentity other = (RuleIdentity) obj;
-        return id == other.id;
-    }
-
-    @Override
     public int compareTo(RuleIdentity o) {
-        return id - o.id;
+        return id.compareTo(o.id);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RuleIdentity)) return false;
+
+        RuleIdentity that = (RuleIdentity) o;
+
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

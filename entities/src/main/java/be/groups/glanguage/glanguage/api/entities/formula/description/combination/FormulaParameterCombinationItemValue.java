@@ -21,7 +21,7 @@ public class FormulaParameterCombinationItemValue {
     /**
      * Technical unique ID
      */
-    private Integer id;
+    private Long id;
 
     /**
      * Parameter for which this is a value
@@ -55,7 +55,7 @@ public class FormulaParameterCombinationItemValue {
      * @return the id
      */
     @Id
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -99,7 +99,7 @@ public class FormulaParameterCombinationItemValue {
     /**
      * @param id the id to set
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

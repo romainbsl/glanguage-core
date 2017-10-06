@@ -23,7 +23,7 @@ public class FormulaParameterCombinationItemType {
     /**
      * Technical unique ID
      */
-    private Integer id;
+    private Long id;
 
     /**
      * Parameter for which this is a return type
@@ -52,7 +52,7 @@ public class FormulaParameterCombinationItemType {
      */
     @Id
     @Column(name = "ID", nullable = false)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -86,7 +86,7 @@ public class FormulaParameterCombinationItemType {
     /**
      * @param id the id to set
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -34,8 +34,8 @@ public class RuleDefinitionParameterDaoIntegrationTest extends IntegrationTest {
   @Category(JpaMappingTestsCategory.class)
   public void testJpaMapping() {
     RuleDefinitionParameterId ruleDefintionParameterId = new RuleDefinitionParameterId();
-    ruleDefintionParameterId.setLevelId(2);
-    ruleDefintionParameterId.setRuleDefinitionId(-900001);
+    ruleDefintionParameterId.setLevelId(2L);
+    ruleDefintionParameterId.setRuleDefinitionId(-900001L);
     ruleDefintionParameterId.setValue("100000");
 
     Optional<RuleDefinitionParameter> optRuleDefinitionParameter =
@@ -51,6 +51,6 @@ public class RuleDefinitionParameterDaoIntegrationTest extends IntegrationTest {
 
 		/* Checking relationships */
     assertNotNull(ruleDefinitionParameter.getRuleDefinition());
-    assertEquals(-900001, ruleDefinitionParameter.getRuleDefinition().getId());
+    assertEquals(Long.valueOf(-900001L), ruleDefinitionParameter.getRuleDefinition().getId());
   }
 }

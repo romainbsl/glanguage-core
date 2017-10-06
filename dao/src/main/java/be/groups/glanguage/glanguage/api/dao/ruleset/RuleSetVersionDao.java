@@ -12,7 +12,7 @@ import org.springframework.stereotype.*;
  * @author michotte
  */
 @Repository
-public interface RuleSetVersionDao extends JpaRepository<RuleSetVersion, Integer> {
+public interface RuleSetVersionDao extends JpaRepository<RuleSetVersion, Long> {
 
   /**
    * Find a {@link RuleSetVersion} by {@code ruleSetId} and {@code version}
@@ -26,7 +26,7 @@ public interface RuleSetVersionDao extends JpaRepository<RuleSetVersion, Integer
   @Query("select rsv from RuleSetVersion rsv "
       + " where rsv.ruleSet.id = :ruleSetId "
       + " and rsv.version = :version")
-  RuleSetVersion findByRuleSetIdAndVersion(@Param("ruleSetId") Integer ruleSetId,
+  RuleSetVersion findByRuleSetIdAndVersion(@Param("ruleSetId") Long ruleSetId,
                                            @Param("version") String version);
 
   /**
@@ -65,7 +65,7 @@ public interface RuleSetVersionDao extends JpaRepository<RuleSetVersion, Integer
       + " where rsv2.ruleSet.id = rsv.ruleSet.id"
       + " and rsv2.productionStartDate < :productionDate "
       + ")")
-  RuleSetVersion findByRuleSetIdAndProductionDate(@Param("ruleSetId") Integer ruleSetId,
+  RuleSetVersion findByRuleSetIdAndProductionDate(@Param("ruleSetId") Long ruleSetId,
                                                   @Param("productionDate")
                                                       LocalDateTime productionDate);
 

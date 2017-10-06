@@ -2098,24 +2098,24 @@ public class DefinitionMatcherTest {
 	 */
 	private List<RuleDefinition> getRuleDefinitions() {
 		RuleDefinition ruleDefinition0 = new RuleDefinition();
-		ruleDefinition0.setId(0);
+		ruleDefinition0.setId(0L);
 		
 		RuleDefinition ruleDefinition1 = new RuleDefinition();
-		ruleDefinition1.setId(1);
+		ruleDefinition1.setId(1L);
 		ruleDefinition1.getDefinitionParameters().add(parameterEmployer1);
 		
 		RuleDefinition ruleDefinition2 = new RuleDefinition();
-		ruleDefinition2.setId(2);
+		ruleDefinition2.setId(2L);
 		ruleDefinition2.getDefinitionParameters().add(parameterEmployer1);
 		ruleDefinition2.getDefinitionParameters().add(parameterJointCommittee2);
 		
 		RuleDefinition ruleDefinition3 = new RuleDefinition();
-		ruleDefinition3.setId(3);
+		ruleDefinition3.setId(3L);
 		ruleDefinition3.getDefinitionParameters().add(parameterEmployer1);
 		ruleDefinition3.getDefinitionParameters().add(parameterCollectiveLaborAgreement2);
 		
 		RuleDefinition ruleDefinition4 = new RuleDefinition();
-		ruleDefinition4.setId(4);
+		ruleDefinition4.setId(4L);
 		ruleDefinition4.getDefinitionParameters().add(parameterEmployer1);
 		ruleDefinition4.getDefinitionParameters().add(parameterJointCommittee2);
 		ruleDefinition4.getDefinitionParameters().add(parameterCollectiveLaborAgreement1);
@@ -2136,7 +2136,7 @@ public class DefinitionMatcherTest {
 		criteria.add(parameterEmployer1);
 		RuleDefinition definition = DefinitionMatcher.getBestMatch(getRuleDefinitions(), criteria);
 		assertNotNull(definition);
-		assertEquals(1, definition.getId());
+		assertEquals(Long.valueOf(1L), definition.getId());
 	}
 	
 	/**
@@ -2154,7 +2154,7 @@ public class DefinitionMatcherTest {
 		criteria.add(parameterJointCommittee2);
 		RuleDefinition definition = DefinitionMatcher.getBestMatch(getRuleDefinitions(), criteria);
 		assertNotNull(definition);
-		assertEquals(2, definition.getId());
+		assertEquals(Long.valueOf(2L), definition.getId());
 	}
 	
 	/**
@@ -2172,7 +2172,7 @@ public class DefinitionMatcherTest {
 		criteria.add(parameterCollectiveLaborAgreement2);
 		RuleDefinition definition = DefinitionMatcher.getBestMatch(getRuleDefinitions(), criteria);
 		assertNotNull(definition);
-		assertEquals(3, definition.getId());
+		assertEquals(Long.valueOf(3L), definition.getId());
 	}
 	
 	/**
@@ -2192,7 +2192,7 @@ public class DefinitionMatcherTest {
 		criteria.add(parameterCollectiveLaborAgreement1);
 		RuleDefinition definition = DefinitionMatcher.getBestMatch(getRuleDefinitions(), criteria);
 		assertNotNull(definition);
-		assertEquals(4, definition.getId());
+		assertEquals(Long.valueOf(4L), definition.getId());
 	}
 	
 	/**
@@ -2212,7 +2212,7 @@ public class DefinitionMatcherTest {
 		criteria.add(parameterCollectiveLaborAgreement2);
 		RuleDefinition definition = DefinitionMatcher.getBestMatch(getRuleDefinitions(), criteria);
 		assertNotNull(definition);
-		assertEquals(2, definition.getId());
+		assertEquals(Long.valueOf(2L), definition.getId());
 	}
 	
 	/**
@@ -2232,7 +2232,7 @@ public class DefinitionMatcherTest {
 		criteria.add(parameterCollectiveLaborAgreement2);
 		RuleDefinition definition = DefinitionMatcher.getBestMatch(getRuleDefinitions(), criteria);
 		assertNotNull(definition);
-		assertEquals(3, definition.getId());
+		assertEquals(Long.valueOf(3L), definition.getId());
 	}
 	
 	/**
@@ -2248,7 +2248,7 @@ public class DefinitionMatcherTest {
 		criteria.add(new RuleDefinitionParameter(DefinitionLevel.EMPLOYER, "2"));
 		RuleDefinition definition = DefinitionMatcher.getBestMatch(getRuleDefinitions(), criteria);
 		assertNotNull(definition);
-		assertEquals(0, definition.getId());
+		assertEquals(Long.valueOf(0L), definition.getId());
 	}
 	
 	/**
@@ -2264,7 +2264,7 @@ public class DefinitionMatcherTest {
 		criteria.add(new RuleDefinitionParameter(DefinitionLevel.JOINT_COMMITTEE, "1"));
 		RuleDefinition definition = DefinitionMatcher.getBestMatch(getRuleDefinitions(), criteria);
 		assertNotNull(definition);
-		assertEquals(0, definition.getId());
+		assertEquals(Long.valueOf(0L), definition.getId());
 	}
 	
 	/**
@@ -2280,7 +2280,7 @@ public class DefinitionMatcherTest {
 		criteria.add(parameterJointCommittee2);
 		RuleDefinition definition = DefinitionMatcher.getBestMatch(getRuleDefinitions(), criteria);
 		assertNotNull(definition);
-		assertEquals(0, definition.getId());
+		assertEquals(Long.valueOf(0L), definition.getId());
 	}
 	
 }

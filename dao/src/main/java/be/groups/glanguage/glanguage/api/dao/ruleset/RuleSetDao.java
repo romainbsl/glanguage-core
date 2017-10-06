@@ -11,7 +11,7 @@ import org.springframework.stereotype.*;
  * @author michotte
  */
 @Repository
-public interface RuleSetDao extends JpaRepository<RuleSet, Integer> {
+public interface RuleSetDao extends JpaRepository<RuleSet, Long> {
 
   /**
    * Find a {@link RuleSet} by alias

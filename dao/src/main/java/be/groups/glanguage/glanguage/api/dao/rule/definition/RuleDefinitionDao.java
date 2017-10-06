@@ -8,4 +8,4 @@ import org.springframework.stereotype.*;
  * DAO for {@link RuleDefinition} <p>
  */
 @Repository
-public interface RuleDefinitionDao extends JpaRepository<RuleDefinition, Integer> {}
+public interface RuleDefinitionDao extends JpaRepository<RuleDefinition, Long> {}

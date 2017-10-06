@@ -32,11 +32,11 @@ public class RuleSetDaoIntegrationTest extends IntegrationTest {
 	}
 
 	/**
-   * Tests {@link RuleSetDao#findById(Integer)} when is is 900000
+   * Tests {@link RuleSetDao#findById(Object)} when is is 900000
    */
 	@Test
 	public void testFindById() {
-    Optional<RuleSet> optRuleSet = ruleSetDao.findById(-900000);
+    Optional<RuleSet> optRuleSet = ruleSetDao.findById(-900000L);
 
     assertNotNull(optRuleSet);
     assertTrue(optRuleSet.isPresent());
@@ -44,7 +44,7 @@ public class RuleSetDaoIntegrationTest extends IntegrationTest {
     RuleSet ruleSet = optRuleSet.get();
 
     assertNotNull(ruleSet);
-		assertEquals(-900000, ruleSet.getId());
+		assertEquals(Long.valueOf(-900000L), ruleSet.getId());
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class RuleSetDaoIntegrationTest extends IntegrationTest {
 	@Category(JpaMappingTestsCategory.class)
   @Transactional
   public void testJpaMapping() {
-    Optional<RuleSet> optRuleSet = ruleSetDao.findById(-900000);
+    Optional<RuleSet> optRuleSet = ruleSetDao.findById(-900000L);
 
     assertNotNull(optRuleSet);
     assertTrue(optRuleSet.isPresent());
@@ -84,7 +84,7 @@ public class RuleSetDaoIntegrationTest extends IntegrationTest {
 		/* Checking entity */
 		assertNotNull(ruleSet);
 
-		assertEquals(-900000, ruleSet.getId());
+		assertEquals(Long.valueOf(-900000), ruleSet.getId());
 
 		assertNotNull(ruleSet.getAlias());
 		assertNotNull(ruleSet.getAlias().getItem(Language.FR));
@@ -113,7 +113,7 @@ public class RuleSetDaoIntegrationTest extends IntegrationTest {
 		assertEquals(3, ruleSet.getVersions().size());
 		assertEquals(3, ruleSet.getVersions().stream().map(RuleSetVersion::getId).distinct().count());
 
-		List<Integer> ruleSetVersionIds = Arrays.asList(-900000, -900001, -900002);
+		List<Long> ruleSetVersionIds = Arrays.asList(-900000L, -900001L, -900002L);
 		ruleSet.getVersions().forEach(v -> assertTrue(ruleSetVersionIds.contains(v.getId())));
 	}
 }

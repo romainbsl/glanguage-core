@@ -33,27 +33,28 @@ public class RuleSetVersionDaoIntegrationTest extends IntegrationTest {
 	}
 
 	/**
-	 * Tests {@link RuleSetVersionDao#findById(Integer)} when id is 900000
+	 * Tests {@link RuleSetVersionDao#findById(Object)} when id is 900000
 	 */
 	@Test
 	public void testFindById() {
-    Optional<RuleSetVersion> optRuleSetVersion = ruleSetVersionDao.findById(-900000);
+    Optional<RuleSetVersion> optRuleSetVersion = ruleSetVersionDao.findById(-900000L);
 
     assertNotNull(optRuleSetVersion);
     assertTrue(optRuleSetVersion.isPresent());
 
     RuleSetVersion ruleSetVersion = optRuleSetVersion.get();
-    assertEquals(-900000, ruleSetVersion.getId());
+    assertEquals(Long.valueOf(-900000), ruleSetVersion.getId());
 	}
 
 	/**
-	 * Tests {@link RuleSetVersionDao#findByRuleSetIdAndVersion(Integer, String)} when rule set id is 900000 and version is "1.0.0"
+	 * Tests {@link RuleSetVersionDao#findByRuleSetIdAndVersion(Long, String)} when rule set id is 900000 and version is
+	 * "1.0.0"
 	 */
 	@Test
 	public void testFindByRuleSetIdAndVersion() {
-		RuleSetVersion ruleSetVersion = ruleSetVersionDao.findByRuleSetIdAndVersion(-900000, "1.0.0");
+		RuleSetVersion ruleSetVersion = ruleSetVersionDao.findByRuleSetIdAndVersion(-900000L, "1.0.0");
 		assertNotNull(ruleSetVersion);
-		assertEquals(-900000, ruleSetVersion.getRuleSet().getId());
+		assertEquals(Long.valueOf(-900000), ruleSetVersion.getRuleSet().getId());
 		assertEquals("1.0.0", ruleSetVersion.getVersion());
 	}
 
@@ -71,16 +72,17 @@ public class RuleSetVersionDaoIntegrationTest extends IntegrationTest {
 	}
 
 	/**
-	 * Tests {@link RuleSetVersionDao#findByRuleSetIdAndProductionDate(Integer, LocalDateTime)} when rule set id is 900000 and
+	 * Tests {@link RuleSetVersionDao#findByRuleSetIdAndProductionDate(Long, LocalDateTime)} when rule set id is 900000
+	 * and
 	 * production date is now
 	 */
 	@Test
 	public void testFindByRuleSetIdAndProductionDate() {
 		LocalDateTime productionDate = LocalDateTime.now();
 		RuleSetVersion ruleSetVersion =
-				ruleSetVersionDao.findByRuleSetIdAndProductionDate(-900000, productionDate);
+				ruleSetVersionDao.findByRuleSetIdAndProductionDate(-900000L, productionDate);
 		assertNotNull(ruleSetVersion);
-		assertEquals(-900000, ruleSetVersion.getRuleSet().getId());
+		assertEquals(Long.valueOf(-900000), ruleSetVersion.getRuleSet().getId());
 		assertFalse("production start date after production date",
 				ruleSetVersion.getProductionStartDate().isAfter(productionDate));
 	}
@@ -107,7 +109,7 @@ public class RuleSetVersionDaoIntegrationTest extends IntegrationTest {
 	@Category(JpaMappingTestsCategory.class)
 	@Transactional
 	public void testJpaMapping() {
-		Optional<RuleSetVersion> optRuleSetVersion = ruleSetVersionDao.findById(-900001);
+		Optional<RuleSetVersion> optRuleSetVersion = ruleSetVersionDao.findById(-900001L);
 
 		assertNotNull(optRuleSetVersion);
 		assertTrue(optRuleSetVersion.isPresent());
@@ -117,7 +119,7 @@ public class RuleSetVersionDaoIntegrationTest extends IntegrationTest {
 		/* Checking entity */
 		assertNotNull(ruleSetVersion);
 
-		assertEquals(-900001, ruleSetVersion.getId());
+		assertEquals(Long.valueOf(-900001), ruleSetVersion.getId());
 
 		assertEquals(LocalDateTime.of(2016, 9, 7, 9, 0), ruleSetVersion.getProductionStartDate());
 		assertEquals("1.0.1", ruleSetVersion.getVersion());
@@ -130,29 +132,29 @@ public class RuleSetVersionDaoIntegrationTest extends IntegrationTest {
 
 		/* Checking relationships */
 		assertNotNull(ruleSetVersion.getRuleSet());
-		assertEquals(-900000, ruleSetVersion.getRuleSet().getId());
+		assertEquals(Long.valueOf(-900000L), ruleSetVersion.getRuleSet().getId());
 
 		assertNotNull(ruleSetVersion.getParent());
-		assertEquals(-900000, ruleSetVersion.getParent().getId());
+		assertEquals(Long.valueOf(-900000L), ruleSetVersion.getParent().getId());
 
 		assertNotNull(ruleSetVersion.getChildren());
 		assertEquals(1, ruleSetVersion.getChildren().size());
-		assertEquals(-900002, ((RuleSetVersion) ruleSetVersion.getChildren().toArray()[0]).getId());
+		assertEquals(Long.valueOf(-900002L), ((RuleSetVersion) ruleSetVersion.getChildren().toArray()[0]).getId());
 
 		assertNotNull(ruleSetVersion.getIncludes());
 		assertEquals(1, ruleSetVersion.getIncludes().size());
-		assertEquals(-900003, ((RuleSetVersion) ruleSetVersion.getIncludes().toArray()[0]).getId());
+		assertEquals(Long.valueOf(-900003L), ((RuleSetVersion) ruleSetVersion.getIncludes().toArray()[0]).getId());
 
 		assertNotNull(ruleSetVersion.getIncludedIn());
 		assertEquals(1, ruleSetVersion.getIncludedIn().size());
-		assertEquals(-900004, ((RuleSetVersion) ruleSetVersion.getIncludedIn().toArray()[0]).getId());
+		assertEquals(Long.valueOf(-900004L), ((RuleSetVersion) ruleSetVersion.getIncludedIn().toArray()[0]).getId());
 
 		assertNotNull(ruleSetVersion.getRuleVersions());
 		assertEquals(4, ruleSetVersion.getRuleVersions().size());
 		assertEquals(4,
 				ruleSetVersion.getRuleVersions().stream().map(RuleVersion::getId).distinct().count());
 
-		List<Integer> ruleVersionIds = Arrays.asList(-900000, -900002, -900003, -900004);
+		List<Long> ruleVersionIds = Arrays.asList(-900000L, -900002L, -900003L, -900004L);
 		ruleSetVersion.getRuleVersions().forEach(v -> assertTrue(ruleVersionIds.contains(v.getId())));
 	}
 }

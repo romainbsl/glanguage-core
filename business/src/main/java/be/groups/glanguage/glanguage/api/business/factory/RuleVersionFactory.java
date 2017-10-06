@@ -1,12 +1,14 @@
 package be.groups.glanguage.glanguage.api.business.factory;
 
-import be.groups.glanguage.glanguage.api.business.universe.*;
-import be.groups.glanguage.glanguage.api.entities.rule.*;
-import be.groups.glanguage.glanguage.api.entities.ruleset.*;
-import java.time.*;
-import java.util.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.stereotype.*;
+import be.groups.glanguage.glanguage.api.business.universe.Universe;
+import be.groups.glanguage.glanguage.api.entities.rule.RuleVersion;
+import be.groups.glanguage.glanguage.api.entities.ruleset.RuleSetVersion;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * This factory allows to get {@link RuleVersion rule versions}<br>
@@ -36,9 +38,9 @@ public class RuleVersionFactory {
      * @return the list of {@link RuleVersion rule versions} corresponding to a {@code ruleSetVersionId} and a {@code
      * effectiveDate}
      * @see Universe#getDefaultRuleVersions(RuleSetVersion, LocalDate)
-     * @see Universe#getRuleSetVersion(Integer)
+     * @see Universe#getRuleSetVersion(Long)
      */
-    public List<RuleVersion> getRuleVersions(Integer ruleSetVersionId, LocalDate effectiveDate) {
+    public List<RuleVersion> getRuleVersions(Long ruleSetVersionId, LocalDate effectiveDate) {
         PlanIdentification key = new PlanIdentification(ruleSetVersionId, effectiveDate);
         if (!ruleVersionsLists.containsKey(key)) {
             ruleVersionsLists.put(key,

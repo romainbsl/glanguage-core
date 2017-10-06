@@ -10,4 +10,4 @@ import org.springframework.stereotype.*;
 @Repository
 public interface FormulaParameterCombinationDao extends
                                                 JpaRepository<FormulaParameterCombination,
-                                                    Integer> {}
+                                                    Long> {}
