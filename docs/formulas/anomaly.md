@@ -27,3 +27,6 @@ La formule anomalie s'écrit avec le mot clé `anomaly` suivi ou non d'un espace
 
     anomaly('5152')
     anomaly('5152', 'Message')
+    
+    
+[valeur-de-retour]: ../lexique.md#valeur-de-retour
