@@ -45,4 +45,4 @@ Cette formule s'écrit avec le mot clé `hours` suivi ou non d'un espace et, ent
     hours (25)                  [= 'PT25H' (= durée de 25 heures)]
     
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

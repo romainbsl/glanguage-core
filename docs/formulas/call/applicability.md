@@ -26,4 +26,4 @@ La formule de référence à une règle s'écrit simplementavec l'identifiant de
     personGeneralFirstname.applicable       [= true (par défaut, si pas de condition d'applicabilité)]
 
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

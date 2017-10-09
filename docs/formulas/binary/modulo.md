@@ -21,5 +21,5 @@ Le modulo ou reste [division entière][divison-entiere] s'écrit avec des expres
     2 \\ 3               [= 2 (2 = (0 * 3) + 2)]
  
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour
 [divison-entiere]: https://fr.wikipedia.org/wiki/Division_euclidienne

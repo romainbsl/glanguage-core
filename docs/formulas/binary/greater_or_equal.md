@@ -92,4 +92,4 @@ Le test de supériorité non stricte s'écrit avec le symbole `>=` suivi et pré
     'P1D' >= 'P1Y'              [= false ]
     'P1Y' >= 'P1D'              [= true  ]
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

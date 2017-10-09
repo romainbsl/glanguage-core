@@ -21,4 +21,4 @@ La soustraction s'écrit avec des expressions séparées par une barre oblique `
     2,5 / 0,5           [= 5,0]
  
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

@@ -28,4 +28,4 @@ Cette formule s'écrit avec le mot clé `stringLength` suivi ou non d'un espace 
     stringLength ("bar:foo:bar")        [= 11]
     
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

@@ -20,4 +20,4 @@ La soustraction s'écrit avec des expressions séparées par un signe étoile `*
     -0,5 * 10,5             [= -5,25]
  
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

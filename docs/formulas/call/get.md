@@ -29,4 +29,4 @@ La formule de référence à une façade s'écrit avec le mot clé `get` suivi d
     get BOOLEAN existInCodeList("CD_PAYS" ; "XX")   [= false]
 
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

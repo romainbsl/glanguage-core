@@ -73,4 +73,4 @@ L'arrondi d'un paramètre s'écrit avec le mot clé `rounded` suivi ou non d'un 
     rounded(1.125;0.01)     [= 1.12]
     rounded(1.126;0.01)     [= 1.13]
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

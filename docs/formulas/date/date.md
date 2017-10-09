@@ -46,4 +46,4 @@ Cette formule s'écrit avec le mot clé `date` suivi ou non d'un espace et, entr
     date (1 ; 1 ; 2000)         [= 1/1/2000]
     
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

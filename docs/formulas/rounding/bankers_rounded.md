@@ -53,4 +53,4 @@ L'arrondi bancaire d'un paramètre s'écrit avec le mot clé `bankers_rounded` s
     bankers_rounded(1.1255;2)       [= 1.13 ]
     bankers_rounded(1.126;2)        [= 1.13 ]
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

@@ -36,5 +36,5 @@ Le `OU` logique s'écrit avec le mot clé `or` suivi et précédé de deux expre
     false and true  [= true ]
     false and false [= false]
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour
 [disjonction]: https://fr.wikipedia.org/wiki/Disjonction_logique

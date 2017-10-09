@@ -96,4 +96,4 @@ Le test de `DIFFERENCE` s'écrit avec le symbole `!=` suivi et précédé de deu
     true != true                [= false ]
     true != false               [= true  ]
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

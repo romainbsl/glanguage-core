@@ -254,4 +254,4 @@ Le formatage de valeur entière s'écrit avec le mot clé `formatNumeric` suivi 
     formatNumeric(1 ; 8 ; "center" ; "#"; "negativeonly"; 4 ; ",")      [= "#1,0000#"]
     
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

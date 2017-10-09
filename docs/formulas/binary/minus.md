@@ -27,4 +27,4 @@ La soustraction s'écrit avec des expressions séparées par un tiret `-`
     'P1Y' - 'P1D'           [= 'P364D' (1 année - 1 jour = 364 jours (1 année = 365 jours)]
  
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

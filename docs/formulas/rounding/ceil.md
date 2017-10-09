@@ -73,4 +73,4 @@ L'arrondi supérieur d'un paramètre s'écrit avec le mot clé `ceil` suivi ou n
     ceil(1.125;0.01)     [= 1.13]
     ceil(1.126;0.01)     [= 1.13]
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

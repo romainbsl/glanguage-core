@@ -45,4 +45,4 @@ Cette formule s'écrit avec le mot clé `minutes` suivi ou non d'un espace et, e
     minutes (61)                [= 'PT61M' (= durée de 61 minutes)]
     
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

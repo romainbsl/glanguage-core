@@ -59,4 +59,4 @@ Cette formule s'écrit avec le mot clé `years` suivi ou non d'un espace et, ent
     days ('31/12/2000')             [= 2000]
     
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

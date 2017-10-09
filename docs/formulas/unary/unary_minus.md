@@ -22,4 +22,4 @@ Le moins unaire s'écrit avec un tiret `-` suivi ou non d'un espace et d'une exp
     - 0,001                                 [= -0,001]
 
     
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

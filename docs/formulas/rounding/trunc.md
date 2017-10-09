@@ -53,4 +53,4 @@ L'arrondi tronqué d'un paramètre s'écrit avec le mot clé `trunc` suivi ou no
     trunc(1.1255;2)       [= 1.12 ]
     trunc(1.126;2)        [= 1.12 ]
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

@@ -96,4 +96,4 @@ Le test d'`EGALITE` s'écrit avec le symbole `=` suivi et précédé de deux exp
     true = true             [= true  ]
     true = false            [= false ]
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

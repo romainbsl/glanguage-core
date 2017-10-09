@@ -43,4 +43,4 @@ Cette formule s'écrit avec le mot clé `subString` suivi ou non d'un espace et,
     subString ("bar:foo:bar", 4, 8)        [= ":foo:"]
     
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

@@ -45,4 +45,4 @@ Cette formule s'écrit avec le mot clé `stringItem` suivi ou non d'un espace et
     stringItem ("bar:foo:bar", ":", 4)          [= ""]
     
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

@@ -162,4 +162,4 @@ __ASTUCE__ : Si l'expression de la branche `else` est également une `instructio
     [= -1,0 sinon]
 
     
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

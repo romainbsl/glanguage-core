@@ -92,4 +92,4 @@ Le test de supériorité stricte s'écrit avec le symbole `>` suivi et précéd�
     'P1D' > 'P1Y'              [= false ]
     'P1Y' > 'P1D'              [= true  ]
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

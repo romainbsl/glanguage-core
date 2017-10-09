@@ -134,5 +134,5 @@ En résumé, la fonction `sumv` possède les caractéristiques suivantes :
 
 
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour
 [formule-reference-regle]: ../call/rule_reference.md 

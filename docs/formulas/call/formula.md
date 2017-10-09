@@ -28,4 +28,4 @@ La formule de référence à une règle s'écrit simplementavec l'identifiant de
     personGeneralFirstname.formula      [= valeur de la formule (réévaluée) de la règle identifiée par "personGeneralFirstname"]
 
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

@@ -32,5 +32,5 @@ Dans la plupart des cas, l'expression est en fait une [formule de référence à
 `regle_a_tester` (voir [formule de référence à une règle][formule-reference-regle])
 
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour
 [formule-reference-regle]: ../call/rule_reference.md 

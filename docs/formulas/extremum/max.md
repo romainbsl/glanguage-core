@@ -40,4 +40,4 @@ Le maximum s'écrit avec le mot clé `max` suivi ou non d'un espace et, entre pa
     max (-1,1 ; -2,2)               [= -1,1]
     
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

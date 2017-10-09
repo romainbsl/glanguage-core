@@ -92,4 +92,4 @@ Le test d'infériorité non stricte s'écrit avec le symbole `<=` suivi et préc
     'P1D' <= 'P1Y'              [= true  ]
     'P1Y' <= 'P1D'              [= false ]
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

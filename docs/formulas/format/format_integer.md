@@ -144,4 +144,4 @@ Le formatage de valeur entière s'écrit avec le mot clé `formatInteger` suivi 
     formatInteger(1 ; 5 ; "center" ; "#"; "negativeonly")       [= "##1##"]
     
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

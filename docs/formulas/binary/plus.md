@@ -31,4 +31,4 @@ L'addition / la concaténation s'écrit avec des expressions séparées par un s
     'P1Y' + 'P1D'           [= 'P1Y1D' (1 année + 1 jour = 1 année et 1 jour)]
  
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

@@ -36,5 +36,5 @@ Le `ET` logique s'écrit avec le mot clé `and` suivi et précédé de deux expr
     false and true  [= false]
     false and false [= false]
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour
 [conjonction]: https://fr.wikipedia.org/wiki/Conjonction_logique

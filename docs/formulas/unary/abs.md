@@ -22,4 +22,4 @@ Le moins unaire s'écrit avec le mot clé `abs` suivi ou non d'un espace et, ent
     abs(-0,001)     [= 0,001]
 
     
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

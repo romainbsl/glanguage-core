@@ -67,4 +67,4 @@ Le formatage de valeur de type chaîne de caractère s'écrit avec le mot clé `
     formatString("abc" ; 5 ; "right" ; "#")         [= "##abc"]    
 
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

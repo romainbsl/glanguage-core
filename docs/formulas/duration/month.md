@@ -59,4 +59,4 @@ Cette formule s'écrit avec le mot clé `months` suivi ou non d'un espace et, en
     days ('31/12/2000')             [= 12]
     
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

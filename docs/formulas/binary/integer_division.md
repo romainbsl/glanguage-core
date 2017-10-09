@@ -21,5 +21,5 @@ La [division entière][divison-entiere] s'écrit avec des expressions séparées
     2 // 3               [= 0]
  
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour
 [divison-entiere]: https://fr.wikipedia.org/wiki/Division_euclidienne

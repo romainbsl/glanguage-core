@@ -58,4 +58,4 @@ Le formatage de date s'écrit avec le mot clé `formatDate` suivi ou non d'un es
     formatDate( "31/dec/2017", "dd/MM/yyyy")      [= "31/12/2017"      ]
     formatDate( "31/december/2017", "dd/MM/yyyy") [= "31/12/2017"      ]
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

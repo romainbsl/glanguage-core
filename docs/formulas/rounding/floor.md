@@ -73,4 +73,4 @@ L'arrondi inférieur d'un paramètre s'écrit avec le mot clé `floor` suivi ou 
     floor(1.125;0.01)     [= 1.12]
     floor(1.126;0.01)     [= 1.12]
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

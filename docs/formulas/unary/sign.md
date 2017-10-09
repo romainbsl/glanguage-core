@@ -25,4 +25,4 @@ Le signe s'écrit avec le mot clé `sign` suivi ou non d'un espace et, entre par
     sign (0)        [= 0,0]
 
     
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

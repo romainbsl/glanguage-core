@@ -40,4 +40,4 @@ Le minimum s'écrit avec le mot clé `min` suivi ou non d'un espace et, entre pa
     min (-1,1 ; -2,2)               [= -2,2]
     
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour

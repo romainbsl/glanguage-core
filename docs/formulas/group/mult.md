@@ -26,5 +26,5 @@ Le test d'existence s'écrit avec le mot clé `mult` suivi ou non d'un espace et
 `regle_parent` (voir [formule de référence à une règle][formule-reference-regle])
     
 
-[valeur-de-retour]: ../lexique.md#valeur-de-retour
+[valeur-de-retour]: ../../lexique.md#valeur-de-retour
 [formule-reference-regle]: ../call/rule_reference.md 
