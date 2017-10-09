@@ -246,11 +246,11 @@ public class FormulaParameterCombination {
                                                                                     .filter(p -> !p.getOptional())
                                                                                     .count());
                     }
-                    while (itParameters.hasNext() && parameters.indexOf(parameter) < parameters
+                    while (itParameters.hasNext() && itParameters.previousIndex() < parameters
                             .size() - minimumNumberOfParameterAfterThis) {
                         parameter = itParameters.next();
-                        if (!combinationParameter.isValid((parameter), evaluator) || parameters
-                                .indexOf(parameter) == parameters.size() - minimumNumberOfParameterAfterThis) {
+                        if (!combinationParameter.isValid((parameter), evaluator) ||
+                            itParameters.previousIndex() == parameters.size() - minimumNumberOfParameterAfterThis) {
                             // Go back to the invalid parameter to get it validated with the next combination
                             // parameter at next loop iteration
                             itParameters.previous();
@@ -371,11 +371,11 @@ public class FormulaParameterCombination {
                                                                                     .filter(p -> !p.getOptional())
                                                                                     .count());
                     }
-                    while (itParameters.hasNext() && parameters.indexOf(parameter) < parameters
+                    while (itParameters.hasNext() && itParameters.previousIndex() < parameters
                             .size() - minimumNumberOfParameterAfterThis) {
                         parameter = itParameters.next();
-                        if (!combinationParameter.isValid((parameter), evaluator) || parameters
-                                .indexOf(parameter) == parameters.size() - minimumNumberOfParameterAfterThis) {
+                        if (!combinationParameter.isValid((parameter), evaluator) ||
+                            itParameters.previousIndex() == parameters.size() - minimumNumberOfParameterAfterThis) {
                             // Go back to the invalid parameter to get it
                             // validated with the next combination parameter at next loop iteration
                             itParameters.previous();
