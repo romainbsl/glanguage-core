@@ -47,6 +47,7 @@ import be.groups.glanguage.core.error.parser.ParserUnknownFormulaTypeInnerError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -54,6 +55,7 @@ import java.util.LinkedList;
 /**
  * Set of semantical actions applicable during analysis
  */
+@Component
 public class AsStandard implements SemanticalAction {
 
     static Logger logger = LoggerFactory.getLogger(Class.class);
