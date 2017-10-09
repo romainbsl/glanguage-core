@@ -57,3 +57,7 @@ La formule de parenthèses s'écrit avec les symboles `(`et `)`. Entre ses paren
     1 + ( 2 ) * 2 [= 1 + 2 * 2 = 1 + 4 = 5]
     ( 1 + 2 ) * 2 [= 3 * 2 = 6]
     1 + ( 2 * 2 ) [= 1 + 4 = 5]
+    
+    
+[valeur-de-retour]: ../lexique.md#valeur-de-retour
+    
