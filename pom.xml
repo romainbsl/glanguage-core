@@ -12,9 +12,8 @@
 
   <!-- Header -->
   <groupId>be.groups.glanguage</groupId>
-  <artifactId>glanguage-api</artifactId>
-  <version>0.1.1</version>
-  <packaging>pom</packaging>
+  <artifactId>glanguage-core</artifactId>
+  <version>0.0.1</version>
 
   <!-- Documentation -->
   <name>Glanguage Core</name>
@@ -25,37 +24,107 @@
   </organization>
 
   <properties>
-    <version.pnw-api-modules>0.2.4</version.pnw-api-modules>
     <version.error-framework>0.5.7</version.error-framework>
+    <mockito.version>2.1.0-beta.120</mockito.version>
+    <runSuite>**/ProjectTestSuite.class</runSuite>
+    <hibernate.jpamodelgen.version>5.1.0.Final</hibernate.jpamodelgen.version>
+    <jpametamodel.source>${project.build.directory}/generated-sources/java/jpametamodel</jpametamodel.source>
   </properties>
-
-  <!-- Maven modules -->
-  <modules>
-    <module>entities</module>
-    <module>dao</module>
-    <module>business</module>
-    <module>test</module>
-  </modules>
 
   <!-- Dependencies to be shared in every layers -->
   <dependencies>
     <!-- ============================== GROUP S PROJECTS Dependencies ============================== -->
-    <!-- Group S Error Framework -->
+    <!-- Base for model projects -->
+	<dependency>
+	  <groupId>be.groups.pom</groupId>
+      <artifactId>groups-model-dependencies</artifactId>
+      <version>0.4.0-SNAPSHOT</version>
+	</dependency>
+	<!-- Group S persistence dependencies -->
+    <dependency>
+      <groupId>be.groups.pom</groupId>
+      <artifactId>groups-persist-dependencies</artifactId>
+      <version>0.4.0-SNAPSHOT</version>
+    </dependency>
+	<!-- Group S database dependencies -->
+	<dependency>
+		<groupId>be.groups.common</groupId>
+		<artifactId>database-sharding</artifactId>
+		<version>0.0.6-SNAPSHOT</version>
+	</dependency>
+	<!-- Group S test dependencies -->
+	<dependency>
+		<groupId>be.groups.pom</groupId>
+		<artifactId>groups-test-dependencies</artifactId>
+		<version>0.4.0-SNAPSHOT</version>
+		<scope>test</scope>
+	</dependency>
+	<!-- Group S Error Framework -->
     <dependency>
       <groupId>be.groups.error-framework</groupId>
       <artifactId>error-framework-core</artifactId>
       <version>${version.error-framework}</version>
     </dependency>
-    <!-- ============================== 3rd party dependencies ============================== -->
-    <!-- Logging tools -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-    </dependency>
   </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <includes>
+            <include>${runSuite}</include>
+          </includes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.bsc.maven</groupId>
+        <artifactId>maven-processor-plugin</artifactId>
+        <version>2.0.5</version>
+        <executions>
+          <execution>
+          <id>process</id>
+          <goals>
+            <goal>process</goal>
+          </goals>
+          <phase>generate-sources</phase>
+            <configuration>
+              <outputDirectory>${jpametamodel.source}</outputDirectory>
+              <processors>
+                <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+              </processors>
+		    </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>${hibernate.jpamodelgen.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.10</version>
+        <executions>
+          <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${jpametamodel.source}</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
