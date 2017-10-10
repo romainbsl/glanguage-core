@@ -1,22 +1,18 @@
 package be.groups.glanguage.core.error.utils.agent;
 
 import be.groups.glanguage.core.error.GLanguageErrorRegistry;
-import be.groups.glanguage.core.error.GLanguageInnerError;
 
 /**
  * @author michotte
  */
-public class AgentUnableToInstantiateInnerError extends GLanguageInnerError {
-    final static GLanguageErrorRegistry errorRegistry = GLanguageErrorRegistry.AGENT_UNABLE_TO_INSTANTIATE;
-
-    public AgentUnableToInstantiateInnerError() {
-        super(errorRegistry.getCode());
-        setMainMessage(errorRegistry.getMessage());
-    }
+public class AgentUnableToInstantiateInnerError extends AgentInnerError {
 
     public AgentUnableToInstantiateInnerError(String cause) {
-        this();
-        setMessage(cause);
+        super(GLanguageErrorRegistry.AGENT_UNABLE_TO_INSTANTIATE, cause);
+    }
+
+    public AgentUnableToInstantiateInnerError(String methodName, Class<?>[] methodParameterTypes) {
+        super(GLanguageErrorRegistry.AGENT_UNABLE_TO_INSTANTIATE, methodName, methodParameterTypes);
     }
 }
 

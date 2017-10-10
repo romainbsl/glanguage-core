@@ -64,12 +64,14 @@ public class Agent {
         // Filter the stream to retrieve methods with the right method name and the right number of parameters
         List<Method> matchMethods = methodStream.filter(methodPredicate).collect(Collectors.toList());
 
-        Optional<Method> methodOptional;
+        Optional<Method> methodOptional = Optional.empty();
 
         // If there is only one result, seems obvious
         if (matchMethods.size() == 1) {
-            methodOptional = matchMethods.stream().findFirst();
-        } else {
+            if (Arrays.equals(matchMethods.get(0).getParameterTypes(), methodParameterTypes)) {
+                methodOptional = matchMethods.stream().findFirst();
+            }
+        } else if (matchMethods.size() > 0){
             // otherwise we filter on the parameter type, to find the one that match exactly
             methodOptional = matchMethods.stream().filter(it -> Arrays
                     .equals(it.getParameterTypes(), methodParameterTypes)).findFirst();
@@ -87,7 +89,7 @@ public class Agent {
 
         // If it isn't a method or a field we throw a proper GLanguageException
         if (!isMethod() && !isField()) {
-            throw new GLanguageException(new AgentNotCallableInnerError(methodName, methodParameterTypes));
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError(methodName, methodParameterTypes));
         }
     }
 
