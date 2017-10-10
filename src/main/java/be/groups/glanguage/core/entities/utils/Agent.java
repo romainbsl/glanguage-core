@@ -1,7 +1,8 @@
 package be.groups.glanguage.core.entities.utils;
 
 import be.groups.glanguage.core.error.exception.GLanguageException;
-import be.groups.glanguage.core.error.utils.AgentNotCallableInnerError;
+import be.groups.glanguage.core.error.utils.agent.AgentNotCallableInnerError;
+import be.groups.glanguage.core.error.utils.agent.AgentUnableToInstantiateInnerError;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -43,10 +44,11 @@ public class Agent {
      */
     public Agent(Object object, String methodName, Class<?>... methodParameterTypes) throws GLanguageException {
         if (object == null) {
-            throw new IllegalArgumentException("object must be non-null");
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError("target object must be non-null"));
         }
         if (methodName == null || methodName.isEmpty()) {
-            throw new IllegalArgumentException("methodName must be a non-null non-empty string");
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError("methodName must be a non-null " +
+                "non-empty string"));
         }
 
         this.object = object;
@@ -123,9 +125,9 @@ public class Agent {
      * methodParameters} OR dynamic
      * access to this field on this target object
      */
-    public Object call(Object... methodParameters) {
+    public Object call(Object... methodParameters) throws GLanguageException {
         if (methodParameters == null) {
-            throw new IllegalArgumentException("methodParameters must be non-null");
+            throw new GLanguageException(new AgentNotCallableInnerError("methodParameters must be non-null"));
         }
         resetError();
         try {
@@ -147,7 +149,8 @@ public class Agent {
             }
         } catch (Exception ex) {
             setError();
-            throw new RuntimeException(FormatErrorMsg("Error when creating agents to execute Dynamic call", ex), ex);
+            throw new GLanguageException(new AgentNotCallableInnerError(FormatErrorMsg("Error when calling agents to" +
+                " execute Dynamic call", ex)));
         }
     }
 
@@ -163,10 +166,11 @@ public class Agent {
      */
     public static Object call(Object object, String methodName) throws GLanguageException {
         if (object == null) {
-            throw new IllegalArgumentException("object must be non-null");
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError("target object must be non-null"));
         }
         if (methodName == null || methodName.isEmpty()) {
-            throw new IllegalArgumentException("methodName must be a non-null non-empty string");
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError("methodName must be a non-null " +
+                "non-empty string"));
         }
         return new Agent(object, methodName).call();
     }
@@ -189,16 +193,18 @@ public class Agent {
                               Class<?>[] methodParametersType,
                               Object[] methodParameters) throws GLanguageException {
         if (object == null) {
-            throw new IllegalArgumentException("object must be non-null");
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError("target object must be non-null"));
         }
         if (methodName == null || methodName.isEmpty()) {
-            throw new IllegalArgumentException("methodName must be a non-null non-empty string");
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError("methodName must be a non-null " +
+                "non-empty string"));
         }
         if (methodParametersType == null) {
-            throw new IllegalArgumentException("methodParametersType must be non-null");
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError("methodParametersType must be " +
+                "non-null"));
         }
         if (methodParameters == null) {
-            throw new IllegalArgumentException("methodParameters must be non-null");
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError("methodParameters must be non-null"));
         }
         return new Agent(object, methodName, methodParametersType).call(methodParameters);
     }

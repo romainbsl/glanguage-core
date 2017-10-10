@@ -63,6 +63,8 @@ public enum GLanguageErrorRegistry {
                                                       "Unable to validate a combination parameter"),
 
     ROUNDING_TYPE_INVALID("ROUNDING_TYPE_INVALID", "A rounding type is invalid"),
+
+    AGENT_UNABLE_TO_INSTANTIATE("AGENT_UNABLE_TO_INSTANTIATE", "Unable to instantiate an agent"),
     AGENT_NOT_CALLABLE("AGENT_NOT_CALLABLE", "No such method or field to call");
 
 

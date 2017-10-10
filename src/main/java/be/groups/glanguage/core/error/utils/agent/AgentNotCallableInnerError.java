@@ -1,4 +1,4 @@
-package be.groups.glanguage.core.error.utils;
+package be.groups.glanguage.core.error.utils.agent;
 
 import be.groups.glanguage.core.error.GLanguageErrorRegistry;
 import be.groups.glanguage.core.error.GLanguageInnerError;
@@ -12,6 +12,11 @@ public class AgentNotCallableInnerError extends GLanguageInnerError {
     public AgentNotCallableInnerError() {
         super(errorRegistry.getCode());
         setMainMessage(errorRegistry.getMessage());
+    }
+
+    public AgentNotCallableInnerError(String cause) {
+        this();
+        setMessage(cause);
     }
 
     public AgentNotCallableInnerError(String methodName, Class<?>[] methodParameterTypes) {
