@@ -7,7 +7,8 @@ import be.groups.glanguage.core.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.core.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.core.entities.formula.description.FormulaType;
 import be.groups.glanguage.core.error.exception.GLanguageException;
-import be.groups.glanguage.core.error.formula.base.parameter.FormulaNullParameterInnerError;
+import be.groups.glanguage.core.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
+import be.groups.glanguage.core.error.utils.ErrorMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -20,7 +21,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static be.groups.glanguage.core.entities.formula.description.FormulaReturnType.*;
+import static be.groups.glanguage.core.entities.formula.description.FormulaReturnType.BOOLEAN;
+import static be.groups.glanguage.core.entities.formula.description.FormulaReturnType.NUMERIC;
 
 /**
  * Formula implementing the logical in operation - check if an element is part of a list of elements
@@ -41,12 +43,6 @@ public class FormulaIn extends AbstractNonTerminalFormula {
                      Evaluator evaluator) throws GLanguageException {
         super(description, getParametersAsList(element, inList), evaluator);
 
-        if (element == null) {
-            throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 0));
-        }
-        if (inList == null) {
-            throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
-        }
         this.parameters = new ArrayList<>();
         this.parameters.add(element);
         this.parameters.addAll(inList);
@@ -85,50 +81,56 @@ public class FormulaIn extends AbstractNonTerminalFormula {
     @Transient
     @Override
     protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
-        AbstractFormula element = getParameters().get(0);
-        Iterator<AbstractFormula> itInList = getParameters().listIterator(1);
-        boolean result = false;
-        switch (getElementsType(evaluator)) {
-            case INTEGER:
-                int i = element.getIntegerValue(evaluator);
-                while (!result && itInList.hasNext()) {
-                    result = i == itInList.next().getIntegerValue(evaluator);
-                }
-                return result;
-            case NUMERIC:
-                double d = element.getNumericValue(evaluator);
-                while (!result && itInList.hasNext()) {
-                    result = d == itInList.next().getNumericValue(evaluator);
-                }
-                return result;
-            case DATE:
-                LocalDate date = element.getDateValue(evaluator);
-                if (date != null) {
+        try {
+            AbstractFormula element = getParameters().get(0);
+            Iterator<AbstractFormula> itInList = getParameters().listIterator(1);
+            boolean result = false;
+            switch (getElementsType(evaluator)) {
+                case INTEGER:
+                    int i = element.getIntegerValue(evaluator);
                     while (!result && itInList.hasNext()) {
-                        result = date.equals(itInList.next().getDateValue(evaluator));
+                        result = i == itInList.next().getIntegerValue(evaluator);
                     }
-                }
-                return result;
-            case BOOLEAN:
-                boolean b = element.getBooleanValue(evaluator);
-                while (!result && itInList.hasNext()) {
-                    result = (b == itInList.next().getBooleanValue(evaluator));
-                }
-                return result;
-            case STRING:
-                String s = element.getStringValue(evaluator);
-                if (s != null) {
+                    return result;
+                case NUMERIC:
+                    double d = element.getNumericValue(evaluator);
                     while (!result && itInList.hasNext()) {
-                        result = s.equals(itInList.next().getStringValue(evaluator));
+                        result = d == itInList.next().getNumericValue(evaluator);
                     }
-                }
-                return result;
-            case UNDEFINED:
-                throw new IllegalArgumentException("Cannot compare undefined values in " + this.getClass()
-                        .getName() + " object");
-            default:
-                throw new IllegalArgumentException("Cannot compare unknown values in " + this.getClass()
-                        .getName() + " object");
+                    return result;
+                case DATE:
+                    LocalDate date = element.getDateValue(evaluator);
+                    if (date != null) {
+                        while (!result && itInList.hasNext()) {
+                            result = date.equals(itInList.next().getDateValue(evaluator));
+                        }
+                    }
+                    return result;
+                case BOOLEAN:
+                    boolean b = element.getBooleanValue(evaluator);
+                    while (!result && itInList.hasNext()) {
+                        result = (b == itInList.next().getBooleanValue(evaluator));
+                    }
+                    return result;
+                case STRING:
+                    String s = element.getStringValue(evaluator);
+                    if (s != null) {
+                        while (!result && itInList.hasNext()) {
+                            result = s.equals(itInList.next().getStringValue(evaluator));
+                        }
+                    }
+                    return result;
+                case UNDEFINED:
+                    throw new IllegalArgumentException("Cannot compare undefined values");
+                default:
+                    throw new IllegalArgumentException("Cannot compare values of unknown type");
+            }
+        } catch (GLanguageException gle) {
+            gle.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DATE, null));
+            throw  gle;
+        } catch (Exception e) {
+            throw new GLanguageException(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DATE, e
+                .getMessage()));
         }
     }
 

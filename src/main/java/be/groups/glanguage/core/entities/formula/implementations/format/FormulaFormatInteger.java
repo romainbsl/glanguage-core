@@ -8,6 +8,8 @@ import be.groups.glanguage.core.entities.utils.format.FormatAlignment;
 import be.groups.glanguage.core.entities.utils.format.FormatInteger;
 import be.groups.glanguage.core.entities.utils.format.FormatSign;
 import be.groups.glanguage.core.error.exception.GLanguageException;
+import be.groups.glanguage.core.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
+import be.groups.glanguage.core.error.utils.ErrorMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -34,10 +36,6 @@ public class FormulaFormatInteger extends FormatFormula {
                                 Evaluator evaluator) throws GLanguageException {
         super(description, parameters, evaluator);
 
-        if (parameters == null) {
-            throw new IllegalArgumentException("parameters must be non-null");
-        }
-
         this.parameters = new ArrayList<>();
         this.parameters.addAll(parameters);
     }
@@ -53,76 +51,84 @@ public class FormulaFormatInteger extends FormatFormula {
     @Transient
     @Override
     protected String doGetStringValue(Evaluator evaluator) throws GLanguageException {
-        FormatInteger format = null;
-        int i, width;
-        String alignment;
-        Character fillCharacter = null;
-        String sign;
+        try {
+            FormatInteger format = null;
+            int i, width;
+            String alignment;
+            Character fillCharacter = null;
+            String sign;
 
-        i = getParameters().get(0).getIntegerValue(evaluator);
-        width = getParameters().get(1).getIntegerValue(evaluator);
-        alignment = getParameters().get(2).getStringValue(evaluator).toUpperCase();
-        if (!alignment.equals(FormatAlignment.Values.NO_JUSTIFY)) {
-            if (getParameters().get(3).getStringValue(evaluator).length() == 1) {
-                fillCharacter = getParameters().get(3).getStringValue(evaluator).charAt(0);
-            } else {
-                throw new IllegalArgumentException("Fillin character not valid in " + this.getClass()
+            i = getParameters().get(0).getIntegerValue(evaluator);
+            width = getParameters().get(1).getIntegerValue(evaluator);
+            alignment = getParameters().get(2).getStringValue(evaluator).toUpperCase();
+            if (!alignment.equals(FormatAlignment.Values.NO_JUSTIFY)) {
+                if (getParameters().get(3).getStringValue(evaluator).length() == 1) {
+                    fillCharacter = getParameters().get(3).getStringValue(evaluator).charAt(0);
+                } else {
+                    throw new IllegalArgumentException("Fillin character not valid in " + this.getClass()
                         .getName() + " object : " + getParameters().get(3).getStringValue(evaluator));
+                }
+                sign = getParameters().get(4).getStringValue(evaluator).toUpperCase();
+            } else {
+                sign = getParameters().get(3).getStringValue(evaluator).toUpperCase();
             }
-            sign = getParameters().get(4).getStringValue(evaluator).toUpperCase();
-        } else {
-            sign = getParameters().get(3).getStringValue(evaluator).toUpperCase();
+
+            if (width >= 1) {
+                format = new FormatInteger(width);
+
+                switch (alignment) {
+                    case FormatAlignment.Values.NO_JUSTIFY:
+                        format.noJustify();
+                        break;
+                    case FormatAlignment.Values.LEFT_JUSTIFY:
+                        format.leftJustify();
+                        break;
+                    case FormatAlignment.Values.RIGHT_JUSTIFY:
+                        format.rightJustify();
+                        break;
+                    case FormatAlignment.Values.CENTER_JUSTIFY:
+                        format.centerJustify();
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Alignment not valid : " + getParameters().get(2)
+                            .getStringValue(evaluator));
+                }
+
+                if (fillCharacter != null) {
+                    format.setFill(fillCharacter);
+                }
+
+                switch (sign) {
+                    case FormatSign.Values.NONE:
+                        format.signIgnore();
+                        break;
+                    case FormatSign.Values.NEGATIVE_ONLY:
+                        format.signNegativeOnly();
+                        break;
+                    case FormatSign.Values.POSITIVE_ONLY:
+                        format.signPositiveOnly();
+                        break;
+                    case FormatSign.Values.BOTH:
+                        format.signShow();
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Sign format not valid : " + getParameters().get(4)
+                            .getStringValue(evaluator));
+                }
+
+            } else {
+                throw new IllegalArgumentException("Width not valid : " + getParameters().get(1).getStringValue
+                    (evaluator));
+            }
+
+            return format.format(i);
+        } catch (GLanguageException gle) {
+            gle.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.STRING, null));
+            throw gle;
+        } catch (Exception e) {
+            throw new GLanguageException(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.STRING, e
+                .getMessage()));
         }
-
-        if (width >= 1) {
-            format = new FormatInteger(width);
-
-            switch (alignment) {
-                case FormatAlignment.Values.NO_JUSTIFY:
-                    format.noJustify();
-                    break;
-                case FormatAlignment.Values.LEFT_JUSTIFY:
-                    format.leftJustify();
-                    break;
-                case FormatAlignment.Values.RIGHT_JUSTIFY:
-                    format.rightJustify();
-                    break;
-                case FormatAlignment.Values.CENTER_JUSTIFY:
-                    format.centerJustify();
-                    break;
-                default:
-                    throw new IllegalArgumentException("Alignment not valid in " + this.getClass()
-                            .getName() + " object : " + getParameters().get(2).getStringValue(evaluator));
-            }
-
-            if (fillCharacter != null) {
-                format.setFill(fillCharacter);
-            }
-
-            switch (sign) {
-                case FormatSign.Values.NONE:
-                    format.signIgnore();
-                    break;
-                case FormatSign.Values.NEGATIVE_ONLY:
-                    format.signNegativeOnly();
-                    break;
-                case FormatSign.Values.POSITIVE_ONLY:
-                    format.signPositiveOnly();
-                    break;
-                case FormatSign.Values.BOTH:
-                    format.signShow();
-                    break;
-                default:
-                    throw new IllegalArgumentException("Sign format not valid in " + this.getClass()
-                            .getName() + " object : " + getParameters().get(4).getStringValue(evaluator));
-            }
-
-        } else {
-            throw new IllegalArgumentException("Width not valid in " + this.getClass()
-                    .getName() + " object : " + getParameters().get(1).getStringValue(evaluator));
-        }
-
-        return format.format(i);
     }
 
     @Override

@@ -42,8 +42,11 @@ public enum GLanguageErrorRegistry {
             "terminal value"),
 
     FORMULA_PARAMETER_LIST_NULL("FORMULA_PARAMETER_LIST_NULL", "A formula parameter list is null"),
+    FORMULA_PARAMETER_LIST_EMPTY("FORMULA_PARAMETER_LIST_EMPTY", "A formula parameter list is empty"),
     FORMULA_PARAMETER_NULL("FORMULA_PARAMETER_NULL", "A formula parameter is null"),
     FORMULA_PARAMETER_WRONG_TYPE("FORMULA_PARAMETER_WRONG_TYPE", "Type of a formula parameter is wrong"),
+
+    FORMULA_VALIDATE_INNER_ERROR("FORMULA_VALIDATE_INNER_ERROR","Error during the validation of a formula"),
 
     FORMULA_DESCRIPTION_UNABLE_TO_VALIDATE("FORMULA_DESCRIPTION_UNABLE_TO_VALIDATE", "Unable to validate a formula " +
             "description"),
@@ -63,6 +66,10 @@ public enum GLanguageErrorRegistry {
                                                       "Unable to validate a combination parameter"),
 
     ROUNDING_TYPE_INVALID("ROUNDING_TYPE_INVALID", "A rounding type is invalid"),
+    ROUNDING_NUMBER_OF_DECIMALS_EXCEEDED("ROUNDING_NUMBER_OF_DECIMALS_EXCEEDED", "A rounding with a number of " +
+        "decimals exceeding 10"),
+
+    AGENT_UNABLE_TO_INSTANTIATE("AGENT_UNABLE_TO_INSTANTIATE", "Unable to instantiate an agent"),
     AGENT_NOT_CALLABLE("AGENT_NOT_CALLABLE", "No such method or field to call");
 
 

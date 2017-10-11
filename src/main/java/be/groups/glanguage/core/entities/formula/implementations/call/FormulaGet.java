@@ -10,6 +10,8 @@ import be.groups.glanguage.core.error.GLanguageErrorRegistry;
 import be.groups.glanguage.core.error.exception.GLanguageException;
 import be.groups.glanguage.core.error.formula.FormulaInnerError;
 import be.groups.glanguage.core.error.formula.base.cannot.invoke.targets.FormulaCannotInvokeTargetObjectInnerError;
+import be.groups.glanguage.core.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
+import be.groups.glanguage.core.error.utils.ErrorMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -114,10 +116,10 @@ public class FormulaGet extends CallFormula {
         try {
             return (Boolean) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
-            // TODO report evaluation error
-            throw cce;
+            throw new GLanguageException(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.BOOLEAN, cce
+                .getMessage()));
         } catch (GLanguageException e) {
-            // TODO report evaluation error
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.BOOLEAN, null));
             throw e;
         }
     }
@@ -137,10 +139,10 @@ public class FormulaGet extends CallFormula {
         try {
             return (LocalDate) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
-            // TODO report evaluation error
-            throw cce;
+            throw new GLanguageException(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DATE, cce
+                .getMessage()));
         } catch (GLanguageException e) {
-            // TODO report evaluation error
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DATE, null));
             throw e;
         }
     }
@@ -160,10 +162,10 @@ public class FormulaGet extends CallFormula {
         try {
             return (Duration) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
-            // TODO report evaluation error
-            throw cce;
+            throw new GLanguageException(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DURATION, cce
+                .getMessage()));
         } catch (GLanguageException e) {
-            // TODO report evaluation error
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DURATION, null));
             throw e;
         }
     }
@@ -183,10 +185,10 @@ public class FormulaGet extends CallFormula {
         try {
             return (Integer) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
-            // TODO report evaluation error
-            throw cce;
+            throw new GLanguageException(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.INTEGER, cce
+                .getMessage()));
         } catch (GLanguageException e) {
-            // TODO report evaluation error
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.INTEGER, null));
             throw e;
         }
     }
@@ -206,10 +208,10 @@ public class FormulaGet extends CallFormula {
         try {
             return (Double) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
-            // TODO report evaluation error
-            throw cce;
+            throw new GLanguageException(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.NUMERIC, cce
+                .getMessage()));
         } catch (GLanguageException e) {
-            // TODO report evaluation error
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.NUMERIC, null));
             throw e;
         }
     }
@@ -229,10 +231,10 @@ public class FormulaGet extends CallFormula {
         try {
             return (String) getTargetedObject(evaluator);
         } catch (ClassCastException cce) {
-            // TODO report evaluation error
-            throw cce;
+            throw new GLanguageException(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.STRING, cce
+                .getMessage()));
         } catch (GLanguageException e) {
-            // TODO report evaluation error
+            e.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.STRING, null));
             throw e;
         }
     }
@@ -246,6 +248,15 @@ public class FormulaGet extends CallFormula {
         sb.append(converter.convertToEntityAttribute(Integer.valueOf(getConstantValue())));
         sb.append(" ");
 
+        sb.append(getTargetChain());
+
+        return sb.toString();
+    }
+
+    @JsonIgnore
+    @Transient
+    private String getTargetChain() {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < getParameters().size(); i++) {
             sb.append(getParameters().get(i).asText());
             if (i < getParameters().size() - 1) {
@@ -275,7 +286,7 @@ public class FormulaGet extends CallFormula {
         if (result == null) {
             throw new GLanguageException(new FormulaCannotInvokeTargetObjectInnerError(this,
                                                                                        evaluator,
-                                                                                       "Context " + "is unknown"));
+                                                                                       "Context is unknown"));
         }
 
         for (AbstractFormula primitive : getParameters()) {
@@ -284,8 +295,9 @@ public class FormulaGet extends CallFormula {
             } catch (GLanguageException e) {
                 e.getError().setOuterError(new FormulaCannotInvokeTargetObjectInnerError(this,
                                                                                          evaluator,
-                                                                                         "Unable " + "to compute " +
-                                                                                                 "target chain"));
+                                                                                         "Unable to compute " +
+                                                                                                 "target chain : "
+                                                                                             + getTargetChain()));
                 throw e;
             }
         }

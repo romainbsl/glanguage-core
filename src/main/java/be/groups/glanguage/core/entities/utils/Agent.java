@@ -1,7 +1,8 @@
 package be.groups.glanguage.core.entities.utils;
 
 import be.groups.glanguage.core.error.exception.GLanguageException;
-import be.groups.glanguage.core.error.utils.AgentNotCallableInnerError;
+import be.groups.glanguage.core.error.utils.agent.AgentNotCallableInnerError;
+import be.groups.glanguage.core.error.utils.agent.AgentUnableToInstantiateInnerError;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -43,10 +44,11 @@ public class Agent {
      */
     public Agent(Object object, String methodName, Class<?>... methodParameterTypes) throws GLanguageException {
         if (object == null) {
-            throw new IllegalArgumentException("object must be non-null");
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError("target object must be non-null"));
         }
         if (methodName == null || methodName.isEmpty()) {
-            throw new IllegalArgumentException("methodName must be a non-null non-empty string");
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError("methodName must be a non-null " +
+                "non-empty string"));
         }
 
         this.object = object;
@@ -62,12 +64,14 @@ public class Agent {
         // Filter the stream to retrieve methods with the right method name and the right number of parameters
         List<Method> matchMethods = methodStream.filter(methodPredicate).collect(Collectors.toList());
 
-        Optional<Method> methodOptional;
+        Optional<Method> methodOptional = Optional.empty();
 
         // If there is only one result, seems obvious
         if (matchMethods.size() == 1) {
-            methodOptional = matchMethods.stream().findFirst();
-        } else {
+            if (Arrays.equals(matchMethods.get(0).getParameterTypes(), methodParameterTypes)) {
+                methodOptional = matchMethods.stream().findFirst();
+            }
+        } else if (matchMethods.size() > 0){
             // otherwise we filter on the parameter type, to find the one that match exactly
             methodOptional = matchMethods.stream().filter(it -> Arrays
                     .equals(it.getParameterTypes(), methodParameterTypes)).findFirst();
@@ -85,7 +89,7 @@ public class Agent {
 
         // If it isn't a method or a field we throw a proper GLanguageException
         if (!isMethod() && !isField()) {
-            throw new GLanguageException(new AgentNotCallableInnerError(methodName, methodParameterTypes));
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError(methodName, methodParameterTypes));
         }
     }
 
@@ -123,9 +127,9 @@ public class Agent {
      * methodParameters} OR dynamic
      * access to this field on this target object
      */
-    public Object call(Object... methodParameters) {
+    public Object call(Object... methodParameters) throws GLanguageException {
         if (methodParameters == null) {
-            throw new IllegalArgumentException("methodParameters must be non-null");
+            throw new GLanguageException(new AgentNotCallableInnerError("methodParameters must be non-null"));
         }
         resetError();
         try {
@@ -147,7 +151,8 @@ public class Agent {
             }
         } catch (Exception ex) {
             setError();
-            throw new RuntimeException(FormatErrorMsg("Error when creating agents to execute Dynamic call", ex), ex);
+            throw new GLanguageException(new AgentNotCallableInnerError(FormatErrorMsg("Error when calling agents to" +
+                " execute Dynamic call", ex)));
         }
     }
 
@@ -163,10 +168,11 @@ public class Agent {
      */
     public static Object call(Object object, String methodName) throws GLanguageException {
         if (object == null) {
-            throw new IllegalArgumentException("object must be non-null");
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError("target object must be non-null"));
         }
         if (methodName == null || methodName.isEmpty()) {
-            throw new IllegalArgumentException("methodName must be a non-null non-empty string");
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError("methodName must be a non-null " +
+                "non-empty string"));
         }
         return new Agent(object, methodName).call();
     }
@@ -189,16 +195,18 @@ public class Agent {
                               Class<?>[] methodParametersType,
                               Object[] methodParameters) throws GLanguageException {
         if (object == null) {
-            throw new IllegalArgumentException("object must be non-null");
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError("target object must be non-null"));
         }
         if (methodName == null || methodName.isEmpty()) {
-            throw new IllegalArgumentException("methodName must be a non-null non-empty string");
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError("methodName must be a non-null " +
+                "non-empty string"));
         }
         if (methodParametersType == null) {
-            throw new IllegalArgumentException("methodParametersType must be non-null");
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError("methodParametersType must be " +
+                "non-null"));
         }
         if (methodParameters == null) {
-            throw new IllegalArgumentException("methodParameters must be non-null");
+            throw new GLanguageException(new AgentUnableToInstantiateInnerError("methodParameters must be non-null"));
         }
         return new Agent(object, methodName, methodParametersType).call(methodParameters);
     }

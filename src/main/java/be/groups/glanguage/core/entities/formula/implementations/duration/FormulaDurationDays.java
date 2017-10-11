@@ -6,6 +6,8 @@ import be.groups.glanguage.core.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.core.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.core.entities.formula.description.FormulaType;
 import be.groups.glanguage.core.error.exception.GLanguageException;
+import be.groups.glanguage.core.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
+import be.groups.glanguage.core.error.utils.ErrorMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -74,9 +76,9 @@ public class FormulaDurationDays extends DurationFormula {
             case DURATION:
                 return Math.toIntExact(getParameters().get(0).getDurationValue(evaluator).toDays());
             default:
-                throw new UnsupportedOperationException("Cannot invoke getIntegerValue() method on " + this.getClass()
-                        .getName() + " object with a parameter of type " + getParameters().get(0)
-                        .getReturnType(evaluator));
+                throw new GLanguageException(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.INTEGER,
+                    "Parameter of wrong type : " + getParameters().get(0).getReturnType(evaluator) + " ; should be " +
+                    "INTEGER, DATE or DURATION"));
         }
     }
 

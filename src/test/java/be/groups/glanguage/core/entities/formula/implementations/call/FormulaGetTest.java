@@ -3,7 +3,11 @@ package be.groups.glanguage.core.entities.formula.implementations.call;
 import be.groups.glanguage.core.entities.formula.AbstractFormula;
 import be.groups.glanguage.core.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.core.entities.formula.description.FormulaType;
+import be.groups.glanguage.core.entities.formula.implementations.terminal.FormulaTerminalInteger;
+import be.groups.glanguage.core.entities.formula.implementations.terminal.FormulaTerminalNumeric;
 import be.groups.glanguage.core.error.exception.GLanguageException;
+import be.groups.glanguage.core.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
+import be.groups.glanguage.core.error.utils.agent.AgentUnableToInstantiateInnerError;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -15,8 +19,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -86,7 +89,7 @@ public class FormulaGetTest {
 		
 		assertFalse(formula.isTerminal());
 	}
-	
+
 	/**
 	 * Tests {@link FormulaGet#getIntegerValue()}
 	 */
@@ -130,6 +133,66 @@ public class FormulaGetTest {
 
 		assertEquals(CONTRACT_ID, formula.getValue());
 		assertEquals("get INTEGER contract.id", formula.asText());
+	}
+
+	/**
+	 * Tests {@link FormulaGet#getIntegerValue()}
+	 */
+	@Test
+	public void testGetIntegerUndefinedMethod() throws GLanguageException {
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive = Mockito.spy(FormulaPrimitive.class);
+		doReturn("integer").when(primitive).getConstantValue();
+		doReturn(parameters).when(primitive).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		Mockito.doReturn(FormulaReturnType.INTEGER).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("1").when(formula).getConstantValue();
+		doReturn(Collections.singletonList(primitive)).when(formula).getParameters();
+
+		try {
+			formula.getValue();
+			fail("GLanguageException not raised");
+		} catch (GLanguageException gle) {
+			gle.getError().invertInnerError();
+			String message = gle.getError().getInnerError().getMessage();
+			assertTrue(gle.getError().getInnerError() instanceof AgentUnableToInstantiateInnerError);
+			assertEquals("The method/field 'integer' doesn't exist with no parameters", gle.getError().getInnerError()
+					.getMessage());
+		} catch (Exception e){
+			fail("Not a GLanguageException");
+		}
+	}
+
+	/**
+	 * Tests {@link FormulaGet#getIntegerValue()}
+	 */
+	@Test
+	public void testGetIntegerWrongMethodType() throws GLanguageException {
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive = Mockito.spy(FormulaPrimitive.class);
+		doReturn("integerValue").when(primitive).getConstantValue();
+		doReturn(parameters).when(primitive).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		Mockito.doReturn(FormulaReturnType.STRING).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("3").when(formula).getConstantValue();
+		doReturn(Collections.singletonList(primitive)).when(formula).getParameters();
+
+		try {
+			formula.getValue();
+			fail("GLanguageException not raised");
+		} catch (GLanguageException gle) {
+			gle.getError().invertInnerError();
+			String message = gle.getError().getInnerError().getMessage();
+			assertTrue(gle.getError().getInnerError() instanceof FormulaEvaluateTypeInnerError);
+		} catch (Exception e){
+			fail("Not a GLanguageException");
+		}
 	}
 
 	/**
@@ -199,6 +262,110 @@ public class FormulaGetTest {
 		
 		assertEquals(CONTRACT_SALARY * 2, formula.getValue());
 		assertEquals("get NUMERIC contract.doubleSalary", formula.asText());
+	}
+
+	/**
+	 * Tests {@link FormulaGet#getNumericValue()}
+	 */
+	@Test
+	public void testGetNumericValueContractContextMethodWithParameter() throws GLanguageException {
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		List<AbstractFormula> parameters2 = new ArrayList<>();
+		FormulaTerminalInteger parameter = Mockito.spy(FormulaTerminalInteger.class);
+		doReturn("2").when(parameter).getConstantValue();
+		parameters2.add(parameter);
+
+
+		FormulaPrimitive primitive1 = Mockito.spy(FormulaPrimitive.class);
+		doReturn("contract").when(primitive1).getConstantValue();
+		doReturn(parameters).when(primitive1).getParameters();
+		FormulaPrimitive primitive2 = Mockito.spy(FormulaPrimitive.class);
+		doReturn("multiplySalary").when(primitive2).getConstantValue();
+		doReturn(parameters2).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		Mockito.doReturn(FormulaReturnType.NUMERIC).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("2").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
+
+		assertEquals(CONTRACT_SALARY * 2, formula.getValue());
+		assertEquals("get NUMERIC contract.multiplySalary(2)", formula.asText());
+	}
+
+	/**
+	 * Tests {@link FormulaGet#getNumericValue()}
+	 */
+	@Test
+	public void testGetNumericValueContractContextMethodWithParameterNull() throws GLanguageException {
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		FormulaPrimitive primitive1 = Mockito.spy(FormulaPrimitive.class);
+		doReturn("contract").when(primitive1).getConstantValue();
+		doReturn(parameters).when(primitive1).getParameters();
+		FormulaPrimitive primitive2 = Mockito.spy(FormulaPrimitive.class);
+		doReturn("multiplySalary").when(primitive2).getConstantValue();
+		doReturn(parameters).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		Mockito.doReturn(FormulaReturnType.NUMERIC).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("2").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
+
+		try {
+			formula.getValue();
+			fail("GLanguageException not raised");
+		} catch (GLanguageException gle) {
+			gle.getError().invertInnerError();
+			String message = gle.getError().getInnerError().getMessage();
+			assertTrue(gle.getError().getInnerError() instanceof AgentUnableToInstantiateInnerError);
+			assertEquals("The method/field 'multiplySalary' doesn't exist with no parameters",
+					gle.getError().getInnerError().getMessage());
+		} catch (Exception e){
+			fail("Not a GLanguageException");
+		}
+	}
+
+	/**
+	 * Tests {@link FormulaGet#getNumericValue()}
+	 */
+	@Test
+	public void testGetNumericValueContractContextMethodWithParameterOfWrongType() throws GLanguageException {
+		List<AbstractFormula> parameters = new ArrayList<>();
+
+		List<AbstractFormula> parameters2 = new ArrayList<>();
+		FormulaTerminalNumeric parameter = Mockito.spy(FormulaTerminalNumeric.class);
+		doReturn("2").when(parameter).getConstantValue();
+		parameters2.add(parameter);
+
+
+		FormulaPrimitive primitive1 = Mockito.spy(FormulaPrimitive.class);
+		doReturn("contract").when(primitive1).getConstantValue();
+		doReturn(parameters).when(primitive1).getParameters();
+		FormulaPrimitive primitive2 = Mockito.spy(FormulaPrimitive.class);
+		doReturn("multiplySalary").when(primitive2).getConstantValue();
+		doReturn(parameters2).when(primitive2).getParameters();
+
+		FormulaGet formula = spy(FormulaGet.class);
+		Mockito.doReturn(FormulaReturnType.NUMERIC).when(formula).getReturnType(null);
+		doReturn(context).when(formula).getContext();
+		doReturn("2").when(formula).getConstantValue();
+		doReturn(Arrays.asList(primitive1, primitive2)).when(formula).getParameters();
+
+		try {
+			formula.getValue();
+			fail("GLanguageException not raised");
+		} catch (GLanguageException gle) {
+			gle.getError().invertInnerError();
+			String message = gle.getError().getInnerError().getMessage();
+			assertTrue(gle.getError().getInnerError() instanceof AgentUnableToInstantiateInnerError);
+			assertEquals("The method/field 'multiplySalary' doesn't exist with the parameters (class java.lang.Double)",
+					gle.getError().getInnerError().getMessage());
+		} catch (Exception e){
+			fail("Not a GLanguageException");
+		}
 	}
 
 	/**
@@ -497,7 +664,7 @@ public class FormulaGetTest {
 			return salary * 2;
 		}
 		
-		public Double doubleSalary(Integer multiple) {
+		public Double multiplySalary(Integer multiple) {
 			return salary * multiple;
 		}
 		

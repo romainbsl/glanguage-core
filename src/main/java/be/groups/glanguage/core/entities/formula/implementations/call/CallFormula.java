@@ -54,15 +54,16 @@ public abstract class CallFormula extends AbstractNonTerminalFormula {
                 someArguments[i] = someMethodParameters[i].getValue(evaluator);
                 someMethodParametersType[i] = someArguments[i] == null ? Object.class : someArguments[i].getClass();
             }
-            agent = new Agent(anObject, aMethodName, someMethodParametersType);
-            try {
+            try{
+                agent = new Agent(anObject, aMethodName, someMethodParametersType);
                 result = agent.call(someArguments);
-            } catch (Exception e) {
-                throw new GLanguageException(new FormulaCannotInvokeTargetMethodInnerError(this,
-                                                                                           evaluator,
-                                                                                           anObject,
-                                                                                           aMethodName,
-                                                                                           someMethodParametersType));
+            } catch (GLanguageException e) {
+                e.getError().setOuterError(new FormulaCannotInvokeTargetMethodInnerError(this,
+                        evaluator,
+                        anObject,
+                        aMethodName,
+                        someMethodParametersType));
+                throw e;
             }
         }
         return result;

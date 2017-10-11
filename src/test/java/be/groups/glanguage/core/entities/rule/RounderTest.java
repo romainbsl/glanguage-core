@@ -133,7 +133,7 @@ public class RounderTest {
 	 * Tests {@link Rounder#round(Integer, RoundingType, Double)} with trunc rounding, precision 11
 	 * (too much decimals)
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = GLanguageException.class)
 	public void testRoundIntegerTruncTooMuchDecimals() throws GLanguageException {
 		Integer value = 118;
 		RoundingType roundingType = RoundingType.TRUNC;
@@ -159,7 +159,7 @@ public class RounderTest {
 	 * Tests {@link Rounder#round(Integer, RoundingType, Double)} with bankers rounding, precision
 	 * 11 (too much decimals)
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = GLanguageException.class)
 	public void testRoundIntegerBankersTooMuchDecimals() throws GLanguageException {
 		Integer value = 118;
 		RoundingType roundingType = RoundingType.BANKERS;
@@ -324,7 +324,7 @@ public class RounderTest {
 	 * Tests {@link Rounder#round(Double, RoundingType, Double)} with trunc rounding, precision 11
 	 * (too much decimals)
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = GLanguageException.class)
 	public void testRoundNumericTruncTooMuchDecimals() throws GLanguageException {
 		Double value = 1.55;
 		RoundingType roundingType = RoundingType.TRUNC;
@@ -428,7 +428,7 @@ public class RounderTest {
 	 * Tests {@link Rounder#round(Double, RoundingType, Double)} with bankers rounding, precision 11
 	 * (too much decimals)
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = GLanguageException.class)
 	public void testRoundNumericBankersTooMuchDecimals() throws GLanguageException {
 		Double value = 1.564;
 		RoundingType roundingType = RoundingType.BANKERS;

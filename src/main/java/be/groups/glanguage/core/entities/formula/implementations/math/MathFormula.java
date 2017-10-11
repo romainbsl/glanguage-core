@@ -28,11 +28,7 @@ public abstract class MathFormula extends AbstractNonTerminalFormula {
 					   List<AbstractFormula> parameters,
 					   Evaluator evaluator) throws GLanguageException {
 		super(description, parameters, evaluator);
-		
-		if (parameters == null) {
-			throw new IllegalArgumentException("parameters must be non-null");
-		}
-		
+
 		this.parameters = new ArrayList<>();
 		this.parameters.addAll(parameters);
 	}

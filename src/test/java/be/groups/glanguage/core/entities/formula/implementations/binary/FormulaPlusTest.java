@@ -168,7 +168,7 @@ public class FormulaPlusTest {
 	/**
 	 * Tests {@link FormulaPlus#getDateValue()} when operands are not of the good type
 	 */
-	@Test(expected = IllegalStateException.class)
+	@Test(expected = GLanguageException.class)
 	public void testGetDateValueWrongParameterTypes() throws GLanguageException {
 		AbstractFormula operand1 = mock(AbstractFormula.class);
 		when(operand1.getReturnType(null)).thenReturn(FormulaReturnType.INTEGER);

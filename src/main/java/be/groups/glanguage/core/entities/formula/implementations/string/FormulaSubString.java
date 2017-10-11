@@ -6,6 +6,8 @@ import be.groups.glanguage.core.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.core.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.core.entities.formula.description.FormulaType;
 import be.groups.glanguage.core.error.exception.GLanguageException;
+import be.groups.glanguage.core.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
+import be.groups.glanguage.core.error.utils.ErrorMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -31,10 +33,6 @@ public class FormulaSubString extends AbstractNonTerminalFormula {
                             List<AbstractFormula> parameters,
                             Evaluator evaluator) throws GLanguageException {
         super(description, parameters, evaluator);
-
-        if (parameters == null) {
-            throw new IllegalArgumentException("parameters must be non-null");
-        }
 
         this.parameters = new ArrayList<>();
         this.parameters.addAll(parameters);
@@ -64,10 +62,9 @@ public class FormulaSubString extends AbstractNonTerminalFormula {
         if ((0 <= beginIndex) && (beginIndex <= endIndex) && (endIndex < str.length())) {
             return str.substring(beginIndex, endIndex + 1);
         } else {
-            // TODO replace by GLanguageException
-            throw new IllegalArgumentException("Bounds not valid in " + this.getClass()
-                    .getName() + " object : string = " + str + " (length = " + str
-                    .length() + ") , beginIndex = " + beginIndex + ", endIndex = " + endIndex);
+            throw new GLanguageException(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.STRING,
+                "Bounds not valid in : string = " + str + " (length = " + str.length() + ") , beginIndex = " +
+                    beginIndex + ", endIndex = " + endIndex));
         }
     }
 
