@@ -6,6 +6,8 @@ import be.groups.glanguage.core.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.core.entities.formula.description.FormulaType;
 import be.groups.glanguage.core.entities.rule.RuleVersion;
 import be.groups.glanguage.core.error.exception.GLanguageException;
+import be.groups.glanguage.core.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
+import be.groups.glanguage.core.error.utils.ErrorMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -47,24 +49,21 @@ public class FormulaGroupSum extends GroupFormula {
     @Transient
     @Override
     protected Double doGetNumericValue(Evaluator evaluator) throws GLanguageException {
-        if (getGroupRule() == null) {
-            // TODO replace by a GLanguageException
-            throw new IllegalAccessError("Cannot invoke getRulesInGroup() method on " + this.getClass()
-                    .getName() + " object while referenced rule (version id : " + getConstantValue() + ") is not set " +
-                                                 "- while branching is not done");
-        } else if (!(getReturnType(evaluator).equals(FormulaReturnType.INTEGER) || getReturnType(evaluator).equals(
-                FormulaReturnType.NUMERIC))) {
-            // TODO replace by a GLanguageException
-            throw new IllegalAccessError("Cannot invoke getIntegerValue() method on " + this.getClass()
-                    .getName() + " object if referenced rule group  (version id : " + getConstantValue() + ") has " +
-												 "rules that are not of type INTEGER or NUMERIC");
+        try {
+            double result = 0.0;
+            Iterator<RuleVersion> itGroupItems = getRulesInGroup(evaluator).iterator();
+            while (itGroupItems.hasNext()) {
+                result += itGroupItems.next().getNumericValue(evaluator);
+            }
+            return result;
+        } catch (GLanguageException gle) {
+            gle.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.NUMERIC,
+                null));
+            throw gle;
+        } catch (Exception e) {
+            throw new GLanguageException(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.NUMERIC, e
+                .getMessage()));
         }
-        double result = 0.0;
-        Iterator<RuleVersion> itGroupItems = getRulesInGroup(evaluator).iterator();
-        while (itGroupItems.hasNext()) {
-            result += itGroupItems.next().getNumericValue(evaluator);
-        }
-        return result;
     }
 
     @Override

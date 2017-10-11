@@ -9,6 +9,8 @@ import be.groups.glanguage.core.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.core.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.core.entities.formula.description.FormulaType;
 import be.groups.glanguage.core.error.exception.GLanguageException;
+import be.groups.glanguage.core.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
+import be.groups.glanguage.core.error.utils.ErrorMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -48,30 +50,42 @@ public class FormulaGreater extends BinaryFormula {
     @Transient
     @Override
     protected Boolean doGetBooleanValue(Evaluator evaluator) throws GLanguageException {
-        switch (getParameters().get(0).getReturnType(evaluator)) {
-            case DATE:
-                return getParameters().get(0).getDateValue(evaluator).isAfter(getParameters().get(1)
-                                                                                      .getDateValue(evaluator));
-            case INTEGER:
-                if (getParameters().get(1).getReturnType(evaluator).equals(FormulaReturnType.INTEGER)) {
-                    return getParameters().get(0).getIntegerValue(evaluator) > getParameters().get(1).getIntegerValue(
-                            evaluator);
-                } else { // TODO use numeric each time?
+        try {
+            switch (getParameters().get(0).getReturnType(evaluator)) {
+                case DATE:
+                    return getParameters().get(0).getDateValue(evaluator).isAfter(getParameters().get(1)
+                        .getDateValue(evaluator));
+                case INTEGER:
+                    if (getParameters().get(1).getReturnType(evaluator).equals(FormulaReturnType.INTEGER)) {
+                        return getParameters().get(0).getIntegerValue(evaluator) > getParameters().get(1)
+                            .getIntegerValue(evaluator);
+                    } else { // TODO use numeric each time?
+                        return getParameters().get(0).getNumericValue(evaluator) > getParameters().get(1)
+                            .getNumericValue(evaluator);
+                    }
+                case NUMERIC:
                     return getParameters().get(0).getNumericValue(evaluator) > getParameters().get(1).getNumericValue(
-                            evaluator);
-                }
-            case NUMERIC:
-                return getParameters().get(0).getNumericValue(evaluator) > getParameters().get(1).getNumericValue(
                         evaluator);
-            case STRING:
-                return getParameters().get(0).getStringValue(evaluator).compareTo(getParameters().get(1)
-                                                                                          .getStringValue(evaluator)) > 0;
-            case DURATION:
-                return getParameters().get(0).getDurationValue(evaluator).compareTo(getParameters().get(1)
-                                                                                            .getDurationValue(evaluator)) > 0;
-            default:
-                throw new IllegalArgumentException("Cannot compare unknown values in " + this.getClass()
-                        .getName() + " object");
+                case STRING:
+                    return getParameters().get(0).getStringValue(evaluator).compareTo(getParameters().get(1)
+                        .getStringValue(evaluator)) > 0;
+                case DURATION:
+                    return getParameters().get(0).getDurationValue(evaluator).compareTo(getParameters().get(1)
+                        .getDurationValue(evaluator)) > 0;
+                case BOOLEAN:
+                    throw new IllegalArgumentException("Cannot compare boolean values");
+                case UNDEFINED:
+                    throw new IllegalArgumentException("Cannot compare undefined values");
+                default:
+                    throw new IllegalArgumentException("Cannot compare values of unknown type");
+            }
+        } catch (GLanguageException gle) {
+            gle.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.BOOLEAN,
+                null));
+            throw gle;
+        } catch (Exception e) {
+            throw new GLanguageException(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.BOOLEAN,
+                e.getMessage()));
         }
     }
 

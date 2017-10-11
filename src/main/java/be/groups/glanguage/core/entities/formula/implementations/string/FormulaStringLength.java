@@ -32,10 +32,6 @@ public class FormulaStringLength extends AbstractNonTerminalFormula {
                                Evaluator evaluator) throws GLanguageException {
         super(description, parameters, evaluator);
 
-        if (parameters == null) {
-            throw new IllegalArgumentException("parameters must be non-null");
-        }
-
         this.parameters = new ArrayList<>();
         this.parameters.addAll(parameters);
     }

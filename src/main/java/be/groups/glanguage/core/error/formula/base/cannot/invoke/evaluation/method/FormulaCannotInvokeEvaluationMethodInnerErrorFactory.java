@@ -14,11 +14,7 @@ public class FormulaCannotInvokeEvaluationMethodInnerErrorFactory {
     public static FormulaInnerError getType(AbstractFormula formula,
                                             Evaluator evaluator,
                                             ErrorMethod method) {
-        return new FormulaInnerError(GLanguageErrorRegistry.FORMULA_CANNOT_INVOKE_EVALUATION_TYPED_METHOD,
-                                     formula,
-                                     evaluator,
-                                     method.getName(),
-                                     null);
+        return new FormulaCannotInvokeEvaluationMethodInnerError(formula, evaluator, method.getName(), null);
     }
 
     public static FormulaInnerError getBoolean(AbstractFormula formula, Evaluator evaluator) {
@@ -43,6 +39,16 @@ public class FormulaCannotInvokeEvaluationMethodInnerErrorFactory {
 
     public static FormulaInnerError getString(AbstractFormula formula, Evaluator evaluator) {
         return getType(formula, evaluator, ErrorMethod.STRING);
+    }
+
+    public static class FormulaCannotInvokeEvaluationMethodInnerError extends FormulaInnerError {
+
+        public FormulaCannotInvokeEvaluationMethodInnerError(AbstractFormula formula, Evaluator evaluator,
+                                                             String methodName,
+                                                             String cause) {
+            super(GLanguageErrorRegistry.FORMULA_CANNOT_INVOKE_EVALUATION_TYPED_METHOD, formula, evaluator,
+                methodName, cause);
+        }
     }
 
 }

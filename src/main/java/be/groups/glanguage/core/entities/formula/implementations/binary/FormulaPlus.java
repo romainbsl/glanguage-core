@@ -6,6 +6,8 @@ import be.groups.glanguage.core.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.core.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.core.entities.formula.description.FormulaType;
 import be.groups.glanguage.core.error.exception.GLanguageException;
+import be.groups.glanguage.core.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
+import be.groups.glanguage.core.error.utils.ErrorMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -110,10 +112,10 @@ public class FormulaPlus extends BinaryFormula {
         }
 
         if (dateParameter == null || durationParameter == null) {
-            throw new IllegalStateException(
-                    "Cannot call getDateValue() method on FormulaPlus with these parameter types : left parameter " + "type : " + leftParameter
-                            .getReturnType(evaluator) + ", right parameter type : " + rightParameter
-                            .getReturnType(evaluator));
+            throw new GLanguageException(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DATE,
+                    "Wrong parameter types : left parameter "
+                        + "type : " + leftParameter.getReturnType(evaluator) + ", right parameter type : " +
+                        rightParameter.getReturnType(evaluator)));
         }
 
         return dateParameter.getDateValue(evaluator).plusDays(durationParameter.getDurationValue(evaluator).toDays());

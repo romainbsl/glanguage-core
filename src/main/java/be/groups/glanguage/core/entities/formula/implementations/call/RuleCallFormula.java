@@ -242,7 +242,7 @@ public abstract class RuleCallFormula extends CallFormula {
         if (!getReturnType(evaluator).equals(FormulaReturnType.DURATION)) {
             throw new GLanguageException(new RuleCallFormulaUnableToEvaluateTypeNotMatchableTypesInnerError(this,
                                                                                                             evaluator,
-                                                                                                            "doGetDateValue",
+                                                                                                            "doGetDurationValue",
                                                                                                             referencedRule,
                                                                                                             referencedRule
                                                                                                                     .getReturnType(
@@ -266,7 +266,7 @@ public abstract class RuleCallFormula extends CallFormula {
         if (refRule == null) {
             throw new GLanguageException(new RuleCallFormulaReferencedRuleUnavailableInnerError(this,
                                                                                                 evaluator,
-                                                                                                "doGetBooleanValue"));
+                                                                                                "getReferencedRule"));
         }
         return refRule;
     }

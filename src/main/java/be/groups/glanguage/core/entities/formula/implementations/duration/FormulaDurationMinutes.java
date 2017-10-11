@@ -6,6 +6,8 @@ import be.groups.glanguage.core.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.core.entities.formula.description.FormulaReturnType;
 import be.groups.glanguage.core.entities.formula.description.FormulaType;
 import be.groups.glanguage.core.error.exception.GLanguageException;
+import be.groups.glanguage.core.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
+import be.groups.glanguage.core.error.utils.ErrorMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.DiscriminatorValue;
@@ -60,10 +62,15 @@ public class FormulaDurationMinutes extends DurationFormula {
     @Transient
     @Override
     protected Integer doGetIntegerValue(Evaluator evaluator) throws GLanguageException {
-        if (getParameters().get(0).getReturnType(evaluator).equals(FormulaReturnType.DURATION)) {
-            return Math.toIntExact(getParameters().get(0).getDurationValue(evaluator).toMinutes());
-        } else {
-            return getParameters().get(0).getIntegerValue(evaluator);
+       switch (getParameters().get(0).getReturnType(evaluator)) {
+            case INTEGER:
+                return getParameters().get(0).getIntegerValue(evaluator);
+            case DURATION:
+                return Math.toIntExact(getParameters().get(0).getDurationValue(evaluator).toMinutes());
+            default:
+                throw new GLanguageException(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.INTEGER,
+                    "Parameter of wrong type : " + getParameters().get(0).getReturnType(evaluator) + " ; should be " +
+                        "INTEGER or DURATION"));
         }
     }
 

@@ -6,6 +6,8 @@ import be.groups.glanguage.core.entities.formula.AbstractNonTerminalFormula;
 import be.groups.glanguage.core.entities.formula.description.FormulaDescription;
 import be.groups.glanguage.core.entities.formula.description.FormulaType;
 import be.groups.glanguage.core.error.exception.GLanguageException;
+import be.groups.glanguage.core.error.formula.base.unable.evaluate.FormulaEvaluateTypeInnerError;
+import be.groups.glanguage.core.error.utils.ErrorMethod;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -35,10 +37,6 @@ public class FormulaDate extends AbstractNonTerminalFormula {
                        Evaluator evaluator) throws GLanguageException {
         super(description, parameters, evaluator);
 
-        if (parameters == null) {
-            throw new IllegalArgumentException("parameters must be non-null");
-        }
-
         this.parameters = new ArrayList<>();
         this.parameters.addAll(parameters);
     }
@@ -52,29 +50,35 @@ public class FormulaDate extends AbstractNonTerminalFormula {
      */
     @Override
     protected LocalDate doGetDateValue(Evaluator evaluator) throws GLanguageException {
-        LocalDate date = null;
-        if (getParameters().size() == 1) {
-            try {
-                date = LocalDate.parse(getParameters().get(0).getStringValue(evaluator),
-                                       DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            } catch (DateTimeParseException dtpe) {
-                throw new IllegalArgumentException("Parameter must reprensent a date formatted as \"dd/MM/yyyy\" : "
-                                                           + getParameters()
-                        .get(0).asText());
+        try {
+            LocalDate date = null;
+            if (getParameters().size() == 1) {
+                try {
+                    date = LocalDate.parse(getParameters().get(0).getStringValue(evaluator),
+                        DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                } catch (DateTimeParseException dtpe) {
+                    throw new IllegalArgumentException("Parameter must reprensent a date formatted as \"dd/MM/yyyy\" : "
+                        + getParameters().get(0).asText());
+                }
+            } else if (getParameters().size() == 3) {
+                try {
+                    date = LocalDate.of(getParameters().get(2).getIntegerValue(evaluator),
+                        getParameters().get(1).getIntegerValue(evaluator),
+                        getParameters().get(0).getIntegerValue(evaluator));
+                } catch (DateTimeParseException dtpe) {
+                    throw new IllegalArgumentException(
+                        "Parameters must reprensent a valid date : " + getParameters().get(0)
+                            .asText() + "/" + getParameters().get(1).asText() + "/" + getParameters().get(2).asText());
+                }
             }
-        } else if (getParameters().size() == 3) {
-            try {
-                date = LocalDate.of(getParameters().get(2).getIntegerValue(evaluator),
-                                    getParameters().get(1).getIntegerValue(evaluator),
-                                    getParameters().get(0).getIntegerValue(evaluator));
-            } catch (DateTimeParseException dtpe) {
-                throw new IllegalArgumentException("Parameters must reprensent a valid date : " + getParameters().get(0)
-                        .asText() + "/" + getParameters().get(1).asText() + "/" + getParameters().get(2).asText());
-            }
-        } else {
-            throw new IllegalArgumentException("there should be 1 or 3 parameters but there are " + parameters.size());
+            return date;
+        } catch (GLanguageException gle) {
+            gle.getError().setOuterError(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DATE, null));
+            throw  gle;
+        } catch (Exception e) {
+            throw new GLanguageException(new FormulaEvaluateTypeInnerError(this, evaluator, ErrorMethod.DATE, e
+                .getMessage()));
         }
-        return date;
     }
 
     @Override

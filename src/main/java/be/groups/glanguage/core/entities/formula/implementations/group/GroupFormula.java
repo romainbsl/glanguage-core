@@ -9,7 +9,11 @@ import be.groups.glanguage.core.entities.formula.implementations.call.FormulaRul
 import be.groups.glanguage.core.entities.formula.implementations.terminal.FormulaTerminalString;
 import be.groups.glanguage.core.entities.rule.RuleVersion;
 import be.groups.glanguage.core.error.exception.GLanguageException;
+import be.groups.glanguage.core.error.formula.base.FormulaValidateInnerError;
+import be.groups.glanguage.core.error.formula.base.parameter.FormulaEmptyParameterListInnerError;
 import be.groups.glanguage.core.error.formula.base.parameter.FormulaNullParameterInnerError;
+import be.groups.glanguage.core.error.formula.base.parameter.FormulaNullParameterListInnerError;
+import be.groups.glanguage.core.error.formula.base.parameter.FormulaWrongParameterNumberInnerError;
 import be.groups.glanguage.core.error.formula.implementations.group.GroupFormulaReferencedRuleUnavailableInnerError;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -36,9 +40,6 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
 
     public GroupFormula(FormulaDescription description, String groupId, Evaluator evaluator) throws GLanguageException {
         super(description, getParametersAsList(groupId), evaluator);
-        if (groupId == null || groupId.isEmpty()) {
-            throw new GLanguageException(new FormulaNullParameterInnerError(this, null, "constructor", 1));
-        }
         // revert super
         setParameters(null);
         setConstantValue(groupId);
@@ -98,34 +99,30 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
     @JsonIgnore
     @Override
     public void validate(List<AbstractFormula> parameters, Evaluator evaluator) throws GLanguageException {
-        if (parameters == null || parameters.isEmpty()) {
-            // TODO throw a GLanguageException
+        if (parameters == null) {
+            throw new GLanguageException(new FormulaNullParameterListInnerError(this, evaluator, "validate"));
+        } else if (parameters.isEmpty()) {
+            throw new GLanguageException(new FormulaEmptyParameterListInnerError(this, evaluator, "validate"));
         } else if (parameters.size() > 1) {
-            // TODO throw a GLanguageException
+            throw new GLanguageException(new FormulaWrongParameterNumberInnerError(this, evaluator, parameters.size()
+                ,1,null));
         } else if (parameters.get(0) == null) {
-            // TODO throw a GLanguageException
+            throw new GLanguageException(new FormulaNullParameterInnerError(this, evaluator, "validate", 1));
         } else {
             String groupId = null;
-            try {
-                groupId = parameters.get(0).getStringValue();
-            } catch (GLanguageException e) {
-                // TODO add outer error to the exception and rethrow
-            }
+            groupId = parameters.get(0).asText();
             if (groupId == null || groupId.isEmpty()) {
-                // TODO throw a GLanguageException
+                throw new GLanguageException(new FormulaValidateInnerError(this, evaluator, "validate", "groupId " +
+                    "is null or empty"));
             } else if (evaluator != null) {
-                RuleVersion groupRule = evaluator.getRuleVersion(groupId);
-                if (groupRule == null) {
+                RuleVersion groupRule = getGroupRule(evaluator);
+                Set<FormulaReturnType> returnTypes = getGroupSubRulesReturnTypes(groupRule, evaluator);
+                if (returnTypes.contains(FormulaReturnType.BOOLEAN) || returnTypes
+                        .contains(FormulaReturnType.STRING) || returnTypes
+                        .contains(FormulaReturnType.DATE) || returnTypes
+                        .contains(FormulaReturnType.DURATION) || returnTypes
+                        .contains(FormulaReturnType.PROCEDURE)) {
                     // TODO throw a GLanguageException
-                } else {
-                    Set<FormulaReturnType> returnTypes = getGroupSubRulesReturnTypes(groupRule, evaluator);
-                    if (returnTypes.contains(FormulaReturnType.BOOLEAN) || returnTypes
-                            .contains(FormulaReturnType.STRING) || returnTypes
-                            .contains(FormulaReturnType.DATE) || returnTypes
-                            .contains(FormulaReturnType.DURATION) || returnTypes
-                            .contains(FormulaReturnType.PROCEDURE)) {
-                        // TODO throw a GLanguageException
-                    }
                 }
             }
         }
@@ -183,11 +180,10 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
     @JsonIgnore
     @Transient
     RuleVersion getGroupRule(Evaluator evaluator) throws GLanguageException {
-        doGetGroupRule(evaluator);
-        if (getGroupRule() == null) {
+        if (doGetGroupRule(evaluator) == null) {
             throw new GLanguageException(new GroupFormulaReferencedRuleUnavailableInnerError(this,
                                                                                              evaluator,
-                                                                                             "doGetBooleanValue"));
+                                                                                             "getGroupRule"));
         }
         return getGroupRule();
     }
@@ -217,13 +213,7 @@ public abstract class GroupFormula extends AbstractNonTerminalFormula {
     @JsonIgnore
     @Transient
     public List<RuleVersion> getRulesInGroup(Evaluator evaluator) throws GLanguageException {
-        if (doGetGroupRule(evaluator) == null) {
-            // TODO replace by a GLanguageException
-            throw new IllegalAccessError("Cannot invoke getRulesInGroup() method on " + this.getClass()
-                    .getName() + " object while referenced rule (version id : " + getConstantValue() + ") is not set " +
-                                                 "" + "" + "- while branching is not done");
-        }
-        return doGetGroupRule(evaluator).getGroupItems().stream().map(i -> i.getReferencedRule(evaluator)).collect(
+        return getGroupRule(evaluator).getGroupItems().stream().map(i -> i.getReferencedRule(evaluator)).collect(
                 Collectors.toList());
     }
 

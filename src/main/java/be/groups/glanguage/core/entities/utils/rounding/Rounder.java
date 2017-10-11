@@ -1,6 +1,7 @@
 package be.groups.glanguage.core.entities.utils.rounding;
 
 import be.groups.glanguage.core.error.exception.GLanguageException;
+import be.groups.glanguage.core.error.utils.rounding.RoundingNumberOfDecimalsExceededInnerError;
 import be.groups.glanguage.core.error.utils.rounding.RoundingTypeInnerError;
 
 /**
@@ -82,10 +83,11 @@ public class Rounder {
      * @param value            the value to be rounded
      * @param numberOfDecimals the number of decimals of the truncated value to be returned
      * @return the {@code value} truncated to {@code numberOfDecimals} decimals
+     * @throws GLanguageException if number of decimals exceed 10
      */
-    private static Double trunc(double value, int numberOfDecimals) {
+    private static Double trunc(double value, int numberOfDecimals) throws GLanguageException{
         if (numberOfDecimals > 10) {
-            throw new IllegalArgumentException("Number of decimals cannot exceed 10");
+            throw new GLanguageException(new RoundingNumberOfDecimalsExceededInnerError(numberOfDecimals));
         } else {
             double power = Math.pow(10, numberOfDecimals);
             return ((long) (value * power)) / power;
@@ -100,17 +102,18 @@ public class Rounder {
      * if `numberOfDecimals'+1-th digit is <= 4             -> do not change the `numberOfDecimals'-th digit
      * if `numberOfDecimals'+1-th digit is >= 6             -> add 1 the `numberOfDecimals'-th digit
      * if `numberOfDecimals'+1-th digit = 5
-     *      if `round'+2-th digit and followers are not 0   -> add 1 the`numberOfDecimals'-th digit
+     *      if `numberOfDecimals'+2-th digit and followers are not 0   -> add 1 the`numberOfDecimals'-th digit
      *      else (no more digits or all = 0)                -> do not change the `numberOfDecimals'-th digit
      * </pre>
      *
      * @param value            the value to be rounded
      * @param numberOfDecimals the number of decimals of the rounded value to be returned
      * @return the {@code value} rounded to {@code numberOfDecimals} decimals applying bankers rounding method
+     * @throws GLanguageException if number of decimals exceed 10
      */
-    private static Double bankersRound(double value, int numberOfDecimals) {
+    private static Double bankersRound(double value, int numberOfDecimals) throws GLanguageException{
         if (numberOfDecimals > 10) {
-            throw new IllegalArgumentException("Number of decimals cannot exceed 10");
+            throw new GLanguageException(new RoundingNumberOfDecimalsExceededInnerError(numberOfDecimals));
         } else {
             double result;
 
