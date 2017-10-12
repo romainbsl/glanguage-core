@@ -35,7 +35,7 @@ Il existe 2 "usages" pour ce type de formule :
 Le type de cette formule peut être soit [`entier`][valeur-de-retour] soit [`durée`][valeur-de-retour] en fonction du type de son paramètre (voir [Usages](#usages))
 
 ## Syntaxe
-Cette formule s'écrit avec le mot clé `minutes` suivi des paramètres entre parenthèses `( )` et séparés par un point-vrigule `;`
+Cette formule s'écrit avec le mot clé `minutes` suivi du paramètre entre parenthèses `( )`
 
     daminutesys ( <expression_de_type_duree> )
     minutes ( <expression_de_type_entier> )
