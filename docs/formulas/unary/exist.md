@@ -19,9 +19,9 @@ Il existe un seul "usage" pour ce type de formule :
 |<ul><li>[`entier`][valeur-de-retour]</li><li>[`numérique`][valeur-de-retour]</li><li>[`chaîne de caractères`][valeur-de-retour]</li><li>[`booléen`][valeur-de-retour]</li><li>[`date`][valeur-de-retour]</li><li>[`durée`][valeur-de-retour]</li></ul> |[`booléen`][valeur-de-retour]|
 
 ## Syntaxe
-Le test d'existence s'écrit avec un point d'intérogation  `?` suivi d'un espace et d'une expression à laquelle il faut appliquer le test
+Cette formule s'écrit avec un point d'intérogation  `?` suivi du paramètre
 
-Dans la plupart des cas, l'expression est en fait une [formule de référence à une règle][formule-reference-regle], ce qui permet de tester, par exemple, la possibilité d'utiliser la valeur de cette règle dans une autre formule (utiliser une valeur nulle dans une formule peut mener à une erreur rendant l'évaluation impossible)
+Dans la plupart des cas, le paramètre est en fait une [formule de référence à une règle][formule-reference-regle], ce qui permet de tester, par exemple, la possibilité d'utiliser la valeur de cette règle dans une autre formule (utiliser une valeur nulle dans une formule peut mener à une erreur rendant l'évaluation impossible)
 
     ? <expression>
 

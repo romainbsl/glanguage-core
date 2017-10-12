@@ -15,9 +15,9 @@ Il existe 1 "usage" pour ce type de formule :
 |<ul><li>[`entier`][valeur-de-retour]</li><li>[`numérique`][valeur-de-retour]</li></ul>|[`numérique`][valeur-de-retour]|
 
 ## Syntaxe
-Le signe s'écrit avec le mot clé `sign` suivi ou non d'un espace et, entre parenthèse "( )" d'une expression de type [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour] à laquelle il faut appliquer la formule
+Cette formule s'écrit avec le mot clé `sign` suivi du paramètre entre parenthèses `( )`
 
-    abs (<expression_de_type_entier_ou_numerique>)
+    sign (<expression_de_type_entier_ou_numerique>)
 
 ## Exemples
     sign (1)        [= valeur numérique positive]

@@ -19,7 +19,7 @@ Il existe un seul 'usage' pour ce type de formule:
 
 ## Syntaxe
 
-La formule anomalie s'écrit avec le mot clé `anomaly` suivi ou non d'un espace et, entre parenthèse "( )" d'une expression de type [`chaine de caractères`][valeur-de-retour] (, et de manière optionelle d'un séparateur ";" et d'une expression de type [`chaine de caractères`][valeur-de-retour]) à laquelle il faut appliquer la formule.
+Cette formule s'écrit avec le mot clé `anomaly` suivi des paramètres entre parenthèses `( )` et séparés par un point-vrigule `;`
 
     anomaly(<expression_de_type_chaine_caractère>[;<expression_de_type_chaine_caractère>])
 

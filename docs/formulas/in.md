@@ -72,7 +72,7 @@ Il existe cinq 'usages' pour ce type de formule:
 
 ## Syntaxe
 
-La formule de contrôle d'appartenance d'une valeur dans une liste s'exprime avec le mot clé `in`, précédé de la valeur cible et suivi de la liste des valeurs de contrôle.
+Cette formule s'écrit avec le mot clé `in`, précédé de la valeur cible et suivi de la liste des valeurs de contrôle entre parenthèses `( )` et séparés par un point-virgule `;`.
 
     <expression_de_type_entier_numerique> in ([list <expression_de_type_entier_numerique>])
     <expression_de_type_chaine_caractere> in ([list <expression_de_type_chaine_caractere>])

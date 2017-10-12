@@ -13,7 +13,7 @@ Il existe 2 "usages" pour ce type de formule, un par type de paramètre accepté
 |[`numérique`][valeur-de-retour]|[`numérique`][valeur-de-retour]|
 
 ## Syntaxe
-Le moins unaire s'écrit avec un tiret `-` suivi ou non d'un espace et d'une expression de type [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour] à laquelle il faut appliquer la fromule
+Cette formule s'écrit avec un tiret `-` suivi d'une expression de type [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour]
 
     - <expression_de_type_entier_ou_numerique>
 

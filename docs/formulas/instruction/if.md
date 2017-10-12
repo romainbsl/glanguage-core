@@ -99,9 +99,9 @@ Il existe 5 "usages" pour ce type de formule, 1 par type d'expression compatible
 
 ## Syntaxe
 
-Le formule indéfinie s'écrit avec le mot clé `if` suivi d'un esapce et d'une expression de type [`booléen`][valeur-de-retour] suivi d'un espace et du mot clé `then` suivi d'un espace suivi d'une expression de n'importe quel type (, et de manière optionelle du mot clé `else` suivi d'un espace suivi d'une expression d'un type compatible à celui de l'expression précédente ) et se termine par le mot clé `end`
+Cette formule s'écrit avec le mot clé `if` suivi d'un esapce et d'une expression de type [`booléen`][valeur-de-retour] suivi d'un espace et du mot clé `then` suivi d'un espace suivi d'une expression de n'importe quel type (, et de manière optionelle du mot clé `else` suivi d'un espace suivi d'une expression d'un type compatible à celui de l'expression précédente ) et se termine par le mot clé `end`
 
-__ASTUCE__ : Si l'expression de la branche `else` est également une `instruction if`, les mots clés `else` et `if` peuvent être concaténé pour donner `elseif` en un mot
+__ASTUCE__ : Si l'expression de la branche `else` est également une `instruction if` sans branche `else`, les mots clés `else` et `if` peuvent être concaténé pour donner `elseif` en un mot
     
     if <condition> then <expression> [{ elseif <conditon> then <expression>}] [ else <expression> ] end 
 

@@ -21,7 +21,7 @@ Le type de cette formule dépend du type des valeurs des règles "enfants" de la
 - si la valeur d'au moins une règle "enfant" est de type [`numérique`][valeur-de-retour], la formule retourne une valeur de type [`numérique`][valeur-de-retour]
 
 ## Syntaxe
-Le test d'existence s'écrit avec le mot clé `sumv` suivi ou non d'un espace et, entre parenthèse "( )" d'une expression représentant une [formule de référence à une règle][formule-reference-regle] 
+Cette formule s'écrit avec le mot clé `sumv` suivi du paramètre entre parenthèses `( )`
 
     sumv (<reference_a_une_regle>)
 

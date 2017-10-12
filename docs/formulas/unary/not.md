@@ -14,7 +14,7 @@ Il existe un seul "usage" pour ce type de formule :
 |[`booléen`][valeur-de-retour]|[`booléen`][valeur-de-retour]|
 
 ## Syntaxe
-Le négation s'écrit avec le mot clé `not` suivi d'un espace et d'une expression à laquelle il faut appliquer le test
+Cette formule s'écrit avec le mot clé `not` suivi d'une expression de type [`booléen`][valeur-de-retour]
 
     ! <expression_de_type_booléen>
 

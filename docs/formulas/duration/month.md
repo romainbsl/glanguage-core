@@ -47,7 +47,7 @@ Il existe 3 "usages" pour ce type de formule :
 Le type de cette formule peut être soit [`entier`][valeur-de-retour] soit [`durée`][valeur-de-retour] en fonction du type de son paramètre (voir [Usages](#usages))
 
 ## Syntaxe
-Cette formule s'écrit avec le mot clé `months` suivi ou non d'un espace et, entre parenthèse `( )` d'1 expression de type [`durée`][valeur-de-retour] ou d'1 expression de type [`entier`][valeur-de-retour] ou d'1 expression de type [`date`][valeur-de-retour]
+Cette formule s'écrit avec le mot clé `months` suivi des paramètres entre parenthèses `( )` et séparés par un point-vrigule `;`
 
     months ( <expression_de_type_duree> )
     months ( <expression_de_type_entier> )

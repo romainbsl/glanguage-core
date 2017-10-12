@@ -54,7 +54,7 @@ Le type de cette formule est toujours [`chaine de caractères`][valeur-de-retour
 
 ## Syntaxe
 
-Le formatage de valeur de type chaîne de caractère s'écrit avec le mot clé `formatString` suivi ou non d'un espace et, entre parenthèse `( )` d'une expression de type [`chaine de caractères`][valeur-de-retour] représentant la `valeur à formater`, d'une expression de type [`entier`][valeur-de-retour] représentant la `longueure (nombre de caractères)` après formatage et de deux expressions de type [`chaine de caractères`][valeur-de-retour] représentant respectivement l'`alignement` et le `caractère de remplissage`, séparées par un point-virgule `;`.
+Cette formule s'écrit avec le mot clé `formatString` suivi des paramètres entre parenthèses `( )` et séparés par un point-vrigule `;`
 
     formatString (<entier_a_formater> ; <longueure> ; <alignement> ; <caractère_de_remplissage> )
 
