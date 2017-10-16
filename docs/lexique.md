@@ -30,8 +30,8 @@ plusieurs _façade_, au travers de [formules dédiées][formula_get] du GLanguag
 _façade_ déclarant les fonctions nécessaires, ayant les paramètres et le type de retour attendu.
 
 __ATTENTION__
-Si la façade, ou une des fonctions appelées n'est pas présente, cela mène à une erreur rendant
-l'évaluation impossible
+Si une façade, ou une des fonctions appelées n'est pas présente, cela mène à une erreur rendant
+l'évaluation impossible.
 
 ## Valeur de retour
 
