@@ -11,13 +11,13 @@ Une _règle_ (ou _rule_) est l'entité atomique de l' [esemble de règles][rules
 
 Une _règle_ sert de mécanisme d'encapsulation d'une [formule][formula].
 
-Elle permet de stocker la valeur résultant de l'évaluation de sa formule et lui ajoute différentes données :
+Une _règle_ permet d'une part, de stocker la valeur résultant de l'évaluation de sa formule et, d'autre part, d'ajouter différentes données :
 
 #### Identifiants 
 
 Afin de pouvoir réutiliser la valeur d'une _règle_ dans les [formules][formula] d'autres _règles_, il faut pouvoir l'identifier de manière unique.
 
-Pour ce la une _règle_ a 2 identifiants :
+Pour cela une _règle_ a 2 identifiants :
 - un `code` unique
 - un `alias` multilingue unique
 
