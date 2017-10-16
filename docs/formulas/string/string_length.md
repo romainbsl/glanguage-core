@@ -19,7 +19,7 @@ Il existe 1 "usage" pour ce type de formule :
 Le type de cette formule est toujours [`entier`][valeur-de-retour]
 
 ## Syntaxe
-Cette formule s'écrit avec le mot clé `stringLength` suivi ou non d'un espace et, entre parenthèse `( )` d'1 expression de type [`chaîne de caractères`][valeur-de-retour]
+Cette formule s'écrit avec le mot clé `stringLength` suivi des paramètres entre parenthèses `( )` et séparés par un point-vrigule `;`
 
     stringLength ( <chaine_de_caractère> )
 

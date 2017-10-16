@@ -26,7 +26,7 @@ Le type de cette formule dépend du type des valeurs des règles "enfants" de la
 - si la valeur d'au moins une règle "enfant" est de type [`numérique`][valeur-de-retour], la formule retourne une valeur de type [`numérique`][valeur-de-retour]
 
 ## Syntaxe
-Le minimum s'écrit avec le mot clé `min` suivi ou non d'un espace et, entre parenthèse `( )` d'une liste d'expressions représentant des valeurs de type [`entier`][valeur-de-retour] ou [`numérique`][valeur-de-retour] séparées par un point-virgule `;`
+Cette formule s'écrit avec le mot clé `min` suivi des paramètres entre parenthèses `( )` et séparés par un point-vrigule `;`
 
     min ( <expression_de_type_entier_ou_numerique_1> { ; <expression_de_type_entier_ou_numerique_n>} )
 

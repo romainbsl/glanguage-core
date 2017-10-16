@@ -31,7 +31,7 @@ Il existe 1 "usage" pour ce type de formule :
 Le type de cette formule est toujours [`chaîne de caractères`][valeur-de-retour]
 
 ## Syntaxe
-Cette formule s'écrit avec le mot clé `stringItem` suivi ou non d'un espace et, entre parenthèse `( )` de 2 expressions de type [`chaîne de caractères`][valeur-de-retour] et d'1 expression de type [`entier`][valeur-de-retour] séparées par un point-vrigule `;`
+Cette formule s'écrit avec le mot clé `stringItem` suivi des paramètres entre parenthèses `( )` et séparés par un point-vrigule `;`
 
     stringItem ( <chaine_de_caractère> ; <separateur> ; <index> )
 

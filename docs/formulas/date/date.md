@@ -5,7 +5,7 @@ Cette formule représente une [`date`][valeur-de-retour]
 Cette formule retourne une valeur de type [`date`][valeur-de-retour] correspondant à la date décrite un paramètre de type [`chaîne de caractères`][valeur-de-retour] ou par 3 paramètres de type [`entier`][valeur-de-retour] représentant le jour, le mois et l'année, fournis en paramètre
 
 ## Usages
-Il existe 2 "usage" pour ce type de formule :
+Il existe 2 "usages" pour ce type de formule :
 
 ### 1. Avec 1 [`chaîne de caractères`][valeur-de-retour] représentant une date :
 
@@ -35,7 +35,7 @@ Il existe 2 "usage" pour ce type de formule :
 Le type de cette formule est toujours [`date`][valeur-de-retour]
 
 ## Syntaxe
-Cette formule s'écrit avec le mot clé `date` suivi ou non d'un espace et, entre parenthèse `( )` d'1 expression de type [`chaîne de caractères`][valeur-de-retour] ou de 3 expression de type [`entier`][valeur-de-retour] séparées par un point-vrigule `;`
+Cette formule s'écrit avec le mot clé `date` suivi des paramètres entre parenthèses `( )` et séparés par un point-vrigule `;`
 
     date ( <chaine_de_caractère> )
     date ( <expression_de_type_entier_jour> ; <expression_de_type_entier_mois> ; <expression_de_type_entier_annee> )

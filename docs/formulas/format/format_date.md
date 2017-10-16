@@ -38,7 +38,7 @@ Il existe un seul "usage" pour ce type de formule :
 
 ## Syntaxe
 
-Le formatage de date s'écrit avec le mot clé `formatDate` suivi ou non d'un espace et, entre parenthèse "( )" d'une expression de type [`date`][valeur-de-retour] ou [`numérique`][valeur-de-retour] (, et de manière optionelle d'un séparateur ";" et d'une expression de type [`chaine de caractères`][valeur-de-retour]) à laquelle il faut appliquer la formule.
+Cette formule s'écrit avec le mot clé `formatDate` suivi des paramètres entre parenthèses `( )` et séparés par un point-vrigule `;`
 
     formatDate (<expression_de_type_date>
     [;<expression_de_type_chaine_caractere>])

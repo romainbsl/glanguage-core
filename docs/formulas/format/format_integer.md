@@ -113,7 +113,7 @@ Le type de cette formule est toujours [`chaine de caractères`][valeur-de-retour
 
 ## Syntaxe
 
-Le formatage de valeur entière s'écrit avec le mot clé `formatInteger` suivi ou non d'un espace et, entre parenthèse `( )` d'une expression de type [`entier`][valeur-de-retour] (, et de manière optionelle d'une ou plusieurs expressions de type [`entier`][valeur-de-retour] ou [`chaine de caractères`][valeur-de-retour] représentant les options de formatage séparées par un point-virgule `;`).
+Cette formule s'écrit avec le mot clé `formatInteger` suivi des paramètres entre parenthèses `( )` et séparés par un point-vrigule `;`
 
     formatInteger (<entier_a_formater> [ ; <longueure> ; <alignement> ; <caractère_de_remplissage>] [ ; <signe> ] )
 
